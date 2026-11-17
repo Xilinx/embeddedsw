@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xemacps__example_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,29 +100,13 @@ $(document).ready(function(){initNavTree('xemacps__example_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xemacps_example.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Defines common data types, prototypes, and includes the proper headers for use with the EMACPS example code residing in this directory. </p>
-<p>This file along with <a class="el" href="xemacps__example__util_8c.html" title="This file implements the utility functions for the XEmacPs example code. ">xemacps_example_util.c</a> are utilized with the specific example code in the other source code files provided. These examples are designed to be compiled and utilized within the SDK standalone BSP development environment.</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-1.00a wsy  01/10/10 First release
-1.01a asa  02/27/12 Hash define added for EMACPS_SLCR_DIV_MASK.
-1.05a asa  09/22/13 The EthernetFrame is made cache line aligned (32 bytes).
-                                  Fix for CR #663885.
-3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
-3.2   mus  02//16 Added support support to INTC controller
-3.3   kpc  12/09/16 Fixed issue when -O2 is enabled
-3.9   hk   01/23/19 Update versal emulation specific fixes.
-           03/20/19 Fix alignment pragmas for IAR compiler.
-</pre> </div><div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
@@ -137,322 +121,78 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xparameters_ps.h&quot;</code><br/>
 <code>#include &quot;xpseudo_asm.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4b7e32dde5e321fbce28d0d6c51e6b73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga4b7e32dde5e321fbce28d0d6c51e6b73">EMACPS_LOOPBACK_SPEED</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:ga4b7e32dde5e321fbce28d0d6c51e6b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopback speed of 100 Mbps.  <a href="group__emacps.html#ga4b7e32dde5e321fbce28d0d6c51e6b73">More...</a><br/></td></tr>
+<tr class="separator:ga4b7e32dde5e321fbce28d0d6c51e6b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18d025a8f60fc79db13ce0deea163081"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga18d025a8f60fc79db13ce0deea163081">EMACPS_LOOPBACK_SPEED_1G</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:ga18d025a8f60fc79db13ce0deea163081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopback speed of 1000 Mbps.  <a href="group__emacps.html#ga18d025a8f60fc79db13ce0deea163081">More...</a><br/></td></tr>
+<tr class="separator:ga18d025a8f60fc79db13ce0deea163081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85ee59a8e77f5393a51681eb20e58296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga85ee59a8e77f5393a51681eb20e58296">EMACPS_LOOPBACK_SPEED_2_5G</a>&#160;&#160;&#160;2500</td></tr>
+<tr class="memdesc:ga85ee59a8e77f5393a51681eb20e58296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopback speed of 2500 Mbps.  <a href="group__emacps.html#ga85ee59a8e77f5393a51681eb20e58296">More...</a><br/></td></tr>
+<tr class="separator:ga85ee59a8e77f5393a51681eb20e58296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad33169a742d9af5162b28135e2fdc460"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gad33169a742d9af5162b28135e2fdc460">EMACPS_LOOPBACK_SPEED_5G</a>&#160;&#160;&#160;5000</td></tr>
+<tr class="memdesc:gad33169a742d9af5162b28135e2fdc460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopback speed of 5000 Mbps.  <a href="group__emacps.html#gad33169a742d9af5162b28135e2fdc460">More...</a><br/></td></tr>
+<tr class="separator:gad33169a742d9af5162b28135e2fdc460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0889e0d023727b5f4dbb221a84357bf5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga0889e0d023727b5f4dbb221a84357bf5">EMACPS_LOOPBACK_SPEED_10G</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:ga0889e0d023727b5f4dbb221a84357bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopback speed of 10000 Mbps.  <a href="group__emacps.html#ga0889e0d023727b5f4dbb221a84357bf5">More...</a><br/></td></tr>
+<tr class="separator:ga0889e0d023727b5f4dbb221a84357bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ffe234ab02e95e6a573ef6814b6049d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga3ffe234ab02e95e6a573ef6814b6049d">EMACPS_PHY_DELAY_SEC</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga3ffe234ab02e95e6a573ef6814b6049d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seconds to wait for PHY reset completion.  <a href="group__emacps.html#ga3ffe234ab02e95e6a573ef6814b6049d">More...</a><br/></td></tr>
+<tr class="separator:ga3ffe234ab02e95e6a573ef6814b6049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92f9abd246c63abc5d20e30ce951df1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga92f9abd246c63abc5d20e30ce951df1d">EMACPS_SLCR_DIV_MASK</a>&#160;&#160;&#160;0xFC0FC0FF</td></tr>
+<tr class="memdesc:ga92f9abd246c63abc5d20e30ce951df1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for SLCR GEM clock divisor fields.  <a href="group__emacps.html#ga92f9abd246c63abc5d20e30ce951df1d">More...</a><br/></td></tr>
+<tr class="separator:ga92f9abd246c63abc5d20e30ce951df1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8d51e16fef506c934d1130594b5ac97a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga8d51e16fef506c934d1130594b5ac97a">CSU_VERSION</a>&#160;&#160;&#160;0xFFCA0044</td></tr>
+<tr class="memdesc:ga8d51e16fef506c934d1130594b5ac97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU version register address.  <a href="group__emacps.html#ga8d51e16fef506c934d1130594b5ac97a">More...</a><br/></td></tr>
+<tr class="separator:ga8d51e16fef506c934d1130594b5ac97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c6dff4b5002b24f291471c759f793d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga0c6dff4b5002b24f291471c759f793d5">PLATFORM_MASK</a>&#160;&#160;&#160;0xF000</td></tr>
+<tr class="memdesc:ga0c6dff4b5002b24f291471c759f793d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform type mask from CSU version.  <a href="group__emacps.html#ga0c6dff4b5002b24f291471c759f793d5">More...</a><br/></td></tr>
+<tr class="separator:ga0c6dff4b5002b24f291471c759f793d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57473bcf8cb401ff2fd5bdbdadfb0352"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga57473bcf8cb401ff2fd5bdbdadfb0352">PLATFORM_SILICON</a>&#160;&#160;&#160;0x0000</td></tr>
+<tr class="memdesc:ga57473bcf8cb401ff2fd5bdbdadfb0352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform value for silicon.  <a href="group__emacps.html#ga57473bcf8cb401ff2fd5bdbdadfb0352">More...</a><br/></td></tr>
+<tr class="separator:ga57473bcf8cb401ff2fd5bdbdadfb0352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa35230d8a0477c4744cdcdc3021294e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaaa35230d8a0477c4744cdcdc3021294e">VERSAL_VERSION</a>&#160;&#160;&#160;0xF11A0004</td></tr>
+<tr class="memdesc:gaaa35230d8a0477c4744cdcdc3021294e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versal version register address.  <a href="group__emacps.html#gaaa35230d8a0477c4744cdcdc3021294e">More...</a><br/></td></tr>
+<tr class="separator:gaaa35230d8a0477c4744cdcdc3021294e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca979a0fb402fce4d50d7321e25d81e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaca979a0fb402fce4d50d7321e25d81e3">PLATFORM_MASK_VERSAL</a>&#160;&#160;&#160;0xF000000</td></tr>
+<tr class="memdesc:gaca979a0fb402fce4d50d7321e25d81e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform type mask for Versal.  <a href="group__emacps.html#gaca979a0fb402fce4d50d7321e25d81e3">More...</a><br/></td></tr>
+<tr class="separator:gaca979a0fb402fce4d50d7321e25d81e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70ac2b500a08666d9bab082ad0cf464b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga70ac2b500a08666d9bab082ad0cf464b">PLATFORM_VERSALEMU</a>&#160;&#160;&#160;0x1000000</td></tr>
+<tr class="memdesc:ga70ac2b500a08666d9bab082ad0cf464b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform value for Versal emulation.  <a href="group__emacps.html#ga70ac2b500a08666d9bab082ad0cf464b">More...</a><br/></td></tr>
+<tr class="separator:ga70ac2b500a08666d9bab082ad0cf464b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5bfc94552408ee3fa3ad7756b174fe2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gad5bfc94552408ee3fa3ad7756b174fe2">PLATFORM_VERSALSIL</a>&#160;&#160;&#160;0x0000000</td></tr>
+<tr class="memdesc:gad5bfc94552408ee3fa3ad7756b174fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform value for Versal silicon.  <a href="group__emacps.html#gad5bfc94552408ee3fa3ad7756b174fe2">More...</a><br/></td></tr>
+<tr class="separator:gad5bfc94552408ee3fa3ad7756b174fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0bc7c575f2858a89f9496f83dc6052d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a0bc7c575f2858a89f9496f83dc6052d4">EmacPsUtilFrameHdrFormatMAC</a> (EthernetFrame *FramePtr, char *DestAddr)</td></tr>
-<tr class="memdesc:a0bc7c575f2858a89f9496f83dc6052d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the MAC addresses in the frame.  <a href="#a0bc7c575f2858a89f9496f83dc6052d4">More...</a><br/></td></tr>
-<tr class="separator:a0bc7c575f2858a89f9496f83dc6052d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fddc02339ce2adea5260e2401572eb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a6fddc02339ce2adea5260e2401572eb8">EmacPsUtilFrameHdrFormatType</a> (EthernetFrame *FramePtr, u16 FrameType)</td></tr>
-<tr class="memdesc:a6fddc02339ce2adea5260e2401572eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the frame type for the specified frame.  <a href="#a6fddc02339ce2adea5260e2401572eb8">More...</a><br/></td></tr>
-<tr class="separator:a6fddc02339ce2adea5260e2401572eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a745c2dd310df9fc6a3067ec7c426d9b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a745c2dd310df9fc6a3067ec7c426d9b5">EmacPsUtilFrameSetPayloadData</a> (EthernetFrame *FramePtr, u32 PayloadSize)</td></tr>
-<tr class="memdesc:a745c2dd310df9fc6a3067ec7c426d9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function places a pattern in the payload section of a frame.  <a href="#a745c2dd310df9fc6a3067ec7c426d9b5">More...</a><br/></td></tr>
-<tr class="separator:a745c2dd310df9fc6a3067ec7c426d9b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bf345bfd8b6008fd32c436c1c8f049e"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a9bf345bfd8b6008fd32c436c1c8f049e">EmacPsUtilFrameVerify</a> (EthernetFrame *CheckFrame, EthernetFrame *ActualFrame)</td></tr>
-<tr class="memdesc:a9bf345bfd8b6008fd32c436c1c8f049e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the frame data against a CheckFrame.  <a href="#a9bf345bfd8b6008fd32c436c1c8f049e">More...</a><br/></td></tr>
-<tr class="separator:a9bf345bfd8b6008fd32c436c1c8f049e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af60ff561f93957fc82d6625103a3ec5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#af60ff561f93957fc82d6625103a3ec5c">EmacPsUtilFrameMemClear</a> (EthernetFrame *FramePtr)</td></tr>
-<tr class="memdesc:af60ff561f93957fc82d6625103a3ec5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets all bytes of a frame to 0.  <a href="#af60ff561f93957fc82d6625103a3ec5c">More...</a><br/></td></tr>
-<tr class="separator:af60ff561f93957fc82d6625103a3ec5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a115c0926c08893ef3e71c68f7622576a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a115c0926c08893ef3e71c68f7622576a">EmacPsUtilstrncpy</a> (char *Destination, const char *Source, u32 n)</td></tr>
-<tr class="memdesc:a115c0926c08893ef3e71c68f7622576a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function copies data from source to destination for n bytes.  <a href="#a115c0926c08893ef3e71c68f7622576a">More...</a><br/></td></tr>
-<tr class="separator:a115c0926c08893ef3e71c68f7622576a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776b1bc0336021ef0b3542c13ba81e83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83">EmacPsUtilErrorTrap</a> (const char *Message)</td></tr>
-<tr class="memdesc:a776b1bc0336021ef0b3542c13ba81e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by example code when an error is detected.  <a href="#a776b1bc0336021ef0b3542c13ba81e83">More...</a><br/></td></tr>
-<tr class="separator:a776b1bc0336021ef0b3542c13ba81e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907ad3930dc1eefe5a53a0b82b715091"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example_8h.html#a907ad3930dc1eefe5a53a0b82b715091">EmacpsDelay</a> (u32 delay)</td></tr>
-<tr class="memdesc:a907ad3930dc1eefe5a53a0b82b715091"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides delays in seconds.  <a href="#a907ad3930dc1eefe5a53a0b82b715091">More...</a><br/></td></tr>
-<tr class="separator:a907ad3930dc1eefe5a53a0b82b715091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bc7c575f2858a89f9496f83dc6052d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga0bc7c575f2858a89f9496f83dc6052d4">EmacPsUtilFrameHdrFormatMAC</a> (EthernetFrame *FramePtr, char *DestAddr)</td></tr>
+<tr class="memdesc:ga0bc7c575f2858a89f9496f83dc6052d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the MAC addresses in the frame.  <a href="group__emacps.html#ga0bc7c575f2858a89f9496f83dc6052d4">More...</a><br/></td></tr>
+<tr class="separator:ga0bc7c575f2858a89f9496f83dc6052d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6fddc02339ce2adea5260e2401572eb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga6fddc02339ce2adea5260e2401572eb8">EmacPsUtilFrameHdrFormatType</a> (EthernetFrame *FramePtr, u16 FrameType)</td></tr>
+<tr class="memdesc:ga6fddc02339ce2adea5260e2401572eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the frame type for the specified frame.  <a href="group__emacps.html#ga6fddc02339ce2adea5260e2401572eb8">More...</a><br/></td></tr>
+<tr class="separator:ga6fddc02339ce2adea5260e2401572eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga745c2dd310df9fc6a3067ec7c426d9b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga745c2dd310df9fc6a3067ec7c426d9b5">EmacPsUtilFrameSetPayloadData</a> (EthernetFrame *FramePtr, u32 PayloadSize)</td></tr>
+<tr class="memdesc:ga745c2dd310df9fc6a3067ec7c426d9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Places a pattern in the payload section of a frame.  <a href="group__emacps.html#ga745c2dd310df9fc6a3067ec7c426d9b5">More...</a><br/></td></tr>
+<tr class="separator:ga745c2dd310df9fc6a3067ec7c426d9b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9bf345bfd8b6008fd32c436c1c8f049e"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga9bf345bfd8b6008fd32c436c1c8f049e">EmacPsUtilFrameVerify</a> (EthernetFrame *CheckFrame, EthernetFrame *ActualFrame)</td></tr>
+<tr class="memdesc:ga9bf345bfd8b6008fd32c436c1c8f049e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies the frame data against a CheckFrame.  <a href="group__emacps.html#ga9bf345bfd8b6008fd32c436c1c8f049e">More...</a><br/></td></tr>
+<tr class="separator:ga9bf345bfd8b6008fd32c436c1c8f049e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf60ff561f93957fc82d6625103a3ec5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaf60ff561f93957fc82d6625103a3ec5c">EmacPsUtilFrameMemClear</a> (EthernetFrame *FramePtr)</td></tr>
+<tr class="memdesc:gaf60ff561f93957fc82d6625103a3ec5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the frame buffer by writing a fill pattern.  <a href="group__emacps.html#gaf60ff561f93957fc82d6625103a3ec5c">More...</a><br/></td></tr>
+<tr class="separator:gaf60ff561f93957fc82d6625103a3ec5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga115c0926c08893ef3e71c68f7622576a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga115c0926c08893ef3e71c68f7622576a">EmacPsUtilstrncpy</a> (char *Destination, const char *Source, u32 n)</td></tr>
+<tr class="memdesc:ga115c0926c08893ef3e71c68f7622576a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from source to destination for n bytes.  <a href="group__emacps.html#ga115c0926c08893ef3e71c68f7622576a">More...</a><br/></td></tr>
+<tr class="separator:ga115c0926c08893ef3e71c68f7622576a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga776b1bc0336021ef0b3542c13ba81e83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga776b1bc0336021ef0b3542c13ba81e83">EmacPsUtilErrorTrap</a> (const char *Message)</td></tr>
+<tr class="memdesc:ga776b1bc0336021ef0b3542c13ba81e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports an error detected by the example code.  <a href="group__emacps.html#ga776b1bc0336021ef0b3542c13ba81e83">More...</a><br/></td></tr>
+<tr class="separator:ga776b1bc0336021ef0b3542c13ba81e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga907ad3930dc1eefe5a53a0b82b715091"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga907ad3930dc1eefe5a53a0b82b715091">EmacpsDelay</a> (u32 delay)</td></tr>
+<tr class="memdesc:ga907ad3930dc1eefe5a53a0b82b715091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a delay for the given number of seconds.  <a href="group__emacps.html#ga907ad3930dc1eefe5a53a0b82b715091">More...</a><br/></td></tr>
+<tr class="separator:ga907ad3930dc1eefe5a53a0b82b715091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a907ad3930dc1eefe5a53a0b82b715091"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacpsDelay </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>delay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function provides delays in seconds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">delay</td><td>in seconds</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>for microblaze the delay is not accurate and it need to tuned. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a776b1bc0336021ef0b3542c13ba81e83"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilErrorTrap </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>Message</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is called by example code when an error is detected. </p>
-<p>It can be set as a breakpoint with a debugger or it can be used to print out the given message if there is a UART or STDIO device.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Message</td><td>is the text explaining the error</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample()</a>, <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>, and <a class="el" href="xemacps__example__intr__dma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0bc7c575f2858a89f9496f83dc6052d4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilFrameHdrFormatMAC </td>
-          <td>(</td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>FramePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>DestAddr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the MAC addresses in the frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">FramePtr</td><td>is the pointer to the frame. </td></tr>
-    <tr><td class="paramname">DestAddr</td><td>is the Destination MAC address.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6fddc02339ce2adea5260e2401572eb8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilFrameHdrFormatType </td>
-          <td>(</td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>FramePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>FrameType</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the frame type for the specified frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">FramePtr</td><td>is the pointer to the frame. </td></tr>
-    <tr><td class="paramname">FrameType</td><td>is the Type to set in frame.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af60ff561f93957fc82d6625103a3ec5c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilFrameMemClear </td>
-          <td>(</td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>FramePtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sets all bytes of a frame to 0. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">FramePtr</td><td>is a pointer to the frame itself.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a745c2dd310df9fc6a3067ec7c426d9b5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilFrameSetPayloadData </td>
-          <td>(</td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>FramePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>PayloadSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function places a pattern in the payload section of a frame. </p>
-<p>The pattern is a 8 bit incrementing series of numbers starting with 0. Once the pattern reaches 256, then the pattern changes to a 16 bit incrementing pattern: </p>
-<pre>
-  0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
-</pre><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">FramePtr</td><td>is a pointer to the frame to change. </td></tr>
-    <tr><td class="paramname">PayloadSize</td><td>is the number of bytes in the payload that will be set.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9bf345bfd8b6008fd32c436c1c8f049e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">LONG EmacPsUtilFrameVerify </td>
-          <td>(</td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>CheckFrame</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EthernetFrame *&#160;</td>
-          <td class="paramname"><em>ActualFrame</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function verifies the frame data against a CheckFrame. </p>
-<p>Validation occurs by comparing the ActualFrame to the header of the CheckFrame. If the headers match, then the payload of ActualFrame is verified for the same pattern Util_FrameSetPayloadData() generates.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CheckFrame</td><td>is a pointer to a frame containing the 14 byte header that should be present in the ActualFrame parameter. </td></tr>
-    <tr><td class="paramname">ActualFrame</td><td>is a pointer to a frame to validate.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a115c0926c08893ef3e71c68f7622576a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EmacPsUtilstrncpy </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>Destination</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>Source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>n</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function copies data from source to destination for n bytes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Destination</td><td>is the targeted string to copy to. </td></tr>
-    <tr><td class="paramname">Source</td><td>is the source string to copy from. </td></tr>
-    <tr><td class="paramname">n</td><td>is number of bytes to be copied.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This function is similar to strncpy(), however strncpy will stop either at null byte or n bytes is been copied. This function will copy n bytes without checking the content. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

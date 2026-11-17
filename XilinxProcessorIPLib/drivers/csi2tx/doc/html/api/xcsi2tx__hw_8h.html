@@ -185,6 +185,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaf6b8fe661b78d795fcf3611582ef7503"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf6b8fe661b78d795fcf3611582ef7503"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_CCR_CLKMODE_MASK</b>&#160;&#160;&#160;0x00000010 /* Clock Mode */</td></tr>
 <tr class="separator:gaf6b8fe661b78d795fcf3611582ef7503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd548bcb6cb88038ea15482e3a3543a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gafd548bcb6cb88038ea15482e3a3543a7">XCSI2TX_CCR_LCBANKSEL_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:gafd548bcb6cb88038ea15482e3a3543a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count bank select (NUM_VC=16 only)  <a href="group__csi2tx.html#gafd548bcb6cb88038ea15482e3a3543a7">More...</a><br/></td></tr>
+<tr class="separator:gafd548bcb6cb88038ea15482e3a3543a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafcf8def5459794000772aaf53cb4c71f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafcf8def5459794000772aaf53cb4c71f"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_CCR_COREENB_SHIFT</b>&#160;&#160;&#160;0 	/* Shift bit for Core Enable*/</td></tr>
 <tr class="separator:gafcf8def5459794000772aaf53cb4c71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,9 +203,15 @@ Macros</h2></td></tr>
 <tr class="memitem:ga3788a910bc4c8a75f61e921f984a3bb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3788a910bc4c8a75f61e921f984a3bb1"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_CCR_CLKMODE_SHIFT</b>&#160;&#160;&#160;4 	/* Shift bits for clock mode */</td></tr>
 <tr class="separator:ga3788a910bc4c8a75f61e921f984a3bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca5b59283830bbf74cd7f0582d199c2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaca5b59283830bbf74cd7f0582d199c2d">XCSI2TX_CCR_LCBANKSEL_SHIFT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gaca5b59283830bbf74cd7f0582d199c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count bank select shift.  <a href="group__csi2tx.html#gaca5b59283830bbf74cd7f0582d199c2d">More...</a><br/></td></tr>
+<tr class="separator:gaca5b59283830bbf74cd7f0582d199c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmasks and offset of XCSI2TX_PCR_OFFSET register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This register reports the number of lanes configured during core generation and number of lanes actively used. </p>
 </div></td></tr>
+<tr class="memitem:ga5e1070f5337f42065c9572ddd4a2842d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga5e1070f5337f42065c9572ddd4a2842d">XCSI2TX_PCR_PIXEL8_MASK</a>&#160;&#160;&#160;0x00010000</td></tr>
+<tr class="memdesc:ga5e1070f5337f42065c9572ddd4a2842d"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 Pixels per clock mode  <a href="group__csi2tx.html#ga5e1070f5337f42065c9572ddd4a2842d">More...</a><br/></td></tr>
+<tr class="separator:ga5e1070f5337f42065c9572ddd4a2842d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad0a745f32c903555cf7df3061bf5d6c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad0a745f32c903555cf7df3061bf5d6c9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_PCR_LINEGEN_MASK</b>&#160;&#160;&#160;0x00008000 /* Line generation Mode */</td></tr>
 <tr class="separator:gad0a745f32c903555cf7df3061bf5d6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,6 +224,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa1fa0c138bd706cca44e4cf283fd597f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa1fa0c138bd706cca44e4cf283fd597f"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_PCR_ACTLANES_MASK</b>&#160;&#160;&#160;0x00000003 /* Active  lanes in core */</td></tr>
 <tr class="separator:gaa1fa0c138bd706cca44e4cf283fd597f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fe02393d4e9eca70f871efe8432a97f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga8fe02393d4e9eca70f871efe8432a97f">XCSI2TX_PCR_PIXEL8_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga8fe02393d4e9eca70f871efe8432a97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 Pixels per clock mode shift  <a href="group__csi2tx.html#ga8fe02393d4e9eca70f871efe8432a97f">More...</a><br/></td></tr>
+<tr class="separator:ga8fe02393d4e9eca70f871efe8432a97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6a14f86bc2a9474ec3a0071db4aee45d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6a14f86bc2a9474ec3a0071db4aee45d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_PCR_LINEGEN_SHIFT</b>&#160;&#160;&#160;15 	/* Line generation */</td></tr>
 <tr class="separator:ga6a14f86bc2a9474ec3a0071db4aee45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,6 +264,12 @@ Macros</h2></td></tr>
 <tr class="memitem:ga32dea0d9bf28275eec9656bc0beab692"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga32dea0d9bf28275eec9656bc0beab692"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI_INCORT_LANE_MASK</b>&#160;&#160;&#160;(1&lt;&lt;5)	/* Wrong lane configuration */</td></tr>
 <tr class="separator:ga32dea0d9bf28275eec9656bc0beab692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f68e4c1fa01c387885a18f8f0f5ef4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga7f68e4c1fa01c387885a18f8f0f5ef4d">XCSI2TX_ISR_VCBANKSEL_MASK</a>&#160;&#160;&#160;(1&lt;&lt;6)</td></tr>
+<tr class="memdesc:ga7f68e4c1fa01c387885a18f8f0f5ef4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">VC ISR/IER bank select (NUM_VC=16 only)  <a href="group__csi2tx.html#ga7f68e4c1fa01c387885a18f8f0f5ef4d">More...</a><br/></td></tr>
+<tr class="separator:ga7f68e4c1fa01c387885a18f8f0f5ef4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf07135816ecd946b46b794f2c56d2840"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaf07135816ecd946b46b794f2c56d2840">XCSI2TX_ISR_VCBANKSEL_SHIFT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:gaf07135816ecd946b46b794f2c56d2840"><td class="mdescLeft">&#160;</td><td class="mdescRight">VC ISR/IER bank select shift.  <a href="group__csi2tx.html#gaf07135816ecd946b46b794f2c56d2840">More...</a><br/></td></tr>
+<tr class="separator:gaf07135816ecd946b46b794f2c56d2840"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0044b3d448765635208740af525b7f8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga0044b3d448765635208740af525b7f8f">XCSITX_LCSTAT_VC0_IER_MASK</a>&#160;&#160;&#160;(1&lt;&lt;8)</td></tr>
 <tr class="memdesc:ga0044b3d448765635208740af525b7f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC0 IER.  <a href="group__csi2tx.html#ga0044b3d448765635208740af525b7f8f">More...</a><br/></td></tr>
 <tr class="separator:ga0044b3d448765635208740af525b7f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -300,6 +318,60 @@ Macros</h2></td></tr>
 <tr class="memitem:ga945d23526f204191f2d579e9169105d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga945d23526f204191f2d579e9169105d8">XCSITX_LCSTAT_VC3_ISR_OFFSET</a>&#160;&#160;&#160;(14)</td></tr>
 <tr class="memdesc:ga945d23526f204191f2d579e9169105d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC3 ISR Offset.  <a href="group__csi2tx.html#ga945d23526f204191f2d579e9169105d8">More...</a><br/></td></tr>
 <tr class="separator:ga945d23526f204191f2d579e9169105d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f9375c972255d833d66e82c8c9f7809"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga7f9375c972255d833d66e82c8c9f7809">XCSITX_LCSTAT_VC4_IER_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;16)</td></tr>
+<tr class="memdesc:ga7f9375c972255d833d66e82c8c9f7809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC4 IER.  <a href="group__csi2tx.html#ga7f9375c972255d833d66e82c8c9f7809">More...</a><br/></td></tr>
+<tr class="separator:ga7f9375c972255d833d66e82c8c9f7809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27fc40ce0f2682ee006e31bd8dd16b01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga27fc40ce0f2682ee006e31bd8dd16b01">XCSITX_LCSTAT_VC5_IER_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;18)</td></tr>
+<tr class="memdesc:ga27fc40ce0f2682ee006e31bd8dd16b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC5 IER.  <a href="group__csi2tx.html#ga27fc40ce0f2682ee006e31bd8dd16b01">More...</a><br/></td></tr>
+<tr class="separator:ga27fc40ce0f2682ee006e31bd8dd16b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73115b2677d20d039158ffe73ed48fc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga73115b2677d20d039158ffe73ed48fc8">XCSITX_LCSTAT_VC6_IER_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;20)</td></tr>
+<tr class="memdesc:ga73115b2677d20d039158ffe73ed48fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC6 IER.  <a href="group__csi2tx.html#ga73115b2677d20d039158ffe73ed48fc8">More...</a><br/></td></tr>
+<tr class="separator:ga73115b2677d20d039158ffe73ed48fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad383f5630a4bbdbe1e6814c1f4032d4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gad383f5630a4bbdbe1e6814c1f4032d4a">XCSITX_LCSTAT_VC7_IER_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;22)</td></tr>
+<tr class="memdesc:gad383f5630a4bbdbe1e6814c1f4032d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC7 IER.  <a href="group__csi2tx.html#gad383f5630a4bbdbe1e6814c1f4032d4a">More...</a><br/></td></tr>
+<tr class="separator:gad383f5630a4bbdbe1e6814c1f4032d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ff1b87cd55773f44dd15b556eabd439"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga3ff1b87cd55773f44dd15b556eabd439">XCSITX_LCSTAT_VC4_IER_OFFSET</a>&#160;&#160;&#160;(16)</td></tr>
+<tr class="memdesc:ga3ff1b87cd55773f44dd15b556eabd439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC4 IER Offset.  <a href="group__csi2tx.html#ga3ff1b87cd55773f44dd15b556eabd439">More...</a><br/></td></tr>
+<tr class="separator:ga3ff1b87cd55773f44dd15b556eabd439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga92febf123f644402ffc663f1680d1f43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga92febf123f644402ffc663f1680d1f43">XCSITX_LCSTAT_VC5_IER_OFFSET</a>&#160;&#160;&#160;(18)</td></tr>
+<tr class="memdesc:ga92febf123f644402ffc663f1680d1f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC5 IER Offset.  <a href="group__csi2tx.html#ga92febf123f644402ffc663f1680d1f43">More...</a><br/></td></tr>
+<tr class="separator:ga92febf123f644402ffc663f1680d1f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4673b2ae52deb9830c7c38e9d461dc28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga4673b2ae52deb9830c7c38e9d461dc28">XCSITX_LCSTAT_VC6_IER_OFFSET</a>&#160;&#160;&#160;(20)</td></tr>
+<tr class="memdesc:ga4673b2ae52deb9830c7c38e9d461dc28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC6 IER Offset.  <a href="group__csi2tx.html#ga4673b2ae52deb9830c7c38e9d461dc28">More...</a><br/></td></tr>
+<tr class="separator:ga4673b2ae52deb9830c7c38e9d461dc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40f6516abaf87b3dfeea9da53f6747f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga40f6516abaf87b3dfeea9da53f6747f5">XCSITX_LCSTAT_VC7_IER_OFFSET</a>&#160;&#160;&#160;(22)</td></tr>
+<tr class="memdesc:ga40f6516abaf87b3dfeea9da53f6747f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC7 IER Offset.  <a href="group__csi2tx.html#ga40f6516abaf87b3dfeea9da53f6747f5">More...</a><br/></td></tr>
+<tr class="separator:ga40f6516abaf87b3dfeea9da53f6747f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga25b27c23a768711fcc48c6bd9091426b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga25b27c23a768711fcc48c6bd9091426b">XCSITX_LCSTAT_VC4_ISR_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;16)</td></tr>
+<tr class="memdesc:ga25b27c23a768711fcc48c6bd9091426b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC4 ISR.  <a href="group__csi2tx.html#ga25b27c23a768711fcc48c6bd9091426b">More...</a><br/></td></tr>
+<tr class="separator:ga25b27c23a768711fcc48c6bd9091426b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac30eb66f9b42c94803685658300701ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gac30eb66f9b42c94803685658300701ba">XCSITX_LCSTAT_VC5_ISR_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;18)</td></tr>
+<tr class="memdesc:gac30eb66f9b42c94803685658300701ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC5 ISR.  <a href="group__csi2tx.html#gac30eb66f9b42c94803685658300701ba">More...</a><br/></td></tr>
+<tr class="separator:gac30eb66f9b42c94803685658300701ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1efe5bb476f6ffb705208873a2f866a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gab1efe5bb476f6ffb705208873a2f866a">XCSITX_LCSTAT_VC6_ISR_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;20)</td></tr>
+<tr class="memdesc:gab1efe5bb476f6ffb705208873a2f866a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC6 ISR.  <a href="group__csi2tx.html#gab1efe5bb476f6ffb705208873a2f866a">More...</a><br/></td></tr>
+<tr class="separator:gab1efe5bb476f6ffb705208873a2f866a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaffb08fffbf59eae8a4bd8c90fdb99514"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaffb08fffbf59eae8a4bd8c90fdb99514">XCSITX_LCSTAT_VC7_ISR_MASK</a>&#160;&#160;&#160;(0x3&lt;&lt;22)</td></tr>
+<tr class="memdesc:gaffb08fffbf59eae8a4bd8c90fdb99514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC7 ISR.  <a href="group__csi2tx.html#gaffb08fffbf59eae8a4bd8c90fdb99514">More...</a><br/></td></tr>
+<tr class="separator:gaffb08fffbf59eae8a4bd8c90fdb99514"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga747bf79df6575fe2e9bfefef33f10eb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga747bf79df6575fe2e9bfefef33f10eb0">XCSITX_LCSTAT_VC4_ISR_OFFSET</a>&#160;&#160;&#160;(16)</td></tr>
+<tr class="memdesc:ga747bf79df6575fe2e9bfefef33f10eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC4 ISR Offset.  <a href="group__csi2tx.html#ga747bf79df6575fe2e9bfefef33f10eb0">More...</a><br/></td></tr>
+<tr class="separator:ga747bf79df6575fe2e9bfefef33f10eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8c3307b72972b39a51575c823164723"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gad8c3307b72972b39a51575c823164723">XCSITX_LCSTAT_VC5_ISR_OFFSET</a>&#160;&#160;&#160;(18)</td></tr>
+<tr class="memdesc:gad8c3307b72972b39a51575c823164723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC5 ISR Offset.  <a href="group__csi2tx.html#gad8c3307b72972b39a51575c823164723">More...</a><br/></td></tr>
+<tr class="separator:gad8c3307b72972b39a51575c823164723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d244b739e75f6b61de675898eddf211"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga6d244b739e75f6b61de675898eddf211">XCSITX_LCSTAT_VC6_ISR_OFFSET</a>&#160;&#160;&#160;(20)</td></tr>
+<tr class="memdesc:ga6d244b739e75f6b61de675898eddf211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC6 ISR Offset.  <a href="group__csi2tx.html#ga6d244b739e75f6b61de675898eddf211">More...</a><br/></td></tr>
+<tr class="separator:ga6d244b739e75f6b61de675898eddf211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4419ef6c36d5abd7a69ef7698742aa2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga4419ef6c36d5abd7a69ef7698742aa2b">XCSITX_LCSTAT_VC7_ISR_OFFSET</a>&#160;&#160;&#160;(22)</td></tr>
+<tr class="memdesc:ga4419ef6c36d5abd7a69ef7698742aa2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status for VC7 ISR Offset.  <a href="group__csi2tx.html#ga4419ef6c36d5abd7a69ef7698742aa2b">More...</a><br/></td></tr>
+<tr class="separator:ga4419ef6c36d5abd7a69ef7698742aa2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga171068401d07729f3ea577461b557822"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga171068401d07729f3ea577461b557822">XCSITX_LCSTAT_VC4_7_IER_MASK</a></td></tr>
+<tr class="memdesc:ga171068401d07729f3ea577461b557822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status IER aggregate mask for VC4-VC7.  <a href="group__csi2tx.html#ga171068401d07729f3ea577461b557822">More...</a><br/></td></tr>
+<tr class="separator:ga171068401d07729f3ea577461b557822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13a7bd3ce6a5f0d9edc86a346fea0896"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga13a7bd3ce6a5f0d9edc86a346fea0896">XCSITX_LCSTAT_VC4_7_ISR_MASK</a></td></tr>
+<tr class="memdesc:ga13a7bd3ce6a5f0d9edc86a346fea0896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line Count Status ISR aggregate mask for VC4-VC7.  <a href="group__csi2tx.html#ga13a7bd3ce6a5f0d9edc86a346fea0896">More...</a><br/></td></tr>
+<tr class="separator:ga13a7bd3ce6a5f0d9edc86a346fea0896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">BitMasks Short Packets</div></td></tr>
 <tr class="memitem:ga2edf8b9efa772fbbf6f9b59c8a62ae4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2edf8b9efa772fbbf6f9b59c8a62ae4e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_SPKTR_DATA_MASK</b>&#160;&#160;&#160;0x00FFFF00 /* Short Packet byte0 and 1*/</td></tr>
@@ -307,6 +379,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gae7f2e4bcb9b0f9cc88d9a4d20dfaac08"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae7f2e4bcb9b0f9cc88d9a4d20dfaac08"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_SPKTR_DATA_SHIFT</b>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:gae7f2e4bcb9b0f9cc88d9a4d20dfaac08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1da5c2f005c71537a6a2e1dfc3d4579a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga1da5c2f005c71537a6a2e1dfc3d4579a">XCSI2TX_SPKTR_VCEXT_MASK</a>&#160;&#160;&#160;0x03000000</td></tr>
+<tr class="memdesc:ga1da5c2f005c71537a6a2e1dfc3d4579a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short Packet Virtual Channel extension - upper 2 bits (VC[3:2]) for 16 VC support.  <a href="group__csi2tx.html#ga1da5c2f005c71537a6a2e1dfc3d4579a">More...</a><br/></td></tr>
+<tr class="separator:ga1da5c2f005c71537a6a2e1dfc3d4579a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga816fb670a7d6223f12a4d3393abc007b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga816fb670a7d6223f12a4d3393abc007b">XCSI2TX_SPKTR_VCEXT_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:ga816fb670a7d6223f12a4d3393abc007b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short Packet Virtual Channel extension shift.  <a href="group__csi2tx.html#ga816fb670a7d6223f12a4d3393abc007b">More...</a><br/></td></tr>
+<tr class="separator:ga816fb670a7d6223f12a4d3393abc007b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga393a6fa1172d8460c7966eb9f70f88f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga393a6fa1172d8460c7966eb9f70f88f0"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_SPKTR_VC_MASK</b></td></tr>
 <tr class="separator:ga393a6fa1172d8460c7966eb9f70f88f0"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['calcpitch',['CalcPitch',['../xv__multi__scaler__example_8c.html#a3ce8bd51136bf2154fe4544a82cbf779',1,'xv_multi_scaler_example.c']]],
   ['callbackref',['CallbackRef',['../struct_x_v__multi__scaler.html#a4dcdc9b8086f59643462608251154f55',1,'XV_multi_scaler']]],
   ['channelid',['ChannelId',['../struct_x_v__multi__scaler___video___config.html#a8b381fecdeae9d3e33a10acf77d3a400',1,'XV_multi_scaler_Video_Config']]],
   ['colorformatin',['ColorFormatIn',['../struct_x_v__multi__scaler___video___config.html#ae8d008b02058f5e44755cb63b909ceb2',1,'XV_multi_scaler_Video_Config']]],

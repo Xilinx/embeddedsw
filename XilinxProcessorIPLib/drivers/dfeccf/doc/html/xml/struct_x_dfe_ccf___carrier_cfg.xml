@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="319" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="319" bodyend="-1"/>
         <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
         <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
         <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="320" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="320" bodyend="-1"/>
         <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
         <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
         <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="322" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="322" bodyend="-1"/>
         <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
         <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
         <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
@@ -69,7 +69,7 @@
 <para>Configuration for a single CC. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="318" bodyend="324"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="318" bodyend="324"/>
     <listofallmembers>
       <member refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" prot="public" virt="non-virtual"><scope>XDfeCcf_CarrierCfg</scope><name>Gain</name></member>
       <member refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" prot="public" virt="non-virtual"><scope>XDfeCcf_CarrierCfg</scope><name>ImagCoeffSet</name></member>

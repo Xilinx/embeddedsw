@@ -10,115 +10,115 @@
     <includes refid="mbox__error__code_8h" local="yes">mbox_error_code.h</includes>
     <includes refid="oslayer_8h" local="yes">oslayer.h</includes>
     <incdepgraph>
-      <node id="6451">
+      <node id="6554">
         <label>stdbool.h</label>
       </node>
-      <node id="6456">
+      <node id="6562">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6553">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6554" relation="include">
+        </childnode>
+        <childnode refid="6555" relation="include">
+        </childnode>
+      </node>
+      <node id="6557">
+        <label>stdint.h</label>
+      </node>
+      <node id="6560">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6565">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6566" relation="include">
+        </childnode>
+        <childnode refid="6568" relation="include">
+        </childnode>
+        <childnode refid="6569" relation="include">
+        </childnode>
+      </node>
+      <node id="6569">
+        <label>stddef.h</label>
+      </node>
+      <node id="6552">
+        <label>mbox_fifo.c</label>
+        <link refid="mbox_fifo.c"/>
+        <childnode refid="6553" relation="include">
+        </childnode>
+        <childnode refid="6556" relation="include">
+        </childnode>
+        <childnode refid="6558" relation="include">
+        </childnode>
+        <childnode refid="6560" relation="include">
+        </childnode>
+        <childnode refid="6561" relation="include">
+        </childnode>
+        <childnode refid="6562" relation="include">
+        </childnode>
+        <childnode refid="6563" relation="include">
+        </childnode>
+      </node>
+      <node id="6568">
+        <label>limits.h</label>
+      </node>
+      <node id="6559">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="6460">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="6461" relation="include">
-        </childnode>
-        <childnode refid="6467" relation="include">
-        </childnode>
-      </node>
-      <node id="6454">
-        <label>stdint.h</label>
-      </node>
-      <node id="6457">
-        <label>stdlib.h</label>
-      </node>
-      <node id="6455">
+      <node id="6558">
         <label>sensor_cmd.h</label>
-        <childnode refid="6453" relation="include">
+        <childnode refid="6556" relation="include">
         </childnode>
-        <childnode refid="6456" relation="include">
-        </childnode>
-      </node>
-      <node id="6466">
-        <label>stddef.h</label>
-      </node>
-      <node id="6465">
-        <label>limits.h</label>
-      </node>
-      <node id="6453">
-        <label>mbox_api.h</label>
-        <childnode refid="6451" relation="include">
-        </childnode>
-        <childnode refid="6454" relation="include">
-        </childnode>
-        <childnode refid="6450" relation="include">
+        <childnode refid="6559" relation="include">
         </childnode>
       </node>
-      <node id="6458">
-        <label>string.h</label>
-      </node>
-      <node id="6450">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="6451" relation="include">
-        </childnode>
-        <childnode refid="6452" relation="include">
-        </childnode>
-      </node>
-      <node id="6449">
-        <label>mbox_fifo.c</label>
-        <link refid="mbox_fifo.c"/>
-        <childnode refid="6450" relation="include">
-        </childnode>
-        <childnode refid="6453" relation="include">
-        </childnode>
-        <childnode refid="6455" relation="include">
-        </childnode>
-        <childnode refid="6457" relation="include">
-        </childnode>
-        <childnode refid="6458" relation="include">
-        </childnode>
-        <childnode refid="6459" relation="include">
-        </childnode>
-        <childnode refid="6460" relation="include">
-        </childnode>
-      </node>
-      <node id="6459">
-        <label>mbox_error_code.h</label>
-      </node>
-      <node id="6452">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="6467">
-        <label>ff.h</label>
-      </node>
-      <node id="6462">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="6463" relation="include">
-        </childnode>
-        <childnode refid="6465" relation="include">
-        </childnode>
-        <childnode refid="6466" relation="include">
-        </childnode>
-      </node>
-      <node id="6461">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="6462" relation="include">
-        </childnode>
-        <childnode refid="6458" relation="include">
-        </childnode>
-      </node>
-      <node id="6464">
-        <label>stdio.h</label>
-      </node>
-      <node id="6463">
+      <node id="6566">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="6464" relation="include">
+        <childnode refid="6567" relation="include">
         </childnode>
-        <childnode refid="6457" relation="include">
+        <childnode refid="6560" relation="include">
         </childnode>
+      </node>
+      <node id="6561">
+        <label>string.h</label>
+      </node>
+      <node id="6556">
+        <label>mbox_api.h</label>
+        <childnode refid="6554" relation="include">
+        </childnode>
+        <childnode refid="6557" relation="include">
+        </childnode>
+        <childnode refid="6553" relation="include">
+        </childnode>
+      </node>
+      <node id="6564">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6565" relation="include">
+        </childnode>
+        <childnode refid="6561" relation="include">
+        </childnode>
+      </node>
+      <node id="6555">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6570">
+        <label>ff.h</label>
+      </node>
+      <node id="6563">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="6564" relation="include">
+        </childnode>
+        <childnode refid="6570" relation="include">
+        </childnode>
+      </node>
+      <node id="6567">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -146,7 +146,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="30" bodyend="32"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="30" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1ab44df0a9a96dbfc43396843bd80485bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -171,7 +171,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="34" bodyend="46"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="34" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1a277ad9dd4c90dc96dd29faf289c5826b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -216,7 +216,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="48" bodyend="67"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="48" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1a7c2e313580bc2906f24328a57d06d123" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -261,7 +261,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="69" bodyend="105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="69" bodyend="114"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1a8cd4dedef41e8e6217ad07bfe5bf4c1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -306,7 +306,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="107" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="116" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1af4fcd5a6a3bc57bbb4e7f77038cfb8a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -340,7 +340,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="145" bodyend="156"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="170" bodyend="181"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1a51d20faa6705db64a06d07fa23329d7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -374,7 +374,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="158" bodyend="171"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="183" bodyend="196"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1a250235db71600890fa01f2293eb5e265" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -408,7 +408,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="173" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="198" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1ac5458496790226f9b1f1c81545352152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -442,7 +442,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="188" bodyend="198"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="213" bodyend="223"/>
       </memberdef>
       <memberdef kind="function" id="mbox__fifo_8c_1afc746bcd8b434d5807794db2ea83efff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -467,7 +467,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="200" bodyend="209"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c" bodystart="225" bodyend="234"/>
         <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
       </memberdef>
       </sectiondef>
@@ -556,131 +556,156 @@
 <codeline lineno="83"><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>next_write_index<sp/>=<sp/>(current_write_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>FIFO<sp/>is<sp/>full<sp/>(circular<sp/>buffer:<sp/>full<sp/>when<sp/>next<sp/>write<sp/>==<sp/>read)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(next_write_index<sp/>==<sp/>current_read_index)</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_FULL;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_pos<sp/>=<sp/>mbox_fifo-&gt;buffer_addresses[current_write_index];</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>actual_size<sp/>=<sp/>get_mbox_message_size(msg);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(write_pos,<sp/>msg,<sp/>actual_size);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>data<sp/>write<sp/>completes<sp/>before<sp/>updating<sp/>index<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;write_offset<sp/>=<sp/>next_write_index;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fifo-&gt;item_total/write_offset<sp/>live<sp/>in<sp/>shared<sp/>memory<sp/>and<sp/>are</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>writable<sp/>by<sp/>the<sp/>peer<sp/>core;<sp/>validate<sp/>them<sp/>before<sp/>using<sp/>them<sp/>as<sp/>a</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>modulus<sp/>or<sp/>to<sp/>index<sp/>the<sp/>local<sp/>(fixed-size)<sp/>buffer_addresses[]</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>table,<sp/>so<sp/>a<sp/>corrupted<sp/>peer<sp/>cannot<sp/>drive<sp/>an<sp/>out-of-bounds<sp/>access.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fifo-&gt;item_total<sp/>==<sp/>0<sp/>||<sp/>fifo-&gt;item_total<sp/>&gt;<sp/>MAX_MSGS_PER_BOX<sp/>||</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_write_index<sp/>&gt;=<sp/>MAX_MSGS_PER_BOX)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>next_write_index<sp/>=<sp/>(current_write_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>FIFO<sp/>is<sp/>full<sp/>(circular<sp/>buffer:<sp/>full<sp/>when<sp/>next<sp/>write<sp/>==<sp/>read)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(next_write_index<sp/>==<sp/>current_read_index)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_FULL;</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>index<sp/>update<sp/>is<sp/>visible<sp/>to<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107" refid="mbox__fifo_8h_1ad4b3a020a00e5f4f943148a6e352f8e9" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1ad4b3a020a00e5f4f943148a6e352f8e9" kindref="member">fifo_read</ref>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>current_write_index,<sp/>current_read_index,<sp/>next_read_index;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*read_pos;</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>actual_size;</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>we<sp/>read<sp/>latest<sp/>index<sp/>values<sp/>from<sp/>shared<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>FIFO<sp/>is<sp/>empty<sp/>(circular<sp/>buffer:<sp/>empty<sp/>when<sp/>write<sp/>==<sp/>read)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(current_write_index<sp/>==<sp/>current_read_index)</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_EMPTY;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_pos<sp/>=<sp/>mbox_fifo-&gt;buffer_addresses[current_read_index];</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>actual_size<sp/>=<sp/>get_mbox_message_size((<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)read_pos);</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(msg,<sp/>read_pos,<sp/>actual_size);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>data<sp/>read<sp/>completes<sp/>before<sp/>updating<sp/>index<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>next_read_index<sp/>=<sp/>(current_read_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;read_offset<sp/>=<sp/>next_read_index;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>index<sp/>update<sp/>is<sp/>visible<sp/>to<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_pos<sp/>=<sp/>mbox_fifo-&gt;buffer_addresses[current_write_index];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>actual_size<sp/>=<sp/>get_mbox_message_size(msg);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(write_pos,<sp/>msg,<sp/>actual_size);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>data<sp/>write<sp/>completes<sp/>before<sp/>updating<sp/>index<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;write_offset<sp/>=<sp/>next_write_index;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>index<sp/>update<sp/>is<sp/>visible<sp/>to<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="mbox__fifo_8h_1ad4b3a020a00e5f4f943148a6e352f8e9" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1ad4b3a020a00e5f4f943148a6e352f8e9" kindref="member">fifo_read</ref>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>current_write_index,<sp/>current_read_index,<sp/>next_read_index;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*read_pos;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>actual_size;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>we<sp/>read<sp/>latest<sp/>index<sp/>values<sp/>from<sp/>shared<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fifo-&gt;item_total/read_offset<sp/>live<sp/>in<sp/>shared<sp/>memory<sp/>and<sp/>are</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>writable<sp/>by<sp/>the<sp/>peer<sp/>core;<sp/>validate<sp/>them<sp/>before<sp/>using<sp/>them<sp/>as<sp/>a</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>modulus<sp/>or<sp/>to<sp/>index<sp/>the<sp/>local<sp/>(fixed-size)<sp/>buffer_addresses[]</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>table,<sp/>so<sp/>a<sp/>corrupted<sp/>peer<sp/>cannot<sp/>drive<sp/>an<sp/>out-of-bounds<sp/>access.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fifo-&gt;item_total<sp/>==<sp/>0<sp/>||<sp/>fifo-&gt;item_total<sp/>&gt;<sp/>MAX_MSGS_PER_BOX<sp/>||</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current_read_index<sp/>&gt;=<sp/>MAX_MSGS_PER_BOX)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145" refid="mbox__fifo_8h_1a7eee31abc08c033648719772c4db892b" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1a7eee31abc08c033648719772c4db892b" kindref="member">fifo_reset</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>write_index<sp/>to<sp/>0;<sp/>read_index<sp/>is<sp/>owned<sp/>by<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;write_offset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>FIFO<sp/>is<sp/>empty<sp/>(circular<sp/>buffer:<sp/>empty<sp/>when<sp/>write<sp/>==<sp/>read)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(current_write_index<sp/>==<sp/>current_read_index)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_EMPTY;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_pos<sp/>=<sp/>mbox_fifo-&gt;buffer_addresses[current_read_index];</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>message<sp/>at<sp/>read_pos<sp/>lives<sp/>in<sp/>shared<sp/>memory;<sp/>its<sp/>payload_size</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>field<sp/>is<sp/>peer-controlled,<sp/>so<sp/>bound<sp/>it<sp/>against<sp/>MAX_ITEM<sp/>before</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>deriving<sp/>a<sp/>copy<sp/>length<sp/>from<sp/>it.<sp/>Otherwise<sp/>a<sp/>corrupted<sp/>peer<sp/>can</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>drive<sp/>an<sp/>out-of-bounds<sp/>write<sp/>into<sp/>msg<sp/>via<sp/>the<sp/>memcpy<sp/>below.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)read_pos)-&gt;payload.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
-<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>actual_size<sp/>=<sp/>get_mbox_message_size((<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)read_pos);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(msg,<sp/>read_pos,<sp/>actual_size);</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158" refid="mbox__fifo_8h_1a1566d4471849b4c56cbd7b8c447d0526" refkind="member"><highlight class="normal">uint32_t<sp/><ref refid="mbox__fifo_8h_1a1566d4471849b4c56cbd7b8c447d0526" kindref="member">fifo_get_stored</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>write_index,<sp/>read_index;</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(write_index<sp/>-<sp/>read_index<sp/>+<sp/>fifo-&gt;item_total)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
-<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="173" refid="mbox__fifo_8h_1a8d1fdf8496a4b98556775580d653bb15" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="mbox__fifo_8h_1a8d1fdf8496a4b98556775580d653bb15" kindref="member">fifo_is_full</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>write_index,<sp/>read_index;</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((write_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total)<sp/>==<sp/>read_index;</highlight></codeline>
-<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>data<sp/>read<sp/>completes<sp/>before<sp/>updating<sp/>index<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>next_read_index<sp/>=<sp/>(current_read_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;read_offset<sp/>=<sp/>next_read_index;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMB:<sp/>Ensure<sp/>index<sp/>update<sp/>is<sp/>visible<sp/>to<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="mbox__fifo_8h_1a7eee31abc08c033648719772c4db892b" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1a7eee31abc08c033648719772c4db892b" kindref="member">fifo_reset</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>write_index<sp/>to<sp/>0;<sp/>read_index<sp/>is<sp/>owned<sp/>by<sp/>remote<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo-&gt;write_offset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="mbox__fifo_8h_1a1566d4471849b4c56cbd7b8c447d0526" refkind="member"><highlight class="normal">uint32_t<sp/><ref refid="mbox__fifo_8h_1a1566d4471849b4c56cbd7b8c447d0526" kindref="member">fifo_get_stored</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>write_index,<sp/>read_index;</highlight></codeline>
 <codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188" refid="mbox__fifo_8h_1a40f649e2549dd4d60bd45d0a82b219de" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="mbox__fifo_8h_1a40f649e2549dd4d60bd45d0a82b219de" kindref="member">fifo_is_empty</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>fifo-&gt;write_offset<sp/>==<sp/>fifo-&gt;read_offset;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="200" refid="mbox__fifo_8h_1a6e6ecc433f61a4edde5dbd00d13404a8" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1a6e6ecc433f61a4edde5dbd00d13404a8" kindref="member">fifo_buffer_free</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
-<codeline lineno="201"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(write_index<sp/>-<sp/>read_index<sp/>+<sp/>fifo-&gt;item_total)<sp/>%<sp/>fifo-&gt;item_total;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198" refid="mbox__fifo_8h_1a8d1fdf8496a4b98556775580d653bb15" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="mbox__fifo_8h_1a8d1fdf8496a4b98556775580d653bb15" kindref="member">fifo_is_full</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>write_index,<sp/>read_index;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
 <codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(fifo-&gt;buffer);</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
-<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_index<sp/>=<sp/>fifo-&gt;write_offset;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>read_index<sp/>=<sp/>fifo-&gt;read_offset;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((write_index<sp/>+<sp/>1)<sp/>%<sp/>fifo-&gt;item_total)<sp/>==<sp/>read_index;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="mbox__fifo_8h_1a40f649e2549dd4d60bd45d0a82b219de" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="mbox__fifo_8h_1a40f649e2549dd4d60bd45d0a82b219de" kindref="member">fifo_is_empty</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dmb_memory_barrier();</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>fifo-&gt;write_offset<sp/>==<sp/>fifo-&gt;read_offset;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225" refid="mbox__fifo_8h_1a6e6ecc433f61a4edde5dbd00d13404a8" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__fifo_8h_1a6e6ecc433f61a4edde5dbd00d13404a8" kindref="member">fifo_buffer_free</ref>(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo)</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_fifo<sp/>==<sp/>NULL<sp/>||<sp/>mbox_fifo-&gt;fifo<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fifo<sp/>=<sp/>mbox_fifo-&gt;fifo;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(fifo-&gt;buffer);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_fifo.c"/>
   </compounddef>
 </doxygen>

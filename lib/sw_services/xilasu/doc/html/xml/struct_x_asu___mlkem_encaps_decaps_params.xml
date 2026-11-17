@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___mlkem_encaps_decaps_params" kind="struct" prot="public">
+    <compoundname>XAsu_MlkemEncapsDecapsParams</compoundname>
+    <includes local="no">xasu_mlkeminfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MlkemEncapsDecapsParams::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>Address of the input key (public key for encaps, secret key for decaps); 0 when the key is taken from the key vault via KeyId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MlkemEncapsDecapsParams::CtAddr</definition>
+        <argsstring></argsstring>
+        <name>CtAddr</name>
+        <briefdescription>
+<para>Address of the ciphertext (output for encaps, input for decaps) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MlkemEncapsDecapsParams::SharedSecretAddr</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretAddr</name>
+        <briefdescription>
+<para>Address of the output shared secret. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MlkemEncapsDecapsParams::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>Length of the key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a22bb9f52eb399fc2c7bc44d19159a37f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MlkemEncapsDecapsParams::CtLen</definition>
+        <argsstring></argsstring>
+        <name>CtLen</name>
+        <briefdescription>
+<para>Length of the ciphertext in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MlkemEncapsDecapsParams::SharedSecretLen</definition>
+        <argsstring></argsstring>
+        <name>SharedSecretLen</name>
+        <briefdescription>
+<para>Length of the shared secret buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MlkemEncapsDecapsParams::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Composite key vault identifier of the key to operate with; 0 when the key is supplied directly through KeyAddr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MlkemEncapsDecapsParams::ParamSet</definition>
+        <argsstring></argsstring>
+        <name>ParamSet</name>
+        <briefdescription>
+<para>Parameter set (XAsu_MlkemParamSet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_decaps_params_1a59d911bd26290dc76841e3750240ad5e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MlkemEncapsDecapsParams::Reserved[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved to pad the structure to 48 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ML-KEM encapsulation/decapsulation parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Both operations share the same layout and are mutually exclusive, so a single generic parameter set is used:<itemizedlist>
+<listitem><para>For encapsulation, KeyAddr/KeyLen refer to the input public (encapsulation) key and CtAddr is the output ciphertext.</para></listitem><listitem><para>For decapsulation, KeyAddr/KeyLen refer to the input secret (decapsulation) key and CtAddr is the input ciphertext. The key is supplied either directly through KeyAddr/KeyLen or from the ASU key vault through KeyId. Exactly one of the two must be non-zero, as enforced by XAsu_KmValidateKeyAddrNdKeyId. </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="104" bodyend="116"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>CtAddr</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a22bb9f52eb399fc2c7bc44d19159a37f" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>CtLen</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>KeyLen</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>ParamSet</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a59d911bd26290dc76841e3750240ad5e" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>SharedSecretAddr</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDecapsParams</scope><name>SharedSecretLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -135,7 +135,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who   Date        Changes
                         FailCnt is updated correctly.
 1.4   gayu  03/26/2026  Fix Correctable Error count check in detect only
                         configuration
+1.5   anv   08/28/2026  Added XilPM event notification support for EL1
+                        non-secure SMC flow and corrected runtime print
+                        messages.
+1.6   anv   09/19/2026  Added XSem_PrintSwCalibErrDetails function to print
+                        decoded SWECC calibration failure details.
 </pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+<code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsem__client__api_8h.html">xsem_client_api.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsem__ipi_8h.html">xsem_ipi.h</a>&quot;</code><br/>

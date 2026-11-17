@@ -26,6 +26,12 @@
       <node id="1167">
         <label>xil_util.h</label>
       </node>
+      <node id="1163">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1161">
+        <label>xil_types.h</label>
+      </node>
       <node id="1160">
         <label>xusbpsu.h</label>
         <link refid="xusbpsu_8h"/>
@@ -45,12 +51,6 @@
         </childnode>
         <childnode refid="1168" relation="include">
         </childnode>
-      </node>
-      <node id="1163">
-        <label>xstatus.h</label>
-      </node>
-      <node id="1161">
-        <label>xil_types.h</label>
       </node>
       <node id="1165">
         <label>xusbpsu_endpoint.h</label>
@@ -72,7 +72,7 @@
         <detaileddescription>
 <para>The table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>contains the base address of the device</para></parameterdescription>
@@ -83,8 +83,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="910" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_sinit.c" bodystart="89" bodyend="103"/>
-        <references refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" compoundref="xusbpsu__g_8c" startline="15">XUsbPsu_ConfigTable</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="895" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_sinit.c" bodystart="89" bodyend="103"/>
+        <references refid="struct_x_usb_psu___config_1a106731ff7eba99998eac449025bd0c41" compoundref="xusbpsu_8h" startline="455">XUsbPsu_Config::Name</references>
+        <references refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" compoundref="xusbpsu__g_8c" startline="19">XUsbPsu_ConfigTable</references>
+        <referencedby refid="xusb__wrapper_8h_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" compoundref="xusb__wrapper_8c" startline="61" endline="64">LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -94,7 +96,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -143,7 +145,7 @@
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/><ref refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" kindref="member">XUsbPsu_ConfigTable</ref>[i].Name<sp/>!=<sp/>NULL;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/><ref refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" kindref="member">XUsbPsu_ConfigTable</ref>[i].<ref refid="struct_x_usb_psu___config_1a106731ff7eba99998eac449025bd0c41" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>i++)<sp/>{</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" kindref="member">XUsbPsu_ConfigTable</ref>[i].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" kindref="member">XUsbPsu_ConfigTable</ref>[i];</highlight></codeline>
@@ -156,6 +158,6 @@
 <codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_sinit.c"/>
   </compounddef>
 </doxygen>

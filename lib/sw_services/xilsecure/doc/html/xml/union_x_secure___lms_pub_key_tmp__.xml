@@ -10,12 +10,13 @@
         <argsstring>[XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE]</argsstring>
         <name>Buff</name>
         <briefdescription>
-        </briefdescription>
+<para>Raw buffer holding the temporary public key data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_pub_key_tmp___1a062cfe1349c7e202d086a4bfad9c3867" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="198" bodyend="-1"/>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_pub_key_tmp___1a92de8c48812ac0eb7b43562f44dfae5c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -42,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="203" bodyend="-1"/>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_pub_key_tmp___1ac4436f40127798b3bb9261cc09f0a912" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -56,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="208" bodyend="-1"/>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_pub_key_tmp___1ac708ae7db6633d104bd8e6d19b0c2ed4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -70,8 +71,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="214" bodyend="-1"/>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_pub_key_tmp___1a0843f0a293f342b4b3a7c2dc02547bf4" prot="public" static="no" mutable="no">
         <type>struct XSecure_LmsPubKeyTmp_::@1</type>
@@ -84,15 +85,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="215" column="1"/>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="215" column="1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Used to store data which is repeatedly sent to SHA engine, during LMS root value calculation. </para>    </briefdescription>
     <detaileddescription>
 <para>Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2) </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="191" bodyend="216"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="191" bodyend="216"/>
     <listofallmembers>
       <member refid="union_x_secure___lms_pub_key_tmp___1a020eaf022952170c3dfc823d441741ed" prot="public" virt="non-virtual"><scope>XSecure_LmsPubKeyTmp_</scope><name>Buff</name></member>
       <member refid="union_x_secure___lms_pub_key_tmp___1ac4436f40127798b3bb9261cc09f0a912" prot="public" virt="non-virtual"><scope>XSecure_LmsPubKeyTmp_</scope><name>D</name></member>

@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_sys_mon_psv___event_handler.h
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,32 +109,32 @@ $(document).ready(function(){initNavTree('struct_x_sys_mon_psv___event_handler.h
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSysMonPsv_EventHandler Struct Reference</div>  </div>
+<div class="title">XSysMonPsv_EventHandler Struct Reference<div class="ingroups"><a class="el" href="group__sysmonpsv__api.html">SYSMONPSV APIs</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is an interrupt callback structure where callbacks and the callback reference is stored.
+<p>Stores the interrupt callbacks and their callback references.
  <a href="struct_x_sys_mon_psv___event_handler.html#details">More...</a></p>
 
 <p><code>#include &lt;xsysmonpsv_driver.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a7d819b2533611e30b36883fa9939aba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xsysmonpsv__driver_8h.html#ace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html#a7d819b2533611e30b36883fa9939aba9">Handler</a></td></tr>
+<tr class="memitem:a7d819b2533611e30b36883fa9939aba9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__sysmonpsv__api.html#gace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html#a7d819b2533611e30b36883fa9939aba9">Handler</a></td></tr>
 <tr class="memdesc:a7d819b2533611e30b36883fa9939aba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler.  <a href="#a7d819b2533611e30b36883fa9939aba9">More...</a><br/></td></tr>
 <tr class="separator:a7d819b2533611e30b36883fa9939aba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44f72bf2d7f03f4a445ce880cacde776"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html#a44f72bf2d7f03f4a445ce880cacde776">CallbackRef</a></td></tr>
-<tr class="memdesc:a44f72bf2d7f03f4a445ce880cacde776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for event handler.  <a href="#a44f72bf2d7f03f4a445ce880cacde776">More...</a><br/></td></tr>
+<tr class="memdesc:a44f72bf2d7f03f4a445ce880cacde776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for the event handler.  <a href="#a44f72bf2d7f03f4a445ce880cacde776">More...</a><br/></td></tr>
 <tr class="separator:a44f72bf2d7f03f4a445ce880cacde776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1019d36bfb5387bb8d14381cf2355e12"><td class="memItemLeft" align="right" valign="top">XSysMonPsv_Supply&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html#a1019d36bfb5387bb8d14381cf2355e12">Supply</a></td></tr>
-<tr class="memdesc:a1019d36bfb5387bb8d14381cf2355e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supply for which event is set.  <a href="#a1019d36bfb5387bb8d14381cf2355e12">More...</a><br/></td></tr>
+<tr class="memdesc:a1019d36bfb5387bb8d14381cf2355e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supply for which the event is set.  <a href="#a1019d36bfb5387bb8d14381cf2355e12">More...</a><br/></td></tr>
 <tr class="separator:a1019d36bfb5387bb8d14381cf2355e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ad03542dd631d1a90c9bc74b36bdaa2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html#a8ad03542dd631d1a90c9bc74b36bdaa2">IsCallbackSet</a></td></tr>
 <tr class="memdesc:a8ad03542dd631d1a90c9bc74b36bdaa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check if a callback has been set.  <a href="#a8ad03542dd631d1a90c9bc74b36bdaa2">More...</a><br/></td></tr>
 <tr class="separator:a8ad03542dd631d1a90c9bc74b36bdaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This is an interrupt callback structure where callbacks and the callback reference is stored. </p>
+<div class="textblock"><p>Stores the interrupt callbacks and their callback references. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a44f72bf2d7f03f4a445ce880cacde776"></a>
 <div class="memitem">
@@ -146,7 +146,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback reference for event handler. </p>
+<p>Callback reference for the event handler. </p>
 
 </div>
 </div>
@@ -155,7 +155,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="xsysmonpsv__driver_8h.html#ace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a> XSysMonPsv_EventHandler::Handler</td>
+          <td class="memname"><a class="el" href="group__sysmonpsv__api.html#gace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a> XSysMonPsv_EventHandler::Handler</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -188,7 +188,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Supply for which event is set. </p>
+<p>Supply for which the event is set. </p>
 
 </div>
 </div>

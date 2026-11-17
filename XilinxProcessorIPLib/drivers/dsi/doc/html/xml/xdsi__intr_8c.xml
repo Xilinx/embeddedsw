@@ -6,42 +6,42 @@
     <includes refid="xdsi__hw_8h" local="yes">xdsi_hw.h</includes>
     <includes refid="xdsi_8h" local="yes">xdsi.h</includes>
     <incdepgraph>
+      <node id="55">
+        <label>xil_io.h</label>
+      </node>
       <node id="53">
-        <label>xdsi_hw.h</label>
-        <link refid="xdsi__hw_8h"/>
+        <label>xstatus.h</label>
+      </node>
+      <node id="58">
+        <label>xvidc.h</label>
+      </node>
+      <node id="57">
+        <label>xil_types.h</label>
+      </node>
+      <node id="52">
+        <label>xdsi_intr.c</label>
+        <link refid="xdsi_intr.c"/>
+        <childnode refid="53" relation="include">
+        </childnode>
         <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
         </childnode>
       </node>
       <node id="54">
-        <label>xil_io.h</label>
-      </node>
-      <node id="55">
-        <label>xdsi.h</label>
-        <link refid="xdsi_8h"/>
-        <childnode refid="56" relation="include">
+        <label>xdsi_hw.h</label>
+        <link refid="xdsi__hw_8h"/>
+        <childnode refid="55" relation="include">
         </childnode>
-        <childnode refid="53" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-      </node>
-      <node id="52">
-        <label>xstatus.h</label>
-      </node>
-      <node id="57">
-        <label>xvidc.h</label>
       </node>
       <node id="56">
-        <label>xil_types.h</label>
-      </node>
-      <node id="51">
-        <label>xdsi_intr.c</label>
-        <link refid="xdsi_intr.c"/>
-        <childnode refid="52" relation="include">
+        <label>xdsi.h</label>
+        <link refid="xdsi_8h"/>
+        <childnode refid="57" relation="include">
         </childnode>
-        <childnode refid="53" relation="include">
+        <childnode refid="54" relation="include">
         </childnode>
-        <childnode refid="55" relation="include">
+        <childnode refid="58" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -81,8 +81,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="61" bodyend="71"/>
-        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="61" bodyend="71"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="329">XDSI_IER_ALLINTR_MASK</references>
       </memberdef>
       <memberdef kind="function" id="group__dsi_1gac3e09d98f76b1f93db4ccbf0aa149aa5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -119,8 +119,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="84" bodyend="93"/>
-        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="84" bodyend="93"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="329">XDSI_IER_ALLINTR_MASK</references>
       </memberdef>
       <memberdef kind="function" id="group__dsi_1gadbca55f4daff263f50034e122be0f001" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -147,7 +147,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="107" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="107" bodyend="117"/>
       </memberdef>
       <memberdef kind="function" id="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -174,7 +174,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="132" bodyend="142"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="132" bodyend="142"/>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -212,8 +212,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="156" bodyend="166"/>
-        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="317">XDSI_IER_ALLINTR_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="156" bodyend="166"/>
+        <references refid="group__dsi_1ga4eed3e0c901d7b2f8b9cb31f3bc73797" compoundref="xdsi__hw_8h" startline="329">XDSI_IER_ALLINTR_MASK</references>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -285,16 +285,16 @@ XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</preformatted></para><para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="921" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="202" bodyend="237"/>
-        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="224">XDsi::CmdQFIFOFullCallback</references>
-        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="226">XDsi::CmdQFIFOFullRef</references>
-        <references refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" compoundref="xdsi_8h" startline="228">XDsi::ErrorCallback</references>
-        <references refid="struct_x_dsi_1a66cf1526618ca4310e53ac9c53d8bd27" compoundref="xdsi_8h" startline="230">XDsi::ErrRef</references>
-        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
-        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="218">XDsi::PixelDataUnderrunCallback</references>
-        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="222">XDsi::PixelDataUnderrundRef</references>
-        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="215">XDsi::UnsupportDataTypeRef</references>
-        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="213">XDsi::UnSupportedDataTypeCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="971" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="202" bodyend="237"/>
+        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="229">XDsi::CmdQFIFOFullCallback</references>
+        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="231">XDsi::CmdQFIFOFullRef</references>
+        <references refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" compoundref="xdsi_8h" startline="233">XDsi::ErrorCallback</references>
+        <references refid="struct_x_dsi_1a66cf1526618ca4310e53ac9c53d8bd27" compoundref="xdsi_8h" startline="235">XDsi::ErrRef</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="236">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="223">XDsi::PixelDataUnderrunCallback</references>
+        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="227">XDsi::PixelDataUnderrundRef</references>
+        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="220">XDsi::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="218">XDsi::UnSupportedDataTypeCallback</references>
         <references refid="group__dsi_1ga31ed3220401bdd75e8a00d01032f6f3e" compoundref="xdsi_8h" startline="64">XDSI_HANDLER_CMDQ_FIFOFULL</references>
         <references refid="group__dsi_1gac110653d63c54ff608aa027071c6f049" compoundref="xdsi_8h" startline="63">XDSI_HANDLER_OTHERERROR</references>
         <references refid="group__dsi_1ga4355644285ba9dabf3f5d38ffc25359c" compoundref="xdsi_8h" startline="62">XDSI_HANDLER_PIXELDATA_UNDERRUN</references>
@@ -324,17 +324,17 @@ XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</preformatted></para><para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="259" bodyend="298"/>
-        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="224">XDsi::CmdQFIFOFullCallback</references>
-        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="226">XDsi::CmdQFIFOFullRef</references>
-        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
-        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="218">XDsi::PixelDataUnderrunCallback</references>
-        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="222">XDsi::PixelDataUnderrundRef</references>
-        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="215">XDsi::UnsupportDataTypeRef</references>
-        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="213">XDsi::UnSupportedDataTypeCallback</references>
-        <references refid="group__dsi_1ga70eb96c20dcdf636a21fb9140d4798e8" compoundref="xdsi__hw_8h" startline="310">XDSI_IER_CMDQ_FIFO_FULL_MASK</references>
-        <references refid="group__dsi_1gab30c45469c76c7f5fcd24956466199ed" compoundref="xdsi__hw_8h" startline="313">XDSI_IER_DATA_ID_ERR_MASK</references>
-        <references refid="group__dsi_1ga73680e01af90788e31e7d4592f6cd600" compoundref="xdsi__hw_8h" startline="316">XDSI_IER_PXL_UNDR_RUN_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c" bodystart="259" bodyend="298"/>
+        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="229">XDsi::CmdQFIFOFullCallback</references>
+        <references refid="struct_x_dsi_1ae3335815a8815965de33783fddc52a12" compoundref="xdsi_8h" startline="231">XDsi::CmdQFIFOFullRef</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="236">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="223">XDsi::PixelDataUnderrunCallback</references>
+        <references refid="struct_x_dsi_1aa47dd5e44096c133f3f60f0fdf62a4bf" compoundref="xdsi_8h" startline="227">XDsi::PixelDataUnderrundRef</references>
+        <references refid="struct_x_dsi_1a313f3430a09427242c38ea57efa5447d" compoundref="xdsi_8h" startline="220">XDsi::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="218">XDsi::UnSupportedDataTypeCallback</references>
+        <references refid="group__dsi_1ga70eb96c20dcdf636a21fb9140d4798e8" compoundref="xdsi__hw_8h" startline="322">XDSI_IER_CMDQ_FIFO_FULL_MASK</references>
+        <references refid="group__dsi_1gab30c45469c76c7f5fcd24956466199ed" compoundref="xdsi__hw_8h" startline="325">XDSI_IER_DATA_ID_ERR_MASK</references>
+        <references refid="group__dsi_1ga73680e01af90788e31e7d4592f6cd600" compoundref="xdsi__hw_8h" startline="328">XDSI_IER_PXL_UNDR_RUN_MASK</references>
         <references refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" compoundref="xdsi__intr_8c" startline="156" endline="166">XDsi_InterruptClear</references>
         <references refid="group__dsi_1ga157c4d25d5f085edfb92b638e916a9cd" compoundref="xdsi__intr_8c" startline="132" endline="142">XDsi_InterruptGetStatus</references>
       </memberdef>
@@ -518,6 +518,6 @@ XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</preformatted></para><para><p
 <codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga11eb46d583cc851d5f7746856a7526e7" kindref="member">XDsi_InterruptClear</ref>(XDsiPtr,<sp/>InvokedIntr);</highlight></codeline>
 <codeline lineno="298"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi_intr.c"/>
   </compounddef>
 </doxygen>

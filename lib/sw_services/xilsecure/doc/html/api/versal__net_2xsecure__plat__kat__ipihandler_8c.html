@@ -122,7 +122,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 5.4   yog  04/29/2024 Fixed doxygen grouping
       mb   07/31/2024 Added the check to validate Payload for NULL pointer
-5.5   tvp  05/13/2025 Code refactoring for Platform specific TRNG functions</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
+5.5   tvp  05/13/2025 Code refactoring for Platform specific TRNG functions
+5.8   mb   09/24/26 Moved XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="net_2xsecure__plat__kat_8h.html">xsecure_plat_kat.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__kat__ipihandler_8h.html">xsecure_kat_ipihandler.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="versal__net_2xsecure__plat__kat__ipihandler_8h.html">xsecure_plat_kat_ipihandler.h</a>&quot;</code><br/>
@@ -131,7 +132,6 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 <code>#include &quot;xil_sutil.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__init_8h.html">xsecure_init.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi.h&quot;</code><br/>
-<code>#include &quot;xsecure_trng.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>

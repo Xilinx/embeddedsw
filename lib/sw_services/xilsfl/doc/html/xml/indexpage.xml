@@ -4,7 +4,7 @@
     <compoundname>index</compoundname>
     <title>xilsfl</title>
     <detaileddescription>
-<para>This file should be included in the example files and compiled along with the examples (*.c).<preformatted>
+<para>Include this file in the example files and compile it along with the examples (*.c).<preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
 <hruler/>
 
@@ -13,6 +13,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
                    in <ref refid="struct_x_sfl___cntrl_info" kindref="compound">XSfl_CntrlInfo</ref>.
 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
 1.1   sb  02/11/25  Add support for x2/x4 operation.
-1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
+      zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
+      zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
+      zm  08/03/26  Add support for MX25U6432F Macronix flash.
+1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
+1.4   vn  08/26/26  Fix Doxygen warnings.
+1.4   vn  09/30/26  Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

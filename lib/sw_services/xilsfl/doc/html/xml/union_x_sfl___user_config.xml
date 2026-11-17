@@ -5,27 +5,41 @@
     <includes local="no">xilsfl.h</includes>
     <innerclass refid="struct_x_sfl___user_config_1_1_ospi___conig" prot="public">XSfl_UserConfig::Ospi_Conig</innerclass>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="group__xilsfl_1ga855e8533105d7b556117a557705b326f" prot="public" static="no" mutable="no">
-        <type>struct XSfl_UserConfig::Ospi_Conig</type>
+      <memberdef kind="variable" id="union_x_sfl___user_config_1a855e8533105d7b556117a557705b326f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_sfl___user_config_1_1_ospi___conig" kindref="compound">XSfl_UserConfig::Ospi_Conig</ref></type>
         <definition>struct XSfl_UserConfig::Ospi_Conig  XSfl_UserConfig::Ospi_Config</definition>
         <argsstring></argsstring>
         <name>Ospi_Config</name>
         <briefdescription>
-        </briefdescription>
+<para>OSPI controller configuration. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="360" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="515" column="1"/>
+        <referencedby refid="xilsfl__ospi__flash__readwrite__example_8c_1ac9643c6f7d05d31e806a1697819800c2" compoundref="xilsfl__ospi__flash__readwrite__example_8c" startline="130" endline="235">SflReadWriteExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef contains configuration information for a flash/controller device. </para>    </briefdescription>
+<para>Holds the configuration information for a flash/controller device. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type. A variable of this type is then passed to the library API functions. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="354" bodyend="361"/>
+<para>Allocate a variable of this type and pass it to the library API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="21">
+        <label>XSfl_UserConfig::Ospi_Conig</label>
+        <link refid="struct_x_sfl___user_config_1_1_ospi___conig"/>
+      </node>
+      <node id="20">
+        <label>XSfl_UserConfig</label>
+        <link refid="union_x_sfl___user_config"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Ospi_Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="505" bodyend="516"/>
     <listofallmembers>
-      <member refid="group__xilsfl_1ga855e8533105d7b556117a557705b326f" prot="public" virt="non-virtual"><scope>XSfl_UserConfig</scope><name>Ospi_Config</name></member>
+      <member refid="union_x_sfl___user_config_1a855e8533105d7b556117a557705b326f" prot="public" virt="non-virtual"><scope>XSfl_UserConfig</scope><name>Ospi_Config</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

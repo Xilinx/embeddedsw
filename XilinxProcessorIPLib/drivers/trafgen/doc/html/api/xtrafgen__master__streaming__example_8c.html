@@ -100,15 +100,17 @@ $(document).ready(function(){initNavTree('xtrafgen__master__streaming__example_8
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xtrafgen_master_streaming_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file demonstrates how to use the xtrafgen driver on the Xilinx AXI Traffic Generator core. </p>
-<p>The AXI Traffic Generator IP is designed to generate AXI4 traffic which can be used to stress different modules/ interconnect connected in the system.</p>
-<p>This example demonstrates how to use Streaming mode in Axi Traffic Generator When Configured in Master only mode.In this mode the core generates Streaming Traffic based on the transfer length and transfer count configured. To test this example hardware Must contain a Streaming FIFO and the Connections To Axi TrafficGen needs to made As shown below </p>
+<div class="textblock"><p>Demonstrates master-only streaming-mode use of the xtrafgen driver. </p>
+<p>This file demonstrates how to use the xtrafgen driver on the Xilinx AXI Traffic Generator core. The AXI Traffic Generator IP is designed to generate AXI4 traffic which can be used to stress different modules/ interconnect connected in the system.</p>
+<p>This example demonstrates how to use Streaming mode in Axi Traffic Generator When Configured in Master only mode. In this mode the core generates Streaming Traffic based on the transfer length and transfer count configured. To test this example hardware Must contain a Streaming FIFO and the Connections To Axi TrafficGen needs to made As shown below </p>
 <hr/>
 <p> ____________ _________|AXI_STR_RXD | | | | | | | |_____| | | | axi_master| |________________| |____________|</p>
 <p>Axi TrafficGen Axi Stream FIFO</p>
@@ -128,20 +130,88 @@ $(document).ready(function(){initNavTree('xtrafgen__master__streaming__example_8
                      examples.
  4.9 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
      vlt  01/27/26 Fixed codespell issues.
+ 4.10 vn  07/30/26 Fix Doxygen warnings
+ 4.10 vn  09/29/26 Align Doxygen comments with AMD standards
  </pre><hr/>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xtrafgen_8h.html">xtrafgen.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4f2d87307e70466c4fae03a069fe9195"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#a4f2d87307e70466c4fae03a069fe9195">MEM_BASE_ADDR</a>&#160;&#160;&#160;0x01000000</td></tr>
+<tr class="memdesc:a4f2d87307e70466c4fae03a069fe9195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the memory used by the example.  <a href="#a4f2d87307e70466c4fae03a069fe9195">More...</a><br/></td></tr>
+<tr class="separator:a4f2d87307e70466c4fae03a069fe9195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e3e71f0606159034bef9c29dcbaa2d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#a1e3e71f0606159034bef9c29dcbaa2d6">BURST_LEN</a>&#160;&#160;&#160;255</td></tr>
+<tr class="memdesc:a1e3e71f0606159034bef9c29dcbaa2d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Burst length.  <a href="#a1e3e71f0606159034bef9c29dcbaa2d6">More...</a><br/></td></tr>
+<tr class="separator:a1e3e71f0606159034bef9c29dcbaa2d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d48bceabfc762278552662d1ee82e69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#a9d48bceabfc762278552662d1ee82e69">STR_FIFO0_ADDR</a>&#160;&#160;&#160;XPAR_AXI_FIFO_0_BASEADDR</td></tr>
+<tr class="memdesc:a9d48bceabfc762278552662d1ee82e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the AXI-Stream FIFO.  <a href="#a9d48bceabfc762278552662d1ee82e69">More...</a><br/></td></tr>
+<tr class="separator:a9d48bceabfc762278552662d1ee82e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a32230b891fe6361bfa9c41865a2949c3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#a32230b891fe6361bfa9c41865a2949c3">XTrafGenStremingModeMasterExample</a> (<a class="el" href="struct_x_traf_gen.html">XTrafGen</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a32230b891fe6361bfa9c41865a2949c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage Traffic Generator It does the following:  <a href="#a32230b891fe6361bfa9c41865a2949c3">More...</a><br/></td></tr>
+<tr class="memdesc:a32230b891fe6361bfa9c41865a2949c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the Traffic Generator in streaming mode.  <a href="#a32230b891fe6361bfa9c41865a2949c3">More...</a><br/></td></tr>
 <tr class="separator:a32230b891fe6361bfa9c41865a2949c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the traffic generator streaming example test.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:abb83a056fee0ddb4ee12593cca02617e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_traf_gen.html">XTrafGen</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#abb83a056fee0ddb4ee12593cca02617e">XTrafGenInstance</a></td></tr>
+<tr class="memdesc:abb83a056fee0ddb4ee12593cca02617e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Traffic Generator.  <a href="#abb83a056fee0ddb4ee12593cca02617e">More...</a><br/></td></tr>
+<tr class="separator:abb83a056fee0ddb4ee12593cca02617e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b2e9d21ed735b58df001335215218f8"><td class="memItemLeft" align="right" valign="top">XLlFifo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtrafgen__master__streaming__example_8c.html#a5b2e9d21ed735b58df001335215218f8">XLlFifoInstance</a></td></tr>
+<tr class="memdesc:a5b2e9d21ed735b58df001335215218f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the AXI-Stream FIFO.  <a href="#a5b2e9d21ed735b58df001335215218f8">More...</a><br/></td></tr>
+<tr class="separator:a5b2e9d21ed735b58df001335215218f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a1e3e71f0606159034bef9c29dcbaa2d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BURST_LEN&#160;&#160;&#160;255</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Burst length. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4f2d87307e70466c4fae03a069fe9195"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MEM_BASE_ADDR&#160;&#160;&#160;0x01000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the memory used by the example. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9d48bceabfc762278552662d1ee82e69"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STR_FIFO0_ADDR&#160;&#160;&#160;XPAR_AXI_FIFO_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the AXI-Stream FIFO. </p>
+
+<p>Referenced by <a class="el" href="xtrafgen__master__streaming__example_8c.html#a32230b891fe6361bfa9c41865a2949c3">XTrafGenStremingModeMasterExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 <div class="memitem">
@@ -156,22 +226,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function. </p>
+<p>Runs the traffic generator streaming example test. </p>
 <p>This function is the main entry of the traffic generator test.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if tests pass</li>
+<li>XST_SUCCESS if tests pass.</li>
+<li>XST_FAILURE if fails. </li>
 </ul>
 </dd></dl>
-<ul>
-<li>XST_FAILURE if fails.</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xtrafgen__master__streaming__example_8c.html#a32230b891fe6361bfa9c41865a2949c3">XTrafGenStremingModeMasterExample()</a>.</p>
 
@@ -201,29 +262,61 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function demonstrates the usage Traffic Generator It does the following: </p>
-<pre class="fragment">  - Set up the output terminal if UART16550 is in the hardware build
-  - Initialize the AXI Traffic Generator device
-  - Initialize the Streaming FIFO device
-  - Set the Desired Transfer Count and Transfer Length
-  - Enable the Traffic Generation on the Core
-  - Check for the Streaming data on the FIFO
-  - Return test status and exit
-</pre><dl class="params"><dt>Parameters</dt><dd>
+<p>Demonstrates the usage of the Traffic Generator in streaming mode. </p>
+<p>It does the following:</p>
+<ul>
+<li>Set up the output terminal if UART16550 is in the hardware build</li>
+<li>Initialize the AXI Traffic Generator device</li>
+<li>Initialize the Streaming FIFO device</li>
+<li>Set the Desired Transfer Count and Transfer Length</li>
+<li>Enable the Traffic Generation on the Core</li>
+<li>Check for the Streaming data on the FIFO</li>
+<li>Return test status and exit</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance of the <a class="el" href="struct_x_traf_gen.html" title="The XTrafGen driver instance data. ">XTrafGen</a> component. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>is Device ID of the Axi Traffic Generator Device,</td></tr>
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance of the <a class="el" href="struct_x_traf_gen.html" title="The XTrafGen driver instance data. ">XTrafGen</a> component. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the instance of the <a class="el" href="struct_x_traf_gen.html" title="The XTrafGen driver instance data. ">XTrafGen</a> component. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_traf_gen___config.html#ac47f34b47fc9fb39c04ac7a57ac58d48">XTrafGen_Config::BaseAddress</a>, <a class="el" href="struct_x_traf_gen.html#af67f6122abede0916eb19b1fcbb33794">XTrafGen::OperatingMode</a>, <a class="el" href="group__trafgen.html#gaf22b2f8af4980fac9d5faaf3001ab0f0">XTG_MODE_STREAMING</a>, <a class="el" href="group__trafgen.html#ga4d40f6d5551836dab49e0d22e8d5e1eb">XTrafGen_CfgInitialize()</a>, <a class="el" href="group__trafgen.html#ga9628f47e6f85fc3dba9f55c4b28b2e69">XTrafGen_GetStreamingTransCnt</a>, <a class="el" href="group__trafgen.html#gaf17c0eadf5962f5dd8ba970b77dd12e6">XTrafGen_GetStreamingTransLen</a>, <a class="el" href="group__trafgen.html#gac3cbfc258cf7a91a271140e9ffc33c76">XTrafGen_LookupConfig()</a>, <a class="el" href="group__trafgen.html#ga5481f14f30231fcf80dafa2b77f6e8a3">XTrafGen_ResetStreamingRandomLen</a>, <a class="el" href="group__trafgen.html#ga90d0e4161092c15a1ca821f97cdd7a4b">XTrafGen_SetStreamingTransCnt</a>, <a class="el" href="group__trafgen.html#gae7e5d3e4f6de43f247a5f52dbade8deb">XTrafGen_SetStreamingTransLen</a>, and <a class="el" href="group__trafgen.html#gaadc216c9d0077b5906e2b07029b8877a">XTrafGen_StreamEnable</a>.</p>
+<p>References <a class="el" href="struct_x_traf_gen___config.html#ac47f34b47fc9fb39c04ac7a57ac58d48">XTrafGen_Config::BaseAddress</a>, <a class="el" href="struct_x_traf_gen.html#af67f6122abede0916eb19b1fcbb33794">XTrafGen::OperatingMode</a>, <a class="el" href="xtrafgen__master__streaming__example_8c.html#a9d48bceabfc762278552662d1ee82e69">STR_FIFO0_ADDR</a>, <a class="el" href="xtrafgen__master__streaming__example_8c.html#a5b2e9d21ed735b58df001335215218f8">XLlFifoInstance</a>, <a class="el" href="group__trafgen.html#gaf22b2f8af4980fac9d5faaf3001ab0f0">XTG_MODE_STREAMING</a>, <a class="el" href="group__trafgen.html#ga4d40f6d5551836dab49e0d22e8d5e1eb">XTrafGen_CfgInitialize()</a>, <a class="el" href="group__trafgen.html#ga9628f47e6f85fc3dba9f55c4b28b2e69">XTrafGen_GetStreamingTransCnt</a>, <a class="el" href="group__trafgen.html#gaf17c0eadf5962f5dd8ba970b77dd12e6">XTrafGen_GetStreamingTransLen</a>, <a class="el" href="group__trafgen.html#gac3cbfc258cf7a91a271140e9ffc33c76">XTrafGen_LookupConfig()</a>, <a class="el" href="group__trafgen.html#ga5481f14f30231fcf80dafa2b77f6e8a3">XTrafGen_ResetStreamingRandomLen</a>, <a class="el" href="group__trafgen.html#ga90d0e4161092c15a1ca821f97cdd7a4b">XTrafGen_SetStreamingTransCnt</a>, <a class="el" href="group__trafgen.html#gae7e5d3e4f6de43f247a5f52dbade8deb">XTrafGen_SetStreamingTransLen</a>, and <a class="el" href="group__trafgen.html#gaadc216c9d0077b5906e2b07029b8877a">XTrafGen_StreamEnable</a>.</p>
 
 <p>Referenced by <a class="el" href="xtrafgen__master__streaming__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a5b2e9d21ed735b58df001335215218f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XLlFifo XLlFifoInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the AXI-Stream FIFO. </p>
+
+<p>Referenced by <a class="el" href="xtrafgen__master__streaming__example_8c.html#a32230b891fe6361bfa9c41865a2949c3">XTrafGenStremingModeMasterExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb83a056fee0ddb4ee12593cca02617e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_traf_gen.html">XTrafGen</a> XTrafGenInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the Traffic Generator. </p>
 
 </div>
 </div>

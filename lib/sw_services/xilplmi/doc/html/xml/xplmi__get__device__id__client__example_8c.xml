@@ -8,65 +8,65 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
     <incdepgraph>
-      <node id="1598">
-        <label>xplmi_client.h</label>
-        <link refid="xplmi__client_8h"/>
-        <childnode refid="1599" relation="include">
-        </childnode>
-        <childnode refid="1600" relation="include">
-        </childnode>
-        <childnode refid="1603" relation="include">
-        </childnode>
-      </node>
-      <node id="1606">
+      <node id="1692">
         <label>xil_cache.h</label>
       </node>
-      <node id="1605">
-        <label>xil_util.h</label>
-      </node>
-      <node id="1601">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="1597">
-        <label>xplmi_bsp_config.h</label>
-      </node>
-      <node id="1600">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="1601" relation="include">
-        </childnode>
-        <childnode refid="1602" relation="include">
-        </childnode>
-      </node>
-      <node id="1599">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1602">
-        <label>xparameters.h</label>
-      </node>
-      <node id="1604">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="1603">
+      <node id="1689">
         <label>xplmi_defs.h</label>
         <link refid="xplmi__defs_8h"/>
-        <childnode refid="1604" relation="include">
+        <childnode refid="1690" relation="include">
         </childnode>
-        <childnode refid="1599" relation="include">
+        <childnode refid="1685" relation="include">
         </childnode>
       </node>
-      <node id="1596">
+      <node id="1691">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1682">
         <label>xplmi_get_device_id_client_example.c</label>
         <link refid="xplmi_get_device_id_client_example.c"/>
-        <childnode refid="1597" relation="include">
+        <childnode refid="1683" relation="include">
         </childnode>
-        <childnode refid="1598" relation="include">
+        <childnode refid="1684" relation="include">
         </childnode>
-        <childnode refid="1605" relation="include">
+        <childnode refid="1691" relation="include">
         </childnode>
-        <childnode refid="1606" relation="include">
+        <childnode refid="1692" relation="include">
         </childnode>
-        <childnode refid="1603" relation="include">
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1687">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1683">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="1684">
+        <label>xplmi_client.h</label>
+        <link refid="xplmi__client_8h"/>
+        <childnode refid="1685" relation="include">
+        </childnode>
+        <childnode refid="1686" relation="include">
+        </childnode>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1685">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1688">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1690">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1686">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="1687" relation="include">
+        </childnode>
+        <childnode refid="1688" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -97,7 +97,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" bodystart="118" bodyend="133"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" bodystart="118" bodyend="133"/>
       </memberdef>
       <memberdef kind="function" id="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -110,7 +110,7 @@
         <briefdescription>
 <para>This main function to call the In-Place ASU Update example function to perform ASU firmware update. </para>        </briefdescription>
         <detaileddescription>
-<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the EventLogging example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure.</para></listitem></itemizedlist>
 </para><simplesectsep/><para><itemizedlist>
 <listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
@@ -122,7 +122,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Initialize mailbox instance.</para><para>Initialize the PLMI client instance.</para><para>Perform In-Place ASU Update based on configured source.</para><para>Invoke Generate for IV, SharedMem contains random data from this call. Only 12 bytes will be used for each IV</para><para>To generate glitch using test mode, configure glitch detectors with default values. To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the register values instead of efuse values, provide UserRegVal = 0x01</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
         <references refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="94">DDR_ADDR</references>
         <references refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="91">PDI_ID</references>
         <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="67">XLOADER_DDR</references>
@@ -209,20 +209,20 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="118"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>GetDeviceID(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr)</highlight></codeline>
 <codeline lineno="119"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLoader_DeviceIdCode<sp/>DeviceIdCode;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___device_id_code" kindref="compound">XLoader_DeviceIdCode</ref><sp/>DeviceIdCode;</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" kindref="member">XPlmi_GetDeviceID</ref>(InstancePtr,<sp/>&amp;DeviceIdCode);</highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIDCODE<sp/>=<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>DeviceIdCode.IdCode);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nExtIdCode<sp/>=<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>DeviceIdCode.ExtIdCode);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIDCODE<sp/>=<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>DeviceIdCode.<ref refid="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" kindref="member">IdCode</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nExtIdCode<sp/>=<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>DeviceIdCode.<ref refid="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" kindref="member">ExtIdCode</ref>);</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"></highlight></codeline>
 <codeline lineno="131"><highlight class="normal">END:</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="133"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c"/>
   </compounddef>
 </doxygen>

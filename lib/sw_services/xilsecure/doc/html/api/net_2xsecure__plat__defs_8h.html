@@ -133,7 +133,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       kpt  06/30/24 Updated version number
 5.5   vss  04/25/25 Updated minor version
 5.6   vss  09/30/25 Moved crypto algorithm version code to it's corresponding files.
-5.7   tvp  04/04/26 Define macros for RSA key status in RTCA</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
+5.7   tvp  04/04/26 Define macros for RSA key status in RTCA
+5.8   ks   09/22/26 Reserved API Id 19 as the AES KEK decrypt IPI is removed</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
 <code>#include &quot;xil_sutil.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -219,9 +220,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e">XSECURE_API_AES_LOCK_USER_KEY</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a> = 19U,
 <br/>
-&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>,
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a> = 20U,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a> = 23U,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660">XSECURE_API_MAX</a>,
@@ -249,9 +250,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e">XSECURE_API_AES_LOCK_USER_KEY</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a> = 19U,
 <br/>
-&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>,
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a> = 20U,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>,
@@ -289,9 +290,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e">XSECURE_API_AES_LOCK_USER_KEY</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a> = 19U,
 <br/>
-&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>,
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a> = 20U,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a> = 23U,
@@ -323,8 +324,8 @@ Enumerations</h2></td></tr>
 <br/>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e">XSECURE_API_AES_LOCK_USER_KEY</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a> = 19U,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a> = 20U,
 <br/>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>,
@@ -364,9 +365,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e">XSECURE_API_AES_LOCK_USER_KEY</a>,
-<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a> = 19U,
 <br/>
-&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>,
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a> = 20U,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>,
 <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>,

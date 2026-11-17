@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="570" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="554" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga9bcd47f38b9b1c367b2c1a817f406776" compoundref="xhdcp22__rx_8c" startline="786" endline="791">XHdcp22Rx_IsRepeater</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga6fd9509e111de6a53919411b347ca731" compoundref="xhdcp22__rx_8c" startline="803" endline="817">XHdcp22Rx_SetRepeater</referencedby>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="572" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="556" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
       </memberdef>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="574" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="558" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga6fd9509e111de6a53919411b347ca731" compoundref="xhdcp22__rx_8c" startline="803" endline="817">XHdcp22Rx_SetRepeater</referencedby>
       </memberdef>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="576" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="560" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab7ebf254e69d22037e200597bb01af32" compoundref="xhdcp22__rx_8c" startline="945" endline="952">XHdcp22Rx_LoadPublicCert</referencedby>
       </memberdef>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="578" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="562" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" compoundref="xhdcp22__rx_8c" startline="966" endline="994">XHdcp22Rx_LoadPrivateKey</referencedby>
       </memberdef>
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="580" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="564" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" compoundref="xhdcp22__rx_8c" startline="966" endline="994">XHdcp22Rx_LoadPrivateKey</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1a8600812a81daf1433f2837c16ff59f28" prot="public" static="no" mutable="no">
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="582" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="566" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" compoundref="xhdcp22__rx_8c" startline="966" endline="994">XHdcp22Rx_LoadPrivateKey</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" prot="public" static="no" mutable="no">
@@ -119,16 +119,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="584" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="584" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="568" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" compoundref="xhdcp22__rx_8c" startline="416" endline="436">XHdcp22Rx_Disable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
         <referencedby refid="group__hdcp22__rx_1gae1f928aca11e913b06c89b8a6851700d" compoundref="xhdcp22__rx_8c" startline="749" endline="754">XHdcp22Rx_IsAuthenticated</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga845a0efbeae098a01b0cfc9b2c5189cb" compoundref="xhdcp22__rx_8c" startline="689" endline="695">XHdcp22Rx_IsEnabled</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga5e59aa8f06dbe42e9a87cfe09e29909a" compoundref="xhdcp22__rx_8c" startline="767" endline="772">XHdcp22Rx_IsError</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga7fffa97fa9a5708e57358850a2dc0cb5" compoundref="xhdcp22__rx_8c" startline="730" endline="736">XHdcp22Rx_IsInProgress</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" compoundref="xhdcp22__rx_8c" startline="659" endline="677">XHdcp22Rx_Poll</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga69bb699d6fcee2a6cdab30ac68bed43f" compoundref="xhdcp22__rx_8c" startline="857" endline="870">XHdcp22Rx_SetDdcError</referencedby>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="586" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="570" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga9b436a3c2e25f9fbb87affb3d3659f45" compoundref="xhdcp22__rx_8c" startline="1163" endline="1169">XHdcp22Rx_GetContentStreamType</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" prot="public" static="no" mutable="no">
@@ -162,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="588" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="572" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" compoundref="xhdcp22__rx_8c" startline="659" endline="677">XHdcp22Rx_Poll</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="590" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="574" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
@@ -195,10 +195,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="592" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3759" endline="3774">XHdcp22Rx_LogReset</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="576" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3874" endline="3905">XHdcp22Rx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3762" endline="3777">XHdcp22Rx_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" prot="public" static="no" mutable="no">
         <type>XHdcp22_mmult</type>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="594" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="578" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" prot="public" static="no" mutable="no">
@@ -225,11 +225,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="596" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="580" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga4c771ca262727b4fc5d386664d375242" compoundref="xhdcp22__rx_8c" startline="1025" endline="1031">XHdcp22Rx_GetTimer</referencedby>
-        <referencedby refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" compoundref="xhdcp22__rx_8c" startline="3787" endline="3794">XHdcp22Rx_LogGetTimeUSecs</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3759" endline="3774">XHdcp22Rx_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" compoundref="xhdcp22__rx_8c" startline="3790" endline="3797">XHdcp22Rx_LogGetTimeUSecs</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3762" endline="3777">XHdcp22Rx_LogReset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" prot="public" static="no" mutable="no">
         <type>XHdcp22_Rng</type>
@@ -242,10 +242,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="598" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="582" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" compoundref="xhdcp22__rx_8c" startline="416" endline="436">XHdcp22Rx_Disable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga65027e431ba9aa70ab2552875638b2a9" compoundref="xhdcp22__rx__crypt_8c" startline="277" endline="282">XHdcp22Rx_GenerateRandom</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga65027e431ba9aa70ab2552875638b2a9" compoundref="xhdcp22__rx__crypt_8c" startline="279" endline="284">XHdcp22Rx_GenerateRandom</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" prot="public" static="no" mutable="no">
         <type>XHdcp22_Cipher</type>
@@ -258,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="600" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="584" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="584" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" compoundref="xhdcp22__rx_8c" startline="416" endline="436">XHdcp22Rx_Disable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga25378c2077d187a76c06a8408411535e" compoundref="xhdcp22__rx_8c" startline="1006" endline="1012">XHdcp22Rx_GetVersion</referencedby>
@@ -277,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="602" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="586" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" prot="public" static="no" mutable="no">
@@ -291,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="604" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="588" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" prot="public" static="no" mutable="no">
@@ -305,8 +305,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="606" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="606" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="590" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga9a737bfe1572fc283f1a2613b978bbae" compoundref="xhdcp22__rx_8c" startline="1044" endline="1051">XHdcp22Rx_SetTopology</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga7df1401bd1badc409de8f2bd17ffb7e5" compoundref="xhdcp22__rx_8c" startline="1069" endline="1077">XHdcp22Rx_SetTopologyReceiverIdList</referencedby>
@@ -322,7 +322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="611" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="595" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -384,7 +384,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="567" bodyend="612"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="551" bodyend="596"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" prot="public" virt="non-virtual"><scope>XHdcp22_Rx</scope><name>CipherInst</name></member>
       <member refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" prot="public" virt="non-virtual"><scope>XHdcp22_Rx</scope><name>Config</name></member>

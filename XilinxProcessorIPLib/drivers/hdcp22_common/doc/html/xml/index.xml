@@ -12,6 +12,7 @@
     <member refid="aes_8c_1a1eb0c328292f07d6eac7ec5cfcc31a78" kind="variable"><name>Aes_Sbox</name></member>
     <member refid="aes_8c_1a34e83655067d1f32e60f08a71c03a213" kind="variable"><name>Aes_Invsbox</name></member>
     <member refid="aes_8c_1a5d162b2956f83d8291450409d3df72f7" kind="variable"><name>Aes_GfMul</name></member>
+    <member refid="aes_8c_1a81b7e3f198a0976ee2cf33c0b3a17b85" kind="function"><name>AesZeroize</name></member>
     <member refid="aes_8c_1a5c9bee53033a770fb58780ce9cca1ada" kind="function"><name>AesSubWord</name></member>
     <member refid="aes_8c_1a889575eb0bb9a90a29ccea47b30b902a" kind="function"><name>AesKeySetup</name></member>
     <member refid="aes_8c_1a963e61837661de8d2221a7fe963bf75a" kind="function"><name>AesAddRoundKey</name></member>

@@ -7,63 +7,63 @@
     <includedby refid="xsecure__slhdsa__ht_8c" local="yes">xsecure_slhdsa_ht.c</includedby>
     <includedby refid="xsecure__slhdsa__xmss_8c" local="yes">xsecure_slhdsa_xmss.c</includedby>
     <incdepgraph>
-      <node id="4566">
+      <node id="4813">
         <label>xsecure_slhdsa_addr.h</label>
         <link refid="xsecure__slhdsa__addr_8h"/>
-        <childnode refid="4567" relation="include">
+        <childnode refid="4814" relation="include">
         </childnode>
-        <childnode refid="4568" relation="include">
+        <childnode refid="4815" relation="include">
         </childnode>
-        <childnode refid="4569" relation="include">
+        <childnode refid="4816" relation="include">
         </childnode>
       </node>
-      <node id="4568">
+      <node id="4815">
         <label>xil_io.h</label>
       </node>
-      <node id="4565">
-        <label>xsecure_slhdsa_instance.h</label>
-        <link refid="xsecure__slhdsa__instance_8h"/>
-        <childnode refid="4566" relation="include">
-        </childnode>
-        <childnode refid="4567" relation="include">
-        </childnode>
-        <childnode refid="4570" relation="include">
-        </childnode>
-      </node>
-      <node id="4570">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="4569">
-        <label>xsecure_utils.h</label>
-      </node>
-      <node id="4567">
-        <label>xil_types.h</label>
-      </node>
-      <node id="4564">
+      <node id="4811">
         <label>xsecure_slhdsa_xmss.h</label>
         <link refid="xsecure_slhdsa_xmss.h"/>
-        <childnode refid="4565" relation="include">
+        <childnode refid="4812" relation="include">
         </childnode>
-        <childnode refid="4567" relation="include">
+        <childnode refid="4814" relation="include">
         </childnode>
+      </node>
+      <node id="4817">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4812">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4813" relation="include">
+        </childnode>
+        <childnode refid="4814" relation="include">
+        </childnode>
+        <childnode refid="4817" relation="include">
+        </childnode>
+      </node>
+      <node id="4816">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4814">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4572">
-        <label>xsecure_slhdsa_ht.c</label>
-        <link refid="xsecure__slhdsa__ht_8c"/>
-      </node>
-      <node id="4573">
+      <node id="4820">
         <label>xsecure_slhdsa_xmss.c</label>
         <link refid="xsecure__slhdsa__xmss_8c"/>
       </node>
-      <node id="4571">
+      <node id="4818">
         <label>xsecure_slhdsa_xmss.h</label>
         <link refid="xsecure_slhdsa_xmss.h"/>
-        <childnode refid="4572" relation="include">
+        <childnode refid="4819" relation="include">
         </childnode>
-        <childnode refid="4573" relation="include">
+        <childnode refid="4820" relation="include">
         </childnode>
+      </node>
+      <node id="4819">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -154,7 +154,7 @@ Given: IdxLeaf=58, M=FORS_PK (32 bytes), SignTmp=XMSS_signature (2400 bytes) Bin
 <para><itemizedlist>
 <listitem><para>Step 1: ADRS.setTypeAndClear(WOTS_HASH) -&gt; compute WOTS+ pk from WOTS+ sig</para></listitem><listitem><para>Step 2: ADRS.setKeyPairAddress(idx)</para></listitem><listitem><para>Step 3: sig &lt;- SIG_XMSS.getWOTSSig() (implicit: SignTmp points to WOTS+ sig)</para></listitem><listitem><para>Step 4: AUTH &lt;- SIG_XMSS.getXMSSAUTH() (implicit: SignXmssOffset points to AUTH)</para></listitem><listitem><para>Step 5: node[0] &lt;- wots_pkFromSig(sig, M, PK.seed, ADRS)</para></listitem><listitem><para>Step 6: ADRS.setTypeAndClear(TREE) -&gt; compute root from WOTS+ pk and AUTH</para></listitem><listitem><para>Step 8: for k from 0 to h&apos; - 1 do</para></listitem><listitem><para>Step 9: ADRS.setTreeHeight(k + 1)</para></listitem><listitem><para>Step 10: if floor(idx/2^k) is odd then</para></listitem><listitem><para>Step 14: ADRS.setTreeIndex((ADRS.getTreeIndex() - 1)/2) (implicit)</para></listitem><listitem><para>Step 15: node[1] &lt;- H(PK.seed, ADRS, AUTH[k] || node[0])</para></listitem><listitem><para>Step 11: ADRS.setTreeIndex(ADRS.getTreeIndex()/2) (implicit in logic)</para></listitem><listitem><para>Step 12: node[1] &lt;- H(PK.seed, ADRS, node[0] || AUTH[k])</para></listitem><listitem><para>Step 17: node[0] &lt;- node[1] (Node already updated in-place)</para></listitem><listitem><para>Step 18: end for</para></listitem><listitem><para>Step 19: return node[0] </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" bodystart="189" bodyend="287"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.c" bodystart="189" bodyend="287"/>
         <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
         <references refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" compoundref="xsecure__slhdsa__instance_8h" startline="177">XSecure_ChecksumParam::ChecksumLenInDigits</references>
         <references refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" compoundref="xsecure__slhdsa__instance_8h" startline="210">XSecure_SlhdsaParam::ChecksumParams</references>
@@ -162,10 +162,10 @@ Given: IdxLeaf=58, M=FORS_PK (32 bytes), SignTmp=XMSS_signature (2400 bytes) Bin
         <references refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" compoundref="xsecure__slhdsa__instance_8h" startline="176">XSecure_ChecksumParam::InputLenInDigits</references>
         <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
         <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="248">XSECURE_ERR_GLITCH_DETECTED</references>
         <references refid="group__xsecure__lms__server__apis_1gae8d8240f98a33ee9d0f751ccb14aae42" compoundref="xsecure__lms_8h" startline="36">XSECURE_IS_ODD</references>
         <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
-        <references refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="342" endline="396">XSecure_SlhdsaShake256sHashH</references>
         <references refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</references>
         <references refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" compoundref="core_2util_2xsecure__utils_8h" startline="59">XSECURE_VALUE_ONE</references>
         <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
@@ -206,8 +206,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLH_DSA_XMSS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_xmss.h"/>
   </compounddef>
 </doxygen>

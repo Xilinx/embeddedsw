@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___xfer___cmd_desc.ht
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___xfer___cmd_desc.ht
 </div><!--header-->
 <div class="contents">
 
-<p>UTP Command request Descriptor Structure - 128-byte aligned.
+<p>Holds a UTP command request descriptor.
  <a href="struct_x_ufs_psxc___xfer___cmd_desc.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
@@ -125,26 +125,27 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a20533afb5b19b888e50009bc077eac41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ufs_psxc___xfer___resp_upiu.html">XUfsPsxc_Xfer_RespUpiu</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___cmd_desc.html#a20533afb5b19b888e50009bc077eac41">RespUpiu</a></td></tr>
 <tr class="memdesc:a20533afb5b19b888e50009bc077eac41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer Response UPIU.  <a href="#a20533afb5b19b888e50009bc077eac41">More...</a><br/></td></tr>
 <tr class="separator:a20533afb5b19b888e50009bc077eac41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af59555926e2c77d9dd831659abdcb0a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ufs_psxc___xfer___prdt.html">XUfsPsxc_Xfer_Prdt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___cmd_desc.html#af59555926e2c77d9dd831659abdcb0a4">Prdt</a> [XUFSPSXC_PRDT_ENTRIES]</td></tr>
+<tr class="memitem:af59555926e2c77d9dd831659abdcb0a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ufs_psxc___xfer___prdt.html">XUfsPsxc_Xfer_Prdt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___cmd_desc.html#af59555926e2c77d9dd831659abdcb0a4">Prdt</a> [<a class="el" href="group__ufspsxc.html#ga21b3eb3474baa6a0ef517a522f4e218c">XUFSPSXC_PRDT_ENTRIES</a>]</td></tr>
 <tr class="memdesc:af59555926e2c77d9dd831659abdcb0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRDT - Number of entries restricted to 1 for ROM/PLM use case.  <a href="#af59555926e2c77d9dd831659abdcb0a4">More...</a><br/></td></tr>
 <tr class="separator:af59555926e2c77d9dd831659abdcb0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>UTP Command request Descriptor Structure - 128-byte aligned. </p>
+<div class="textblock"><p>Holds a UTP command request descriptor. </p>
+<p>UTP Command request Descriptor Structure - 128-byte aligned </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="af59555926e2c77d9dd831659abdcb0a4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_ufs_psxc___xfer___prdt.html">XUfsPsxc_Xfer_Prdt</a> XUfsPsxc_Xfer_CmdDesc::Prdt[XUFSPSXC_PRDT_ENTRIES]</td>
+          <td class="memname"><a class="el" href="struct_x_ufs_psxc___xfer___prdt.html">XUfsPsxc_Xfer_Prdt</a> XUfsPsxc_Xfer_CmdDesc::Prdt[<a class="el" href="group__ufspsxc.html#ga21b3eb3474baa6a0ef517a522f4e218c">XUFSPSXC_PRDT_ENTRIES</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>PRDT - Number of entries restricted to 1 for ROM/PLM use case. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, and <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc__api.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, and <a class="el" href="group__ufspsxc__api.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>.</p>
 
 </div>
 </div>
@@ -160,7 +161,7 @@ Data Fields</h2></td></tr>
 
 <p>Transfer Request UPIU. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, <a class="el" href="group__ufspsxc.html#ga13fea34df11f07626308ad42623497ff">XUfsPsxc_Set4KBlkSize()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
+<p>Referenced by <a class="el" href="xufspsxc__setluncfg__example_8c.html#ac0a6cd655495437d15c3416c4326e1c7">SetConfigurationDesc()</a>, <a class="el" href="group__ufspsxc__api.html#ga5f290332136d2b1496f06f1b0ba72312">XUfsPsxc_EvaluateUpiuResponse()</a>, <a class="el" href="group__ufspsxc__api.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, <a class="el" href="group__ufspsxc__api.html#ga13fea34df11f07626308ad42623497ff">XUfsPsxc_Set4KBlkSize()</a>, <a class="el" href="group__ufspsxc__api.html#ga7c53c0273b0baaf8c7dd90cf484eb5b8">XUfsPsxc_WaitTestUnitReady()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
 
 </div>
 </div>
@@ -176,7 +177,7 @@ Data Fields</h2></td></tr>
 
 <p>Transfer Response UPIU. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gafa5f97c1a585f348eb57d7cfa82b5080">XUfsPsxc_CardInitialize()</a>, <a class="el" href="group__ufspsxc.html#ga88763b7077bb9b4880c84156663dc1cb">XUfsPsxc_FillAttrUpiu()</a>, <a class="el" href="group__ufspsxc.html#gac6c05905f6fcef83ac0da3b72887164b">XUfsPsxc_FillDescUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga4f01785053f7c891ffceab509d137b1e">XUfsPsxc_FillFlagUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga033076869a57d47e1742f555bb6a0276">XUfsPsxc_FillNopOutUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#gafd68bf712ad71a509ba5e9715d8b2827">XUfsPsxc_FillTestUnitRdyUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga353f784dcc8a50185ea407bc0dcb4768">XUfsPsxc_GetLUNInfo()</a>, <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga029d0b5ef73c6cd4daaf455d82afbd57">XUfsPsxc_ReadDeviceInfo()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, <a class="el" href="group__ufspsxc.html#ga6e5ad67b7055e0c5174028c2bdd464c0">XUfsPsxc_SwitchBootLUN()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
+<p>Referenced by <a class="el" href="xufspsxc__setluncfg__example_8c.html#ac0a6cd655495437d15c3416c4326e1c7">SetConfigurationDesc()</a>, <a class="el" href="group__ufspsxc__api.html#gafa5f97c1a585f348eb57d7cfa82b5080">XUfsPsxc_CardInitialize()</a>, <a class="el" href="group__ufspsxc__api.html#ga5f290332136d2b1496f06f1b0ba72312">XUfsPsxc_EvaluateUpiuResponse()</a>, <a class="el" href="group__ufspsxc__api.html#ga88763b7077bb9b4880c84156663dc1cb">XUfsPsxc_FillAttrUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#gac6c05905f6fcef83ac0da3b72887164b">XUfsPsxc_FillDescUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga4f01785053f7c891ffceab509d137b1e">XUfsPsxc_FillFlagUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga033076869a57d47e1742f555bb6a0276">XUfsPsxc_FillNopOutUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#gafd68bf712ad71a509ba5e9715d8b2827">XUfsPsxc_FillTestUnitRdyUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga353f784dcc8a50185ea407bc0dcb4768">XUfsPsxc_GetLUNInfo()</a>, <a class="el" href="group__ufspsxc__api.html#ga029d0b5ef73c6cd4daaf455d82afbd57">XUfsPsxc_ReadDeviceInfo()</a>, <a class="el" href="group__ufspsxc.html#ga6e5ad67b7055e0c5174028c2bdd464c0">XUfsPsxc_SwitchBootLUN()</a>, and <a class="el" href="group__ufspsxc__api.html#ga7c53c0273b0baaf8c7dd90cf484eb5b8">XUfsPsxc_WaitTestUnitReady()</a>.</p>
 
 </div>
 </div>

@@ -5,14 +5,14 @@
     <includes local="no">xil_types.h</includes>
     <includedby refid="xcoresightpsdcc_8c" local="yes">xcoresightpsdcc.c</includedby>
     <incdepgraph>
-      <node id="8">
-        <label>xil_types.h</label>
-      </node>
       <node id="7">
         <label>xcoresightpsdcc.h</label>
         <link refid="xcoresightpsdcc.h"/>
         <childnode refid="8" relation="include">
         </childnode>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -27,19 +27,6 @@
         </childnode>
       </node>
     </invincdepgraph>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="group__coresightps__dcc_1gaf77fb5d935e60314cf2b35deeae53c76" prot="public" static="no">
-        <name>XCORESIGHTPSDCC_H</name>
-        <initializer>/* by using protection macros */</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" bodystart="45" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -55,29 +42,28 @@
           <declname>Data</declname>
         </param>
         <briefdescription>
-<para>This functions sends a single byte using the DCC. </para>        </briefdescription>
+<para>Sends a single byte using the DCC. </para>        </briefdescription>
         <detaileddescription>
-<para>It is blocking in that it waits for the transmitter to become non-full before it writes the byte to the transmit register.</para><para><parameterlist kind="param"><parameteritem>
+<para>This function is blocking. It waits until the transmitter is not full, then writes the byte to the transmit register.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a dummy parameter to match the function proto of functions for other stdio devices. </para></parameterdescription>
+<para>Dummy parameter to match other stdio device function prototypes. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Data</parametername>
+<parametername direction="in">Data</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the byte of data to send</para></parameterdescription>
+<para>Byte of data to send. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="78" bodyend="99"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="78" bodyend="99"/>
+        <references refid="group__coresightps__dcc__api_1gade67de45c061af33652b3b410ee8b915" compoundref="xcoresightpsdcc_8c" startline="60">XCORESIGHTPS_DCC_STATUS_TX</references>
       </memberdef>
       <memberdef kind="function" id="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -89,22 +75,22 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This functions receives a single byte using the DCC. </para>        </briefdescription>
+<para>Receives a single byte using the DCC. </para>        </briefdescription>
         <detaileddescription>
-<para>It is blocking in that it waits for the receiver to become non-empty before it reads from the receive register.</para><para><parameterlist kind="param"><parameteritem>
+<para>This function is blocking. It waits until the receiver is not empty, then reads the byte from the receive register.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a dummy parameter to match the function proto of functions for other stdio devices.</para></parameterdescription>
+<para>Dummy parameter to match other stdio device function prototypes.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>The byte of data received.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
+<simplesect kind="return"><para>The byte of data received. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="116" bodyend="139"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="115" bodyend="138"/>
+        <references refid="group__coresightps__dcc__api_1ga2ee8d807420c735c1ba17a26fc4491b0" compoundref="xcoresightpsdcc_8c" startline="59">XCORESIGHTPS_DCC_STATUS_RX</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -114,15 +100,16 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="43"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XCORESIGHTPSDCC_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCORESIGHTPSDCC_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XCORESIGHTPSDCC_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCORESIGHTPSDCC_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
 <codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
@@ -130,9 +117,9 @@
 <codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!<sp/>defined(__MICROBLAZE__)<sp/>&amp;&amp;<sp/>!<sp/>defined(__riscv)</highlight></codeline>
 <codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" kindref="member">XCoresightPs_DccSendByte</ref>(u32<sp/>BaseAddress,<sp/>u8<sp/>Data);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__coresightps__dcc__api_1ga8a5824ce159a24ea536a04cb80087249" kindref="member">XCoresightPs_DccSendByte</ref>(u32<sp/>BaseAddress,<sp/>u8<sp/>Data);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal">u8<sp/><ref refid="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" kindref="member">XCoresightPs_DccRecvByte</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">u8<sp/><ref refid="group__coresightps__dcc__api_1ga9b2db90006be1a49e9e8428e91c6a655" kindref="member">XCoresightPs_DccRecvByte</ref>(u32<sp/>BaseAddress);</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
@@ -142,6 +129,6 @@
 <codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h"/>
   </compounddef>
 </doxygen>

@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('xilpdi_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xilpdi.c File Reference</div>  </div>
@@ -158,10 +159,26 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  12/09/2024 use PMC RAM for PDI instance instead of PPU1 RAM
 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
                 abh      07/16/2025 Fixed GCC warnings
-      pre  09/16/2025 Updated comments for rtf doc</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilpdi_8h.html">xilpdi.h</a>&quot;</code><br/>
+      pre  09/16/2025 Updated comments for rtf doc
+1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
+                      const pointer to prevent caller from modifying digest table in PMC RAM.
+1.15  sd   07/23/2026 Fixed infinite loop in XilPdi_SearchOptionalData on
+                      zero length optional data header.
+      vm   08/22/2026 Skip SMAP bus width in optional data of partial ASU update PDI
+      obs  08/21/2026 Bounded per image partition count in
+                      XilPdi_VerifyImgHdrs
+      obs  09/20/2026 Reduced partition count validation code size
+      sd   10/09/2026 Corrected optional data length check in
+                      XilPdi_ReadOptionalData to compare in words</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilpdi_8h.html">xilpdi.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga6dc0e81411e6a8bf2c9967d03fd597ae">XILPDI_PDI_TYPE_IAU</a>&#160;&#160;&#160;(0x7U)</td></tr>
+<tr class="memdesc:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">PDI type of an in-place ASU update PDI.  <a href="group__xilpdi__apis.html#ga6dc0e81411e6a8bf2c9967d03fd597ae">More...</a><br/></td></tr>
+<tr class="separator:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gacf4b60f3bfd29d0d200e4f218b74dcdf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">XilPdi_ValidateChecksum</a> (const void *Buffer, u32 Length)</td></tr>
@@ -191,9 +208,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga99aeeb01dc13465959103fa29625923a"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga99aeeb01dc13465959103fa29625923a">XilPdi_SearchOptionalData</a> (u64 StartAddress, u64 EndAddress, u32 DataId)</td></tr>
 <tr class="memdesc:ga99aeeb01dc13465959103fa29625923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function searches for optional data address based on given Data ID.  <a href="group__xilpdi__apis.html#ga99aeeb01dc13465959103fa29625923a">More...</a><br/></td></tr>
 <tr class="separator:ga99aeeb01dc13465959103fa29625923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
-<tr class="memdesc:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">More...</a><br/></td></tr>
-<tr class="separator:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
+<tr class="memdesc:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">More...</a><br/></td></tr>
+<tr class="separator:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab206394653dbbd10d5fbdbb41832c8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gaab206394653dbbd10d5fbdbb41832c8e">XilPdi_ReadImgHdrs</a> (const <a class="el" href="struct_xil_pdi___meta_hdr.html">XilPdi_MetaHdr</a> *MetaHdrPtr)</td></tr>
 <tr class="memdesc:gaab206394653dbbd10d5fbdbb41832c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Image Headers from the pdi stored in device (flash/SBI buffer/DDR/SD)  <a href="group__xilpdi__apis.html#gaab206394653dbbd10d5fbdbb41832c8e">More...</a><br/></td></tr>
 <tr class="separator:gaab206394653dbbd10d5fbdbb41832c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>

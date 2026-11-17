@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c" kind="struct" prot="public">
     <compoundname>USB_STD_STRING_PS_DESC</compoundname>
+    <includes local="no">xusb_types.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_1a20f1afa8483502f9438c384b0d80e8d4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,13 @@
         <argsstring></argsstring>
         <name>bLength</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor length in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="436" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="xusb__cp9_8h_1ab8ca0ad29df636d913b014873634e94f" compoundref="xusb__cp9_8c" startline="620" endline="869">GetDescriptor</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_1ac795a12e315673f80be8f635e035855c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +24,12 @@
         <argsstring></argsstring>
         <name>bType</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor type (string = 0x03). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="437" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="439" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_1aae5270f7916cb9d3ba8e4f67b3734597" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,19 +37,19 @@
         <argsstring>[10]</argsstring>
         <name>bString</name>
         <briefdescription>
-        </briefdescription>
+<para>Product name string in Unicode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="438" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="440" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Standard USB product string descriptor. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="435" bodyend="439"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="437" bodyend="441"/>
     <listofallmembers>
       <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_1a20f1afa8483502f9438c384b0d80e8d4" prot="public" virt="non-virtual"><scope>USB_STD_STRING_PS_DESC</scope><name>bLength</name></member>
       <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_1aae5270f7916cb9d3ba8e4f67b3734597" prot="public" virt="non-virtual"><scope>USB_STD_STRING_PS_DESC</scope><name>bString</name></member>

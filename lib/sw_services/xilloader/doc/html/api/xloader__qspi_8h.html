@@ -124,8 +124,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       bsv  08/31/2021 Code clean up
       ng   08/09/2023 Removed redundant windbond flash size macro
         prt      04/02/2025 Added support for Infineon QSPI flash parts
-2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
+2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
+      pre  08/18/2026 Added XLoader_QspiReadDdrCalibData for calib data restore
+      pre  10/22/2026 QSPI calib data restore API is under
+                      PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
+</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi_status.h&quot;</code><br/>
+<code>#include &quot;xparameters.h&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

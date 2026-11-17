@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="383" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="383" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
         <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
         <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
@@ -33,7 +33,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="384" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="384" bodyend="-1"/>
         <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
         <referencedby refid="group__dfemix_1ga4156eaf9d772037fcf6b51ef6703f32b" compoundref="xdfemix_8c" startline="2500" endline="2511">XDfeMix_RemoveCCfromCCCfg</referencedby>
       </memberdef>
@@ -50,7 +50,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="391" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="391" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
         <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
       </memberdef>
@@ -59,7 +59,7 @@
 <para>Defines settings for internal single CC&apos;s DUC/DDC. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="382" bodyend="397"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="382" bodyend="397"/>
     <listofallmembers>
       <member refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a35f112e0cf99001a05032b33d1f9923c" prot="public" virt="non-virtual"><scope>XDfeMix_InternalDUCDDCCfg</scope><name>CCGain</name></member>
       <member refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a87ab8e6957391c4623caf25aa31bb2f5" prot="public" virt="non-virtual"><scope>XDfeMix_InternalDUCDDCCfg</scope><name>NCOIdx</name></member>

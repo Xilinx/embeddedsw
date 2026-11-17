@@ -6,33 +6,34 @@
     <includedby refid="xplmi__ssit_8c" local="yes">xplmi_ssit.c</includedby>
     <includedby refid="server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
     <incdepgraph>
-      <node id="3278">
+      <node id="3483">
         <label>xplmi_wdt.h</label>
         <link refid="server/xplmi_wdt.h"/>
-        <childnode refid="3279" relation="include">
+        <childnode refid="3484" relation="include">
         </childnode>
       </node>
-      <node id="3279">
+      <node id="3484">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3281">
+      <node id="3486">
         <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
       </node>
-      <node id="3282">
+      <node id="3487">
         <label>xplmi_wdt.c</label>
       </node>
-      <node id="3280">
+      <node id="3485">
         <label>xplmi_wdt.h</label>
         <link refid="server/xplmi_wdt.h"/>
-        <childnode refid="3281" relation="include">
+        <childnode refid="3486" relation="include">
         </childnode>
-        <childnode refid="3282" relation="include">
+        <childnode refid="3487" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
-      <sectiondef kind="user-defined">
+      <sectiondef kind="func">
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int XPlmi_EnableWdt</definition>
@@ -109,7 +110,7 @@ It also verifies the parameters.</para><para><parameterlist kind="param"><parame
 <para><itemizedlist>
 <listitem><para>Check for Valid Node ID</para></listitem><listitem><para>Check for Valid Node ID</para></listitem></itemizedlist>
 </para><para>Check for Valid Node ID </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="106" bodyend="154"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="106" bodyend="154"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -119,7 +120,7 @@ It also verifies the parameters.</para><para><parameterlist kind="param"><parame
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -155,6 +156,6 @@ It also verifies the parameters.</para><para><parameterlist kind="param"><parame
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_WDT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.h"/>
   </compounddef>
 </doxygen>

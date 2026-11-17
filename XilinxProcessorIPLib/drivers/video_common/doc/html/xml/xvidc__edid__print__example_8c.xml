@@ -7,55 +7,55 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xvidc__edid__print__example_8h" local="yes">xvidc_edid_print_example.h</includes>
     <incdepgraph>
-      <node id="74">
+      <node id="72">
         <label>xdp.h</label>
       </node>
-      <node id="76">
+      <node id="74">
         <label>xvidc.h</label>
         <link refid="xvidc_8h"/>
-        <childnode refid="77" relation="include">
+        <childnode refid="75" relation="include">
         </childnode>
-        <childnode refid="71" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="70">
+      <node id="68">
         <label>string.h</label>
       </node>
-      <node id="72">
+      <node id="70">
         <label>xstatus.h</label>
       </node>
-      <node id="75">
-        <label>xvidc_edid.h</label>
-        <link refid="xvidc__edid_8h"/>
-        <childnode refid="72" relation="include">
-        </childnode>
-        <childnode refid="76" relation="include">
-        </childnode>
-      </node>
-      <node id="77">
-        <label>xil_types.h</label>
-      </node>
-      <node id="71">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="69">
+      <node id="67">
         <label>xvidc_edid_print_example.c</label>
         <link refid="xvidc_edid_print_example.c"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
         <childnode refid="70" relation="include">
         </childnode>
         <childnode refid="71" relation="include">
         </childnode>
+      </node>
+      <node id="71">
+        <label>xvidc_edid_print_example.h</label>
+        <link refid="xvidc__edid__print__example_8h"/>
         <childnode refid="72" relation="include">
         </childnode>
         <childnode refid="73" relation="include">
         </childnode>
       </node>
+      <node id="75">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
+        <label>xil_printf.h</label>
+      </node>
       <node id="73">
-        <label>xvidc_edid_print_example.h</label>
-        <link refid="xvidc__edid__print__example_8h"/>
-        <childnode refid="74" relation="include">
+        <label>xvidc_edid.h</label>
+        <link refid="xvidc__edid_8h"/>
+        <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="75" relation="include">
+        <childnode refid="74" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -100,7 +100,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="147" bodyend="172"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="147" bodyend="172"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1af104b39a80e9da115819c79c39f612cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -127,7 +127,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="187" bodyend="193"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="187" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1ac9c16563b17ff16279b4d2046825a0ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -154,7 +154,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="208" bodyend="458"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="208" bodyend="458"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1a1cd75d476ccd95811543fed074601230" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -181,7 +181,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="472" bodyend="499"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="472" bodyend="499"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1a9a5cfa52d799cc1ff46a50b793919f71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -208,7 +208,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="514" bodyend="570"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="514" bodyend="570"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1a5a9d0f8a85e1db4bdd65be1d938086dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -235,7 +235,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="584" bodyend="600"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="584" bodyend="600"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1af406f2d2be3d919e5c842dca92ef2d2a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -262,7 +262,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="615" bodyend="696"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="615" bodyend="696"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1afb12bbf5bf13a01d0ad0eae937205d97" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -300,7 +300,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="710" bodyend="720"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="710" bodyend="720"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__print__example_8c_1a16321ab53c4df4a71ad22ccfe6f8fbd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -329,7 +329,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="66" bodyend="104"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="66" bodyend="104"/>
         <references refid="group__video__common_1gaeb53032d4e3be80ba3b9dc5e368dcffc" compoundref="xvidc__edid_8h" startline="715">XVidC_EdidGetChecksum</references>
         <references refid="group__video__common_1ga5dd390549fc91a75f848c76270fca04a" compoundref="xvidc__edid_8h" startline="710">XVidC_EdidGetExtBlkCount</references>
         <references refid="group__video__common_1gac7ff06f6d9f8e49884e0da9a88dccf52" compoundref="xvidc__edid_8h" startline="412">XVidC_EdidIsHeaderValid</references>
@@ -359,7 +359,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="120" bodyend="133"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c" bodystart="120" bodyend="133"/>
         <references refid="group__video__common_1gaf00ac478683fd1d3c550e22416cb7c05" compoundref="xvidc__edid_8c" startline="385" endline="409">XVidC_EdidIsVideoTimingSupported</references>
         <references refid="group__video__common_1ga9000d50f752d484b1cc9aadb61e5da94" compoundref="xvidc__timings__table_8c" startline="76">XVidC_VideoTimingModes</references>
         <references refid="group__video__common_1gga562f08faf2fc329b1cd7147b3d66ef53aae127191135aced753fc654add24ba4a" compoundref="xvidc_8h" startline="298">XVIDC_VM_NUM_SUPPORTED</references>
@@ -959,6 +959,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Sum;</highlight></codeline>
 <codeline lineno="720"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.c"/>
   </compounddef>
 </doxygen>

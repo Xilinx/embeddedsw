@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__mem__tcm_8h" kind="file">
+    <compoundname>xpm_mem_tcm.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="xpm__mem__tcm_8c" local="yes">xpm_mem_tcm.c</includedby>
+    <includedby refid="xpm__device__fsm_8c" local="yes">xpm_device_fsm.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <incdepgraph>
+      <node id="1957">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1958" relation="include">
+        </childnode>
+      </node>
+      <node id="1949">
+        <label>xpm_device.h</label>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1959" relation="include">
+        </childnode>
+        <childnode refid="1960" relation="include">
+        </childnode>
+        <childnode refid="1961" relation="include">
+        </childnode>
+      </node>
+      <node id="1953">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1955">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1948" relation="include">
+        </childnode>
+      </node>
+      <node id="1958">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1954">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1952">
+        <label>xpm_common.h</label>
+        <childnode refid="1948" relation="include">
+        </childnode>
+        <childnode refid="1953" relation="include">
+        </childnode>
+        <childnode refid="1954" relation="include">
+        </childnode>
+        <childnode refid="1955" relation="include">
+        </childnode>
+        <childnode refid="1956" relation="include">
+        </childnode>
+        <childnode refid="1957" relation="include">
+        </childnode>
+      </node>
+      <node id="1956">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1961">
+        <label>xpm_reset.h</label>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1952" relation="include">
+        </childnode>
+      </node>
+      <node id="1950">
+        <label>xpm_node.h</label>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1948" relation="include">
+        </childnode>
+        <childnode refid="1951" relation="include">
+        </childnode>
+        <childnode refid="1952" relation="include">
+        </childnode>
+      </node>
+      <node id="1946">
+        <label>xpm_mem_tcm.h</label>
+        <link refid="xpm_mem_tcm.h"/>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1948" relation="include">
+        </childnode>
+        <childnode refid="1949" relation="include">
+        </childnode>
+      </node>
+      <node id="1959">
+        <label>xpm_power.h</label>
+        <childnode refid="1957" relation="include">
+        </childnode>
+        <childnode refid="1950" relation="include">
+        </childnode>
+      </node>
+      <node id="1948">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1960">
+        <label>xpm_clock.h</label>
+        <childnode refid="1952" relation="include">
+        </childnode>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1959" relation="include">
+        </childnode>
+      </node>
+      <node id="1947">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1951">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1963">
+        <label>xpm_mem_tcm.c</label>
+      </node>
+      <node id="1962">
+        <label>xpm_mem_tcm.h</label>
+        <link refid="xpm_mem_tcm.h"/>
+        <childnode refid="1963" relation="include">
+        </childnode>
+        <childnode refid="1964" relation="include">
+        </childnode>
+        <childnode refid="1965" relation="include">
+        </childnode>
+      </node>
+      <node id="1964">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="1965">
+        <label>xpm_runtime_device.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__mem__tcm_8h_1a4d146815bd18554281033658497231ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetRpuByTcmId</definition>
+        <argsstring>(u32 TcmId, u32 *RpuId)</argsstring>
+        <name>XPm_GetRpuByTcmId</name>
+        <param>
+          <type>u32</type>
+          <declname>TcmId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RpuId</declname>
+        </param>
+        <briefdescription>
+<para>Map a TCM device node ID to its owning RPU core node ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TcmId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TCM device node ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RpuId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Non-NULL pointer to receive the owning RPU core node ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS for a recognized TCM ID, or XST_INVALID_PARAM when TcmId is not recognized </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem_tcm.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem_tcm.c" bodystart="87" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__mem__tcm_8h_1acfe90a5073a5b6e31d0d4055331a0893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmMem_TcmResetRelease</definition>
+        <argsstring>(const XPm_Device *Device)</argsstring>
+        <name>XPmMem_TcmResetRelease</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+<para>Release the associated RPU reset and initialize TCM ECC. </para>        </briefdescription>
+        <detaileddescription>
+<para>The owning RPU is reset and halted, its reset is released, and the complete TCM address range is passed to the ECC initialization routine.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the TCM memory device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_INVALID_PARAM for a NULL device or an unknown TCM ID, or an error from the RPU reset or ECC initialization operation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem_tcm.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem_tcm.c" bodystart="27" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_MEM_TCM_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEM_TCM_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPm_GetRpuByTcmId(u32<sp/>TcmId,<sp/>u32<sp/>*RpuId);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">XStatus<sp/>XPmMem_TcmResetRelease(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_MEM_TCM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem_tcm.h"/>
+  </compounddef>
+</doxygen>

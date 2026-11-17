@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="360" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem___descriptor_data_1aecdf40f2327e85bf153559619dcadb47" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_sem___descriptor_info" kindref="compound">XSem_DescriptorInfo</ref></type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="361" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="406" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -50,7 +50,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="359" bodyend="363"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="404" bodyend="408"/>
     <listofallmembers>
       <member refid="struct_x_sem___descriptor_data_1a2d5a9bcef8329ea2bdf6a73e223aab8e" prot="public" virt="non-virtual"><scope>XSem_DescriptorData</scope><name>DescriptorCount</name></member>
       <member refid="struct_x_sem___descriptor_data_1aecdf40f2327e85bf153559619dcadb47" prot="public" virt="non-virtual"><scope>XSem_DescriptorData</scope><name>DescriptorInfo</name></member>

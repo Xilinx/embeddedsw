@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="281" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="281" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_f_i_l_i_n_f_o_1a7c01c48a15b1b49da459924437b0bd52" prot="public" static="no" mutable="no">
         <type>WORD</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="282" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="282" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_f_i_l_i_n_f_o_1ae0f751b79621bf7b29669f177bbe6b9a" prot="public" static="no" mutable="no">
         <type>WORD</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="283" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="283" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_f_i_l_i_n_f_o_1a838d542585831b085537b363f18205c0" prot="public" static="no" mutable="no">
         <type>BYTE</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="288" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_f_i_l_i_n_f_o_1ac06b247cfb3b708c76413c436e52fa7e" prot="public" static="no" mutable="no">
         <type>TCHAR</type>
@@ -66,14 +66,45 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="293" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="293" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="280" bodyend="295"/>
+    <collaborationgraph>
+      <node id="33">
+        <label>unsigned short</label>
+      </node>
+      <node id="29">
+        <label>FILINFO</label>
+        <link refid="struct_f_i_l_i_n_f_o"/>
+        <childnode refid="30" relation="usage">
+          <edgelabel>fsize</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>fattrib</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>fname</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>ftime</edgelabel>
+          <edgelabel>fdate</edgelabel>
+        </childnode>
+      </node>
+      <node id="31">
+        <label>unsigned char</label>
+      </node>
+      <node id="30">
+        <label>unsigned long</label>
+      </node>
+      <node id="32">
+        <label>char</label>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="280" bodyend="295"/>
     <listofallmembers>
       <member refid="struct_f_i_l_i_n_f_o_1a838d542585831b085537b363f18205c0" prot="public" virt="non-virtual"><scope>FILINFO</scope><name>fattrib</name></member>
       <member refid="struct_f_i_l_i_n_f_o_1a7c01c48a15b1b49da459924437b0bd52" prot="public" virt="non-virtual"><scope>FILINFO</scope><name>fdate</name></member>

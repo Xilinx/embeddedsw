@@ -296,7 +296,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aba4a7dba62a3b4cd4bba3c8db2040e44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_rx_ss___config.html">XV_HdmiRxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#aba4a7dba62a3b4cd4bba3c8db2040e44">XV_HdmiRxSs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:aba4a7dba62a3b4cd4bba3c8db2040e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#aba4a7dba62a3b4cd4bba3c8db2040e44">More...</a><br/></td></tr>
+<tr class="memdesc:aba4a7dba62a3b4cd4bba3c8db2040e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device base address.  <a href="#aba4a7dba62a3b4cd4bba3c8db2040e44">More...</a><br/></td></tr>
 <tr class="separator:aba4a7dba62a3b4cd4bba3c8db2040e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b9bdad31f0c28b16f0cf4ef0cc4df8c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a6b9bdad31f0c28b16f0cf4ef0cc4df8c">XV_HdmiRxSs_GetDrvIndex</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:a6b9bdad31f0c28b16f0cf4ef0cc4df8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the Index number of config table using BaseAddress.  <a href="#a6b9bdad31f0c28b16f0cf4ef0cc4df8c">More...</a><br/></td></tr>
@@ -1484,15 +1484,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function looks for the device configuration based on the unique device ID. </p>
+<p>This function looks for the device configuration based on the unique device base address. </p>
 <p>The table XV_HdmiRxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the unique base address of the device being looked up</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found </dd></dl>
 
 </div>
 </div>
@@ -2225,6 +2225,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
 
 </div>
 </div>

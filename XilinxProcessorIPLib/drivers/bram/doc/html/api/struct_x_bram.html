@@ -106,19 +106,64 @@ $(document).ready(function(){initNavTree('struct_x_bram.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XBram Struct Reference<div class="ingroups"><a class="el" href="group__bram.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_bram.html" title="The XBram driver instance data. ">XBram</a> driver instance data.
+<p>Holds instance data for a BRAM device.
  <a href="struct_x_bram.html#details">More...</a></p>
 
 <p><code>#include &lt;xbram.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:aa67b80ce75d89ebfc2c65c5300ac3253"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram___config.html">XBram_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_bram.html#aa67b80ce75d89ebfc2c65c5300ac3253">Config</a></td></tr>
+<tr class="memdesc:aa67b80ce75d89ebfc2c65c5300ac3253"><td class="mdescLeft">&#160;</td><td class="mdescRight">BRAM configuration structure.  <a href="#aa67b80ce75d89ebfc2c65c5300ac3253">More...</a><br/></td></tr>
+<tr class="separator:aa67b80ce75d89ebfc2c65c5300ac3253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31af5cffa2b544a32d71c224ba6f2390"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_bram.html#a31af5cffa2b544a32d71c224ba6f2390">IsReady</a></td></tr>
+<tr class="memdesc:a31af5cffa2b544a32d71c224ba6f2390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device is initialized and ready.  <a href="#a31af5cffa2b544a32d71c224ba6f2390">More...</a><br/></td></tr>
+<tr class="separator:a31af5cffa2b544a32d71c224ba6f2390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_bram.html" title="The XBram driver instance data. ">XBram</a> driver instance data. </p>
-<p>The user is required to allocate a variable of this type for every BRAM device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds instance data for a BRAM device. </p>
+<p>The <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> driver instance data. Allocate a variable of this type for every BRAM device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="aa67b80ce75d89ebfc2c65c5300ac3253"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_bram___config.html">XBram_Config</a> XBram::Config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BRAM configuration structure. </p>
+
+<p>Referenced by <a class="el" href="xbram__intr__example_8c.html#a0218c4bde98e81f9f0d225148c7ebb90">BramIntrExample()</a>, <a class="el" href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram__api.html#gaa4ac1ca5c9c05eabbdea77f35ba9ac5a">XBram_InterruptClear()</a>, <a class="el" href="group__bram__api.html#ga9ce680e885511fdd26b6818b71b145c4">XBram_InterruptDisable()</a>, <a class="el" href="group__bram__api.html#ga4210a263bd85db259a74c20cd0b0176c">XBram_InterruptEnable()</a>, <a class="el" href="group__bram__api.html#gafec7418ceae662672c03a938290da9dd">XBram_InterruptGetEnabled()</a>, <a class="el" href="group__bram__api.html#ga3880bb684ad362c6bd289f3e76a98b59">XBram_InterruptGetStatus()</a>, and <a class="el" href="group__bram__api.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a31af5cffa2b544a32d71c224ba6f2390"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XBram::IsReady</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device is initialized and ready. </p>
+
+<p>Referenced by <a class="el" href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram__api.html#gaa4ac1ca5c9c05eabbdea77f35ba9ac5a">XBram_InterruptClear()</a>, <a class="el" href="group__bram__api.html#ga9ce680e885511fdd26b6818b71b145c4">XBram_InterruptDisable()</a>, <a class="el" href="group__bram__api.html#ga4210a263bd85db259a74c20cd0b0176c">XBram_InterruptEnable()</a>, <a class="el" href="group__bram__api.html#gafec7418ceae662672c03a938290da9dd">XBram_InterruptGetEnabled()</a>, <a class="el" href="group__bram__api.html#ga3880bb684ad362c6bd289f3e76a98b59">XBram_InterruptGetStatus()</a>, and <a class="el" href="group__bram__api.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

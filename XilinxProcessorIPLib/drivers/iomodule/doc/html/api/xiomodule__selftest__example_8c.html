@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xiomodule__selftest__example_8c.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xiomodule__selftest__example_8c.html',
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiomodule_selftest_example.c File Reference</div>  </div>
@@ -128,6 +129,12 @@ $(document).ready(function(){initNavTree('xiomodule__selftest__example_8c.html',
 <code>#include &quot;<a class="el" href="xiomodule_8h.html">xiomodule.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab7c8be360118cc6c9374a723fbc45b97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiomodule__selftest__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">IOMODULE_DEVICE_ID</a>&#160;&#160;&#160;XPAR_IOMODULE_0_BASEADDR</td></tr>
+<tr class="memdesc:ab7c8be360118cc6c9374a723fbc45b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device base address for SDT build.  <a href="#ab7c8be360118cc6c9374a723fbc45b97">More...</a><br/></td></tr>
+<tr class="separator:ab7c8be360118cc6c9374a723fbc45b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5eff95ee33e5ad325c465b50d71c0427"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiomodule__selftest__example_8c.html#a5eff95ee33e5ad325c465b50d71c0427">IOModuleSelfTestExample</a> (u32 DeviceId)</td></tr>
@@ -137,6 +144,23 @@ Functions</h2></td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the IO Module example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab7c8be360118cc6c9374a723fbc45b97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IOMODULE_DEVICE_ID&#160;&#160;&#160;XPAR_IOMODULE_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device base address for SDT build. </p>
+
+<p>Referenced by <a class="el" href="xiomodule__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a5eff95ee33e5ad325c465b50d71c0427"></a>
 <div class="memitem">
@@ -156,12 +180,11 @@ Functions</h2></td></tr>
 <p>This is a destructive test. This function is an example of how to use the IO Module driver component (<a class="el" href="struct_x_i_o_module.html" title="The XIOModule driver instance data. ">XIOModule</a>) and the hardware device. This function is designed to work without external hardware devices to cause interrupts. It may not return if the IO Module is not properly connected to the processor in either software or hardware.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is device ID of the IO Module Device, typically XPAR_&lt;IOMODULE_instance&gt;_DEVICE_ID value from xparameters.h</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DeviceId</td><td>is device ID of the IO Module Device, typically XPAR_&lt;IOMODULE_instance&gt;_DEVICE_ID value from xparameters.h</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE </dd></dl>
 
 <p>References <a class="el" href="group__iomodule.html#ga600331bcb370ad31b8acbb20bacbc694">XIOModule_Initialize()</a>, and <a class="el" href="group__iomodule.html#ga4a295427c84e3c7f0cee3440ba119093">XIOModule_SelfTest()</a>.</p>
 
@@ -185,16 +208,9 @@ Functions</h2></td></tr>
 
 <p>This is the main function for the IO Module example. </p>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xiomodule__selftest__example_8c.html#a5eff95ee33e5ad325c465b50d71c0427">IOModuleSelfTestExample()</a>.</p>
+<p>References <a class="el" href="xiomodule__selftest__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">IOMODULE_DEVICE_ID</a>, and <a class="el" href="xiomodule__selftest__example_8c.html#a5eff95ee33e5ad325c465b50d71c0427">IOModuleSelfTestExample()</a>.</p>
 
 </div>
 </div>

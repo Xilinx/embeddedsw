@@ -146,6 +146,7 @@
     <member refid="struct_x_dp_rx_ss___config_1a1783e6e0b59b36314ec3a874cd58d6e7" kind="variable"><name>ColorFormat</name></member>
     <member refid="struct_x_dp_rx_ss___config_1ad233bb413b244f454dc82599b4e224dc" kind="variable"><name>IncludeAxiIic</name></member>
     <member refid="struct_x_dp_rx_ss___config_1a895c3f58cf434d32d2cb4aafcc87d1b9" kind="variable"><name>IncludeClkWiz</name></member>
+    <member refid="struct_x_dp_rx_ss___config_1a5a757ff1ac053e7eaf6015e2a2157f6e" kind="variable"><name>DscEn</name></member>
     <member refid="struct_x_dp_rx_ss___config_1a1503a7da8b668879f291553428cd8a04" kind="variable"><name>IicSubCore</name></member>
     <member refid="struct_x_dp_rx_ss___config_1a4fd4deffc6507ae5abf12da8536c2955" kind="variable"><name>TmrCtrSubCore</name></member>
     <member refid="struct_x_dp_rx_ss___config_1a15d2addc73d0929beb2fc7ce90556cf8" kind="variable"><name>ClkWizSubCore</name></member>
@@ -558,6 +559,10 @@
   <compound refid="main_8h" kind="file"><name>main.h</name>
     <member refid="main_8h_1ae4b2022f7365f6b41ad50da4ee9ec042" kind="define"><name>XPAR_XV_FRMBUFRD_NUM_INSTANCES</name></member>
     <member refid="main_8h_1a17adabdf88303732c81e512ec50e38cc" kind="define"><name>XPAR_XV_FRMBUFWR_NUM_INSTANCES</name></member>
+    <member refid="main_8h_1a39651228ca94f9597f3106e84bd3594f" kind="define"><name>XPAR_DPTXSS_0_HDCP_ENABLE</name></member>
+    <member refid="main_8h_1a82d1987decd184f95f659bdfbe3ac7b1" kind="define"><name>XPAR_DPTXSS_0_HDCP22_ENABLE</name></member>
+    <member refid="main_8h_1ac5eea97ce557bf6c3b254e5824e0dc15" kind="define"><name>XPAR_DPRXSS_0_HDCP_ENABLE</name></member>
+    <member refid="main_8h_1adf8afc21d6014cf18dac575481b6036b" kind="define"><name>XPAR_DPRXSS_0_HDCP22_ENABLE</name></member>
     <member refid="main_8h_1a4f5376d98f333326cb99e90e5807d876" kind="define"><name>USE_EEPROM_HDCP_KEYS</name></member>
     <member refid="main_8h_1af2adea503b1b2ca8768cc582448f4719" kind="define"><name>ENABLE_HDCP_IN_DESIGN</name></member>
     <member refid="main_8h_1ac4d284f48d533c1dd2917d8bbf51493d" kind="define"><name>ENABLE_HDCP22_IN_RX</name></member>
@@ -585,6 +590,7 @@
     <member refid="main_8h_1a9bf9ad61685bf56deb0a6c755c713078" kind="define"><name>IIC_BASE_ADDR</name></member>
     <member refid="main_8h_1a584de2c9672fd5a07f2a77317ed7d139" kind="define"><name>VIDEO_FRAME_CRC_TX_BASEADDR</name></member>
     <member refid="main_8h_1a3da23f46cb11bcc19e8409015b3281a9" kind="define"><name>VIDEO_FRAME_CRC_RX_BASEADDR</name></member>
+    <member refid="main_8h_1a1685e2a8de687a9ef9f4b8198484c0f1" kind="define"><name>PROC_HIER_HLS_RST_BASEADDR</name></member>
     <member refid="main_8h_1a6eb991e2b86a73efc4c7f63b2de6b414" kind="define"><name>AXI_SYSTEM_CLOCK_FREQ_HZ</name></member>
     <member refid="main_8h_1a3cb13cd431d9241af9128b1bdd8a1f59" kind="define"><name>TIMER_RESET_VALUE</name></member>
     <member refid="main_8h_1a165096ca132f333b2beb37989e37536d" kind="define"><name>XDP_RX_CRC_CONFIG</name></member>
@@ -951,6 +957,14 @@
     <member refid="passthrough_8c_1abd17b5179915bd213d1518fe0578f1e4" kind="variable"><name>LaneCount_init_tx</name></member>
     <member refid="passthrough_8c_1a7640a5ed1d0fef650b50378bb89e3740" kind="variable"><name>Msa_Pt</name></member>
     <member refid="passthrough_8c_1af185fc8914f19eadd916be1185be7926" kind="variable"><name>rx_all_detect</name></member>
+    <member refid="passthrough_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="passthrough_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
+    <member refid="passthrough_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="passthrough_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="passthrough_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="passthrough_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="passthrough_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="passthrough_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="passthrough_8c_1af8705e7f3162bb917005e9fbc96012ce" kind="variable"><name>user_config</name></member>
     <member refid="passthrough_8c_1ac442ef9a05ada85d3f1b229eb4988b02" kind="variable"><name>VmId</name></member>
     <member refid="passthrough_8c_1a177c0cd036571670d2f9afac385dfc6d" kind="variable"><name>rx_unplugged</name></member>
@@ -1021,6 +1035,14 @@
     <member refid="hdcp_2passthrough_8c_1abd17b5179915bd213d1518fe0578f1e4" kind="variable"><name>LaneCount_init_tx</name></member>
     <member refid="hdcp_2passthrough_8c_1a7640a5ed1d0fef650b50378bb89e3740" kind="variable"><name>Msa_Pt</name></member>
     <member refid="hdcp_2passthrough_8c_1af185fc8914f19eadd916be1185be7926" kind="variable"><name>rx_all_detect</name></member>
+    <member refid="hdcp_2passthrough_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="hdcp_2passthrough_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
+    <member refid="hdcp_2passthrough_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="hdcp_2passthrough_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="hdcp_2passthrough_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="hdcp_2passthrough_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="hdcp_2passthrough_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="hdcp_2passthrough_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="hdcp_2passthrough_8c_1af8705e7f3162bb917005e9fbc96012ce" kind="variable"><name>user_config</name></member>
     <member refid="hdcp_2passthrough_8c_1ac442ef9a05ada85d3f1b229eb4988b02" kind="variable"><name>VmId</name></member>
     <member refid="hdcp_2passthrough_8c_1a177c0cd036571670d2f9afac385dfc6d" kind="variable"><name>rx_unplugged</name></member>
@@ -1073,6 +1095,8 @@
     <member refid="hdcp_2passthrough_8c_1a76a1fc2e7f293c94a2338ee498293cbf" kind="function"><name>DpPt_LaneLinkRateHelpMenu</name></member>
   </compound>
   <compound refid="mst_2passthrough_8c" kind="file"><name>mst/passthrough.c</name>
+    <member refid="mst_2passthrough_8c_1a064d8490009c84c5665a500f0cdbdef6" kind="define"><name>RX_STREAM_VBLANK_READY</name></member>
+    <member refid="mst_2passthrough_8c_1a9fc29cecd11f717fb9d911ca333c4cd7" kind="define"><name>RX_VBLANK_READY_FALLBACK</name></member>
     <member refid="mst_2passthrough_8c_1abf837d981cd312ee75c7a534bccca419" kind="variable"><name>hpd_pulse_con_event</name></member>
     <member refid="mst_2passthrough_8c_1ab47c14f7062b3830336db28e631e1359" kind="variable"><name>DpRxSsInst</name></member>
     <member refid="mst_2passthrough_8c_1a362bbd25e0f7e6fd42da96f398eac7ff" kind="variable"><name>DpTxSsInst</name></member>
@@ -1086,7 +1110,18 @@
     <member refid="mst_2passthrough_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
     <member refid="mst_2passthrough_8c_1ad26c9cef0d95e99d10ac0b8596671af9" kind="variable"><name>IntcInst</name></member>
     <member refid="mst_2passthrough_8c_1ad0ccf99eaf5f9374c9a08cf3addc8852" kind="variable"><name>tx_after_rx</name></member>
+    <member refid="mst_2passthrough_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="mst_2passthrough_8c_1ab4a1253cd5bdd9a57fddd3581709af73" kind="variable"><name>use_vsc</name></member>
+    <member refid="mst_2passthrough_8c_1a80dff2847a2885c5acc5c56ff11356ea" kind="variable"><name>Rx_Vsc_Payload</name></member>
+    <member refid="mst_2passthrough_8c_1a0d572442cb6753f4e76261e0d0ade3cc" kind="variable"><name>Rx_Vsc_Valid</name></member>
+    <member refid="mst_2passthrough_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="mst_2passthrough_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="mst_2passthrough_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="mst_2passthrough_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="mst_2passthrough_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="mst_2passthrough_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="mst_2passthrough_8c_1a16fb3f6e6fd26b46182204c12a274630" kind="variable"><name>Video_valid</name></member>
+    <member refid="mst_2passthrough_8c_1a25606cb74337e32012ae894c28d267de" kind="variable"><name>Vblank_stream</name></member>
     <member refid="mst_2passthrough_8c_1ab835d1aeeefdba5c71af848b8e244cd2" kind="variable"><name>LineRate_init_tx</name></member>
     <member refid="mst_2passthrough_8c_1abd17b5179915bd213d1518fe0578f1e4" kind="variable"><name>LaneCount_init_tx</name></member>
     <member refid="mst_2passthrough_8c_1a3eb7b3e047984117e92110434659dca4" kind="variable"><name>Msa_test</name></member>
@@ -1141,7 +1176,6 @@
     <member refid="rx_8c_1a9e2b2e80e26666d0dc540c5aea02e08f" kind="variable"><name>infofifo</name></member>
     <member refid="rx_8c_1aa32be9ee220c4021396b1a3dc8bd9043" kind="variable"><name>endindex</name></member>
     <member refid="rx_8c_1a38d59b365680060f1429c7cde4bdb4a3" kind="variable"><name>fifocount</name></member>
-    <member refid="rx_8c_1a703a079fd9cec219be1ff978bf18c342" kind="variable"><name>hdrframe</name></member>
     <member refid="rx_8c_1a852f9f9a3cc0588f0980af2ecbbc2b71" kind="variable"><name>fifoOverflow</name></member>
     <member refid="rx_8c_1aa010c7f1c91996e88385695f93c6aade" kind="variable"><name>tx_pass</name></member>
     <member refid="rx_8c_1aedfe4f582aa1eff138a8d7527bb3e7a9" kind="variable"><name>startindex</name></member>
@@ -1158,6 +1192,13 @@
     <member refid="rx_8c_1a52925150cc1fdc72079961624f475c47" kind="variable"><name>TmrCtr</name></member>
     <member refid="rx_8c_1a3582a54a181146c7cacf5a827c3be9d2" kind="variable"><name>RxTrainConfig</name></member>
     <member refid="rx_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
+    <member refid="rx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="rx_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="rx_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="rx_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="rx_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="rx_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="rx_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="rx_8c_1a095d584bdc6ede0ce88ae66402eb3bb0" kind="variable"><name>VPHY_RX_PLL_TYPE</name></member>
     <member refid="rx_8c_1a5a43f8be3c7ac461df489c4a09dedd3c" kind="variable"><name>VPHY_RX_CHANNEL_TYPE</name></member>
     <member refid="rx_8c_1a9274ef2bccb9002c7c002b2457fc48e1" kind="function"><name>Dp21RxSs_Pt_RxSetEDID</name></member>
@@ -1188,6 +1229,8 @@
     <member refid="rx_8c_1a6ea6d8240004c94660e6a1d9746ab41f" kind="function"><name>Dp21RxSs_Pt_RxInfoPacketHandler</name></member>
     <member refid="rx_8c_1a965cc16698ed63cc549443b5d62e4f4d" kind="function"><name>Dp21RxSs_Pt_RxExtPacketHandler</name></member>
     <member refid="rx_8c_1aefa2ff39e07030969933bab6dcc6e347" kind="function"><name>Dp21RxSs_Pt_RxPrint_InfoPkt</name></member>
+    <member refid="rx_8c_1a822ed68906f30911b46a0efc32c94e12" kind="function"><name>Dp21RxSs_Pt_RxPrint_ExtPkt</name></member>
+    <member refid="rx_8c_1aa4e60c3df159f6d91392e04e8e2bea7a" kind="function"><name>Dp21RxSs_Pt_RxPrint_HdrInfoPkt</name></member>
   </compound>
   <compound refid="hdcp_2rx_8c" kind="file"><name>hdcp/rx.c</name>
     <member refid="hdcp_2rx_8c_1a74165566d411a5f62debedfec9e2c20a" kind="variable"><name>AudioinfoFrame</name></member>
@@ -1200,6 +1243,13 @@
     <member refid="hdcp_2rx_8c_1a852f9f9a3cc0588f0980af2ecbbc2b71" kind="variable"><name>fifoOverflow</name></member>
     <member refid="hdcp_2rx_8c_1aa010c7f1c91996e88385695f93c6aade" kind="variable"><name>tx_pass</name></member>
     <member refid="hdcp_2rx_8c_1aedfe4f582aa1eff138a8d7527bb3e7a9" kind="variable"><name>startindex</name></member>
+    <member refid="hdcp_2rx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="hdcp_2rx_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="hdcp_2rx_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="hdcp_2rx_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="hdcp_2rx_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="hdcp_2rx_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="hdcp_2rx_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="hdcp_2rx_8c_1ab47c14f7062b3830336db28e631e1359" kind="variable"><name>DpRxSsInst</name></member>
     <member refid="hdcp_2rx_8c_1a362bbd25e0f7e6fd42da96f398eac7ff" kind="variable"><name>DpTxSsInst</name></member>
     <member refid="hdcp_2rx_8c_1a177c0cd036571670d2f9afac385dfc6d" kind="variable"><name>rx_unplugged</name></member>
@@ -1247,6 +1297,8 @@
     <member refid="hdcp_2rx_8c_1a5261c0e9a724d7ccdcf46f15f1c2c2e6" kind="function"><name>DpRxSs_InfoPacketHandler</name></member>
     <member refid="hdcp_2rx_8c_1a5fce4aaa5fae17e664cd573bef9c2be0" kind="function"><name>DpRxSs_ExtPacketHandler</name></member>
     <member refid="hdcp_2rx_8c_1a199e36a60274e8ebc2a321abf6bcb2b8" kind="function"><name>Print_InfoPkt</name></member>
+    <member refid="hdcp_2rx_8c_1a207cf25eaf5a0c614bf4c90fe5386702" kind="function"><name>Print_ExtPkt</name></member>
+    <member refid="hdcp_2rx_8c_1a58a29c9eee59f72b4aa33e4855646c12" kind="function"><name>Print_HdrInfoPkt</name></member>
     <member refid="hdcp_2rx_8c_1a51a2e9d036924145656f509947592675" kind="function"><name>Set_EDID</name></member>
   </compound>
   <compound refid="mst_2rx_8c" kind="file"><name>mst/rx.c</name>
@@ -1264,6 +1316,9 @@
     <member refid="mst_2rx_8c_1a982703242be7e4d4d073ff99e63ea165" kind="variable"><name>tx_after_rx</name></member>
     <member refid="mst_2rx_8c_1aae7566333a824303a2b7a424d5f7ee20" kind="variable"><name>Video_valid</name></member>
     <member refid="mst_2rx_8c_1a26dbd151fa6d74be8b62616844d9d501" kind="variable"><name>tx_done</name></member>
+    <member refid="mst_2rx_8c_1a25606cb74337e32012ae894c28d267de" kind="variable"><name>Vblank_stream</name></member>
+    <member refid="mst_2rx_8c_1a80dff2847a2885c5acc5c56ff11356ea" kind="variable"><name>Rx_Vsc_Payload</name></member>
+    <member refid="mst_2rx_8c_1a0d572442cb6753f4e76261e0d0ade3cc" kind="variable"><name>Rx_Vsc_Valid</name></member>
     <member refid="mst_2rx_8c_1a6b5bb90253da74cfe58cf15d0814931d" kind="variable"><name>VidFrameCRC_rx</name></member>
     <member refid="mst_2rx_8c_1ad9444cec2e39f25d7d9d8a2ccff236b1" kind="variable"><name>VidFrameCRC_rx_1</name></member>
     <member refid="mst_2rx_8c_1ad099de2b50cdb6fcdb6530df616c8679" kind="variable"><name>VidFrameCRC_rx_2</name></member>
@@ -1274,6 +1329,14 @@
     <member refid="mst_2rx_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
     <member refid="mst_2rx_8c_1aa56d9acec116c992c160da571a824d43" kind="variable"><name>hdrframe</name></member>
     <member refid="mst_2rx_8c_1a852f9f9a3cc0588f0980af2ecbbc2b71" kind="variable"><name>fifoOverflow</name></member>
+    <member refid="mst_2rx_8c_1a2c24d8ac20b1111f9cfedd3f73f147a8" kind="variable"><name>SdpExtFrame</name></member>
+    <member refid="mst_2rx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="mst_2rx_8c_1af164e4389a68320e13c0431442d3315b" kind="variable"><name>type_vsc</name></member>
+    <member refid="mst_2rx_8c_1af28ee0ab29a162aba185db10dde8ced9" kind="variable"><name>rx_last_sdp_type</name></member>
+    <member refid="mst_2rx_8c_1a0f221e1a263a47a201572362be3bc570" kind="variable"><name>rx_vsc_ext_cta_count</name></member>
+    <member refid="mst_2rx_8c_1a34c14f684830d843a8e3dc939443ab6b" kind="variable"><name>hdr_if_frame</name></member>
+    <member refid="mst_2rx_8c_1a8962f5024532a30864410361c3e40576" kind="variable"><name>hdr_if_valid</name></member>
+    <member refid="mst_2rx_8c_1af02baadff7e3303f270aa76964a9682d" kind="variable"><name>rx_drm_if_count</name></member>
     <member refid="mst_2rx_8c_1a095d584bdc6ede0ce88ae66402eb3bb0" kind="variable"><name>VPHY_RX_PLL_TYPE</name></member>
     <member refid="mst_2rx_8c_1a5a43f8be3c7ac461df489c4a09dedd3c" kind="variable"><name>VPHY_RX_CHANNEL_TYPE</name></member>
     <member refid="mst_2rx_8c_1a2dbbb391b1e9439a2f2aabbbc4c8cd89" kind="function"><name>mask_intr</name></member>
@@ -1305,7 +1368,13 @@
     <member refid="mst_2rx_8c_1a7a7e1872b93baf4572e9a5bd71b0daed" kind="function"><name>DpRxSs_AccessErrorCounterHandler</name></member>
     <member refid="mst_2rx_8c_1ad8dbe7bc83f095b2435af6785901d68c" kind="function"><name>ReportVideoCRC</name></member>
     <member refid="mst_2rx_8c_1a5261c0e9a724d7ccdcf46f15f1c2c2e6" kind="function"><name>DpRxSs_InfoPacketHandler</name></member>
+    <member refid="mst_2rx_8c_1a6724cb205f46b2c2dc645195f54f1a07" kind="function"><name>Dprx_CaptureStreamVsc</name></member>
+    <member refid="mst_2rx_8c_1abd7d5927a98e41e57fd0700666934693" kind="function"><name>DpRxSs_ExtPacketHandlerStream2</name></member>
+    <member refid="mst_2rx_8c_1a71ad6f4021f7e29c0ecd9d262a3db1bf" kind="function"><name>DpRxSs_ExtPacketHandlerStream3</name></member>
+    <member refid="mst_2rx_8c_1a5094d5fd77d88e9840b953d6cc48d0ec" kind="function"><name>DpRxSs_ExtPacketHandlerStream4</name></member>
     <member refid="mst_2rx_8c_1a5fce4aaa5fae17e664cd573bef9c2be0" kind="function"><name>DpRxSs_ExtPacketHandler</name></member>
+    <member refid="mst_2rx_8c_1ac0ab4f299f01fc736ca170dbb35bc6f3" kind="function"><name>Dp21RxSs_PtMst_RxPrint_ExtPkt</name></member>
+    <member refid="mst_2rx_8c_1ab86955f802b46381bba1f5c804423fe7" kind="function"><name>Dp21RxSs_PtMst_RxPrint_HdrInfoPkt</name></member>
   </compound>
   <compound refid="rx_8h" kind="file"><name>rx.h</name>
     <member refid="rx_8h_1a58c41bc3d12206e620d2820da0a10e34" kind="define"><name>XDPRXSS_DEVICE_ID</name></member>
@@ -1356,6 +1425,9 @@
     <member refid="rx_8h_1ab962a096a3019ef02d906bc2b982cd00" kind="function"><name>Dp21RxSs_Pt_RxVideoHandler</name></member>
     <member refid="rx_8h_1a6ea6d8240004c94660e6a1d9746ab41f" kind="function"><name>Dp21RxSs_Pt_RxInfoPacketHandler</name></member>
     <member refid="rx_8h_1a965cc16698ed63cc549443b5d62e4f4d" kind="function"><name>Dp21RxSs_Pt_RxExtPacketHandler</name></member>
+    <member refid="rx_8h_1a4f885c9a12dd88b69f1a776b80a1a5f6" kind="function"><name>Dp21RxSs_Pt_RxPrint_InfoPkt</name></member>
+    <member refid="rx_8h_1a822ed68906f30911b46a0efc32c94e12" kind="function"><name>Dp21RxSs_Pt_RxPrint_ExtPkt</name></member>
+    <member refid="rx_8h_1aa4e60c3df159f6d91392e04e8e2bea7a" kind="function"><name>Dp21RxSs_Pt_RxPrint_HdrInfoPkt</name></member>
     <member refid="rx_8h_1ad42d6513bb4cf27dcb7abc2593ec3784" kind="function"><name>Dp21RxSs_Pt_RxTrainingDoneHandler</name></member>
     <member refid="rx_8h_1a6c654712ff2ad80381cc3b62f660a215" kind="function"><name>Dp21RxSs_Pt_RxUnplugHandler</name></member>
     <member refid="rx_8h_1ad7f68174e1ad22f9e006b9b5ea32042c" kind="function"><name>Dp21RxSs_Pt_RxLinkBandwidthHandler</name></member>
@@ -1423,6 +1495,9 @@
     <member refid="hdcp_2rx_8h_1ab99e9cd22e8abaa100c8cd9780ded4c9" kind="function"><name>DpRxSs_VideoHandler</name></member>
     <member refid="hdcp_2rx_8h_1a5261c0e9a724d7ccdcf46f15f1c2c2e6" kind="function"><name>DpRxSs_InfoPacketHandler</name></member>
     <member refid="hdcp_2rx_8h_1a5fce4aaa5fae17e664cd573bef9c2be0" kind="function"><name>DpRxSs_ExtPacketHandler</name></member>
+    <member refid="hdcp_2rx_8h_1ac54d9a1551751edf47911e8761c45da2" kind="function"><name>Print_InfoPkt</name></member>
+    <member refid="hdcp_2rx_8h_1a207cf25eaf5a0c614bf4c90fe5386702" kind="function"><name>Print_ExtPkt</name></member>
+    <member refid="hdcp_2rx_8h_1a58a29c9eee59f72b4aa33e4855646c12" kind="function"><name>Print_HdrInfoPkt</name></member>
     <member refid="hdcp_2rx_8h_1a879656468e071dd105e3c1f05b042524" kind="function"><name>DpRxSs_TrainingDoneHandler</name></member>
     <member refid="hdcp_2rx_8h_1acb9293004b94de688e83af78d4f10ee1" kind="function"><name>DpRxSs_UnplugHandler</name></member>
     <member refid="hdcp_2rx_8h_1a4e933da366c3f1d04022bfc4cede6852" kind="function"><name>DpRxSs_LinkBandwidthHandler</name></member>
@@ -1491,6 +1566,9 @@
     <member refid="mst_2rx_8h_1ab99e9cd22e8abaa100c8cd9780ded4c9" kind="function"><name>DpRxSs_VideoHandler</name></member>
     <member refid="mst_2rx_8h_1a5261c0e9a724d7ccdcf46f15f1c2c2e6" kind="function"><name>DpRxSs_InfoPacketHandler</name></member>
     <member refid="mst_2rx_8h_1a5fce4aaa5fae17e664cd573bef9c2be0" kind="function"><name>DpRxSs_ExtPacketHandler</name></member>
+    <member refid="mst_2rx_8h_1abd7d5927a98e41e57fd0700666934693" kind="function"><name>DpRxSs_ExtPacketHandlerStream2</name></member>
+    <member refid="mst_2rx_8h_1a71ad6f4021f7e29c0ecd9d262a3db1bf" kind="function"><name>DpRxSs_ExtPacketHandlerStream3</name></member>
+    <member refid="mst_2rx_8h_1a5094d5fd77d88e9840b953d6cc48d0ec" kind="function"><name>DpRxSs_ExtPacketHandlerStream4</name></member>
     <member refid="mst_2rx_8h_1a879656468e071dd105e3c1f05b042524" kind="function"><name>DpRxSs_TrainingDoneHandler</name></member>
     <member refid="mst_2rx_8h_1acb9293004b94de688e83af78d4f10ee1" kind="function"><name>DpRxSs_UnplugHandler</name></member>
     <member refid="mst_2rx_8h_1a4e933da366c3f1d04022bfc4cede6852" kind="function"><name>DpRxSs_LinkBandwidthHandler</name></member>
@@ -1506,6 +1584,8 @@
     <member refid="mst_2rx_8h_1abd27513b4e5b7ca4d9ae38b9b30d9461" kind="function"><name>Dprx_InterruptHandlerDownReply</name></member>
     <member refid="mst_2rx_8h_1ab6bae72850e7cd82aa46472c8280c4a6" kind="function"><name>Dprx_InterruptHandlerPayloadAlloc</name></member>
     <member refid="mst_2rx_8h_1acd66eabf042ac511d21e1ad677313883" kind="function"><name>Dprx_InterruptHandlerActRx</name></member>
+    <member refid="mst_2rx_8h_1ac0ab4f299f01fc736ca170dbb35bc6f3" kind="function"><name>Dp21RxSs_PtMst_RxPrint_ExtPkt</name></member>
+    <member refid="mst_2rx_8h_1ab86955f802b46381bba1f5c804423fe7" kind="function"><name>Dp21RxSs_PtMst_RxPrint_HdrInfoPkt</name></member>
   </compound>
   <compound refid="sha256_8c" kind="file"><name>sha256.c</name>
     <member refid="sha256_8c_1aa554f63b1bff923e477da72974a8ca9a" kind="define"><name>ROTLEFT</name></member>
@@ -1641,6 +1721,8 @@
     <member refid="tx_8c_1ab47c14f7062b3830336db28e631e1359" kind="variable"><name>DpRxSsInst</name></member>
     <member refid="tx_8c_1a7f3674b5255411f7512018dc3f644a18" kind="variable"><name>prev_line_rate</name></member>
     <member refid="tx_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
+    <member refid="tx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="tx_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
     <member refid="tx_8c_1ab0fb3d1ea8d00f1033f476917741a776" kind="variable"><name>lane_link_table</name></member>
     <member refid="tx_8c_1ab1c5664cb62893b4c494d075c5607662" kind="variable"><name>VPHY_TX_PLL_TYPE</name></member>
     <member refid="tx_8c_1a310a63aa00e57cbab9d35c236c503bd2" kind="variable"><name>VPHY_TX_CHANNEL_TYPE</name></member>
@@ -1709,6 +1791,8 @@
     <member refid="hdcp_2tx_8c_1ab47c14f7062b3830336db28e631e1359" kind="variable"><name>DpRxSsInst</name></member>
     <member refid="hdcp_2tx_8c_1a7f3674b5255411f7512018dc3f644a18" kind="variable"><name>prev_line_rate</name></member>
     <member refid="hdcp_2tx_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
+    <member refid="hdcp_2tx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="hdcp_2tx_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
     <member refid="hdcp_2tx_8c_1ab0fb3d1ea8d00f1033f476917741a776" kind="variable"><name>lane_link_table</name></member>
     <member refid="hdcp_2tx_8c_1ab1c5664cb62893b4c494d075c5607662" kind="variable"><name>VPHY_TX_PLL_TYPE</name></member>
     <member refid="hdcp_2tx_8c_1a310a63aa00e57cbab9d35c236c503bd2" kind="variable"><name>VPHY_TX_CHANNEL_TYPE</name></member>
@@ -1778,6 +1862,10 @@
     <member refid="mst_2tx_8c_1a7f3674b5255411f7512018dc3f644a18" kind="variable"><name>prev_line_rate</name></member>
     <member refid="mst_2tx_8c_1ae762e99802e6c272cb8d5fa6f3a52da7" kind="variable"><name>VPhyInst</name></member>
     <member refid="mst_2tx_8c_1a8f8e09565c9f49705f3f5a02fe795442" kind="variable"><name>axis_switch</name></member>
+    <member refid="mst_2tx_8c_1aaa161a3cea68e2f7901b9ed4b7a2d5f3" kind="variable"><name>ExtFrame_tx_vsc</name></member>
+    <member refid="mst_2tx_8c_1ab4a1253cd5bdd9a57fddd3581709af73" kind="variable"><name>use_vsc</name></member>
+    <member refid="mst_2tx_8c_1a80dff2847a2885c5acc5c56ff11356ea" kind="variable"><name>Rx_Vsc_Payload</name></member>
+    <member refid="mst_2tx_8c_1a96fd486276eb266ec9fb2736a1181c9d" kind="variable"><name>Stream</name></member>
     <member refid="mst_2tx_8c_1a9be69539d0c3a2f7dc758ddd0c204ce7" kind="variable"><name>num_sinks</name></member>
     <member refid="mst_2tx_8c_1a5353d83fc6004859e894dac1146e6d67" kind="variable"><name>Tx_only</name></member>
     <member refid="mst_2tx_8c_1ab0fb3d1ea8d00f1033f476917741a776" kind="variable"><name>lane_link_table</name></member>
@@ -2004,6 +2092,19 @@
     <member refid="group___video_f_m_c_1ga183b83e0a3cd48b9fcafcbced07db03c" kind="define"><name>I2C_VFMCEXP_0_ADDR</name></member>
     <member refid="group___video_f_m_c_1ga9173462497742b835783c5f05cd19122" kind="define"><name>I2C_MUX_ADDR2</name></member>
   </compound>
+  <compound refid="xdp21rxss__hw_8h" kind="file"><name>xdp21rxss_hw.h</name>
+    <member refid="xdp21rxss__hw_8h_1a7ea0728276b30baed8e6aa5f29ca1849" kind="define"><name>XDP21_RX_PPS_SDP_BASE_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1aad66bc3bc28ff221194a9966e12566b0" kind="define"><name>XDP21_RX_PPS_SDP_STATUS_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a1985fcb185f2bd6deb76ff4533bccfa4" kind="define"><name>XDP21_RX_PPS_SDP_CTRL_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a2faaf703609f8ea8cd0c5a65fdbbb99b" kind="define"><name>XDP21_RX_DSC_ENABLE_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a729d79819a4d7a43de3ac8fa958d59eb" kind="define"><name>XDP21_RX_FEC_STATUS_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a1bf532fce56d1babddc438a85ea6107e" kind="define"><name>XDP21_RX_FEC_CTRL_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a76a1d1939e038bbc63b8c87b159cddf7" kind="define"><name>XDP21_RX_FEC_ERR_COUNT_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a4085d5b5c713b9d725e6dd1ec722ae10" kind="define"><name>XDP21_RX_FEC_CORR_COUNT_OFFSET</name></member>
+    <member refid="xdp21rxss__hw_8h_1a769042fff721776964e5a4358e3c69ff" kind="define"><name>XDP21_RX_PPS_SDP_VALID</name></member>
+    <member refid="xdp21rxss__hw_8h_1a0a613d91041611d130fb3c2f9c4a017c" kind="define"><name>XDP21_RX_DSC_STREAM_ACTIVE</name></member>
+    <member refid="xdp21rxss__hw_8h_1abd374374c0ed77389edf527083bceec5" kind="define"><name>XDP21_RX_FEC_ACTIVE</name></member>
+  </compound>
   <compound refid="xdp__hdcp__keys_8c" kind="file"><name>xdp_hdcp_keys.c</name>
     <member refid="xdp__hdcp__keys_8c_1a0c9e0649d549fffb69c5f2dd11792a50" kind="define"><name>UART_BASE_ADDRESS</name></member>
     <member refid="xdp__hdcp__keys_8c_1a2e4b8cf26cdbad49ce643e7b10ae2b56" kind="define"><name>XPAR_IIC_0_BASEADDR</name></member>
@@ -2040,50 +2141,6 @@
     <member refid="group__dprxss_1ga70947ce811ae2951ee6041a42746e8cb" kind="define"><name>XCLK_WIZ_SWRST_OFFSET</name></member>
     <member refid="group__dprxss_1ga444164d752ca312183fe196d91c1ef49" kind="define"><name>XCLK_WIZ_SWRST_VAL</name></member>
     <member refid="group__dprxss_1ga1130a3203681c537950cc8229a696105" kind="define"><name>XCLK_WIZ_STATUS_OFFSET</name></member>
-    <member refid="group__dprxss_1ga54bfc49d1a188b798cb96cfd40a0dc54" kind="define"><name>XCLK_WIZ_ISR_OFFSET</name></member>
-    <member refid="group__dprxss_1gaab5f77647fad82a4c02eb29b8180f89b" kind="define"><name>XCLK_WIZ_IER_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8d853c1eaeeb4b89d06b7de0ff13d999" kind="define"><name>XCLK_WIZ_RECONFIG_OFFSET</name></member>
-    <member refid="group__dprxss_1gabb6785f83c4d1c43944391e8c3b97395" kind="define"><name>XCLK_WIZ_RECONFIG_VAL</name></member>
-    <member refid="group__dprxss_1ga16472d2b7db6445311e7f55befc24288" kind="define"><name>XCLK_WIZ_REG1_OFFSET</name></member>
-    <member refid="group__dprxss_1gab2cc56d1cb816584cc6e38ae9801be20" kind="define"><name>XCLK_WIZ_REG2_OFFSET</name></member>
-    <member refid="group__dprxss_1gaa2093a22445263697e6d75945eb3f3b3" kind="define"><name>XCLK_WIZ_REG3_OFFSET</name></member>
-    <member refid="group__dprxss_1ga38a1af73dd61e339615ff6d772c67bd6" kind="define"><name>XCLK_WIZ_REG4_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8436a4b72c342af56c35f7867729349c" kind="define"><name>XCLK_WIZ_REG12_OFFSET</name></member>
-    <member refid="group__dprxss_1ga48d2a0b4bd2670f13d8eba0ecc12013c" kind="define"><name>XCLK_WIZ_REG13_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33ba12baa3f240e12cd7add43233787f" kind="define"><name>XCLK_WIZ_REG11_OFFSET</name></member>
-    <member refid="group__dprxss_1gafde0de946bdb86cc3c0cb8edf510d582" kind="define"><name>XCLK_WIZ_REG11_VAL</name></member>
-    <member refid="group__dprxss_1ga877e1e65713c2198cba0f8acb1ed8e12" kind="define"><name>XCLK_WIZ_REG14_OFFSET</name></member>
-    <member refid="group__dprxss_1ga4f68d1b6e12be435cc2718724dadeb79" kind="define"><name>XCLK_WIZ_REG14_VAL</name></member>
-    <member refid="group__dprxss_1gaf166739dc153b008e1e348c39bdb7a3a" kind="define"><name>XCLK_WIZ_REG15_OFFSET</name></member>
-    <member refid="group__dprxss_1gaefad0fe92c925b01659954b7d5779889" kind="define"><name>XCLK_WIZ_REG15_VAL</name></member>
-    <member refid="group__dprxss_1gaf1b0fb18434dbf800de1a87a44e87c26" kind="define"><name>XCLK_WIZ_REG16_OFFSET</name></member>
-    <member refid="group__dprxss_1gaaa6136ef5e8a3c226c362b4eec2b1d5d" kind="define"><name>XCLK_WIZ_REG16_VAL</name></member>
-    <member refid="group__dprxss_1ga6bc158a8205cb827773cf79b606e7eb5" kind="define"><name>XCLK_WIZ_REG17_OFFSET</name></member>
-    <member refid="group__dprxss_1gae12b05cbd1ed7a69fb48cf21ccb61009" kind="define"><name>XCLK_WIZ_REG17_VAL</name></member>
-    <member refid="group__dprxss_1ga52ee62bcaae7ccae96c34546aef1e57c" kind="define"><name>XCLK_WIZ_REG19_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8344ad97aac75db9f1529b4f639565f1" kind="define"><name>XCLK_WIZ_REG25_OFFSET</name></member>
-    <member refid="group__dprxss_1ga0b52940d0a236e7c554cd4cf6e6b749c" kind="define"><name>XCLK_WIZ_REG26_OFFSET</name></member>
-    <member refid="group__dprxss_1gafa3f8e5f41b19f8c60c4248bfa85de88" kind="define"><name>XCLK_WIZ_REG26_VAL</name></member>
-    <member refid="group__dprxss_1ga2aa4f4906d0adf01130e806e3dcc29aa" kind="define"><name>XCLK_WIZ_LOCK</name></member>
-    <member refid="group__dprxss_1ga0e335ce1a067f54477c247e74a4dbc3d" kind="define"><name>XCLK_WIZ_REG3_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" kind="define"><name>XCLK_WIZ_REG3_USED</name></member>
-    <member refid="group__dprxss_1ga2ce6c2a6375c78f8b9923d2330941dae" kind="define"><name>XCLK_WIZ_REG3_MX</name></member>
-    <member refid="group__dprxss_1ga92d4bacb8f557d499888a14e1c48b3c9" kind="define"><name>XCLK_WIZ_REG1_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga8162c60bfa65bf8e6856f4ab94845337" kind="define"><name>XCLK_WIZ_REG1_EN</name></member>
-    <member refid="group__dprxss_1ga901c3adb5465cdf153c4b0d1a51e3bd9" kind="define"><name>XCLK_WIZ_REG1_MX</name></member>
-    <member refid="group__dprxss_1gab434cd858b06997f7ac2c8cdbbb5f525" kind="define"><name>XCLK_WIZ_RECONFIG_LOAD</name></member>
-    <member refid="group__dprxss_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" kind="define"><name>XCLK_WIZ_RECONFIG_SADDR</name></member>
-    <member refid="group__dprxss_1ga99acc131620a3cad06a7500f478f5c96" kind="define"><name>XCLK_WIZ_REG1_EDGE_MASK</name></member>
-    <member refid="group__dprxss_1ga26c3e66c06696502f24f013c0da90e55" kind="define"><name>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT</name></member>
-    <member refid="group__dprxss_1ga5b78de754a5a563c46cc4364b9698488" kind="define"><name>XCLK_WIZ_CLKOUT0_MX_SHIFT</name></member>
-    <member refid="group__dprxss_1gac7482b3e0a5b624637346bee0811515d" kind="define"><name>XCLK_WIZ_CLKOUT0_P5EN_SHIFT</name></member>
-    <member refid="group__dprxss_1gae49b1d691b76f209b89e751b7d091d43" kind="define"><name>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga142028c206e507df8633d0b91b0ef273" kind="define"><name>XCLK_WIZ_REG12_EDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga23cf060127024ef4335191be20772152" kind="define"><name>M_VAL_405</name></member>
-    <member refid="group__dprxss_1ga94a35f79ea9ed2d4475bbfe0cd04cdfe" kind="define"><name>M_VAL_270</name></member>
-    <member refid="group__dprxss_1ga1615a7767c0fe00c756548fc2f9e7374" kind="define"><name>M_VAL_135</name></member>
-    <member refid="group__dprxss_1gaedba1f30de040f355bbb20c666d8f47d" kind="define"><name>M_VAL_81</name></member>
-    <member refid="group__dprxss_1ga99c1596422064bea1908329d1bdec3bb" kind="define"><name>D_VAL_ALL</name></member>
     <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
     <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga46e1099c99fca95dd6dc76862fcbf167" kind="define"><name>VBLANK_WAIT_COUNT_THRESHOLD</name></member>
@@ -2103,7 +2160,6 @@
     <member refid="group__dprxss_1ga02c64a8f75fdf2842749c23815584b1b" kind="function"><name>XDpRxSs_StubInfoPacketCallback</name></member>
     <member refid="group__dprxss_1gaf895ff1f01daf3493d4078a9b3daf90c" kind="function"><name>XDpRxSs_StubPayloadAllocCallback</name></member>
     <member refid="group__dprxss_1ga73314b842edd066e11bd1966de1d6bfe" kind="function"><name>XDpRxSs_StubNoVideoCallback</name></member>
-    <member refid="group__dprxss_1gad03501b890cb24be007b01af199f8638" kind="function"><name>XDpRxSs_Set_Dec_Clk</name></member>
     <member refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" kind="function"><name>XDpRxSs_CfgInitialize</name></member>
     <member refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" kind="function"><name>XDpRxSs_Reset</name></member>
     <member refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" kind="function"><name>XDpRxSs_Start</name></member>
@@ -2118,6 +2174,7 @@
     <member refid="group__dprxss_1gacf7adeed24f0875c0021511eb1e227de" kind="function"><name>XDpRxss_GetBpc</name></member>
     <member refid="group__dprxss_1ga1518225008da9f21ba2eaa435767a91e" kind="function"><name>XDpRxss_GetInterlace</name></member>
     <member refid="group__dprxss_1ga6a89274c77d341860816fb8b7c91af15" kind="function"><name>XDpRxss_GetColorComponent</name></member>
+    <member refid="group__dprxss_1ga125b1b768175413bb6ea085ceb886334" kind="function"><name>XDpRxss_MapColorStdToMisc0Colorimetry</name></member>
     <member refid="group__dprxss_1gadd13d6f04f770d059be4a2a5668c88be" kind="function"><name>XDpRxss_GetColorimetry</name></member>
     <member refid="group__dprxss_1ga1339e3fb35d4efb7f35214a0e167fb78" kind="function"><name>XDpRxss_GetDynamicRange</name></member>
     <member refid="group__dprxss_1gac8acf83ca201da4aa6277e6caea1f7e1" kind="function"><name>XDpRxss_GetMsa</name></member>
@@ -2300,6 +2357,7 @@
     <member refid="xdprxss__dp21__pt_8c_1a08701bb14d7f032afd0d35884cbeca8c" kind="define"><name>PS_IIC_CLK</name></member>
     <member refid="xdprxss__dp21__pt_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kind="typedef"><name>AddressType</name></member>
     <member refid="xdprxss__dp21__pt_8c_1a7640a5ed1d0fef650b50378bb89e3740" kind="variable"><name>Msa_Pt</name></member>
+    <member refid="xdprxss__dp21__pt_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
     <member refid="xdprxss__dp21__pt_8c_1a82038b0e75588dec0955214979c8f42a" kind="variable"><name>frame_array</name></member>
     <member refid="xdprxss__dp21__pt_8c_1a789e6621fef3ddf7fd8105396646645a" kind="variable"><name>frame_array_y</name></member>
     <member refid="xdprxss__dp21__pt_8c_1a29e09b8cc6e635dba72acb38d3fee79d" kind="variable"><name>XVFRMBUFRD_BUFFER_BASEADDR_Y</name></member>
@@ -2404,6 +2462,7 @@
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a08701bb14d7f032afd0d35884cbeca8c" kind="define"><name>PS_IIC_CLK</name></member>
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kind="typedef"><name>AddressType</name></member>
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a7640a5ed1d0fef650b50378bb89e3740" kind="variable"><name>Msa_Pt</name></member>
+    <member refid="xdprxss__dp21__pt__hdcp_8c_1acb030d34760c14a908fe9752f806958a" kind="variable"><name>use_vsc</name></member>
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a82038b0e75588dec0955214979c8f42a" kind="variable"><name>frame_array</name></member>
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a789e6621fef3ddf7fd8105396646645a" kind="variable"><name>frame_array_y</name></member>
     <member refid="xdprxss__dp21__pt__hdcp_8c_1a29e09b8cc6e635dba72acb38d3fee79d" kind="variable"><name>XVFRMBUFRD_BUFFER_BASEADDR_Y</name></member>
@@ -2498,6 +2557,8 @@
     <member refid="xdprxss__dp21__pt__mst_8c_1ad351e921c4174f7f4146bd8472167f4a" kind="define"><name>NUM_TEST_FORMATS</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a346467d9e83d908d974e303471d5bc18" kind="define"><name>PHY_CLK_DP14</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1ae0ccf99b6c5c61eef147630e0639cd5e" kind="define"><name>PHY_CLK_DP21</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1af01eadf30f7f4d08058a03799ce513ff" kind="define"><name>MSA_DETECT_RETRIES</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1a2dea73071e4373f2483961af4262ebc5" kind="define"><name>MSA_DETECT_DELAY_US</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a5353d83fc6004859e894dac1146e6d67" kind="variable"><name>Tx_only</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a8c2232f912fa0a5ba8fc4310f59a34d5" kind="variable"><name>Msa_test</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a82038b0e75588dec0955214979c8f42a" kind="variable"><name>frame_array</name></member>
@@ -2547,6 +2608,9 @@
     <member refid="xdprxss__dp21__pt__mst_8c_1af12b15cbd4c3b5336d5682c52e77ef65" kind="variable"><name>maud_dup</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1ab762e539f136753f1435e66769bf59c1" kind="variable"><name>naud_dup</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1ad3b3b6c0bc47eb7c5fff1e26796e4767" kind="variable"><name>tx_ppc_set</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1ab4a1253cd5bdd9a57fddd3581709af73" kind="variable"><name>use_vsc</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1a80dff2847a2885c5acc5c56ff11356ea" kind="variable"><name>Rx_Vsc_Payload</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1a0d572442cb6753f4e76261e0d0ade3cc" kind="variable"><name>Rx_Vsc_Valid</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a982703242be7e4d4d073ff99e63ea165" kind="variable"><name>tx_after_rx</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a9f2fcf18aa4ead91cce7e55f9dd3f1d7" kind="function"><name>Dp21RxSs_PtMst_ResetWrFb</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1ab3998f68296f411458ce1d1d38b90c07" kind="function"><name>Dp21RxSs_PtMst_ResetRdFb</name></member>
@@ -2581,12 +2645,15 @@
     <member refid="xdprxss__dp21__pt__mst_8c_1a2dbc61ed30abcc5c3241b848e2f0f7fe" kind="function"><name>Dp21RxSs_PtMst_WrFbStop</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1abf8ae9d629d427ac70733e846cfafcdb" kind="function"><name>Dp21RxSs_PtMst_WrFbStart</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a4c7bc0fd951ac9f1c5983a9cf2b93495" kind="function"><name>Dp21RxSs_PtMst_RdFbStart</name></member>
+    <member refid="xdprxss__dp21__pt__mst_8c_1af00f72c955778d633e59e9dd00ab8083" kind="function"><name>Dp21RxSs_PtMst_GetStableMsa</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a798830a417d1670f4f752a6be4f4852e" kind="function"><name>Dp21RxSs_PtMst_DetectResolution</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a0b95e712ce3703213cfeb8bdb46f28f2" kind="function"><name>Dp21RxSs_PtMst_DetectColor</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1a9269e27dbc56fef845b4f336a757706c" kind="function"><name>Dp21RxSs_PtMst_Read</name></member>
     <member refid="xdprxss__dp21__pt__mst_8c_1ad2366bf6733e35e649412e728c761574" kind="function"><name>Dp21RxSs_PtMst_Write</name></member>
   </compound>
   <compound refid="xdprxss__dp21__pt__vcu_8txt" kind="file"><name>xdprxss_dp21_pt_vcu.txt</name>
+  </compound>
+  <compound refid="xdprxss__dp21__pt__versal_8txt" kind="file"><name>xdprxss_dp21_pt_versal.txt</name>
   </compound>
   <compound refid="xdprxss__dp21__rx_8c" kind="file"><name>xdprxss_dp21_rx.c</name>
     <member refid="xdprxss__dp21__rx_8c_1a2e4b8cf26cdbad49ce643e7b10ae2b56" kind="define"><name>XPAR_IIC_0_BASEADDR</name></member>
@@ -2605,6 +2672,10 @@
     <member refid="xdprxss__dp21__rx_8c_1a028d21c1d779d7c992e41b11d876de26" kind="define"><name>XIIC_BASEADDRESS</name></member>
     <member refid="xdprxss__dp21__rx_8c_1aa22736573c6f820299099357153a5937" kind="define"><name>DPRXSS_LINK_RATE</name></member>
     <member refid="xdprxss__dp21__rx_8c_1afcc39f849621b4497c2a71ca4cd127d9" kind="define"><name>DPRXSS_LANE_COUNT</name></member>
+    <member refid="xdprxss__dp21__rx_8c_1a165096ca132f333b2beb37989e37536d" kind="define"><name>XDP_RX_CRC_CONFIG</name></member>
+    <member refid="xdprxss__dp21__rx_8c_1ac263a4bdee7fe35012fefb42e66d7528" kind="define"><name>XDP_RX_CRC_COMP0</name></member>
+    <member refid="xdprxss__dp21__rx_8c_1a84648d65d7d8df7b6a12706279f2ead8" kind="define"><name>XDP_RX_CRC_COMP1</name></member>
+    <member refid="xdprxss__dp21__rx_8c_1a1e242bb2569b0ca8ff3ca6bca43a6a7d" kind="define"><name>XDP_RX_CRC_COMP2</name></member>
     <member refid="xdprxss__dp21__rx_8c_1acffeeb6e240259adfba82dbc5f8aa7dd" kind="define"><name>DP_BS_IDLE_TIMEOUT</name></member>
     <member refid="xdprxss__dp21__rx_8c_1a4e32821f82b5c8f861be9549a5127a8a" kind="define"><name>VBLANK_WAIT_COUNT</name></member>
     <member refid="xdprxss__dp21__rx_8c_1ad213a6b10143b16ae90ad8b2d4806af3" kind="define"><name>AUX_DEFER_COUNT</name></member>
@@ -2690,6 +2761,10 @@
   </compound>
   <compound refid="xdprxss__dprx_8h" kind="file"><name>xdprxss_dprx.h</name>
     <member refid="xdprxss__dprx_8h_1a6fdbd38ace5b14b9a83717ce67efc3f6" kind="define"><name>XDPRXSS_DPRX_H_</name></member>
+  </compound>
+  <compound refid="xdprxss__dsc__fec_8c" kind="file"><name>xdprxss_dsc_fec.c</name>
+  </compound>
+  <compound refid="xdprxss__dsc__fec_8h" kind="file"><name>xdprxss_dsc_fec.h</name>
   </compound>
   <compound refid="xdprxss__g_8c" kind="file"><name>xdprxss_g.c</name>
     <member refid="xdprxss__g_8c_1aca2d2be314d8c33e7be3473a015e80da" kind="define"><name>XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_CLK_WIZ_PRESENT</name></member>
@@ -3114,7 +3189,6 @@
     <member refid="group__dprxss_1ga02c64a8f75fdf2842749c23815584b1b" kind="function"><name>XDpRxSs_StubInfoPacketCallback</name></member>
     <member refid="group__dprxss_1gaf895ff1f01daf3493d4078a9b3daf90c" kind="function"><name>XDpRxSs_StubPayloadAllocCallback</name></member>
     <member refid="group__dprxss_1ga73314b842edd066e11bd1966de1d6bfe" kind="function"><name>XDpRxSs_StubNoVideoCallback</name></member>
-    <member refid="group__dprxss_1gad03501b890cb24be007b01af199f8638" kind="function"><name>XDpRxSs_Set_Dec_Clk</name></member>
     <member refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" kind="function"><name>XDpRxSs_CfgInitialize</name></member>
     <member refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" kind="function"><name>XDpRxSs_Reset</name></member>
     <member refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" kind="function"><name>XDpRxSs_Start</name></member>
@@ -3129,6 +3203,7 @@
     <member refid="group__dprxss_1gacf7adeed24f0875c0021511eb1e227de" kind="function"><name>XDpRxss_GetBpc</name></member>
     <member refid="group__dprxss_1ga1518225008da9f21ba2eaa435767a91e" kind="function"><name>XDpRxss_GetInterlace</name></member>
     <member refid="group__dprxss_1ga6a89274c77d341860816fb8b7c91af15" kind="function"><name>XDpRxss_GetColorComponent</name></member>
+    <member refid="group__dprxss_1ga125b1b768175413bb6ea085ceb886334" kind="function"><name>XDpRxss_MapColorStdToMisc0Colorimetry</name></member>
     <member refid="group__dprxss_1gadd13d6f04f770d059be4a2a5668c88be" kind="function"><name>XDpRxss_GetColorimetry</name></member>
     <member refid="group__dprxss_1ga1339e3fb35d4efb7f35214a0e167fb78" kind="function"><name>XDpRxss_GetDynamicRange</name></member>
     <member refid="group__dprxss_1gac8acf83ca201da4aa6277e6caea1f7e1" kind="function"><name>XDpRxss_GetMsa</name></member>
@@ -3164,50 +3239,6 @@
     <member refid="group__dprxss_1ga70947ce811ae2951ee6041a42746e8cb" kind="define"><name>XCLK_WIZ_SWRST_OFFSET</name></member>
     <member refid="group__dprxss_1ga444164d752ca312183fe196d91c1ef49" kind="define"><name>XCLK_WIZ_SWRST_VAL</name></member>
     <member refid="group__dprxss_1ga1130a3203681c537950cc8229a696105" kind="define"><name>XCLK_WIZ_STATUS_OFFSET</name></member>
-    <member refid="group__dprxss_1ga54bfc49d1a188b798cb96cfd40a0dc54" kind="define"><name>XCLK_WIZ_ISR_OFFSET</name></member>
-    <member refid="group__dprxss_1gaab5f77647fad82a4c02eb29b8180f89b" kind="define"><name>XCLK_WIZ_IER_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8d853c1eaeeb4b89d06b7de0ff13d999" kind="define"><name>XCLK_WIZ_RECONFIG_OFFSET</name></member>
-    <member refid="group__dprxss_1gabb6785f83c4d1c43944391e8c3b97395" kind="define"><name>XCLK_WIZ_RECONFIG_VAL</name></member>
-    <member refid="group__dprxss_1ga16472d2b7db6445311e7f55befc24288" kind="define"><name>XCLK_WIZ_REG1_OFFSET</name></member>
-    <member refid="group__dprxss_1gab2cc56d1cb816584cc6e38ae9801be20" kind="define"><name>XCLK_WIZ_REG2_OFFSET</name></member>
-    <member refid="group__dprxss_1gaa2093a22445263697e6d75945eb3f3b3" kind="define"><name>XCLK_WIZ_REG3_OFFSET</name></member>
-    <member refid="group__dprxss_1ga38a1af73dd61e339615ff6d772c67bd6" kind="define"><name>XCLK_WIZ_REG4_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8436a4b72c342af56c35f7867729349c" kind="define"><name>XCLK_WIZ_REG12_OFFSET</name></member>
-    <member refid="group__dprxss_1ga48d2a0b4bd2670f13d8eba0ecc12013c" kind="define"><name>XCLK_WIZ_REG13_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33ba12baa3f240e12cd7add43233787f" kind="define"><name>XCLK_WIZ_REG11_OFFSET</name></member>
-    <member refid="group__dprxss_1gafde0de946bdb86cc3c0cb8edf510d582" kind="define"><name>XCLK_WIZ_REG11_VAL</name></member>
-    <member refid="group__dprxss_1ga877e1e65713c2198cba0f8acb1ed8e12" kind="define"><name>XCLK_WIZ_REG14_OFFSET</name></member>
-    <member refid="group__dprxss_1ga4f68d1b6e12be435cc2718724dadeb79" kind="define"><name>XCLK_WIZ_REG14_VAL</name></member>
-    <member refid="group__dprxss_1gaf166739dc153b008e1e348c39bdb7a3a" kind="define"><name>XCLK_WIZ_REG15_OFFSET</name></member>
-    <member refid="group__dprxss_1gaefad0fe92c925b01659954b7d5779889" kind="define"><name>XCLK_WIZ_REG15_VAL</name></member>
-    <member refid="group__dprxss_1gaf1b0fb18434dbf800de1a87a44e87c26" kind="define"><name>XCLK_WIZ_REG16_OFFSET</name></member>
-    <member refid="group__dprxss_1gaaa6136ef5e8a3c226c362b4eec2b1d5d" kind="define"><name>XCLK_WIZ_REG16_VAL</name></member>
-    <member refid="group__dprxss_1ga6bc158a8205cb827773cf79b606e7eb5" kind="define"><name>XCLK_WIZ_REG17_OFFSET</name></member>
-    <member refid="group__dprxss_1gae12b05cbd1ed7a69fb48cf21ccb61009" kind="define"><name>XCLK_WIZ_REG17_VAL</name></member>
-    <member refid="group__dprxss_1ga52ee62bcaae7ccae96c34546aef1e57c" kind="define"><name>XCLK_WIZ_REG19_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8344ad97aac75db9f1529b4f639565f1" kind="define"><name>XCLK_WIZ_REG25_OFFSET</name></member>
-    <member refid="group__dprxss_1ga0b52940d0a236e7c554cd4cf6e6b749c" kind="define"><name>XCLK_WIZ_REG26_OFFSET</name></member>
-    <member refid="group__dprxss_1gafa3f8e5f41b19f8c60c4248bfa85de88" kind="define"><name>XCLK_WIZ_REG26_VAL</name></member>
-    <member refid="group__dprxss_1ga2aa4f4906d0adf01130e806e3dcc29aa" kind="define"><name>XCLK_WIZ_LOCK</name></member>
-    <member refid="group__dprxss_1ga0e335ce1a067f54477c247e74a4dbc3d" kind="define"><name>XCLK_WIZ_REG3_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" kind="define"><name>XCLK_WIZ_REG3_USED</name></member>
-    <member refid="group__dprxss_1ga2ce6c2a6375c78f8b9923d2330941dae" kind="define"><name>XCLK_WIZ_REG3_MX</name></member>
-    <member refid="group__dprxss_1ga92d4bacb8f557d499888a14e1c48b3c9" kind="define"><name>XCLK_WIZ_REG1_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga8162c60bfa65bf8e6856f4ab94845337" kind="define"><name>XCLK_WIZ_REG1_EN</name></member>
-    <member refid="group__dprxss_1ga901c3adb5465cdf153c4b0d1a51e3bd9" kind="define"><name>XCLK_WIZ_REG1_MX</name></member>
-    <member refid="group__dprxss_1gab434cd858b06997f7ac2c8cdbbb5f525" kind="define"><name>XCLK_WIZ_RECONFIG_LOAD</name></member>
-    <member refid="group__dprxss_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" kind="define"><name>XCLK_WIZ_RECONFIG_SADDR</name></member>
-    <member refid="group__dprxss_1ga99acc131620a3cad06a7500f478f5c96" kind="define"><name>XCLK_WIZ_REG1_EDGE_MASK</name></member>
-    <member refid="group__dprxss_1ga26c3e66c06696502f24f013c0da90e55" kind="define"><name>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT</name></member>
-    <member refid="group__dprxss_1ga5b78de754a5a563c46cc4364b9698488" kind="define"><name>XCLK_WIZ_CLKOUT0_MX_SHIFT</name></member>
-    <member refid="group__dprxss_1gac7482b3e0a5b624637346bee0811515d" kind="define"><name>XCLK_WIZ_CLKOUT0_P5EN_SHIFT</name></member>
-    <member refid="group__dprxss_1gae49b1d691b76f209b89e751b7d091d43" kind="define"><name>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga142028c206e507df8633d0b91b0ef273" kind="define"><name>XCLK_WIZ_REG12_EDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga23cf060127024ef4335191be20772152" kind="define"><name>M_VAL_405</name></member>
-    <member refid="group__dprxss_1ga94a35f79ea9ed2d4475bbfe0cd04cdfe" kind="define"><name>M_VAL_270</name></member>
-    <member refid="group__dprxss_1ga1615a7767c0fe00c756548fc2f9e7374" kind="define"><name>M_VAL_135</name></member>
-    <member refid="group__dprxss_1gaedba1f30de040f355bbb20c666d8f47d" kind="define"><name>M_VAL_81</name></member>
-    <member refid="group__dprxss_1ga99c1596422064bea1908329d1bdec3bb" kind="define"><name>D_VAL_ALL</name></member>
     <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
     <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga46e1099c99fca95dd6dc76862fcbf167" kind="define"><name>VBLANK_WAIT_COUNT_THRESHOLD</name></member>

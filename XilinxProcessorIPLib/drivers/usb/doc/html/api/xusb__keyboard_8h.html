@@ -100,14 +100,13 @@ $(document).ready(function(){initNavTree('xusb__keyboard_8h.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_keyboard.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains the constants, type definitions, variables and function prototypes used in the USB keyboard example. </p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -120,267 +119,307 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.02a bss  11/01/11 Number of endpoints changed from 0x00 to 0x01 in
                 FsUsbConfig to support Full Speed (CR 627573).</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xusb__cp9_8h.html">xusb_cp9.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a3b40155d0d9fa44133905dd9f6f02ee7">InitUsbInterface</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the USB initialization function.  <a href="#a3b40155d0d9fa44133905dd9f6f02ee7">More...</a><br/></td></tr>
-<tr class="separator:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a8bd3ecc4e2acd07b864ea2392a0394f4">UsbIfIntrHandler</a> (void *CallBackRef, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB mass storage device application.  <a href="#a8bd3ecc4e2acd07b864ea2392a0394f4">More...</a><br/></td></tr>
-<tr class="separator:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a243967b329b332dc3503adfc2950fceb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler</a> (void *CallBackRef, u8 EpNum, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a243967b329b332dc3503adfc2950fceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB End point Zero events.  <a href="#a243967b329b332dc3503adfc2950fceb">More...</a><br/></td></tr>
-<tr class="separator:a243967b329b332dc3503adfc2950fceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a386bfc503aaebdfd92028284d6fb63f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler</a> (void *CallBackRef, u8 EpNum, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a386bfc503aaebdfd92028284d6fb63f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB End point one events.  <a href="#a386bfc503aaebdfd92028284d6fb63f0">More...</a><br/></td></tr>
-<tr class="separator:a386bfc503aaebdfd92028284d6fb63f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0014b91940ed2f067400662f504bb379"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a0014b91940ed2f067400662f504bb379">MaxControlSize</a></td></tr>
+<tr class="memdesc:a0014b91940ed2f067400662f504bb379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum control endpoint packet size.  <a href="#a0014b91940ed2f067400662f504bb379">More...</a><br/></td></tr>
+<tr class="separator:a0014b91940ed2f067400662f504bb379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bdafe0046dc17cfcdd12be1bb63625"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html">USB_STD_DEV_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#ac4bdafe0046dc17cfcdd12be1bb63625">DeviceDescriptor</a></td></tr>
+<tr class="memdesc:ac4bdafe0046dc17cfcdd12be1bb63625"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard USB device descriptor for keyboard example.  <a href="#ac4bdafe0046dc17cfcdd12be1bb63625">More...</a><br/></td></tr>
+<tr class="separator:ac4bdafe0046dc17cfcdd12be1bb63625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad12db18ccb5deaee6a65484d8b2d980a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c.html">USB_STD_QUAL_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#ad12db18ccb5deaee6a65484d8b2d980a">QualifierDescriptor</a></td></tr>
+<tr class="memdesc:ad12db18ccb5deaee6a65484d8b2d980a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device qualifier descriptor.  <a href="#ad12db18ccb5deaee6a65484d8b2d980a">More...</a><br/></td></tr>
+<tr class="separator:ad12db18ccb5deaee6a65484d8b2d980a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a971ac86b08ae38fa87f7736e5204519c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n.html">FPGA1_CONFIGURATION</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a971ac86b08ae38fa87f7736e5204519c">HsUsbConfig</a></td></tr>
+<tr class="memdesc:a971ac86b08ae38fa87f7736e5204519c"><td class="mdescLeft">&#160;</td><td class="mdescRight">High-speed USB configuration descriptor.  <a href="#a971ac86b08ae38fa87f7736e5204519c">More...</a><br/></td></tr>
+<tr class="separator:a971ac86b08ae38fa87f7736e5204519c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcecaf21775b5a46f61bfe7b3105a66a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n.html">FPGA1_CONFIGURATION</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#afcecaf21775b5a46f61bfe7b3105a66a">FsUsbConfig</a></td></tr>
+<tr class="memdesc:afcecaf21775b5a46f61bfe7b3105a66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Full-speed USB configuration descriptor.  <a href="#afcecaf21775b5a46f61bfe7b3105a66a">More...</a><br/></td></tr>
+<tr class="separator:afcecaf21775b5a46f61bfe7b3105a66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbdbad4b579e8bd1364d4b693415e8d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html">USB_STD_STRING_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#adbdbad4b579e8bd1364d4b693415e8d7">LangId</a></td></tr>
+<tr class="memdesc:adbdbad4b579e8bd1364d4b693415e8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB language ID string descriptor.  <a href="#adbdbad4b579e8bd1364d4b693415e8d7">More...</a><br/></td></tr>
+<tr class="separator:adbdbad4b579e8bd1364d4b693415e8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58563e9bd150a409f7a2125d278193fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c.html">USB_STD_STRING_MAN_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a58563e9bd150a409f7a2125d278193fd">Manufacturer</a></td></tr>
+<tr class="memdesc:a58563e9bd150a409f7a2125d278193fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB manufacturer string descriptor.  <a href="#a58563e9bd150a409f7a2125d278193fd">More...</a><br/></td></tr>
+<tr class="separator:a58563e9bd150a409f7a2125d278193fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57b731f7097383c6437ca6f630531877"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c.html">USB_STD_STRING_PS_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a57b731f7097383c6437ca6f630531877">ProductString</a></td></tr>
+<tr class="memdesc:a57b731f7097383c6437ca6f630531877"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB product string descriptor.  <a href="#a57b731f7097383c6437ca6f630531877">More...</a><br/></td></tr>
+<tr class="separator:a57b731f7097383c6437ca6f630531877"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92be68d0e935e72e63cba78625bdc26a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c.html">USB_STD_STRING_SN_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a92be68d0e935e72e63cba78625bdc26a">SerialNumber</a></td></tr>
+<tr class="memdesc:a92be68d0e935e72e63cba78625bdc26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB serial number string descriptor.  <a href="#a92be68d0e935e72e63cba78625bdc26a">More...</a><br/></td></tr>
+<tr class="separator:a92be68d0e935e72e63cba78625bdc26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ffab8304a2cc07ac62d5b77da532a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_s_b___s_t_d___h_i_d___d_e_s_c.html">USB_STD_HID_DESC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#af7ffab8304a2cc07ac62d5b77da532a1">HidDescriptor</a></td></tr>
+<tr class="memdesc:af7ffab8304a2cc07ac62d5b77da532a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard USB HID descriptor for keyboard example.  <a href="#af7ffab8304a2cc07ac62d5b77da532a1">More...</a><br/></td></tr>
+<tr class="separator:af7ffab8304a2cc07ac62d5b77da532a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7723edabfccda4cd924c243b5b8734"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__keyboard_8h.html#a6c7723edabfccda4cd924c243b5b8734">Message</a> []</td></tr>
+<tr class="memdesc:a6c7723edabfccda4cd924c243b5b8734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xilinx HID keyboard report message data array.  <a href="#a6c7723edabfccda4cd924c243b5b8734">More...</a><br/></td></tr>
+<tr class="separator:a6c7723edabfccda4cd924c243b5b8734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a243967b329b332dc3503adfc2950fceb"></a>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ac4bdafe0046dc17cfcdd12be1bb63625"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Ep0IntrHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>EpNum</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>IntrStatus</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html">USB_STD_DEV_DESC</a> DeviceDescriptor</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This function is the interrupt handler for the USB End point Zero events. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt. handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point zero. This parameter is useful when a single handler is used for processing all end point interrupts.</dd></dl>
-<p>This function is the interrupt handler for the USB End point Zero events.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the caller function, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point zero. This parameter is useful when a single handler is used for processing all end point interrupts. </dd></dl>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html">USB_STD_DEV_DESC</a>),       </div>
+<div class="line">        <a class="code" href="xusb__types_8h.html#a6f62c335e086ab5d75660911f9d4d5b7">DEVICE_DESCR</a>,   </div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">        0x02,           </div>
+<div class="line"></div>
+<div class="line">        0,              </div>
+<div class="line">        00,             </div>
+<div class="line">        00,             </div>
+<div class="line">        0x40,           </div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">        0xFD03,         </div>
+<div class="line">        0x0002,         </div>
+<div class="line">        0x01,           </div>
+<div class="line"></div>
+<div class="line">        01,             </div>
+<div class="line">        02,             </div>
+<div class="line">        03,             </div>
+<div class="line">        01              </div>
+<div class="line">}</div>
+<div class="ttc" id="struct_u_s_b___s_t_d___d_e_v___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html">USB_STD_DEV_DESC</a></div><div class="ttdoc">Standard USB 2.0 device descriptor structure. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:195</div></div>
+<div class="ttc" id="xusb__types_8h_html_a6f62c335e086ab5d75660911f9d4d5b7"><div class="ttname"><a href="xusb__types_8h.html#a6f62c335e086ab5d75660911f9d4d5b7">DEVICE_DESCR</a></div><div class="ttdeci">#define DEVICE_DESCR</div><div class="ttdoc">USB device descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:101</div></div>
+</div><!-- fragment -->
+<p>Standard USB device descriptor for keyboard example. </p>
+<p>Standard USB device descriptor.</p>
 
 </div>
 </div>
-<a class="anchor" id="a386bfc503aaebdfd92028284d6fb63f0"></a>
+<a class="anchor" id="afcecaf21775b5a46f61bfe7b3105a66a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Ep1IntrHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>EpNum</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>IntrStatus</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n.html">FPGA1_CONFIGURATION</a> FsUsbConfig</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB End point one events. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point one. This parameter is useful when a single handler is used for processing all end point interrupts.</dd></dl>
-<p>This function is the interrupt handler for the USB End point one events.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the caller function, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point one. This parameter is useful when a single handler is used for processing all end point interrupts. </dd></dl>
+<p>Full-speed USB configuration descriptor. </p>
 
 </div>
 </div>
-<a class="anchor" id="a3b40155d0d9fa44133905dd9f6f02ee7"></a>
+<a class="anchor" id="af7ffab8304a2cc07ac62d5b77da532a1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void InitUsbInterface </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_usb.html">XUsb</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___h_i_d___d_e_s_c.html">USB_STD_HID_DESC</a> HidDescriptor</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This is the USB initialization function. </p>
-<p>This example initializes the device for Mass Storage Application. The following configuration is done.</p>
-<ul>
-<li>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</li>
-<li>EP1 : NON_ISOCHRONOUS, BULK_IN, packet size 512 bytes.</li>
-<li>EP2 : NON_ISOCHRONOUS, BULK_OUT, packet size 512 bytes</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This is the USB initialization function.</p>
-<p>The following is the configuration.</p>
-<ul>
-<li>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</li>
-<li>EP1 : NON_ISOCHRONOUS, INTERRUPT_IN, packet size of 16 bytes.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This example initializes the device for Microphone Application. The following configuration is done.</p>
-<ul>
-<li>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</li>
-<li>EP1 : ISOCHRONOUS, BULK_IN, packet size 1024 bytes.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This example initializes the USB device for USB mouse example. The following configuration is done.</p>
-<ul>
-<li>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</li>
-<li>EP1 : NON_ISOCHRONOUS, INTERRUPT_IN, packet size of 16 bytes.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___h_i_d___d_e_s_c.html">USB_STD_HID_DESC</a>),       </div>
+<div class="line">        0x21,                   </div>
+<div class="line">        0x10,                   </div>
+<div class="line">        0x01,                   </div>
+<div class="line">        0x00,                   </div>
+<div class="line">        0x01,                   </div>
+<div class="line">        0x22,                   </div>
+<div class="line">        0x2b,                   </div>
+<div class="line">        0x00</div>
+<div class="line">}</div>
+<div class="ttc" id="struct_u_s_b___s_t_d___h_i_d___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___h_i_d___d_e_s_c.html">USB_STD_HID_DESC</a></div><div class="ttdoc">Standard USB HID class descriptor structure. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:268</div></div>
+</div><!-- fragment -->
+<p>Standard USB HID descriptor for keyboard example. </p>
 
 </div>
 </div>
-<a class="anchor" id="a8bd3ecc4e2acd07b864ea2392a0394f4"></a>
+<a class="anchor" id="a971ac86b08ae38fa87f7736e5204519c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UsbIfIntrHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>IntrStatus</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n.html">FPGA1_CONFIGURATION</a> HsUsbConfig</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB mass storage device application. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function is the interrupt handler for the USB mass storage device application.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Each interrupt source is disabled upon reception. This is to avoid the repetitive occurrence of the same event. This is done because these event conditions exist for few milliseconds.</dd></dl>
-<p>This function is the interrupt handler for the USB mass storage device application.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function is the interrupt handler for the USB mass storage device application.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from to the function, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>High-speed USB configuration descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="adbdbad4b579e8bd1364d4b693415e8d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html">USB_STD_STRING_DESC</a> LangId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        4, <a class="code" href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a>, {</div>
+<div class="line">                0x0904</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="xusb__types_8h_html_a631cd89c2b6d0e8e22e06c3e268133c8"><div class="ttname"><a href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a></div><div class="ttdeci">#define STRING_DESCR</div><div class="ttdoc">USB string descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:103</div></div>
+</div><!-- fragment -->
+<p>USB language ID string descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a58563e9bd150a409f7a2125d278193fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c.html">USB_STD_STRING_MAN_DESC</a> Manufacturer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c.html">USB_STD_STRING_MAN_DESC</a>), <a class="code" href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a>, {</div>
+<div class="line">                <span class="charliteral">&#39;X&#39;</span>, 0, <span class="charliteral">&#39;I&#39;</span>, 0, <span class="charliteral">&#39;L&#39;</span>, 0, <span class="charliteral">&#39;I&#39;</span>, 0, <span class="charliteral">&#39;N&#39;</span>, 0, <span class="charliteral">&#39;X&#39;</span>, 0, <span class="charliteral">&#39; &#39;</span>, 0</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="xusb__types_8h_html_a631cd89c2b6d0e8e22e06c3e268133c8"><div class="ttname"><a href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a></div><div class="ttdeci">#define STRING_DESCR</div><div class="ttdoc">USB string descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:103</div></div>
+<div class="ttc" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c.html">USB_STD_STRING_MAN_DESC</a></div><div class="ttdoc">Standard USB manufacturer string descriptor. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:430</div></div>
+</div><!-- fragment -->
+<p>USB manufacturer string descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0014b91940ed2f067400662f504bb379"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 MaxControlSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum control endpoint packet size. </p>
+<p>Maximum control endpoint packet size. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6c7723edabfccda4cd924c243b5b8734"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char Message[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        0x00, 0x00, 0x28, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x1B, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x0C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x0F, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x0C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x11, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x1B, 0x00,         </div>
+<div class="line">        0x00, 0x00, 0x2C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x18, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x16, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x05, 0x00,         </div>
+<div class="line">        0x00, 0x00, 0x2C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x0E, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x08, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x1C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x05, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x12, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x04, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x15, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x07, 0x00,         </div>
+<div class="line">        0x00, 0x00, 0x2C, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x07, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x08, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x10, 0x00,         </div>
+<div class="line">        0x02, 0x00, 0x12, 0x00,         </div>
+<div class="line">        0x00, 0x00, 0x28, 0x00</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Xilinx HID keyboard report message data array. </p>
+
+<p>Referenced by <a class="el" href="xusb__keyboard_8c.html#a484c46094f8fbdcb3dbc3639e45a90ad">GpioIsr()</a>, and <a class="el" href="xusb__keyboard_8c.html#a8882fbbb39100578edb3cd06a935ada6">UsbKbdExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a57b731f7097383c6437ca6f630531877"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c.html">USB_STD_STRING_PS_DESC</a> ProductString</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c.html">USB_STD_STRING_PS_DESC</a>), <a class="code" href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a>, {</div>
+<div class="line">                <span class="charliteral">&#39;F&#39;</span>, 0, <span class="charliteral">&#39;P&#39;</span>, 0, <span class="charliteral">&#39;G&#39;</span>, 0, <span class="charliteral">&#39;A&#39;</span>, 0, <span class="charliteral">&#39;2&#39;</span>, 0</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c.html">USB_STD_STRING_PS_DESC</a></div><div class="ttdoc">Standard USB product string descriptor. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:437</div></div>
+<div class="ttc" id="xusb__types_8h_html_a631cd89c2b6d0e8e22e06c3e268133c8"><div class="ttname"><a href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a></div><div class="ttdeci">#define STRING_DESCR</div><div class="ttdoc">USB string descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:103</div></div>
+</div><!-- fragment -->
+<p>USB product string descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad12db18ccb5deaee6a65484d8b2d980a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c.html">USB_STD_QUAL_DESC</a> QualifierDescriptor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c.html">USB_STD_QUAL_DESC</a>),</div>
+<div class="line">        <a class="code" href="xusb__types_8h.html#a09dc54809c97f6526f580cbc4d3f6c08">QUALIFIER_DESCR</a>, 00, 02, 0, 00, 00, 0x40, 01, 0</div>
+<div class="line">}</div>
+<div class="ttc" id="xusb__types_8h_html_a09dc54809c97f6526f580cbc4d3f6c08"><div class="ttname"><a href="xusb__types_8h.html#a09dc54809c97f6526f580cbc4d3f6c08">QUALIFIER_DESCR</a></div><div class="ttdeci">#define QUALIFIER_DESCR</div><div class="ttdoc">USB device qualifier descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:106</div></div>
+<div class="ttc" id="struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c.html">USB_STD_QUAL_DESC</a></div><div class="ttdoc">Standard USB 2.0 device qualifier descriptor structure. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:214</div></div>
+</div><!-- fragment -->
+<p>USB device qualifier descriptor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a92be68d0e935e72e63cba78625bdc26a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c.html">USB_STD_STRING_SN_DESC</a> SerialNumber</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        <span class="keyword">sizeof</span>(<a class="code" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c.html">USB_STD_STRING_SN_DESC</a>), <a class="code" href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a>, {</div>
+<div class="line">                <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;1&#39;</span>, 0,</div>
+<div class="line">                <span class="charliteral">&#39;7&#39;</span>, 0, <span class="charliteral">&#39;1&#39;</span>, 0, <span class="charliteral">&#39;5&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;4&#39;</span>, 0, <span class="charliteral">&#39;2&#39;</span>, 0,</div>
+<div class="line">                <span class="charliteral">&#39;6&#39;</span>, 0, <span class="charliteral">&#39;2&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;0&#39;</span>, 0, <span class="charliteral">&#39;5&#39;</span>, 0, <span class="charliteral">&#39;7&#39;</span>, 0, <span class="charliteral">&#39;6&#39;</span>, 0</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="xusb__types_8h_html_a631cd89c2b6d0e8e22e06c3e268133c8"><div class="ttname"><a href="xusb__types_8h.html#a631cd89c2b6d0e8e22e06c3e268133c8">STRING_DESCR</a></div><div class="ttdeci">#define STRING_DESCR</div><div class="ttdoc">USB string descriptor type code. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:103</div></div>
+<div class="ttc" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_html"><div class="ttname"><a href="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c.html">USB_STD_STRING_SN_DESC</a></div><div class="ttdoc">Standard USB serial number string descriptor. </div><div class="ttdef"><b>Definition:</b> xusb_types.h:444</div></div>
+</div><!-- fragment -->
+<p>USB serial number string descriptor. </p>
 
 </div>
 </div>

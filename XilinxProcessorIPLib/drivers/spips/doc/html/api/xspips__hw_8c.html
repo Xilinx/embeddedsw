@@ -105,12 +105,29 @@ $(document).ready(function(){initNavTree('xspips__hw_8c.html','');});
 <div class="title">xspips_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xspips__hw_8h.html">xspips_hw.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the reset and post boot rom state initialization. </p>
+<p>Function prototypes in <a class="el" href="xspips__hw_8h.html" title="Provides the SPIPS register offsets, bit masks and access macros. ">xspips_hw.h</a></p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.06a hk     08/22/13 First release.
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.02  raw    11/23/15 Updated <a class="el" href="group__spips__api.html#gab466a4718bbee60293dc226ca043d5b5" title="Resets the SPI module. ">XSpiPs_ResetHw()</a> to read all RXFIFO
+                        entries. This change is to tackle CR#910231.
+3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
+                      avoid changes made for the workaround DT#842463.
+3.15  vn     08/26/26 Fix Doxygen warnings.
+3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
+3.15  tb     10/12/26 Bound the RX FIFO drain loop in <a class="el" href="group__spips__api.html#gab466a4718bbee60293dc226ca043d5b5" title="Resets the SPI module. ">XSpiPs_ResetHw()</a>.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xspips__hw_8h.html">xspips_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab466a4718bbee60293dc226ca043d5b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#gab466a4718bbee60293dc226ca043d5b5">XSpiPs_ResetHw</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:gab466a4718bbee60293dc226ca043d5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the spi module.  <a href="group__spips.html#gab466a4718bbee60293dc226ca043d5b5">More...</a><br/></td></tr>
+<tr class="memitem:gab466a4718bbee60293dc226ca043d5b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#gab466a4718bbee60293dc226ca043d5b5">XSpiPs_ResetHw</a> (u32 BaseAddress)</td></tr>
+<tr class="memdesc:gab466a4718bbee60293dc226ca043d5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the SPI module.  <a href="group__spips__api.html#gab466a4718bbee60293dc226ca043d5b5">More...</a><br/></td></tr>
 <tr class="separator:gab466a4718bbee60293dc226ca043d5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

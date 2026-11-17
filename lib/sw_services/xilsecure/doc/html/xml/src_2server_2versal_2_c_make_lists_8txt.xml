@@ -46,6 +46,6 @@
 <codeline lineno="37"><highlight class="stringliteral"><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_r5.a<sp/>${STATIC_XILSECURE_LIB})</highlight></codeline>
 <codeline lineno="38"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

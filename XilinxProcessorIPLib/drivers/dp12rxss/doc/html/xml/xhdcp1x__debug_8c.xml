@@ -10,43 +10,43 @@
     <includes local="yes">xil_types.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="1090">
+      <node id="1099">
         <label>xil_io.h</label>
       </node>
-      <node id="1087">
+      <node id="1096">
         <label>stdlib.h</label>
       </node>
-      <node id="1085">
-        <label>xhdcp1x_debug.c</label>
-        <link refid="xhdcp1x_debug.c"/>
-        <childnode refid="1086" relation="include">
-        </childnode>
-        <childnode refid="1087" relation="include">
-        </childnode>
-        <childnode refid="1088" relation="include">
-        </childnode>
-        <childnode refid="1089" relation="include">
-        </childnode>
-        <childnode refid="1090" relation="include">
-        </childnode>
-        <childnode refid="1091" relation="include">
-        </childnode>
-        <childnode refid="1092" relation="include">
-        </childnode>
-      </node>
-      <node id="1089">
+      <node id="1098">
         <label>xdebug.h</label>
       </node>
-      <node id="1088">
+      <node id="1097">
         <label>string.h</label>
       </node>
-      <node id="1091">
+      <node id="1100">
         <label>xil_types.h</label>
       </node>
-      <node id="1092">
+      <node id="1094">
+        <label>xhdcp1x_debug.c</label>
+        <link refid="xhdcp1x_debug.c"/>
+        <childnode refid="1095" relation="include">
+        </childnode>
+        <childnode refid="1096" relation="include">
+        </childnode>
+        <childnode refid="1097" relation="include">
+        </childnode>
+        <childnode refid="1098" relation="include">
+        </childnode>
+        <childnode refid="1099" relation="include">
+        </childnode>
+        <childnode refid="1100" relation="include">
+        </childnode>
+        <childnode refid="1101" relation="include">
+        </childnode>
+      </node>
+      <node id="1101">
         <label>xparameters.h</label>
       </node>
-      <node id="1086">
+      <node id="1095">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -1056,6 +1056,6 @@
 <codeline lineno="1237"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1238"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/com/xhdcp1x_debug.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/com/xhdcp1x_debug.c"/>
   </compounddef>
 </doxygen>

@@ -7,6 +7,7 @@ var searchData=
   ['mailboxexample_5fsend',['MailboxExample_Send',['../xmbox__intr__example_8c.html#a8906eefcbf88897e5608bc257daeec6f',1,'xmbox_intr_example.c']]],
   ['mailboxexample_5fwait',['MailboxExample_Wait',['../xmbox__intr__example_8c.html#a0a12cf9b983bfbb617226a6f238fcc4e',1,'xmbox_intr_example.c']]],
   ['main',['main',['../xmbox__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main(void):&#160;xmbox_example.c'],['../xmbox__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main(void):&#160;xmbox_intr_example.c'],['../xmbox__tapp__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main(void):&#160;xmbox_tapp_example.c']]],
-  ['msgsiz',['MSGSIZ',['../xmbox__example_8c.html#a874ca7320cf9069af2a681e2a84ca681',1,'MSGSIZ():&#160;xmbox_example.c'],['../xmbox__intr__example_8c.html#a874ca7320cf9069af2a681e2a84ca681',1,'MSGSIZ():&#160;xmbox_intr_example.c']]],
-  ['my_5fcpu_5fid',['MY_CPU_ID',['../xmbox__example_8c.html#a8447bdbdbd8cb98edb1be7d0096709a9',1,'MY_CPU_ID():&#160;xmbox_example.c'],['../xmbox__intr__example_8c.html#a8447bdbdbd8cb98edb1be7d0096709a9',1,'MY_CPU_ID():&#160;xmbox_intr_example.c']]]
+  ['mbox_20apis',['MBOX APIs',['../group__mbox__api.html',1,'']]],
+  ['msgsiz',['MSGSIZ',['../xmbox__example_8c.html#a874ca7320cf9069af2a681e2a84ca681',1,'MSGSIZ():&#160;xmbox_example.c'],['../xmbox__intr__example_8c.html#a874ca7320cf9069af2a681e2a84ca681',1,'MSGSIZ():&#160;xmbox_intr_example.c'],['../xmbox__tapp__example_8c.html#a874ca7320cf9069af2a681e2a84ca681',1,'MSGSIZ():&#160;xmbox_tapp_example.c']]],
+  ['my_5fcpu_5fid',['MY_CPU_ID',['../xmbox__example_8c.html#a8447bdbdbd8cb98edb1be7d0096709a9',1,'MY_CPU_ID():&#160;xmbox_example.c'],['../xmbox__intr__example_8c.html#a8447bdbdbd8cb98edb1be7d0096709a9',1,'MY_CPU_ID():&#160;xmbox_intr_example.c'],['../xmbox__tapp__example_8c.html#a8447bdbdbd8cb98edb1be7d0096709a9',1,'MY_CPU_ID():&#160;xmbox_tapp_example.c']]]
 ];

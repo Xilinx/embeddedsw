@@ -21,6 +21,8 @@ var searchData=
   ['xusb_5fintrhandler',['XUsb_IntrHandler',['../group__usb.html#gacc119aa9f628ab0cc3fac2f63073e386',1,'xusb_intr.c']]],
   ['xusb_5fintrsethandler',['XUsb_IntrSetHandler',['../group__usb.html#gada7caf770f82936ab7493b67d143b9a9',1,'xusb_intr.c']]],
   ['xusb_5flookupconfig',['XUsb_LookupConfig',['../group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856',1,'xusb_sinit.c']]],
+  ['xusb_5fmsrejectcommand',['XUsb_MsRejectCommand',['../xusb__msc_8c.html#ac92528d9ca5362f261319f90c279935f',1,'XUsb_MsRejectCommand(XUsb *InstancePtr, u8 EndPoint, u32 TransferLength, u8 *CswStatus, u32 *CswResidue, volatile u32 *BlockCount, volatile u8 *CmdFlag, volatile u8 *SendStatus):&#160;xusb_msc.c'],['../xusb__msc_8h.html#ac92528d9ca5362f261319f90c279935f',1,'XUsb_MsRejectCommand(XUsb *InstancePtr, u8 EndPoint, u32 TransferLength, u8 *CswStatus, u32 *CswResidue, volatile u32 *BlockCount, volatile u8 *CmdFlag, volatile u8 *SendStatus):&#160;xusb_msc.c']]],
+  ['xusb_5fmssetsense',['XUsb_MsSetSense',['../xusb__msc_8c.html#a885bed3c7959d70f572aca1b04b7f42d',1,'XUsb_MsSetSense(u8 *SenseData, u8 SenseKey, u8 Asc, u8 Ascq):&#160;xusb_msc.c'],['../xusb__msc_8h.html#a885bed3c7959d70f572aca1b04b7f42d',1,'XUsb_MsSetSense(u8 *SenseData, u8 SenseKey, u8 Asc, u8 Ascq):&#160;xusb_msc.c']]],
   ['xusb_5freaderrorcounters',['XUsb_ReadErrorCounters',['../group__usb.html#gaf1806727cc17345c2b9a900804e3b322',1,'xusb.c']]],
   ['xusb_5fsetdeviceaddress',['XUsb_SetDeviceAddress',['../group__usb.html#gaa2f7958d25023d2ed18cfaabfb2baa0f',1,'xusb.c']]],
   ['xusb_5fsettestmode',['XUsb_SetTestMode',['../group__usb.html#ga4d5a367719f199ad49b9020f0fdd22ab',1,'xusb.c']]],

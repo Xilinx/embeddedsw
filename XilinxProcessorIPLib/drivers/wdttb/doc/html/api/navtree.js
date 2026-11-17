@@ -1,35 +1,135 @@
 var NAVTREE =
 [
-  [ "wdttb", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xwdttb_selftest_example.c", "example.html#ex1", null ],
-      [ "xwdttb_example.c", "example.html#ex2", null ],
-      [ "xwdttb_intr_example.c", "example.html#ex3", null ],
-      [ "xwdttb_low_level_example.c", "example.html#ex4", null ],
-      [ "xwdttb_winwdt_example.c", "example.html#ex5", null ],
-      [ "xwdttb_winwdt_intr_example.c", "example.html#ex6", null ],
-      [ "xwdttb_gwdt_example.c", "example.html#ex7", null ],
-      [ "xwdttb_gwdt_selftest_example.c", "example.html#ex8", null ],
-      [ "xwdttb_gwdt_intr_selftest_example.c", "example.html#ex9", null ]
-    ] ]
-  ] ]
+  [
+    "wdttb",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xwdttb_selftest_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xwdttb_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xwdttb_intr_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xwdttb_low_level_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xwdttb_winwdt_example.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xwdttb_winwdt_intr_example.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xwdttb_gwdt_example.c",
+            "example.html#ex7",
+            null
+          ],
+          [
+            "xwdttb_gwdt_selftest_example.c",
+            "example.html#ex8",
+            null
+          ],
+          [
+            "xwdttb_gwdt_intr_selftest_example.c",
+            "example.html#ex9",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

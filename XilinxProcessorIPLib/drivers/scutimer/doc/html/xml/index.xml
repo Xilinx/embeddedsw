@@ -21,7 +21,6 @@
     <member refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" kind="function"><name>XScuTimer_GetPrescaler</name></member>
   </compound>
   <compound refid="xscutimer_8h" kind="file"><name>xscutimer.h</name>
-    <member refid="group__scutimer_1ga0e6142d11b3ee5ef331787855f179762" kind="define"><name>XSCUTIMER_H</name></member>
     <member refid="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" kind="define"><name>XScuTimer_IsExpired</name></member>
     <member refid="group__scutimer_1gaf1976650946668999ca5107fef691e53" kind="define"><name>XScuTimer_RestartTimer</name></member>
     <member refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kind="define"><name>XScuTimer_LoadTimer</name></member>
@@ -54,7 +53,6 @@
     <member refid="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" kind="define"><name>XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</name></member>
     <member refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" kind="define"><name>XSCUTIMER_CONTROL_ENABLE_MASK</name></member>
     <member refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kind="define"><name>XSCUTIMER_ISR_EVENT_FLAG_MASK</name></member>
-    <member refid="group__scutimer_1ga9cdd1aa68f5988c97573b70f60dc5d08" kind="define"><name>XSCUTIMER_HW_H</name></member>
     <member refid="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" kind="define"><name>XScuTimer_SetLoadReg</name></member>
     <member refid="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" kind="define"><name>XScuTimer_GetLoadReg</name></member>
     <member refid="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" kind="define"><name>XScuTimer_SetCounterReg</name></member>
@@ -108,7 +106,6 @@
     <member refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" kind="function"><name>XScuTimer_GetPrescaler</name></member>
     <member refid="group__scutimer_1ga58903096d235b860a31f50c4ab70c853" kind="function"><name>XScuTimer_LookupConfig</name></member>
     <member refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" kind="function"><name>XScuTimer_SelfTest</name></member>
-    <member refid="group__scutimer_1ga0e6142d11b3ee5ef331787855f179762" kind="define"><name>XSCUTIMER_H</name></member>
     <member refid="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" kind="define"><name>XScuTimer_IsExpired</name></member>
     <member refid="group__scutimer_1gaf1976650946668999ca5107fef691e53" kind="define"><name>XScuTimer_RestartTimer</name></member>
     <member refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kind="define"><name>XScuTimer_LoadTimer</name></member>
@@ -119,7 +116,6 @@
     <member refid="group__scutimer_1gac3ea67683ec802381c4aef819d04768b" kind="define"><name>XScuTimer_DisableInterrupt</name></member>
     <member refid="group__scutimer_1gab653a0c97cfb913f3cabeaa3a9167586" kind="define"><name>XScuTimer_GetInterruptStatus</name></member>
     <member refid="group__scutimer_1gadc11e29fe8f755683fbc6edc883e0a4d" kind="define"><name>XScuTimer_ClearInterruptStatus</name></member>
-    <member refid="group__scutimer_1ga9cdd1aa68f5988c97573b70f60dc5d08" kind="define"><name>XSCUTIMER_HW_H</name></member>
     <member refid="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" kind="define"><name>XScuTimer_SetLoadReg</name></member>
     <member refid="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" kind="define"><name>XScuTimer_GetLoadReg</name></member>
     <member refid="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" kind="define"><name>XScuTimer_SetCounterReg</name></member>

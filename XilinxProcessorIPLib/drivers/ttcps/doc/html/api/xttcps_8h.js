@@ -1,6 +1,8 @@
 var xttcps_8h =
 [
     [ "COUNTER_BASE_ADDRESS_MASK", "xttcps_8h.html#ga3ede2f41d69244bd28580862a20ebc0e", null ],
+    [ "InstReadReg", "xttcps_8h.html#gac9f96b51b0b8133fdbf9242e54f6576e", null ],
+    [ "InstWriteReg", "xttcps_8h.html#ga8a5c7cba69482a166e3d500f1ac13bf2", null ],
     [ "XTtcPs_ClearInterruptStatus", "xttcps_8h.html#ga3ab6486250e4adc6343fa3e086540d3e", null ],
     [ "XTtcPs_DisableInterrupts", "xttcps_8h.html#ga689593bb0ab2f6d8abe85efcf72fe209", null ],
     [ "XTtcPs_EnableInterrupts", "xttcps_8h.html#ga9ba80f16b192bf1a02262154ea52001f", null ],
@@ -8,6 +10,8 @@ var xttcps_8h =
     [ "XTtcPs_GetInterruptStatus", "xttcps_8h.html#ga1f24b5dfa3b9147e374aefa0003d924c", null ],
     [ "XTtcPs_GetInterval", "xttcps_8h.html#ga89d0a266832132783ec15391726dbae3", null ],
     [ "XTtcPs_IsStarted", "xttcps_8h.html#ga90395ec5242c1fce193ad5697ee976c3", null ],
+    [ "XTTCPS_MAX_INTERVAL_COUNT", "xttcps_8h.html#gada35795ef5a7c900e552c0292a69e8a6", null ],
+    [ "XTTCPS_NUM_COUNTERS", "xttcps_8h.html#ga4e2bde9ad3cac3032e5e69323c9a8043", null ],
     [ "XTTCPS_OPTION_CLK_EDGE_NEG", "xttcps_8h.html#ga7364b78f01ad1b27a076ef9ce568f497", null ],
     [ "XTTCPS_OPTION_DECREMENT", "xttcps_8h.html#gaeeae7b90036e1a13b52e7b2875942efd", null ],
     [ "XTTCPS_OPTION_EXTERNAL_CLK", "xttcps_8h.html#ga3583fa93646d878d3c43186df93e1ada", null ],
@@ -20,6 +24,7 @@ var xttcps_8h =
     [ "XTtcPs_Start", "xttcps_8h.html#gada91222b52c938cb8639d333ed334273", null ],
     [ "XTtcPs_Stop", "xttcps_8h.html#ga8cc3413150e3c510e47cdb706fc3583e", null ],
     [ "XInterval", "xttcps_8h.html#ga53dc7ab3b92f330e5a47807febfcd26d", null ],
+    [ "XMatchRegValue", "xttcps_8h.html#gab0aada99874d44282d0c2e7db6609b68", null ],
     [ "XTtcPs_CalcIntervalFromFreq", "xttcps_8h.html#ga40d86f052a231f2cd35d7e5136163039", null ],
     [ "XTtcPs_CfgInitialize", "xttcps_8h.html#gae49e15051a6bc16bc2a5369832f1a584", null ],
     [ "XTtcPs_GetMatchValue", "xttcps_8h.html#ga1e494683b5f905fdd8184192680b8a3c", null ],

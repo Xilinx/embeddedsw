@@ -72,15 +72,15 @@
 <para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb chapter 9 specific code used in the freertos Mass Storage gadget example.</para><para>For details, see <ref refid="xusb__freertos__ch9__storage_8h" kindref="compound">xusb_freertos_ch9_storage.h</ref></para></sect1>
 <sect1 id="example_1ex23">
 <title>xusb_freertos_class_storage.c</title>
-<para>This file has the functions related to usb class specific code used in freertos storage example.</para><para>For details, see xusb_freertos_class_storage.c</para></sect1>
+<para>This file has the functions related to usb class specific code used in freertos storage example.</para><para>For details, see <ref refid="xusb__freertos__class__storage_8c" kindref="compound">xusb_freertos_class_storage.c</ref></para></sect1>
 <sect1 id="example_1ex24">
 <title>xusb_freertos_class_storage.h</title>
-<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos Mass Storage gadget example.</para><para>For details, see xusb_freertos_class_storage.h</para></sect1>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos Mass Storage gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__storage_8h" kindref="compound">xusb_freertos_class_storage.h</ref></para></sect1>
 <sect1 id="example_1ex25">
 <title>xusb_freertos_massstorage.c</title>
 <para>This file contains the code for demonstrating the freertos specific Mass Storage usb gadget example.</para><para>For details, see xusb_freertos_massstorage.c</para></sect1>
-<sect1 id="example_1ex26">
-<title>xusb_freertos_ch9_keyboard.h</title>
+<sect1 id="example_1ex26b">
+<title>xusb_freertos_ch9_keyboard.c</title>
 <para>This file contains the usb chapter 9 code related to freertos specific Keyboard HID gadget application.</para><para>For details, see <ref refid="xusb__freertos__ch9__keyboard_8c" kindref="compound">xusb_freertos_ch9_keyboard.c</ref></para></sect1>
 <sect1 id="example_1ex26">
 <title>xusb_freertos_ch9_keyboard.h</title>
@@ -90,7 +90,7 @@
 <para>This file contains the usb class code related to freertos specific keyboard HID gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__keyboard_8c" kindref="compound">xusb_freertos_class_keyboard.c</ref></para></sect1>
 <sect1 id="example_1ex28">
 <title>xusb_freertos_class_keyboard.h</title>
-<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos keyboard HID gadget example.</para><para>For details, see xusb_freertos_class_keyboard.h</para></sect1>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos keyboard HID gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__keyboard_8h" kindref="compound">xusb_freertos_class_keyboard.h</ref></para></sect1>
 <sect1 id="example_1ex29">
 <title>xusb_freertos_keyboard.c</title>
 <para>This example contains the code for demonstrating freertos specific keyboard HID gadget.</para><para>For details, see xusb_freertos_keyboard.c</para></sect1>

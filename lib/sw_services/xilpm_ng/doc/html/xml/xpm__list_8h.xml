@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__list_8h" kind="file">
+    <compoundname>xpm_list.h</compoundname>
+    <includes refid="xpm__runtime__alloc_8h" local="yes">xpm_runtime_alloc.h</includes>
+    <includedby refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includedby>
+    <includedby refid="xpm__runtime__periph_8h" local="yes">xpm_runtime_periph.h</includedby>
+    <incdepgraph>
+      <node id="1791">
+        <label>xpm_alloc.h</label>
+        <childnode refid="1792" relation="include">
+        </childnode>
+        <childnode refid="1793" relation="include">
+        </childnode>
+      </node>
+      <node id="1790">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="1791" relation="include">
+        </childnode>
+      </node>
+      <node id="1789">
+        <label>xpm_list.h</label>
+        <link refid="xpm_list.h"/>
+        <childnode refid="1790" relation="include">
+        </childnode>
+      </node>
+      <node id="1793">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1792">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1825">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="1795">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="1796" relation="include">
+        </childnode>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1798" relation="include">
+        </childnode>
+        <childnode refid="1799" relation="include">
+        </childnode>
+        <childnode refid="1801" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1814" relation="include">
+        </childnode>
+        <childnode refid="1815" relation="include">
+        </childnode>
+        <childnode refid="1816" relation="include">
+        </childnode>
+        <childnode refid="1818" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1822" relation="include">
+        </childnode>
+        <childnode refid="1805" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1807" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+        <childnode refid="1810" relation="include">
+        </childnode>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1824" relation="include">
+        </childnode>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1825" relation="include">
+        </childnode>
+      </node>
+      <node id="1823">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="1821">
+        <label>xpm_power_handlers.c</label>
+      </node>
+      <node id="1819">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="1818">
+        <label>xpm_notifier.h</label>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1819" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+      </node>
+      <node id="1811">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="1815">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="1812">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="1822">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1805" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1808" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+        <childnode refid="1810" relation="include">
+        </childnode>
+        <childnode refid="1812" relation="include">
+        </childnode>
+      </node>
+      <node id="1805">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="1794">
+        <label>xpm_list.h</label>
+        <link refid="xpm_list.h"/>
+        <childnode refid="1795" relation="include">
+        </childnode>
+        <childnode refid="1826" relation="include">
+        </childnode>
+      </node>
+      <node id="1827">
+        <label>xpm_runtime_periph.c</label>
+      </node>
+      <node id="1826">
+        <label>xpm_runtime_periph.h</label>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+      </node>
+      <node id="1804">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="1799">
+        <label>xpm_requirement.h</label>
+        <childnode refid="1796" relation="include">
+        </childnode>
+        <childnode refid="1800" relation="include">
+        </childnode>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1795" relation="include">
+        </childnode>
+        <childnode refid="1801" relation="include">
+        </childnode>
+        <childnode refid="1798" relation="include">
+        </childnode>
+        <childnode refid="1802" relation="include">
+        </childnode>
+        <childnode refid="1803" relation="include">
+        </childnode>
+        <childnode refid="1804" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+        <childnode refid="1810" relation="include">
+        </childnode>
+        <childnode refid="1811" relation="include">
+        </childnode>
+      </node>
+      <node id="1817">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="1816">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="1803" relation="include">
+        </childnode>
+        <childnode refid="1817" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+      </node>
+      <node id="1824">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="1803">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="1813">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1798" relation="include">
+        </childnode>
+        <childnode refid="1803" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+      </node>
+      <node id="1806">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="1796">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="1802">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="1797">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="1810">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="1807">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="1814">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1802" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1807" relation="include">
+        </childnode>
+        <childnode refid="1808" relation="include">
+        </childnode>
+        <childnode refid="1810" relation="include">
+        </childnode>
+      </node>
+      <node id="1800">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="1809">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="1801">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="1796" relation="include">
+        </childnode>
+        <childnode refid="1800" relation="include">
+        </childnode>
+        <childnode refid="1797" relation="include">
+        </childnode>
+        <childnode refid="1798" relation="include">
+        </childnode>
+        <childnode refid="1802" relation="include">
+        </childnode>
+        <childnode refid="1803" relation="include">
+        </childnode>
+        <childnode refid="1804" relation="include">
+        </childnode>
+        <childnode refid="1805" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1807" relation="include">
+        </childnode>
+        <childnode refid="1808" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+        <childnode refid="1810" relation="include">
+        </childnode>
+        <childnode refid="1811" relation="include">
+        </childnode>
+        <childnode refid="1812" relation="include">
+        </childnode>
+      </node>
+      <node id="1808">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="1798">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="1820">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="1819" relation="include">
+        </childnode>
+        <childnode refid="1821" relation="include">
+        </childnode>
+        <childnode refid="1806" relation="include">
+        </childnode>
+        <childnode refid="1808" relation="include">
+        </childnode>
+        <childnode refid="1809" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__list_8h_1adf32351e56236ed8da6168e7aa0c37c8" prot="public" static="no">
+        <name>CREATE_LIST</name>
+        <param><defname>T</defname></param>
+        <initializer>/* Creates a node type of T - named &quot;{T}Node&quot; */ \
+typedef struct T##Node { \
+	T* Data; \
+	struct T##Node *Next; \
+} T##Node; \
+\
+/* Creates a list type of &quot;{T}Node&quot; */ \
+typedef struct T##List { \
+	T##Node *Root; \
+} T##List; \
+\
+/* Creates a function to make a new list of type &quot;{T}List&quot;, named &quot;Make_{T}List&quot; */ \
+static inline T##List* Make_##T##List(void) { \
+	T##List* list = (T##List *)XPm_AllocBytesOthers(sizeof(T##List)); \
+	if (list != NULL) { \
+		list-&gt;Root = NULL; \
+	} \
+	return list; \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__list_8h_1a441d3e44cef6a800ae4206164d8a726d" prot="public" static="no">
+        <name>LIST_PREPEND</name>
+        <param><defname>List</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>do { \
+	typeof((List)-&gt;Root) NewNode = (typeof((List)-&gt;Root))XPm_AllocBytesOthers(sizeof(*(List)-&gt;Root)); \
+	if (NULL == NewNode) { \
+		PmErr(&quot;OOM: Data container to be added to %s\r\n&quot;, #List); \
+		Status = XST_BUFFER_TOO_SMALL; \
+		goto done; \
+	} \
+	NewNode-&gt;Data = (Value); \
+	NewNode-&gt;Next = (List)-&gt;Root; \
+	(List)-&gt;Root = NewNode; \
+} while (0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__list_8h_1ad39ee4220208774fef75460231f5c257" prot="public" static="no">
+        <name>LIST_FOREACH</name>
+        <param><defname>List</defname></param>
+        <param><defname>var</defname></param>
+        <initializer>if ((List) == NULL) { \
+		PmErr(&quot;List is NULL\n&quot;); \
+	} else \
+		for (const typeof(*(List)-&gt;Root) *var = (List)-&gt;Root; var != NULL; var = var-&gt;Next)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__list_8h_1a567ad5792b5a08b688b37067af894182" prot="public" static="no">
+        <name>LIST_FIRST_DATA</name>
+        <param><defname>List</defname></param>
+        <initializer>(((List)-&gt;Root != NULL) ? (List)-&gt;Root-&gt;Data : NULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__list_8h_1ab3bedc5e06aefa45a89b26fc456253a8" prot="public" static="no">
+        <name>LIST_LAST_DATA</name>
+        <param><defname>List</defname></param>
+        <initializer>({ \
+	typeof((List)-&gt;Root) __node = (List)-&gt;Root; \
+	typeof(__node-&gt;Data) __data = NULL; \
+	if (__node != NULL) { \
+		while (__node-&gt;Next != NULL) { \
+			__node = __node-&gt;Next; \
+		} \
+		__data = __node-&gt;Data; \
+	} \
+	__data; \
+})</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_LIST_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_LIST_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_alloc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_LIST(T)<sp/>\</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Creates<sp/>a<sp/>node<sp/>type<sp/>of<sp/>T<sp/>-<sp/>named<sp/>&quot;{T}Node&quot;<sp/>*/</highlight><highlight class="preprocessor"><sp/>\</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor">typedef<sp/>struct<sp/>T##Node<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>T*<sp/>Data;<sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>struct<sp/>T##Node<sp/>*Next;<sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">}<sp/>T##Node;<sp/>\</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor">\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Creates<sp/>a<sp/>list<sp/>type<sp/>of<sp/>&quot;{T}Node&quot;<sp/>*/</highlight><highlight class="preprocessor"><sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">typedef<sp/>struct<sp/>T##List<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>T##Node<sp/>*Root;<sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">}<sp/>T##List;<sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Creates<sp/>a<sp/>function<sp/>to<sp/>make<sp/>a<sp/>new<sp/>list<sp/>of<sp/>type<sp/>&quot;{T}List&quot;,<sp/>named<sp/>&quot;Make_{T}List&quot;<sp/>*/</highlight><highlight class="preprocessor"><sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">static<sp/>inline<sp/>T##List*<sp/>Make_##T##List(void)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>T##List*<sp/>list<sp/>=<sp/>(T##List<sp/>*)XPm_AllocBytesOthers(sizeof(T##List));<sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(list<sp/>!=<sp/>NULL)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list-&gt;Root<sp/>=<sp/>NULL;<sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>list;<sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIST_PREPEND(List,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">do<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typeof((List)-&gt;Root)<sp/>NewNode<sp/>=<sp/>(typeof((List)-&gt;Root))XPm_AllocBytesOthers(sizeof(*(List)-&gt;Root));<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(NULL<sp/>==<sp/>NewNode)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(&quot;OOM:<sp/>Data<sp/>container<sp/>to<sp/>be<sp/>added<sp/>to<sp/>%s\r\n&quot;,<sp/>#List);<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;<sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>done;<sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewNode-&gt;Data<sp/>=<sp/>(Value);<sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewNode-&gt;Next<sp/>=<sp/>(List)-&gt;Root;<sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(List)-&gt;Root<sp/>=<sp/>NewNode;<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">}<sp/>while<sp/>(0)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIST_FOREACH(List,<sp/>var)<sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((List)<sp/>==<sp/>NULL)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(&quot;List<sp/>is<sp/>NULL\n&quot;);<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>for<sp/>(const<sp/>typeof(*(List)-&gt;Root)<sp/>*var<sp/>=<sp/>(List)-&gt;Root;<sp/>var<sp/>!=<sp/>NULL;<sp/>var<sp/>=<sp/>var-&gt;Next)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIST_FIRST_DATA(List)<sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((List)-&gt;Root<sp/>!=<sp/>NULL)<sp/>?<sp/>(List)-&gt;Root-&gt;Data<sp/>:<sp/>NULL)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIST_LAST_DATA(List)<sp/>\</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">({<sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typeof((List)-&gt;Root)<sp/>__node<sp/>=<sp/>(List)-&gt;Root;<sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typeof(__node-&gt;Data)<sp/>__data<sp/>=<sp/>NULL;<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(__node<sp/>!=<sp/>NULL)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>while<sp/>(__node-&gt;Next<sp/>!=<sp/>NULL)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__node<sp/>=<sp/>__node-&gt;Next;<sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__data<sp/>=<sp/>__node-&gt;Data;<sp/>\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__data;<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">})</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XPM_LIST_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_list.h"/>
+  </compounddef>
+</doxygen>

@@ -132,7 +132,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.3     vss  10/03/23 Added single API support for AES AAD and GMAC operations
       vss  03/04/24 Removed code redundancy for AesPerformOperation API
 5.4   yog  04/29/24 Fixed doxygen warnings.
-5.7   tbk  03/16/26 Added SMC support</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__aesclient_8h.html">xsecure_aesclient.h</a>&quot;</code><br/>
+5.7   tbk  03/16/26 Added SMC support
+5.8   tbk  07/06/26 Restricted IPI messaging in XSecure_AesKekDecrypt, made it
+                    return error and deprecated the API for 2027.2 release
+      rap  07/20/26 Updated input parameter validations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__aesclient_8h.html">xsecure_aesclient.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__generic_8h.html">xsecure_generic.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -140,12 +143,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>&#160;&#160;&#160;(6U)</td></tr>
 <tr class="memdesc:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLR index shift.  <a href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">More...</a><br/></td></tr>
 <tr class="separator:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94c380be37b6e05b4b7ed486f79847f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga94c380be37b6e05b4b7ed486f79847f6">XSECURE_KEY_SIZE_SHIFT</a>&#160;&#160;&#160;(16U)</td></tr>
-<tr class="memdesc:ga94c380be37b6e05b4b7ed486f79847f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key size shift constant.  <a href="group__xsecure__aes__client__apis.html#ga94c380be37b6e05b4b7ed486f79847f6">More...</a><br/></td></tr>
-<tr class="separator:ga94c380be37b6e05b4b7ed486f79847f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga273f2c5a7197c99ac107b60772a9b6a3">XSECURE_DST_KEY_SRC_SHIFT</a>&#160;&#160;&#160;(8U)</td></tr>
-<tr class="memdesc:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination key source shift constant.  <a href="group__xsecure__aes__client__apis.html#ga273f2c5a7197c99ac107b60772a9b6a3">More...</a><br/></td></tr>
-<tr class="separator:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -183,7 +180,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga056f80ac76299a3ed41102b9f21237e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to write the key provided into the specified AES key registers.  <a href="group__xsecure__aes__client__apis.html#ga056f80ac76299a3ed41102b9f21237e7">More...</a><br/></td></tr>
 <tr class="separator:ga056f80ac76299a3ed41102b9f21237e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5336eb4fdbdbd4c48776776c4524653e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt</a> (XSecure_ClientInstance *InstancePtr, u64 IvAddr, <a class="el" href="group__xsecure__aes__client__apis.html#ga3be7525f93a2e54baa60c3b1a9df262c">XSecure_AesKeySource</a> DstKeySrc, <a class="el" href="group__xsecure__aes__client__apis.html#ga3be7525f93a2e54baa60c3b1a9df262c">XSecure_AesKeySource</a> DecKeySrc, <a class="el" href="group__xsecure__aes__client__apis.html#ga55cd9d64e04cce6a57d729b67a5f0c47">XSecure_AesKeySize</a> Size)</td></tr>
-<tr class="memdesc:ga5336eb4fdbdbd4c48776776c4524653e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to decrypt the key in KEK key form.  <a href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">More...</a><br/></td></tr>
+<tr class="memdesc:ga5336eb4fdbdbd4c48776776c4524653e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is deprecated and no longer decrypts the key in KEK key form.  <a href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">More...</a><br/></td></tr>
 <tr class="separator:ga5336eb4fdbdbd4c48776776c4524653e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2149f38c111ed53eec28fc05ac1afb1e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga2149f38c111ed53eec28fc05ac1afb1e">XSecure_AesSetDpaCm</a> (XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)</td></tr>
 <tr class="memdesc:ga2149f38c111ed53eec28fc05ac1afb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to enable/disable DpaCm in AES.  <a href="group__xsecure__aes__client__apis.html#ga2149f38c111ed53eec28fc05ac1afb1e">More...</a><br/></td></tr>

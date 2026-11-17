@@ -1,0 +1,579 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__command_8h" kind="file">
+    <compoundname>mbox_command.h</compoundname>
+    <includes refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includes>
+    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
+    <includedby refid="mbox__interface_8c" local="yes">mbox_interface.c</includedby>
+    <incdepgraph>
+      <node id="6513">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6518">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6522">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6520">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6518" relation="include">
+        </childnode>
+        <childnode refid="6521" relation="include">
+        </childnode>
+      </node>
+      <node id="6509">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6510" relation="include">
+        </childnode>
+        <childnode refid="6511" relation="include">
+        </childnode>
+        <childnode refid="6512" relation="include">
+        </childnode>
+        <childnode refid="6513" relation="include">
+        </childnode>
+        <childnode refid="6514" relation="include">
+        </childnode>
+        <childnode refid="6515" relation="include">
+        </childnode>
+        <childnode refid="6516" relation="include">
+        </childnode>
+        <childnode refid="6517" relation="include">
+        </childnode>
+        <childnode refid="6522" relation="include">
+        </childnode>
+        <childnode refid="6520" relation="include">
+        </childnode>
+        <childnode refid="6523" relation="include">
+        </childnode>
+        <childnode refid="6524" relation="include">
+        </childnode>
+        <childnode refid="6526" relation="include">
+        </childnode>
+      </node>
+      <node id="6519">
+        <label>stdint.h</label>
+      </node>
+      <node id="6511">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6523">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6520" relation="include">
+        </childnode>
+      </node>
+      <node id="6514">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6525">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="6524">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6517" relation="include">
+        </childnode>
+        <childnode refid="6525" relation="include">
+        </childnode>
+      </node>
+      <node id="6512">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6526">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6515">
+        <label>signal.h</label>
+      </node>
+      <node id="6517">
+        <label>mbox_api.h</label>
+        <childnode refid="6518" relation="include">
+        </childnode>
+        <childnode refid="6519" relation="include">
+        </childnode>
+        <childnode refid="6520" relation="include">
+        </childnode>
+      </node>
+      <node id="6521">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6516">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6510">
+        <label>stdio.h</label>
+      </node>
+      <node id="6508">
+        <label>mbox_command.h</label>
+        <link refid="mbox_command.h"/>
+        <childnode refid="6509" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6529">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="6528">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="6527">
+        <label>mbox_command.h</label>
+        <link refid="mbox_command.h"/>
+        <childnode refid="6528" relation="include">
+        </childnode>
+        <childnode refid="6529" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__command_8h_1a5182c3772e4f35b50d4f40a21b650599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_command_set_ack</definition>
+        <argsstring>(bool ack)</argsstring>
+        <name>mbox_command_set_ack</name>
+        <param>
+          <type>bool</type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>Sets the response acknowledgment flag. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value of the acknowledgment flag. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="48" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1ae71cd27caf97d45be11982bcb8e81579" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_command_set_data_ready</definition>
+        <argsstring>(bool ready)</argsstring>
+        <name>mbox_command_set_data_ready</name>
+        <param>
+          <type>bool</type>
+          <declname>ready</declname>
+        </param>
+        <briefdescription>
+<para>Sets the flag that marks response payload data as ready. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ready</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value of the data-ready flag.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Sets the flag that marks response payload data as ready. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1ac2998ca828f6f31ebf61937f007d1083" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_command_set_cookie</definition>
+        <argsstring>(uint32_t cookie)</argsstring>
+        <name>mbox_command_set_cookie</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>cookie</declname>
+        </param>
+        <briefdescription>
+<para>Stores the cookie of the most recent response. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cookie</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cookie value carried by the response. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1a86e396f79f37adc24ed35583e2999f86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mbox_command_is_ack_set</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_command_is_ack_set</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns whether the response acknowledgment flag is set. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the acknowledgment flag is set, false otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="72" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1aff30061f9fa5e1ef48aaf8de114642ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mbox_command_is_data_ready</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_command_is_data_ready</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns whether response payload data is ready. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if response data is ready, false otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="80" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1a30e0598a2b5b3598c6ff65adc7aa3afa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t mbox_command_get_cookie</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_command_get_cookie</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns the cookie of the most recent response. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Stored response cookie value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="88" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1a70b3706cc41de80bc4c630714c8fffa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_command_mark_async_cmd</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_command_mark_async_cmd</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Marks the pending command as an asynchronous command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1ae0e2d0f0cafd360f471b43acc5a3a566" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_command_mark_async_fusa_cmd</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_command_mark_async_fusa_cmd</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Marks the pending command as an asynchronous FuSa command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1aab6f0d4bc8dc271fa7bb3c9a6fc11b4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Apu_Mbox_Check_Command</definition>
+        <argsstring>(void)</argsstring>
+        <name>Apu_Mbox_Check_Command</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Processes any pending inbound mailbox command. </para>        </briefdescription>
+        <detaileddescription>
+<para>Processes any pending inbound mailbox command. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="215" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1ae269fb4076e8958fd4443f0c45ea6809" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Apu_Mbox_Check_FusaCommand</definition>
+        <argsstring>(void)</argsstring>
+        <name>Apu_Mbox_Check_FusaCommand</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Processes any pending inbound FuSa mailbox command. </para>        </briefdescription>
+        <detaileddescription>
+<para>Processes any pending inbound FuSa mailbox command. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="244" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1abe89dd6bc526f4875be150d268ca483a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t ParseCommand</definition>
+        <argsstring>(MBCmdId_E cmd, void *data, uint32_t size, MboxCoreId core_id, MboxCoreId src_cpu)</argsstring>
+        <name>ParseCommand</name>
+        <param>
+          <type>MBCmdId_E</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Dispatches a received mailbox message to its handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command identifier of the received message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the received payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command-specific status code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="273" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1a89f40c5dd065c4b7dd8e7449912c245d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t ApuProcessCommand</definition>
+        <argsstring>(MBCmdId_E cmd, void *data, uint32_t size, MboxCoreId core_id, MboxCoreId src_cpu)</argsstring>
+        <name>ApuProcessCommand</name>
+        <param>
+          <type>MBCmdId_E</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Processes a standard mailbox command on the APU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command identifier to process. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command-specific status code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="375" bodyend="740"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__command_8h_1af07b68366b2218672e709efe069d1bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t ApuProcessFusaCommand</definition>
+        <argsstring>(MBCmdId_E cmd, void *data, uint32_t size, MboxCoreId core_id, MboxCoreId src_cpu)</argsstring>
+        <name>ApuProcessFusaCommand</name>
+        <param>
+          <type>MBCmdId_E</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Processes a FuSa mailbox command on the APU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command identifier to process. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Command-specific status code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="743" bodyend="769"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_MBOX_COMMAND_H_</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_COMMAND_H_</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__cmd_8h" kindref="compound">mbox_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_command_set_ack(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ack);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_command_set_data_ready(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ready);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_command_set_cookie(uint32_t<sp/>cookie);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>mbox_command_is_ack_set(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>mbox_command_is_data_ready(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">uint32_t<sp/>mbox_command_get_cookie(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_command_mark_async_cmd(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_command_mark_async_fusa_cmd(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1aab6f0d4bc8dc271fa7bb3c9a6fc11b4d" kindref="member">Apu_Mbox_Check_Command</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1ae269fb4076e8958fd4443f0c45ea6809" kindref="member">Apu_Mbox_Check_FusaCommand</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">uint32_t<sp/>ParseCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">uint32_t<sp/>ApuProcessCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">uint32_t<sp/>ApuProcessFusaCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_command.h"/>
+  </compounddef>
+</doxygen>

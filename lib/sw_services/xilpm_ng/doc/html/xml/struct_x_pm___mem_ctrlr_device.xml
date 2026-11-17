@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___mem_ctrlr_device" kind="struct" prot="public">
+    <compoundname>XPm_MemCtrlrDevice</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1a80bceb85bf7c928e973e4aab2974210d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref></type>
+        <definition>XPm_Device XPm_MemCtrlrDevice::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1ae31cfdd4f904d807ac7ce32a410fd297" prot="public" static="no" mutable="no">
+        <type>struct XPm_AddrRegion</type>
+        <definition>struct XPm_AddrRegion XPm_MemCtrlrDevice::Region[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Region</name>
+        <briefdescription>
+<para>DDRMC Address regions (max: 2) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1ae9e17643bf0e6c9e3941e8d6e1ebc96f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_MemCtrlrDevice::RegionCount</definition>
+        <argsstring></argsstring>
+        <name>RegionCount</name>
+        <briefdescription>
+<para>DDRMC Address range count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1aab715a37d919f101f2db62b8b6a0d910" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_MemCtrlrDevice::IntlvSize</definition>
+        <argsstring></argsstring>
+        <name>IntlvSize</name>
+        <briefdescription>
+<para>DDRMC Interleave size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1a932a513f24ca43108187f443d0b70892" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_MemCtrlrDevice::IntlvIndex</definition>
+        <argsstring></argsstring>
+        <name>IntlvIndex</name>
+        <briefdescription>
+<para>DDRMC Interleave order index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_ctrlr_device_1aeed87fad24af0e013879266a41f41679" prot="public" static="no" mutable="no">
+        <type>struct XPm_PlDeviceNode *</type>
+        <definition>struct XPm_PlDeviceNode* XPm_MemCtrlrDevice::PlDevice</definition>
+        <argsstring></argsstring>
+        <name>PlDevice</name>
+        <briefdescription>
+<para>Parent PL device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="134">
+        <label>XPm_MemCtrlrDevice</label>
+        <childnode refid="135" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+      <node id="138">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="136" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="137" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="135">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="136" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="137" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="139">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="135" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="140" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="140">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="136" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="137">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="135" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="138" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="137" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="136">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="58" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___mem_ctrlr_device_1a80bceb85bf7c928e973e4aab2974210d" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>Device</name></member>
+      <member refid="struct_x_pm___mem_ctrlr_device_1a932a513f24ca43108187f443d0b70892" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>IntlvIndex</name></member>
+      <member refid="struct_x_pm___mem_ctrlr_device_1aab715a37d919f101f2db62b8b6a0d910" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>IntlvSize</name></member>
+      <member refid="struct_x_pm___mem_ctrlr_device_1aeed87fad24af0e013879266a41f41679" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>PlDevice</name></member>
+      <member refid="struct_x_pm___mem_ctrlr_device_1ae31cfdd4f904d807ac7ce32a410fd297" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>Region</name></member>
+      <member refid="struct_x_pm___mem_ctrlr_device_1ae9e17643bf0e6c9e3941e8d6e1ebc96f" prot="public" virt="non-virtual"><scope>XPm_MemCtrlrDevice</scope><name>RegionCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

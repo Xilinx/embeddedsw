@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="358" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1a518f0eba3028ced57a8b6824df25692a" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -30,8 +30,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="359" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1a7dbe45bce7442efd949b26ec1e3e491a" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -44,9 +44,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="360" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="362" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1ga2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="552" endline="592">XAvb_SendPDelayReq</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1a1cac4a458112f001f588b916a08582ae" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -59,9 +59,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="361" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1ad3a2d748388270eebdc20ae8d419f4d9" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -74,8 +74,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="362" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1a6905c062e37474a276a80955ebe565b5" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -83,14 +83,14 @@
         <argsstring></argsstring>
         <name>OldSyncSequenceId</name>
         <briefdescription>
-<para>SequenceId of the previous RX&apos;d Sync message used for <ref refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" kindref="member">XAvb_UpdateRtcIncrement()</ref> calculations. </para>        </briefdescription>
+<para>SequenceId of the previous RX&apos;d Sync message used for <ref refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" kindref="member">XAvb_UpdateRtcIncrement()</ref> calculations. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="363" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___sequence_id_struct_1a689e9f68ca62fd5f25c4ba60be3419cc" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -98,21 +98,21 @@
         <argsstring></argsstring>
         <name>NewSyncSequenceId</name>
         <briefdescription>
-<para>SequenceId of the current RX&apos;d Sync message used for <ref refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" kindref="member">XAvb_UpdateRtcIncrement()</ref> calculations. </para>        </briefdescription>
+<para>SequenceId of the current RX&apos;d Sync message used for <ref refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" kindref="member">XAvb_UpdateRtcIncrement()</ref> calculations. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="365" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef defines the format for a data structure which stores the last used sequence ID for all of the PTP timing frames. </para>    </briefdescription>
+<para>Defines the format for a data structure which stores the last. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="356" bodyend="367"/>
+<para>used sequence ID for all of the PTP timing frames. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="358" bodyend="371"/>
     <listofallmembers>
       <member refid="struct_x_avb___sequence_id_struct_1a518f0eba3028ced57a8b6824df25692a" prot="public" virt="non-virtual"><scope>XAvb_SequenceIdStruct</scope><name>FollowUpSequenceId</name></member>
       <member refid="struct_x_avb___sequence_id_struct_1a689e9f68ca62fd5f25c4ba60be3419cc" prot="public" virt="non-virtual"><scope>XAvb_SequenceIdStruct</scope><name>NewSyncSequenceId</name></member>

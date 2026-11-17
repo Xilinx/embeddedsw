@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xttcps__low__level__example_8c.html','
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xttcps__low__level__example_8c.html','
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xttcps_low_level_example.c File Reference</div>  </div>
@@ -108,8 +109,6 @@ $(document).ready(function(){initNavTree('xttcps__low__level__example_8c.html','
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the Triple Timer Counter hardware and driver in polled mode. </p>
 <p>The example generates a square wave output on the waveform out pin.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver  Who    Date     Changes
 </p>
@@ -124,17 +123,109 @@ $(document).ready(function(){initNavTree('xttcps__low__level__example_8c.html','
  3.18 ml     03/06/24 Added support for system device-tree flow.
  3.21 vmt    03/28/25 Fixed signedness warning by explicitly casting to u8.
  3.22 ml     07/14/25 Fixed GCC warnings.
+ 3.23 ml     09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xttcps_8h.html">xttcps.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2f30507bd76d35bb8d2ecc55716c78a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a2f30507bd76d35bb8d2ecc55716c78a1">PCLK_FREQ_HZ</a>&#160;&#160;&#160;XPAR_XTTCPS_0_CLOCK_FREQ</td></tr>
+<tr class="memdesc:a2f30507bd76d35bb8d2ecc55716c78a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral clock frequency in Hz.  <a href="#a2f30507bd76d35bb8d2ecc55716c78a1">More...</a><br/></td></tr>
+<tr class="separator:a2f30507bd76d35bb8d2ecc55716c78a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07823c7723a92d9eb831d2ae6c7ff54e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a07823c7723a92d9eb831d2ae6c7ff54e">TTC_NUM_DEVICES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a07823c7723a92d9eb831d2ae6c7ff54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of TTC devices used.  <a href="#a07823c7723a92d9eb831d2ae6c7ff54e">More...</a><br/></td></tr>
+<tr class="separator:a07823c7723a92d9eb831d2ae6c7ff54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6deeabb82baf0c797d64ebba6812c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a1a6deeabb82baf0c797d64ebba6812c4">TABLE_OFFSET</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:a1a6deeabb82baf0c797d64ebba6812c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset into the settings table.  <a href="#a1a6deeabb82baf0c797d64ebba6812c4">More...</a><br/></td></tr>
+<tr class="separator:a1a6deeabb82baf0c797d64ebba6812c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42bb2aa6e94fd1029f0136b642805a4e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a42bb2aa6e94fd1029f0136b642805a4e">MAX_LOOP_COUNT</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:a42bb2aa6e94fd1029f0136b642805a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum loop count for test iterations.  <a href="#a42bb2aa6e94fd1029f0136b642805a4e">More...</a><br/></td></tr>
+<tr class="separator:a42bb2aa6e94fd1029f0136b642805a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e656f1e90212e2bf245b6f8e6032396"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a5e656f1e90212e2bf245b6f8e6032396">SETTINGS_TABLE_SIZE</a>&#160;&#160;&#160;(sizeof(SettingsTable)/sizeof(TmrCntrSetup))</td></tr>
+<tr class="memdesc:a5e656f1e90212e2bf245b6f8e6032396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the settings table.  <a href="#a5e656f1e90212e2bf245b6f8e6032396">More...</a><br/></td></tr>
+<tr class="separator:a5e656f1e90212e2bf245b6f8e6032396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the Timer/Counter example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a42bb2aa6e94fd1029f0136b642805a4e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_LOOP_COUNT&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum loop count for test iterations. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2f30507bd76d35bb8d2ecc55716c78a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCLK_FREQ_HZ&#160;&#160;&#160;XPAR_XTTCPS_0_CLOCK_FREQ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peripheral clock frequency in Hz. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5e656f1e90212e2bf245b6f8e6032396"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SETTINGS_TABLE_SIZE&#160;&#160;&#160;(sizeof(SettingsTable)/sizeof(TmrCntrSetup))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of entries in the settings table. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a6deeabb82baf0c797d64ebba6812c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TABLE_OFFSET&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Offset into the settings table. </p>
+
+<p>Referenced by <a class="el" href="xttcps__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a07823c7723a92d9eb831d2ae6c7ff54e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TTC_NUM_DEVICES&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of TTC devices used. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -151,14 +242,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the main function of the Timer/Counter example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure. </dd></dl>
+
+<p>References <a class="el" href="xttcps__low__level__example_8c.html#a1a6deeabb82baf0c797d64ebba6812c4">TABLE_OFFSET</a>.</p>
 
 </div>
 </div>

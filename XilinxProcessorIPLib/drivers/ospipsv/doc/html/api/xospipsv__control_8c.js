@@ -3,6 +3,7 @@ var xospipsv__control_8c =
     [ "MAX_DELAY_CNT", "xospipsv__control_8c.html#ga02055aef4b0f9a801005ebdc7b556157", null ],
     [ "MAX_IDAC_DELAY_CNT", "xospipsv__control_8c.html#ga2837097f3f203eeff26f5cfc61947bcf", null ],
     [ "XOspiPsv_CheckOspiIdle", "xospipsv__control_8c.html#ga289baf1466add8dfa4a70a3952354cd7", null ],
+    [ "XOspiPsv_CheckStigWriteMsg", "xospipsv__control_8c.html#ga8efded744e18270f71f42fb123f3c607", null ],
     [ "XOspiPsv_ConfigureTaps", "xospipsv__control_8c.html#gacb2c9597040e54b985ddf380365af639", null ],
     [ "XOspiPsv_Dac_Read", "xospipsv__control_8c.html#ga9f70d70b4dcd8a325a7dacc3aa31a5ef", null ],
     [ "XOspiPsv_Dac_Write", "xospipsv__control_8c.html#gadb1ae4f737c07e890039cdaf3a006b26", null ],

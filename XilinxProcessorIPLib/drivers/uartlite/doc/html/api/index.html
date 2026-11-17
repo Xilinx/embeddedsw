@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,14 +103,14 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">uartlite Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This component contains the implementation of the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> component which is the driver for the Xilinx UART Lite device. This UART is a minimal hardware implementation with minimal features. Most of the features, including baud rate, parity, and number of data bits are only configurable when the hardware device is built, rather than at run time by software.</p>
-<p>The device has 16 byte transmit and receive FIFOs and supports interrupts. The device does not have any way to disable the receiver such that the receive FIFO may contain unwanted data. The FIFOs are not flushed when the driver is initialized, but a function is provided to allow the user to reset the FIFOs if desired.</p>
+<div class="textblock"><p>This component contains the implementation of the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> component which is the driver for the Xilinx UART Lite device. This UART is a minimal hardware implementation with minimal features. Most of the features, including baud rate, parity, and number of data bits are only configurable when the hardware device is built, rather than at run time by software.</p>
+<p>The device has 16 byte transmit and receive FIFOs and supports interrupts. The device does not have any way to disable the receiver such that the receive FIFO may contain unwanted data. The FIFOs are not flushed when the driver is initialized, but a function is provided to allow you to reset the FIFOs if desired.</p>
 <p>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated when the transmit FIFO transitions from having data to being empty or when any data is contained in the receive FIFO.</p>
-<p>In order to use interrupts, it's necessary for the user to connect the driver interrupt handler, XUartLite_InterruptHandler, to the interrupt system of the application. This function does not save and restore the processor context such that the user must provide it. Send and receive handlers may be set for the driver such that the handlers are called when transmit and receive interrupts occur. The handlers are called from interrupt context and are designed to allow application specific processing to be performed.</p>
+<p>To use interrupts, connect the driver interrupt handler, XUartLite_InterruptHandler, to the interrupt system of the application. This function does not save or restore the processor context; the caller must provide it. Send and receive handlers may be set for the driver so that the handlers are called when transmit and receive interrupts occur. The handlers are called from interrupt context and allow application specific processing.</p>
 <p>The functions, XUartLite_Send and XUartLite_Recv, are provided in the driver to allow data to be sent and received. They are designed to be used in polled or interrupt modes.</p>
 <p>The driver provides a status for each received byte indicating any parity frame or overrun error. The driver provides statistics which allow visibility into these errors.</p>
 <p><b>Initialization &amp; Configuration</b></p>
-<p>The <a class="el" href="struct_x_uart_lite___config.html" title="This typedef contains configuration information for the device. ">XUartLite_Config</a> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</p>
+<p>The <a class="el" href="struct_x_uart_lite___config.html" title="Holds configuration information for the UART Lite device. ">XUartLite_Config</a> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</p>
 <p>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</p>
 <ul>
 <li>XUartLite_Initialize(InstancePtr, DeviceId) - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</li>
@@ -118,8 +118,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p><b>RTOS Independence</b></p>
 <p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The driver is partitioned such that a minimal implementation may be used. More features require additional files to be linked in.</p>
+<dl class="section note"><dt>Note</dt><dd>The driver is partitioned such that a minimal implementation may be used. More features require additional files to be linked in.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -146,14 +145,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
               be used in its place.
 2.01a adk  18/04/13 Updated the code to avoid unused variable
               warnings when compiling with the -Wextra -Wall flags
-              In the file <a class="el" href="xuartlite_8c.html">xuartlite.c</a>. CR:704999.
+              In the file <a class="el" href="xuartlite_8c.html" title="Implements the required functions for the XUartLite driver. ">xuartlite.c</a>. CR:704999.
               Added notes for CR 710483 that the XUL_FIFO_SIZE is not
               used in the driver. This is the size of the FIFO for
               Transmit/Receive FIFOs which cannot be changed.
 3.0 adk 17/12/13  Fixed CR:741186,761863 Changes are made in the file
-              <a class="el" href="xuartlite__selftest_8c.html">xuartlite_selftest.c</a>
+              <a class="el" href="xuartlite__selftest_8c.html" title="Self-test functions for the UART Lite component (XUartLite). ">xuartlite_selftest.c</a>
 3.0 adk 19/12/13  Update the driver as per new TCL API's
-3.1 nsk 21/07/15  Updated XUartLite_ReceiveBuffer function in <a class="el" href="xuartlite_8c.html">xuartlite.c</a>
+3.1 nsk 21/07/15  Updated XUartLite_ReceiveBuffer function in <a class="el" href="xuartlite_8c.html" title="Implements the required functions for the XUartLite driver. ">xuartlite.c</a>
             to update the receive data into user buffer in critical
             region.CR#865787.
 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
@@ -173,7 +172,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                       configured as a TMR SEM fix for CR-1121291, changes are
                       made in the uartlite_tapp.tcl file.
 3.9     ht  07/18/23  Fixed GCC warnings.i
-3.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div></div><!-- contents -->
+3.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+3.14  vn   09/09/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details which gives an idea of how the Xxv Ethernet or USXGMII and its driver are intended to be used.</para><para>SYSTEM REQUIREMENTS: The system containing the Axi Ethernet should have the following capabilities:<itemizedlist>
+<listitem><para>An interrupt controller</para></listitem><listitem><para>An external memory controller with at least 200KB of RAM available</para></listitem><listitem><para>A UART to display messages</para></listitem><listitem><para>XxvEthernet or USXGMII device connected to a target MCDMA device.</para></listitem></itemizedlist>
+</para><sect1 id="example_1ex1">
+<title>xxxvethernet_example_intr_mcdma.c</title>
+<para>Contains an example on how to use the XXxvetherent driver directly. This example uses the Xxv Ethernet&apos;s interrupt driven packet transfer mode with MCDMA to send and receive frames. This example can be used on XXVEthernet IP. Use supporting files <ref refid="xxxvethernet__example__util_8c" kindref="compound">xxxvethernet_example_util.c</ref> and <ref refid="xxxvethernet__example_8h" kindref="compound">xxxvethernet_example.h</ref>.</para><para>For details, see <ref refid="xxxvethernet__example__intr__mcdma_8c" kindref="compound">xxxvethernet_example_intr_mcdma.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xxxvethernet_usxgmii_example_intr_mcdma.c</title>
+<para>Contains an example on how to use the XXxvetherent(USXGMII) driver directly. This example uses the USXGMII&apos;s interrupt driven packet transfer mode with MCDMA to send and receive frames. This example can be used on USXGMII IP. Use supporting files <ref refid="xxxvethernet__example__util_8c" kindref="compound">xxxvethernet_example_util.c</ref> and <ref refid="xxxvethernet__example_8h" kindref="compound">xxxvethernet_example.h</ref>.</para><para>For details, see <ref refid="xxxvethernet__usxgmii__example__intr__mcdma_8c" kindref="compound">xxxvethernet_usxgmii_example_intr_mcdma.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xxxvethernet_example_util.c</title>
+<para>Contains an example on how to use the XXxvetherent driver directly. This example implements the utility functions for debugging, and ethernet frame construction.</para><para>For details, see <ref refid="xxxvethernet__example__util_8c" kindref="compound">xxxvethernet_example_util.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xxxvethernet_example.h</title>
+<para>This headerfile defines common data types, prototypes, and includes the proper headers for use with the Xxv Ethernet examples.</para><para>For details, see <ref refid="xxxvethernet__example_8h" kindref="compound">xxxvethernet_example.h</ref>.</para><sect2 id="example_1INCLUDING">
+<title>EXAMPLES IN SDK:</title>
+<para><itemizedlist>
+<listitem><para>Include all the above three files in the application project </para></listitem></itemizedlist>
+</para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

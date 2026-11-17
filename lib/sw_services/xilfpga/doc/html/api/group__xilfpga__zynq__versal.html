@@ -179,11 +179,11 @@ Functions</h2></td></tr>
 <p>It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and Bootgen-generated bitstream (*.bin) loading, Passing valid bitstream size(Size) information is mandatory for Vivado Design Suite generated bitstream, For Bootgen-generated bitstreams bitstream size is taken from the bitstream header.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure.</td></tr>
-    <tr><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
-    <tr><td class="paramname">KeyAddr</td><td>AES key address which is used for decryption.</td></tr>
-    <tr><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
-    <tr><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">KeyAddr</td><td>AES key address which is used for decryption.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
 <li>BIT(0) - Bitstream type<ul>
 <li>0 - Full bitstream</li>
 <li>1 - Partial bitstream</li>
@@ -263,9 +263,9 @@ Functions</h2></td></tr>
 <p>This function provides functionality to read back the PL configuration data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
-    <tr><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL readback data.</td></tr>
-    <tr><td class="paramname">NumFrames</td><td>The number of FPGA configuration frames to read.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL readback data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumFrames</td><td>The number of FPGA configuration frames to read.</td></tr>
   </table>
   </dd>
 </dl>
@@ -280,7 +280,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_fpgatag.html#acd5464c8e6c66bf80aa0139efe016bb7">XFpgatag::ReadInfo</a>, and <a class="el" href="struct_x_fpgatag.html#af817a3d9e50e29ae60448178d216df29">XFpgatag::XFpga_GetConfigData</a>.</p>
+<p>References <a class="el" href="struct_x_fpga___read.html#a22e9adb2868545f4c309e8eefacd0673">XFpga_Read::ConfigReg_NumFrames</a>, <a class="el" href="struct_x_fpga___read.html#a0e110b519fc49ce6808e4c5980677417">XFpga_Read::ReadbackAddr</a>, <a class="el" href="struct_x_fpgatag.html#acd5464c8e6c66bf80aa0139efe016bb7">XFpgatag::ReadInfo</a>, and <a class="el" href="struct_x_fpgatag.html#af817a3d9e50e29ae60448178d216df29">XFpgatag::XFpga_GetConfigData</a>.</p>
 
 </div>
 </div>
@@ -317,9 +317,9 @@ Functions</h2></td></tr>
 <p>This function provides PL specific configuration register values. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
-    <tr><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL Configuration register data.</td></tr>
-    <tr><td class="paramname">ConfigRegAddr</td><td>Configuration register address as mentioned in the UG570.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL Configuration register data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigRegAddr</td><td>Configuration register address as mentioned in the UG570.</td></tr>
   </table>
   </dd>
 </dl>
@@ -334,7 +334,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_fpgatag.html#acd5464c8e6c66bf80aa0139efe016bb7">XFpgatag::ReadInfo</a>, and <a class="el" href="struct_x_fpgatag.html#a112c731b7c08c57308e95856658fae97">XFpgatag::XFpga_GetConfigReg</a>.</p>
+<p>References <a class="el" href="struct_x_fpga___read.html#a22e9adb2868545f4c309e8eefacd0673">XFpga_Read::ConfigReg_NumFrames</a>, <a class="el" href="struct_x_fpga___read.html#a0e110b519fc49ce6808e4c5980677417">XFpga_Read::ReadbackAddr</a>, <a class="el" href="struct_x_fpgatag.html#acd5464c8e6c66bf80aa0139efe016bb7">XFpgatag::ReadInfo</a>, and <a class="el" href="struct_x_fpgatag.html#a112c731b7c08c57308e95856658fae97">XFpgatag::XFpga_GetConfigReg</a>.</p>
 
 </div>
 </div>
@@ -355,7 +355,7 @@ Functions</h2></td></tr>
 <p>This function provides the status of the PL programming interface. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
   </table>
   </dd>
 </dl>
@@ -386,7 +386,7 @@ Functions</h2></td></tr>
 <p>This function sets the FPGA to the operating state after writing. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
   </table>
   </dd>
 </dl>
@@ -415,7 +415,7 @@ Functions</h2></td></tr>
 <p>This function prepares the FPGA to receive configuration data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the pointer to the XFpga.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is the pointer to the XFpga.</td></tr>
   </table>
   </dd>
 </dl>
@@ -472,11 +472,11 @@ Functions</h2></td></tr>
 <p>This function is used to validate the bitstream image. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
-    <tr><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
-    <tr><td class="paramname">KeyAddr</td><td>Aes key address which is used for decryption.</td></tr>
-    <tr><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
-    <tr><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">KeyAddr</td><td>Aes key address which is used for decryption.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
 <li>BIT(0) - Bitstream type<ul>
 <li>0 - Full bitstream</li>
 <li>1 - Partial bitstream</li>
@@ -560,11 +560,11 @@ Functions</h2></td></tr>
 <p>This function writes the count bytes of configuration data into the PL. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
-    <tr><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
-    <tr><td class="paramname">KeyAddr</td><td>Aes key address which is used for decryption.</td></tr>
-    <tr><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
-    <tr><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFpga structure</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BitstreamImageAddr</td><td>Linear memory bitstream image base address</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">KeyAddr</td><td>Aes key address which is used for decryption.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>Used to store size of bitstream image.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Flags</td><td>Flags are used to specify the type of bitstream file.<ul>
 <li>BIT(0) - Bitstream type<ul>
 <li>0 - Full bitstream</li>
 <li>1 - Partial bitstream</li>

@@ -6,268 +6,268 @@
     <includes local="yes">vlog.h</includes>
     <includes refid="vvbench__awb__api_8h" local="yes">vvbench_awb_api.h</includes>
     <incdepgraph>
-      <node id="9079">
+      <node id="9523">
         <label>stdbool.h</label>
       </node>
-      <node id="9082">
-        <label>vvdevice_common.h</label>
-        <childnode refid="9083" relation="include">
+      <node id="9555">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="9535" relation="include">
         </childnode>
-        <childnode refid="9091" relation="include">
+        <childnode refid="9544" relation="include">
         </childnode>
-        <childnode refid="9077" relation="include">
+        <childnode refid="9543" relation="include">
+        </childnode>
+        <childnode refid="9556" relation="include">
         </childnode>
       </node>
-      <node id="9100">
+      <node id="9554">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="9542" relation="include">
+        </childnode>
+      </node>
+      <node id="9548">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="9523" relation="include">
+        </childnode>
+        <childnode refid="9549" relation="include">
+        </childnode>
+      </node>
+      <node id="9540">
+        <label>cam_common_api.h</label>
+        <childnode refid="9541" relation="include">
+        </childnode>
+        <childnode refid="9523" relation="include">
+        </childnode>
+      </node>
+      <node id="9541">
+        <label>stdint.h</label>
+      </node>
+      <node id="9532">
+        <label>stdlib.h</label>
+      </node>
+      <node id="9535">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="9536" relation="include">
+        </childnode>
+        <childnode refid="9537" relation="include">
+        </childnode>
+        <childnode refid="9522" relation="include">
+        </childnode>
+      </node>
+      <node id="9529">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="9528">
+        <label>vvbase.h</label>
+      </node>
+      <node id="9522">
+        <label>stddef.h</label>
+      </node>
+      <node id="9537">
+        <label>limits.h</label>
+      </node>
+      <node id="9544">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="9089">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="9090" relation="include">
-        </childnode>
-        <childnode refid="9095" relation="include">
-        </childnode>
-      </node>
-      <node id="9097">
-        <label>stdint.h</label>
-      </node>
-      <node id="9112">
-        <label>system_module.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-      </node>
-      <node id="9088">
-        <label>stdlib.h</label>
-      </node>
-      <node id="9098">
-        <label>cam_device_api.h</label>
-        <childnode refid="9099" relation="include">
-        </childnode>
-        <childnode refid="9106" relation="include">
-        </childnode>
-        <childnode refid="9107" relation="include">
-        </childnode>
-        <childnode refid="9108" relation="include">
-        </childnode>
-      </node>
-      <node id="9106">
-        <label>cam_device_calibration.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-      </node>
-      <node id="9085">
-        <label>vvterminal.h</label>
-      </node>
-      <node id="9102">
+      <node id="9546">
         <label>sensor_cmd.h</label>
-        <childnode refid="9103" relation="include">
+        <childnode refid="9547" relation="include">
         </childnode>
-        <childnode refid="9100" relation="include">
-        </childnode>
-      </node>
-      <node id="9109">
-        <label>cam_device_buffer_api.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-        <childnode refid="9100" relation="include">
-        </childnode>
-        <childnode refid="9089" relation="include">
-        </childnode>
-        <childnode refid="9098" relation="include">
-        </childnode>
-        <childnode refid="9101" relation="include">
+        <childnode refid="9544" relation="include">
         </childnode>
       </node>
-      <node id="9078">
-        <label>stddef.h</label>
-      </node>
-      <node id="9077">
-        <label>cJSON.h</label>
-        <childnode refid="9078" relation="include">
-        </childnode>
-        <childnode refid="9079" relation="include">
-        </childnode>
-      </node>
-      <node id="9081">
-        <label>vvbench_awb_api.h</label>
-        <childnode refid="9082" relation="include">
-        </childnode>
-        <childnode refid="9077" relation="include">
-        </childnode>
-        <childnode refid="9113" relation="include">
-        </childnode>
-      </node>
-      <node id="9093">
-        <label>limits.h</label>
-      </node>
-      <node id="9099">
-        <label>cam_device_common.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-        <childnode refid="9100" relation="include">
-        </childnode>
-        <childnode refid="9090" relation="include">
-        </childnode>
-        <childnode refid="9101" relation="include">
-        </childnode>
-        <childnode refid="9102" relation="include">
-        </childnode>
-      </node>
-      <node id="9101">
-        <label>buf_defs.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-      </node>
-      <node id="9103">
-        <label>mbox_api.h</label>
-        <childnode refid="9079" relation="include">
-        </childnode>
-        <childnode refid="9097" relation="include">
-        </childnode>
-        <childnode refid="9104" relation="include">
-        </childnode>
-      </node>
-      <node id="9094">
-        <label>string.h</label>
-      </node>
-      <node id="9104">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="9079" relation="include">
-        </childnode>
-        <childnode refid="9105" relation="include">
-        </childnode>
-      </node>
-      <node id="9111">
-        <label>cam_device_isp_system_api.h</label>
-        <childnode refid="9091" relation="include">
-        </childnode>
-        <childnode refid="9100" relation="include">
-        </childnode>
-        <childnode refid="9099" relation="include">
-        </childnode>
-        <childnode refid="9112" relation="include">
-        </childnode>
-      </node>
-      <node id="9110">
-        <label>cam_device_sensor_api.h</label>
-        <childnode refid="9098" relation="include">
-        </childnode>
-      </node>
-      <node id="9096">
-        <label>cam_common_api.h</label>
-        <childnode refid="9097" relation="include">
-        </childnode>
-        <childnode refid="9079" relation="include">
-        </childnode>
-      </node>
-      <node id="9080">
-        <label>vlog.h</label>
-      </node>
-      <node id="9083">
-        <label>vvdevice.h</label>
-        <childnode refid="9084" relation="include">
-        </childnode>
-        <childnode refid="9085" relation="include">
-        </childnode>
-        <childnode refid="9086" relation="include">
-        </childnode>
-        <childnode refid="9096" relation="include">
-        </childnode>
-        <childnode refid="9098" relation="include">
-        </childnode>
-        <childnode refid="9109" relation="include">
-        </childnode>
-        <childnode refid="9099" relation="include">
-        </childnode>
-        <childnode refid="9110" relation="include">
-        </childnode>
-        <childnode refid="9111" relation="include">
-        </childnode>
-        <childnode refid="9101" relation="include">
-        </childnode>
-        <childnode refid="9090" relation="include">
-        </childnode>
-      </node>
-      <node id="9105">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="9095">
-        <label>ff.h</label>
-      </node>
-      <node id="9107">
-        <label>offline_trace.h</label>
-        <link refid="offline__trace_8h"/>
-        <childnode refid="9092" relation="include">
-        </childnode>
-        <childnode refid="9091" relation="include">
-        </childnode>
-        <childnode refid="9100" relation="include">
-        </childnode>
-      </node>
-      <node id="9091">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="9092" relation="include">
-        </childnode>
-        <childnode refid="9093" relation="include">
-        </childnode>
-        <childnode refid="9078" relation="include">
-        </childnode>
-      </node>
-      <node id="9113">
-        <label>cam_device_awb_api.h</label>
-        <childnode refid="9099" relation="include">
-        </childnode>
-        <childnode refid="9097" relation="include">
-        </childnode>
-      </node>
-      <node id="9108">
-        <label>cam_device_ccm_api.h</label>
-        <childnode refid="9099" relation="include">
-        </childnode>
-      </node>
-      <node id="9084">
-        <label>vvbase.h</label>
-      </node>
-      <node id="9086">
-        <label>vlog.h</label>
-        <childnode refid="9087" relation="include">
-        </childnode>
-        <childnode refid="9088" relation="include">
-        </childnode>
-        <childnode refid="9089" relation="include">
-        </childnode>
-      </node>
-      <node id="9090">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="9091" relation="include">
-        </childnode>
-        <childnode refid="9094" relation="include">
-        </childnode>
-      </node>
-      <node id="9087">
-        <label>stdio.h</label>
-      </node>
-      <node id="9092">
+      <node id="9536">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="9087" relation="include">
+        <childnode refid="9531" relation="include">
         </childnode>
-        <childnode refid="9088" relation="include">
+        <childnode refid="9532" relation="include">
         </childnode>
       </node>
-      <node id="9076">
+      <node id="9557">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="9543" relation="include">
+        </childnode>
+        <childnode refid="9541" relation="include">
+        </childnode>
+      </node>
+      <node id="9538">
+        <label>string.h</label>
+      </node>
+      <node id="9543">
+        <label>cam_device_common.h</label>
+        <childnode refid="9535" relation="include">
+        </childnode>
+        <childnode refid="9544" relation="include">
+        </childnode>
+        <childnode refid="9534" relation="include">
+        </childnode>
+        <childnode refid="9545" relation="include">
+        </childnode>
+        <childnode refid="9546" relation="include">
+        </childnode>
+      </node>
+      <node id="9547">
+        <label>mbox_api.h</label>
+        <childnode refid="9523" relation="include">
+        </childnode>
+        <childnode refid="9541" relation="include">
+        </childnode>
+        <childnode refid="9548" relation="include">
+        </childnode>
+      </node>
+      <node id="9524">
+        <label>vlog.h</label>
+      </node>
+      <node id="9534">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="9535" relation="include">
+        </childnode>
+        <childnode refid="9538" relation="include">
+        </childnode>
+      </node>
+      <node id="9549">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="9530">
+        <label>vlog.h</label>
+        <childnode refid="9531" relation="include">
+        </childnode>
+        <childnode refid="9532" relation="include">
+        </childnode>
+        <childnode refid="9533" relation="include">
+        </childnode>
+      </node>
+      <node id="9552">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="9543" relation="include">
+        </childnode>
+      </node>
+      <node id="9539">
+        <label>ff.h</label>
+      </node>
+      <node id="9551">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="9536" relation="include">
+        </childnode>
+        <childnode refid="9535" relation="include">
+        </childnode>
+        <childnode refid="9544" relation="include">
+        </childnode>
+      </node>
+      <node id="9527">
+        <label>vvdevice.h</label>
+        <childnode refid="9528" relation="include">
+        </childnode>
+        <childnode refid="9529" relation="include">
+        </childnode>
+        <childnode refid="9530" relation="include">
+        </childnode>
+        <childnode refid="9540" relation="include">
+        </childnode>
+        <childnode refid="9542" relation="include">
+        </childnode>
+        <childnode refid="9553" relation="include">
+        </childnode>
+        <childnode refid="9543" relation="include">
+        </childnode>
+        <childnode refid="9554" relation="include">
+        </childnode>
+        <childnode refid="9555" relation="include">
+        </childnode>
+        <childnode refid="9545" relation="include">
+        </childnode>
+        <childnode refid="9534" relation="include">
+        </childnode>
+      </node>
+      <node id="9542">
+        <label>cam_device_api.h</label>
+        <childnode refid="9543" relation="include">
+        </childnode>
+        <childnode refid="9550" relation="include">
+        </childnode>
+        <childnode refid="9551" relation="include">
+        </childnode>
+        <childnode refid="9552" relation="include">
+        </childnode>
+      </node>
+      <node id="9525">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="9526" relation="include">
+        </childnode>
+        <childnode refid="9521" relation="include">
+        </childnode>
+        <childnode refid="9557" relation="include">
+        </childnode>
+      </node>
+      <node id="9545">
+        <label>buf_defs.h</label>
+        <childnode refid="9535" relation="include">
+        </childnode>
+      </node>
+      <node id="9553">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="9535" relation="include">
+        </childnode>
+        <childnode refid="9544" relation="include">
+        </childnode>
+        <childnode refid="9533" relation="include">
+        </childnode>
+        <childnode refid="9542" relation="include">
+        </childnode>
+        <childnode refid="9545" relation="include">
+        </childnode>
+      </node>
+      <node id="9533">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="9534" relation="include">
+        </childnode>
+        <childnode refid="9539" relation="include">
+        </childnode>
+      </node>
+      <node id="9520">
         <label>vvbench_awb_api_v4.c</label>
         <link refid="vvbench_awb_api_v4.c"/>
-        <childnode refid="9077" relation="include">
+        <childnode refid="9521" relation="include">
         </childnode>
-        <childnode refid="9080" relation="include">
+        <childnode refid="9524" relation="include">
         </childnode>
-        <childnode refid="9081" relation="include">
+        <childnode refid="9525" relation="include">
+        </childnode>
+      </node>
+      <node id="9550">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="9535" relation="include">
+        </childnode>
+      </node>
+      <node id="9556">
+        <label>system_module.h</label>
+        <childnode refid="9535" relation="include">
+        </childnode>
+      </node>
+      <node id="9531">
+        <label>stdio.h</label>
+      </node>
+      <node id="9521">
+        <label>cJSON.h</label>
+        <childnode refid="9522" relation="include">
+        </childnode>
+        <childnode refid="9523" relation="include">
+        </childnode>
+      </node>
+      <node id="9526">
+        <label>vvdevice_common.h</label>
+        <childnode refid="9527" relation="include">
+        </childnode>
+        <childnode refid="9535" relation="include">
+        </childnode>
+        <childnode refid="9521" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -281,7 +281,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="29" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -304,7 +304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="35" bodyend="64"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="35" bodyend="64"/>
       </memberdef>
       <memberdef kind="function" id="vvbench__awb__api__v4_8c_1a000bcd2350bf7d895f0ebd47cee8df1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -321,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="67" bodyend="136"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="67" bodyend="136"/>
       </memberdef>
       <memberdef kind="function" id="vvbench__awb__api__v4_8c_1a67d39cb45ca262a1276cffcc35fa0177" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -346,7 +346,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="139" bodyend="195"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="139" bodyend="195"/>
       </memberdef>
       <memberdef kind="function" id="vvbench__awb__api__v4_8c_1a27e857a9185ec8a1de281ba360df73dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -363,7 +363,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="198" bodyend="225"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="198" bodyend="225"/>
       </memberdef>
       <memberdef kind="function" id="vvbench__awb__api__v4_8c_1ac337b973018ec10aaf438b9af79e64c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -380,7 +380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="228" bodyend="253"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c" bodystart="228" bodyend="253"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -642,6 +642,6 @@
 <codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="253"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_awb_api_v4.c"/>
   </compounddef>
 </doxygen>

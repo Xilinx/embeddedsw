@@ -1,6 +1,9 @@
 var NAVTREE =
 [
-  [ "generic", "index.html", ]
+  [
+    "generic",
+    "index.html"
+  ]
 ];
 
 var NAVTREEINDEX =

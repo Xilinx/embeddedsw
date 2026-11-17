@@ -4,8 +4,8 @@
     <compoundname>ddrpsv</compoundname>
     <title>Overview</title>
     <briefdescription>
-<para>} </para>    </briefdescription>
+<para>Declares the DdrPsv driver for the Xilinx axi_noc IP core. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>} </para>    </detaileddescription>
   </compounddef>
 </doxygen>

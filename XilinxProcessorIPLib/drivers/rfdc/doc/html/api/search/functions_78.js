@@ -82,7 +82,7 @@ var searchData=
   ['xrfdc_5fisdacdigitalpathenabled',['XRFdc_IsDACDigitalPathEnabled',['../group___overview.html#ga5b590baa42793f4bf2d36eed75be0d3c',1,'xrfdc_dp.c']]],
   ['xrfdc_5fisfifoenabled',['XRFdc_IsFifoEnabled',['../group___overview.html#ga5d4b9f3f2a6537c481241102777c8e90',1,'xrfdc_dp.c']]],
   ['xrfdc_5fishighspeedadc',['XRFdc_IsHighSpeedADC',['../group___overview.html#gab0e915848a69e9133dab0cd0d2a4aa58',1,'xrfdc.c']]],
-  ['xrfdc_5flookupconfig',['XRFdc_LookupConfig',['../group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1',1,'xrfdc_sinit.c']]],
+  ['xrfdc_5flookupconfig',['XRFdc_LookupConfig',['../group___overview.html#gae69667ff995e4439ad6e6af1b1a34448',1,'XRFdc_LookupConfig(metal_phys_addr_t BaseAddr):&#160;xrfdc.h'],['../group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1',1,'XRFdc_LookupConfig(u16 DeviceId):&#160;xrfdc_sinit.c']]],
   ['xrfdc_5fmts_5fsysref_5fconfig',['XRFdc_MTS_Sysref_Config',['../group___overview.html#ga547044facc23aa8502473e5f2b1c4cc4',1,'xrfdc_mts.c']]],
   ['xrfdc_5fmultiband',['XRFdc_MultiBand',['../group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80',1,'xrfdc_mb.c']]],
   ['xrfdc_5fmulticonverter_5finit',['XRFdc_MultiConverter_Init',['../group___overview.html#gaccab0c774a971a73089115245cfe1865',1,'xrfdc_mts.c']]],

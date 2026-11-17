@@ -50,7 +50,6 @@ var xqspipsu_8h =
     [ "XQSPIPSU_GENFIFO_CS_SETUP", "xqspipsu_8h.html#gaa18ef26888b9b8f28135654a310b5924", null ],
     [ "XQSPIPSU_GENFIFO_EXP_START", "xqspipsu_8h.html#ga9910c1e3f79127836cade9970a9df537", null ],
     [ "XQspiPsu_GetLqspiConfigReg", "xqspipsu_8h.html#ga6079956c578f636665b87ca5f60b8bad", null ],
-    [ "XQSPIPSU_H_", "xqspipsu_8h.html#gaeeb412cbb77c5150bad39b346706a13c", null ],
     [ "XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB", "xqspipsu_8h.html#ga9e5fb7239c5d7fbadc688e29c3fb087d", null ],
     [ "XQSPIPSU_LQSPI_MODE_OPTION", "xqspipsu_8h.html#gaf4dde3aacf0091e9d1748b1b915648a0", null ],
     [ "XQSPIPSU_MANUAL_START_OPTION", "xqspipsu_8h.html#ga47c246bab4c5d4f6c8ff84e44049adc9", null ],

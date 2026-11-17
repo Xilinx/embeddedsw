@@ -9,7 +9,7 @@ var searchData=
   ['xdsi2rxss_5fconfig',['XDsi2RxSs_Config',['../struct_x_dsi2_rx_ss___config.html',1,'']]],
   ['xdsi2rxss_5fdefaultconfigure',['XDsi2RxSs_DefaultConfigure',['../group__dsirxss.html#gaa289941e9d71e4d0d890e7f8b3d51a37',1,'xdsi2rxss.c']]],
   ['xdsi2rxss_5fgetconfigparams',['XDsi2RxSs_GetConfigParams',['../group__dsirxss.html#ga77c35b7c60f267e093374252444b5f5f',1,'xdsi2rxss.c']]],
-  ['xdsi2rxss_5fgetdrvindex',['XDsi2RxSs_GetDrvIndex',['../group__dsirxss.html#ga007151e6775d2507f0988046b69e1b07',1,'xdsi2rxss_sinit.c']]],
+  ['xdsi2rxss_5fgetdrvindex',['XDsi2RxSs_GetDrvIndex',['../group__dsirxss.html#ga28690c5facb8d33a5bea2e476eb67660',1,'xdsi2rxss_sinit.c']]],
   ['xdsi2rxss_5fgetpixelformat',['XDsi2RxSs_GetPixelFormat',['../group__dsirxss.html#ga2cf031088593839d8ea59b5a490033c4',1,'xdsi2rxss.c']]],
   ['xdsi2rxss_5fhw_2eh',['xdsi2rxss_hw.h',['../xdsi2rxss__hw_8h.html',1,'']]],
   ['xdsi2rxss_5fhw_5fh_5f',['XDSI2RXSS_HW_H_',['../group__dsi2rxss.html#gaaec09ca3f9c29b59fe86140cffdaa472',1,'xdsi2rxss_hw.h']]],

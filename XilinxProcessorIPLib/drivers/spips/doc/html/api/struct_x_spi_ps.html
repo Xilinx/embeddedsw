@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_spi_ps.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_spi_ps.html" title="The XSpiPs driver instance data. ">XSpiPs</a> driver instance data.
+<p>Holds the <a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a> driver instance data.
  <a href="struct_x_spi_ps.html#details">More...</a></p>
 
 <p><code>#include &lt;xspips.h&gt;</code></p>
@@ -144,6 +144,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a8d79fad73f829520b891e94b6e4536e1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi_ps.html#a8d79fad73f829520b891e94b6e4536e1">SlaveSelect</a></td></tr>
 <tr class="memdesc:a8d79fad73f829520b891e94b6e4536e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slave select value when XSPIPS_FORCE_SSELECT_OPTION is set.  <a href="#a8d79fad73f829520b891e94b6e4536e1">More...</a><br/></td></tr>
 <tr class="separator:a8d79fad73f829520b891e94b6e4536e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a860dddb87083c72fdc1b8de7c3ad4425"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__spips.html#ga29aca8b8f36192cba8b4984b177fea6b">XSpiPs_StatusHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi_ps.html#a860dddb87083c72fdc1b8de7c3ad4425">StatusHandler</a></td></tr>
+<tr class="memdesc:a860dddb87083c72fdc1b8de7c3ad4425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status handler callback.  <a href="#a860dddb87083c72fdc1b8de7c3ad4425">More...</a><br/></td></tr>
+<tr class="separator:a860dddb87083c72fdc1b8de7c3ad4425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a012e4128cb1e93e765a8551512d91a77"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_spi_ps.html#a012e4128cb1e93e765a8551512d91a77">StatusRef</a></td></tr>
 <tr class="memdesc:a012e4128cb1e93e765a8551512d91a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for status handler.  <a href="#a012e4128cb1e93e765a8551512d91a77">More...</a><br/></td></tr>
 <tr class="separator:a012e4128cb1e93e765a8551512d91a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,7 +158,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:aacd3809d776effaef3ef67aefc2fc800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_spi_ps.html" title="The XSpiPs driver instance data. ">XSpiPs</a> driver instance data. </p>
+<div class="textblock"><p>Holds the <a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a> driver instance data. </p>
 <p>The user is required to allocate a variable of this type for every SPI device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a2f23279c800d3c5e2d91622b1fa64aeb"></a>
@@ -170,7 +173,7 @@ Data Fields</h2></td></tr>
 
 <p>Configuration structure. </p>
 
-<p>Referenced by <a class="el" href="group__spips.html#ga1f40732e67f63579b811af115f2c575c">XSpiPs_Abort()</a>, <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays()</a>, <a class="el" href="group__spips.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#gad3abd2456cfa67bc8d24dd255ba7de51">XSpiPs_Reset()</a>, <a class="el" href="group__spips.html#gaaa797b9b8184e6f39b0c0038553e48d8">XSpiPs_SelfTest()</a>, <a class="el" href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spips.html#ga1f40732e67f63579b811af115f2c575c">XSpiPs_Abort()</a>, <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips__api.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler()</a>, <a class="el" href="group__spips__api.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays()</a>, <a class="el" href="group__spips__api.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#gad3abd2456cfa67bc8d24dd255ba7de51">XSpiPs_Reset()</a>, <a class="el" href="group__spips__api.html#gaaa797b9b8184e6f39b0c0038553e48d8">XSpiPs_SelfTest()</a>, <a class="el" href="group__spips__api.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips__api.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips__api.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -218,7 +221,7 @@ Data Fields</h2></td></tr>
 
 <p>A transfer is in progress (state) </p>
 
-<p>Referenced by <a class="el" href="group__spips.html#ga1f40732e67f63579b811af115f2c575c">XSpiPs_Abort()</a>, <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spips.html#ga1f40732e67f63579b811af115f2c575c">XSpiPs_Abort()</a>, <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips__api.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips__api.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips__api.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -234,7 +237,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is initialized and ready. </p>
 
-<p>Referenced by <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays()</a>, <a class="el" href="group__spips.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions()</a>, <a class="el" href="group__spips.html#ga1876554128f1d1a8654d72a619fe491d">XSpiPs_GetSlaveSelect()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#gad3abd2456cfa67bc8d24dd255ba7de51">XSpiPs_Reset()</a>, <a class="el" href="group__spips.html#gaaa797b9b8184e6f39b0c0038553e48d8">XSpiPs_SelfTest()</a>, <a class="el" href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, <a class="el" href="group__spips.html#gacafc99130a16e99abb3d86e682f1de09">XSpiPs_SetStatusHandler()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
+<p>Referenced by <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips__api.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler()</a>, <a class="el" href="group__spips__api.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays()</a>, <a class="el" href="group__spips__api.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions()</a>, <a class="el" href="group__spips.html#ga1876554128f1d1a8654d72a619fe491d">XSpiPs_GetSlaveSelect()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#gad3abd2456cfa67bc8d24dd255ba7de51">XSpiPs_Reset()</a>, <a class="el" href="group__spips__api.html#gaaa797b9b8184e6f39b0c0038553e48d8">XSpiPs_SelfTest()</a>, <a class="el" href="group__spips__api.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips__api.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays()</a>, <a class="el" href="group__spips__api.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, <a class="el" href="group__spips.html#gacafc99130a16e99abb3d86e682f1de09">XSpiPs_SetStatusHandler()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -315,6 +318,22 @@ Data Fields</h2></td></tr>
 <p>The slave select value when XSPIPS_FORCE_SSELECT_OPTION is set. </p>
 
 <p>Referenced by <a class="el" href="group__spips.html#ga1876554128f1d1a8654d72a619fe491d">XSpiPs_GetSlaveSelect()</a>, <a class="el" href="group__spips.html#ga94490f99431c92c2a9a54cc41d4abe71">XSpiPs_PolledTransfer()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a860dddb87083c72fdc1b8de7c3ad4425"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__spips.html#ga29aca8b8f36192cba8b4984b177fea6b">XSpiPs_StatusHandler</a> XSpiPs::StatusHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Status handler callback. </p>
+
+<p>Referenced by <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, and <a class="el" href="group__spips.html#gacafc99130a16e99abb3d86e682f1de09">XSpiPs_SetStatusHandler()</a>.</p>
 
 </div>
 </div>

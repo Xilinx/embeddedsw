@@ -112,11 +112,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 <hr/>
 <p>
 2.4     rpu  04/15/2026 First release
+2.5   rama 09/21/2026 Added XLoader_RsaKat, XLoader_EccKat, XLoader_AuthKat, and
+                      XLoader_LmsKat, consolidated from the platform-specific
+                      xloader_plat_secure.c files and from <a class="el" href="xloader__auth__enc_8c.html" title="This file contains authentication and encryption related code. ">xloader_auth_enc.c</a>
 </pre> </div><div class="textblock"><code>#include &quot;xplmi_tamper.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_sha.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__kat_8h.html">xloader_kat.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_resourcehandling.h&quot;</code><br/>
+<code>#include &quot;xsecure_error.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -129,6 +133,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
 <tr class="memdesc:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs KAT test on AES crypto Engine.  <a href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">More...</a><br/></td></tr>
 <tr class="separator:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f8a05533623425c11d0c61ae684c27e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga7f8a05533623425c11d0c61ae684c27e">XLoader_RsaKat</a> (void)</td></tr>
+<tr class="memdesc:ga7f8a05533623425c11d0c61ae684c27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the KAT for RSA.  <a href="group__xloader__kat__apis.html#ga7f8a05533623425c11d0c61ae684c27e">More...</a><br/></td></tr>
+<tr class="separator:ga7f8a05533623425c11d0c61ae684c27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ba46d8e0c55427374c37e0d5543113d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga1ba46d8e0c55427374c37e0d5543113d">XLoader_EccKat</a> (XSecure_EllipticCrvClass CrvClass)</td></tr>
+<tr class="memdesc:ga1ba46d8e0c55427374c37e0d5543113d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the KAT for ECDSA sign verification.  <a href="group__xloader__kat__apis.html#ga1ba46d8e0c55427374c37e0d5543113d">More...</a><br/></td></tr>
+<tr class="separator:ga1ba46d8e0c55427374c37e0d5543113d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
+<tr class="memdesc:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs RSA or Ecdsa KAT based on pdi.  <a href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">More...</a><br/></td></tr>
+<tr class="separator:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

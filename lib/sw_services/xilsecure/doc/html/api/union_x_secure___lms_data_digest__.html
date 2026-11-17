@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_data_digest__.htm
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a61d0665900c16f142d2ee1a73a8c7c12"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_data_digest__.html#a61d0665900c16f142d2ee1a73a8c7c12">Buff</a> [<a class="el" href="group__xsecure__lms__server__apis.html#gaeebd096c31f8e28bda96fb99ae3c708a">XSECURE_LMS_DIGEST_CHECKSUM_SIZE</a>]</td></tr>
+<tr class="memdesc:a61d0665900c16f142d2ee1a73a8c7c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte buffer of LMS data digest.  <a href="#a61d0665900c16f142d2ee1a73a8c7c12">More...</a><br/></td></tr>
+<tr class="separator:a61d0665900c16f142d2ee1a73a8c7c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad244879696c514be72b12112e8587699"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a3fa90cf1cba83ff0e2ed4727104b7311"><td class="memItemLeft" >&#160;&#160;&#160;u8&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_data_digest__.html#a53bdf2944c0551628af472117010709a">Digest</a> [<a class="el" href="group__xsecure__lms__server__apis.html#ga1a34947f51bffe3c3aada7d9e34f2541">XSECURE_LMS_DIGEST_SIZE</a>]</td></tr>
 <tr class="memdesc:a3fa90cf1cba83ff0e2ed4727104b7311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digest - Digest of data to be authenticated Size - 32 bytes, 0 to 31 bytes.  <a href="#a3fa90cf1cba83ff0e2ed4727104b7311">More...</a><br/></td></tr>
@@ -134,6 +137,22 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Digest for message to be authenticated, along with checksum. </p>
 <p>Size = Digest (32) + Check sum (2) = 34 Bytes </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a61d0665900c16f142d2ee1a73a8c7c12"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsDataDigest_::Buff[<a class="el" href="group__xsecure__lms__server__apis.html#gaeebd096c31f8e28bda96fb99ae3c708a">XSECURE_LMS_DIGEST_CHECKSUM_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte buffer of LMS data digest. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga20f145ad946cac0682c7428afe35dc8f">XSecure_LmsHashMessage()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a54f64f39fd053d8cba224409ac9e04f4"></a>
 <div class="memitem">
 <div class="memproto">

@@ -35,12 +35,13 @@
         <name>XDMAPS_MAX_WAIT</name>
         <initializer>4000</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Maximum poll iterations while waiting for DMA debug idle. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga1979923efe3208602a8e4ba6ff2aff32" compoundref="xdmaps__hw_8c" startline="58" endline="86">XDmaPs_ResetHw</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -54,23 +55,34 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function perform the reset sequence to the given dmaps interface by configuring the appropriate control bits in the dmaps specific registers the dmaps reset sequence involves the following steps Disable all the interuupts Clear the pending interrupts Kill all the active channel threads Kill the manager thread. </para>        </briefdescription>
+<para>Resets the DMA PS interface to the given dmaps interface by. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>configuring the appropriate control bits in the dmaps specific registers the dmaps reset sequence involves the following steps Disable all the interuupts Clear the pending interrupts Kill all the active channel threads Kill the manager thread</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>of the interface</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>N/A</para></simplesect>
-<simplesect kind="note"><para>This function will not modify the slcr registers that are relevant for dmaps controller </para></simplesect>
+<simplesect kind="note"><para>Does not modify SLCR registers relevant to the DMA PS controller. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" bodystart="60" bodyend="88"/>
-        <references refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" compoundref="xdmaps__hw_8h" startline="254">XDmaPs_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c" bodystart="58" bodyend="86"/>
+        <references refid="group__dmaps_1gaf623602c708fe687fec02e0228c31bed" compoundref="xdmaps__hw_8h" startline="177">XDMAPS_CHANNELS_PER_DEV</references>
+        <references refid="group__dmaps_1gabd9ff38817fd8a9564f1321beec3d305" compoundref="xdmaps__hw_8h" startline="128">XDMAPS_DBGCMD_OFFSET</references>
+        <references refid="group__dmaps_1ga9fd2c1fca1acd878fd0e22734daf0cd3" compoundref="xdmaps__hw_8h" startline="171">XDmaPs_DBGINST0</references>
+        <references refid="group__dmaps_1ga56fd2cf1862005e0f2c65f51a2579d30" compoundref="xdmaps__hw_8h" startline="129">XDMAPS_DBGINST0_OFFSET</references>
+        <references refid="group__dmaps_1ga4323b1b57d49da0e37f7aff6df589b01" compoundref="xdmaps__hw_8h" startline="130">XDMAPS_DBGINST1_OFFSET</references>
+        <references refid="group__dmaps_1gab2e6876678b45b1615220662f5ce5cf1" compoundref="xdmaps__hw_8h" startline="156">XDMAPS_DBGSTATUS_BUSY</references>
+        <references refid="group__dmaps_1gaa916d654a027b1a9089eb95b8324b273" compoundref="xdmaps__hw_8h" startline="127">XDMAPS_DBGSTATUS_OFFSET</references>
+        <references refid="group__dmaps_1ga81eb3da6b715133012232f8d09242fea" compoundref="xdmaps__hw_8h" startline="195">XDMAPS_INTCLR_ALL_MASK</references>
+        <references refid="group__dmaps_1ga418455005e7ca1bf0209f1e9be6e1644" compoundref="xdmaps__hw_8h" startline="59">XDMAPS_INTCLR_OFFSET</references>
+        <references refid="group__dmaps_1gac5af210b0cfdc4d966f5f2f72c481118" compoundref="xdmaps__hw_8h" startline="56">XDMAPS_INTEN_OFFSET</references>
+        <references refid="group__dmaps_1ga3bab9e663ba55d9f176d60c4a0b5ab33" compoundref="xdmaps__hw_8c" startline="38">XDMAPS_MAX_WAIT</references>
+        <references refid="group__dmaps_1ga6de917c7194866df51b6191338b5ab6b" compoundref="xdmaps__hw_8h" startline="207">XDmaPs_ReadReg</references>
+        <references refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" compoundref="xdmaps__hw_8h" startline="223">XDmaPs_WriteReg</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -85,55 +97,55 @@
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmaps__hw_8h" kindref="compound">xdmaps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmaps__hw_8h" kindref="compound">xdmaps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XDMAPS_MAX_WAIT</highlight></codeline>
-<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDMAPS_MAX_WAIT<sp/>4000</highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XDMAPS_MAX_WAIT</highlight></codeline>
+<codeline lineno="38" refid="group__dmaps_1ga3bab9e663ba55d9f176d60c4a0b5ab33" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDMAPS_MAX_WAIT<sp/>4000<sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="60" refid="group__dmaps_1ga1979923efe3208602a8e4ba6ff2aff32" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dmaps_1ga1979923efe3208602a8e4ba6ff2aff32" kindref="member">XDmaPs_ResetHw</ref>(u32<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DbgInst;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WaitCount<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChanIndex;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>all<sp/>the<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_INTEN_OFFSET,<sp/>0x00);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_INTCLR_OFFSET,<sp/>XDMAPS_INTCLR_ALL_MASK);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Kill<sp/>the<sp/>dma<sp/>channel<sp/>threads<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ChanIndex<sp/>=<sp/>0;<sp/>ChanIndex<sp/>&lt;<sp/>XDMAPS_CHANNELS_PER_DEV;<sp/>ChanIndex++)<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((XDmaPs_ReadReg(BaseAddress,<sp/>XDMAPS_DBGSTATUS_OFFSET)</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XDMAPS_DBGSTATUS_BUSY)</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(WaitCount<sp/>&lt;<sp/>XDMAPS_MAX_WAIT))<sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WaitCount++;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgInst<sp/>=<sp/>XDmaPs_DBGINST0(0,<sp/>0x01,<sp/>ChanIndex,<sp/>1);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGINST0_OFFSET,<sp/>DbgInst);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGINST1_OFFSET,<sp/>0x0);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGCMD_OFFSET,<sp/>0x0);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Kill<sp/>the<sp/>manager<sp/>thread<sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgInst<sp/>=<sp/>XDmaPs_DBGINST0(0,<sp/>0x01,<sp/>0,<sp/>0);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGINST0_OFFSET,<sp/>DbgInst);</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGINST1_OFFSET,<sp/>0x0);</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/>XDMAPS_DBGCMD_OFFSET,<sp/>0x0);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__dmaps_1ga1979923efe3208602a8e4ba6ff2aff32" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dmaps_1ga1979923efe3208602a8e4ba6ff2aff32" kindref="member">XDmaPs_ResetHw</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DbgInst;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WaitCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChanIndex;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>all<sp/>the<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1gac5af210b0cfdc4d966f5f2f72c481118" kindref="member">XDMAPS_INTEN_OFFSET</ref>,<sp/>0x00);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1ga418455005e7ca1bf0209f1e9be6e1644" kindref="member">XDMAPS_INTCLR_OFFSET</ref>,<sp/><ref refid="group__dmaps_1ga81eb3da6b715133012232f8d09242fea" kindref="member">XDMAPS_INTCLR_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Kill<sp/>the<sp/>dma<sp/>channel<sp/>threads<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ChanIndex<sp/>=<sp/>0;<sp/>ChanIndex<sp/>&lt;<sp/><ref refid="group__dmaps_1gaf623602c708fe687fec02e0228c31bed" kindref="member">XDMAPS_CHANNELS_PER_DEV</ref>;<sp/>ChanIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="group__dmaps_1ga6de917c7194866df51b6191338b5ab6b" kindref="member">XDmaPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1gaa916d654a027b1a9089eb95b8324b273" kindref="member">XDMAPS_DBGSTATUS_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/><ref refid="group__dmaps_1gab2e6876678b45b1615220662f5ce5cf1" kindref="member">XDMAPS_DBGSTATUS_BUSY</ref>)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(WaitCount<sp/>&lt;<sp/><ref refid="group__dmaps_1ga3bab9e663ba55d9f176d60c4a0b5ab33" kindref="member">XDMAPS_MAX_WAIT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WaitCount++;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgInst<sp/>=<sp/><ref refid="group__dmaps_1ga9fd2c1fca1acd878fd0e22734daf0cd3" kindref="member">XDmaPs_DBGINST0</ref>(0,<sp/>0x01,<sp/>ChanIndex,<sp/>1);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1ga56fd2cf1862005e0f2c65f51a2579d30" kindref="member">XDMAPS_DBGINST0_OFFSET</ref>,<sp/>DbgInst);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1ga4323b1b57d49da0e37f7aff6df589b01" kindref="member">XDMAPS_DBGINST1_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1gabd9ff38817fd8a9564f1321beec3d305" kindref="member">XDMAPS_DBGCMD_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Kill<sp/>the<sp/>manager<sp/>thread<sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgInst<sp/>=<sp/><ref refid="group__dmaps_1ga9fd2c1fca1acd878fd0e22734daf0cd3" kindref="member">XDmaPs_DBGINST0</ref>(0,<sp/>0x01,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1ga56fd2cf1862005e0f2c65f51a2579d30" kindref="member">XDMAPS_DBGINST0_OFFSET</ref>,<sp/>DbgInst);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1ga4323b1b57d49da0e37f7aff6df589b01" kindref="member">XDMAPS_DBGINST1_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dmaps_1gae19e877d6bba369f3e2e8e806b36f594" kindref="member">XDmaPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__dmaps_1gabd9ff38817fd8a9564f1321beec3d305" kindref="member">XDMAPS_DBGCMD_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps_hw.c"/>
   </compounddef>
 </doxygen>

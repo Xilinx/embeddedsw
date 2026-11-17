@@ -8,203 +8,177 @@
     <includedby refid="trngpsx_2xsecure__trng_8c" local="yes">xsecure_trng.c</includedby>
     <includedby refid="trngpsx_2xsecure__trng__ipihandler_8c" local="yes">xsecure_trng_ipihandler.c</includedby>
     <includedby refid="versal__2ve__2vm_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
-    <includedby refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
     <includedby refid="versal__2vp_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
-    <includedby refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
     <includedby refid="versal__2vp__p_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
-    <includedby refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
     <includedby refid="versal__net_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
-    <includedby refid="versal__net_2xsecure__plat__kat__ipihandler_8c" local="yes">xsecure_plat_kat_ipihandler.c</includedby>
     <incdepgraph>
-      <node id="4785">
+      <node id="5036">
         <label>xtrngpsx.h</label>
       </node>
-      <node id="4783">
+      <node id="5035">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5034">
         <label>xsecure_trng.h</label>
         <link refid="trngpsx/xsecure_trng.h"/>
-        <childnode refid="4784" relation="include">
+        <childnode refid="5035" relation="include">
         </childnode>
-        <childnode refid="4785" relation="include">
+        <childnode refid="5036" relation="include">
         </childnode>
-      </node>
-      <node id="4784">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4802">
-        <label>xsecure_plat_rsa.c</label>
-        <link refid="xsecure__plat__rsa_8c"/>
-      </node>
-      <node id="4788">
-        <label>xsecure_ellipticplat.c</label>
-        <link refid="xsecure__ellipticplat_8c"/>
-      </node>
-      <node id="4787">
-        <label>xsecure_ellipticplat.h</label>
-        <link refid="xsecure__ellipticplat_8h"/>
-        <childnode refid="4788" relation="include">
-        </childnode>
-        <childnode refid="4789" relation="include">
-        </childnode>
-      </node>
-      <node id="4812">
-        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
-        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
-      </node>
-      <node id="4793">
-        <label>xsecure_plat_ipihandler.c</label>
-        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
-      </node>
-      <node id="4795">
-        <label>xsecure_plat.c</label>
-        <link refid="versal__2vp_2xsecure__plat_8c"/>
-      </node>
-      <node id="4805">
-        <label>xsecure_rsa_core.c</label>
-        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
-      </node>
-      <node id="4801">
-        <label>xsecure_elliptic.c</label>
-        <link refid="xsecure__elliptic_8c"/>
-      </node>
-      <node id="4804">
-        <label>xsecure_rsa_q.c</label>
-        <link refid="xsecure__rsa__q_8c"/>
-      </node>
-      <node id="4810">
-        <label>xsecure_utils.c</label>
-        <link refid="core_2util_2xsecure__utils_8c"/>
-      </node>
-      <node id="4800">
-        <label>xsecure_plat.h</label>
-        <link refid="versal__net_2xsecure__plat_8h"/>
-        <childnode refid="4801" relation="include">
-        </childnode>
-        <childnode refid="4802" relation="include">
-        </childnode>
-        <childnode refid="4803" relation="include">
-        </childnode>
-        <childnode refid="4804" relation="include">
-        </childnode>
-        <childnode refid="4805" relation="include">
-        </childnode>
-        <childnode refid="4806" relation="include">
-        </childnode>
-        <childnode refid="4807" relation="include">
-        </childnode>
-        <childnode refid="4790" relation="include">
-        </childnode>
-        <childnode refid="4808" relation="include">
-        </childnode>
-        <childnode refid="4810" relation="include">
-        </childnode>
-        <childnode refid="4811" relation="include">
-        </childnode>
-        <childnode refid="4812" relation="include">
-        </childnode>
-        <childnode refid="4813" relation="include">
-        </childnode>
-      </node>
-      <node id="4796">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
-      </node>
-      <node id="4803">
-        <label>xsecure_mldsa.c</label>
-        <link refid="xsecure__mldsa_8c"/>
-      </node>
-      <node id="4814">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
-      </node>
-      <node id="4798">
-        <label>xsecure_plat_ipihandler.c</label>
-        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
-      </node>
-      <node id="4790">
-        <label>xsecure_trng.c</label>
-        <link refid="trngpsx_2xsecure__trng_8c"/>
-      </node>
-      <node id="4786">
-        <label>xsecure_trng.h</label>
-        <link refid="trngpsx/xsecure_trng.h"/>
-        <childnode refid="4787" relation="include">
-        </childnode>
-        <childnode refid="4790" relation="include">
-        </childnode>
-        <childnode refid="4791" relation="include">
-        </childnode>
-        <childnode refid="4792" relation="include">
-        </childnode>
-        <childnode refid="4794" relation="include">
-        </childnode>
-        <childnode refid="4795" relation="include">
-        </childnode>
-        <childnode refid="4796" relation="include">
-        </childnode>
-        <childnode refid="4797" relation="include">
-        </childnode>
-        <childnode refid="4799" relation="include">
-        </childnode>
-        <childnode refid="4800" relation="include">
-        </childnode>
-        <childnode refid="4814" relation="include">
-        </childnode>
-      </node>
-      <node id="4797">
-        <label>xsecure_plat.h</label>
-        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
-        <childnode refid="4798" relation="include">
-        </childnode>
-      </node>
-      <node id="4806">
-        <label>xsecure_sha.c</label>
-        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
-      </node>
-      <node id="4791">
-        <label>xsecure_trng_ipihandler.c</label>
-        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
-      </node>
-      <node id="4807">
-        <label>xsecure_trng.c</label>
-        <link refid="trngpsv_2xsecure__trng_8c"/>
-      </node>
-      <node id="4809">
+      <node id="5057">
         <label>xsecure_sss.c</label>
         <link refid="core_2util_2xsecure__sss_8c"/>
       </node>
-      <node id="4808">
+      <node id="5056">
         <label>xsecure_sss.h</label>
         <link refid="core_2util_2xsecure__sss_8h"/>
-        <childnode refid="4809" relation="include">
+        <childnode refid="5057" relation="include">
         </childnode>
       </node>
-      <node id="4799">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      <node id="5044">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
       </node>
-      <node id="4811">
+      <node id="5053">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="5046">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
+        <childnode refid="5047" relation="include">
+        </childnode>
+      </node>
+      <node id="5042">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="5054">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="5052">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="5045">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="5049">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="5059">
         <label>xsecure_plat_ipihandler.c</label>
         <link refid="net_2xsecure__plat__ipihandler_8c"/>
       </node>
-      <node id="4794">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      <node id="5039">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
       </node>
-      <node id="4792">
-        <label>xsecure_plat.h</label>
-        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
-        <childnode refid="4793" relation="include">
+      <node id="5038">
+        <label>xsecure_ellipticplat.h</label>
+        <link refid="xsecure__ellipticplat_8h"/>
+        <childnode refid="5039" relation="include">
+        </childnode>
+        <childnode refid="5040" relation="include">
         </childnode>
       </node>
-      <node id="4789">
+      <node id="5040">
         <label>xsecure_plat_elliptic_ipihandler.c</label>
         <link refid="xsecure__plat__elliptic__ipihandler_8c"/>
       </node>
-      <node id="4813">
-        <label>xilsecure_spartanup_sha_server_example.c</label>
-        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      <node id="5043">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
+        <childnode refid="5044" relation="include">
+        </childnode>
+      </node>
+      <node id="5058">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="5041">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="5037">
+        <label>xsecure_trng.h</label>
+        <link refid="trngpsx/xsecure_trng.h"/>
+        <childnode refid="5038" relation="include">
+        </childnode>
+        <childnode refid="5041" relation="include">
+        </childnode>
+        <childnode refid="5042" relation="include">
+        </childnode>
+        <childnode refid="5043" relation="include">
+        </childnode>
+        <childnode refid="5045" relation="include">
+        </childnode>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+      </node>
+      <node id="5048">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="5040" relation="include">
+        </childnode>
+        <childnode refid="5049" relation="include">
+        </childnode>
+        <childnode refid="5050" relation="include">
+        </childnode>
+        <childnode refid="5051" relation="include">
+        </childnode>
+        <childnode refid="5052" relation="include">
+        </childnode>
+        <childnode refid="5053" relation="include">
+        </childnode>
+        <childnode refid="5054" relation="include">
+        </childnode>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5041" relation="include">
+        </childnode>
+        <childnode refid="5056" relation="include">
+        </childnode>
+        <childnode refid="5058" relation="include">
+        </childnode>
+        <childnode refid="5059" relation="include">
+        </childnode>
+        <childnode refid="5060" relation="include">
+        </childnode>
+        <childnode refid="5061" relation="include">
+        </childnode>
+      </node>
+      <node id="5047">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="5051">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="5060">
+        <label>xilsecure_spartan_ultrascale_plus_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__lms__hss__server__example_8c"/>
+      </node>
+      <node id="5055">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="5061">
+        <label>xilsecure_spartan_ultrascale_plus_sha_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__sha__server__example_8c"/>
+      </node>
+      <node id="5050">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -217,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__trng__server__apis_1gaea6dd83414f12e293f2c5e2460d55140" prot="public" static="no">
         <name>XSECURE_TRNG_PER_STRING_LEN_IN_BYTES</name>
@@ -228,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga80857d61ba8ef8316b1389d81d6ea688" prot="public" static="no">
         <name>XSecure_PreOperationalSelfTests</name>
@@ -239,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga1c2995e2c8fd44bb1d66f698cda7d51c" prot="public" static="no">
         <name>XSecure_TrngGenerate</name>
@@ -250,8 +224,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="61" bodyend="-1"/>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" prot="public" static="no">
         <name>XSecure_Uninstantiate</name>
@@ -262,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -318,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="77" bodyend="81"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="77" bodyend="81"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -333,7 +307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -488,14 +462,14 @@ This function generates Random number of given size.</para><para><parameterlist 
 <para><itemizedlist>
 <listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroise temporary buffer </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" bodystart="304" bodyend="366"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.c" bodystart="322" bodyend="384"/>
         <references refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" compoundref="trngpsv_2xsecure__trng_8c" startline="62" endline="67">XSecure_GetTrngInstance</references>
-        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="492" endline="524">XSecure_ECCRandInit</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="248">XSECURE_ERR_GLITCH_DETECTED</references>
         <references refid="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" compoundref="trngpsv_2xsecure__trng_8h" startline="60">XSecure_Uninstantiate</references>
         <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
-        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="192" endline="237">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="334" endline="511">XSecure_MldsaSignGenerate</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
@@ -514,10 +488,10 @@ This function generates Random number of given size.</para><para><parameterlist 
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="62" bodyend="67"/>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="62" bodyend="67"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="492" endline="524">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="416" endline="478">XSecure_GetRandomNum</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -543,7 +517,36 @@ This function generates Random number of given size.</para><para><parameterlist 
         <briefdescription>
 <para>This function initialize and configures the TRNG into DRNG/HRNG mode of operation. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para><itemizedlist>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XSecureTrngMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode of TRNG operation (DRNG/HRNG/PTRNG). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed used for TRNG initialization. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SeedLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the seed in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the personalization string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS - Upon success.</para></listitem><listitem><para>XST_FAILURE - On failure.</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
@@ -583,9 +586,9 @@ This function generates Random number of given size.</para><para><parameterlist 
 <para><itemizedlist>
 <listitem><para>Initiate TRNG</para></listitem><listitem><para>Initiate TRNG </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="78" bodyend="148"/>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="83" bodyend="153"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="492" endline="524">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
       </memberdef>
       <memberdef kind="function" id="trngpsx_2xsecure__trng_8h_1gaba16eb43570e3808308b9288029a1195" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>u8</type>
@@ -613,7 +616,7 @@ This function generates Random number of given size.</para><para><parameterlist 
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="101" bodyend="104"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="101" bodyend="104"/>
       </memberdef>
       <memberdef kind="function" id="trngpsx_2xsecure__trng_8h_1gafdd3e588e23876c9e822faf8d89cdedf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>u8</type>
@@ -641,7 +644,7 @@ This function generates Random number of given size.</para><para><parameterlist 
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="117" bodyend="120"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="117" bodyend="120"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -725,6 +728,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h"/>
   </compounddef>
 </doxygen>

@@ -1,14 +1,6 @@
 var xaxidma_8h =
 [
-    [ "XAxiDma_GetRxIndexRing", "xaxidma_8h.html#gaf03e87b58cf2f9800e6260fda3745631", null ],
-    [ "XAxiDma_GetRxRing", "xaxidma_8h.html#ga6373ac3baa5365607f6727f4e2ece7a5", null ],
-    [ "XAxiDma_GetTxRing", "xaxidma_8h.html#ga9d91f29c6dc41f2106e097f1f9957a6e", null ],
-    [ "XAxiDma_HasSg", "xaxidma_8h.html#ga18dd03026dd6c0ebd13526116c09ccae", null ],
-    [ "XAxiDma_IntrAckIrq", "xaxidma_8h.html#ga9ff0d2e5b50846e4b6a2d683283c10d5", null ],
-    [ "XAxiDma_IntrDisable", "xaxidma_8h.html#ga1936b497c0fa61d326807e5ed8dd572b", null ],
-    [ "XAxiDma_IntrEnable", "xaxidma_8h.html#gadac28afa26e2cb55bdada1ee3c016c52", null ],
-    [ "XAxiDma_IntrGetEnabled", "xaxidma_8h.html#gadba63ad7c0a784d569736a8d1eb7c367", null ],
-    [ "XAxiDma_IntrGetIrq", "xaxidma_8h.html#ga6a0eb17bcfcaf3331e01855d302f5f0e", null ],
+    [ "XAXIDMA_H_", "xaxidma_8h.html#ga1058ef07107625fc8a91e0f1d4cc8a23", null ],
     [ "XAxiDma", "xaxidma_8h.html#gac08fe7cb6508a133a7ef036bba7df5b5", null ],
     [ "XAxiDma_Busy", "xaxidma_8h.html#gaff68c0ba3e9e25dfe5e39153301862f8", null ],
     [ "XAxiDma_CfgInitialize", "xaxidma_8h.html#ga8026e76c90d891d21c9c355ff776cb77", null ],

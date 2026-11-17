@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga48a2a62269b739b32f1ad2980b273f88" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga205db8ff20bbc607a5c339372d4e00df" prot="public" static="yes" mutable="no">
         <type>const char</type>
@@ -52,11 +52,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="94" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga48b034848ccc7d9c00df063984304ca3" prot="public" static="yes" mutable="no">
-        <type>const char</type>
-        <definition>const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES]</definition>
+      <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga856737ae3ebc6cda4b5a2f2a86920800" prot="public" static="yes" mutable="no">
+        <type>char</type>
+        <definition>char Sha3Hash[SHA3_HASH_LEN_IN_BYTES]</definition>
         <argsstring>[SHA3_HASH_LEN_IN_BYTES]</argsstring>
         <name>Sha3Hash</name>
         <briefdescription>
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga659afd3c5f47d8367e69ca609f018f38" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga96d1344c2a31192cc7f7592b26e6ec64" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="110" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="111" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga205db8ff20bbc607a5c339372d4e00df" prot="public" static="yes" mutable="no">
         <type>const char</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga44eee1821bc4a193de7e545360e3aeac" prot="public" static="yes" mutable="no">
         <type>XSecure_Sha3</type>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__sha3__example__apis_1ga48a2a62269b739b32f1ad2980b273f88" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -151,14 +151,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="100" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga7211588d7f99d1bd3b97df3a0947bcf8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga6f5bef0be9464285c68336b1233ef3d8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>static u32 SecureSha3Example</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>SecureSha3Example</name>
         <param>
           <type>void</type>
@@ -173,7 +173,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="117" bodyend="159"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="118" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga655117d0ee6b4398fb37f42c5f12c1cd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -197,7 +197,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="172" bodyend="190"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="181" bodyend="194"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga28292496b5d6ce65759a23ac82b15854" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -214,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="198" bodyend="206"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="202" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -245,7 +245,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="86" bodyend="98"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="87" bodyend="99"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__example__apis_1ga71f09f0d424b01e4350c3bda8b75c2cf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -262,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="237" bodyend="245"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="238" bodyend="246"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1gaf9406bb7a1328723b30cd6c34f30342d" prot="public" static="no">
         <name>SHA3_INPUT_DATA_LEN</name>
@@ -286,7 +286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_sha_example.c" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1gae737b24abf32c5906097070ead86c05a" prot="public" static="no">
         <name>SLR_INDEX</name>
@@ -297,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1ga912b456104bb69f4ad092209d0275832" prot="public" static="no">
         <name>SHA3_HASH_LEN_IN_BYTES</name>
@@ -308,7 +308,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1gaf9406bb7a1328723b30cd6c34f30342d" prot="public" static="no">
         <name>SHA3_INPUT_DATA_LEN</name>
@@ -319,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1ga912b456104bb69f4ad092209d0275832" prot="public" static="no">
         <name>SHA3_HASH_LEN_IN_BYTES</name>
@@ -330,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__example__apis_1gaf9406bb7a1328723b30cd6c34f30342d" prot="public" static="no">
         <name>SHA3_INPUT_DATA_LEN</name>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c" bodystart="70" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -359,7 +359,8 @@ Ver   Who    Date     Changes
                       from u8* to UINTPTR for versal SHA3 function call
       har    10/12/20 Addressed security review comments
       kal    03/23/21 Removed versal support in this example and created
-                a separate example for the same</preformatted></para><para><preformatted></preformatted></para><para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal and Versal Net devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+                a separate example for the same
+5.8   rpu    08/03/26 Use Xil_SMemCmp_CT for hash comparison</preformatted></para><para><preformatted></preformatted></para><para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal and Versal Net devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
 </para></simplesect>
 The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
             be updated to point all the required sections to shared memory(OCM or TCM)
@@ -380,9 +381,9 @@ The default linker settings places a software stack, heap and data in DDR memory
             2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
                be stored in the above shared memory section. To make it happen in below example,
        replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
-               static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.data.Sha3Hash&quot;)));
+               static char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.data.Sha3Hash&quot;)));
                                     should be changed to
-               static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.Sha3Hash&quot;)));
+               static char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.Sha3Hash&quot;)));
 </verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
 Ver   Who    Date     Changes
 <hruler/>
@@ -396,7 +397,8 @@ Ver   Who    Date     Changes
 5.2   am   05/03/23 Added KAT before crypto usage
       pre  08/29/24 Added SSIT support
 5.6   vss  09/06/25 Updated file name in comments
-5.7   mb   01/28/26 Fixed input buffer data truncation on 64-bit address</preformatted></para><para><preformatted></preformatted></para><para>This example is supported for Versal device.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs in Versal device </heading>
+5.7   mb   01/28/26 Fixed input buffer data truncation on 64-bit address
+      rpu  08/03/26 Remove const from Sha3Hash output buffer</preformatted></para><para><preformatted></preformatted></para><para>This example is supported for Versal device.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs in Versal device </heading>
 </para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.</para><para>Open example linker script(lscript.ld) in Vitis project and section to memory mapping should be updated to point all the required sections to shared memory(OCM or TCM) using a memory region drop down selection <verbatim>                    OR
 </verbatim> In linker script(lscript.ld) user can point data section to OCM or TCM .data : { . = ALIGN(4); __data_start = .; *(.data) *(.data.*) *(.gnu.linkonce.d.*) __data_end = .; } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_memory_0</para><para>MODIFICATION HISTORY: <preformatted>
 Ver   Who    Date     Changes

@@ -15,10 +15,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="458" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4303" endline="4472">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4260" endline="4291">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4208" endline="4244">XHdcp22Tx_Dp_LogWr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_item_1aa79e0516a463334c43a6e2dea92f7504" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -31,10 +31,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="459" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4303" endline="4472">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4260" endline="4291">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4208" endline="4244">XHdcp22Tx_Dp_LogWr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_item_1a2f508189cef867094c9ab2f2f4a9393f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -47,17 +47,17 @@
 <para>Only used for time critical events. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="460" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
-        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4303" endline="4472">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4260" endline="4291">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4208" endline="4244">XHdcp22Tx_Dp_LogWr</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef is used to store logging events. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="457" bodyend="461"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="446" bodyend="450"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___tx___dp___log_item_1aa79e0516a463334c43a6e2dea92f7504" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_LogItem</scope><name>Data</name></member>
       <member refid="struct_x_hdcp22___tx___dp___log_item_1aeba1fa2e4bb8691eac10d720a75efcf0" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_LogItem</scope><name>LogEvent</name></member>

@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -125,32 +126,10 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a89ea1775c2f9736d7cf50876c80b5951"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_params.html#a89ea1775c2f9736d7cf50876c80b5951">PubKeyAddr</a></td></tr>
 <tr class="memdesc:a89ea1775c2f9736d7cf50876c80b5951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address where public key will be written (size = 2 * PvtKey.KeyLen)  <a href="#a89ea1775c2f9736d7cf50876c80b5951">More...</a><br/></td></tr>
 <tr class="separator:a89ea1775c2f9736d7cf50876c80b5951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d0ce8eef9e2961c1b392c827d3caba7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_params.html#a0d0ce8eef9e2961c1b392c827d3caba7">CurveType</a></td></tr>
-<tr class="memdesc:a0d0ce8eef9e2961c1b392c827d3caba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of curve.  <a href="#a0d0ce8eef9e2961c1b392c827d3caba7">More...</a><br/></td></tr>
-<tr class="separator:a0d0ce8eef9e2961c1b392c827d3caba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fdc3fb597fbcf7afc9bfd2afb20478f"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_params.html#a0fdc3fb597fbcf7afc9bfd2afb20478f">Reserved</a> [4]</td></tr>
-<tr class="memdesc:a0fdc3fb597fbcf7afc9bfd2afb20478f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit padding to ensure consistent struct size across architectures.  <a href="#a0fdc3fb597fbcf7afc9bfd2afb20478f">More...</a><br/></td></tr>
-<tr class="separator:a0fdc3fb597fbcf7afc9bfd2afb20478f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This structure contains ECC params info for public key generation. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a0d0ce8eef9e2961c1b392c827d3caba7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XAsu_EccKeyParams::CurveType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Type of curve. </p>
-
-<p>Referenced by <a class="el" href="group__xasu__ecc__client__apis.html#ga66e66b97823b69487c4c2e10635dc226">XAsu_EccValidatePubKey()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a89ea1775c2f9736d7cf50876c80b5951"></a>
 <div class="memitem">
 <div class="memproto">
@@ -180,20 +159,6 @@ Data Fields</h2></td></tr>
 <p>Private key object. </p>
 
 <p>Referenced by <a class="el" href="group__xasu__ecc__client__apis.html#ga66e66b97823b69487c4c2e10635dc226">XAsu_EccValidatePubKey()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0fdc3fb597fbcf7afc9bfd2afb20478f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 XAsu_EccKeyParams::Reserved[4]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Explicit padding to ensure consistent struct size across architectures. </p>
 
 </div>
 </div>

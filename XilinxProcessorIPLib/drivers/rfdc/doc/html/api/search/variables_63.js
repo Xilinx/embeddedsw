@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['calfrozen',['CalFrozen',['../struct_x_r_fdc___cal___freeze___settings.html#ac0d65ca14d959d62bf6b9a813d837ade',1,'XRFdc_Cal_Freeze_Settings']]],
+  ['calibrationmode',['CalibrationMode',['../struct_x_r_fdc___a_d_c_block___analog_data_path.html#a24e95467d6d68c84b55a762a0fbd9817',1,'XRFdc_ADCBlock_AnalogDataPath']]],
+  ['callbackref',['CallBackRef',['../struct_x_r_fdc.html#a6b3d0431712ea6c0d6cd8b7c6ef7415a',1,'XRFdc']]],
+  ['clksettings',['ClkSettings',['../struct_x_r_fdc___distribution___info.html#a7a13a8037843fa28917dd3122e9399bb',1,'XRFdc_Distribution_Info']]],
+  ['coarsedelay',['CoarseDelay',['../struct_x_r_fdc___coarse_delay___settings.html#a67e51d393b8ae1118cf820c1903ad614',1,'XRFdc_CoarseDelay_Settings']]],
+  ['coarsedelay_5fsettings',['CoarseDelay_Settings',['../struct_x_r_fdc___d_a_c_block___analog_data_path.html#af9a0978c7309e5aaa8009da03cfd7d62',1,'XRFdc_DACBlock_AnalogDataPath::CoarseDelay_Settings()'],['../struct_x_r_fdc___a_d_c_block___analog_data_path.html#a224ad7bbdad08def24946fa5b72d9f18',1,'XRFdc_ADCBlock_AnalogDataPath::CoarseDelay_Settings()']]],
+  ['coarsemixfreq',['CoarseMixFreq',['../struct_x_r_fdc___mixer___settings.html#a1734d33c2170cbb75214c868f3c8561c',1,'XRFdc_Mixer_Settings']]],
+  ['coeff0',['Coeff0',['../struct_x_r_fdc___calibration___coefficients.html#a313067039055172e5e00387f12945fcd',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff1',['Coeff1',['../struct_x_r_fdc___calibration___coefficients.html#af3bb6e6369b86bcfeb2e02fea078c933',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff2',['Coeff2',['../struct_x_r_fdc___calibration___coefficients.html#abd8963266e9e4fac0fe83d40b986cfff',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff3',['Coeff3',['../struct_x_r_fdc___calibration___coefficients.html#ae0c6ae3ddd2245d71700401dc5f414d9',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff4',['Coeff4',['../struct_x_r_fdc___calibration___coefficients.html#a3a40d02bfa4c07077d3d3fc8fe0a3892',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff5',['Coeff5',['../struct_x_r_fdc___calibration___coefficients.html#a4e893d4a1f4cad5f71caa78a1cf5e890',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff6',['Coeff6',['../struct_x_r_fdc___calibration___coefficients.html#af1e4727d6f4c437d80b3d1f6e41a8bba',1,'XRFdc_Calibration_Coefficients']]],
+  ['coeff7',['Coeff7',['../struct_x_r_fdc___calibration___coefficients.html#ae34fc64f1eb9115074a1d45dc5026c5b',1,'XRFdc_Calibration_Coefficients']]],
+  ['connectedidata',['ConnectedIData',['../struct_x_r_fdc___d_a_c_block___digital_data_path.html#a2f38914ee6e4fe14a0d49cc12ec18315',1,'XRFdc_DACBlock_DigitalDataPath::ConnectedIData()'],['../struct_x_r_fdc___a_d_c_block___digital_data_path.html#ac64192d56245d0e363152f42fdc3d5bf',1,'XRFdc_ADCBlock_DigitalDataPath::ConnectedIData()']]],
+  ['connectedqdata',['ConnectedQData',['../struct_x_r_fdc___d_a_c_block___digital_data_path.html#a2240d1cd6bf0b74ce578466519d65855',1,'XRFdc_DACBlock_DigitalDataPath::ConnectedQData()'],['../struct_x_r_fdc___a_d_c_block___digital_data_path.html#a56ca717327a69216eb678a18268bd9eb',1,'XRFdc_ADCBlock_DigitalDataPath::ConnectedQData()']]],
+  ['count',['Count',['../struct_x_r_fdc___m_t_s___marker.html#a498968ad6d6130e8a6556967d4e3796f',1,'XRFdc_MTS_Marker']]]
+];

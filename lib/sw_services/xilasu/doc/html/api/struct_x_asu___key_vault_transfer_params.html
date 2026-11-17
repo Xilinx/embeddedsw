@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -122,35 +123,22 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a9373e5cf1542771f7a23547326324b4d"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#a9373e5cf1542771f7a23547326324b4d">DataAddr</a></td></tr>
 <tr class="memdesc:a9373e5cf1542771f7a23547326324b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address for vault data (export destination or import source).  <a href="#a9373e5cf1542771f7a23547326324b4d">More...</a><br/></td></tr>
 <tr class="separator:a9373e5cf1542771f7a23547326324b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad510c5f95321ac4833ad166d00017b46"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#ad510c5f95321ac4833ad166d00017b46">ActualSizeAddr</a></td></tr>
-<tr class="memdesc:ad510c5f95321ac4833ad166d00017b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address where actual vault size will be stored (used only for export).  <a href="#ad510c5f95321ac4833ad166d00017b46">More...</a><br/></td></tr>
-<tr class="separator:ad510c5f95321ac4833ad166d00017b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdf7864bb83e40fa9a892b95edde15dd"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#abdf7864bb83e40fa9a892b95edde15dd">ExportResultAddr</a></td></tr>
+<tr class="memdesc:abdf7864bb83e40fa9a892b95edde15dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the export result block (export only).  <a href="#abdf7864bb83e40fa9a892b95edde15dd">More...</a><br/></td></tr>
+<tr class="separator:abdf7864bb83e40fa9a892b95edde15dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6965b3efee81689aabad4de7a6841356"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#a6965b3efee81689aabad4de7a6841356">BufSize</a></td></tr>
 <tr class="memdesc:a6965b3efee81689aabad4de7a6841356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer size for export or actual data size for import.  <a href="#a6965b3efee81689aabad4de7a6841356">More...</a><br/></td></tr>
 <tr class="separator:a6965b3efee81689aabad4de7a6841356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae019e952db20dd74bd28f4b18d00dc27"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#ae019e952db20dd74bd28f4b18d00dc27">Reserved</a> [4]</td></tr>
-<tr class="memdesc:ae019e952db20dd74bd28f4b18d00dc27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit padding to ensure consistent struct size across architectures.  <a href="#ae019e952db20dd74bd28f4b18d00dc27">More...</a><br/></td></tr>
-<tr class="separator:ae019e952db20dd74bd28f4b18d00dc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3ce7ca8c8a63fb91799ba6c1524462"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#a4e3ce7ca8c8a63fb91799ba6c1524462">RevokeEfuseNum</a></td></tr>
+<tr class="memdesc:a4e3ce7ca8c8a63fb91799ba6c1524462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Off-chip revocation eFuse number the blob is bound to (export only).  <a href="#a4e3ce7ca8c8a63fb91799ba6c1524462">More...</a><br/></td></tr>
+<tr class="separator:a4e3ce7ca8c8a63fb91799ba6c1524462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfc2a8a9cc26ef7f41130111d1a4a87"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___key_vault_transfer_params.html#abdfc2a8a9cc26ef7f41130111d1a4a87">Context</a> [<a class="el" href="group__xasu__common__defs.html#ga316892248ce8c84c60331be00d0de898">XASU_KM_KV_CONTEXT_SIZE_IN_BYTES</a>]</td></tr>
+<tr class="memdesc:abdfc2a8a9cc26ef7f41130111d1a4a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context the key vault keys are derived from.  <a href="#abdfc2a8a9cc26ef7f41130111d1a4a87">More...</a><br/></td></tr>
+<tr class="separator:abdfc2a8a9cc26ef7f41130111d1a4a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This structure contains info for exporting and importing key vault. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="ad510c5f95321ac4833ad166d00017b46"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u64 XAsu_KeyVaultTransferParams::ActualSizeAddr</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Address where actual vault size will be stored (used only for export). </p>
-
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a6965b3efee81689aabad4de7a6841356"></a>
 <div class="memitem">
 <div class="memproto">
@@ -162,6 +150,23 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Buffer size for export or actual data size for import. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>, and <a class="el" href="group__xasu__keymanager__client__apis.html#ga6e184f6a768b418ae0ddd229bce85baa">XAsu_KmImportKeyVault()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abdfc2a8a9cc26ef7f41130111d1a4a87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XAsu_KeyVaultTransferParams::Context[<a class="el" href="group__xasu__common__defs.html#ga316892248ce8c84c60331be00d0de898">XASU_KM_KV_CONTEXT_SIZE_IN_BYTES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Context the key vault keys are derived from. </p>
+<p>An import only recovers a blob when given the same context the export used. </p>
 
 <p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>, and <a class="el" href="group__xasu__keymanager__client__apis.html#ga6e184f6a768b418ae0ddd229bce85baa">XAsu_KmImportKeyVault()</a>.</p>
 
@@ -183,17 +188,37 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae019e952db20dd74bd28f4b18d00dc27"></a>
+<a class="anchor" id="abdf7864bb83e40fa9a892b95edde15dd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 XAsu_KeyVaultTransferParams::Reserved[4]</td>
+          <td class="memname">u64 XAsu_KeyVaultTransferParams::ExportResultAddr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Explicit padding to ensure consistent struct size across architectures. </p>
+<p>Address of the export result block (export only). </p>
+<p>Must point to an <a class="el" href="struct_x_asu___key_vault_export_result.html" title="This structure holds the result returned to the caller on key vault export. ">XAsu_KeyVaultExportResult</a>, which the client library fills from the command response with the blob size and the modified flag. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4e3ce7ca8c8a63fb91799ba6c1524462"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XAsu_KeyVaultTransferParams::RevokeEfuseNum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Off-chip revocation eFuse number the blob is bound to (export only). </p>
+<p>Blowing that eFuse is what retires the blob, and an import refuses a blob whose eFuse is blown. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>.</p>
 
 </div>
 </div>

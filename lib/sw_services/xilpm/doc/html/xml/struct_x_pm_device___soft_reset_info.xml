@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_device___soft_reset_info" kind="struct" prot="public">
+    <compoundname>XPmDevice_SoftResetInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_device___soft_reset_info_1aa9ad2921c08d49be7c7d9fff386e19e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmDevice_SoftResetInfo::DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_device___soft_reset_info_1ade45975b6f417e5a3f2d9221c24277ab" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPmDevice_SoftResetInfo::IdleHook)(u16 DeviceId, u32 BaseAddress)</definition>
+        <argsstring>)(u16 DeviceId, u32 BaseAddress)</argsstring>
+        <name>IdleHook</name>
+        <briefdescription>
+<para>Hook function for idling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_device___soft_reset_info_1ab107755ab4dd4f15c55daaafcb8a6731" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPmDevice_SoftResetInfo::IdleHookArgs</definition>
+        <argsstring></argsstring>
+        <name>IdleHookArgs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h" bodystart="19" bodyend="23"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_device___soft_reset_info_1aa9ad2921c08d49be7c7d9fff386e19e6" prot="public" virt="non-virtual"><scope>XPmDevice_SoftResetInfo</scope><name>DeviceId</name></member>
+      <member refid="struct_x_pm_device___soft_reset_info_1ade45975b6f417e5a3f2d9221c24277ab" prot="public" virt="non-virtual"><scope>XPmDevice_SoftResetInfo</scope><name>IdleHook</name></member>
+      <member refid="struct_x_pm_device___soft_reset_info_1ab107755ab4dd4f15c55daaafcb8a6731" prot="public" virt="non-virtual"><scope>XPmDevice_SoftResetInfo</scope><name>IdleHookArgs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

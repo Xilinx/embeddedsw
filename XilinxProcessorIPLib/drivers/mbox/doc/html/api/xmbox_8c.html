@@ -105,59 +105,89 @@ $(document).ready(function(){initNavTree('xmbox_8c.html','');});
 <div class="title">xmbox.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements <a class="el" href="struct_x_mbox.html" title="Holds instance data for a mailbox device. ">XMbox</a> interface functions. </p>
+<p>Contains required functions for the <a class="el" href="struct_x_mbox.html" title="Holds instance data for a mailbox device. ">XMbox</a> driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a va            First release
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+1.01a ecm  08/19/08 Fixed the receive routine, FSL leg, was using SendID
+                instead of the correct RecvID.
+                        Fixed CRs 466320, 466322, 476535, 476242, 476243
+                                  new rev
+2.00a hm   04/09/09 Added support for mailbox v2.0, which has interrupts;
+                Fixed CR 502464, which removed extra
+                definitions that are not associated with
+                the interface.
+                Fixed the canonical definition so that each
+                interface is considered as a device instance.
+3.00a hbm  10/19/09   Migrated to HAL phase 1 to use xil_io.
+                Removed _m from the function names.
+                Renamed _mIsEmpty to _IsEmptyHw and _mIsFull
+                to _IsFullHw.
+3.02a bss  08/18/12   Added XMbox_GetStatus API for CR 676187
+4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototypes of XMbox_CfgInitialize API.
+4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
+4.10  ht   02/24/26 Fix doxygen warnings
+4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="xmbox_8h.html">xmbox.h</a>&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga34fbeaf8de9092cb4d5b00dfbf054426"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga34fbeaf8de9092cb4d5b00dfbf054426">XMbox_CfgInitialize</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, <a class="el" href="struct_x_mbox___config.html">XMbox_Config</a> *ConfigPtr, UINTPTR EffectiveAddress)</td></tr>
-<tr class="memdesc:ga34fbeaf8de9092cb4d5b00dfbf054426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific mailbox.  <a href="group__mbox.html#ga34fbeaf8de9092cb4d5b00dfbf054426">More...</a><br/></td></tr>
+<tr class="memitem:ga34fbeaf8de9092cb4d5b00dfbf054426"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga34fbeaf8de9092cb4d5b00dfbf054426">XMbox_CfgInitialize</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, <a class="el" href="struct_x_mbox___config.html">XMbox_Config</a> *ConfigPtr, UINTPTR EffectiveAddress)</td></tr>
+<tr class="memdesc:ga34fbeaf8de9092cb4d5b00dfbf054426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific mailbox instance.  <a href="group__mbox__api.html#ga34fbeaf8de9092cb4d5b00dfbf054426">More...</a><br/></td></tr>
 <tr class="separator:ga34fbeaf8de9092cb4d5b00dfbf054426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1f68405027d147c68aa53bcb49fbd5a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gaa1f68405027d147c68aa53bcb49fbd5a">XMbox_Read</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesRecvdPtr)</td></tr>
-<tr class="memdesc:gaa1f68405027d147c68aa53bcb49fbd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads requested bytes from the mailbox referenced by InstancePtr,into the buffer pointed to by the provided pointer.  <a href="group__mbox.html#gaa1f68405027d147c68aa53bcb49fbd5a">More...</a><br/></td></tr>
+<tr class="memitem:gaa1f68405027d147c68aa53bcb49fbd5a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gaa1f68405027d147c68aa53bcb49fbd5a">XMbox_Read</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesRecvdPtr)</td></tr>
+<tr class="memdesc:gaa1f68405027d147c68aa53bcb49fbd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads requested bytes from the mailbox.  <a href="group__mbox__api.html#gaa1f68405027d147c68aa53bcb49fbd5a">More...</a><br/></td></tr>
 <tr class="separator:gaa1f68405027d147c68aa53bcb49fbd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab14511b623c1d3c191cdc441b8909006"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gab14511b623c1d3c191cdc441b8909006">XMbox_ReadBlocking</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</td></tr>
-<tr class="memdesc:gab14511b623c1d3c191cdc441b8909006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads requested bytes from the mailbox referenced by InstancePtr,into the buffer pointed to by the provided pointer.  <a href="group__mbox.html#gab14511b623c1d3c191cdc441b8909006">More...</a><br/></td></tr>
+<tr class="memitem:gab14511b623c1d3c191cdc441b8909006"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gab14511b623c1d3c191cdc441b8909006">XMbox_ReadBlocking</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</td></tr>
+<tr class="memdesc:gab14511b623c1d3c191cdc441b8909006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads requested bytes from the mailbox, blocking until complete.  <a href="group__mbox__api.html#gab14511b623c1d3c191cdc441b8909006">More...</a><br/></td></tr>
 <tr class="separator:gab14511b623c1d3c191cdc441b8909006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga254c4e5a042e34520c3669fbf9651bc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga254c4e5a042e34520c3669fbf9651bc2">XMbox_Write</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesSentPtr)</td></tr>
-<tr class="memdesc:ga254c4e5a042e34520c3669fbf9651bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr.The number of bytes must be a multiple of 4 (bytes).  <a href="group__mbox.html#ga254c4e5a042e34520c3669fbf9651bc2">More...</a><br/></td></tr>
+<tr class="memitem:ga254c4e5a042e34520c3669fbf9651bc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga254c4e5a042e34520c3669fbf9651bc2">XMbox_Write</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesSentPtr)</td></tr>
+<tr class="memdesc:ga254c4e5a042e34520c3669fbf9651bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes requested bytes to the mailbox.  <a href="group__mbox__api.html#ga254c4e5a042e34520c3669fbf9651bc2">More...</a><br/></td></tr>
 <tr class="separator:ga254c4e5a042e34520c3669fbf9651bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga23ee00f97807790770f2dab9b2ea3b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga23ee00f97807790770f2dab9b2ea3b0e">XMbox_WriteBlocking</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</td></tr>
-<tr class="memdesc:ga23ee00f97807790770f2dab9b2ea3b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr.  <a href="group__mbox.html#ga23ee00f97807790770f2dab9b2ea3b0e">More...</a><br/></td></tr>
+<tr class="memitem:ga23ee00f97807790770f2dab9b2ea3b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga23ee00f97807790770f2dab9b2ea3b0e">XMbox_WriteBlocking</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</td></tr>
+<tr class="memdesc:ga23ee00f97807790770f2dab9b2ea3b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes requested bytes to the mailbox, blocking until complete.  <a href="group__mbox__api.html#ga23ee00f97807790770f2dab9b2ea3b0e">More...</a><br/></td></tr>
 <tr class="separator:ga23ee00f97807790770f2dab9b2ea3b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabb01fe466ffcd0da315ffee115f4cd60"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gabb01fe466ffcd0da315ffee115f4cd60">XMbox_IsEmpty</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gabb01fe466ffcd0da315ffee115f4cd60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if there is data available to be read.  <a href="group__mbox.html#gabb01fe466ffcd0da315ffee115f4cd60">More...</a><br/></td></tr>
+<tr class="memitem:gabb01fe466ffcd0da315ffee115f4cd60"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gabb01fe466ffcd0da315ffee115f4cd60">XMbox_IsEmpty</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gabb01fe466ffcd0da315ffee115f4cd60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether mailbox receive data is available.  <a href="group__mbox__api.html#gabb01fe466ffcd0da315ffee115f4cd60">More...</a><br/></td></tr>
 <tr class="separator:gabb01fe466ffcd0da315ffee115f4cd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gaa9db05bc2935bcc2230ff023b5c9cbcc">XMbox_IsFull</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if there is room in the write FIFO.  <a href="group__mbox.html#gaa9db05bc2935bcc2230ff023b5c9cbcc">More...</a><br/></td></tr>
+<tr class="memitem:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gaa9db05bc2935bcc2230ff023b5c9cbcc">XMbox_IsFull</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the mailbox write FIFO is full.  <a href="group__mbox__api.html#gaa9db05bc2935bcc2230ff023b5c9cbcc">More...</a><br/></td></tr>
 <tr class="separator:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga10691489238a2a1b8515468b416d773e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga10691489238a2a1b8515468b416d773e">XMbox_Flush</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga10691489238a2a1b8515468b416d773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mailbox FIFOs by emptying the READ FIFO and making sure the Error Status is zero.  <a href="group__mbox.html#ga10691489238a2a1b8515468b416d773e">More...</a><br/></td></tr>
+<tr class="memitem:ga10691489238a2a1b8515468b416d773e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga10691489238a2a1b8515468b416d773e">XMbox_Flush</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga10691489238a2a1b8515468b416d773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes mailbox FIFOs by draining the read FIFO.  <a href="group__mbox__api.html#ga10691489238a2a1b8515468b416d773e">More...</a><br/></td></tr>
 <tr class="separator:ga10691489238a2a1b8515468b416d773e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacf8d6e720149452270eac0493537a233"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gacf8d6e720149452270eac0493537a233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the hardware control register for memory mapped IO.  <a href="group__mbox.html#gacf8d6e720149452270eac0493537a233">More...</a><br/></td></tr>
+<tr class="memitem:gacf8d6e720149452270eac0493537a233"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gacf8d6e720149452270eac0493537a233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets mailbox FIFOs through the hardware control register.  <a href="group__mbox__api.html#gacf8d6e720149452270eac0493537a233">More...</a><br/></td></tr>
 <tr class="separator:gacf8d6e720149452270eac0493537a233"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">XMbox_SetInterruptEnable</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt enable register for this mailbox.  <a href="group__mbox.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">More...</a><br/></td></tr>
+<tr class="memitem:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">XMbox_SetInterruptEnable</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Mask)</td></tr>
+<tr class="memdesc:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the mailbox interrupt enable register.  <a href="group__mbox__api.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">More...</a><br/></td></tr>
 <tr class="separator:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacb96b1964aa476b4d60df4fd2440022c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gacb96b1964aa476b4d60df4fd2440022c">XMbox_GetInterruptEnable</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gacb96b1964aa476b4d60df4fd2440022c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the interrupt enable for the mailbox.  <a href="group__mbox.html#gacb96b1964aa476b4d60df4fd2440022c">More...</a><br/></td></tr>
+<tr class="memitem:gacb96b1964aa476b4d60df4fd2440022c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gacb96b1964aa476b4d60df4fd2440022c">XMbox_GetInterruptEnable</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gacb96b1964aa476b4d60df4fd2440022c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mailbox interrupt enable mask.  <a href="group__mbox__api.html#gacb96b1964aa476b4d60df4fd2440022c">More...</a><br/></td></tr>
 <tr class="separator:gacb96b1964aa476b4d60df4fd2440022c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf73757d06d4cc60466e563ab185a6c07"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gaf73757d06d4cc60466e563ab185a6c07">XMbox_GetInterruptStatus</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf73757d06d4cc60466e563ab185a6c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the interrupt status for the mailbox.  <a href="group__mbox.html#gaf73757d06d4cc60466e563ab185a6c07">More...</a><br/></td></tr>
+<tr class="memitem:gaf73757d06d4cc60466e563ab185a6c07"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gaf73757d06d4cc60466e563ab185a6c07">XMbox_GetInterruptStatus</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaf73757d06d4cc60466e563ab185a6c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mailbox interrupt status mask.  <a href="group__mbox__api.html#gaf73757d06d4cc60466e563ab185a6c07">More...</a><br/></td></tr>
 <tr class="separator:gaf73757d06d4cc60466e563ab185a6c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab93a50b0032e4b6202c23c4201e0591e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#gab93a50b0032e4b6202c23c4201e0591e">XMbox_ClearInterrupt</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gab93a50b0032e4b6202c23c4201e0591e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears pending interrupts with the provided mask.  <a href="group__mbox.html#gab93a50b0032e4b6202c23c4201e0591e">More...</a><br/></td></tr>
+<tr class="memitem:gab93a50b0032e4b6202c23c4201e0591e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#gab93a50b0032e4b6202c23c4201e0591e">XMbox_ClearInterrupt</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Mask)</td></tr>
+<tr class="memdesc:gab93a50b0032e4b6202c23c4201e0591e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears pending mailbox interrupts.  <a href="group__mbox__api.html#gab93a50b0032e4b6202c23c4201e0591e">More...</a><br/></td></tr>
 <tr class="separator:gab93a50b0032e4b6202c23c4201e0591e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4fb918498d8adc676f4ea554585609d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga4fb918498d8adc676f4ea554585609d2">XMbox_SetSendThreshold</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Value)</td></tr>
-<tr class="memdesc:ga4fb918498d8adc676f4ea554585609d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Send Interrupt Threshold.  <a href="group__mbox.html#ga4fb918498d8adc676f4ea554585609d2">More...</a><br/></td></tr>
+<tr class="memitem:ga4fb918498d8adc676f4ea554585609d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga4fb918498d8adc676f4ea554585609d2">XMbox_SetSendThreshold</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Value)</td></tr>
+<tr class="memdesc:ga4fb918498d8adc676f4ea554585609d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the send interrupt threshold.  <a href="group__mbox__api.html#ga4fb918498d8adc676f4ea554585609d2">More...</a><br/></td></tr>
 <tr class="separator:ga4fb918498d8adc676f4ea554585609d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8c05b007d0f92ca32702db58573302a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga8c05b007d0f92ca32702db58573302a9">XMbox_SetReceiveThreshold</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Value)</td></tr>
-<tr class="memdesc:ga8c05b007d0f92ca32702db58573302a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Receive Interrupt Threshold.  <a href="group__mbox.html#ga8c05b007d0f92ca32702db58573302a9">More...</a><br/></td></tr>
+<tr class="memitem:ga8c05b007d0f92ca32702db58573302a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga8c05b007d0f92ca32702db58573302a9">XMbox_SetReceiveThreshold</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Value)</td></tr>
+<tr class="memdesc:ga8c05b007d0f92ca32702db58573302a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the receive interrupt threshold.  <a href="group__mbox__api.html#ga8c05b007d0f92ca32702db58573302a9">More...</a><br/></td></tr>
 <tr class="separator:ga8c05b007d0f92ca32702db58573302a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8620711a04da0032b216e3f57a80570d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox.html#ga8620711a04da0032b216e3f57a80570d">XMbox_GetStatus</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga8620711a04da0032b216e3f57a80570d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns Status register contents.  <a href="group__mbox.html#ga8620711a04da0032b216e3f57a80570d">More...</a><br/></td></tr>
+<tr class="memitem:ga8620711a04da0032b216e3f57a80570d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__api.html#ga8620711a04da0032b216e3f57a80570d">XMbox_GetStatus</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga8620711a04da0032b216e3f57a80570d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the mailbox status register.  <a href="group__mbox__api.html#ga8620711a04da0032b216e3f57a80570d">More...</a><br/></td></tr>
 <tr class="separator:ga8620711a04da0032b216e3f57a80570d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

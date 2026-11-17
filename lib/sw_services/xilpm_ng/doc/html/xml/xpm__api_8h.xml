@@ -1,0 +1,1580 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__api_8h" kind="file">
+    <compoundname>xpm_api.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__defs_8h" local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__err_8h" local="yes">xpm_err.h</includes>
+    <includes local="yes">xplmi_ipi.h</includes>
+    <includes refid="xpm__mem_8h" local="yes">xpm_mem.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__pin_8h" local="yes">xpm_pin.h</includedby>
+    <includedby refid="xpm__asucore_8c" local="yes">xpm_asucore.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__periph_8c" local="yes">xpm_periph.c</includedby>
+    <includedby refid="xpm__pldevice_8c" local="yes">xpm_pldevice.c</includedby>
+    <includedby refid="xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="xpm__reset_8c" local="yes">xpm_reset.c</includedby>
+    <includedby refid="xpm__rpucore_8c" local="yes">xpm_rpucore.c</includedby>
+    <includedby refid="xpm__access_8c" local="yes">xpm_access.c</includedby>
+    <includedby refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includedby>
+    <includedby refid="xpm__runtime__device_8h" local="yes">xpm_runtime_device.h</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__notifier_8c" local="yes">xpm_notifier.c</includedby>
+    <includedby refid="xpm__runtime__pin_8h" local="yes">xpm_runtime_pin.h</includedby>
+    <includedby refid="xpm__requirement_8c" local="yes">xpm_requirement.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__clock_8c" local="yes">xpm_runtime_clock.c</includedby>
+    <includedby refid="xpm__runtime__reset_8c" local="yes">xpm_runtime_reset.c</includedby>
+    <incdepgraph>
+      <node id="357">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+      </node>
+      <node id="362">
+        <label>xpm_device.h</label>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+        <childnode refid="371" relation="include">
+        </childnode>
+      </node>
+      <node id="366">
+        <label>xil_io.h</label>
+      </node>
+      <node id="359">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="356" relation="include">
+        </childnode>
+      </node>
+      <node id="358">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="361">
+        <label>xpm_mem.h</label>
+        <childnode refid="362" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>xil_util.h</label>
+      </node>
+      <node id="365">
+        <label>xpm_common.h</label>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="368">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="371">
+        <label>xpm_reset.h</label>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+      </node>
+      <node id="363">
+        <label>xpm_node.h</label>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+      </node>
+      <node id="369">
+        <label>xpm_power.h</label>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+      </node>
+      <node id="356">
+        <label>xstatus.h</label>
+      </node>
+      <node id="370">
+        <label>xpm_clock.h</label>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>xpm_api.h</label>
+        <link refid="xpm_api.h"/>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+      </node>
+      <node id="355">
+        <label>xil_types.h</label>
+      </node>
+      <node id="364">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="360">
+        <label>xplmi_ipi.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="416">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="391">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="393" relation="include">
+        </childnode>
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="405" relation="include">
+        </childnode>
+        <childnode refid="406" relation="include">
+        </childnode>
+        <childnode refid="407" relation="include">
+        </childnode>
+        <childnode refid="408" relation="include">
+        </childnode>
+        <childnode refid="410" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="399" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="400" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+        <childnode refid="404" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+      </node>
+      <node id="415">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="413">
+        <label>xpm_power_handlers.c</label>
+      </node>
+      <node id="411">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="410">
+        <label>xpm_notifier.h</label>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+      </node>
+      <node id="403">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="383">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="375">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="374">
+        <label>xpm_pin.h</label>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+      </node>
+      <node id="407">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="404">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="385">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="376">
+        <label>xpm_pin_groups.c</label>
+      </node>
+      <node id="414">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="399" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="404" relation="include">
+        </childnode>
+      </node>
+      <node id="399">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="384">
+        <label>xpm_periph.c</label>
+      </node>
+      <node id="387">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="388">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="398">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="393">
+        <label>xpm_requirement.h</label>
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="394" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="391" relation="include">
+        </childnode>
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="396" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="403" relation="include">
+        </childnode>
+      </node>
+      <node id="409">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="408">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="409" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+      </node>
+      <node id="381">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="377">
+        <label>xpm_runtime_pin.h</label>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+      </node>
+      <node id="397">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="405">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>xpm_asucore.c</label>
+      </node>
+      <node id="379">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="392">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="396">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="378">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="380">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="400">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="406">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="396" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="400" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+      </node>
+      <node id="373">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="372">
+        <label>xpm_api.h</label>
+        <link refid="xpm_api.h"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+        <childnode refid="385" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="388" relation="include">
+        </childnode>
+        <childnode refid="389" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="391" relation="include">
+        </childnode>
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="400" relation="include">
+        </childnode>
+        <childnode refid="404" relation="include">
+        </childnode>
+      </node>
+      <node id="386">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="394">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="402">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="395">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="394" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="396" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="399" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="400" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="403" relation="include">
+        </childnode>
+        <childnode refid="404" relation="include">
+        </childnode>
+      </node>
+      <node id="401">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="390">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="412">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+        <childnode refid="402" relation="include">
+        </childnode>
+      </node>
+      <node id="389">
+        <label>xpm_rpucore.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___gpio_proc_cfg" prot="public">XPm_GpioProcCfg</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__api_8h_1af6a038634047442fb6d7ea5bb9858932" prot="public" static="no">
+        <name>XPM_PWR_DWN_TIMEOUT</name>
+        <initializer>(60000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1ab8a7000620b3d998d86974f897e677a1" prot="public" static="no">
+        <name>MAX_BASEADDR_LEN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a9d6fcf7befd7b78cb70ee68458666ad4" prot="public" static="no">
+        <name>ARG_IDX_MEM_REG_DEVICE_ID</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a844390ce0a97862f7e316b9dd46446a2" prot="public" static="no">
+        <name>ARG_IDX_MEM_REG_ADDR_LOW</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a2000bf95512ae946db6a1e8a7f6450e5" prot="public" static="no">
+        <name>ARG_IDX_MEM_REG_ADDR_HIGH</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1afbb912c3be2e58943b3ff1608ac83758" prot="public" static="no">
+        <name>ARG_IDX_MEM_REG_SIZE_LOW</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1abb8046274267ed42e94c8d43298ed39f" prot="public" static="no">
+        <name>ARG_IDX_MEM_REG_SIZE_HIGH</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a5eac783f1bf36b78a56747be31dc0837" prot="public" static="no">
+        <name>MEM_REG_ARG_MAX_LEN</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a1c19b5fa4d2e77af920fb114f50a1a0d" prot="public" static="no">
+        <name>SHIFT_TO_HIGH_U32</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1af6b4d9a8f545a4db3286ca75ba109ac5" prot="public" static="no">
+        <name>NODE_POWER_ARG_MIN_LEN</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Number of words a PM_ADD_NODE power payload carries before the optional base addresses: node id, width/shift and parent id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a3de0fbc050dd9d5369b67de462cc084c" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_DEVICE_ID</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a5866ccb6ddd1fbca3a201240697e2cf1" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_SEC_BASEADDR</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1aa6b4c650281e6cdcb7490bdeb72a711b" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_SEC_0_OFFSET</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a72af70ea6e8b3295740c9dc62fb19eb9" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_SEC_0_MASK</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a9dd3c0fff22ba6d86af2060bc5d3797c" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_SEC_1_OFFSET</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a6d52f9b5999faf2f261999a72a393e1c" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_SEC_1_MASK</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a64cb6a25aac8b91a5bc2e1b878e28eca" prot="public" static="no">
+        <name>DEVATTR_ARG_MIN_LEN</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1adf82d99c3c40edd30f2cf7aee29cd4b9" prot="public" static="no">
+        <name>DEVATTR_ARG_MAX_LEN</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1accd9ba6c14dd78682925b9a1d3e91a36" prot="public" static="no">
+        <name>DEVATTR_SEC_OFFSET</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a551991da45232ac6748e6251d9d278b9" prot="public" static="no">
+        <name>DEVATTR_SEC_MASK</name>
+        <initializer>0xFFFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a55872fab0265948ee2a9484ac6c17040" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_COHVIR_BASEADDR</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a6089ccdcdc2bf64b9bbf73a6210cb598" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_COH_OFFSET</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a52e2cd3ca6f88918ef6698681cfe1433" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_COH_MASK</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1affba56dc9c02c548e53f8804702f56a6" prot="public" static="no">
+        <name>DEVATTR_COH_OFFSET</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1aa41436f3f4d850bf5d374cff4dce6955" prot="public" static="no">
+        <name>DEVATTR_COH_MASK</name>
+        <initializer>0xFFFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a4294010eace6cae197b98114151fd4dd" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_VIR_OFFSET</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a9bac64ed811c5e70ae47a98b3a977ad4" prot="public" static="no">
+        <name>ARG_IDX_DEVATTR_VIR_MASK</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a6e851acedc951700b48982869dad6f87" prot="public" static="no">
+        <name>DEVATTR_VIR_OFFSET</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1a14448539fc18e0ee79e20ce8d0bd0797" prot="public" static="no">
+        <name>DEVATTR_VIR_MASK</name>
+        <initializer>0xFFFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__api_8h_1af1e45c55417503f96b3c93318e336160" prot="public" static="no">
+        <name>MAX_GPIO_PROCS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum number of GPIO procs supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__api_8h_1a070673ce7c81f99e506cb81149ce57e3" prot="public" static="no">
+        <type>int(*</type>
+        <definition>typedef int(* XPlmi_CmdHandler)(XPlmi_Cmd *Cmd)</definition>
+        <argsstring>)(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_CmdHandler</name>
+        <briefdescription>
+<para>Typedef for the XPlmi command handler function pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This typedef defines the function signature for the XPlmi command handler. The command handler function takes a pointer to an XPlmi_Cmd structure as input and returns an integer value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPlmi_Cmd structure containing the command data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Integer value representing the status of the command handling </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__api_8h_1a02bd50062ec5ead3573d9ca89e7cb6d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetReason</definition>
+        <argsstring></argsstring>
+        <name>ResetReason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="34" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__api_8h_1a4607f456f4c2cde90f663b8da55cce13" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload)</definition>
+        <argsstring>)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload)</argsstring>
+        <name>PmRequestCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="35" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__api_8h_1a8790fec2383632237957c2642f035665" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* PmRestartCb)(u32 ImageId, u32 *FuncId)</definition>
+        <argsstring>)(u32 ImageId, u32 *FuncId)</argsstring>
+        <name>PmRestartCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="36" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__api_8h_1a4d182034014881e067b934450c9e5680" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_Init</definition>
+        <argsstring>(void(*const RequestCb)(u32 SubsystemId, XPmApiCbId_t EventId, u32 *Payload), int(*const RestartCb)(u32 ImageId, u32 *FuncId))</argsstring>
+        <name>XPm_Init</name>
+        <param>
+          <type>void(*)(u32 SubsystemId, <ref refid="group__xpm__versal__apis_1ga70865515516f1060dd99fc58ce07188e" kindref="member">XPmApiCbId_t</ref> EventId, u32 *Payload)</type>
+          <declname>RequestCb</declname>
+        </param>
+        <param>
+          <type>int(*)(u32 ImageId, u32 *FuncId)</type>
+          <declname>RestartCb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1aa5cf02288fa282ff0a09fe57db41aaee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetDeviceBaseAddr</definition>
+        <argsstring>(u32 DeviceId, u32 *BaseAddr)</argsstring>
+        <name>XPm_GetDeviceBaseAddr</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the base address of the devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Id from the topology cdo </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store base address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="1882" bodyend="1934"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a2b3abe22c4af8dd13a2be22c9fbbb4e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PmcRequestDevice</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XPm_PmcRequestDevice</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>Request Device from PMC Subsystem (weak boot stub). </para>        </briefdescription>
+        <detaileddescription>
+<para>: Device node ID to request</para><para>Sets the PmcAllocated flag on the device so that the device FSM&apos;s GetMaxCapabilities() accounts for PMC&apos;s usage. This prevents premature device shutdown when a device is shared between PMC and another subsystem (e.g. APU requests then releases the same device).</para><para>In boot-only mode this is sufficient: CDO has already configured clocks and resets, so only the power domain needs tracking via BringUp. The runtime strong override adds FSM-aware bring-up (power + clocks + resets) for devices re-requested after release.</para><para>Return: XST_SUCCESS on successful request, error code on failure.</para><para>Request Device from PMC Subsystem (weak boot stub).</para><para>Sets PmcAllocated so GetMaxCapabilities() accounts for PMC&apos;s usage, then triggers FSM evaluation via UpdateStatus(). If the device is currently UNUSED and DevOps exists, this causes ActionBringUpAll to fire, which properly brings up power, enables clocks, and releases resets through the FSM <ndash/> ensuring clock UseCount is tracked.</para><para>If no DevOps exists (no subsystem registered requirements via CDO), falls back to direct XPmDevice_BringUp() (power-only, same as boot stub).</para><para>When the device is already RUNNING (e.g. another subsystem holds it), UpdateStatus() sees no state change needed and returns SUCCESS.</para><para>UART_0/UART_1 are routed to the direct BringUp fallback: ActionBringUpAll&apos;s Reset(RELEASE) pulses the UART reset and kills the live console. I2C_PMC is safe because its caller does a full re-init. Don&apos;t remove without adding explicit UART reconfigure at the LPD-init request sites in xpm_api.c.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device node ID to request.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful request, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="2055" bodyend="2067"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1af9f633da1dd00e9281bc9348e226206c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PmcReleaseDevice</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XPm_PmcReleaseDevice</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>Release a device owned by the PMC subsystem (weak boot stub). </para>        </briefdescription>
+        <detaileddescription>
+<para>In boot-only mode (no runtime linked), this clears PmcAllocated but does not perform actual power-down. The runtime strong override replaces this with FSM-aware release logic.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device node ID to release.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS always (no-op in boot context).</para></simplesect>
+Release a device owned by the PMC subsystem (weak boot stub).</para><para>Clears PmcAllocated and lets the device FSM evaluate whether the device should be powered down. If other subsystems still hold requirements, GetMaxCapabilities() returns non-zero and the device stays in RUNNING state.</para><para>If no DevOps exists (no subsystem ever registered a requirement for this device via CDO), falls back to direct power-down since no sharing conflict is possible.</para><para>If the RTCA skip-boot-device-release policy has the corresponding bit set, the release is skipped and XPM_PMC_BOOT_DEV_RETAINED is returned (PmcAllocated stays set).</para><para>UART_0/UART_1 excluded (defensive, symmetric with request side): no in-tree caller releases UARTs today, but ActionShutdown would kill the console if one ever does. Keep in lockstep with request.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device node ID to release.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful release, XPM_PMC_BOOT_DEV_RETAINED if release was skipped per RTCA policy, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="1949" bodyend="1959"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a91efec553f9569ec859cf1ce558af65d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PmcActivateSubsystem</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPm_PmcActivateSubsystem</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>PMC activate subsystem by subsystem ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="302" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a6fc34a866341d5826e94aac74a0898da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PmcWakeUpCore</definition>
+        <argsstring>(u32 CoreId, u32 SetAddress, u64 Address)</argsstring>
+        <name>XPm_PmcWakeUpCore</name>
+        <param>
+          <type>u32</type>
+          <declname>CoreId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SetAddress</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Request wakeup of a processor core. </para>        </briefdescription>
+        <detaileddescription>
+<para>Resolves <computeroutput>CoreId</computeroutput> and dispatches the request to the core-type-specific wakeup operation. Failures are logged before being returned.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CoreId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the APU, RPU, or ASU core to wake. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nonzero to program <computeroutput>Address</computeroutput> as the core reset address; zero to preserve the current reset address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset address used when <computeroutput>SetAddress</computeroutput> is nonzero.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_DEVICE_NOT_FOUND when <computeroutput>CoreId</computeroutput> is unknown; XST_SUCCESS on a successful wakeup; otherwise an error returned by XPmCore_RequestWakeup(). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="2126" bodyend="2143"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a553d731d1896b8bb95f8cb1d20375d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PmcGetDeviceState</definition>
+        <argsstring>(u32 DeviceId, u32 *const DeviceState)</argsstring>
+        <name>XPm_PmcGetDeviceState</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>DeviceState</declname>
+        </param>
+        <briefdescription>
+<para>Read the current state of a device or power node. </para>        </briefdescription>
+        <detaileddescription>
+<para>Dispatches the query according to the class encoded in <computeroutput>DeviceId</computeroutput>. Device nodes are handled by XPmDevice_GetState(), while power nodes are handled by XPmPower_GetState(). On success, the selected handler writes the current node state to <computeroutput>DeviceState</computeroutput>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device or power node ID to query. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that receives the current state: CPU nodes use 0 for powered down, 1 for active, and 8 for suspending; power islands and domains use 0 for powered down and 2 for powered up; slave devices use 0 for powered down, 1 for powered up, and 9 for retention. It is not modified by this function when the node class is unsupported.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when the state was obtained; XST_INVALID_PARAM when the node class is neither device nor power; otherwise an error returned by the selected state query. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="2017" bodyend="2036"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a69cef6c0d0a17f417f2cb52b5d207a78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SystemShutdown</definition>
+        <argsstring>(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)</argsstring>
+        <name>XPm_SystemShutdown</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SubType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to perform self subsystem shutdown, self subsystem restart or system restart. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shutdown type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SubType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Shutdown subtype </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI command request type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>This function does not block. A successful return code means that the request has been received. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="290" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a3d5cc2815c261f8bd7c33ec9c88da9b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AddSubsystem</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPm_AddSubsystem</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="312" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a200a53495808c2d311f55fab5503126e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AddRequirement</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPm_AddRequirement</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="318" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a0aeb9d1c04c1aed331fec1492be83ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_HookAfterPlmCdo</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_HookAfterPlmCdo</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Hook executed after the PLM CDO has been processed. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="208" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a25379aa30515ae2df49abfe3b4a13921" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_HnicxNpiDataXfer</definition>
+        <argsstring>(u32 Address, u32 Value)</argsstring>
+        <name>XPm_HnicxNpiDataXfer</name>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="130" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1ac4314f888125b9a4ef998fb6bacbda9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPm_GetSubsystemId</definition>
+        <argsstring>(u32 ImageId)</argsstring>
+        <name>XPm_GetSubsystemId</name>
+        <param>
+          <type>u32</type>
+          <declname>ImageId</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the Subsystem Id based upon power domains. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ImageId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ImageId of the CDO</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Subsystem Id to be used by PLM</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="1973" bodyend="1993"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a9c8800b0e36a34d5eabe267abab6db6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPlmi_ModuleCmd *</type>
+        <definition>XPlmi_ModuleCmd* XPm_GetPmCmds</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_GetPmCmds</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="132" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1a1e596a01874336905c13160f49f146e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_CosimAddAieDeviceNode</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_CosimAddAieDeviceNode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Add AIE device node for QEMU/COSIM platforms where the CDO does not contain a pm_add_node command for the AIE partition device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This ensures the AIE device (0x18800000) is present so that Linux can request and operate on it.</para><para><simplesect kind="return"><para>XST_SUCCESS if the node was added (or already exists), error otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="3019" bodyend="3057"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1ab63ddf6c1db8b8e3337def632537be8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_HookAfterBootPdi</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_HookAfterBootPdi</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Hook called after boot PDI loading is complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>On QEMU/COSIM platforms, creates the AIE device node if not already present. Initialises pin runtime ops and calculates clock rates.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code</para></simplesect>
+<simplesect kind="note"><para>This is the strong (runtime) override of the weak boot version </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="3059" bodyend="3085"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1aaf6f364949bda32249f8a2b1ce82bdd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GpioProcHandlerInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_GpioProcHandlerInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize GPIO-triggered CDO procedure handlers from RTCA settings. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads all four RTCA GPIO procedure configuration registers and passes each nonzero 16-bit half to XPm_GpioRegisterPin(). After both halves of a register are accepted, clears that register so the configuration is not processed again. Empty registers are left unchanged. Processing stops on the first registration failure, leaving that register uncleared.</para><para>Each half encodes the SLR in bits [2:0], controller in [4:3], bank in [6:5], one-based MIO index in [12:7], and CDO procedure ID in [15:13].</para><para><simplesect kind="return"><para>XST_SUCCESS when every nonzero configuration was registered; otherwise the first error returned by XPm_GpioRegisterPin(). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="2966" bodyend="3009"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1abe89846c799e999242bc35ecd3374da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RuntimeInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_RuntimeInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Dummy Runtime function which can be overridden by the Runtime Library We need to define this function here to avoid linking error in case. </para>        </briefdescription>
+        <detaileddescription>
+<para>Dummy Runtime function which can be overridden by the Runtime Library We need to define this function here to avoid linking error in case.</para><para>Stores the multiboot value, installs runtime handlers in the PLM command table, initializes the subsystem module, and registers wake-up interrupts. It should be called before any other XPM runtime functions are used.</para><para><simplesect kind="return"><para>XST_SUCCESS when subsystem and wake-up handler initialization succeeds, otherwise the error returned by either initialization step. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="202" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1adfacd618b1edcb221ee74a3b0239f9ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmSubsystem_GetSubSysIdByIpiMask</definition>
+        <argsstring>(u32 IpiMask)</argsstring>
+        <name>XPmSubsystem_GetSubSysIdByIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>Get subsystem ID by matching IPI mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI mask to match against subsystem&apos;s IPI mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Subsystem ID if found and subsystem is not offline, INVALID_SUBSYSID otherwise</para></simplesect>
+<simplesect kind="note"><para>Searches through all subsystems to find one where the provided IPI mask matches the subsystem&apos;s IPI mask. Only returns subsystems that are not in OFFLINE state. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="276" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1ace752fb1a21939d1622dfdb029b7277b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AddDDRMemRegnForDefaultSubsystem</definition>
+        <argsstring>(const XPm_MemCtrlrDevice *MCDev)</argsstring>
+        <name>XPm_AddDDRMemRegnForDefaultSubsystem</name>
+        <param>
+          <type>const XPm_MemCtrlrDevice *</type>
+          <declname>MCDev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="215" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__api_8h_1aaf1b3c0a172be2c669c3689350a09348" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmUpdate_RestoreNotifierEmActions</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_RestoreNotifierEmActions</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Restore EVENT notifier EM actions after in-place PLM update. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise.</para></simplesect>
+Restore EVENT notifier EM actions after in-place PLM update.</para><para>The boot library does not maintain runtime notifier actions, so this weak implementation has no side effects. The runtime library overrides it when notifier actions must be restored.</para><para><simplesect kind="return"><para>XST_SUCCESS unconditionally.</para></simplesect>
+Restore EVENT notifier EM actions after in-place PLM update.</para><para><simplesect kind="return"><para>XST_SUCCESS on success; otherwise the first error code returned by XPlmi_EmSetAction(). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c" bodystart="230" bodyend="233"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_API_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_API_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__defs_8h" kindref="compound">xpm_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__err_8h" kindref="compound">xpm_err.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_ipi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_mem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>int<sp/>(*XPlmi_CmdHandler)(XPlmi_Cmd<sp/>*Cmd);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Global<sp/>state<sp/>with<sp/>external<sp/>linkage<sp/>(MISRA<sp/>Rule<sp/>8.4<sp/>visible<sp/>declarations)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>ResetReason;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*PmRequestCb)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>SubsystemId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xpm__versal__apis_1ga70865515516f1060dd99fc58ce07188e" kindref="member">XPmApiCbId_t</ref><sp/>EventId,<sp/>u32<sp/>*Payload);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int<sp/>(*PmRestartCb)(u32<sp/>ImageId,<sp/>u32<sp/>*FuncId);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_IPI_DEVICE_ID</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Macros<sp/>for<sp/>IPI<sp/>responses<sp/>(return<sp/>values<sp/>and<sp/>callbacks)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>The<sp/>buffer<sp/>is<sp/>sized<sp/>to<sp/>XPLMI_IPI_MAX_MSG_LEN<sp/>-<sp/>what<sp/>the<sp/>transport<sp/>is<sp/>allowed</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>to<sp/>read<sp/>-<sp/>rather<sp/>than<sp/>to<sp/>XPLMI_CMD_RESP_SIZE,<sp/>the<sp/>number<sp/>of<sp/>words<sp/>that<sp/>carry</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>meaning.<sp/><sp/>XPlmi_IpiWrite<sp/>accepts<sp/>any<sp/>length<sp/>up<sp/>to<sp/>the<sp/>former<sp/>and<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>behind<sp/>it<sp/>bounds<sp/>its<sp/>copy<sp/>on<sp/>the<sp/>IPI<sp/>message<sp/>buffer,<sp/>so<sp/>a<sp/>caller<sp/>buffer<sp/>sized</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>only<sp/>to<sp/>its<sp/>own<sp/>payload<sp/>is<sp/>smaller<sp/>than<sp/>the<sp/>contract<sp/>permits<sp/>to<sp/>be<sp/>read.</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>XPLMI_CMD_RESP_SIZE<sp/>words<sp/>are<sp/>still<sp/>what<sp/>is<sp/>sent;<sp/>the<sp/>extra<sp/>words<sp/>are<sp/>the</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>zero<sp/>padding<sp/>the<sp/>initialiser<sp/>already<sp/>supplied.</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IPI_RESPONSE1(Mask,<sp/>Arg0)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>u32<sp/>Response[XPLMI_IPI_MAX_MSG_LEN]<sp/>=<sp/>{Arg0};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>XPlmi_IpiWrite(Mask,<sp/>Response,<sp/>XPLMI_CMD_RESP_SIZE,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_BUF_TYPE_RESP))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(&quot;Error<sp/>in<sp/>IPI<sp/>write<sp/>response\r\n&quot;);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IPI_MESSAGE4(Mask,<sp/>Arg0,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>u32<sp/>Response[XPLMI_IPI_MAX_MSG_LEN]<sp/>=<sp/>{Arg0,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3};<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>XPlmi_IpiWrite(Mask,<sp/>Response,<sp/>XPLMI_CMD_RESP_SIZE,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_BUF_TYPE_MSG))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(&quot;Error<sp/>in<sp/>IPI<sp/>write<sp/>response\r\n&quot;);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_IPI_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Force<sp/>power<sp/>down<sp/>timeout<sp/>in<sp/>us<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PWR_DWN_TIMEOUT<sp/><sp/><sp/><sp/><sp/>(60000U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Max<sp/>number<sp/>of<sp/>processor<sp/>base<sp/>addresses<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_BASEADDR_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Args<sp/>positions<sp/>per<sp/>commands*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_MEM_REG_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_MEM_REG_ADDR_LOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_MEM_REG_ADDR_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_MEM_REG_SIZE_LOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_MEM_REG_SIZE_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEM_REG_ARG_MAX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHIFT_TO_HIGH_U32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>NODE_POWER_ARG_MIN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Args<sp/>positions<sp/>for<sp/>SetDevAttr<sp/>handler*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_SEC_BASEADDR<sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_SEC_0_OFFSET<sp/><sp/><sp/><sp/>7U</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_SEC_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/>7U</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_SEC_1_OFFSET<sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_SEC_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_ARG_MIN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_ARG_MAX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_SEC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_SEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFU</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_COHVIR_BASEADDR<sp/>9U</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_COH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>10U</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_COH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_COH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_COH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFU</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_VIR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>11U</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARG_IDX_DEVATTR_VIR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_VIR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEVATTR_VIR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFU</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">XStatus<sp/>XPm_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RequestCb)(u32<sp/>SubsystemId,<sp/><ref refid="group__xpm__versal__apis_1ga70865515516f1060dd99fc58ce07188e" kindref="member">XPmApiCbId_t</ref><sp/>EventId,<sp/>u32<sp/>*Payload),</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RestartCb)(u32<sp/>ImageId,<sp/>u32<sp/>*FuncId));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">XStatus<sp/>XPm_GetDeviceBaseAddr(u32<sp/>DeviceId,<sp/>u32<sp/>*BaseAddr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">XStatus<sp/>XPm_PmcRequestDevice(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">XStatus<sp/>XPm_PmcReleaseDevice(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">XStatus<sp/>XPm_PmcActivateSubsystem(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">XStatus<sp/>XPm_PmcWakeUpCore(u32<sp/>CoreId<sp/>,<sp/>u32<sp/>SetAddress,<sp/>u64<sp/>Address);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">XStatus<sp/>XPm_PmcGetDeviceState(u32<sp/>DeviceId,<sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DeviceState);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">XStatus<sp/>XPm_SystemShutdown(u32<sp/>SubsystemId,<sp/>u32<sp/>Type,<sp/>u32<sp/>SubType,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">XStatus<sp/>XPm_AddSubsystem(XPlmi_Cmd*<sp/>Cmd);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">XStatus<sp/>XPm_AddRequirement(XPlmi_Cmd*<sp/>Cmd);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">XStatus<sp/>XPm_HookAfterPlmCdo(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">XStatus<sp/>XPm_HnicxNpiDataXfer(u32<sp/>Address,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">u32<sp/>XPm_GetSubsystemId(u32<sp/>ImageId);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">XPlmi_ModuleCmd*<sp/>XPm_GetPmCmds(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">XStatus<sp/>XPm_CosimAddAieDeviceNode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">XStatus<sp/>XPm_HookAfterBootPdi(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>MAX_GPIO_PROCS<sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="struct_x_pm___gpio_proc_cfg" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149" refid="struct_x_pm___gpio_proc_cfg_1a90720b829278df9e86b894ab88250ded" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1a90720b829278df9e86b894ab88250ded" kindref="member">SlrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="struct_x_pm___gpio_proc_cfg_1af2371d1cf5e240d4a4e8310334fe3cc9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1af2371d1cf5e240d4a4e8310334fe3cc9" kindref="member">PinId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_x_pm___gpio_proc_cfg_1ae7834590544cbbd027764eabbd0e5b5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1ae7834590544cbbd027764eabbd0e5b5a" kindref="member">Bank</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="struct_x_pm___gpio_proc_cfg_1a09259c100651ab15508e6cfe28e7de60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1a09259c100651ab15508e6cfe28e7de60" kindref="member">ProcId</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_x_pm___gpio_proc_cfg_1a869e3a6e0abac5d502a604d184e16311" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1a869e3a6e0abac5d502a604d184e16311" kindref="member">GicId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_x_pm___gpio_proc_cfg_1a4bb10e70be3f699b940cacefdd2e56be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___gpio_proc_cfg_1a4bb10e70be3f699b940cacefdd2e56be" kindref="member">GicSrc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}<sp/><ref refid="struct_x_pm___gpio_proc_cfg" kindref="compound">XPm_GpioProcCfg</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal">XStatus<sp/>XPm_GpioProcHandlerInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">XStatus<sp/>XPm_RuntimeInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">u32<sp/>XPmSubsystem_GetSubSysIdByIpiMask(u32<sp/>IpiMask);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">XStatus<sp/>XPm_AddDDRMemRegnForDefaultSubsystem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_MemCtrlrDevice<sp/>*MCDev);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">XStatus<sp/>XPmUpdate_RestoreNotifierEmActions(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_API_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h"/>
+  </compounddef>
+</doxygen>

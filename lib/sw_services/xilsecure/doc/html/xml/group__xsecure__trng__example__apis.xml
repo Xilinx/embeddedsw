@@ -4,9 +4,9 @@
     <compoundname>xsecure_trng_example_apis</compoundname>
     <title>XilSecure TRNG API Example Usage</title>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="group__xsecure__trng__example__apis_1gafb9a566691bc4a5f365513e2070912a4" prot="public" static="yes" mutable="no">
-        <type>const u8</type>
-        <definition>const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES]</definition>
+      <memberdef kind="variable" id="group__xsecure__trng__example__apis_1ga0e2eb17a92e85616d8a8ff6379ccaa37" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES]</definition>
         <argsstring>[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES]</argsstring>
         <name>RandBuf</name>
         <briefdescription>
@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="85" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -42,7 +42,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="152" bodyend="160"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="153" bodyend="161"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__trng__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -61,11 +61,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="96" bodyend="143"/>
-        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="97" bodyend="144"/>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="142" endline="157">XSecure_ClientInit</references>
         <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
-        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</references>
-        <references refid="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" compoundref="versal__2ve__2vm_2xsecure__plat__katclient_8c" startline="57" endline="78">XSecure_TrngKat</references>
+        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="54" endline="83">XSecure_TrngGenerateRandNum</references>
+        <references refid="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" compoundref="versal__2ve__2vm_2xsecure__plat__katclient_8c" startline="58" endline="79">XSecure_TrngKat</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -92,9 +92,9 @@ The default linker settings places a software stack, heap and data in DDR memory
             2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
                be stored in the above shared memory section. To make it happen in below example,
        replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
-               static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.data.RandBuf&quot;)));
+               static u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.data.RandBuf&quot;)));
                                     should be changed to
-               static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.RandBuf&quot;)));
+               static u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.RandBuf&quot;)));
 </verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
 Ver   Who    Date     Changes
 <hruler/>
@@ -104,6 +104,7 @@ Ver   Who    Date     Changes
       yog    08/07/23 Added Xil_DCacheInvalidateRange before
                       XSecure_TrngGenerareRandNum function call
       yog    09/05/23 Added Xil_DCacheInvalidateRange before
-                      XSecure_TrngPrintRandomNum function call</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+                      XSecure_TrngPrintRandomNum function call
+      rpu    08/03/26 Remove const from RandBuf output buffer</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

@@ -9,104 +9,106 @@
     <includes local="yes">xil_sutil.h</includes>
     <includes local="yes">xsecure_config.h</includes>
     <incdepgraph>
-      <node id="1742">
-        <label>xsecure_rsa.h</label>
-      </node>
-      <node id="1739">
-        <label>xsecure_kat.c</label>
-        <link refid="xsecure_kat.c"/>
-        <childnode refid="1740" relation="include">
-        </childnode>
-        <childnode refid="1741" relation="include">
-        </childnode>
-        <childnode refid="1742" relation="include">
-        </childnode>
-        <childnode refid="1743" relation="include">
-        </childnode>
-        <childnode refid="1755" relation="include">
-        </childnode>
-        <childnode refid="1754" relation="include">
-        </childnode>
-      </node>
-      <node id="1743">
-        <label>xsecure_kat.h</label>
-        <link refid="xsecure__kat_8h"/>
-        <childnode refid="1740" relation="include">
-        </childnode>
-        <childnode refid="1744" relation="include">
-        </childnode>
-        <childnode refid="1745" relation="include">
-        </childnode>
-        <childnode refid="1746" relation="include">
-        </childnode>
-      </node>
-      <node id="1755">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="1745">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="1752">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1746">
-        <label>xsecure_elliptic.h</label>
-        <link refid="xsecure__elliptic_8h"/>
-        <childnode refid="1740" relation="include">
-        </childnode>
-        <childnode refid="1747" relation="include">
-        </childnode>
-        <childnode refid="1748" relation="include">
-        </childnode>
-      </node>
-      <node id="1749">
-        <label>Ecdsa.h</label>
-      </node>
-      <node id="1753">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1750">
+      <node id="1799">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1751" relation="include">
+        <childnode refid="1800" relation="include">
         </childnode>
-        <childnode refid="1747" relation="include">
+        <childnode refid="1796" relation="include">
         </childnode>
-        <childnode refid="1752" relation="include">
+        <childnode refid="1801" relation="include">
         </childnode>
-        <childnode refid="1753" relation="include">
+        <childnode refid="1802" relation="include">
         </childnode>
-        <childnode refid="1754" relation="include">
+        <childnode refid="1803" relation="include">
+        </childnode>
+        <childnode refid="1804" relation="include">
         </childnode>
       </node>
-      <node id="1744">
+      <node id="1791">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="1802">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="1794">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1801">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1798">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="1804">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1795">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="1789" relation="include">
+        </childnode>
+        <childnode refid="1796" relation="include">
+        </childnode>
+        <childnode refid="1797" relation="include">
+        </childnode>
+      </node>
+      <node id="1793">
         <label>xsecure_aes.h</label>
       </node>
-      <node id="1748">
+      <node id="1797">
         <label>xsecure_ellipticcrvs.h</label>
         <link refid="xsecure__ellipticcrvs_8h"/>
-        <childnode refid="1740" relation="include">
+        <childnode refid="1789" relation="include">
         </childnode>
-        <childnode refid="1747" relation="include">
+        <childnode refid="1796" relation="include">
         </childnode>
-        <childnode refid="1749" relation="include">
+        <childnode refid="1798" relation="include">
         </childnode>
-        <childnode refid="1750" relation="include">
+        <childnode refid="1799" relation="include">
         </childnode>
       </node>
-      <node id="1754">
+      <node id="1803">
         <label>xsecure_config.h</label>
       </node>
-      <node id="1747">
+      <node id="1788">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure_kat.c"/>
+        <childnode refid="1789" relation="include">
+        </childnode>
+        <childnode refid="1790" relation="include">
+        </childnode>
+        <childnode refid="1791" relation="include">
+        </childnode>
+        <childnode refid="1792" relation="include">
+        </childnode>
+        <childnode refid="1802" relation="include">
+        </childnode>
+        <childnode refid="1803" relation="include">
+        </childnode>
+      </node>
+      <node id="1796">
         <label>xil_types.h</label>
       </node>
-      <node id="1740">
+      <node id="1792">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="1789" relation="include">
+        </childnode>
+        <childnode refid="1793" relation="include">
+        </childnode>
+        <childnode refid="1794" relation="include">
+        </childnode>
+        <childnode refid="1795" relation="include">
+        </childnode>
+      </node>
+      <node id="1789">
         <label>xparameters.h</label>
       </node>
-      <node id="1741">
+      <node id="1790">
         <label>xsecure_error.h</label>
       </node>
-      <node id="1751">
+      <node id="1800">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -116,34 +118,35 @@
         <name>XSECURE_KAT_AES_SPLIT_DATA_SIZE</name>
         <initializer>(4U)</initializer>
         <briefdescription>
-<para>&lt; AES KAT parameters </para>        </briefdescription>
+<para>AES KAT parameters. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>AES KAT split data size in words </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__kat__server__apis_1ga4b8a18a90b5721d6eb054b56eed91d16" prot="public" static="no">
         <name>XSECURE_KAT_KEY_SIZE_IN_WORDS</name>
         <initializer>(8U)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>AES KAT key size in words. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" prot="public" static="no">
         <name>XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS</name>
         <initializer>(16U)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>AES KAT operation data size in words. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaed0ff5bd2a251e178b5c985cabbd5814" compoundref="xsecure__kat_8c" startline="628" endline="724">XSecure_AesDecryptCmKat</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -161,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga1787c7d897495c4f17ec79cec9b2ebc9" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -178,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga597d6e8fa92cdee8247fb931336b08d5" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -193,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1gaf5381dfd18ebc1944b47abeaebe1b080" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -208,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga6d377db6de2ec977fd9b666ce4c0a02c" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -227,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga18ad634ec26b6a378684b62ca89065c0" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -246,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1gad3c5e37fd934cd67adac8c5009f7aa8e" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -263,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga51d66f776a03936cf776491fb26b0682" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -282,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1gaeb3fe581b084bac70a9dda0a12e755a7" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -299,7 +302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="113" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga2503ee2b63174ceb9117d9028adbc69b" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -316,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga82cc62b3a6220d09ada5d3a9425cfd42" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -337,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1gad15d2bfbd38fe1d749a4038a25d0e304" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -368,7 +371,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga17c27ccb60188f81fd1eb514e89bfeae" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -399,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1gaf2499e2980dda78a0e2f879c18db5be5" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -430,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="171" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="171" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga323bf4bba101aaa15f2c641828e6fe38" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -461,7 +464,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga9ab7e45a5398d43dd220fc7b1bb4535f" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -488,7 +491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="292" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="292" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga2b263aeb389640568807908788dafac1" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -515,7 +518,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="308" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="308" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga4c2072f00071028968f3e56770c30650" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -536,7 +539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="323" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="323" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga3fe419fa6c5db2305baaa55c9ebb237f" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -557,7 +560,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="332" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="332" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__kat__server__apis_1ga92fe84f24d695b1591333a7869e73b1a" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -581,7 +584,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="354" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="354" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -644,7 +647,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="740" bodyend="760"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="740" bodyend="760"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8 *</type>
@@ -663,11 +666,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="387" bodyend="389"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="387" bodyend="389"/>
         <referencedby refid="group__xsecure__kat__server__apis_1ga0567b89c7436b6925d6f64ef15b628e0" compoundref="xsecure__kat_8c" startline="783" endline="877">XSecure_AesDecryptKat</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1gafe625810c2509e3d9b490d63c3861807" compoundref="xsecure__kat_8c" startline="901" endline="1005">XSecure_AesEncryptKat</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
-        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="267">XSecure_RsaPwct</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaeef1675ed072c8187d88b630df7204c3" compoundref="net_2xsecure__plat__kat_8c" startline="201" endline="268">XSecure_RsaPwct</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1gabcd23e63d210e5c19bc9d4eeedac8dec" compoundref="net_2xsecure__plat__kat_8c" startline="142" endline="181">XSecure_Sha384Kat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga9395421a23db181d3caf2e97b3719488" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -687,7 +690,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="399" bodyend="401"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="399" bodyend="401"/>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gad9280d66ddaba2c7c18fadf7ae7e7855" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -707,7 +710,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="411" bodyend="413"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="411" bodyend="413"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaad1c6cd684bcf2c3dc968a1faf83ae9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32 *</type>
@@ -726,7 +729,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="424" bodyend="426"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="424" bodyend="426"/>
         <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaf2687288c96705bea3af82209403ad60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -746,7 +749,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="437" bodyend="439"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="437" bodyend="439"/>
         <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaaa0efb9c372ffa755b176a70542185b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -766,7 +769,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="449" bodyend="451"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="449" bodyend="451"/>
         <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gafd22599a22bb980e1a40ce887009f4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -786,7 +789,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="461" bodyend="463"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="461" bodyend="463"/>
         <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gacd534322345d34248772d23a4ab90c7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -806,8 +809,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="473" bodyend="494"/>
-        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="473" bodyend="494"/>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="76">XSECURE_RSA_2048_SIZE_WORDS</references>
         <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaa3ec8efc0badbd66518768e16b2dcc81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -836,11 +839,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="508" bodyend="521"/>
-        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
-        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="240">XSECURE_ECC_PRIME</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="508" bodyend="521"/>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="89">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="90">XSecure_EllipticKey::Qy</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="290">XSECURE_ECC_PRIME</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -869,11 +872,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="533" bodyend="546"/>
-        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
-        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="240">XSECURE_ECC_PRIME</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="533" bodyend="546"/>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="95">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="96">XSecure_EllipticSign::SignS</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="290">XSECURE_ECC_PRIME</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
       </memberdef>
@@ -903,8 +906,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="558" bodyend="569"/>
-        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="240">XSECURE_ECC_PRIME</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="558" bodyend="569"/>
+        <references refid="group__xsecure__common__apis_1gga678d756780f5569d245a8fe5fe7606c7adf2a9a341dbbedc713c8b4a9241c0259" compoundref="xsecure__defs_8h" startline="290">XSECURE_ECC_PRIME</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaadf5b20ff2b268460f7925bd114b7f1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -935,12 +938,12 @@
 <para><itemizedlist>
 <listitem><para>select ephemeral key as per the curve </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="581" bodyend="600"/>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="581" bodyend="600"/>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="282">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="283">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
       </memberdef>
@@ -972,19 +975,21 @@
 <para><itemizedlist>
 <listitem><para>Perform KAT on AES engine to know performance integrity</para></listitem><listitem><para>Zeroize the AES key storage register </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="628" bodyend="724"/>
-        <references refid="group__xsecure__sha__server__apis_1ga8ac24a09e1273548828d3cc9436f9bc7" compoundref="xsecure__sha1_8c" startline="84">R0</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="628" bodyend="724"/>
+        <references refid="group__xsecure__sha__server__apis_1ga8ac24a09e1273548828d3cc9436f9bc7" compoundref="xsecure__sha1_8c" startline="85">R0</references>
+        <references refid="group__xsecure__sha__server__apis_1ga2628f8af7bf67ca052200537279f855a" compoundref="xsecure__sha1_8c" startline="94">R1</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ad2abb9d964e6d6e943a9568f0cb39c37" compoundref="versal_2xsecure__error_8h" startline="198">XSECURE_AES_KAT_BUSY</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="85">XSECURE_AES_STATE_MISMATCH_ERROR</references>
-        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="84">XSECURE_AES_STATE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="76">XSECURE_AES_USER_KEY_7</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aff302353978d97def6bd8595dfb31264" compoundref="versal_2xsecure__error_8h" startline="106">XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8cbd14adcef5b6efc7152daa2e7081ad" compoundref="versal_2xsecure__error_8h" startline="109">XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600af760ff2383765583cf4f637c38295de5" compoundref="versal_2xsecure__error_8h" startline="112">XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a5208e45fe707403bbbe6261b22851c0d" compoundref="versal_2xsecure__error_8h" startline="115">XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a497059e963ededf7a859d94c55bb78b3" compoundref="versal_2xsecure__error_8h" startline="118">XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR</references>
-        <references refid="group__xsecure__aes__server__apis_1ga443eef9b38401bfcbafa33a4eec6859c" compoundref="core_2aes_2xsecure__aes_8c" startline="1305" endline="1441">XSecure_AesDpaCmDecryptData</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="105">XSECURE_AESKAT_INVALID_PARAM</references>
-        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__server__apis_1ga443eef9b38401bfcbafa33a4eec6859c" compoundref="core_2aes_2xsecure__aes_8c" startline="1394" endline="1531">XSecure_AesDpaCmDecryptData</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="104">XSECURE_AESKAT_INVALID_PARAM</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="607" endline="633">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" compoundref="xsecure__kat_8c" startline="70">XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga0567b89c7436b6925d6f64ef15b628e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1014,24 +1019,24 @@
 <para><itemizedlist>
 <listitem><para>Write AES key</para></listitem><listitem><para>Configure AES engine to decryption</para></listitem><listitem><para>Update AAD</para></listitem><listitem><para>Update input and output addresses to AES engine</para></listitem><listitem><para>Verify the GCM Tag</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the decrypted data with expected data provided</para></listitem><listitem><para>Comparison failure of decrypted data </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="783" bodyend="877"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="783" bodyend="877"/>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ad2abb9d964e6d6e943a9568f0cb39c37" compoundref="versal_2xsecure__error_8h" startline="198">XSECURE_AES_KAT_BUSY</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da2fda03187ed24897deb551730db5d7dd" compoundref="spartanup_2xsecure__error_8h" startline="92">XSECURE_AES_KAT_DATA_MISMATCH_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da2fda03187ed24897deb551730db5d7dd" compoundref="spartanup_2xsecure__error_8h" startline="91">XSECURE_AES_KAT_DATA_MISMATCH_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aeec3900a6543e63255c5000a16d84ba3" compoundref="versal_2xsecure__error_8h" startline="89">XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a4a44fcd0cfe11d6ed720c3f06d0fd637" compoundref="versal_2xsecure__error_8h" startline="127">XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a6a555735b1749720a2c3d98a4a57ff49" compoundref="versal_2xsecure__error_8h" startline="91">XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8c2902e2ef0bf357467dff7fea167f3f" compoundref="versal_2xsecure__error_8h" startline="129">XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a4b7bb436c96f0fb04eeec89a2162a6d6" compoundref="versal_2xsecure__error_8h" startline="87">XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="85">XSECURE_AES_STATE_MISMATCH_ERROR</references>
-        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
-        <references refid="group__xsecure__aes__client__apis_1ga49114523757f3b39daf51876ba899e51" compoundref="xsecure__aesclient_8c" startline="483" endline="509">XSecure_AesDecryptFinal</references>
-        <references refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="166" endline="211">XSecure_AesDecryptInit</references>
-        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="105">XSECURE_AESKAT_INVALID_PARAM</references>
-        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
-        <references refid="group__xsecure__aes__client__apis_1gab23a3dfb8aadcc94500201af5f25b659" compoundref="xsecure__aesclient_8c" startline="226" endline="234">XSecure_AesUpdateAad</references>
-        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</references>
-        <references refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="238" endline="243">XSecure_ConfigureDmaByteSwap</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="84">XSECURE_AES_STATE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="76">XSECURE_AES_USER_KEY_7</references>
+        <references refid="group__xsecure__aes__client__apis_1ga49114523757f3b39daf51876ba899e51" compoundref="xsecure__aesclient_8c" startline="564" endline="591">XSecure_AesDecryptFinal</references>
+        <references refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="183" endline="237">XSecure_AesDecryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="486" endline="548">XSecure_AesDecryptUpdate</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="104">XSECURE_AESKAT_INVALID_PARAM</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="607" endline="633">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__client__apis_1gab23a3dfb8aadcc94500201af5f25b659" compoundref="xsecure__aesclient_8c" startline="253" endline="270">XSecure_AesUpdateAad</references>
+        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="653" endline="690">XSecure_AesWriteKey</references>
+        <references refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="245" endline="250">XSecure_ConfigureDmaByteSwap</references>
         <references refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" compoundref="versal_2xsecure__plat_8h" startline="58">XSECURE_ENABLE_BYTE_SWAP</references>
         <references refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" compoundref="xsecure__kat_8c" startline="387" endline="389">XSecure_GetKatMessage</references>
         <references refid="group__xsecure__kat__server__apis_1ga15819c80fc33c83f862185f5990b46d8" compoundref="xsecure__kat_8h" startline="50">XSECURE_KAT_AAD_SIZE_IN_BYTES</references>
@@ -1066,24 +1071,24 @@
 <para><itemizedlist>
 <listitem><para>Write AES key</para></listitem><listitem><para>Configure AES engine to encryption</para></listitem><listitem><para>Update AAD</para></listitem><listitem><para>Update input and output addresses to AES engine</para></listitem><listitem><para>Update output address to AES engine to store GCM Tag</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the encrypted data with expected data provided</para></listitem><listitem><para>Comparison failure of encrypted data</para></listitem><listitem><para>Validate the GCM Tag </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="901" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="901" bodyend="1005"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="901" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="901" bodyend="1005"/>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ad2abb9d964e6d6e943a9568f0cb39c37" compoundref="versal_2xsecure__error_8h" startline="198">XSECURE_AES_KAT_BUSY</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da2fda03187ed24897deb551730db5d7dd" compoundref="spartanup_2xsecure__error_8h" startline="92">XSECURE_AES_KAT_DATA_MISMATCH_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da2fda03187ed24897deb551730db5d7dd" compoundref="spartanup_2xsecure__error_8h" startline="91">XSECURE_AES_KAT_DATA_MISMATCH_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a914bd30f37525779a4ebeaf64d8eb1d0" compoundref="versal_2xsecure__error_8h" startline="135">XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ae29b1104da8a1c2b56b66ca528379d38" compoundref="versal_2xsecure__error_8h" startline="131">XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a998b735188b13c2523ec333767f211d1" compoundref="versal_2xsecure__error_8h" startline="133">XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8c2902e2ef0bf357467dff7fea167f3f" compoundref="versal_2xsecure__error_8h" startline="129">XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a4b7bb436c96f0fb04eeec89a2162a6d6" compoundref="versal_2xsecure__error_8h" startline="87">XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="85">XSECURE_AES_STATE_MISMATCH_ERROR</references>
-        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="75">XSECURE_AES_USER_KEY_7</references>
-        <references refid="group__xsecure__aes__client__apis_1ga982cb284b765c652355d9f942798211b" compoundref="xsecure__aesclient_8c" startline="371" endline="397">XSecure_AesEncryptFinal</references>
-        <references refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="104" endline="150">XSecure_AesEncryptInit</references>
-        <references refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="306" endline="355">XSecure_AesEncryptUpdate</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="105">XSECURE_AESKAT_INVALID_PARAM</references>
-        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
-        <references refid="group__xsecure__aes__client__apis_1gab23a3dfb8aadcc94500201af5f25b659" compoundref="xsecure__aesclient_8c" startline="226" endline="234">XSecure_AesUpdateAad</references>
-        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="568" endline="597">XSecure_AesWriteKey</references>
-        <references refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="238" endline="243">XSecure_ConfigureDmaByteSwap</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2" compoundref="spartanup_2xsecure__error_8h" startline="84">XSECURE_AES_STATE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" compoundref="xsecure__aesclient_8h" startline="76">XSECURE_AES_USER_KEY_7</references>
+        <references refid="group__xsecure__aes__client__apis_1ga982cb284b765c652355d9f942798211b" compoundref="xsecure__aesclient_8c" startline="436" endline="463">XSecure_AesEncryptFinal</references>
+        <references refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="111" endline="166">XSecure_AesEncryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="357" endline="419">XSecure_AesEncryptUpdate</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb" compoundref="spartanup_2xsecure__error_8h" startline="104">XSECURE_AESKAT_INVALID_PARAM</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="607" endline="633">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__client__apis_1gab23a3dfb8aadcc94500201af5f25b659" compoundref="xsecure__aesclient_8c" startline="253" endline="270">XSecure_AesUpdateAad</references>
+        <references refid="group__xsecure__aes__client__apis_1ga056f80ac76299a3ed41102b9f21237e7" compoundref="xsecure__aesclient_8c" startline="653" endline="690">XSecure_AesWriteKey</references>
+        <references refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="245" endline="250">XSecure_ConfigureDmaByteSwap</references>
         <references refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" compoundref="versal_2xsecure__plat_8h" startline="58">XSECURE_ENABLE_BYTE_SWAP</references>
         <references refid="group__xsecure__kat__server__apis_1ga8df0f1f6e52ec26041e750769de1130c" compoundref="xsecure__kat_8c" startline="387" endline="389">XSecure_GetKatMessage</references>
         <references refid="group__xsecure__kat__server__apis_1ga15819c80fc33c83f862185f5990b46d8" compoundref="xsecure__kat_8h" startline="50">XSECURE_KAT_AAD_SIZE_IN_BYTES</references>
@@ -1119,15 +1124,15 @@
 <para><itemizedlist>
 <listitem><para>Configure SSS and start SHA-3 engine</para></listitem><listitem><para>Update SHA3 engine with input data</para></listitem><listitem><para>Update SHA3 engine with padded data if required and reads the hash</para></listitem><listitem><para>Validate the generated hash with the provided expected hash </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1026" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1026" bodyend="1095"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1026" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1026" bodyend="1095"/>
         <references refid="group__xsecure__kat__server__apis_1ga62a7fc37111b22311ea7d993de67c059" compoundref="xsecure__kat_8h" startline="49">XSECURE_KAT_MSG_LEN_IN_BYTES</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
-        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0365ed113be909c4028625f46af4f268" compoundref="spartanup_2xsecure__error_8h" startline="263">XSECURE_SHA3_FINISH_ERROR</references>
-        <references refid="spartanup_2xsecure__error_8h_1af17fdd27c0a8fec27af8d651c1d0c794" compoundref="spartanup_2xsecure__error_8h" startline="257">XSECURE_SHA3_INVALID_PARAM</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" startline="71">XSECURE_SHA3_384</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0365ed113be909c4028625f46af4f268" compoundref="spartanup_2xsecure__error_8h" startline="262">XSECURE_SHA3_FINISH_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1af17fdd27c0a8fec27af8d651c1d0c794" compoundref="spartanup_2xsecure__error_8h" startline="256">XSECURE_SHA3_INVALID_PARAM</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ab823294234472b6d0532a371b8d50cf9" compoundref="versal_2xsecure__error_8h" startline="196">XSECURE_SHA3_KAT_BUSY</references>
-        <references refid="spartanup_2xsecure__error_8h_1a8319ac09ed39aad6b5dded0635d8c2e4" compoundref="spartanup_2xsecure__error_8h" startline="254">XSECURE_SHA3_KAT_FAILED_ERROR</references>
-        <references refid="spartanup_2xsecure__error_8h_1aec8d6e3d4254abc01a47af96a5ad2b1e" compoundref="spartanup_2xsecure__error_8h" startline="260">XSECURE_SHA3_PMC_DMA_UPDATE_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a8319ac09ed39aad6b5dded0635d8c2e4" compoundref="spartanup_2xsecure__error_8h" startline="253">XSECURE_SHA3_KAT_FAILED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1aec8d6e3d4254abc01a47af96a5ad2b1e" compoundref="spartanup_2xsecure__error_8h" startline="259">XSECURE_SHA3_PMC_DMA_UPDATE_ERROR</references>
         <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
         <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
         <references refid="group__xsecure__sha__server__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="851" endline="854">XSecure_ShaLastUpdate</references>
@@ -1153,15 +1158,16 @@
 <para><itemizedlist>
 <listitem><para>Initialize the RSA instance</para></listitem><listitem><para>Perform the public encrypt operation</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the encrypted data with the expected data provided </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1110" bodyend="1157"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1110" bodyend="1157"/>
         <references refid="group__xsecure__kat__server__apis_1ga39a9083040eed4679786b8dc1646b973" compoundref="xsecure__kat_8h" startline="54">XSECURE_KAT_RSA_PUB_EXP</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="75">XSECURE_RSA_2048_KEY_SIZE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <references refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="xsecure__defs_8h" startline="141">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="76">XSECURE_RSA_2048_SIZE_WORDS</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aa13a02cf9d65a08b8ec52bd4c5cb2b64" compoundref="versal_2xsecure__error_8h" startline="148">XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a62538607e3ee4401d1620c6890c2db4f" compoundref="versal_2xsecure__error_8h" startline="146">XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ab87a3fd0817231d03954d02329f3a570" compoundref="versal_2xsecure__error_8h" startline="144">XSECURE_RSA_KAT_INIT_ERROR</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" compoundref="core_2rsa_2xsecure__rsa_8c" startline="165" endline="170">XSecure_RsaInitialize</references>
-        <references refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" compoundref="xsecure__rsaclient_8c" startline="136" endline="185">XSecure_RsaPublicEncrypt</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" compoundref="core_2rsa_2xsecure__rsa_8c" startline="160" endline="165">XSecure_RsaInitialize</references>
+        <references refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" compoundref="xsecure__rsaclient_8c" startline="147" endline="204">XSecure_RsaPublicEncrypt</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="71" endline="179">XSecure_KatIpiHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1189,19 +1195,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1174" bodyend="1201"/>
-        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
-        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
-        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
-        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1174" bodyend="1201"/>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="89">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="90">XSecure_EllipticKey::Qy</references>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="95">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="96">XSecure_EllipticSign::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a066fa8663fe76a8f96264d4ad8f08a5c" compoundref="versal_2xsecure__error_8h" startline="184">XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a9adf2b4cff92f818b119402175fa6e18" compoundref="versal_2xsecure__error_8h" startline="163">XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a2a6e023e890291587ad536573579717d" compoundref="versal_2xsecure__error_8h" startline="185">XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR</references>
-        <references refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" compoundref="xsecure__ellipticclient_8c" startline="181" endline="208">XSecure_EllipticValidateKey</references>
-        <references refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="228" endline="277">XSecure_EllipticVerifySign</references>
+        <references refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" compoundref="xsecure__ellipticclient_8c" startline="205" endline="238">XSecure_EllipticValidateKey</references>
+        <references refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="259" endline="321">XSecure_EllipticVerifySign</references>
         <references refid="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" compoundref="xsecure__kat_8c" startline="533" endline="546">XSecure_GetKatEccExpSign</references>
         <references refid="group__xsecure__kat__server__apis_1gaa3ec8efc0badbd66518768e16b2dcc81" compoundref="xsecure__kat_8c" startline="508" endline="521">XSecure_GetKatEccPublicKey</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="71" endline="179">XSecure_KatIpiHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1231,18 +1238,19 @@
 <para><itemizedlist>
 <listitem><para>Generates signature for the provided hash and curve type and then perform KAT using that signature.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1216" bodyend="1263"/>
-        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
-        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1216" bodyend="1263"/>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="95">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="96">XSecure_EllipticSign::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a20e294ba5db58bae372aa2379cc88e36" compoundref="versal_2xsecure__error_8h" startline="186">XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a1f869a60980a557dc4481c9819991ae4" compoundref="versal_2xsecure__error_8h" startline="187">XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a066fa8663fe76a8f96264d4ad8f08a5c" compoundref="versal_2xsecure__error_8h" startline="184">XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="425" endline="471">XSecure_EllipticGenerateSignature</references>
         <references refid="group__xsecure__kat__server__apis_1gaadf5b20ff2b268460f7925bd114b7f1f" compoundref="xsecure__kat_8c" startline="581" endline="600">XSecure_GetKatEccEphemeralKey</references>
         <references refid="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" compoundref="xsecure__kat_8c" startline="533" endline="546">XSecure_GetKatEccExpSign</references>
         <references refid="group__xsecure__kat__server__apis_1gae13868848d86bd438b31458a8b3aaad8" compoundref="xsecure__kat_8c" startline="558" endline="569">XSecure_GetKatEccPrivateKey</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="71" endline="179">XSecure_KatIpiHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1294,26 +1302,26 @@
 <para><itemizedlist>
 <listitem><para>Get size as per the curve type</para></listitem><listitem><para>Generate signature for given Hash and curve type</para></listitem><listitem><para>Verify the signature </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1280" bodyend="1339"/>
-        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="112">XSecure_EllipticHashData::Addr</references>
-        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="113">XSecure_EllipticHashData::Len</references>
-        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="103">XSecure_EllipticSignAddr::SignR</references>
-        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="104">XSecure_EllipticSignAddr::SignS</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga26187a912fd3da2eb9cea5f36b25a709" compoundref="xsecure__elliptic_8h" startline="71">XSECURE_ECC_P192_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga192d103795f91f2cfa9a4b9cca781285" compoundref="xsecure__elliptic_8h" startline="73">XSECURE_ECC_P224_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" compoundref="xsecure__elliptic_8h" startline="69">XSECURE_ECC_P256_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" line="1280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c" bodystart="1280" bodyend="1339"/>
+        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="116">XSecure_EllipticHashData::Addr</references>
+        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="117">XSecure_EllipticHashData::Len</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="107">XSecure_EllipticSignAddr::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="108">XSecure_EllipticSignAddr::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="282">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="283">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga26187a912fd3da2eb9cea5f36b25a709" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECC_P192_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga192d103795f91f2cfa9a4b9cca781285" compoundref="xsecure__elliptic_8h" startline="77">XSECURE_ECC_P224_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" compoundref="xsecure__elliptic_8h" startline="73">XSECURE_ECC_P256_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__defs_8h" startline="139">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a1920b57d7b0521fbc38a4d34580373f1" compoundref="versal_2xsecure__error_8h" startline="189">XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a47249855d9fdcbc1a72da96ab9d31600" compoundref="versal_2xsecure__error_8h" startline="188">XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR</references>
         <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a066fa8663fe76a8f96264d4ad8f08a5c" compoundref="versal_2xsecure__error_8h" startline="184">XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="280" endline="401">XSecure_EllipticGenerateSignature_64Bit</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="633" endline="750">XSecure_EllipticVerifySign_64Bit</references>
         <references refid="group__xsecure__kat__server__apis_1gaadf5b20ff2b268460f7925bd114b7f1f" compoundref="xsecure__kat_8c" startline="581" endline="600">XSecure_GetKatEccEphemeralKey</references>
       </memberdef>
       </sectiondef>
@@ -1368,15 +1376,14 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68" refid="group__xsecure__kat__server__apis_1gafba10644d883a1608f9adbeb0c7c6356" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_AES_SPLIT_DATA_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KAT_KEY_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="73"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS]<sp/>=</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x98076956U,<sp/>0x4f158c97U,<sp/>0x78ba50f2U,<sp/>0x5f7663e4U,</highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__kat__server__apis_1gafba10644d883a1608f9adbeb0c7c6356" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_AES_SPLIT_DATA_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__kat__server__apis_1ga4b8a18a90b5721d6eb054b56eed91d16" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_KEY_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">static<sp/>const<sp/>u32<sp/>Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS]<sp/>=</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x98076956U,<sp/>0x4f158c97U,<sp/>0x78ba50f2U,<sp/>0x5f7663e4U,</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x97e60c2fU,<sp/>0x1b55a409U,<sp/>0xdd3acbd8U,<sp/>0xb687a0edU};</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS]<sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Data0[<ref refid="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" kindref="member">XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS</ref>]<sp/>=</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0x86c237cfU,<sp/>0xead48ac1U,</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa0a60b3dU,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0x2481322dU,</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x568dd5a8U,<sp/>0xed5e77d0U,<sp/>0x881ade93U};</highlight></codeline>
@@ -1564,7 +1571,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="262"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="263"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P256)<sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P521)<sp/>\</highlight></codeline>
 <codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P192)<sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P224)</highlight></codeline>
-<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>K_P521[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>K_P521[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0xC9,<sp/>0x1E,<sp/>0x23,<sp/>0x49,<sp/>0xEF,<sp/>0x6C,</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA2,<sp/>0x2D,<sp/>0x2D,<sp/>0xE3,<sp/>0x9D,<sp/>0xD5,<sp/>0x18,<sp/>0x19,</highlight></codeline>
 <codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB6,<sp/>0xAA,<sp/>0xD9,<sp/>0x22,<sp/>0xD3,<sp/>0xAE,<sp/>0xCD,<sp/>0xEA,</highlight></codeline>
@@ -1641,7 +1648,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="339"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P256)<sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P521)<sp/>\</highlight></codeline>
 <codeline lineno="341"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P192)<sp/>||<sp/>defined(XSECURE_ECC_SUPPORT_NIST_P224)</highlight></codeline>
-<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>K_P521[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>K_P521[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U,<sp/>0x04U,<sp/>0x31U,<sp/>0xA2U,<sp/>0xA6U,<sp/>0x47U,<sp/>0x31U,<sp/>0x70U,</highlight></codeline>
 <codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB8U,<sp/>0x16U,<sp/>0x6DU,<sp/>0x33U,<sp/>0x25U,<sp/>0x06U,<sp/>0xBEU,<sp/>0x62U,</highlight></codeline>
 <codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE5U,<sp/>0x48U,<sp/>0x5AU,<sp/>0xD0U,<sp/>0xBEU,<sp/>0x76U,<sp/>0xBAU,<sp/>0x74U,</highlight></codeline>
@@ -1814,15 +1821,15 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="632"><highlight class="normal"></highlight></codeline>
-<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];</highlight></codeline>
-<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Output0[<ref refid="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" kindref="member">XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS</ref>];</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Output1[<ref refid="group__xsecure__kat__server__apis_1ga59d2f9d7512a27cad3ad502fc0977b18" kindref="member">XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS</ref>];</highlight></codeline>
 <codeline lineno="635"><highlight class="normal"></highlight></codeline>
 <codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*RM0<sp/>=<sp/>&amp;Output0[0U];</highlight></codeline>
 <codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*<ref refid="group__xsecure__sha__server__apis_1ga8ac24a09e1273548828d3cc9436f9bc7" kindref="member">R0</ref><sp/>=<sp/>&amp;Output0[4U];</highlight></codeline>
 <codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Mm0<sp/>=<sp/>&amp;Output0[8U];</highlight></codeline>
 <codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*M0<sp/>=<sp/>&amp;Output0[12U];</highlight></codeline>
 <codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*RM1<sp/>=<sp/>&amp;Output1[0U];</highlight></codeline>
-<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*R1<sp/>=<sp/>&amp;Output1[4U];</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*<ref refid="group__xsecure__sha__server__apis_1ga2628f8af7bf67ca052200537279f855a" kindref="member">R1</ref><sp/>=<sp/>&amp;Output1[4U];</highlight></codeline>
 <codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Mm1<sp/>=<sp/>&amp;Output1[8U];</highlight></codeline>
 <codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*M1<sp/>=<sp/>&amp;Output1[12U];</highlight></codeline>
 <codeline lineno="644"><highlight class="normal"></highlight></codeline>
@@ -1958,7 +1965,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a4b7bb436c96f0fb04eeec89a2162a6d6" kindref="member">XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR</ref>;</highlight></codeline>
 <codeline lineno="811"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
 <codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="813"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="813"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_AES_DMA_BYTE_SWAP</highlight></codeline>
 <codeline lineno="814"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" kindref="member">XSecure_ConfigureDmaByteSwap</ref>(<ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>);</highlight></codeline>
 <codeline lineno="815"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="816"><highlight class="preprocessor"></highlight></codeline>
@@ -2050,7 +2057,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="930"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a4b7bb436c96f0fb04eeec89a2162a6d6" kindref="member">XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR</ref>;</highlight></codeline>
 <codeline lineno="931"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
 <codeline lineno="932"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="933"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="933"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_AES_DMA_BYTE_SWAP</highlight></codeline>
 <codeline lineno="934"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" kindref="member">XSecure_ConfigureDmaByteSwap</ref>(<ref refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" kindref="member">XSECURE_ENABLE_BYTE_SWAP</ref>);</highlight></codeline>
 <codeline lineno="935"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="936"><highlight class="preprocessor"></highlight></codeline>
@@ -2205,7 +2212,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1126"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="1129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" kindref="member">XSecure_RsaPublicEncrypt</ref>(&amp;XSecureRsaInstance,<sp/>(u8<sp/>*)RsaData,</highlight></codeline>
-<codeline lineno="1130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>(u8<sp/>*)RsaOutput);</highlight></codeline>
+<codeline lineno="1130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>(u8<sp/>*)RsaOutput);</highlight></codeline>
 <codeline lineno="1131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="1132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a62538607e3ee4401d1620c6890c2db4f" kindref="member">XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR</ref>;</highlight></codeline>
 <codeline lineno="1133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
@@ -2223,7 +2230,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1148"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1149"><highlight class="normal">END_CLR:</highlight></codeline>
-<codeline lineno="1150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize((u8*)RsaOutput,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="1150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize((u8*)RsaOutput,<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
 <codeline lineno="1151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
 <codeline lineno="1152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
 <codeline lineno="1153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -2314,7 +2321,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1280" refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" kindref="member">XSecure_EllipticPwct</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>Curvetype,<sp/>u64<sp/>DAddr,<sp/><ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref><sp/>*PubKeyAddr)<sp/>{</highlight></codeline>
 <codeline lineno="1281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="1282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="1283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Sign[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref><sp/>+<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="1283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Sign[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref><sp/>+<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>];</highlight></codeline>
 <codeline lineno="1284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref><sp/>GeneratedSignAddr;</highlight></codeline>
 <codeline lineno="1285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref><sp/>HashInfo;</highlight></codeline>
 <codeline lineno="1286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*K<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaadf5b20ff2b268460f7925bd114b7f1f" kindref="member">XSecure_GetKatEccEphemeralKey</ref>(Curvetype);</highlight></codeline>
@@ -2324,7 +2331,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" kindref="member">XSECURE_ECC_P384_SIZE_IN_BYTES</ref>;</highlight></codeline>
 <codeline lineno="1292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Curvetype<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" kindref="member">XSECURE_ECC_NIST_P521</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="1294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="1294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>=<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>;</highlight></codeline>
 <codeline lineno="1295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Curvetype<sp/>==<sp/><ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" kindref="member">XSECURE_ECC_NIST_P256</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="1297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" kindref="member">XSECURE_ECC_P256_SIZE_IN_BYTES</ref>;</highlight></codeline>
@@ -2371,6 +2378,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1340"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="1341"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c"/>
   </compounddef>
 </doxygen>

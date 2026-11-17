@@ -100,7 +100,10 @@ $(document).ready(function(){initNavTree('xusb__freertos__class__audio_8h.html',
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_freertos_class_audio.h File Reference</div>  </div>
 </div><!--header-->
@@ -119,10 +122,67 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;<a class="el" href="xusb__ch9_8h.html">xusb_ch9.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusb__freertos__ch9__audio_8h.html">xusb_freertos_ch9_audio.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaudio__dev.html">audio_dev</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio device state and buffer management structure.  <a href="structaudio__dev.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8b2a8445191e4e509153c74bb9f9dbec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a8b2a8445191e4e509153c74bb9f9dbec">UAC2_CS_CUR</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a8b2a8445191e4e509153c74bb9f9dbec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Cur.  <a href="#a8b2a8445191e4e509153c74bb9f9dbec">More...</a><br/></td></tr>
+<tr class="separator:a8b2a8445191e4e509153c74bb9f9dbec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618edb4d50d3e1d435a1421eebc050e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a618edb4d50d3e1d435a1421eebc050e1">UAC2_CS_RANGE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a618edb4d50d3e1d435a1421eebc050e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Range.  <a href="#a618edb4d50d3e1d435a1421eebc050e1">More...</a><br/></td></tr>
+<tr class="separator:a618edb4d50d3e1d435a1421eebc050e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1662f078f25f00b88229f1ccef3f037a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a1662f078f25f00b88229f1ccef3f037a">UAC2_CS_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a1662f078f25f00b88229f1ccef3f037a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Undefined.  <a href="#a1662f078f25f00b88229f1ccef3f037a">More...</a><br/></td></tr>
+<tr class="separator:a1662f078f25f00b88229f1ccef3f037a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af347650d747729e3bd81179d135f34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a0af347650d747729e3bd81179d135f34">UAC2_CS_CONTROL_SAM_FREQ</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a0af347650d747729e3bd81179d135f34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Sam Freq.  <a href="#a0af347650d747729e3bd81179d135f34">More...</a><br/></td></tr>
+<tr class="separator:a0af347650d747729e3bd81179d135f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af761a3c529272768675db42bfb39ed9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#af761a3c529272768675db42bfb39ed9b">UAC2_CS_CONTROL_CLOCK_VALID</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:af761a3c529272768675db42bfb39ed9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Clock Valid.  <a href="#af761a3c529272768675db42bfb39ed9b">More...</a><br/></td></tr>
+<tr class="separator:af761a3c529272768675db42bfb39ed9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db226a634c1d5f31b1964662ebb4dcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a9db226a634c1d5f31b1964662ebb4dcb">UAC2_CX_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a9db226a634c1d5f31b1964662ebb4dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cx Control Undefined.  <a href="#a9db226a634c1d5f31b1964662ebb4dcb">More...</a><br/></td></tr>
+<tr class="separator:a9db226a634c1d5f31b1964662ebb4dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fb3344c4fd61753a3561b760327d691"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a4fb3344c4fd61753a3561b760327d691">UAC2_CX_CONTROL_CLOCK_SEL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a4fb3344c4fd61753a3561b760327d691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cx Control Clock Sel.  <a href="#a4fb3344c4fd61753a3561b760327d691">More...</a><br/></td></tr>
+<tr class="separator:a4fb3344c4fd61753a3561b760327d691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3080151311398fc9a479a88b697de174"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a3080151311398fc9a479a88b697de174">UAC2_FU_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a3080151311398fc9a479a88b697de174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Control Undefined.  <a href="#a3080151311398fc9a479a88b697de174">More...</a><br/></td></tr>
+<tr class="separator:a3080151311398fc9a479a88b697de174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50195a810e6b38e7381f36d9e63a5192"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a50195a810e6b38e7381f36d9e63a5192">UAC2_FU_MUTE_CONTROL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a50195a810e6b38e7381f36d9e63a5192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Mute Control.  <a href="#a50195a810e6b38e7381f36d9e63a5192">More...</a><br/></td></tr>
+<tr class="separator:a50195a810e6b38e7381f36d9e63a5192"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6995a9c0bcc3c0d52f9af100cabecee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#af6995a9c0bcc3c0d52f9af100cabecee">UAC2_FU_VOLUME_CONTROL</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:af6995a9c0bcc3c0d52f9af100cabecee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Volume Control.  <a href="#af6995a9c0bcc3c0d52f9af100cabecee">More...</a><br/></td></tr>
+<tr class="separator:af6995a9c0bcc3c0d52f9af100cabecee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846a20706e8de7ec305d51abc09bb6ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a846a20706e8de7ec305d51abc09bb6ad">AUDIO_CONFIG</a>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
+<tr class="memdesc:a846a20706e8de7ec305d51abc09bb6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Config.  <a href="#a846a20706e8de7ec305d51abc09bb6ad">More...</a><br/></td></tr>
+<tr class="separator:a846a20706e8de7ec305d51abc09bb6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abec9479f4a097cf73c83509de24309c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#abec9479f4a097cf73c83509de24309c6">AUDIO_UNCONFIG</a>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
+<tr class="memdesc:abec9479f4a097cf73c83509de24309c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Unconfig.  <a href="#abec9479f4a097cf73c83509de24309c6">More...</a><br/></td></tr>
+<tr class="separator:abec9479f4a097cf73c83509de24309c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed22abbdf1b0c9bc125e04fdf3aad76d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#aed22abbdf1b0c9bc125e04fdf3aad76d">RECORD_START</a>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
+<tr class="memdesc:aed22abbdf1b0c9bc125e04fdf3aad76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record Start.  <a href="#aed22abbdf1b0c9bc125e04fdf3aad76d">More...</a><br/></td></tr>
+<tr class="separator:aed22abbdf1b0c9bc125e04fdf3aad76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fb2854ebfa867ab704b3bc469a4097c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a1fb2854ebfa867ab704b3bc469a4097c">RECORD_STOP</a>&#160;&#160;&#160;(1 &lt;&lt; 3)</td></tr>
+<tr class="memdesc:a1fb2854ebfa867ab704b3bc469a4097c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Record Stop.  <a href="#a1fb2854ebfa867ab704b3bc469a4097c">More...</a><br/></td></tr>
+<tr class="separator:a1fb2854ebfa867ab704b3bc469a4097c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff021684340cd326ef94a7e509e6a7a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#aff021684340cd326ef94a7e509e6a7a8">PLAY_START</a>&#160;&#160;&#160;(1 &lt;&lt; 4)</td></tr>
+<tr class="memdesc:aff021684340cd326ef94a7e509e6a7a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play Start.  <a href="#aff021684340cd326ef94a7e509e6a7a8">More...</a><br/></td></tr>
+<tr class="separator:aff021684340cd326ef94a7e509e6a7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa6a9e47040d791d57dc7fd49357f3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#adfa6a9e47040d791d57dc7fd49357f3c">PLAY_STOP</a>&#160;&#160;&#160;(1 &lt;&lt; 5)</td></tr>
+<tr class="memdesc:adfa6a9e47040d791d57dc7fd49357f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play Stop.  <a href="#adfa6a9e47040d791d57dc7fd49357f3c">More...</a><br/></td></tr>
+<tr class="separator:adfa6a9e47040d791d57dc7fd49357f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a32b6f95139e55ff73c71303408094577"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
-<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
+<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB class request for the composite device.  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
 <tr class="separator:a32b6f95139e55ff73c71303408094577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b7cf32bf38cd19d9b38c52b52ebd9c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:a3b7cf32bf38cd19d9b38c52b52ebd9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This task implements audio record functionality.  <a href="#a3b7cf32bf38cd19d9b38c52b52ebd9c4">More...</a><br/></td></tr>
@@ -130,7 +190,241 @@ Functions</h2></td></tr>
 <tr class="memitem:a43a401c19d0503aa6f48746b3cb11721"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:a43a401c19d0503aa6f48746b3cb11721"><td class="mdescLeft">&#160;</td><td class="mdescRight">This task implements audio playback functionality.  <a href="#a43a401c19d0503aa6f48746b3cb11721">More...</a><br/></td></tr>
 <tr class="separator:a43a401c19d0503aa6f48746b3cb11721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae6e48a3d7974463fc50c80db9194f448"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structaudio__dev.html">audio_dev</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#ae6e48a3d7974463fc50c80db9194f448">audio_dev</a></td></tr>
+<tr class="memdesc:ae6e48a3d7974463fc50c80db9194f448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio device instance for this example.  <a href="#ae6e48a3d7974463fc50c80db9194f448">More...</a><br/></td></tr>
+<tr class="separator:ae6e48a3d7974463fc50c80db9194f448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f946c7d2b74571706ecb53626f2fa19"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8h.html#a1f946c7d2b74571706ecb53626f2fa19">BufferPtrTemp</a> [1024]</td></tr>
+<tr class="memdesc:a1f946c7d2b74571706ecb53626f2fa19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer Ptr Temp.  <a href="#a1f946c7d2b74571706ecb53626f2fa19">More...</a><br/></td></tr>
+<tr class="separator:a1f946c7d2b74571706ecb53626f2fa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a846a20706e8de7ec305d51abc09bb6ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_CONFIG&#160;&#160;&#160;(1 &lt;&lt; 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Config. </p>
+
+</div>
+</div>
+<a class="anchor" id="abec9479f4a097cf73c83509de24309c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_UNCONFIG&#160;&#160;&#160;(1 &lt;&lt; 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Unconfig. </p>
+
+</div>
+</div>
+<a class="anchor" id="aff021684340cd326ef94a7e509e6a7a8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PLAY_START&#160;&#160;&#160;(1 &lt;&lt; 4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Play Start. </p>
+
+</div>
+</div>
+<a class="anchor" id="adfa6a9e47040d791d57dc7fd49357f3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PLAY_STOP&#160;&#160;&#160;(1 &lt;&lt; 5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Play Stop. </p>
+
+</div>
+</div>
+<a class="anchor" id="aed22abbdf1b0c9bc125e04fdf3aad76d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RECORD_START&#160;&#160;&#160;(1 &lt;&lt; 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Record Start. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1fb2854ebfa867ab704b3bc469a4097c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RECORD_STOP&#160;&#160;&#160;(1 &lt;&lt; 3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Record Stop. </p>
+
+</div>
+</div>
+<a class="anchor" id="af761a3c529272768675db42bfb39ed9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_CLOCK_VALID&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Clock Valid. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0af347650d747729e3bd81179d135f34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_SAM_FREQ&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Sam Freq. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1662f078f25f00b88229f1ccef3f037a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b2a8445191e4e509153c74bb9f9dbec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CUR&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Cur. </p>
+
+</div>
+</div>
+<a class="anchor" id="a618edb4d50d3e1d435a1421eebc050e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_RANGE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Range. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4fb3344c4fd61753a3561b760327d691"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CX_CONTROL_CLOCK_SEL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cx Control Clock Sel. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9db226a634c1d5f31b1964662ebb4dcb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CX_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cx Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3080151311398fc9a479a88b697de174"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a50195a810e6b38e7381f36d9e63a5192"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_MUTE_CONTROL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Mute Control. </p>
+
+</div>
+</div>
+<a class="anchor" id="af6995a9c0bcc3c0d52f9af100cabecee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_VOLUME_CONTROL&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Volume Control. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a43a401c19d0503aa6f48746b3cb11721"></a>
 <div class="memitem">
@@ -149,11 +443,10 @@ Functions</h2></td></tr>
 <p>This task implements audio playback functionality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pvParameters</td><td>private parameters.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pvParameters</td><td>private parameters. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -174,11 +467,10 @@ Functions</h2></td></tr>
 <p>This task implements audio record functionality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pvParameters</td><td>private parameters.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pvParameters</td><td>private parameters. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -206,25 +498,46 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request) </p>
+<p>Handle USB class request for the composite device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to the setup packet data. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ae6e48a3d7974463fc50c80db9194f448"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structaudio__dev.html">audio_dev</a> <a class="el" href="structaudio__dev.html">audio_dev</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio device instance for this example. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1f946c7d2b74571706ecb53626f2fa19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 BufferPtrTemp[1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer Ptr Temp. </p>
+<p>Buffer Ptr Temp. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>.</p>
 
 </div>
 </div>

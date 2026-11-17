@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xclockps_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,13 +99,82 @@ $(document).ready(function(){initNavTree('xclockps_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xclockps.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements CLOCKPS interface functions. </p>
+<p>Contains the implementation of interface functions of the clock driver. See xclock.h for a description of the driver.</p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  cjp    02/09/18 First release
+1.00  sd     07/26/18 Fix coverity warnings
+1.1     aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
+                function named "XClock_Absolute_Difference".
+1.2   sd     02/13/20 Rename ARRAY_SIZE
+1.5   sd     07/10/23 Added SDT support
+1.8   vn     07/30/26 Fix Doxygen warnings
+1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
-</div></div><!-- contents -->
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga855abf121932a5d9661fdae9ebc74aee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga855abf121932a5d9661fdae9ebc74aee">XCLOCK_ASSIGN_IP</a>(RateVal)</td></tr>
+<tr class="memdesc:ga855abf121932a5d9661fdae9ebc74aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns structure elements for input clocks.  <a href="group__clockps__api.html#ga855abf121932a5d9661fdae9ebc74aee">More...</a><br/></td></tr>
+<tr class="separator:ga855abf121932a5d9661fdae9ebc74aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga27a346cef56805f43f1bd2251402189c"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga27a346cef56805f43f1bd2251402189c">XClock_CfgInitialize</a> (<a class="el" href="struct_x_clock.html">XClock</a> *InstancePtr, <a class="el" href="struct_x_clock_ps___config.html">XClockPs_Config</a> *ConfigPtr)</td></tr>
+<tr class="memdesc:ga27a346cef56805f43f1bd2251402189c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a CLOCKPS driver instance.  <a href="group__clockps__api.html#ga27a346cef56805f43f1bd2251402189c">More...</a><br/></td></tr>
+<tr class="separator:ga27a346cef56805f43f1bd2251402189c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b155c730be862ca970d7955a416c144"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga1b155c730be862ca970d7955a416c144">XClock_EnableClkNode</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> NodeType, u8 NodeIdx)</td></tr>
+<tr class="memdesc:ga1b155c730be862ca970d7955a416c144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables a CLOCKPS clock sub-node.  <a href="group__clockps__api.html#ga1b155c730be862ca970d7955a416c144">More...</a><br/></td></tr>
+<tr class="separator:ga1b155c730be862ca970d7955a416c144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa19d43155684eaa65ca62214fa1daf23"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gaa19d43155684eaa65ca62214fa1daf23">XClock_DisableClkNode</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> NodeType, u8 NodeIdx)</td></tr>
+<tr class="memdesc:gaa19d43155684eaa65ca62214fa1daf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables a CLOCKPS clock sub-node.  <a href="group__clockps__api.html#gaa19d43155684eaa65ca62214fa1daf23">More...</a><br/></td></tr>
+<tr class="separator:gaa19d43155684eaa65ca62214fa1daf23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6261f129328bc75be06f8ec9fea6928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gaa6261f129328bc75be06f8ec9fea6928">XClock_InitClk</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> NodeType, u8 NodeIdx)</td></tr>
+<tr class="memdesc:gaa6261f129328bc75be06f8ec9fea6928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a CLOCKPS clock node.  <a href="group__clockps__api.html#gaa6261f129328bc75be06f8ec9fea6928">More...</a><br/></td></tr>
+<tr class="separator:gaa6261f129328bc75be06f8ec9fea6928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5034f55e410f1a80c481cc1210eb8640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga5034f55e410f1a80c481cc1210eb8640">XClock_UpdateTopologyRates</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> MatchType, u8 MatchIdx)</td></tr>
+<tr class="memdesc:ga5034f55e410f1a80c481cc1210eb8640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates rates for topologies that match a node.  <a href="group__clockps__api.html#ga5034f55e410f1a80c481cc1210eb8640">More...</a><br/></td></tr>
+<tr class="separator:ga5034f55e410f1a80c481cc1210eb8640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a27ed3448516742e318e9c5c91f3c8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga2a27ed3448516742e318e9c5c91f3c8e">XClock_UpdateRate</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> NodeType, u8 NodeIdx)</td></tr>
+<tr class="memdesc:ga2a27ed3448516742e318e9c5c91f3c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the rate for a CLOCKPS node.  <a href="group__clockps__api.html#ga2a27ed3448516742e318e9c5c91f3c8e">More...</a><br/></td></tr>
+<tr class="separator:ga2a27ed3448516742e318e9c5c91f3c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66c5ca9d5d0eb9d441dd5502e8ac5a99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__clockps.html#gaf55785e68481a5b3236a81a4f02c10dc">XClockRate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga66c5ca9d5d0eb9d441dd5502e8ac5a99">XClock_FetchRate</a> (<a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> NodeType, u8 NodeIdx)</td></tr>
+<tr class="memdesc:ga66c5ca9d5d0eb9d441dd5502e8ac5a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the rate of a CLOCKPS node.  <a href="group__clockps__api.html#ga66c5ca9d5d0eb9d441dd5502e8ac5a99">More...</a><br/></td></tr>
+<tr class="separator:ga66c5ca9d5d0eb9d441dd5502e8ac5a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabcb827e01cf8cc8569ad8ba19f6751d6"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gabcb827e01cf8cc8569ad8ba19f6751d6">XClock_GetParent</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId, <a class="el" href="group__clockps.html#ga27ee342ef73604418931cd810442e4f7">XClock_Types</a> *NodeType, u8 *NodeIdx)</td></tr>
+<tr class="memdesc:gabcb827e01cf8cc8569ad8ba19f6751d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the parent of an output clock.  <a href="group__clockps__api.html#gabcb827e01cf8cc8569ad8ba19f6751d6">More...</a><br/></td></tr>
+<tr class="separator:gabcb827e01cf8cc8569ad8ba19f6751d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb78e72aeac129983e846bc6d9b56c38"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gabb78e72aeac129983e846bc6d9b56c38">XClock_SetParent</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId, u8 MuxIdx, u8 SetParentIdx)</td></tr>
+<tr class="memdesc:gabb78e72aeac129983e846bc6d9b56c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent of an output clock.  <a href="group__clockps__api.html#gabb78e72aeac129983e846bc6d9b56c38">More...</a><br/></td></tr>
+<tr class="separator:gabb78e72aeac129983e846bc6d9b56c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a9ec600b2cd8a06b7f204d21f3a69f8"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga9a9ec600b2cd8a06b7f204d21f3a69f8">XClock_GetRate</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId, <a class="el" href="group__clockps.html#gaf55785e68481a5b3236a81a4f02c10dc">XClockRate</a> *Rate)</td></tr>
+<tr class="memdesc:ga9a9ec600b2cd8a06b7f204d21f3a69f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the rate of an output clock.  <a href="group__clockps__api.html#ga9a9ec600b2cd8a06b7f204d21f3a69f8">More...</a><br/></td></tr>
+<tr class="separator:ga9a9ec600b2cd8a06b7f204d21f3a69f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93aed14dac8c32fba1804206dd773b8e"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga93aed14dac8c32fba1804206dd773b8e">XClock_SetRate</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId, <a class="el" href="group__clockps.html#gaf55785e68481a5b3236a81a4f02c10dc">XClockRate</a> Rate, <a class="el" href="group__clockps.html#gaf55785e68481a5b3236a81a4f02c10dc">XClockRate</a> *SetRate)</td></tr>
+<tr class="memdesc:ga93aed14dac8c32fba1804206dd773b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the rate of an output clock.  <a href="group__clockps__api.html#ga93aed14dac8c32fba1804206dd773b8e">More...</a><br/></td></tr>
+<tr class="separator:ga93aed14dac8c32fba1804206dd773b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8ce76ddaea20e6e0a87309402b873bd"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gae8ce76ddaea20e6e0a87309402b873bd">XClock_EnableClock</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId)</td></tr>
+<tr class="memdesc:gae8ce76ddaea20e6e0a87309402b873bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables an output clock by clock ID.  <a href="group__clockps__api.html#gae8ce76ddaea20e6e0a87309402b873bd">More...</a><br/></td></tr>
+<tr class="separator:gae8ce76ddaea20e6e0a87309402b873bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b1a403586ac1434604e6b6cad10ef9d"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga5b1a403586ac1434604e6b6cad10ef9d">XClock_DisableClock</a> (<a class="el" href="group__clockps.html#ga474490e4890cee518764e6986cea21e2">XClock_OutputClks</a> ClockId)</td></tr>
+<tr class="memdesc:ga5b1a403586ac1434604e6b6cad10ef9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables an output clock by clock ID.  <a href="group__clockps__api.html#ga5b1a403586ac1434604e6b6cad10ef9d">More...</a><br/></td></tr>
+<tr class="separator:ga5b1a403586ac1434604e6b6cad10ef9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

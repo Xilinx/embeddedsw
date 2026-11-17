@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pldomain_8h" kind="file">
+    <compoundname>xpm_pldomain.h</compoundname>
+    <includes local="yes">xpm_pldomain_plat.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__bisr__plat_8c" local="yes">xpm_bisr_plat.c</includedby>
+    <includedby refid="server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="server_2xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <includedby refid="server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="server_2xpm__repair_8c" local="yes">xpm_repair.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__bisr_8c" local="yes">xpm_bisr.c</includedby>
+    <includedby refid="xpm__pldomain_8c" local="yes">xpm_pldomain.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="5781">
+        <label>xpm_pldomain.h</label>
+        <link refid="xpm_pldomain.h"/>
+        <childnode refid="5782" relation="include">
+        </childnode>
+      </node>
+      <node id="5782">
+        <label>xpm_pldomain_plat.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5784">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="5794">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="5792">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="5788">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="5785">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="5789">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="5793">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="5783">
+        <label>xpm_pldomain.h</label>
+        <link refid="xpm_pldomain.h"/>
+        <childnode refid="5784" relation="include">
+        </childnode>
+        <childnode refid="5785" relation="include">
+        </childnode>
+        <childnode refid="5786" relation="include">
+        </childnode>
+        <childnode refid="5787" relation="include">
+        </childnode>
+        <childnode refid="5788" relation="include">
+        </childnode>
+        <childnode refid="5789" relation="include">
+        </childnode>
+        <childnode refid="5790" relation="include">
+        </childnode>
+        <childnode refid="5791" relation="include">
+        </childnode>
+        <childnode refid="5792" relation="include">
+        </childnode>
+        <childnode refid="5793" relation="include">
+        </childnode>
+        <childnode refid="5794" relation="include">
+        </childnode>
+        <childnode refid="5795" relation="include">
+        </childnode>
+        <childnode refid="5796" relation="include">
+        </childnode>
+        <childnode refid="5797" relation="include">
+        </childnode>
+      </node>
+      <node id="5796">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="5786">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="5795">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="5787">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="5797">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="5791">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="5790">
+        <label>xpm_repair.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pldomain_8h_1a5dffef2597d52dbb942f4176929f9f25" prot="public" static="no">
+        <name>XPM_PL_TRIM_VGG</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pldomain_8h_1a934138263ff622b060f507a6364e5658" prot="public" static="no">
+        <name>XPM_PL_TRIM_CRAM</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pldomain_8h_1a61664632c23d87b86d7367085d02d503" prot="public" static="no">
+        <name>XPM_PL_TRIM_BRAM</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pldomain_8h_1aa852305924b0045c650e019e43ddbb34" prot="public" static="no">
+        <name>XPM_PL_TRIM_URAM</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pldomain_8h_1aad7be34f22c5dba04ec1430edd6e3f8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDomain_RetriggerPlHouseClean</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmPlDomain_RetriggerPlHouseClean</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>changed to support minimum boot time xilpm this service is not supported at boot time</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.c" bodystart="2980" bodyend="3030"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldomain_8h_1a762790b2de7b8e8db9924f23c57f362b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus ReduceCfuClkFreq</definition>
+        <argsstring>(void)</argsstring>
+        <name>ReduceCfuClkFreq</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reduces the CFU clock frequency by dividing by 2. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful operation.</para></simplesect>
+<simplesect kind="note"><para>This function checks the MSB of CFU divisor register value. If MSB is set, (meaning left shifting would cause the overflow) then it does not reduce the CFU frequency and return with XST_SUCCESS; otherwise, it reduces the clock frequency by 2 by left shifting one bit. Also, calling this function twice consecutively cannot cause the reducing the CFU clock frequency by 4. Only the first function call works. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.c" bodystart="32" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldomain_8h_1afd63f47a869c3bdf876db047354ea4cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus RestoreCfuClkFreq</definition>
+        <argsstring>(void)</argsstring>
+        <name>RestoreCfuClkFreq</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function restores the CFU clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful operation XST_FAILURE on incorrect clock divider states</para></simplesect>
+<simplesect kind="note"><para>This function, instead of right shifting one bit, utilizes a stored variable to restore the original clock frequency back. It also checks the existing CFU clk setting to make sure the frequency is as expected, and returns an error if not. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.c" bodystart="89" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PLDOMAIN_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PLDOMAIN_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pldomain_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TRIM<sp/>Types<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PL_TRIM_VGG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PL_TRIM_CRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PL_TRIM_BRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PL_TRIM_URAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">XStatus<sp/>XPmPlDomain_RetriggerPlHouseClean(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">XStatus<sp/>ReduceCfuClkFreq(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">XStatus<sp/>RestoreCfuClkFreq(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PLDOMAIN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldomain.h"/>
+  </compounddef>
+</doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -43,14 +43,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" bodystart="51" bodyend="87"/>
-        <references refid="struct_x_v___sdi_rx_ss___sub_core_1a9f70e8bf6414426919b91556c034c334" compoundref="xv__sdirxss_8h" startline="124">XV_SdiRxSs_SubCore::AbsAddr</references>
-        <references refid="struct_x_v___sdi_rx_ss_1a881d8188fa81829cfb38a44aea36e7a1" compoundref="xv__sdirxss_8h" startline="169">XV_SdiRxSs::Config</references>
-        <references refid="struct_x_v___sdi_rx_ss___config_1a778de600283189203c525664695ca373" compoundref="xv__sdirxss_8h" startline="143">XV_SdiRxSs_Config::SdiRx</references>
-        <references refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" compoundref="xv__sdirxss_8h" startline="172">XV_SdiRxSs::SdiRxPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" bodystart="51" bodyend="83"/>
+        <references refid="struct_x_v___sdi_rx_ss___sub_core_1a9f70e8bf6414426919b91556c034c334" compoundref="xv__sdirxss_8h" startline="120">XV_SdiRxSs_SubCore::AbsAddr</references>
+        <references refid="struct_x_v___sdi_rx_ss_1a881d8188fa81829cfb38a44aea36e7a1" compoundref="xv__sdirxss_8h" startline="158">XV_SdiRxSs::Config</references>
+        <references refid="struct_x_v___sdi_rx_ss___config_1a778de600283189203c525664695ca373" compoundref="xv__sdirxss_8h" startline="134">XV_SdiRxSs_Config::SdiRx</references>
+        <references refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" compoundref="xv__sdirxss_8h" startline="161">XV_SdiRxSs::SdiRxPtr</references>
         <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baab255967dc5490db2cd7f57f778aec61e" compoundref="xv__sdirxss_8h" startline="76">XV_SDIRXSS_LOG_EVT_SDIRX_INIT</references>
         <references refid="xv__sdirxss_8h_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</references>
-        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="188" endline="221">XV_SdiRxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__sdirxss_1ga5fe6048ab8f1692c136fd89d6fdf4e46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -79,9 +79,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_selftest.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_selftest.c" bodystart="62" bodyend="78"/>
-        <references refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" compoundref="xv__sdirxss_8h" startline="172">XV_SdiRxSs::SdiRxPtr</references>
-        <referencedby refid="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" compoundref="xv__sdirxss__selftest__example_8c" startline="125" endline="153">SdiRxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_selftest.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_selftest.c" bodystart="62" bodyend="78"/>
+        <references refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" compoundref="xv__sdirxss_8h" startline="161">XV_SdiRxSs::SdiRxPtr</references>
+        <referencedby refid="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" compoundref="xv__sdirxss__selftest__example_8c" startline="107" endline="130">SdiRxSs_SelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -110,12 +110,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="125" bodyend="153"/>
-        <references refid="struct_x_v___sdi_rx_ss___config_1a532428467186a468acb210613f45d5cf" compoundref="xv__sdirxss_8h" startline="138">XV_SdiRxSs_Config::BaseAddress</references>
-        <references refid="xv__sdirxss_8c_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</references>
-        <references refid="xv__sdirxss_8h_1a6477e5d562f985c1492fa3efdea84ffe" compoundref="xv__sdirxss__sinit_8c" startline="72" endline="85">XV_SdiRxSs_LookupConfig</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="107" bodyend="130"/>
+        <references refid="struct_x_v___sdi_rx_ss___config_1a532428467186a468acb210613f45d5cf" compoundref="xv__sdirxss_8h" startline="129">XV_SdiRxSs_Config::BaseAddress</references>
+        <references refid="xv__sdirxss_8c_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="188" endline="221">XV_SdiRxSs_CfgInitialize</references>
+        <references refid="xv__sdirxss_8h_1a6477e5d562f985c1492fa3efdea84ffe" compoundref="xv__sdirxss__sinit_8c" startline="57" endline="70">XV_SdiRxSs_LookupConfig</references>
         <references refid="group__v__sdirxss_1ga5fe6048ab8f1692c136fd89d6fdf4e46" compoundref="xv__sdirxss__selftest_8c" startline="62" endline="78">XV_SdiRxSs_SelfTest</references>
-        <referencedby refid="group__v__sdirxss_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__sdirxss__selftest__example_8c" startline="80" endline="102">main</referencedby>
+        <referencedby refid="group__v__sdirxss_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__sdirxss__selftest__example_8c" startline="69" endline="87">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__sdirxss_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -140,8 +140,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="80" bodyend="102"/>
-        <references refid="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" compoundref="xv__sdirxss__selftest__example_8c" startline="125" endline="153">SdiRxSs_SelfTestExample</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xv_sdirxss_selftest_example.c" bodystart="69" bodyend="87"/>
+        <references refid="group__v__sdirxss_1gaece5f16f00b58b19e490d16c3323afac" compoundref="xv__sdirxss__selftest__example_8c" startline="107" endline="130">SdiRxSs_SelfTestExample</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -154,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" bodystart="27" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

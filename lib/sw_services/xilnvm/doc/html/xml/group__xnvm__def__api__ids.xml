@@ -22,7 +22,99 @@
     <innerclass refid="struct_x_nvm___efuse_user_data_addr" prot="public">XNvm_EfuseUserDataAddr</innerclass>
     <innerclass refid="struct_x_nvm___efuse_data_addr" prot="public">XNvm_EfuseDataAddr</innerclass>
     <innerclass refid="struct_x_nvm___efuse_dme_revoke_id" prot="public">XNvm_EfuseDmeRevokeId</innerclass>
+      <sectiondef kind="user-defined">
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga7fd9a5bf7b80ee78101050e35daf9f40" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_SIZE</name>
+        <initializer>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</initializer>
+        <briefdescription>
+<para>BBRAM AES Key size. </para>        </briefdescription>
+        <detaileddescription>
+<para>AES Key size in bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" compoundref="xnvm__bbramclient_8c" startline="65" endline="96">XNvm_BbramWriteAesKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga3201b971919b08d8190b4927bd3da3ec" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS</name>
+        <initializer>(<ref refid="group__xnvm__def__api__ids_1ga7fd9a5bf7b80ee78101050e35daf9f40" kindref="member">XNVM_BBRAM_AES_KEY_SIZE</ref> / sizeof(u32))</initializer>
+        <briefdescription>
+<para>AES Key size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga632eec83c61050915d7c9952ca85af60" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xnvm__def__api__ids_1gadf764cbdea00d65edcd07bb9953ad2b7" prot="public" static="no">
+        <name>@1</name>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7a37280e2abc558de6b57ad3df042adfa8" prot="public">
+          <name>XNVM_CAP_ACCESS_PUF_USER_DATA_BIT</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>XNVM_ACCESS_PUF_USER_DATA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7a8f2d2e875126bfe80fb94ef64a9aca45" prot="public">
+          <name>XNVM_CAP_EN_ADD_PPKS_BIT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>XNVM_EN_ADD_PPKS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7ad117a11fb4ede7028eb37558d5bb88dd" prot="public">
+          <name>XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE_BIT</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>XNVM_WRITE_SECURITY_CRITICAL_EFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7aadf099f8c2f12d61de269885c3f21084" prot="public">
+          <name>XNVM_CAP_WRITE_USER_EFUSE_BIT</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>XNVM_WRITE_USER_EFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7ad84b04e4daa4b39f09d8ced068423abb" prot="public">
+          <name>XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE_BIT</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>XNVM_WRITE_KEY_MANAGEMENT_EFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7a10ede66949538e1f4c79613bc1104c1a" prot="public">
+          <name>XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA_BIT</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggadf764cbdea00d65edcd07bb9953ad2b7a67dd5f70f8f19375df5b95b643b0b9d9" prot="public">
+          <name>XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS_BIT</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>XNVM_ENABLE_ENV_MONITOR_CHECKS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilNvm capability bits in Xil_LibInfo.Capability[0] returned in the Features-command library-info response. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each enumerator is a bit position. Do not reorder. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="107" bodyend="115"/>
+      </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1ga9b9c488dfe06ff2966d5ded5f5ec76ba" prot="public" static="no">
         <name>XNvm_IvType</name>
         <enumvalue id="group__xnvm__def__api__ids_1gga9b9c488dfe06ff2966d5ded5f5ec76baa884b29c04e75cd096aaafeff16bd41de" prot="public">
@@ -60,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="103" bodyend="108"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="143" bodyend="148"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1gaafc5df161f553f1717cbf341bc30cd2c" prot="public" static="no">
         <name>XNvm_PpkType</name>
@@ -86,13 +178,27 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggaafc5df161f553f1717cbf341bc30cd2ca317e03f738b958fb3cd8f0fb2e37b3bc" prot="public">
+          <name>XNVM_EFUSE_PPK3</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggaafc5df161f553f1717cbf341bc30cd2caf933249ad1d5d94f19de28a5363af266" prot="public">
+          <name>XNVM_EFUSE_PPK4</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
 <para>Enum for PPK types. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="111" bodyend="119"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="151" bodyend="157"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1ga3b0258a29c1f095e8949ab58e45e9540" prot="public" static="no">
         <name>XNvm_AesKeyType</name>
@@ -121,10 +227,10 @@
         <briefdescription>
 <para>Enum for Aes key types. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Key types from XNVM_EFUSE_AES_KEY_2ND onwards address the independent secondary eFUSE slots of Versal_2Ve_2Vm and Versal_2Vp_P. The server routes every key type at or above that value to the platform layer, so these values must stay last. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="122" bodyend="126"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="167" bodyend="176"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1ga2d6a5249bee4709d3ab0eccb810e1ee9" prot="public" static="no">
         <name>XNvm_RevocationId</name>
@@ -191,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="129" bodyend="138"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="179" bodyend="188"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1gaf84fe281e56c68dea0409b055fd2cd26" prot="public" static="no">
         <name>XNvm_OffchipId</name>
@@ -266,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="141" bodyend="151"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="191" bodyend="201"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1gafefb58b4bc539bff958b4da2dbdfdd15" prot="public" static="no">
         <name>XNvm_ApiId</name>
@@ -799,6 +905,20 @@
         </enumvalue>
         <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a39814e7a61f4c4a350c9f4efadcb6a03" prot="public">
           <name>XNVM_API_ID_EFUSE_WRITE_DME_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5c6d55522a71887849c7fbd814a3b2d1" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af16899e93ea381ffc3b39046cec6d036" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -824,7 +944,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" bodystart="146" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" bodystart="146" bodyend="186"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__def__api__ids_1gafefb58b4bc539bff958b4da2dbdfdd15" prot="public" static="no">
         <name>XNvm_ApiId</name>
@@ -1362,6 +1482,20 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5c6d55522a71887849c7fbd814a3b2d1" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af16899e93ea381ffc3b39046cec6d036" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" prot="public">
           <name>XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</name>
           <briefdescription>
@@ -1382,7 +1516,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_defs.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_defs.h" bodystart="546" bodyend="592"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_defs.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_defs.h" bodystart="550" bodyend="592"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -1395,8 +1529,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="49" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1708" endline="1828">XNvm_EfuseReadPuf</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="next_2client_2xnvm__efuseclient_8c" startline="1733" endline="1853">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga3e5b32d4a7ec60464f46788458b5e67f" compoundref="xnvm__efuse__plat_8c" startline="122" endline="169">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga5c05d1181dfada411f0627f7ea676c11" prot="public" static="no">
         <name>XNVM_NUM_OF_REVOKE_ID_FUSES</name>
@@ -1407,8 +1542,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="50" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" compoundref="client_2xnvm__efuseclient_8c" startline="299" endline="374">XNvm_EfuseWriteRevocationId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" compoundref="client_2xnvm__efuseclient_8c" startline="301" endline="376">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="315" endline="332">XNvm_EfuseWriteRevocationID</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gaa7f7b6c8917369edc7cb2e7cc55caa12" prot="public" static="no">
         <name>XNVM_NUM_OF_OFFCHIP_ID_FUSES</name>
@@ -1419,7 +1555,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="348" endline="365">XNvm_EfuseWriteOffChipRevokeID</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga187d1e419e66b1ba10a3a73debd9904d" prot="public" static="no">
+        <name>XNVM_EFUSE_WORD_LEN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>eFuse word length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gaaf965e82f749494f8504f3c8556c1863" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_LEN_IN_WORDS</name>
@@ -1430,7 +1578,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga475005d64d5d8d97dae539743f7793b9" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="116" endline="159">XNvm_EfuseWriteAesKey</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gae1984762c1944ac8c80f3106dd665d00" prot="public" static="no">
         <name>XNVM_EFUSE_IV_LEN_IN_WORDS</name>
@@ -1441,20 +1590,43 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="53" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga135e1963c74a2381565bd628c81720c0" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1845" endline="1901">XNvm_EfuseReadIv</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga135e1963c74a2381565bd628c81720c0" compoundref="next_2client_2xnvm__efuseclient_8c" startline="1870" endline="1926">XNvm_EfuseReadIv</referencedby>
       </memberdef>
-      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga77d5f99272bcd933950fca66031e544a" prot="public" static="no">
-        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</name>
-        <initializer>(8U)</initializer>
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
         <briefdescription>
-<para>PPK Hash length in words for Versal and VersalNet. </para>        </briefdescription>
+<para>PPK hash length in bytes for Versal, VersalNet and Versal_2vp. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="55" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2770" endline="2822">XNvm_EfuseReadPpkHash</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1gaefbf4e27b6843265081be643b58c9ea0" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</name>
+        <initializer>(<ref refid="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</ref> * 8U)</initializer>
+        <briefdescription>
+<para>PPK hash length in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="74" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga77d5f99272bcd933950fca66031e544a" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</name>
+        <initializer>(<ref refid="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</ref> / XNVM_WORD_LEN)</initializer>
+        <briefdescription>
+<para>PPK hash length in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="next_2client_2xnvm__efuseclient_8c" startline="2795" endline="2849">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5093d8298f30653879f3f0f3023029bd" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="177" endline="190">XNvm_EfuseWritePpkHash</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gada6b833758f1fca50f00e996c5a427c3" prot="public" static="no">
         <name>XNVM_EFUSE_DNA_LEN_IN_WORDS</name>
@@ -1465,8 +1637,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="59" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="59" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga565100f1268558cbededcebb9b29804d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2995" endline="3027">XNvm_EfuseReadDna</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga565100f1268558cbededcebb9b29804d" compoundref="next_2client_2xnvm__efuseclient_8c" startline="3022" endline="3054">XNvm_EfuseReadDna</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga30c71b69091debd236b89cc121df35f2" prot="public" static="no">
         <name>XNVM_EFUSE_IV_LEN_IN_BITS</name>
@@ -1477,7 +1649,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gacf2cf44f1f64595a6dacd7af19a7e54f" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_LEN_IN_BITS</name>
@@ -1488,18 +1660,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="61" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__def__api__ids_1gaefbf4e27b6843265081be643b58c9ea0" prot="public" static="no">
-        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</name>
-        <initializer>(256U)</initializer>
-        <briefdescription>
-<para>PPK hash length in bits for Versal and VersalNet. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga9435113a07aefdaab43f2178d121de0b" prot="public" static="no">
         <name>XNVM_EFUSE_IV_LEN_IN_BYTES</name>
@@ -1510,7 +1671,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="67" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga9b6fa417448d6983db8491b58f5ab3f0" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_LEN_IN_BYTES</name>
@@ -1521,18 +1682,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="68" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" prot="public" static="no">
-        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</name>
-        <initializer>(32U)</initializer>
-        <briefdescription>
-<para>PPK hash length in bytes. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga6ae9c460e837225a637dd5cc35ad39bb" prot="public" static="no">
         <name>XNVM_IV_STRING_LEN</name>
@@ -1543,55 +1693,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="70" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__def__api__ids_1gaea0d7fa1f00d844fe51451c22316b9e8" prot="public" static="no">
-        <name>XNVM_WORD_LEN</name>
-        <initializer>(4U)</initializer>
-        <briefdescription>
-<para>WORD length. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="71" bodyend="-1"/>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga074ef023f48a3f5164b0bf0f6d464d5c" compoundref="xnvm__validate_8c" startline="376" endline="412">XNvm_EfuseCheckZeros</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gad54e3a2965d27295dc233e5e3084adf8" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2353" endline="2426">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga9d3f76422408b4102f47ad332ebb3a8a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2886" endline="2918">XNvm_EfuseReadBootModeDis</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga3c6422fdd2090d7a3408337c5ab0e737" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2838" endline="2870">XNvm_EfuseReadDecOnly</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gaa5cc5a2ddb36b51e0f5b160844c262e6" compoundref="net_2client_2xnvm__efuseclient_8c" startline="703" endline="735">XNvm_EfuseReadDmeMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga565100f1268558cbededcebb9b29804d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2995" endline="3027">XNvm_EfuseReadDna</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga135e1963c74a2381565bd628c81720c0" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1845" endline="1901">XNvm_EfuseReadIv</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga1c35752ba6d01bc69f9d78cfddda2e82" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2035" endline="2120">XNvm_EfuseReadMiscCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gace5819e71d300759eee7614e4a7f9ab5" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2713" endline="2753">XNvm_EfuseReadOffchipRevokeId</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2770" endline="2822">XNvm_EfuseReadPpkHash</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1708" endline="1828">XNvm_EfuseReadPuf</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga72d33a554a48e21836973409c882919d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2610" endline="2696">XNvm_EfuseReadPufSecCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gaba1d1f6b3110db2162dfbade9ddd0e0b" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1918" endline="1958">XNvm_EfuseReadRevocationId</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gade0feaf32fbb8bb279b71be47e838870" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2272" endline="2337">XNvm_EfuseReadSecMisc1Bits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga9bb1800b8836e8b5b93a2f3280ffd028" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1060" endline="1103">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gaaefd51d906cc8e0ab94021cc66117db7" compoundref="net_2client_2xnvm__efuseclient_8c" startline="937" endline="980">XNvm_EfuseWriteBootModeDis</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga3fe9a35b9f742edadd32e748601834af" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1296" endline="1337">XNvm_EfuseWriteDecOnly</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga0451643f0fb100232b825a43e98dc31f" compoundref="net_2client_2xnvm__efuseclient_8c" startline="430" endline="485">XNvm_EfuseWriteDiceUds</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga2fe80756c7fd8ac54259cb078673b929" compoundref="net_2client_2xnvm__efuseclient_8c" startline="644" endline="687">XNvm_EfuseWriteDmeMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gaa3d72c2fc1303437a2bd30a1984e3e81" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1355" endline="1398">XNvm_EfuseWriteFipsInfo</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga75863c5bebf00e95dff382a754c77473" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1181" endline="1223">XNvm_EfuseWriteGlitchConfigBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gab876f823d2385d13f6d16654464bcd4b" compoundref="net_2client_2xnvm__efuseclient_8c" startline="876" endline="919">XNvm_EfuseWriteMiscCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gac15adc21769d673aa1e7f3bf371e9eb5" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1474" endline="1516">XNvm_EfuseWriteOffChipRevocationId</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga23cf0605525481bcf5f286ec6de7523e" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1239" endline="1280">XNvm_EfuseWritePlmUpdate</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga66f2ff5082708dd36846edc278f5a08e" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1641" endline="1692">XNvm_EfuseWritePuf</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga64be6dbb240bc0ae308f7e8463dbfbed" compoundref="net_2client_2xnvm__efuseclient_8c" startline="815" endline="858">XNvm_EfuseWritePufCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga1754fe500ff158eeb5f0b3309c91c623" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1415" endline="1457">XNvm_EfuseWriteRevocationId</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1gad3821263965e76d7205032b8b37d6d2a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1121" endline="1163">XNvm_EfuseWriteRomRsvdBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga0fff3a9010545e93ce2653cce3dd7cb2" compoundref="net_2client_2xnvm__efuseclient_8c" startline="754" endline="797">XNvm_EfuseWriteSecCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga5035ae74158206735b20af385432738a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="999" endline="1042">XNvm_EfuseWriteSecMisc1Bits</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga5b4ffffd504310ff58b4d21f0308ff04" compoundref="net_2client_2xnvm__efuseclient_8c" startline="503" endline="563">XNvm_WriteDmePrivateKey</referencedby>
-        <referencedby refid="group__xnvm__efuse__client__apis_1ga580bc90d2135b7b70fa7967b5cb7245f" compoundref="net_2client_2xnvm__efuseclient_8c" startline="580" endline="626">XNvm_WriteDmeRevoke</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1gae90a96afb82790626728eb3e7b0f8c41" prot="public" static="no">
         <name>XNVM_EFUSE_CRC_AES_ZEROS</name>
@@ -1602,7 +1704,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga1487a71d1ace14c7922971867d200600" prot="public" static="no">
         <name>XNVM_EFUSE_MAX_BITS_IN_ROW</name>
@@ -1613,7 +1715,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__def__api__ids_1ga796a382bfe9b1db5b6d9ac7c37d5b3cf" prot="public" static="no">
         <name>XNVM_MAX_REVOKE_ID_FUSES</name>
@@ -1625,7 +1727,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

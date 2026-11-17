@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___block_status.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___block_status.html',''
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XRFdc_BlockStatus Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
 </div><!--header-->
@@ -115,9 +117,118 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___block_status.html',''
  <a href="struct_x_r_fdc___block_status.html#details">More...</a></p>
 
 <p><code>#include &lt;xrfdc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a89b0706ed0d2b10726b4ac72ea281993"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#a89b0706ed0d2b10726b4ac72ea281993">SamplingFreq</a></td></tr>
+<tr class="memdesc:a89b0706ed0d2b10726b4ac72ea281993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sampling frequency.  <a href="#a89b0706ed0d2b10726b4ac72ea281993">More...</a><br/></td></tr>
+<tr class="separator:a89b0706ed0d2b10726b4ac72ea281993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab28793c99543e63998f1db5be6ae387e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#ab28793c99543e63998f1db5be6ae387e">AnalogDataPathStatus</a></td></tr>
+<tr class="memdesc:ab28793c99543e63998f1db5be6ae387e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analog datapath status.  <a href="#ab28793c99543e63998f1db5be6ae387e">More...</a><br/></td></tr>
+<tr class="separator:ab28793c99543e63998f1db5be6ae387e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88992bfa2504315b19e795d218307374"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#a88992bfa2504315b19e795d218307374">DigitalDataPathStatus</a></td></tr>
+<tr class="memdesc:a88992bfa2504315b19e795d218307374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digital datapath status.  <a href="#a88992bfa2504315b19e795d218307374">More...</a><br/></td></tr>
+<tr class="separator:a88992bfa2504315b19e795d218307374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef4c7d3f5783e36fcf4f367aa4f9ca0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#abef4c7d3f5783e36fcf4f367aa4f9ca0">DataPathClocksStatus</a></td></tr>
+<tr class="memdesc:abef4c7d3f5783e36fcf4f367aa4f9ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether all required datapath clocks are enabled, 1 if all clocks enabled, 0 otherwise.  <a href="#abef4c7d3f5783e36fcf4f367aa4f9ca0">More...</a><br/></td></tr>
+<tr class="separator:abef4c7d3f5783e36fcf4f367aa4f9ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3285bbb6843da29857ce7dc27c38414"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#ac3285bbb6843da29857ce7dc27c38414">IsFIFOFlagsEnabled</a></td></tr>
+<tr class="memdesc:ac3285bbb6843da29857ce7dc27c38414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether FIFO flags are enabled, 1 if all flags enabled, 0 otherwise.  <a href="#ac3285bbb6843da29857ce7dc27c38414">More...</a><br/></td></tr>
+<tr class="separator:ac3285bbb6843da29857ce7dc27c38414"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194ef7fcad16939fe43c8274d0959771"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___block_status.html#a194ef7fcad16939fe43c8274d0959771">IsFIFOFlagsAsserted</a></td></tr>
+<tr class="memdesc:a194ef7fcad16939fe43c8274d0959771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether FIFO flags are asserted, 1 if all flags asserted, 0 otherwise.  <a href="#a194ef7fcad16939fe43c8274d0959771">More...</a><br/></td></tr>
+<tr class="separator:a194ef7fcad16939fe43c8274d0959771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>status of DAC or ADC blocks in the RFSoC Data converter. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ab28793c99543e63998f1db5be6ae387e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_BlockStatus::AnalogDataPathStatus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analog datapath status. </p>
+
+</div>
+</div>
+<a class="anchor" id="abef4c7d3f5783e36fcf4f367aa4f9ca0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a> XRFdc_BlockStatus::DataPathClocksStatus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether all required datapath clocks are enabled, 1 if all clocks enabled, 0 otherwise. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga89b677cb830fd202087220a23b609067">XRFdc_GetBlockStatus()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a88992bfa2504315b19e795d218307374"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_BlockStatus::DigitalDataPathStatus</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Digital datapath status. </p>
+
+</div>
+</div>
+<a class="anchor" id="a194ef7fcad16939fe43c8274d0959771"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a> XRFdc_BlockStatus::IsFIFOFlagsAsserted</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether FIFO flags are asserted, 1 if all flags asserted, 0 otherwise. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac3285bbb6843da29857ce7dc27c38414"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a> XRFdc_BlockStatus::IsFIFOFlagsEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether FIFO flags are enabled, 1 if all flags enabled, 0 otherwise. </p>
+
+</div>
+</div>
+<a class="anchor" id="a89b0706ed0d2b10726b4ac72ea281993"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double XRFdc_BlockStatus::SamplingFreq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sampling frequency. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

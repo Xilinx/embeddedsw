@@ -105,16 +105,33 @@ $(document).ready(function(){initNavTree('xiic__stats_8c.html','');});
 <div class="title">xiic_stats.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC statistics collection. </p>
+<p>Contains statistics functions for the <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> component.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01b jhl 3/26/02 repartioned the driver
+1.01c ecm 12/05/02 new rev
+1.13a wgr 03/22/07 Converted to new coding style.
+2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
+             Updated to use the HAL APIs/macros.
+             XIic_ClearStats function is updated as the
+             macro XIIC_CLEAR_STATS has been removed.
+3.13  bkv 02/20/25 Fixed run time error from invalid memory access.
+3.16  vn  07/30/26 Fix Doxygen warnings
+3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__i_8h.html">xiic_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae7a801efedbe489ba0e984dbf8f6daa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae7a801efedbe489ba0e984dbf8f6daa4">XIic_GetStats</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, <a class="el" href="struct_x_iic_stats.html">XIicStats</a> *StatsPtr)</td></tr>
-<tr class="memdesc:gae7a801efedbe489ba0e984dbf8f6daa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a copy of the statistics for an IIC device.  <a href="group___overview.html#gae7a801efedbe489ba0e984dbf8f6daa4">More...</a><br/></td></tr>
+<tr class="memitem:gae7a801efedbe489ba0e984dbf8f6daa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gae7a801efedbe489ba0e984dbf8f6daa4">XIic_GetStats</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, <a class="el" href="struct_x_iic_stats.html">XIicStats</a> *StatsPtr)</td></tr>
+<tr class="memdesc:gae7a801efedbe489ba0e984dbf8f6daa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a copy of the statistics for an IIC device.  <a href="group__iic__api.html#gae7a801efedbe489ba0e984dbf8f6daa4">More...</a><br/></td></tr>
 <tr class="separator:gae7a801efedbe489ba0e984dbf8f6daa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf56beeeacad67c0d24ad330ce5c42f90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf56beeeacad67c0d24ad330ce5c42f90">XIic_ClearStats</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf56beeeacad67c0d24ad330ce5c42f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the statistics for the IIC device by zeroing all counts.  <a href="group___overview.html#gaf56beeeacad67c0d24ad330ce5c42f90">More...</a><br/></td></tr>
+<tr class="memitem:gaf56beeeacad67c0d24ad330ce5c42f90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gaf56beeeacad67c0d24ad330ce5c42f90">XIic_ClearStats</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaf56beeeacad67c0d24ad330ce5c42f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the statistics for the IIC device by zeroing all counts.  <a href="group__iic__api.html#gaf56beeeacad67c0d24ad330ce5c42f90">More...</a><br/></td></tr>
 <tr class="separator:gaf56beeeacad67c0d24ad330ce5c42f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

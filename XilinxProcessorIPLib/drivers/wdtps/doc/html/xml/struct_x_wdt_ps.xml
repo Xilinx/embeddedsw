@@ -15,15 +15,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="136" bodyend="-1"/>
-        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="73" endline="112">XWdtPs_CfgInitialize</referencedby>
-        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
-        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
-        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
-        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
-        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
-        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
-        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="76" endline="115">XWdtPs_CfgInitialize</referencedby>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="269" endline="308">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="214" endline="253">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="332" endline="367">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="68" endline="148">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="393" endline="439">XWdtPs_SetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="125" endline="156">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="170" endline="197">XWdtPs_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -36,15 +36,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="137" bodyend="-1"/>
-        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="73" endline="112">XWdtPs_CfgInitialize</referencedby>
-        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
-        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
-        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
-        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
-        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
-        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
-        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="76" endline="115">XWdtPs_CfgInitialize</referencedby>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="269" endline="308">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="214" endline="253">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="332" endline="367">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="68" endline="148">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="393" endline="439">XWdtPs_SetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="125" endline="156">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="170" endline="197">XWdtPs_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_wdt_ps_1ae48dad9bc1c3b06fdbdc40cb64501dd5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,16 +57,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="138" bodyend="-1"/>
-        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="73" endline="112">XWdtPs_CfgInitialize</referencedby>
-        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
-        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" compoundref="xwdtps_8c" startline="76" endline="115">XWdtPs_CfgInitialize</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="125" endline="156">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="170" endline="197">XWdtPs_Stop</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> driver instance data. </para>    </briefdescription>
+<para>Stores the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every watchdog/timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>The application must allocate a variable of this type for every watchdog/timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="1">
         <label>XWdtPs</label>
@@ -80,7 +80,7 @@
         <link refid="struct_x_wdt_ps___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="135" bodyend="139"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="145" bodyend="149"/>
     <listofallmembers>
       <member refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" prot="public" virt="non-virtual"><scope>XWdtPs</scope><name>Config</name></member>
       <member refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" prot="public" virt="non-virtual"><scope>XWdtPs</scope><name>IsReady</name></member>

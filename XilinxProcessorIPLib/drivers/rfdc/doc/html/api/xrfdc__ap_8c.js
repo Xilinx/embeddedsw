@@ -1,5 +1,17 @@
 var xrfdc__ap_8c =
 [
+    [ "XRFDC_BLDR_GAIN", "xrfdc__ap_8c.html#ga7a0e4255223bf8da286f886817720fea", null ],
+    [ "XRFDC_CSCAS_BLDR", "xrfdc__ap_8c.html#gae12adacb7ea1b82d4caec81a2c00c6b5", null ],
+    [ "XRFDC_DAC_LINK_COUPLING_AC", "xrfdc__ap_8c.html#gaced17c9466343ebb400e3d72be82df60", null ],
+    [ "XRFDC_MIN_I_UA_INT", "xrfdc__ap_8c.html#ga9bbc846e0b42ac2f052d4239ec83fa36", null ],
+    [ "XRFDC_OPCAS_BIAS", "xrfdc__ap_8c.html#ga038b6dde9ca955f8f9a2032f4022ebef", null ],
+    [ "XRFDC_STEP_I_UA", "xrfdc__ap_8c.html#ga1cbd1e329765d0ec108051099a370b8e", null ],
+    [ "XRFDC_VOP_AC_MAX_UA", "xrfdc__ap_8c.html#ga6949375a5a2c047a48b11929f8fb7b0f", null ],
+    [ "XRFDC_VOP_AC_MIN_UA", "xrfdc__ap_8c.html#ga7ba735a677d7f1fbfaa3aca72e1ae131", null ],
+    [ "XRFDC_VOP_DC_MAX_UA", "xrfdc__ap_8c.html#ga44e4965a79ee46057fcb33298092d162", null ],
+    [ "XRFDC_VOP_DC_MIN_UA", "xrfdc__ap_8c.html#gad2b90df9189664df8e4edb79e924784f", null ],
+    [ "XRFDC_VOP_ES1_AC_MAX_UA", "xrfdc__ap_8c.html#gab29d12c51f006506240d5d66cda23257", null ],
+    [ "XRFDC_VOP_ES1_AC_MIN_UA", "xrfdc__ap_8c.html#gaf2bbd300f3c189de17e7444f283c7b07", null ],
     [ "XRFdc_CheckBlockEnabled", "xrfdc__ap_8c.html#ga21d64e03d2ee900cfa8310ceb2e4e063", null ],
     [ "XRFdc_DisableCoefficientsOverride", "xrfdc__ap_8c.html#gadd43c4d3f675553864148accac53099f", null ],
     [ "XRFdc_GetCalCoefficients", "xrfdc__ap_8c.html#ga67047aa102b426a42f263b151fbed1a8", null ],

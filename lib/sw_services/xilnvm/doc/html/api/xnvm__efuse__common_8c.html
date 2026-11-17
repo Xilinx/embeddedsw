@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__common_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -118,10 +118,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 3.1   skg  10/25/2022 Added in body comments for APIs
       kal  03/07/2023 Added volatile keyword for Status variables
 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
-      vss  09/19/2023   Fixed MISRA-C Rule 8.7 violation
+          vss  09/19/2023       Fixed MISRA-C Rule 8.7 violation
 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
       ng   11/22/2023 Fixed doxygen grouping
-3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze</pre><pre></pre> </div><div class="textblock"><code>#include &quot;sleep.h&quot;</code><br/>
+3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
+      obs  03/26/2026 Replaced XSysMonPsv driver APIs with direct register
+                      access via XPlmi_SysMon helpers
+3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+      mkr  10/03/2026 Fixed Temparature typo, renamed error codes to XNVM_EFUSE_ERR_ prefix,
+                      fixed doxygen comments, and removed duplicate XNVM_EFUSE_WORD_LEN</pre><pre></pre> </div><div class="textblock"><code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;xil_sutil.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
@@ -185,9 +190,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ad803c38ffc552fe2bc5f6c5f8e6dab70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common_8c.html#ad803c38ffc552fe2bc5f6c5f8e6dab70">XNVM_EFUSE_FRACTION_MUL_VALUE</a>&#160;&#160;&#160;(1000000U)</td></tr>
 <tr class="memdesc:ad803c38ffc552fe2bc5f6c5f8e6dab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fraction multiplier value.  <a href="#ad803c38ffc552fe2bc5f6c5f8e6dab70">More...</a><br/></td></tr>
 <tr class="separator:ad803c38ffc552fe2bc5f6c5f8e6dab70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a187d1e419e66b1ba10a3a73debd9904d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common_8c.html#a187d1e419e66b1ba10a3a73debd9904d">XNVM_EFUSE_WORD_LEN</a>&#160;&#160;&#160;(4U)</td></tr>
-<tr class="memdesc:a187d1e419e66b1ba10a3a73debd9904d"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse word length  <a href="#a187d1e419e66b1ba10a3a73debd9904d">More...</a><br/></td></tr>
-<tr class="separator:a187d1e419e66b1ba10a3a73debd9904d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -224,9 +226,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac3c8a8519db111050a86072af33a7f9d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">XNvm_GetSysmonSupplyRegId</a> (UINTPTR SysmonpsvSatBaseAddr)</td></tr>
 <tr class="memdesc:gac3c8a8519db111050a86072af33a7f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads root register ID where measurement is stored in Root SysMon.  <a href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">More...</a><br/></td></tr>
 <tr class="separator:gac3c8a8519db111050a86072af33a7f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks</a> (const XSysMonPsv *SysMonInstPtr)</td></tr>
-<tr class="memdesc:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the Temperature and Voltage checks to ensure that they are in limits before eFuse programming.  <a href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">More...</a><br/></td></tr>
-<tr class="separator:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks</a> (const <a class="el" href="group__xnvm__efuse__server__apis.html#ga0da3096084d96372961ec1068e895cd6">XNvm_SysmonPsv</a> *SysMonInstPtr)</td></tr>
+<tr class="memdesc:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the Temperature and Voltage checks to ensure that they are in limits before eFuse programming.  <a href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">More...</a><br/></td></tr>
+<tr class="separator:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">XNvm_EfuseReadProtectionBits</a> (u32 Mask)</td></tr>
 <tr class="memdesc:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the corresponding eFuse protection bits.  <a href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">More...</a><br/></td></tr>
 <tr class="separator:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,7 +246,7 @@ Functions</h2></td></tr>
 
 <p>Fraction multiplier value. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>.</p>
 
 </div>
 </div>
@@ -260,7 +262,7 @@ Functions</h2></td></tr>
 
 <p>Default secure value for 32 bit. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gab18b9343a842ff2c9d533625bd4ffe9a">XNvm_EfuseSetReadMode()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">XNvm_GetSysmonSupplyRegId()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gab18b9343a842ff2c9d533625bd4ffe9a">XNvm_EfuseSetReadMode()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">XNvm_GetSysmonSupplyRegId()</a>.</p>
 
 </div>
 </div>
@@ -308,7 +310,7 @@ Functions</h2></td></tr>
 
 <p>Sysmon number of supplies per flag. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>.</p>
 
 </div>
 </div>
@@ -388,7 +390,7 @@ Functions</h2></td></tr>
 
 <p>Sysmon Psv timeout value. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>.</p>
 
 </div>
 </div>
@@ -485,22 +487,6 @@ Functions</h2></td></tr>
 <p>TSU_H_PS Divisor value. </p>
 
 <p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga48684cc917830291d61d10ec465489e1">XNvm_EfuseInitTimers()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a187d1e419e66b1ba10a3a73debd9904d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XNVM_EFUSE_WORD_LEN&#160;&#160;&#160;(4U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>eFuse word length </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">XNvm_GetSysmonSupplyRegId()</a>.</p>
 
 </div>
 </div>

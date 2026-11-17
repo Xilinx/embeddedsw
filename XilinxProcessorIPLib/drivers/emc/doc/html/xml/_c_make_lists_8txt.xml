@@ -20,6 +20,6 @@
 <codeline lineno="11"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
 <codeline lineno="12"><highlight class="stringliteral">add_library(emc<sp/>INTERFACE)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emc/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emc/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

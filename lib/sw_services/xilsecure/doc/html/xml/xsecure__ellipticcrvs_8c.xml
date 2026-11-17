@@ -5,59 +5,64 @@
     <includes local="yes">xparameters.h</includes>
     <includes refid="xsecure__ellipticcrvs_8h" local="yes">xsecure_ellipticcrvs.h</includes>
     <incdepgraph>
-      <node id="1437">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1434">
-        <label>Ecdsa.h</label>
-      </node>
-      <node id="1438">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1435">
+      <node id="1479">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1436" relation="include">
+        <childnode refid="1480" relation="include">
         </childnode>
-        <childnode refid="1433" relation="include">
+        <childnode refid="1477" relation="include">
         </childnode>
-        <childnode refid="1437" relation="include">
+        <childnode refid="1481" relation="include">
         </childnode>
-        <childnode refid="1438" relation="include">
+        <childnode refid="1482" relation="include">
         </childnode>
-        <childnode refid="1439" relation="include">
+        <childnode refid="1483" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
         </childnode>
       </node>
-      <node id="1430">
+      <node id="1482">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="1481">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1478">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="1484">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1474">
         <label>xsecure_ellipticcrvs.c</label>
         <link refid="xsecure_ellipticcrvs.c"/>
-        <childnode refid="1431" relation="include">
+        <childnode refid="1475" relation="include">
         </childnode>
-        <childnode refid="1432" relation="include">
+        <childnode refid="1476" relation="include">
         </childnode>
       </node>
-      <node id="1432">
+      <node id="1476">
         <label>xsecure_ellipticcrvs.h</label>
         <link refid="xsecure__ellipticcrvs_8h"/>
-        <childnode refid="1431" relation="include">
+        <childnode refid="1475" relation="include">
         </childnode>
-        <childnode refid="1433" relation="include">
+        <childnode refid="1477" relation="include">
         </childnode>
-        <childnode refid="1434" relation="include">
+        <childnode refid="1478" relation="include">
         </childnode>
-        <childnode refid="1435" relation="include">
+        <childnode refid="1479" relation="include">
         </childnode>
       </node>
-      <node id="1439">
+      <node id="1483">
         <label>xsecure_config.h</label>
       </node>
-      <node id="1433">
+      <node id="1477">
         <label>xil_types.h</label>
       </node>
-      <node id="1431">
+      <node id="1475">
         <label>xparameters.h</label>
       </node>
-      <node id="1436">
+      <node id="1480">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -82,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga34b2844f8d963ef2aeb9913bfd27d099" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -103,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga4aad17a47b81d149b9fe92f26bd3965d" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -124,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gaefe044a5ff180e043674b01f39e4d0f3" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -145,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gab2827bcf79c424d3a2345cf737defa36" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -166,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga76bea45182519e64e0452be26b6b4e52" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -187,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gabfa4d9206ee657619c981be9648ec963" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -209,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gad6db062e347bcdd4e7aeca47967b37a8" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -230,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="113" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga0ed01f7d4b86fbae2b6ea72c99bba9dd" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -251,7 +256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gaf35c66dc8b32b820d389d1c8aa483d5c" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -272,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gaef9bd39eebb71e8805729d7f55e9dd16" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -293,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="140" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1gaef118f29981e6bc6945e357f730135ae" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -314,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="149" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga351d68daf0640c1ea827e8db15b50a93" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -335,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga00091df109196346551d023159227a00" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -351,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="167" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="167" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__ecdsa__server__apis_1ga7f254e94d648b378d0101e82bd2eec3d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref></type>
@@ -364,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="603" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="603" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -385,8 +390,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="750" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="750" bodyend="753"/>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0219841abd9a6a67cd5e80f8a5ec0d30" compoundref="xsecure__elliptic_8c" startline="812" endline="836">XSecure_EllipticGetCrvData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" line="750" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c" bodystart="750" bodyend="753"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0219841abd9a6a67cd5e80f8a5ec0d30" compoundref="xsecure__elliptic_8c" startline="825" endline="849">XSecure_EllipticGetCrvData</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1000,7 +1005,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP192_d11,</highlight></codeline>
 <codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP192_d12,</highlight></codeline>
 <codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP192_d13,</highlight></codeline>
-<codeline lineno="624"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE</highlight></codeline>
 <codeline lineno="625"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
@@ -1027,7 +1032,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP224_d11,</highlight></codeline>
 <codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP224_d12,</highlight></codeline>
 <codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP224_d13,</highlight></codeline>
-<codeline lineno="651"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE</highlight></codeline>
 <codeline lineno="652"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
@@ -1054,7 +1059,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP384_d11,</highlight></codeline>
 <codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP384_d12,</highlight></codeline>
 <codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP384_d13,</highlight></codeline>
-<codeline lineno="678"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE</highlight></codeline>
 <codeline lineno="679"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
@@ -1081,7 +1086,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP521_d11,</highlight></codeline>
 <codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP521_d12,</highlight></codeline>
 <codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP521_d13,</highlight></codeline>
-<codeline lineno="705"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE</highlight></codeline>
 <codeline lineno="706"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
@@ -1108,7 +1113,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP256_d11,</highlight></codeline>
 <codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP256_d12,</highlight></codeline>
 <codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_EllipticNistP256_d13,</highlight></codeline>
-<codeline lineno="732"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE</highlight></codeline>
 <codeline lineno="733"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
 <codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
@@ -1127,6 +1132,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="755"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="756"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_ellipticcrvs.c"/>
   </compounddef>
 </doxygen>

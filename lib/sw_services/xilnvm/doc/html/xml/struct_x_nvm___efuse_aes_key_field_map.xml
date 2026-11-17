@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_aes_key_field_map" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseAesKeyFieldMap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_field_map_1aa6f8233be6f9b62894896ee57493f6e5" prot="public" static="no" mutable="no">
+        <type><ref refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720" kindref="member">XNvm_EfuseFieldId</ref></type>
+        <definition>XNvm_EfuseFieldId XNvm_EfuseAesKeyFieldMap::FieldId</definition>
+        <argsstring></argsstring>
+        <name>FieldId</name>
+        <briefdescription>
+<para>Band-engine field identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_field_map_1aecaf13252216aaea8b740db80f8200f1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xnvm__def__api__ids_1ga3b0258a29c1f095e8949ab58e45e9540" kindref="member">XNvm_AesKeyType</ref></type>
+        <definition>XNvm_AesKeyType XNvm_EfuseAesKeyFieldMap::KeyType</definition>
+        <argsstring></argsstring>
+        <name>KeyType</name>
+        <briefdescription>
+<para>Matching AES-class key type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Field identifier to AES-class key type mapping entry. </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="86" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_aes_key_field_map_1aa6f8233be6f9b62894896ee57493f6e5" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyFieldMap</scope><name>FieldId</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_field_map_1aecaf13252216aaea8b740db80f8200f1" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyFieldMap</scope><name>KeyType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

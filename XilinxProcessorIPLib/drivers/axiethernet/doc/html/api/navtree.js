@@ -1,44 +1,150 @@
 var NAVTREE =
 [
-  [ "axiethernet", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xaxiethernet_example_extmulticast.c", "example.html#ex1", null ],
-      [ "xaxiethernet_example_extvlan.c", "example.html#ex2", null ],
-      [ "xaxiethernet_example_intr_fifo.c", "example.html#ex3", null ],
-      [ "xaxiethernet_example_intr_sgdma.c", "example.html#ex4", null ],
-      [ "xaxiethernet_example_polled.c", "example.html#ex5", null ],
-      [ "xaxiethernet_example_util.c", "example.html#ex6", null ],
-      [ "xaxiethernet_example_mcdma_poll.c", "example.html#ex7", null ],
-      [ "xaxiethernet_example_intr_mcdma.c", "example.html#ex8", null ],
-      [ "xaxiethernet_mcdma_ping_req_example.c", "example.html#ex9", null ],
-      [ "xaxiethernet_example.h", "example.html#ex10", [
-        [ "EXAMPLES IN EDK:", "example.html#INCLUDING", null ],
-        [ "NOTES:", "example.html#IMPORTANT", null ]
-      ] ]
-    ] ]
-  ] ]
+  [
+    "axiethernet",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xaxiethernet_example_extmulticast.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xaxiethernet_example_extvlan.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xaxiethernet_example_intr_fifo.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xaxiethernet_example_intr_sgdma.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xaxiethernet_example_polled.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xaxiethernet_example_util.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xaxiethernet_example_mcdma_poll.c",
+            "example.html#ex7",
+            null
+          ],
+          [
+            "xaxiethernet_example_intr_mcdma.c",
+            "example.html#ex8",
+            null
+          ],
+          [
+            "xaxiethernet_mcdma_ping_req_example.c",
+            "example.html#ex9",
+            null
+          ],
+          [
+            "xaxiethernet_example.h",
+            "example.html#ex10",
+            [
+              [
+                "EXAMPLES IN EDK:",
+                "example.html#INCLUDING",
+                null
+              ],
+              [
+                "NOTES:",
+                "example.html#IMPORTANT",
+                null
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xavb__ptp__bmca_8c.html#aa66e9752ef47bf7eafe4784cb59e1093",
-"xaxiethernet__hw_8h.html#ga12c4f36c73586076ff786eea2e39dbfd"
+"xavb_8h.html#ga3ce07f766a1033fab5a1981e947db52e",
+"xaxiethernet_8h.html#ga0116d59b7b62fc972ed1d074f2087488",
+"xaxiethernet__example__intr__sgdma_8c.html#ga9e29bd9e5703fef673c3c201bbdc53c6",
+"xaxiethernet__hw_8h.html#aa9418c071e0e4a034bd6d0f3f672dbb4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

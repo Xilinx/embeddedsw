@@ -1,6 +1,7 @@
 var searchData=
 [
   ['xinterval',['XInterval',['../group__ttcps.html#ga53dc7ab3b92f330e5a47807febfcd26d',1,'xttcps.h']]],
+  ['xmatchregvalue',['XMatchRegValue',['../group__ttcps.html#gab0aada99874d44282d0c2e7db6609b68',1,'xttcps.h']]],
   ['xttcps',['XTtcPs',['../struct_x_ttc_ps.html',1,'']]],
   ['xttcps_2ec',['xttcps.c',['../xttcps_8c.html',1,'']]],
   ['xttcps_2eh',['xttcps.h',['../xttcps_8h.html',1,'']]],
@@ -57,7 +58,10 @@ var searchData=
   ['xttcps_5fmatch_5f2_5foffset',['XTTCPS_MATCH_2_OFFSET',['../group__ttcps.html#ga9a2228115d5fb78821c859ed72014224',1,'xttcps_hw.h']]],
   ['xttcps_5fmatch_5fmask',['XTTCPS_MATCH_MASK',['../group__ttcps.html#ga20dd2f46682a5bb9c981ed460ab223e6',1,'xttcps_hw.h']]],
   ['xttcps_5fmatch_5fn_5foffset',['XTtcPs_Match_N_Offset',['../group__ttcps.html#ga85163a69a7f9df09f56528bee3a7a861',1,'xttcps_hw.h']]],
+  ['xttcps_5fmax_5finterval_5fcount',['XTTCPS_MAX_INTERVAL_COUNT',['../group__ttcps.html#gada35795ef5a7c900e552c0292a69e8a6',1,'xttcps.h']]],
+  ['xttcps_5fnum_5fcounters',['XTTCPS_NUM_COUNTERS',['../group__ttcps.html#ga4e2bde9ad3cac3032e5e69323c9a8043',1,'xttcps.h']]],
   ['xttcps_5fnum_5fmatch_5freg',['XTTCPS_NUM_MATCH_REG',['../group__ttcps.html#ga3bdd5da79d4f22d353877b2bd26cd812',1,'xttcps_hw.h']]],
+  ['xttcps_5fnum_5ftmrctr_5foptions',['XTTCPS_NUM_TMRCTR_OPTIONS',['../group__ttcps.html#ga9e7551455da1387b5908dd7df0b4de91',1,'xttcps_options.c']]],
   ['xttcps_5foption_5fclk_5fedge_5fneg',['XTTCPS_OPTION_CLK_EDGE_NEG',['../group__ttcps.html#ga7364b78f01ad1b27a076ef9ce568f497',1,'xttcps.h']]],
   ['xttcps_5foption_5fdecrement',['XTTCPS_OPTION_DECREMENT',['../group__ttcps.html#gaeeae7b90036e1a13b52e7b2875942efd',1,'xttcps.h']]],
   ['xttcps_5foption_5fexternal_5fclk',['XTTCPS_OPTION_EXTERNAL_CLK',['../group__ttcps.html#ga3583fa93646d878d3c43186df93e1ada',1,'xttcps.h']]],
@@ -80,6 +84,7 @@ var searchData=
   ['xttcps_5fsinit_2ec',['xttcps_sinit.c',['../xttcps__sinit_8c.html',1,'']]],
   ['xttcps_5fstart',['XTtcPs_Start',['../group__ttcps.html#gada91222b52c938cb8639d333ed334273',1,'xttcps.h']]],
   ['xttcps_5fstop',['XTtcPs_Stop',['../group__ttcps.html#ga8cc3413150e3c510e47cdb706fc3583e',1,'xttcps.h']]],
+  ['xttcps_5fsw_5ftimeout_5fval',['XTTCPS_SW_TIMEOUT_VAL',['../xttcps__intr__example_8c.html#a69401b493d76da502dd340ad125952ea',1,'XTTCPS_SW_TIMEOUT_VAL():&#160;xttcps_intr_example.c'],['../xttcps__rtc__example_8c.html#a69401b493d76da502dd340ad125952ea',1,'XTTCPS_SW_TIMEOUT_VAL():&#160;xttcps_rtc_example.c'],['../xttcps__tapp__example_8c.html#a69401b493d76da502dd340ad125952ea',1,'XTTCPS_SW_TIMEOUT_VAL():&#160;xttcps_tapp_example.c']]],
   ['xttcps_5ftapp_5fexample_2ec',['xttcps_tapp_example.c',['../xttcps__tapp__example_8c.html',1,'']]],
   ['xttcps_5fwritereg',['XTtcPs_WriteReg',['../group__ttcps.html#gae272f5debb32f8d43e5df1e85df75922',1,'xttcps_hw.h']]]
 ];

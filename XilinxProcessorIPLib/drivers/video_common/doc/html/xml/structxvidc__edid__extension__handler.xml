@@ -36,7 +36,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1857" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1857" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -44,7 +44,7 @@
     <detaileddescription>
 <para><simplesect kind="note"><para>API XV_VidC_parse_edid&apos;s checking needs to be updated to allow extra parsers. </para></simplesect>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1852" bodyend="1859"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1852" bodyend="1859"/>
     <listofallmembers>
       <member refid="structxvidc__edid__extension__handler_1a364ad9523716a75547c7456e8b7d1311" prot="public" virt="non-virtual"><scope>xvidc_edid_extension_handler</scope><name>inf_disp</name></member>
     </listofallmembers>

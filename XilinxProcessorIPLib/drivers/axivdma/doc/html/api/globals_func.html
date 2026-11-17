@@ -73,6 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
@@ -105,7 +106,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -119,24 +120,21 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
 <li>AxiVDMASelfTestExample()
-: <a class="el" href="xaxivdma__example__selftest_8c.html#aba262ec7ce75d7f5c8a5e6dc90e28ddc">xaxivdma_example_selftest.c</a>
+: <a class="el" href="group__axivdma.html#gaba262ec7ce75d7f5c8a5e6dc90e28ddc">xaxivdma_example_selftest.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
-: <a class="el" href="vdma_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">vdma.c</a>
-, <a class="el" href="xaxivdma__example__selftest_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxivdma_example_selftest.c</a>
-, <a class="el" href="xaxivdma__example__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxivdma_example_intr.c</a>
+: <a class="el" href="group__axivdma.html#gae66f6b31b5ad750f1fe042a706a4e3d4">vdma.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
 <li>run_triple_frame_buffer()
-: <a class="el" href="vdma_8c.html#a8f3f4f8546399efc071f59f35f17bdfa">vdma.c</a>
-, <a class="el" href="vdma__api_8c.html#a8f3f4f8546399efc071f59f35f17bdfa">vdma_api.c</a>
+: <a class="el" href="group__axivdma.html#ga8f3f4f8546399efc071f59f35f17bdfa">vdma.c</a>
 </li>
 </ul>
 
@@ -153,6 +151,9 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XAxiVdma_ChannelEnableIntr()
 : <a class="el" href="group__axivdma.html#ga64d6b39bc9e900efe9f14c9961f4da24">xaxivdma_channel.c</a>
+</li>
+<li>XAxiVdma_ChannelErrors()
+: <a class="el" href="group__axivdma.html#gaaafba768a4bab25af3aa5eace26dbaa5">xaxivdma_channel.c</a>
 </li>
 <li>XAxiVdma_ChannelGetEnabledIntr()
 : <a class="el" href="group__axivdma.html#gaccc8d62d87870cb43c048938e405d4e6">xaxivdma_channel.c</a>
@@ -174,6 +175,9 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XAxiVdma_ChannelIsBusy()
 : <a class="el" href="group__axivdma.html#gaaf57ab476eb91e9f41b6d166d2b2d6bb">xaxivdma_channel.c</a>
+</li>
+<li>XAxiVdma_ChannelIsRunning()
+: <a class="el" href="group__axivdma.html#ga0e91413b316013db54fe3fab6ece3803">xaxivdma_channel.c</a>
 </li>
 <li>XAxiVdma_ChannelRegisterDump()
 : <a class="el" href="group__axivdma.html#ga13807c40f1f871a6b2f7cbde9eeab9a8">xaxivdma_channel.c</a>
@@ -210,6 +214,9 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XAxiVdma_ChannelStopParking()
 : <a class="el" href="group__axivdma.html#gacd5a402e30c5170d9dab22d16ff01336">xaxivdma_channel.c</a>
+</li>
+<li>XAxiVdma_ClearChannelErrors()
+: <a class="el" href="group__axivdma.html#ga6f6dfd45cb15f3c19ff48dcf1de93da5">xaxivdma_channel.c</a>
 </li>
 <li>XAxiVdma_ClearDmaChannelErrors()
 : <a class="el" href="group__axivdma.html#gac01b1199d15a3a95cafb01f61dd1d0d3">xaxivdma.c</a>

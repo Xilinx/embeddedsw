@@ -99,6 +99,8 @@ $(document).ready(function(){initNavTree('mbox__cmd_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mbox_cmd.h File Reference</div>  </div>
 </div><!--header-->
@@ -120,7 +122,243 @@ $(document).ready(function(){initNavTree('mbox__cmd_8h.html','');});
 <code>#include &quot;<a class="el" href="mbox__fifo_8h.html">mbox_fifo.h</a>&quot;</code><br/>
 <code>#include &quot;mbox_hardware.h&quot;</code><br/>
 <code>#include &quot;sensor_cmd.h&quot;</code><br/>
-</div></div><!-- contents -->
+<code>#include &lt;xstatus.h&gt;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a54e2f11c4f6a8de4f63f8e9c9f6a2eaa"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a54e2f11c4f6a8de4f63f8e9c9f6a2eaa">mailbox_init</a> (uint32_t cpu)</td></tr>
+<tr class="memdesc:a54e2f11c4f6a8de4f63f8e9c9f6a2eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the mailbox for the given core.  <a href="#a54e2f11c4f6a8de4f63f8e9c9f6a2eaa">More...</a><br/></td></tr>
+<tr class="separator:a54e2f11c4f6a8de4f63f8e9c9f6a2eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eef9cfc651b6e05fc8c36fe2c087ca1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a3eef9cfc651b6e05fc8c36fe2c087ca1">init_mailbox_ipi</a> ()</td></tr>
+<tr class="memdesc:a3eef9cfc651b6e05fc8c36fe2c087ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the mailbox IPI transport on the local core.  <a href="#a3eef9cfc651b6e05fc8c36fe2c087ca1">More...</a><br/></td></tr>
+<tr class="separator:a3eef9cfc651b6e05fc8c36fe2c087ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a751111f785205b6ee67612fcf9df1744"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a751111f785205b6ee67612fcf9df1744">apu_postmsg</a> (MboxCoreId receiver_id)</td></tr>
+<tr class="memdesc:a751111f785205b6ee67612fcf9df1744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the IPI that notifies the receiver of a posted message.  <a href="#a751111f785205b6ee67612fcf9df1744">More...</a><br/></td></tr>
+<tr class="separator:a751111f785205b6ee67612fcf9df1744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef7f0aca34a630977de8050c617d7fa"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a4ef7f0aca34a630977de8050c617d7fa">write_mboxcmd</a> (uint32_t, void *, uint32_t, MboxCoreId, MboxCoreId)</td></tr>
+<tr class="memdesc:a4ef7f0aca34a630977de8050c617d7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a raw mailbox message without command framing.  <a href="#a4ef7f0aca34a630977de8050c617d7fa">More...</a><br/></td></tr>
+<tr class="separator:a4ef7f0aca34a630977de8050c617d7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89d9cad67585e0f810fb1578009a0f4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a89d9cad67585e0f810fb1578009a0f4e">apu_mailbox_read</a> (uint32_t)</td></tr>
+<tr class="memdesc:a89d9cad67585e0f810fb1578009a0f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches pending inbound mailbox messages for the given IPI source.  <a href="#a89d9cad67585e0f810fb1578009a0f4e">More...</a><br/></td></tr>
+<tr class="separator:a89d9cad67585e0f810fb1578009a0f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949c9ae44275c88712bf4ebf25234725"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#a949c9ae44275c88712bf4ebf25234725">mailbox_close</a> ()</td></tr>
+<tr class="memdesc:a949c9ae44275c88712bf4ebf25234725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the mailbox interface.  <a href="#a949c9ae44275c88712bf4ebf25234725">More...</a><br/></td></tr>
+<tr class="separator:a949c9ae44275c88712bf4ebf25234725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab6f0d4bc8dc271fa7bb3c9a6fc11b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#aab6f0d4bc8dc271fa7bb3c9a6fc11b4d">Apu_Mbox_Check_Command</a> (void)</td></tr>
+<tr class="memdesc:aab6f0d4bc8dc271fa7bb3c9a6fc11b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a pending asynchronous command received from a remote core.  <a href="#aab6f0d4bc8dc271fa7bb3c9a6fc11b4d">More...</a><br/></td></tr>
+<tr class="separator:aab6f0d4bc8dc271fa7bb3c9a6fc11b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae269fb4076e8958fd4443f0c45ea6809"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__cmd_8h.html#ae269fb4076e8958fd4443f0c45ea6809">Apu_Mbox_Check_FusaCommand</a> (void)</td></tr>
+<tr class="memdesc:ae269fb4076e8958fd4443f0c45ea6809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a pending asynchronous FuSa command received from a remote core.  <a href="#ae269fb4076e8958fd4443f0c45ea6809">More...</a><br/></td></tr>
+<tr class="separator:ae269fb4076e8958fd4443f0c45ea6809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a89d9cad67585e0f810fb1578009a0f4e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apu_mailbox_read </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>IpiSrcMask</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dispatches pending inbound mailbox messages for the given IPI source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">IpiSrcMask</td><td>Interrupt source mask of the triggering IPI. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aab6f0d4bc8dc271fa7bb3c9a6fc11b4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Apu_Mbox_Check_Command </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes a pending asynchronous command received from a remote core. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae269fb4076e8958fd4443f0c45ea6809"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Apu_Mbox_Check_FusaCommand </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes a pending asynchronous FuSa command received from a remote core. </p>
+
+</div>
+</div>
+<a class="anchor" id="a751111f785205b6ee67612fcf9df1744"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XStatus apu_postmsg </td>
+          <td>(</td>
+          <td class="paramtype">MboxCoreId&#160;</td>
+          <td class="paramname"><em>receiver_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers the IPI that notifies the receiver of a posted message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">receiver_id</td><td>Destination core identifier.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success, XST_FAILURE otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3eef9cfc651b6e05fc8c36fe2c087ca1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int init_mailbox_ipi </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the mailbox IPI transport on the local core. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on failure. </dd></dl>
+
+<p>References <a class="el" href="mbox__cmd_8h.html#a54e2f11c4f6a8de4f63f8e9c9f6a2eaa">mailbox_init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a949c9ae44275c88712bf4ebf25234725"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mailbox_close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Closes the mailbox interface. </p>
+
+</div>
+</div>
+<a class="anchor" id="a54e2f11c4f6a8de4f63f8e9c9f6a2eaa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t mailbox_init </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cpu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the mailbox for the given core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cpu</td><td>Local core identifier.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>VPI_SUCCESS on success, an error code otherwise. </dd></dl>
+
+<p>Referenced by <a class="el" href="mbox__cmd_8h.html#a3eef9cfc651b6e05fc8c36fe2c087ca1">init_mailbox_ipi()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4ef7f0aca34a630977de8050c617d7fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t write_mboxcmd </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>cmdId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>struct_msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MboxCoreId&#160;</td>
+          <td class="paramname"><em>receiver_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MboxCoreId&#160;</td>
+          <td class="paramname"><em>core_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends a raw mailbox message without command framing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cmdId</td><td>Message identifier to send. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">struct_msg</td><td>Pointer to the raw payload. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Payload size in bytes. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">receiver_id</td><td>Destination core identifier. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">core_id</td><td>Source core identifier.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>VPI_SUCCESS on success, an error code otherwise. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

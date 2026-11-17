@@ -11,148 +11,148 @@
     <includedby refid="core_2sha_2sha__pmx_2xsecure__sha_8h" local="yes">xsecure_sha.h</includedby>
     <includedby refid="core_2sha_2sha__pmxc_2xsecure__sha_8h" local="yes">xsecure_sha.h</includedby>
     <incdepgraph>
-      <node id="4045">
-        <label>xsecure_sha_common.h</label>
-        <link refid="xsecure_sha_common.h"/>
-        <childnode refid="4046" relation="include">
-        </childnode>
-        <childnode refid="4047" relation="include">
-        </childnode>
-        <childnode refid="4048" relation="include">
-        </childnode>
-      </node>
-      <node id="4047">
+      <node id="4289">
         <label>xsecure_sss.h</label>
       </node>
-      <node id="4048">
+      <node id="4290">
         <label>xsecure_sha_hw.h</label>
       </node>
-      <node id="4046">
+      <node id="4288">
         <label>xpmcdma.h</label>
+      </node>
+      <node id="4287">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure_sha_common.h"/>
+        <childnode refid="4288" relation="include">
+        </childnode>
+        <childnode refid="4289" relation="include">
+        </childnode>
+        <childnode refid="4290" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4053">
-        <label>xsecure_kat_ipihandler.c</label>
-        <link refid="xsecure__kat__ipihandler_8c"/>
-      </node>
-      <node id="4059">
-        <label>xsecure_sha_ipihandler.c</label>
-        <link refid="_2xsecure__sha__ipihandler_8c"/>
-      </node>
-      <node id="4056">
-        <label>xsecure_plat_aes_ipihandler.c</label>
-        <link refid="xsecure__plat__aes__ipihandler_8c"/>
-      </node>
-      <node id="4057">
-        <label>xsecure_lms_ipihandler.c</label>
-        <link refid="xsecure__lms__ipihandler_8c"/>
-      </node>
-      <node id="4050">
-        <label>xsecure_core.c</label>
-        <link refid="xsecure__core_8c"/>
-      </node>
-      <node id="4052">
-        <label>xsecure_aes_ipihandler.c</label>
-        <link refid="xsecure__aes__ipihandler_8c"/>
-      </node>
-      <node id="4049">
-        <label>xsecure_sha_common.h</label>
-        <link refid="xsecure_sha_common.h"/>
-        <childnode refid="4050" relation="include">
-        </childnode>
-        <childnode refid="4051" relation="include">
-        </childnode>
-        <childnode refid="4064" relation="include">
-        </childnode>
-        <childnode refid="4065" relation="include">
-        </childnode>
-        <childnode refid="4067" relation="include">
-        </childnode>
-      </node>
-      <node id="4062">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
-      </node>
-      <node id="4054">
-        <label>xsecure_resourcehandling.c</label>
-        <link refid="xsecure__resourcehandling_8c"/>
-      </node>
-      <node id="4051">
-        <label>xsecure_resourcehandling.h</label>
-        <link refid="xsecure__resourcehandling_8h"/>
-        <childnode refid="4052" relation="include">
-        </childnode>
-        <childnode refid="4053" relation="include">
-        </childnode>
-        <childnode refid="4054" relation="include">
-        </childnode>
-        <childnode refid="4055" relation="include">
-        </childnode>
-        <childnode refid="4056" relation="include">
-        </childnode>
-        <childnode refid="4057" relation="include">
-        </childnode>
-        <childnode refid="4058" relation="include">
-        </childnode>
-        <childnode refid="4059" relation="include">
-        </childnode>
-        <childnode refid="4060" relation="include">
-        </childnode>
-        <childnode refid="4061" relation="include">
-        </childnode>
-        <childnode refid="4062" relation="include">
-        </childnode>
-        <childnode refid="4063" relation="include">
-        </childnode>
-      </node>
-      <node id="4064">
-        <label>xsecure_kdf.c</label>
-        <link refid="xsecure__kdf_8c"/>
-      </node>
-      <node id="4066">
-        <label>xsecure_sha.c</label>
-        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
-      </node>
-      <node id="4065">
-        <label>xsecure_sha.h</label>
-        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8h"/>
-        <childnode refid="4066" relation="include">
-        </childnode>
-        <childnode refid="4058" relation="include">
-        </childnode>
-      </node>
-      <node id="4058">
-        <label>xsecure_sha_ipihandler.c</label>
-        <link refid="xsecure__sha__ipihandler_8c"/>
-      </node>
-      <node id="4060">
-        <label>xsecure_slhdsa_ipihandler.c</label>
-        <link refid="xsecure__slhdsa__ipihandler_8c"/>
-      </node>
-      <node id="4063">
+      <node id="4305">
         <label>xsecure_plat_kat_ipihandler.c</label>
         <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
       </node>
-      <node id="4061">
-        <label>xsecure_plat_kat_ipihandler.c</label>
-        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      <node id="4302">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
       </node>
-      <node id="4068">
+      <node id="4304">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4296">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="4293">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="4294" relation="include">
+        </childnode>
+        <childnode refid="4295" relation="include">
+        </childnode>
+        <childnode refid="4296" relation="include">
+        </childnode>
+        <childnode refid="4297" relation="include">
+        </childnode>
+        <childnode refid="4298" relation="include">
+        </childnode>
+        <childnode refid="4299" relation="include">
+        </childnode>
+        <childnode refid="4300" relation="include">
+        </childnode>
+        <childnode refid="4301" relation="include">
+        </childnode>
+        <childnode refid="4302" relation="include">
+        </childnode>
+        <childnode refid="4303" relation="include">
+        </childnode>
+        <childnode refid="4304" relation="include">
+        </childnode>
+        <childnode refid="4305" relation="include">
+        </childnode>
+      </node>
+      <node id="4306">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="4301">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="4300">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="4295">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="4294">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="4308">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="4307">
+        <label>xsecure_sha.h</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8h"/>
+        <childnode refid="4308" relation="include">
+        </childnode>
+        <childnode refid="4300" relation="include">
+        </childnode>
+      </node>
+      <node id="4297">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="4299">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="4292">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="4298">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="4310">
         <label>xsecure_sha.c</label>
         <link refid="core_2sha_2sha__pmxc_2xsecure__sha_8c"/>
       </node>
-      <node id="4067">
+      <node id="4309">
         <label>xsecure_sha.h</label>
         <link refid="core_2sha_2sha__pmxc_2xsecure__sha_8h"/>
-        <childnode refid="4068" relation="include">
+        <childnode refid="4310" relation="include">
         </childnode>
-        <childnode refid="4059" relation="include">
+        <childnode refid="4301" relation="include">
         </childnode>
       </node>
-      <node id="4055">
-        <label>xsecure_hmac_ipihandler.c</label>
-        <link refid="xsecure__hmac__ipihandler_8c"/>
+      <node id="4303">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4291">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure_sha_common.h"/>
+        <childnode refid="4292" relation="include">
+        </childnode>
+        <childnode refid="4293" relation="include">
+        </childnode>
+        <childnode refid="4306" relation="include">
+        </childnode>
+        <childnode refid="4307" relation="include">
+        </childnode>
+        <childnode refid="4309" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="typedef">
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -177,12 +177,13 @@
         <argsstring>[XSECURE_SHA_NUM_OF_INSTANCES]</argsstring>
         <name>ShaConfigTable</name>
         <briefdescription>
-        </briefdescription>
+<para>The configuration table for devices. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="228" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga0db5b730ee240be5572d03124c08120b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="753" endline="774">XSecure_Sha3LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -286,7 +287,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>XSecure_Sha<sp/>XSecure_Sha3;</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_ShaConfig<sp/>ShaConfigTable[<ref refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" kindref="member">XSECURE_SHA_NUM_OF_INSTANCES</ref>];</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_ShaConfig<sp/><ref refid="group__xsecure__helper__server__apis_1ga9cb7e9f1a05151630a24de795653b695" kindref="member">ShaConfigTable</ref>[<ref refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" kindref="member">XSECURE_SHA_NUM_OF_INSTANCES</ref>];</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="142"><highlight class="normal"></highlight></codeline>
@@ -298,6 +299,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h"/>
   </compounddef>
 </doxygen>

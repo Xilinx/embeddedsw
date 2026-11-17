@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xwdtps__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,14 +105,26 @@ $(document).ready(function(){initNavTree('xwdtps__selftest_8c.html','');});
 <div class="title">xwdtps_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements diagnostic self-test functions for the <a class="el" href="struct_x_wdt_ps.html" title="Stores the XWdtPs driver instance data. ">XWdtPs</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a ecm/jz 01/15/10 First release
+1.02a sg     08/01/12 Modified it use the Reset Length mask for the self
+                test for CR 658287
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.10  vn     09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xwdtps_8h.html">xwdtps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga173e89798890bf73fd20f5cdadf113b5"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdtps.html#ga173e89798890bf73fd20f5cdadf113b5">XWdtPs_SelfTest</a> (<a class="el" href="struct_x_wdt_ps.html">XWdtPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga173e89798890bf73fd20f5cdadf113b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a self-test on the timebase.  <a href="group__wdtps.html#ga173e89798890bf73fd20f5cdadf113b5">More...</a><br/></td></tr>
+<tr class="memdesc:ga173e89798890bf73fd20f5cdadf113b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the timebase.  <a href="group__wdtps.html#ga173e89798890bf73fd20f5cdadf113b5">More...</a><br/></td></tr>
 <tr class="separator:ga173e89798890bf73fd20f5cdadf113b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

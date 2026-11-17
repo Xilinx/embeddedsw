@@ -10,12 +10,14 @@
         <argsstring></argsstring>
         <name>IvAddr</name>
         <briefdescription>
-<para>AES IV address. </para>        </briefdescription>
+<para>AES Iv/Nonce address; 0 when the IV is taken from the key vault via IvId. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___aes_iv_object_1a4eea240487b9f4560a16fe577499e412" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -23,12 +25,14 @@
         <argsstring></argsstring>
         <name>IvLen</name>
         <briefdescription>
-<para>AES IV length. </para>        </briefdescription>
+<para>AES Iv/Nonce length; must be 0 when IvAddr is 0, as the firmware takes the length of a vault sourced IV from the stored metadata. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>A non-zero length with a zero address is rejected as an invalid parameter. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___aes_iv_object_1ac4a556df510eb3595d6a3676c29905a4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -36,19 +40,21 @@
         <argsstring></argsstring>
         <name>IvId</name>
         <briefdescription>
-<para>AES IV ID. </para>        </briefdescription>
+<para>AES IV ID, if the IV is used from ASU key vault; 0 when the IV is supplied through IvAddr. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This structure contains AES IV object information. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="121" bodyend="125"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="140" bodyend="147"/>
     <listofallmembers>
       <member refid="struct_x_asu___aes_iv_object_1a68bd6f17ef103809f52e767a320faa4d" prot="public" virt="non-virtual"><scope>XAsu_AesIvObject</scope><name>IvAddr</name></member>
       <member refid="struct_x_asu___aes_iv_object_1ac4a556df510eb3595d6a3676c29905a4" prot="public" virt="non-virtual"><scope>XAsu_AesIvObject</scope><name>IvId</name></member>

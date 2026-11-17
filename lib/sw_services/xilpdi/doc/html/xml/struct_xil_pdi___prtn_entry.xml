@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="319" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="331" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___prtn_entry_1a4020295fca705f7b4af0e0f34364728e" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="320" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="332" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure corresponding to each partition entry. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="318" bodyend="321"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="330" bodyend="333"/>
     <listofallmembers>
       <member refid="struct_xil_pdi___prtn_entry_1a471c9a35dc65ddcdd7e86d1743b42533" prot="public" virt="non-virtual"><scope>XilPdi_PrtnEntry</scope><name>EntryPoint</name></member>
       <member refid="struct_xil_pdi___prtn_entry_1a4020295fca705f7b4af0e0f34364728e" prot="public" virt="non-virtual"><scope>XilPdi_PrtnEntry</scope><name>PrtnFlags</name></member>

@@ -10,12 +10,14 @@
         <argsstring></argsstring>
         <name>Freq</name>
         <briefdescription>
-        </briefdescription>
+<para>Fine mixer NCO frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="492" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="544" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1ae9628b38377904b85f8c5b0201d039b8" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -23,84 +25,99 @@
         <argsstring></argsstring>
         <name>PhaseOffset</name>
         <briefdescription>
-        </briefdescription>
+<para>NCO phase offset. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="493" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="545" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a82a52d9be038efa08f16313610644090" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Mixer_Settings::EventSource</definition>
         <argsstring></argsstring>
         <name>EventSource</name>
         <briefdescription>
-        </briefdescription>
+<para>Event source that triggers the update. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="494" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="546" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a1734d33c2170cbb75214c868f3c8561c" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Mixer_Settings::CoarseMixFreq</definition>
         <argsstring></argsstring>
         <name>CoarseMixFreq</name>
         <briefdescription>
-        </briefdescription>
+<para>Coarse mixer frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="495" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="547" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga32b26582f802cbabc390adcf56f064f6" compoundref="xrfdc_8c" startline="1352" endline="1484">XRFdc_SetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a77dfcebb742d36ce87fddd23b4b33e57" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Mixer_Settings::MixerMode</definition>
         <argsstring></argsstring>
         <name>MixerMode</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="496" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="548" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga32b26582f802cbabc390adcf56f064f6" compoundref="xrfdc_8c" startline="1352" endline="1484">XRFdc_SetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a510b8f7fe1d5568f32e317331fb898ba" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Mixer_Settings::FineMixerScale</definition>
         <argsstring></argsstring>
         <name>FineMixerScale</name>
         <briefdescription>
-        </briefdescription>
+<para>NCO output scale, valid values 0, 1 and 2. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="497" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="549" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1ab58d26d5e3b0fcf4f71d8d342b97581b" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Mixer_Settings::MixerType</definition>
         <argsstring></argsstring>
         <name>MixerType</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="498" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="550" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga32b26582f802cbabc390adcf56f064f6" compoundref="xrfdc_8c" startline="1352" endline="1484">XRFdc_SetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Mixer settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="491" bodyend="499"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="543" bodyend="551"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___mixer___settings_1a1734d33c2170cbb75214c868f3c8561c" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>CoarseMixFreq</name></member>
       <member refid="struct_x_r_fdc___mixer___settings_1a82a52d9be038efa08f16313610644090" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>EventSource</name></member>

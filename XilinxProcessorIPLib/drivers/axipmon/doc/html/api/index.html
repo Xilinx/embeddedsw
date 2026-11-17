@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,30 +103,44 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">axipmon Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The <a class="el" href="struct_x_axi_pmon.html" title="The driver&#39;s instance data. ">XAxiPmon</a> driver supports the Xilinx AXI Performance Monitor device.The AXI Performance Monitor device provides following features: </p>
+<div class="textblock"><p>The <a class="el" href="struct_x_axi_pmon.html" title="Driver instance data for the AXI Performance Monitor. ">XAxiPmon</a> driver supports the Xilinx AXI Performance Monitor device.The AXI Performance Monitor device provides following features: </p>
 <pre class="fragment">  Configurable number of Metric Counters and Incrementers
     Computes performance metrics for Agents connected to
   monitor slots (Up to 8 slots)
 </pre><p>The following Metrics can be computed:</p>
-<p>Metrics computed for an AXI4 MM agent: Write Request Count: Total number of write requests by/to the agent. Read Request Count: Total number of read requests given by/to the agent. Read Latency: It is defined as the time from the start of read address transaction to the beginning of the read data service. Write Latency: It is defined as the period needed a master completes write data transaction, i.e. from write address transaction to write response from slave. Write Byte Count: Total number of bytes written by/to the agent. This metric is helpful when calculating the throughput of the system. Read Byte Count: Total number of bytes read from/by the agent. Average Write Latency: Average write latency seen by the agent. It can be derived from total write latency and the write request count. Average Read Latency: Average read latency seen by the agent. It can be derived from total read latency and the read request count. Master Write Idle Cycle Count: Number of idle cycles caused by the masters during write transactions to the slave. Slave Write Idle Cycle Count: Number of idle cycles caused by this slave during write transactions to the slave. Master Read Idle Cycle Count: Number of idle cycles caused by the master during read transactions to the slave. Slave Read Idle Cycle Count: Number of idle cycles caused by this slave during read transactions to the slave.</p>
-<p>Metrics computed for an AXI4-Stream agent: </p>
-<pre class="fragment">  Transfer Cycle Count: Total number of writes by/to the agent.
-  Data Byte Count: Total number of data bytes written by/to the agent.
-             This metric helps in calculating the throughput
-             of the system.
-  Position Byte Count: Total number of position bytes transferred.
-  Null Byte Count: Total number of null bytes transferred.
-  Packet Count: Total number of packets transferred.
-</pre><p>There are three modes : Advanced, Profile and Trace.</p>
+<p>Metrics computed for an AXI4 MM agent:</p>
 <ul>
-<li>Advanced mode has 10 Mertic Counters, Sampled Metric Counters, Incrementors and Sampled Incrementors.</li>
+<li>Write Request Count: Total number of write requests by/to the agent.</li>
+<li>Read Request Count: Total number of read requests given by/to the agent.</li>
+<li>Read Latency: It is defined as the time from the start of read address transaction to the beginning of the read data service.</li>
+<li>Write Latency: The period a master needs to complete a write data transaction, that is, from write address transaction to write response from slave.</li>
+<li>Write Byte Count: Total number of bytes written by/to the agent. This metric is helpful when calculating the throughput of the system.</li>
+<li>Read Byte Count: Total number of bytes read from/by the agent.</li>
+<li>Average Write Latency: Average write latency seen by the agent. It can be derived from total write latency and the write request count.</li>
+<li>Average Read Latency: Average read latency seen by the agent. It can be derived from total read latency and the read request count.</li>
+<li>Master Write Idle Cycle Count: Number of idle cycles caused by the masters during write transactions to the slave.</li>
+<li>Slave Write Idle Cycle Count: Number of idle cycles caused by this slave during write transactions to the slave.</li>
+<li>Master Read Idle Cycle Count: Number of idle cycles caused by the master during read transactions to the slave.</li>
+<li>Slave Read Idle Cycle Count: Number of idle cycles caused by this slave during read transactions to the slave.</li>
+</ul>
+<p>Metrics computed for an AXI4-Stream agent:</p>
+<ul>
+<li>Transfer Cycle Count: Total number of writes by/to the agent.</li>
+<li>Data Byte Count: Total number of data bytes written by/to the agent. This metric helps in calculating the throughput of the system.</li>
+<li>Position Byte Count: Total number of position bytes transferred.</li>
+<li>Null Byte Count: Total number of null bytes transferred.</li>
+<li>Packet Count: Total number of packets transferred.</li>
+</ul>
+<p>There are three modes : Advanced, Profile and Trace.</p>
+<ul>
+<li>Advanced mode has 10 Metric Counters, Sampled Metric Counters, Incrementers and Sampled Incrementers.</li>
 <li>Profile mode has only 47 Metric Counters and Sampled Metric Counters.</li>
-<li>Trace mode has no Counters. User should refer to the hardware device specification for detailed information about the device.</li>
+<li>Trace mode has no Counters. Refer to the hardware device specification for detailed information about the device.</li>
 </ul>
 <p>This header file contains the prototypes of driver functions that can be used to access the AXI Performance Monitor device.</p>
 <p><b> Initialization and Configuration </b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate to the AXI Performance Monitor device.</p>
-<p><a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e" title="This function initializes a specific XAxiPmon device/instance. ">XAxiPmon_CfgInitialize()</a> API is used to initialize the AXI Performance Monitor device. The user needs to first call the <a class="el" href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748" title="Functions in xaxipmon_sinit.c. ">XAxiPmon_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e" title="This function initializes a specific XAxiPmon device/instance. ">XAxiPmon_CfgInitialize()</a> API.</p>
+<p>The device driver enables higher layer software (for example, an application) to communicate to the AXI Performance Monitor device.</p>
+<p><a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e" title="Initializes a specific XAxiPmon device/instance. ">XAxiPmon_CfgInitialize()</a> API is used to initialize the AXI Performance Monitor device. First call the <a class="el" href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748" title="Provides lookup and initialization functions from xaxipmon_sinit.c. ">XAxiPmon_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e" title="Initializes a specific XAxiPmon device/instance. ">XAxiPmon_CfgInitialize()</a> API.</p>
 <p><b>Interrupts</b></p>
 <p>The AXI Performance Monitor does not support Interrupts</p>
 <p><b> Virtual Memory </b></p>
@@ -136,7 +150,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b> Asserts </b></p>
 <p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</p>
 <p><b> Building the driver </b></p>
-<p>The <a class="el" href="struct_x_axi_pmon.html" title="The driver&#39;s instance data. ">XAxiPmon</a> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</p>
+<p>The <a class="el" href="struct_x_axi_pmon.html" title="Driver instance data for the AXI Performance Monitor. ">XAxiPmon</a> driver is composed of several source files. This allows building and linking only those parts of the driver that are necessary.</p>
 <p><b> Limitations of the driver </b></p>
 <p><br/>
 <br/>
@@ -153,19 +167,19 @@ $(document).ready(function(){initNavTree('index.html','');});
                 XAPM_FLAG_EVNTSTOP.
                 Deleted XAxiPmon_SetAgent, XAxiPmon_GetAgent APIs and
                 modified XAxiPmon_SetMetrics, XAxiPmon_GetMetrics APIs
-                in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>
-                Deleted XAPM_AGENT_OFFSET Macro in <a class="el" href="xaxipmon__hw_8h.html">xaxipmon_hw.h</a>
+                in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>
+                Deleted XAPM_AGENT_OFFSET Macro in <a class="el" href="xaxipmon__hw_8h.html" title="Defines the AXI Performance Monitor hardware registers. ">xaxipmon_hw.h</a>
 3.01a bss    10/25/12 To support new version of IP:
-                Added XAPM_MCXLOGEN_OFFSET macros in <a class="el" href="xaxipmon__hw_8h.html">xaxipmon_hw.h</a>.
+                Added XAPM_MCXLOGEN_OFFSET macros in <a class="el" href="xaxipmon__hw_8h.html" title="Defines the AXI Performance Monitor hardware registers. ">xaxipmon_hw.h</a>.
                 Added XAxiPmon_SetMetricCounterCutOff,
                 XAxiPmon_GetMetricCounterCutOff,
                 XAxiPmon_EnableExternalTrigger and
-                XAxiPmon_DisableExternalTrigger APIs in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>
+                XAxiPmon_DisableExternalTrigger APIs in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>
                 Modified XAxiPmon_SetMetrics and XAxiPmon_GetMetrics
-                (CR #683746) in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>
+                (CR #683746) in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>
                 Added XAxiPmon_EnableEventLog,
                 XAxiPmon_DisableMetricsCounter,
-                XAxiPmon_EnableMetricsCounter APIs in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a> to
+                XAxiPmon_EnableMetricsCounter APIs in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a> to
                 replace macros in this file.
                 Added XAPM_FLAG_XXX macros.
                 Added XAxiPmon_StartCounters and XAxiPmon_StopCounters
@@ -190,11 +204,11 @@ $(document).ready(function(){initNavTree('index.html','');});
                 XAxiPmon_SetMetricCounterCutOff,
                 XAxiPmon_GetMetricCounterCutOff,
                 XAxiPmon_EnableExternalTrigger and
-                XAxiPmon_DisableExternalTrigger APIs in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>
+                XAxiPmon_DisableExternalTrigger APIs in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>
                 Added XAPM_LATENCYID_OFFSET,
                 XAPM_CR_EVTLOG_EXTTRIGGER_MASK,
                 XAPM_LATENCYID_RID_MASK and XAPM_LATENCYID_WID_MASK in
-                <a class="el" href="xaxipmon__hw_8h.html">xaxipmon_hw.h</a>
+                <a class="el" href="xaxipmon__hw_8h.html" title="Defines the AXI Performance Monitor hardware registers. ">xaxipmon_hw.h</a>
 5.00a bss   08/26/13  To support new version of IP:
                 XAxiPmon_SampleMetrics Macro.
                 Modified XAxiPmon_CfgInitialize, Assert functions
@@ -211,7 +225,7 @@ $(document).ready(function(){initNavTree('index.html','');});
                 XAxiPmon_SetWriteId, XAxiPmon_SetReadLatencyId to
                 XAxiPmon_SetReadId, XAxiPmon_GetWriteLatencyId to
                 XAxiPmon_GetWriteId and XAxiPmon_SetReadLatencyId to
-                XAxiPmon_GetReadId. in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>
+                XAxiPmon_GetReadId. in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>
                 Added Macros XAPM_MC10_OFFSET to XAPM_MC47_OFFSET,
                 XAPM_SMC10_OFFSET to XAPM_SMC47_OFFSET,
                 XAPM_IDMASK_OFFSET, XAPM_CR_IDFILTER_ENABLE_MASK,
@@ -224,26 +238,26 @@ $(document).ready(function(){initNavTree('index.html','');});
                 XAPM_LATENCYID_OFFSET to XAPM_ID_OFFSET,
                 XAPM_LATENCYID_RID_MASK to XAPM_ID_RID_MASK,
                 XAPM_LATENCYID_WID_MASK to XAPM_ID_WID_MASK.
-                in <a class="el" href="xaxipmon__hw_8h.html">xaxipmon_hw.h</a>.
+                in <a class="el" href="xaxipmon__hw_8h.html" title="Defines the AXI Performance Monitor hardware registers. ">xaxipmon_hw.h</a>.
                 Modified driver tcl to generate new parameters
                 ScaleFactor, ModeProfile, ModeTrace and ModeAdvanced
                 in Config structure.
 6.0   adk  19/12/13 Updated as per the New Tcl API's
 6.1   adk  16/04/14 Updated the driver tcl for the newly added parameters in
                       The Axi pmon IP.
-6.2   bss  04/21/14   Updated XAxiPmon_CfgInitialize in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a> to Reset
+6.2   bss  04/21/14   Updated XAxiPmon_CfgInitialize in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a> to Reset
                 counters and FIFOs based on Modes(CR#782671). And if
                 both profile and trace modes are present set mode as
                 Advanced.
 6.2     bss  03/02/15   To support Zynq MP APM:
-                                        Added Is32BitFiltering in <a class="el" href="struct_x_axi_pmon___config.html" title="This typedef contains configuration information for the AXI Performance Monitor device. ">XAxiPmon_Config</a> structure.
-                                        Updated XAxiPmon_SetWriteId, XAxiPmon_SetReadId,
-                                        XAxiPmon_GetWriteId, XAxiPmon_GetReadId
-                                        XAxiPmon_SetWriteIdMask, XAxiPmon_SetReadIdMask
-                                        XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
-                                        functions in <a class="el" href="xaxipmon_8c.html">xaxipmon.c</a>.
-                                        Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in
-                                        <a class="el" href="xaxipmon__hw_8h.html">xaxipmon_hw.h</a></pre><pre>6.3     kvn  07/02/15   Modified code according to MISRA-C:2012 guidelines.
+                      Added Is32BitFiltering in <a class="el" href="struct_x_axi_pmon___config.html" title="Configuration structure for the AXI Performance Monitor device. ">XAxiPmon_Config</a> structure.
+                      Updated XAxiPmon_SetWriteId, XAxiPmon_SetReadId,
+                      XAxiPmon_GetWriteId, XAxiPmon_GetReadId
+                      XAxiPmon_SetWriteIdMask, XAxiPmon_SetReadIdMask
+                      XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
+                      functions in <a class="el" href="xaxipmon_8c.html" title="Implements the driver API for the AXI Performance Monitor device. ">xaxipmon.c</a>.
+                      Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in
+                      <a class="el" href="xaxipmon__hw_8h.html" title="Defines the AXI Performance Monitor hardware registers. ">xaxipmon_hw.h</a></pre><pre>6.3     kvn  07/02/15   Modified code according to MISRA-C:2012 guidelines.
 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
                     Changed the prototype of XAxiPmon_CfgInitialize API.
 6.5   ms   01/23/17 Modified xil_printf statement in main function for all
@@ -257,6 +271,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 6.10  ht   06/23/23 Added support for system device-tree flow.
 6.12  ht   12/01/24 Fix GCC warnings.
 6.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
+6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

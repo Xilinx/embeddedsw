@@ -11,61 +11,61 @@
     <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <incdepgraph>
-      <node id="1360">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="1359">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="1358">
+      <node id="1410">
         <label>xsecure_elliptic_ipihandler.h</label>
         <link refid="xsecure_elliptic_ipihandler.h"/>
-        <childnode refid="1359" relation="include">
+        <childnode refid="1411" relation="include">
         </childnode>
-        <childnode refid="1360" relation="include">
+        <childnode refid="1412" relation="include">
         </childnode>
+      </node>
+      <node id="1412">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="1411">
+        <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1365">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp_2xsecure__cmd_8c"/>
-      </node>
-      <node id="1366">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp__p_2xsecure__cmd_8c"/>
-      </node>
-      <node id="1367">
-        <label>xsecure_cmd.c</label>
-        <link refid="net_2xsecure__cmd_8c"/>
-      </node>
-      <node id="1362">
+      <node id="1414">
         <label>xsecure_elliptic_ipihandler.c</label>
         <link refid="xsecure__elliptic__ipihandler_8c"/>
       </node>
-      <node id="1361">
+      <node id="1413">
         <label>xsecure_elliptic_ipihandler.h</label>
         <link refid="xsecure_elliptic_ipihandler.h"/>
-        <childnode refid="1362" relation="include">
+        <childnode refid="1414" relation="include">
         </childnode>
-        <childnode refid="1363" relation="include">
+        <childnode refid="1415" relation="include">
         </childnode>
-        <childnode refid="1364" relation="include">
+        <childnode refid="1416" relation="include">
         </childnode>
-        <childnode refid="1365" relation="include">
+        <childnode refid="1417" relation="include">
         </childnode>
-        <childnode refid="1366" relation="include">
+        <childnode refid="1418" relation="include">
         </childnode>
-        <childnode refid="1367" relation="include">
+        <childnode refid="1419" relation="include">
         </childnode>
       </node>
-      <node id="1363">
+      <node id="1416">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1419">
+        <label>xsecure_cmd.c</label>
+        <link refid="net_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1415">
         <label>xsecure_cmd.c</label>
         <link refid="xsecure__cmd_8c"/>
       </node>
-      <node id="1364">
+      <node id="1418">
         <label>xsecure_cmd.c</label>
-        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1417">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -97,15 +97,15 @@
 <para><itemizedlist>
 <listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_EllipticGenKey</para></listitem><listitem><para>XSecure_EllipticGenSign</para></listitem><listitem><para>XSecure_EllipticValidatePubKey</para></listitem><listitem><para>XSecure_EllipticVerifySignature </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.c" bodystart="83" bodyend="124"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" compoundref="xsecure__plat__defs_8h" startline="59">XSECURE_API_ELLIPTIC_GENERATE_KEY</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" compoundref="xsecure__plat__defs_8h" startline="60">XSECURE_API_ELLIPTIC_GENERATE_SIGN</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_ELLIPTIC_VALIDATE_KEY</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
-        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.c" bodystart="83" bodyend="124"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" compoundref="xsecure__plat__defs_8h" startline="65">XSECURE_API_ELLIPTIC_GENERATE_KEY</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" compoundref="xsecure__plat__defs_8h" startline="66">XSECURE_API_ELLIPTIC_GENERATE_SIGN</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" compoundref="xsecure__plat__defs_8h" startline="67">XSECURE_API_ELLIPTIC_VALIDATE_KEY</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="68">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -150,6 +150,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ELLIPTIC_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic_ipihandler.h"/>
   </compounddef>
 </doxygen>

@@ -2,21 +2,22 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_u_s_b_c_b_w" kind="struct" prot="public">
     <compoundname>USBCBW</compoundname>
+    <includes local="no">xusb_storage.h</includes>
     <innerclass refid="union_u_s_b_c_b_w_1_1_length" prot="public">USBCBW::Length</innerclass>
     <innerclass refid="union_u_s_b_c_b_w_1_1_signature" prot="public">USBCBW::Signature</innerclass>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a4d10343a29435d09869dbb758eb71c92" prot="public" static="no" mutable="no">
-        <type>union USBCBW::Signature</type>
+        <type>union <ref refid="union_u_s_b_c_b_w_1_1_signature" kindref="compound">USBCBW::Signature</ref></type>
         <definition>union USBCBW::Signature  USBCBW::Signature</definition>
         <argsstring></argsstring>
         <name>Signature</name>
         <briefdescription>
-        </briefdescription>
+<para>Command block wrapper signature field. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="342" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="318" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1ab648b4d74b9f7dbd35a52b9adabae450" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -24,25 +25,28 @@
         <argsstring></argsstring>
         <name>dCBWTag</name>
         <briefdescription>
-        </briefdescription>
+<para>Command block wrapper tag. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="344" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1aaac38d857663b814c5767b060d300fd0" prot="public" static="no" mutable="no">
-        <type>union USBCBW::Length</type>
+        <type>union <ref refid="union_u_s_b_c_b_w_1_1_length" kindref="compound">USBCBW::Length</ref></type>
         <definition>union USBCBW::Length  USBCBW::Length</definition>
         <argsstring></argsstring>
         <name>Length</name>
         <briefdescription>
-        </briefdescription>
+<para>Command block wrapper data transfer length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="350" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="327" column="1"/>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="876" endline="988">Read10</referencedby>
+        <referencedby refid="xusb__storage_8h_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__dma__intr__storage_8c" startline="1001" endline="1043">Write10</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a904c15666137606c69a30fc6531d29aa" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -50,12 +54,13 @@
         <argsstring></argsstring>
         <name>dCBWFlags</name>
         <briefdescription>
-        </briefdescription>
+<para>Flags: direction and reserved bits. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="352" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a1cbc63ba35ee35857de4b8891d80a022" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -63,12 +68,12 @@
         <argsstring></argsstring>
         <name>bCBWLUN</name>
         <briefdescription>
-        </briefdescription>
+<para>Logical unit number. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="353" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="330" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a05f1092a6bee497091a62b47929364fa" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -76,12 +81,12 @@
         <argsstring></argsstring>
         <name>bCDBLength</name>
         <briefdescription>
-        </briefdescription>
+<para><ref refid="union_u_s_b_c_b_w_1_1_length" kindref="compound">Length</ref> of CBWCDB field in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="354" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="331" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1adeb95b55dd2194201f82303074ff0a99" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -89,12 +94,14 @@
         <argsstring></argsstring>
         <name>OpCode</name>
         <briefdescription>
-        </briefdescription>
+<para>SCSI operation code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="356" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1ad696da140ceb6e98f34ca83a0de9b2a6" compoundref="xusb__dma__intr__storage_8c" startline="1172" endline="1192">MassStorageReset</referencedby>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1aad751ebbdb41221f25139949a1479a8e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -102,12 +109,12 @@
         <argsstring></argsstring>
         <name>lun</name>
         <briefdescription>
-        </briefdescription>
+<para>Logical unit number in CDB. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="357" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="334" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1ad4dfce2989f49bf6a139c47439c212d9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -115,12 +122,14 @@
         <argsstring>[4]</argsstring>
         <name>lba</name>
         <briefdescription>
-        </briefdescription>
+<para>Logical block address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="358" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="876" endline="988">Read10</referencedby>
+        <referencedby refid="xusb__storage_8h_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__dma__intr__storage_8c" startline="1001" endline="1043">Write10</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1ad38fe99bf79182ac86e092f7141ee2b4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -128,12 +137,12 @@
         <argsstring></argsstring>
         <name>reserved_2</name>
         <briefdescription>
-        </briefdescription>
+<para>Reserved byte in CDB. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="359" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="336" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a4c6bad165f1a4690786d6a2d79ad16d5" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -141,12 +150,14 @@
         <argsstring>[2]</argsstring>
         <name>transfer_length</name>
         <briefdescription>
-        </briefdescription>
+<para>Transfer length in blocks. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="360" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="876" endline="988">Read10</referencedby>
+        <referencedby refid="xusb__storage_8h_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__dma__intr__storage_8c" startline="1001" endline="1043">Write10</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a82f38403baaf1c122afbb3bebda76eab" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -154,12 +165,12 @@
         <argsstring></argsstring>
         <name>control</name>
         <briefdescription>
-        </briefdescription>
+<para>Control byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="361" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="338" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b_c_b_w_1a88a0a5adb0f524c0dc8d32e2db7cf22b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -167,19 +178,39 @@
         <argsstring>[6]</argsstring>
         <name>padding</name>
         <briefdescription>
-        </briefdescription>
+<para>Padding completing the 16-byte CBWCDB field. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="362" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>USB mass storage command block wrapper structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="337" bodyend="364"/>
+    <collaborationgraph>
+      <node id="88">
+        <label>USBCBW::Length</label>
+        <link refid="union_u_s_b_c_b_w_1_1_length"/>
+      </node>
+      <node id="87">
+        <label>USBCBW::Signature</label>
+        <link refid="union_u_s_b_c_b_w_1_1_signature"/>
+      </node>
+      <node id="86">
+        <label>USBCBW</label>
+        <link refid="struct_u_s_b_c_b_w"/>
+        <childnode refid="87" relation="usage">
+          <edgelabel>Signature</edgelabel>
+        </childnode>
+        <childnode refid="88" relation="usage">
+          <edgelabel>Length</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="312" bodyend="341"/>
     <listofallmembers>
       <member refid="struct_u_s_b_c_b_w_1a1cbc63ba35ee35857de4b8891d80a022" prot="public" virt="non-virtual"><scope>USBCBW</scope><name>bCBWLUN</name></member>
       <member refid="struct_u_s_b_c_b_w_1a05f1092a6bee497091a62b47929364fa" prot="public" virt="non-virtual"><scope>USBCBW</scope><name>bCDBLength</name></member>

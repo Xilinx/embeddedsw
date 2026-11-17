@@ -112,11 +112,12 @@ $(document).ready(function(){initNavTree('xv__multi__scaler__example_8c.html',''
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xv__multi__scaler__l2_8h.html">xv_multi_scaler_l2.h</a>&quot;</code><br/>
+<code>#include &quot;xvidc.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a9b1aeb876f3310cbf4594308196b68b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a9b1aeb876f3310cbf4594308196b68b5">XMULTISCALER_SW_VER</a>&#160;&#160;&#160;&quot;v1.00&quot;</td></tr>
+<tr class="memitem:a9b1aeb876f3310cbf4594308196b68b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a9b1aeb876f3310cbf4594308196b68b5">XMULTISCALER_SW_VER</a>&#160;&#160;&#160;&quot;v2.00&quot;</td></tr>
 <tr class="memdesc:a9b1aeb876f3310cbf4594308196b68b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">MultiScaler software version.  <a href="#a9b1aeb876f3310cbf4594308196b68b5">More...</a><br/></td></tr>
 <tr class="separator:a9b1aeb876f3310cbf4594308196b68b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a371a7bd03638d4b63ea9f930189829ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a371a7bd03638d4b63ea9f930189829ac">XGPIOPS_MASK_DATA_3_LSW_OFFSET</a>&#160;&#160;&#160;0x00000018</td></tr>
@@ -144,7 +145,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a799965409e6a785083e57ef01d4e6930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer start address.  <a href="#a799965409e6a785083e57ef01d4e6930">More...</a><br/></td></tr>
 <tr class="separator:a799965409e6a785083e57ef01d4e6930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8c1a92e30e463b9e0165252c2fab222"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#ad8c1a92e30e463b9e0165252c2fab222">XPAR_PSU_GPIO_0_BASEADDR</a>&#160;&#160;&#160;XPAR_GPIO_BASEADDR</td></tr>
-<tr class="memdesc:ad8c1a92e30e463b9e0165252c2fab222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define GIC Device ID based on platform.  <a href="#ad8c1a92e30e463b9e0165252c2fab222">More...</a><br/></td></tr>
+<tr class="memdesc:ad8c1a92e30e463b9e0165252c2fab222"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO base address.  <a href="#ad8c1a92e30e463b9e0165252c2fab222">More...</a><br/></td></tr>
 <tr class="separator:ad8c1a92e30e463b9e0165252c2fab222"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -152,9 +153,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2cb3427214eae7c9ad4f7fab8f20c664"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a2cb3427214eae7c9ad4f7fab8f20c664">XV_Reset_MultiScaler</a> (void)</td></tr>
 <tr class="memdesc:a2cb3427214eae7c9ad4f7fab8f20c664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the MultiScaler core.  <a href="#a2cb3427214eae7c9ad4f7fab8f20c664">More...</a><br/></td></tr>
 <tr class="separator:a2cb3427214eae7c9ad4f7fab8f20c664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf2755c1b359172dcbe95758278b74ee"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#aaf2755c1b359172dcbe95758278b74ee">XVMultiScalerCallback</a> (void *data)</td></tr>
-<tr class="memdesc:aaf2755c1b359172dcbe95758278b74ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for MultiScaler interrupt handling.  <a href="#aaf2755c1b359172dcbe95758278b74ee">More...</a><br/></td></tr>
-<tr class="separator:aaf2755c1b359172dcbe95758278b74ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803b178555a90c97d56965b10d57638e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a803b178555a90c97d56965b10d57638e">XVMultiScalerCallback</a> (void *data)</td></tr>
+<tr class="memdesc:a803b178555a90c97d56965b10d57638e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for MultiScaler interrupt handling.  <a href="#a803b178555a90c97d56965b10d57638e">More...</a><br/></td></tr>
+<tr class="separator:a803b178555a90c97d56965b10d57638e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ce8bd51136bf2154fe4544a82cbf779"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a3ce8bd51136bf2154fe4544a82cbf779">CalcPitch</a> (u16 Cfmt, u16 tile, u32 width)</td></tr>
+<tr class="memdesc:a3ce8bd51136bf2154fe4544a82cbf779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the pitch for a tiled memory layout.  <a href="#a3ce8bd51136bf2154fe4544a82cbf779">More...</a><br/></td></tr>
+<tr class="separator:a3ce8bd51136bf2154fe4544a82cbf779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function for MultiScaler example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,7 +166,7 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:aeecf0e771185070a2d05ca2988b288b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v__multi__scaler.html">XV_multi_scaler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#aeecf0e771185070a2d05ca2988b288b3">MultiScalerInst</a></td></tr>
-<tr class="memdesc:aeecf0e771185070a2d05ca2988b288b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global interrupt controller instance.  <a href="#aeecf0e771185070a2d05ca2988b288b3">More...</a><br/></td></tr>
+<tr class="memdesc:aeecf0e771185070a2d05ca2988b288b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MultiScaler instance.  <a href="#aeecf0e771185070a2d05ca2988b288b3">More...</a><br/></td></tr>
 <tr class="separator:aeecf0e771185070a2d05ca2988b288b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85fb23aacc0903393e29cceeadb5cfd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v__multi__scaler___video___config.html">XV_multi_scaler_Video_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__multi__scaler__example_8c.html#a85fb23aacc0903393e29cceeadb5cfd1">thisCase</a></td></tr>
 <tr class="memdesc:a85fb23aacc0903393e29cceeadb5cfd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to current test case.  <a href="#a85fb23aacc0903393e29cceeadb5cfd1">More...</a><br/></td></tr>
@@ -289,7 +293,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XMULTISCALER_SW_VER&#160;&#160;&#160;&quot;v1.00&quot;</td>
+          <td class="memname">#define XMULTISCALER_SW_VER&#160;&#160;&#160;&quot;v2.00&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -326,12 +330,58 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Define GIC Device ID based on platform. </p>
-<p>GPIO base address SDT GPIO base address mapping </p>
+<p>GPIO base address. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a3ce8bd51136bf2154fe4544a82cbf779"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 CalcPitch </td>
+          <td>(</td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Cfmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>tile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the pitch for a tiled memory layout. </p>
+<p>This function calculates the memory pitch (line stride) in bytes for the tile based memory format. The image width is first rounded up to the next tile boundary, and the resulting pixel count is then converted to bytes using the component depth of the given color format.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Cfmt</td><td>Memory color format identifier (e.g. XVIDC_CSF_MEM_Y_UV8) </td></tr>
+    <tr><td class="paramname">tile</td><td>Tile width in pixels used for alignment (e.g. XVIDC_TILE_32) </td></tr>
+    <tr><td class="paramname">width</td><td>Image width in pixels</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pitch value in bytes</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The tile argument must be a power of two, as the alignment is done with a bit mask. The returned value is the minimum pitch the core requires for the given format and width. </dd></dl>
+
+<p>Referenced by <a class="el" href="xv__multi__scaler__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -362,7 +412,7 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This example assumes the MultiScaler IP is present in the hardware design and memory buffers are accessible at defined addresses. </dd></dl>
 
-<p>References <a class="el" href="struct_x_v__multi__scaler___video___config.html#ae8d008b02058f5e44755cb63b909ceb2">XV_multi_scaler_Video_Config::ColorFormatIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a4b50bc5d11363b1da56605a851d7dd7e">XV_multi_scaler_Video_Config::ColorFormatOut</a>, <a class="el" href="struct_x_v__multi__scaler.html#a8555a1e9391f9eb05dbd7094a9ec4b8c">XV_multi_scaler::Config</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#aeb02ddf050dc9504dfbd909af26c94eb">XV_multi_scaler_Video_Config::DstImgBuf0</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a1937b437d3262059dbe660258b578e3e">XV_multi_scaler_Video_Config::DstImgBuf1</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#aee1e004a9996d57d3e672e1b37bb97c2">XV_multi_scaler_Video_Config::HeightIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a3e20ef3965e65216307d3a7b9680f4ac">XV_multi_scaler_Video_Config::HeightOut</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#affa95d9f560d8aad722849d7555d43a2">XV_multi_scaler_Video_Config::InStride</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a80ffbb375ca66e6fabd67218c312c4da">interrupt_flag</a>, <a class="el" href="struct_x_v__multi__scaler___config.html#aee2ee849e0ec8d1bf83e0297fd1088c8">XV_multi_scaler_Config::IntrId</a>, <a class="el" href="struct_x_v__multi__scaler___config.html#ab960bcb609cd379cf99d519d9eda9b5e">XV_multi_scaler_Config::IntrParent</a>, <a class="el" href="struct_x_v__multi__scaler.html#a1ee8f482b0d93c29afbfc00abcc42982">XV_multi_scaler::MaxDataWidth</a>, <a class="el" href="xv__multi__scaler__example_8c.html#aeecf0e771185070a2d05ca2988b288b3">MultiScalerInst</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac780f887c6863f1ea098e67e914876af">XV_multi_scaler_Video_Config::OutStride</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac49861e151f2bdaa9c10f85789def0a6">XV_multi_scaler_Video_Config::SrcImgBuf0</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac865217ba2ae35b47bad8e1f0c14214a">XV_multi_scaler_Video_Config::SrcImgBuf1</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a55ad42486e6855a0de430ff7caa93a63">USECASE_COUNT</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#af081389d32fd02fe58b7eea54cb5bb85">XV_multi_scaler_Video_Config::WidthIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a89cad588496c291deb22461abe56483e">XV_multi_scaler_Video_Config::WidthOut</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a9b1aeb876f3310cbf4594308196b68b5">XMULTISCALER_SW_VER</a>, <a class="el" href="xv__multi__scaler__example_8c.html#afb5bffd910bf9e1d1d89d467d6f62f2c">XNUM_OUTPUTS</a>, <a class="el" href="xv__multi__scaler_8h.html#a4129a13e67c4153427b525a4c454b20c">XV_multi_scaler_Initialize()</a>, <a class="el" href="xv__multi__scaler_8c.html#ae74402f514c644ce867ad467d3bd615d">XV_multi_scaler_InterruptEnable()</a>, <a class="el" href="xv__multi__scaler_8c.html#a7cf7eadf7b95ba268c718d95ae0359ad">XV_multi_scaler_InterruptGlobalEnable()</a>, <a class="el" href="group__v__multi__scaler.html#ga12eacf4add26c91456221b04172d314e">XV_MultiScalerGetNumOutputs()</a>, <a class="el" href="group__v__multi__scaler.html#ga5e677dc070c124e1d19c6fbd07cf3c8a">XV_MultiScalerIntrHandler()</a>, <a class="el" href="group__v__multi__scaler.html#gadac93267b546f514b3311c1825fd832c">XV_MultiScalerSetChannelConfig()</a>, <a class="el" href="group__v__multi__scaler.html#ga954a2264fa23e2726a43a40433a1216d">XV_MultiScalerSetNumOutputs()</a>, <a class="el" href="group__v__multi__scaler.html#ga72ecb43c374027b51fc780f208aea156">XV_MultiScalerStart()</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a2cb3427214eae7c9ad4f7fab8f20c664">XV_Reset_MultiScaler()</a>, <a class="el" href="group__v__multi__scaler.html#gaa963a38ee6df7b1790e6b4112caa936e">XVMultiScaler_SetCallback()</a>, and <a class="el" href="xv__multi__scaler__example_8c.html#aaf2755c1b359172dcbe95758278b74ee">XVMultiScalerCallback()</a>.</p>
+<p>References <a class="el" href="xv__multi__scaler__example_8c.html#a3ce8bd51136bf2154fe4544a82cbf779">CalcPitch()</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ae8d008b02058f5e44755cb63b909ceb2">XV_multi_scaler_Video_Config::ColorFormatIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a4b50bc5d11363b1da56605a851d7dd7e">XV_multi_scaler_Video_Config::ColorFormatOut</a>, <a class="el" href="struct_x_v__multi__scaler.html#a8555a1e9391f9eb05dbd7094a9ec4b8c">XV_multi_scaler::Config</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#aeb02ddf050dc9504dfbd909af26c94eb">XV_multi_scaler_Video_Config::DstImgBuf0</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a1937b437d3262059dbe660258b578e3e">XV_multi_scaler_Video_Config::DstImgBuf1</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ab4c709d74d63eb903e46d412ab89ad9b">XV_multi_scaler_Video_Config::DstImgBuf2</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#aee1e004a9996d57d3e672e1b37bb97c2">XV_multi_scaler_Video_Config::HeightIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a3e20ef3965e65216307d3a7b9680f4ac">XV_multi_scaler_Video_Config::HeightOut</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#affa95d9f560d8aad722849d7555d43a2">XV_multi_scaler_Video_Config::InStride</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a80ffbb375ca66e6fabd67218c312c4da">interrupt_flag</a>, <a class="el" href="struct_x_v__multi__scaler___config.html#aee2ee849e0ec8d1bf83e0297fd1088c8">XV_multi_scaler_Config::IntrId</a>, <a class="el" href="struct_x_v__multi__scaler___config.html#ab960bcb609cd379cf99d519d9eda9b5e">XV_multi_scaler_Config::IntrParent</a>, <a class="el" href="struct_x_v__multi__scaler___config.html#a54aa600779eacdd8390f12c4b3441856">XV_multi_scaler_Config::IsTileFormat</a>, <a class="el" href="xv__multi__scaler__example_8c.html#aeecf0e771185070a2d05ca2988b288b3">MultiScalerInst</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac780f887c6863f1ea098e67e914876af">XV_multi_scaler_Video_Config::OutStride</a>, <a class="el" href="struct_x_v__multi__scaler.html#abf8c9a07415957ce019bd3c941bfb450">XV_multi_scaler::SamplesPerClock</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac49861e151f2bdaa9c10f85789def0a6">XV_multi_scaler_Video_Config::SrcImgBuf0</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ac865217ba2ae35b47bad8e1f0c14214a">XV_multi_scaler_Video_Config::SrcImgBuf1</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#ae3006dfafdf5b70e2716f78ac28a4e45">XV_multi_scaler_Video_Config::SrcImgBuf2</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a55ad42486e6855a0de430ff7caa93a63">USECASE_COUNT</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#af081389d32fd02fe58b7eea54cb5bb85">XV_multi_scaler_Video_Config::WidthIn</a>, <a class="el" href="struct_x_v__multi__scaler___video___config.html#a89cad588496c291deb22461abe56483e">XV_multi_scaler_Video_Config::WidthOut</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a9b1aeb876f3310cbf4594308196b68b5">XMULTISCALER_SW_VER</a>, <a class="el" href="xv__multi__scaler__example_8c.html#afb5bffd910bf9e1d1d89d467d6f62f2c">XNUM_OUTPUTS</a>, <a class="el" href="xv__multi__scaler_8h.html#a4129a13e67c4153427b525a4c454b20c">XV_multi_scaler_Initialize()</a>, <a class="el" href="xv__multi__scaler_8c.html#ae74402f514c644ce867ad467d3bd615d">XV_multi_scaler_InterruptEnable()</a>, <a class="el" href="xv__multi__scaler_8c.html#a7cf7eadf7b95ba268c718d95ae0359ad">XV_multi_scaler_InterruptGlobalEnable()</a>, <a class="el" href="group__v__multi__scaler.html#ga12eacf4add26c91456221b04172d314e">XV_MultiScalerGetNumOutputs()</a>, <a class="el" href="group__v__multi__scaler.html#ga5e677dc070c124e1d19c6fbd07cf3c8a">XV_MultiScalerIntrHandler()</a>, <a class="el" href="group__v__multi__scaler.html#gadac93267b546f514b3311c1825fd832c">XV_MultiScalerSetChannelConfig()</a>, <a class="el" href="group__v__multi__scaler.html#ga954a2264fa23e2726a43a40433a1216d">XV_MultiScalerSetNumOutputs()</a>, <a class="el" href="group__v__multi__scaler.html#ga72ecb43c374027b51fc780f208aea156">XV_MultiScalerStart()</a>, <a class="el" href="xv__multi__scaler__example_8c.html#a2cb3427214eae7c9ad4f7fab8f20c664">XV_Reset_MultiScaler()</a>, <a class="el" href="group__v__multi__scaler.html#gaa963a38ee6df7b1790e6b4112caa936e">XVMultiScaler_SetCallback()</a>, and <a class="el" href="xv__multi__scaler__example_8c.html#a803b178555a90c97d56965b10d57638e">XVMultiScalerCallback()</a>.</p>
 
 </div>
 </div>
@@ -391,12 +441,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aaf2755c1b359172dcbe95758278b74ee"></a>
+<a class="anchor" id="a803b178555a90c97d56965b10d57638e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * XVMultiScalerCallback </td>
+          <td class="memname">void XVMultiScalerCallback </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
@@ -435,7 +485,7 @@ Variables</h2></td></tr>
 
 <p>Interrupt flag for synchronization. </p>
 
-<p>Referenced by <a class="el" href="xv__multi__scaler__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xv__multi__scaler__example_8c.html#aaf2755c1b359172dcbe95758278b74ee">XVMultiScalerCallback()</a>.</p>
+<p>Referenced by <a class="el" href="xv__multi__scaler__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xv__multi__scaler__example_8c.html#a803b178555a90c97d56965b10d57638e">XVMultiScalerCallback()</a>.</p>
 
 </div>
 </div>
@@ -449,8 +499,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Global interrupt controller instance. </p>
-<p>MultiScaler instance </p>
+<p>MultiScaler instance. </p>
 
 <p>Referenced by <a class="el" href="xv__multi__scaler__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -482,27 +531,24 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">        {</div>
 <div class="line">                {</div>
-<div class="line">                        0, <a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a>, <a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 8 *</div>
-<div class="line">                        <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>, 720, 540, 1920, 1920,</div>
+<div class="line">                        0, (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a>), (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 0x1000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 0x2000000),</div>
+<div class="line">                        480, 1080, 640, 1920,</div>
 <div class="line">                        <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>, <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>, 0, 0,</div>
-<div class="line">                        <a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a>, DST_BUF_START_ADDR + 7 *</div>
-<div class="line">                        <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>,</div>
+<div class="line">                        (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a>), (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 0x1000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 0x2000000),</div>
 <div class="line">                        {0, 0, 0, 0, 0}</div>
 <div class="line">                },</div>
 <div class="line">                {</div>
-<div class="line">                        1, <a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>,</div>
-<div class="line">                        <a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 9 * <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>, 1280, 1920,</div>
-<div class="line">                        720, 720, <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>, <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>, 0,</div>
-<div class="line">                        0, <a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>,</div>
-<div class="line">                        <a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 8 * <a class="code" href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a>,</div>
+<div class="line">                        1, (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 0x3000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 0x4000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a> + 0x5000000),</div>
+<div class="line">                        1280, 1920, 720, 720,</div>
+<div class="line">                        <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>,   <a class="code" href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a>, 0, 0,</div>
+<div class="line">                        (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 0x3000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 0x4000000), (<a class="code" href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a> + 0x5000000),</div>
 <div class="line">                        {800, 600, 0, 0, 1}</div>
 <div class="line">                }</div>
 <div class="line">        }</div>
 <div class="line">}</div>
-<div class="ttc" id="group__v__multi__scaler_html_ga9e7c42921bc3cafee3a11e8925ed83d0"><div class="ttname"><a href="group__v__multi__scaler.html#ga9e7c42921bc3cafee3a11e8925ed83d0">XV_MAX_BUF_SIZE</a></div><div class="ttdeci">#define XV_MAX_BUF_SIZE</div><div class="ttdoc">Maximum buffer size calculation based on max dimensions and pixel format. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_l2.h:75</div></div>
-<div class="ttc" id="group__v__multi__scaler_html_ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b"><div class="ttname"><a href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a></div><div class="ttdoc">RGB packed, 8-bit per component. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_l2.h:133</div></div>
-<div class="ttc" id="xv__multi__scaler__example_8c_html_a799965409e6a785083e57ef01d4e6930"><div class="ttname"><a href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a></div><div class="ttdeci">#define DST_BUF_START_ADDR</div><div class="ttdoc">Destination buffer start address. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_example.c:78</div></div>
-<div class="ttc" id="xv__multi__scaler__example_8c_html_a8244199ec97f768b97c85794c23b2342"><div class="ttname"><a href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a></div><div class="ttdeci">#define SRC_BUF_START_ADDR</div><div class="ttdoc">Source buffer start address. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_example.c:75</div></div>
+<div class="ttc" id="group__v__multi__scaler_html_ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b"><div class="ttname"><a href="group__v__multi__scaler.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b">XV_MULTI_SCALER_RGB8</a></div><div class="ttdoc">RGB packed, 8-bit per component. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_l2.h:132</div></div>
+<div class="ttc" id="xv__multi__scaler__example_8c_html_a799965409e6a785083e57ef01d4e6930"><div class="ttname"><a href="xv__multi__scaler__example_8c.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a></div><div class="ttdeci">#define DST_BUF_START_ADDR</div><div class="ttdoc">Destination buffer start address. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_example.c:75</div></div>
+<div class="ttc" id="xv__multi__scaler__example_8c_html_a8244199ec97f768b97c85794c23b2342"><div class="ttname"><a href="xv__multi__scaler__example_8c.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a></div><div class="ttdeci">#define SRC_BUF_START_ADDR</div><div class="ttdoc">Source buffer start address. </div><div class="ttdef"><b>Definition:</b> xv_multi_scaler_example.c:72</div></div>
 </div><!-- fragment -->
 <p>List of test use cases with video configuration parameters. </p>
 

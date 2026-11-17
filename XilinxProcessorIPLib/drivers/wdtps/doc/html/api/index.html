@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>If interrupt is enabled, the watchdog timer device generates an interrupt when the counter reaches zero.</p>
 <p>If the hardware interrupt signal is not connected/enabled, polled mode is the only option (using IsWdtExpired) for the watchdog.</p>
 <p>The outputs from the WDT are individually enabled/disabled using _EnableOutput()/_DisableOutput(). The clock divisor ratio and initial restart value of the count is configurable using _SetControlValues().</p>
-<p>The reset condition of the hardware has the maximum initial count in the Counter Reset Value (CRV) and the WDT is disabled with the reset enable enabled and the reset length set to 32 clocks. i.e. </p>
+<p>The reset condition of the hardware has the maximum initial count in the Counter Reset Value (CRV) and the WDT is disabled with the reset enable enabled and the reset length set to 32 clocks, that is, </p>
 <pre>
     register ZMR = 0x1C2
     register CCR = 0x3FC
@@ -144,7 +144,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 3.6     sb     06/27/23 Added support for system device-tree flow.
 3.9   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 3.9   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
-                      to support 64-bit addressing.</pre><pre></pre> </div></div><!-- contents -->
+                      to support 64-bit addressing.
+3.10  vn     09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

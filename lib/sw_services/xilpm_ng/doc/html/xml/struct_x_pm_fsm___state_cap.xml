@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_fsm___state_cap" kind="struct" prot="public">
+    <compoundname>XPmFsm_StateCap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_fsm___state_cap_1ae5b2148d6bca946d37f197bf343d4f75" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPmFsm_StateCap::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Device state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fsm___state_cap_1ade62d802bcf7462b13ff7d2bedb7b392" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XPmFsm_StateCap::Cap</definition>
+        <argsstring></argsstring>
+        <name>Cap</name>
+        <briefdescription>
+<para>Capability associated with state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="34" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_fsm___state_cap_1ade62d802bcf7462b13ff7d2bedb7b392" prot="public" virt="non-virtual"><scope>XPmFsm_StateCap</scope><name>Cap</name></member>
+      <member refid="struct_x_pm_fsm___state_cap_1ae5b2148d6bca946d37f197bf343d4f75" prot="public" virt="non-virtual"><scope>XPmFsm_StateCap</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

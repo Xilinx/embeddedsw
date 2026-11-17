@@ -6,5 +6,6 @@ var searchData=
   ['xtmr_5finject_5finitialize',['XTMR_Inject_Initialize',['../group___overview.html#gad6c9a7909d80ab972efd955cdfc9b30c',1,'xtmr_inject_sinit.c']]],
   ['xtmr_5finject_5finjectbit',['XTMR_Inject_InjectBit',['../group___overview.html#gaa8c496ccf948ca1b3ed359f6f6be485c',1,'xtmr_inject.c']]],
   ['xtmr_5finject_5finjectmask',['XTMR_Inject_InjectMask',['../group___overview.html#ga0459573a53d4807b01ee65ed3709b547',1,'xtmr_inject.c']]],
+  ['xtmr_5finject_5flookupconfig',['XTMR_Inject_LookupConfig',['../group___overview.html#ga4f7e4a45f3942aa7527a1a86c3cad0ca',1,'xtmr_inject_sinit.c']]],
   ['xtmr_5finject_5fselftest',['XTMR_Inject_SelfTest',['../group___overview.html#gae03f2de24906f2660c4ab03a869e50cb',1,'xtmr_inject_selftest.c']]]
 ];

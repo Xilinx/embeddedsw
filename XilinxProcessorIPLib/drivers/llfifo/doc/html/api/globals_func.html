@@ -73,8 +73,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +106,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,66 +116,97 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
 : <a class="el" href="xllfifo__interrupt__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xllfifo_interrupt_example.c</a>
+, <a class="el" href="xllfifo__polling__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xllfifo_polling_example.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>RxReceive()
+: <a class="el" href="xllfifo__polling__example_8c.html#adec078eff87ae9f74e6bbe52d29db16e">xllfifo_polling_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TxSend()
 : <a class="el" href="xllfifo__interrupt__example_8c.html#a38cd37c9e86c6d514d731db7bc520a0b">xllfifo_interrupt_example.c</a>
+, <a class="el" href="xllfifo__polling__example_8c.html#a38cd37c9e86c6d514d731db7bc520a0b">xllfifo_polling_example.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XLlFfio_LookupConfig()
-: <a class="el" href="group__llfifo.html#gaa21dcb81e0c71adba8248cc59d5cf506">xllfifo.h</a>
+: <a class="el" href="group__llfifo.html#gad34debf372d0a787c055515216d80e58">xllfifo.h</a>
+, <a class="el" href="group__llfifo__api.html#gad34debf372d0a787c055515216d80e58">xllfifo_sinit.c</a>
 </li>
 <li>XLlFifo_CfgInitialize()
-: <a class="el" href="group__llfifo.html#ga874c22807476dc0ffec670c38f452443">xllfifo.c</a>
+: <a class="el" href="group__llfifo.html#ga874c22807476dc0ffec670c38f452443">xllfifo.h</a>
+, <a class="el" href="group__llfifo__api.html#ga874c22807476dc0ffec670c38f452443">xllfifo.c</a>
 </li>
 <li>XLlFifo_Initialize()
-: <a class="el" href="group__llfifo.html#ga3debde0a34325b3f314d15fe6f43a7ee">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#ga3debde0a34325b3f314d15fe6f43a7ee">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#ga3debde0a34325b3f314d15fe6f43a7ee">xllfifo.h</a>
 </li>
 <li>XLlFifo_iRead_Aligned()
-: <a class="el" href="group__llfifo.html#ga18bc620d388cbca83d63cc1c6ef33225">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#ga18bc620d388cbca83d63cc1c6ef33225">xllfifo.c</a>
 </li>
 <li>XLlFifo_iRxGetLen()
-: <a class="el" href="group__llfifo.html#gaad292ddf2a2c9dde261b93da802c8080">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#gaad292ddf2a2c9dde261b93da802c8080">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#gaad292ddf2a2c9dde261b93da802c8080">xllfifo.h</a>
 </li>
 <li>XLlFifo_iRxOccupancy()
-: <a class="el" href="group__llfifo.html#gae2da9fa947a6e50edd41375ddc4c9964">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#gae2da9fa947a6e50edd41375ddc4c9964">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#gae2da9fa947a6e50edd41375ddc4c9964">xllfifo.h</a>
 </li>
 <li>XLlFifo_iTxSetLen()
-: <a class="el" href="group__llfifo.html#gaa49ecc1529434fd932d8a65d63a1a04d">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#gaa49ecc1529434fd932d8a65d63a1a04d">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#gaa49ecc1529434fd932d8a65d63a1a04d">xllfifo.h</a>
 </li>
 <li>XLlFifo_iTxVacancy()
-: <a class="el" href="group__llfifo.html#gac02405b23499d780e7bc1dfe371281a6">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#gac02405b23499d780e7bc1dfe371281a6">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#gac02405b23499d780e7bc1dfe371281a6">xllfifo.h</a>
 </li>
 <li>XLlFifo_iWrite_Aligned()
-: <a class="el" href="group__llfifo.html#ga9be5556d593980195e43a31ffb37e0fe">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#ga9be5556d593980195e43a31ffb37e0fe">xllfifo.c</a>
 </li>
 <li>XLlFifo_RxGetWord()
-: <a class="el" href="group__llfifo.html#gaed3ae31c8c24f46139fbd709027329ec">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#gaed3ae31c8c24f46139fbd709027329ec">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#gaed3ae31c8c24f46139fbd709027329ec">xllfifo.h</a>
 </li>
 <li>XLlFifo_TxPutWord()
-: <a class="el" href="group__llfifo.html#ga29654d755dce84b861022179c99ca7a3">xllfifo.c</a>
+: <a class="el" href="group__llfifo__api.html#ga29654d755dce84b861022179c99ca7a3">xllfifo.c</a>
+, <a class="el" href="group__llfifo.html#ga29654d755dce84b861022179c99ca7a3">xllfifo.h</a>
 </li>
 <li>XLlFifoInterruptExample()
 : <a class="el" href="xllfifo__interrupt__example_8c.html#ad6e0b8d034840adde059c0f167cc04ef">xllfifo_interrupt_example.c</a>
 </li>
+<li>XLlFifoPollingExample()
+: <a class="el" href="xllfifo__polling__example_8c.html#a33cb9b07b5f2ab104da9bb54521eba3d">xllfifo_polling_example.c</a>
+</li>
 <li>XStrm_Read()
-: <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">xstreamer.c</a>
 </li>
 <li>XStrm_RxGetLen()
-: <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">xstreamer.c</a>
 </li>
 <li>XStrm_RxInitialize()
-: <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">xstreamer.c</a>
 </li>
 <li>XStrm_TxInitialize()
-: <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">xstreamer.c</a>
 </li>
 <li>XStrm_TxSetLen()
-: <a class="el" href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">xstreamer.c</a>
 </li>
 <li>XStrm_Write()
-: <a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">xstreamer.c</a>
+: <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">xstreamer.c</a>
 </li>
 </ul>
 </div><!-- contents -->

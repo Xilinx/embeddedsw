@@ -1,8 +1,16 @@
 var NAVTREE =
 [
-  [ "mig", "index.html", [
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "mig",
+    "index.html",
+    [
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

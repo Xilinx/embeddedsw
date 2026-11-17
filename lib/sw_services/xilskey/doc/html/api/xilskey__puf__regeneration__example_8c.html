@@ -111,7 +111,9 @@ $(document).ready(function(){initNavTree('xilskey__puf__regeneration__example_8c
        vns  03/21/19 Updated XilSKey_Efuse_ConvertStringToHexBE with bits
  7.0   kpt  09/02/20 Added successfully ran print to the example in case of
                      success
- 7.5   ng      07/13/23 added SDT support</pre><pre> </pre><dl class="section note"><dt>Note</dt><dd><pre class="fragment">          User configurable parameters for PUF
+ 7.5   ng   07/13/23 added SDT support
+ 8.0   rap  08/18/26 Added explicit void to function definitions and
+                     declarations with empty parameter lists.</pre><pre> </pre><dl class="section note"><dt>Note</dt><dd><pre class="fragment">          User configurable parameters for PUF
 </pre> <hr/>
  #define XSK_PUF_KEY_IV "000000000000000000000000" The value mentioned here will be converted to hex buffer. This is Initialization vector(IV) which is used for AES data encryption and decryption using PUF key This value should be given in string format. It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string. #define XSK_INPUT_DATA "00000000000000000000000000000000" The value mentioned in this will be converted to hex buffer and encrypts this with PUF key This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string. </dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xilskey__eps__zynqmp__hw_8h.html">xilskey_eps_zynqmp_hw.h</a>&quot;</code><br/>

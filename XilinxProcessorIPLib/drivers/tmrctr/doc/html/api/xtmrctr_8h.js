@@ -1,6 +1,15 @@
 var xtmrctr_8h =
 [
+    [ "XTC_AUTO_RELOAD_OPTION", "xtmrctr_8h.html#gace3deb2a423d72960864a46eacd11fdc", null ],
+    [ "XTC_CAPTURE_MODE_OPTION", "xtmrctr_8h.html#gaf93c62016d132546b5ee99789b4e48c1", null ],
     [ "XTC_CASCADE_MODE_OPTION", "xtmrctr_8h.html#ga4fb085742ee50628791c81ff9a14bc2c", null ],
+    [ "XTC_DOWN_COUNT_OPTION", "xtmrctr_8h.html#ga9cc7b106e2e846ec41fd983da0772dc8", null ],
+    [ "XTC_ENABLE_ALL_OPTION", "xtmrctr_8h.html#gac50df31e95b1a82441de09ff360eca48", null ],
+    [ "XTC_EXT_COMPARE_OPTION", "xtmrctr_8h.html#ga3d33636409ed76e99828909edcff0d4a", null ],
+    [ "XTC_HZ_TO_NS", "xtmrctr_8h.html#ga5552f8d5f7ed58263e6811f98647f8be", null ],
+    [ "XTC_INT_MODE_OPTION", "xtmrctr_8h.html#gaad72f141ec429ad4b782868c33b32c1b", null ],
+    [ "XTC_ROUND_DIV", "xtmrctr_8h.html#ga2a3efe61990e0eb158b9238143e915b0", null ],
+    [ "XTMRCTR_H", "xtmrctr_8h.html#gafc4684a3912a1169c7516b7dad56a20a", null ],
     [ "XTmrCtr_Handler", "xtmrctr_8h.html#ga2d96523ba7b80814a9f6c769619564cf", null ],
     [ "XTmrCtr_CfgInitialize", "xtmrctr_8h.html#ga220874785f096cc5f38b3bec907a008c", null ],
     [ "XTmrCtr_ClearStats", "xtmrctr_8h.html#ga6f51d8030e9d1a4edc588b0846e22e49", null ],

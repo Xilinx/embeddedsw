@@ -114,8 +114,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog prototype
       kal  06/02/23 Added client side API for SW PCR
 1.7   rpu  02/18/26 Refactor OCP client library
+1.8   sri  08/24/26 Add DME and key mgmt client includes for Versal_2VP_P
+      tus  08/07/26 Added XOcp_GetClientLibVersion and
+                    XOcp_GetServerLibInfo
+      tbk  09/01/26 Include HW PCR and SW PCR headers for Versal_2VP_P
+      rpu  09/10/26 Include SW PCR, DME and key mgmt headers for Versal_2VP
 </pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<code>#include &quot;xil_util.h&quot;</code><br/>
+<code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xocp__mailbox_8h.html">xocp_mailbox.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xocp__def_8h.html">xocp_def.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xocp__common_8h.html">xocp_common.h</a>&quot;</code><br/>
@@ -125,6 +132,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa164a8fafefc1e2b183db27281ee1b13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#gaa164a8fafefc1e2b183db27281ee1b13">XOcp_ClientInit</a> (<a class="el" href="struct_x_ocp___client_instance.html">XOcp_ClientInstance</a> *const InstancePtr, XMailbox *const MailboxPtr)</td></tr>
 <tr class="memdesc:gaa164a8fafefc1e2b183db27281ee1b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the instance of mailbox.  <a href="group__xocp__mailbox__apis.html#gaa164a8fafefc1e2b183db27281ee1b13">More...</a><br/></td></tr>
 <tr class="separator:gaa164a8fafefc1e2b183db27281ee1b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c2f2c908935183bd19e2149fa4e525f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga0c2f2c908935183bd19e2149fa4e525f">XOcp_GetClientLibVersion</a> (u32 *Version)</td></tr>
+<tr class="memdesc:ga0c2f2c908935183bd19e2149fa4e525f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the XilOcp library version that the client is built with.  <a href="group__xocp__mailbox__apis.html#ga0c2f2c908935183bd19e2149fa4e525f">More...</a><br/></td></tr>
+<tr class="separator:ga0c2f2c908935183bd19e2149fa4e525f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82ae11459dd1b356925ec2277e541de9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga82ae11459dd1b356925ec2277e541de9">XOcp_GetServerLibInfo</a> (<a class="el" href="struct_x_ocp___client_instance.html">XOcp_ClientInstance</a> *InstancePtr, Xil_LibInfo *LibInfo)</td></tr>
+<tr class="memdesc:ga82ae11459dd1b356925ec2277e541de9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to get the XilOcp library version and capability bits running on the PLM.  <a href="group__xocp__mailbox__apis.html#ga82ae11459dd1b356925ec2277e541de9">More...</a><br/></td></tr>
+<tr class="separator:ga82ae11459dd1b356925ec2277e541de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

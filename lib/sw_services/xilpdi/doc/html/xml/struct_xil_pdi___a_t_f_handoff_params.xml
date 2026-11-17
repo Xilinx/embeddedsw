@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="327" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___a_t_f_handoff_params_1a3ca01df14bdcfbe0d89759bcba3a54c8" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="328" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="340" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___a_t_f_handoff_params_1a409811194022ad64e19b2e3c3a865799" prot="public" static="no" mutable="no">
         <type><ref refid="struct_xil_pdi___prtn_entry" kindref="compound">XilPdi_PrtnEntry</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="329" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="341" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,7 +61,7 @@
         <link refid="struct_xil_pdi___prtn_entry"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="326" bodyend="331"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="338" bodyend="343"/>
     <listofallmembers>
       <member refid="struct_xil_pdi___a_t_f_handoff_params_1a409811194022ad64e19b2e3c3a865799" prot="public" virt="non-virtual"><scope>XilPdi_ATFHandoffParams</scope><name>Entry</name></member>
       <member refid="struct_xil_pdi___a_t_f_handoff_params_1ab2c5d32dbf2a2ca0d0fa23a2644046ad" prot="public" virt="non-virtual"><scope>XilPdi_ATFHandoffParams</scope><name>MagicValue</name></member>

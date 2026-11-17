@@ -1,5 +1,16 @@
 var searchData=
 [
+  ['xdp21_5frx_5fdsc_5fenable_5foffset',['XDP21_RX_DSC_ENABLE_OFFSET',['../xdp21rxss__hw_8h.html#a2faaf703609f8ea8cd0c5a65fdbbb99b',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5fdsc_5fstream_5factive',['XDP21_RX_DSC_STREAM_ACTIVE',['../xdp21rxss__hw_8h.html#a0a613d91041611d130fb3c2f9c4a017c',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5ffec_5factive',['XDP21_RX_FEC_ACTIVE',['../xdp21rxss__hw_8h.html#abd374374c0ed77389edf527083bceec5',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5ffec_5fcorr_5fcount_5foffset',['XDP21_RX_FEC_CORR_COUNT_OFFSET',['../xdp21rxss__hw_8h.html#a4085d5b5c713b9d725e6dd1ec722ae10',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5ffec_5fctrl_5foffset',['XDP21_RX_FEC_CTRL_OFFSET',['../xdp21rxss__hw_8h.html#a1bf532fce56d1babddc438a85ea6107e',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5ffec_5ferr_5fcount_5foffset',['XDP21_RX_FEC_ERR_COUNT_OFFSET',['../xdp21rxss__hw_8h.html#a76a1d1939e038bbc63b8c87b159cddf7',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5ffec_5fstatus_5foffset',['XDP21_RX_FEC_STATUS_OFFSET',['../xdp21rxss__hw_8h.html#a729d79819a4d7a43de3ac8fa958d59eb',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5fpps_5fsdp_5fbase_5foffset',['XDP21_RX_PPS_SDP_BASE_OFFSET',['../xdp21rxss__hw_8h.html#a7ea0728276b30baed8e6aa5f29ca1849',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5fpps_5fsdp_5fctrl_5foffset',['XDP21_RX_PPS_SDP_CTRL_OFFSET',['../xdp21rxss__hw_8h.html#a1985fcb185f2bd6deb76ff4533bccfa4',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5fpps_5fsdp_5fstatus_5foffset',['XDP21_RX_PPS_SDP_STATUS_OFFSET',['../xdp21rxss__hw_8h.html#aad66bc3bc28ff221194a9966e12566b0',1,'xdp21rxss_hw.h']]],
+  ['xdp21_5frx_5fpps_5fsdp_5fvalid',['XDP21_RX_PPS_SDP_VALID',['../xdp21rxss__hw_8h.html#a769042fff721776964e5a4358e3c69ff',1,'xdp21rxss_hw.h']]],
   ['xdp_5fhdcp_5fkeys_5fh_5f',['XDP_HDCP_KEYS_H_',['../xdp__hdcp__keys_8h.html#a659e5479b0b5cf586ac14189edd896eb',1,'xdp_hdcp_keys.h']]],
   ['xdprxss_5fdevice_5fid',['XDPRXSS_DEVICE_ID',['../xdprxss__dp21__rx_8c.html#a58c41bc3d12206e620d2820da0a10e34',1,'xdprxss_dp21_rx.c']]],
   ['xdprxss_5fdprx_5fh_5f',['XDPRXSS_DPRX_H_',['../xdprxss__dprx_8h.html#a6fdbd38ace5b14b9a83717ce67efc3f6',1,'xdprxss_dprx.h']]],

@@ -143,12 +143,12 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>struct XUsbPsu_event_devt - Device Events Device Events </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Is_DevEvt,:</td><td>indicates this is a non-endpoint event </td></tr>
-    <tr><td class="paramname">Device_Event,:</td><td>indicates it's a device event. Should read as 0x00 </td></tr>
-    <tr><td class="paramname">Type,:</td><td>indicates the type of device event. 0 - DisconnEvt 1 - USBRst 2 - ConnectDone 3 - ULStChng 4 - WkUpEvt 5 - Reserved 6 - EOPF 7 - SOF 8 - Reserved 9 - ErrticErr 10 - CmdCmplt 11 - EvntOverflow 12 - VndrDevTstRcved </td></tr>
-    <tr><td class="paramname">Reserved15_12,:</td><td>Reserved, not used </td></tr>
-    <tr><td class="paramname">Event_Info,:</td><td>Information about this event </td></tr>
-    <tr><td class="paramname">Reserved31_25,:</td><td>Reserved, not used </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Is_DevEvt,:</td><td>indicates this is a non-endpoint event </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Device_Event,:</td><td>indicates it's a device event. Should read as 0x00 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type,:</td><td>indicates the type of device event. 0 - DisconnEvt 1 - USBRst 2 - ConnectDone 3 - ULStChng 4 - WkUpEvt 5 - Reserved 6 - EOPF 7 - SOF 8 - Reserved 9 - ErrticErr 10 - CmdCmplt 11 - EvntOverflow 12 - VndrDevTstRcved </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Reserved15_12,:</td><td>Reserved, not used </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event_Info,:</td><td>Information about this event </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Reserved31_25,:</td><td>Reserved, not used </td></tr>
   </table>
   </dd>
 </dl>

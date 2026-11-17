@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__regulator_8h" kind="file">
+    <compoundname>xpm_regulator.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="xpm__regulator_8c" local="yes">xpm_regulator.c</includedby>
+    <includedby refid="xpm__rail__plat_8c" local="yes">xpm_rail_plat.c</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="8264">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="8255">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8266">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8267" relation="include">
+        </childnode>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8270" relation="include">
+        </childnode>
+      </node>
+      <node id="8251">
+        <label>xpm_node.h</label>
+        <childnode refid="8252" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+        <childnode refid="8254" relation="include">
+        </childnode>
+      </node>
+      <node id="8257">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8263">
+        <label>xpm_clock.h</label>
+        <childnode refid="8254" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+      </node>
+      <node id="8256">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8258">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8260">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8250">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8270">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8272">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8271">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8248">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8262">
+        <label>xpm_device.h</label>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+        <childnode refid="8263" relation="include">
+        </childnode>
+        <childnode refid="8265" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+      </node>
+      <node id="8253">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8268">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8252">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8259">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8254">
+        <label>xpm_common.h</label>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8255" relation="include">
+        </childnode>
+        <childnode refid="8256" relation="include">
+        </childnode>
+        <childnode refid="8257" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+        <childnode refid="8259" relation="include">
+        </childnode>
+      </node>
+      <node id="8267">
+        <label>xpm_api.h</label>
+        <childnode refid="8252" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8257" relation="include">
+        </childnode>
+        <childnode refid="8268" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+      </node>
+      <node id="8247">
+        <label>xpm_regulator.h</label>
+        <link refid="xpm_regulator.h"/>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+        <childnode refid="8262" relation="include">
+        </childnode>
+      </node>
+      <node id="8249">
+        <label>xpm_power.h</label>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8260" relation="include">
+        </childnode>
+        <childnode refid="8261" relation="include">
+        </childnode>
+      </node>
+      <node id="8261">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8269">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8265">
+        <label>xpm_reset.h</label>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8254" relation="include">
+        </childnode>
+        <childnode refid="8266" relation="include">
+        </childnode>
+        <childnode refid="8271" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8274">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="8279">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="8278">
+        <label>xpm_rail_plat.c</label>
+      </node>
+      <node id="8275">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="8277">
+        <label>xpm_regulator.c</label>
+      </node>
+      <node id="8273">
+        <label>xpm_regulator.h</label>
+        <link refid="xpm_regulator.h"/>
+        <childnode refid="8274" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+        <childnode refid="8276" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+      </node>
+      <node id="8276">
+        <label>xpm_rail.c</label>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REGULATOR_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REGULATOR_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(RAIL_CONTROL)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_METHODTYPE_I2C<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_METHODTYPE_GPIO<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_I2C_CNTRLR=0,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GPIO_CNTRLR,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_MAX_NUM_CNTRLR,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/>XPm_CntrlrType;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>Node;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_I2cCmd<sp/>Config;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>I2cAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAVE_REGION()</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Cntrlr[XPM_MAX_NUM_CNTRLR];<sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}<sp/>XPm_Regulator;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">XPm_Regulator<sp/>*XPmRegulator_GetById(u32<sp/>Id);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">XStatus<sp/>XPmRegulator_Init(XPm_Regulator<sp/>*Regulator,<sp/>u32<sp/>Id,<sp/>const<sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RAIL_CONTROL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REGULATOR_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_regulator.h"/>
+  </compounddef>
+</doxygen>

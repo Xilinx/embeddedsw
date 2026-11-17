@@ -10,127 +10,129 @@
     <includes local="yes">xil_sutil.h</includes>
     <includes refid="xasu__aesinfo_8h" local="yes">xasu_aesinfo.h</includes>
     <incdepgraph>
-      <node id="481">
-        <label>xasu_shainfo.h</label>
-        <link refid="xasu__shainfo_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="482" relation="include">
-        </childnode>
-      </node>
-      <node id="478">
+      <node id="573">
         <label>xasu_def.h</label>
         <link refid="xasu__def_8h"/>
-        <childnode refid="473" relation="include">
+        <childnode refid="572" relation="include">
         </childnode>
       </node>
-      <node id="472">
-        <label>xasu_sharedmem.h</label>
-        <link refid="xasu__sharedmem_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-      </node>
-      <node id="484">
+      <node id="583">
         <label>xil_sutil.h</label>
       </node>
-      <node id="479">
-        <label>xasu_kdfinfo.h</label>
-        <link refid="xasu__kdfinfo_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="480" relation="include">
-        </childnode>
-        <childnode refid="476" relation="include">
-        </childnode>
-      </node>
-      <node id="471">
-        <label>xasu_client.h</label>
-        <link refid="xasu__client_8h"/>
-        <childnode refid="472" relation="include">
-        </childnode>
-        <childnode refid="474" relation="include">
-        </childnode>
-        <childnode refid="475" relation="include">
-        </childnode>
-        <childnode refid="477" relation="include">
-        </childnode>
-        <childnode refid="478" relation="include">
-        </childnode>
-      </node>
-      <node id="469">
-        <label>xasu_kdf.c</label>
-        <link refid="xasu_kdf.c"/>
-        <childnode refid="470" relation="include">
-        </childnode>
-        <childnode refid="478" relation="include">
-        </childnode>
-        <childnode refid="481" relation="include">
-        </childnode>
-        <childnode refid="480" relation="include">
-        </childnode>
-        <childnode refid="483" relation="include">
-        </childnode>
-        <childnode refid="484" relation="include">
-        </childnode>
-        <childnode refid="485" relation="include">
-        </childnode>
-      </node>
-      <node id="470">
-        <label>xasu_kdf.h</label>
-        <link refid="xasu__kdf_8h"/>
-        <childnode refid="471" relation="include">
-        </childnode>
-        <childnode refid="479" relation="include">
-        </childnode>
-      </node>
-      <node id="476">
-        <label>xasu_bsp_config.h</label>
-      </node>
-      <node id="474">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="475">
-        <label>xasu_perf.h</label>
-        <link refid="xasu__perf_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="476" relation="include">
-        </childnode>
-      </node>
-      <node id="482">
-        <label>xstatus.h</label>
-      </node>
-      <node id="473">
-        <label>xil_types.h</label>
-      </node>
-      <node id="483">
-        <label>xasu_kdf_common.h</label>
-        <link refid="xasu__kdf__common_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="479" relation="include">
-        </childnode>
-      </node>
-      <node id="480">
-        <label>xasu_hmacinfo.h</label>
-        <link refid="xasu__hmacinfo_8h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="476" relation="include">
-        </childnode>
-      </node>
-      <node id="485">
+      <node id="584">
         <label>xasu_aesinfo.h</label>
         <link refid="xasu__aesinfo_8h"/>
-        <childnode refid="473" relation="include">
+        <childnode refid="572" relation="include">
         </childnode>
-        <childnode refid="476" relation="include">
+        <childnode refid="576" relation="include">
         </childnode>
       </node>
-      <node id="477">
+      <node id="571">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+      </node>
+      <node id="576">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="568">
+        <label>xasu_kdf.c</label>
+        <link refid="xasu_kdf.c"/>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+      </node>
+      <node id="569">
+        <label>xasu_kdf.h</label>
+        <link refid="xasu__kdf_8h"/>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+      </node>
+      <node id="570">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+      </node>
+      <node id="574">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="582">
+        <label>xasu_kdf_common.h</label>
+        <link refid="xasu__kdf__common_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+      </node>
+      <node id="581">
+        <label>xstatus.h</label>
+      </node>
+      <node id="578">
+        <label>xasu_kdfinfo.h</label>
+        <link refid="xasu__kdfinfo_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+      </node>
+      <node id="575">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+      </node>
+      <node id="579">
+        <label>xasu_hmacinfo.h</label>
+        <link refid="xasu__hmacinfo_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+      </node>
+      <node id="572">
+        <label>xil_types.h</label>
+      </node>
+      <node id="580">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+      </node>
+      <node id="577">
         <label>xasu_status.h</label>
         <link refid="xasu__status_8h"/>
-        <childnode refid="473" relation="include">
+        <childnode refid="572" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -145,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="41" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xasu__kdf__client__apis_1ga1ae01ca7eeb5326b9b6a01c6ba74ed2b" prot="public" static="no">
@@ -157,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="42" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xasu__kdf__client__apis_1gaa055700573f1428359bb154c5bd0e662" prot="public" static="no">
@@ -169,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="43" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
       </memberdef>
       </sectiondef>
@@ -191,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasu__kdf__client__apis_1ga1b95e38592cebe35a5bf681aa0638a86" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -210,7 +212,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasu__kdf__client__apis_1ga5d1c46f303c6a1b76e1a31d230aab5c0" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -229,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -259,7 +261,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate CMAC KDF parameters pointer.</para><para>Key manager is not supported for CMAC KDF, KeyId must be 0.</para><para>Validate CMAC KDF parameters.</para><para>Validate that the input key length is either 128 bits or 256 bits for CMAC KDF. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="411" bodyend="442"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="411" bodyend="444"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -298,21 +300,21 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Get the command ID based on SHA type.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="103" bodyend="144"/>
-        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="103" bodyend="144"/>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="68">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__common__defs_1ga82d1de1442921681aaa4fcc1e9c04c91" compoundref="xasu__kdfinfo_8h" startline="46">XASU_KDF_GENERATE_SHA2_CMD_ID</references>
         <references refid="group__xasu__common__defs_1ga5de13e611fea3834a66fe1f8764c7396" compoundref="xasu__kdfinfo_8h" startline="47">XASU_KDF_GENERATE_SHA3_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1gae698f3b9e3922429f0dea99c0a20e541" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -352,17 +354,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Create command header for the CMAC KDF command.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="163" bodyend="198"/>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="163" bodyend="198"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__common__defs_1ga02176f92b96faa9d74b31e3897457da7" compoundref="xasu__kdfinfo_8h" startline="49">XASU_KDF_CMAC_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -401,24 +403,24 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Validate HMAC KDF parameters.</para><para>Get the command ID based on SHA type.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="217" bodyend="269"/>
-        <references refid="struct_x_asu___hkdf_params_1a420289ab8875be97825a029d1b116014" compoundref="xasu__kdfinfo_8h" startline="75">XAsu_HkdfParams::KdfParams</references>
-        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
-        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
-        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="217" bodyend="269"/>
+        <references refid="struct_x_asu___hkdf_params_1a420289ab8875be97825a029d1b116014" compoundref="xasu__kdfinfo_8h" startline="77">XAsu_HkdfParams::KdfParams</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="58">XAsu_KdfHmacKeyObject::KeyId</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="68">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__common__defs_1gac020e52afd03f20ab0df039bf091a228" compoundref="xasu__kdfinfo_8h" startline="50">XASU_KDF_HKDF_SHA2_CMD_ID</references>
         <references refid="group__xasu__common__defs_1ga7e85b2b6960bfe8465229a2fbc445142" compoundref="xasu__kdfinfo_8h" startline="51">XASU_KDF_HKDF_SHA3_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga3361507e3fd3db0fd6bdf820c3cafb3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -446,16 +448,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="285" bodyend="311"/>
-        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="285" bodyend="311"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__common__defs_1ga53aba64a62db211fafa15c82404f93ad" compoundref="xasu__kdfinfo_8h" startline="48">XASU_KDF_KAT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga87ea9eced53397321492af3619d60807" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -491,7 +493,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="322" bodyend="328"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="322" bodyend="328"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -512,30 +514,32 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Set up client parameters with KAT callback.</para><para>Set up KDF parameters.</para><para>Send KDF generate request to the server.</para><para>Busy-wait for the server response.</para><para>Check the callback status.</para><para>Compare the derived key against the expected value.</para><para>Zeroize local output buffer. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="341" bodyend="398"/>
-        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::ContextAddr</references>
-        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::ContextLen</references>
-        <references refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" compoundref="xasu__kdfinfo_8h" startline="83">XAsu_CmacKdfParams::KdfParams</references>
-        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="341" bodyend="398"/>
+        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::ContextAddr</references>
+        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::ContextLen</references>
+        <references refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" compoundref="xasu__kdfinfo_8h" startline="85">XAsu_CmacKdfParams::KdfParams</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="58">XAsu_KdfHmacKeyObject::KeyId</references>
         <references refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" compoundref="xasu__hmacinfo_8h" startline="54">XAsu_KdfHmacKeyObject::KeyInAddr</references>
         <references refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" compoundref="xasu__hmacinfo_8h" startline="55">XAsu_KdfHmacKeyObject::KeyInLen</references>
-        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
-        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::KeyOutAddr</references>
-        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::KeyOutLen</references>
-        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="67">XAsu_KdfParams::ShaMode</references>
-        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
-        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="102">XASU_AES_KEY_SIZE_128_BITS</references>
-        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
-        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::KeyOutAddr</references>
+        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::KeyOutLen</references>
+        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="69">XAsu_KdfParams::ShaMode</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="68">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="119">XASU_AES_KEY_SIZE_128_BITS</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="120">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" compoundref="xasu__aesinfo_8h" startline="61">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="48">XASU_CMD_SECURE</references>
         <references refid="group__xasu__kdf__client__apis_1ga1ae01ca7eeb5326b9b6a01c6ba74ed2b" compoundref="xasu__kdf_8c" startline="42">XASU_KDF_KAT_CTX_LEN_IN_BYTES</references>
         <references refid="group__xasu__kdf__client__apis_1ga23cba2f8caca3b90cb03962b433f8e5b" compoundref="xasu__kdf_8c" startline="41">XASU_KDF_KAT_KEY_LEN_IN_BYTES</references>
         <references refid="group__xasu__kdf__client__apis_1gaa055700573f1428359bb154c5bd0e662" compoundref="xasu__kdf_8c" startline="43">XASU_KDF_KAT_SHA3_256_OUT_LEN</references>
         <references refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" compoundref="xasu__kdfinfo_8h" startline="54">XASU_KDF_MAX_CONTEXT_LEN</references>
+        <references refid="group__xasu__common__defs_1ga875f561a26016348988c56a1051b0fda" compoundref="xasu__kdfinfo_8h" startline="56">XASU_KDF_MAX_ITERATIONS</references>
         <references refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</references>
-        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
-        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
-        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="51">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="59">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="52">XASU_SHA_MODE_256</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="62">XASU_SHA_SHAKE_256_HASH_LEN</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -837,21 +841,23 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="423"><highlight class="normal"></highlight></codeline>
 <codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" kindref="member">KeyInAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" kindref="member">ContextAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
 <codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" kindref="member">ContextLen</ref><sp/>==<sp/>0U)<sp/>||<sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" kindref="member">ContextLen</ref><sp/>&gt;<sp/><ref refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" kindref="member">XASU_KDF_MAX_CONTEXT_LEN</ref>)<sp/>||</highlight></codeline>
-<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" kindref="member">KeyOutAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" kindref="member">KeyOutLen</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
-<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="430"><highlight class="normal"></highlight></codeline>
-<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" kindref="member">XASU_AES_KEY_SIZE_128_BITS</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>))<sp/>{</highlight></codeline>
-<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="436"><highlight class="normal"></highlight></codeline>
-<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" kindref="member">KeyOutAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" kindref="member">KeyOutLen</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" kindref="member">KeyOutLen</ref><sp/>&gt;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" kindref="member">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</ref><sp/>*<sp/><ref refid="group__xasu__common__defs_1ga875f561a26016348988c56a1051b0fda" kindref="member">XASU_KDF_MAX_ITERATIONS</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" kindref="member">XASU_AES_KEY_SIZE_128_BITS</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CmacKdfParamsPtr-&gt;<ref refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" kindref="member">KdfParams</ref>.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="438"><highlight class="normal"></highlight></codeline>
-<codeline lineno="439"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="441"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c"/>
   </compounddef>
 </doxygen>

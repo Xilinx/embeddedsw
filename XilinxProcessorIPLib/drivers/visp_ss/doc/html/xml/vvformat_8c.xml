@@ -5,153 +5,153 @@
     <includes refid="vvformat_8h" local="yes">vvformat.h</includes>
     <includes refid="memory__manager_8h" local="yes">memory_manager.h</includes>
     <incdepgraph>
-      <node id="11740">
+      <node id="12185">
         <label>stdbool.h</label>
       </node>
-      <node id="11733">
+      <node id="12187">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12188" relation="include">
+        </childnode>
+      </node>
+      <node id="12186">
+        <label>stdint.h</label>
+      </node>
+      <node id="12173">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12189">
+        <label>memory_manager.h</label>
+        <childnode refid="12175" relation="include">
+        </childnode>
+        <childnode refid="12186" relation="include">
+        </childnode>
+      </node>
+      <node id="12170">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="12171" relation="include">
+        </childnode>
+        <childnode refid="12174" relation="include">
+        </childnode>
+        <childnode refid="12175" relation="include">
+        </childnode>
+      </node>
+      <node id="12179">
+        <label>vvbase.h</label>
+      </node>
+      <node id="12175">
+        <label>stddef.h</label>
+      </node>
+      <node id="12174">
+        <label>limits.h</label>
+      </node>
+      <node id="12178">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="11723">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="11724" relation="include">
-        </childnode>
-        <childnode refid="11732" relation="include">
-        </childnode>
-      </node>
-      <node id="11744">
-        <label>memory_manager.h</label>
-        <childnode refid="11730" relation="include">
-        </childnode>
-        <childnode refid="11741" relation="include">
-        </childnode>
-      </node>
-      <node id="11741">
-        <label>stdint.h</label>
-      </node>
-      <node id="11728">
-        <label>stdlib.h</label>
-      </node>
-      <node id="11738">
+      <node id="12183">
         <label>sensor_cmd.h</label>
-        <childnode refid="11739" relation="include">
+        <childnode refid="12184" relation="include">
         </childnode>
-        <childnode refid="11733" relation="include">
-        </childnode>
-      </node>
-      <node id="11730">
-        <label>stddef.h</label>
-      </node>
-      <node id="11722">
-        <label>vvformat.h</label>
-        <childnode refid="11723" relation="include">
-        </childnode>
-        <childnode refid="11733" relation="include">
-        </childnode>
-        <childnode refid="11734" relation="include">
-        </childnode>
-        <childnode refid="11735" relation="include">
-        </childnode>
-        <childnode refid="11736" relation="include">
-        </childnode>
-        <childnode refid="11737" relation="include">
+        <childnode refid="12178" relation="include">
         </childnode>
       </node>
-      <node id="11729">
-        <label>limits.h</label>
-      </node>
-      <node id="11737">
-        <label>cam_device_common.h</label>
-        <childnode refid="11725" relation="include">
-        </childnode>
-        <childnode refid="11733" relation="include">
-        </childnode>
-        <childnode refid="11724" relation="include">
-        </childnode>
-        <childnode refid="11736" relation="include">
-        </childnode>
-        <childnode refid="11738" relation="include">
-        </childnode>
-      </node>
-      <node id="11736">
-        <label>buf_defs.h</label>
-        <childnode refid="11725" relation="include">
-        </childnode>
-      </node>
-      <node id="11739">
-        <label>mbox_api.h</label>
-        <childnode refid="11740" relation="include">
-        </childnode>
-        <childnode refid="11741" relation="include">
-        </childnode>
-        <childnode refid="11742" relation="include">
-        </childnode>
-      </node>
-      <node id="11731">
-        <label>string.h</label>
-      </node>
-      <node id="11742">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="11740" relation="include">
-        </childnode>
-        <childnode refid="11743" relation="include">
-        </childnode>
-      </node>
-      <node id="11721">
-        <label>vvformat.c</label>
-        <link refid="vvformat.c"/>
-        <childnode refid="11722" relation="include">
-        </childnode>
-        <childnode refid="11744" relation="include">
-        </childnode>
-      </node>
-      <node id="11743">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="11732">
-        <label>ff.h</label>
-      </node>
-      <node id="11725">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="11726" relation="include">
-        </childnode>
-        <childnode refid="11729" relation="include">
-        </childnode>
-        <childnode refid="11730" relation="include">
-        </childnode>
-      </node>
-      <node id="11734">
-        <label>vvbase.h</label>
-      </node>
-      <node id="11735">
-        <label>vlog.h</label>
-        <childnode refid="11727" relation="include">
-        </childnode>
-        <childnode refid="11728" relation="include">
-        </childnode>
-        <childnode refid="11723" relation="include">
-        </childnode>
-      </node>
-      <node id="11724">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="11725" relation="include">
-        </childnode>
-        <childnode refid="11731" relation="include">
-        </childnode>
-      </node>
-      <node id="11727">
-        <label>stdio.h</label>
-      </node>
-      <node id="11726">
+      <node id="12171">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="11727" relation="include">
+        <childnode refid="12172" relation="include">
         </childnode>
-        <childnode refid="11728" relation="include">
+        <childnode refid="12173" relation="include">
+        </childnode>
+      </node>
+      <node id="12166">
+        <label>vvformat.c</label>
+        <link refid="vvformat.c"/>
+        <childnode refid="12167" relation="include">
+        </childnode>
+        <childnode refid="12189" relation="include">
+        </childnode>
+      </node>
+      <node id="12176">
+        <label>string.h</label>
+      </node>
+      <node id="12182">
+        <label>cam_device_common.h</label>
+        <childnode refid="12170" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12169" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+        <childnode refid="12183" relation="include">
+        </childnode>
+      </node>
+      <node id="12184">
+        <label>mbox_api.h</label>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12186" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+      </node>
+      <node id="12169">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="12170" relation="include">
+        </childnode>
+        <childnode refid="12176" relation="include">
+        </childnode>
+      </node>
+      <node id="12188">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="12180">
+        <label>vlog.h</label>
+        <childnode refid="12172" relation="include">
+        </childnode>
+        <childnode refid="12173" relation="include">
+        </childnode>
+        <childnode refid="12168" relation="include">
+        </childnode>
+      </node>
+      <node id="12177">
+        <label>ff.h</label>
+      </node>
+      <node id="12181">
+        <label>buf_defs.h</label>
+        <childnode refid="12170" relation="include">
+        </childnode>
+      </node>
+      <node id="12168">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="12169" relation="include">
+        </childnode>
+        <childnode refid="12177" relation="include">
+        </childnode>
+      </node>
+      <node id="12172">
+        <label>stdio.h</label>
+      </node>
+      <node id="12167">
+        <label>vvformat.h</label>
+        <childnode refid="12168" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12179" relation="include">
+        </childnode>
+        <childnode refid="12180" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+        <childnode refid="12182" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -165,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="32" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="vvformat_8c_1a3acffbd305ee72dcd4593c0d8af64a4f" prot="public" static="no">
         <name>MIN</name>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="35" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="35" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="35" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="vvformat_8c_1afa99ec4acc4ecb2dc3c2d05da15d0e3f" prot="public" static="no">
         <name>MAX</name>
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="39" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="39" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="42" bodyend="95"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="42" bodyend="95"/>
       </memberdef>
       <memberdef kind="function" id="vvformat_8c_1ab96c967474e657671546f425ba762e86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -235,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="98" bodyend="327"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c" bodystart="98" bodyend="342"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -551,26 +551,41 @@
 <codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*pRGBA<sp/>=<sp/>mm_malloc(4<sp/>*<sp/>pBuffer-&gt;width<sp/>*<sp/>pBuffer-&gt;height);</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*pRGBATmp<sp/>=<sp/>pRGBA;</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>x,<sp/>y;</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>posY<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>pBuffer-&gt;height;<sp/>y++)<sp/>{</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>pBuffer-&gt;width;<sp/>x++)<sp/>{</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Y<sp/>=<sp/>pYBase[posY++];</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>0xFF;</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mm_free(pLocBuf);</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuffer-&gt;bufferInstance<sp/>=<sp/>pRGBA;</highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuffer-&gt;buff_size<sp/>=<sp/>4<sp/>*<sp/>pBuffer-&gt;width<sp/>*<sp/>pBuffer-&gt;height;</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGD(</highlight><highlight class="stringliteral">&quot;%s<sp/>out&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
-<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pBuffer-&gt;width<sp/>&lt;=<sp/>0<sp/>||<sp/>pBuffer-&gt;height<sp/>&lt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;%s<sp/>invalid<sp/>width/height:<sp/>%d<sp/>x<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>pBuffer-&gt;width,<sp/>pBuffer-&gt;height);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>compute<sp/>in<sp/>64-bit<sp/>first<sp/>so<sp/>the<sp/>multiply<sp/>can&apos;t<sp/>wrap<sp/>before<sp/>we<sp/>can<sp/>check<sp/>it<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint64_t<sp/>rgbaSize64<sp/>=<sp/>4ULL<sp/>*<sp/>(uint32_t)pBuffer-&gt;width<sp/>*<sp/>(uint32_t)pBuffer-&gt;height;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rgbaSize64<sp/>&gt;<sp/>UINT32_MAX)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;%s<sp/>RGBA<sp/>buffer<sp/>size<sp/>overflow<sp/>for<sp/>%d<sp/>x<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>pBuffer-&gt;width,<sp/>pBuffer-&gt;height);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>rgbaSize<sp/>=<sp/>(uint32_t)rgbaSize64;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*pRGBA<sp/>=<sp/>mm_malloc(rgbaSize);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>pRGBA)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;%s<sp/>mm_malloc<sp/>failed<sp/>for<sp/>size<sp/>%u\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>rgbaSize);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" kindref="member">RET_OUTOFMEM</ref>;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*pRGBATmp<sp/>=<sp/>pRGBA;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>x,<sp/>y;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>posY<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>pBuffer-&gt;height;<sp/>y++)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>pBuffer-&gt;width;<sp/>x++)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Y<sp/>=<sp/>pYBase[posY++];</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>char)MAX(0,<sp/>MIN(255,<sp/>Y));</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRGBATmp++<sp/>=<sp/>0xFF;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mm_free(pLocBuf);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuffer-&gt;bufferInstance<sp/>=<sp/>pRGBA;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuffer-&gt;buff_size<sp/>=<sp/>rgbaSize;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGD(</highlight><highlight class="stringliteral">&quot;%s<sp/>out&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvformat.c"/>
   </compounddef>
 </doxygen>

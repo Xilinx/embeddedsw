@@ -20,519 +20,541 @@
     <includedby refid="net_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
     <includedby refid="net_2server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
     <incdepgraph>
-      <node id="2508">
+      <node id="2629">
         <label>xil_assert.h</label>
       </node>
-      <node id="2496">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi_proc.h"/>
-        <childnode refid="2497" relation="include">
-        </childnode>
-        <childnode refid="2498" relation="include">
-        </childnode>
-        <childnode refid="2499" relation="include">
-        </childnode>
-        <childnode refid="2515" relation="include">
-        </childnode>
-        <childnode refid="2504" relation="include">
-        </childnode>
-      </node>
-      <node id="2509">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="2514">
-        <label>stdlib.h</label>
-      </node>
-      <node id="2500">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="2501" relation="include">
-        </childnode>
-        <childnode refid="2502" relation="include">
-        </childnode>
-        <childnode refid="2503" relation="include">
-        </childnode>
-        <childnode refid="2508" relation="include">
-        </childnode>
-        <childnode refid="2509" relation="include">
-        </childnode>
-      </node>
-      <node id="2510">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="2508" relation="include">
-        </childnode>
-        <childnode refid="2511" relation="include">
-        </childnode>
-        <childnode refid="2507" relation="include">
-        </childnode>
-        <childnode refid="2512" relation="include">
-        </childnode>
-        <childnode refid="2513" relation="include">
-        </childnode>
-      </node>
-      <node id="2515">
+      <node id="2636">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="2507" relation="include">
+        <childnode refid="2628" relation="include">
         </childnode>
       </node>
-      <node id="2511">
-        <label>mb_interface.h</label>
+      <node id="2630">
+        <label>xil_hw.h</label>
       </node>
-      <node id="2502">
+      <node id="2635">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2623">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="2503" relation="include">
+        <childnode refid="2624" relation="include">
         </childnode>
-        <childnode refid="2506" relation="include">
+        <childnode refid="2627" relation="include">
         </childnode>
-        <childnode refid="2501" relation="include">
+        <childnode refid="2622" relation="include">
         </childnode>
-        <childnode refid="2507" relation="include">
+        <childnode refid="2628" relation="include">
         </childnode>
       </node>
-      <node id="2512">
-        <label>xstatus.h</label>
+      <node id="2621">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="2622" relation="include">
+        </childnode>
+        <childnode refid="2623" relation="include">
+        </childnode>
+        <childnode refid="2624" relation="include">
+        </childnode>
+        <childnode refid="2629" relation="include">
+        </childnode>
+        <childnode refid="2630" relation="include">
+        </childnode>
       </node>
-      <node id="2505">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="2498">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="2507">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2503">
+      <node id="2624">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="2504" relation="include">
+        <childnode refid="2625" relation="include">
         </childnode>
-        <childnode refid="2505" relation="include">
+        <childnode refid="2626" relation="include">
         </childnode>
       </node>
-      <node id="2501">
+      <node id="2632">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="2633">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2634">
+        <label>list.h</label>
+        <childnode refid="2635" relation="include">
+        </childnode>
+      </node>
+      <node id="2626">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2631">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="2629" relation="include">
+        </childnode>
+        <childnode refid="2632" relation="include">
+        </childnode>
+        <childnode refid="2628" relation="include">
+        </childnode>
+        <childnode refid="2633" relation="include">
+        </childnode>
+        <childnode refid="2634" relation="include">
+        </childnode>
+      </node>
+      <node id="2619">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="2617">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi_proc.h"/>
+        <childnode refid="2618" relation="include">
+        </childnode>
+        <childnode refid="2619" relation="include">
+        </childnode>
+        <childnode refid="2620" relation="include">
+        </childnode>
+        <childnode refid="2636" relation="include">
+        </childnode>
+        <childnode refid="2625" relation="include">
+        </childnode>
+      </node>
+      <node id="2628">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2622">
         <label>xparameters.h</label>
       </node>
-      <node id="2513">
-        <label>list.h</label>
-        <childnode refid="2514" relation="include">
-        </childnode>
-      </node>
-      <node id="2499">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="2500" relation="include">
-        </childnode>
-        <childnode refid="2510" relation="include">
-        </childnode>
-      </node>
-      <node id="2497">
+      <node id="2618">
         <label>xiomodule.h</label>
       </node>
-      <node id="2506">
+      <node id="2627">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="2504">
+      <node id="2625">
         <label>xplmi_status.h</label>
+      </node>
+      <node id="2620">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="2621" relation="include">
+        </childnode>
+        <childnode refid="2631" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2551">
-        <label>xplmi_proc.c</label>
-        <link refid="xplmi__proc_8c"/>
-      </node>
-      <node id="2516">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi_proc.h"/>
-        <childnode refid="2517" relation="include">
-        </childnode>
-        <childnode refid="2545" relation="include">
-        </childnode>
-        <childnode refid="2546" relation="include">
-        </childnode>
-        <childnode refid="2526" relation="include">
-        </childnode>
-        <childnode refid="2527" relation="include">
-        </childnode>
-        <childnode refid="2551" relation="include">
-        </childnode>
-        <childnode refid="2563" relation="include">
-        </childnode>
-        <childnode refid="2529" relation="include">
-        </childnode>
-        <childnode refid="2533" relation="include">
-        </childnode>
-        <childnode refid="2537" relation="include">
-        </childnode>
-        <childnode refid="2541" relation="include">
-        </childnode>
-        <childnode refid="2544" relation="include">
-        </childnode>
-      </node>
-      <node id="2532">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="2561">
-        <label>xplmi_scheduler.c</label>
-        <link refid="xplmi__scheduler_8c"/>
-      </node>
-      <node id="2553">
-        <label>xplmi_asu_update.c</label>
-        <link refid="xplmi__asu__update_8c"/>
-      </node>
-      <node id="2548">
-        <label>xplmi_err.c</label>
-        <link refid="2vp__p_2server_2xplmi__err_8c"/>
-      </node>
-      <node id="2556">
-        <label>xplmi_err.h</label>
-        <link refid="2vp__p_2server_2xplmi__err_8h"/>
-        <childnode refid="2548" relation="include">
-        </childnode>
-      </node>
-      <node id="2536">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="2554">
-        <label>xplmi_err.h</label>
-        <childnode refid="2536" relation="include">
-        </childnode>
-        <childnode refid="2537" relation="include">
-        </childnode>
-      </node>
-      <node id="2525">
-        <label>xplmi_event_logging.c</label>
-        <link refid="xplmi__event__logging_8c"/>
-      </node>
-      <node id="2535">
-        <label>xplmi_asu_cmd.c</label>
-        <link refid="xplmi__asu__cmd_8c"/>
-      </node>
-      <node id="2527">
-        <label>xplmi_ipi.c</label>
-        <link refid="xplmi__ipi_8c"/>
-      </node>
-      <node id="2563">
-        <label>xplmi_task.c</label>
-        <link refid="xplmi__task_8c"/>
-      </node>
-      <node id="2521">
-        <label>xplmi_debug.c</label>
-        <link refid="xplmi__debug_8c"/>
-      </node>
-      <node id="2517">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="2518" relation="include">
-        </childnode>
-        <childnode refid="2520" relation="include">
-        </childnode>
-        <childnode refid="2550" relation="include">
-        </childnode>
-        <childnode refid="2558" relation="include">
-        </childnode>
-        <childnode refid="2559" relation="include">
-        </childnode>
-        <childnode refid="2521" relation="include">
-        </childnode>
-        <childnode refid="2546" relation="include">
-        </childnode>
-        <childnode refid="2522" relation="include">
-        </childnode>
-        <childnode refid="2525" relation="include">
-        </childnode>
-        <childnode refid="2560" relation="include">
-        </childnode>
-        <childnode refid="2551" relation="include">
-        </childnode>
-        <childnode refid="2561" relation="include">
-        </childnode>
-        <childnode refid="2562" relation="include">
-        </childnode>
-        <childnode refid="2563" relation="include">
-        </childnode>
-        <childnode refid="2529" relation="include">
-        </childnode>
-        <childnode refid="2534" relation="include">
-        </childnode>
-        <childnode refid="2535" relation="include">
-        </childnode>
-        <childnode refid="2539" relation="include">
-        </childnode>
-        <childnode refid="2544" relation="include">
-        </childnode>
-      </node>
-      <node id="2528">
-        <label>xplmi_tamper.c</label>
-        <link refid="xplmi__tamper_8c"/>
-      </node>
-      <node id="2538">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="2537">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="2562">
-        <label>xplmi_sysmon.c</label>
-        <link refid="xplmi__sysmon_8c"/>
-      </node>
-      <node id="2529">
+      <node id="2650">
         <label>xplmi_util.c</label>
         <link refid="xplmi__util_8c"/>
       </node>
-      <node id="2520">
-        <label>xplmi.c</label>
-        <link refid="xplmi_8c"/>
-      </node>
-      <node id="2540">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="2519">
-        <label>xplmi.h</label>
-        <link refid="xplmi_8h"/>
-        <childnode refid="2520" relation="include">
-        </childnode>
-        <childnode refid="2521" relation="include">
-        </childnode>
-        <childnode refid="2522" relation="include">
-        </childnode>
-        <childnode refid="2523" relation="include">
-        </childnode>
-        <childnode refid="2524" relation="include">
-        </childnode>
-        <childnode refid="2525" relation="include">
-        </childnode>
-        <childnode refid="2526" relation="include">
-        </childnode>
-        <childnode refid="2527" relation="include">
-        </childnode>
-        <childnode refid="2528" relation="include">
-        </childnode>
-        <childnode refid="2529" relation="include">
-        </childnode>
-        <childnode refid="2530" relation="include">
-        </childnode>
-        <childnode refid="2534" relation="include">
-        </childnode>
-        <childnode refid="2535" relation="include">
-        </childnode>
-        <childnode refid="2536" relation="include">
-        </childnode>
-        <childnode refid="2537" relation="include">
-        </childnode>
-        <childnode refid="2538" relation="include">
-        </childnode>
-        <childnode refid="2539" relation="include">
-        </childnode>
-        <childnode refid="2540" relation="include">
-        </childnode>
-        <childnode refid="2541" relation="include">
-        </childnode>
-        <childnode refid="2542" relation="include">
-        </childnode>
-        <childnode refid="2543" relation="include">
-        </childnode>
-        <childnode refid="2544" relation="include">
-        </childnode>
-      </node>
-      <node id="2531">
+      <node id="2673">
         <label>xplmi_err.c</label>
       </node>
-      <node id="2552">
+      <node id="2681">
         <label>xplmi_err.h</label>
-        <childnode refid="2531" relation="include">
+        <childnode refid="2641" relation="include">
+        </childnode>
+        <childnode refid="2643" relation="include">
+        </childnode>
+        <childnode refid="2644" relation="include">
+        </childnode>
+        <childnode refid="2645" relation="include">
+        </childnode>
+        <childnode refid="2673" relation="include">
+        </childnode>
+        <childnode refid="2665" relation="include">
+        </childnode>
+        <childnode refid="2667" relation="include">
         </childnode>
       </node>
-      <node id="2546">
-        <label>xplmi_dma.c</label>
-        <link refid="xplmi__dma_8c"/>
+      <node id="2657">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi__asufw__keepalive_8c"/>
       </node>
-      <node id="2523">
-        <label>xplmi_err_common.c</label>
-        <link refid="xplmi__err__common_8c"/>
+      <node id="2656">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
       </node>
-      <node id="2550">
-        <label>xplmi_err_common.h</label>
-        <link refid="xplmi__err__common_8h"/>
-        <childnode refid="2520" relation="include">
-        </childnode>
-        <childnode refid="2522" relation="include">
-        </childnode>
-        <childnode refid="2523" relation="include">
-        </childnode>
-        <childnode refid="2524" relation="include">
-        </childnode>
-        <childnode refid="2551" relation="include">
-        </childnode>
-        <childnode refid="2528" relation="include">
-        </childnode>
-        <childnode refid="2531" relation="include">
-        </childnode>
-        <childnode refid="2552" relation="include">
-        </childnode>
-        <childnode refid="2532" relation="include">
-        </childnode>
-        <childnode refid="2533" relation="include">
-        </childnode>
-        <childnode refid="2553" relation="include">
-        </childnode>
-        <childnode refid="2536" relation="include">
-        </childnode>
-        <childnode refid="2554" relation="include">
-        </childnode>
-        <childnode refid="2537" relation="include">
-        </childnode>
-        <childnode refid="2547" relation="include">
-        </childnode>
-        <childnode refid="2555" relation="include">
-        </childnode>
-        <childnode refid="2538" relation="include">
-        </childnode>
-        <childnode refid="2548" relation="include">
-        </childnode>
-        <childnode refid="2556" relation="include">
-        </childnode>
-        <childnode refid="2540" relation="include">
-        </childnode>
-        <childnode refid="2549" relation="include">
-        </childnode>
-        <childnode refid="2557" relation="include">
-        </childnode>
-        <childnode refid="2541" relation="include">
-        </childnode>
-      </node>
-      <node id="2543">
-        <label>xplmi_update.c</label>
-        <link refid="xplmi__update_8c"/>
-      </node>
-      <node id="2533">
+      <node id="2654">
         <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
       </node>
-      <node id="2530">
+      <node id="2663">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="2651">
         <label>xplmi_ssit.h</label>
-        <childnode refid="2531" relation="include">
+        <childnode refid="2652" relation="include">
         </childnode>
-        <childnode refid="2532" relation="include">
+        <childnode refid="2653" relation="include">
         </childnode>
-        <childnode refid="2533" relation="include">
+        <childnode refid="2654" relation="include">
         </childnode>
       </node>
-      <node id="2534">
+      <node id="2672">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="2680">
+        <label>xplmi_err.h</label>
+        <link refid="2vp__p_2server_2xplmi__err_8h"/>
+        <childnode refid="2672" relation="include">
+        </childnode>
+      </node>
+      <node id="2662">
         <label>xplmi_wdt.c</label>
       </node>
-      <node id="2526">
-        <label>xplmi_generic.c</label>
+      <node id="2660">
+        <label>xplmi_plat.c</label>
       </node>
-      <node id="2518">
-        <label>xplmi_generic.h</label>
-        <childnode refid="2519" relation="include">
-        </childnode>
-        <childnode refid="2545" relation="include">
-        </childnode>
-        <childnode refid="2546" relation="include">
-        </childnode>
-        <childnode refid="2526" relation="include">
-        </childnode>
-        <childnode refid="2527" relation="include">
-        </childnode>
-        <childnode refid="2532" relation="include">
-        </childnode>
-        <childnode refid="2536" relation="include">
-        </childnode>
-        <childnode refid="2537" relation="include">
-        </childnode>
-        <childnode refid="2547" relation="include">
-        </childnode>
-        <childnode refid="2538" relation="include">
-        </childnode>
-        <childnode refid="2548" relation="include">
-        </childnode>
-        <childnode refid="2540" relation="include">
-        </childnode>
-        <childnode refid="2549" relation="include">
-        </childnode>
-        <childnode refid="2541" relation="include">
-        </childnode>
-        <childnode refid="2542" relation="include">
-        </childnode>
+      <node id="2643">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
       </node>
-      <node id="2544">
-        <label>xplmi_wdt.c</label>
+      <node id="2685">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
       </node>
-      <node id="2524">
+      <node id="2645">
         <label>xplmi_err_psm.c</label>
         <link refid="xplmi__err__psm_8c"/>
       </node>
-      <node id="2545">
-        <label>xplmi_cdo.c</label>
-        <link refid="xplmi__cdo_8c"/>
+      <node id="2653">
+        <label>xplmi_plat.c</label>
       </node>
-      <node id="2558">
-        <label>xplmi_cdo.h</label>
-        <link refid="xplmi__cdo_8h"/>
-        <childnode refid="2545" relation="include">
-        </childnode>
-        <childnode refid="2526" relation="include">
-        </childnode>
-        <childnode refid="2542" relation="include">
-        </childnode>
-      </node>
-      <node id="2547">
+      <node id="2658">
         <label>xplmi_err.c</label>
-        <link refid="2vp_2server_2xplmi__err_8c"/>
       </node>
-      <node id="2555">
+      <node id="2655">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="2678">
         <label>xplmi_err.h</label>
-        <link refid="2vp_2server_2xplmi__err_8h"/>
-        <childnode refid="2547" relation="include">
+        <childnode refid="2658" relation="include">
+        </childnode>
+        <childnode refid="2659" relation="include">
         </childnode>
       </node>
-      <node id="2539">
-        <label>xplmi_wdt.c</label>
-        <link refid="2vp_2server_2xplmi__wdt_8c"/>
+      <node id="2647">
+        <label>xplmi_generic.c</label>
       </node>
-      <node id="2559">
+      <node id="2639">
+        <label>xplmi_generic.h</label>
+        <childnode refid="2640" relation="include">
+        </childnode>
+        <childnode refid="2669" relation="include">
+        </childnode>
+        <childnode refid="2670" relation="include">
+        </childnode>
+        <childnode refid="2647" relation="include">
+        </childnode>
+        <childnode refid="2648" relation="include">
+        </childnode>
+        <childnode refid="2653" relation="include">
+        </childnode>
+        <childnode refid="2658" relation="include">
+        </childnode>
+        <childnode refid="2659" relation="include">
+        </childnode>
+        <childnode refid="2671" relation="include">
+        </childnode>
+        <childnode refid="2660" relation="include">
+        </childnode>
+        <childnode refid="2672" relation="include">
+        </childnode>
+        <childnode refid="2663" relation="include">
+        </childnode>
+        <childnode refid="2673" relation="include">
+        </childnode>
+        <childnode refid="2665" relation="include">
+        </childnode>
+        <childnode refid="2666" relation="include">
+        </childnode>
+      </node>
+      <node id="2648">
+        <label>xplmi_ipi.c</label>
+        <link refid="xplmi__ipi_8c"/>
+      </node>
+      <node id="2683">
         <label>xplmi_cmd.c</label>
         <link refid="xplmi__cmd_8c"/>
       </node>
-      <node id="2560">
-        <label>xplmi_gic_interrupts.c</label>
-        <link refid="xplmi__gic__interrupts_8c"/>
+      <node id="2661">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="2660" relation="include">
+        </childnode>
       </node>
-      <node id="2542">
+      <node id="2652">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="2676">
+        <label>xplmi_err.h</label>
+        <childnode refid="2652" relation="include">
+        </childnode>
+      </node>
+      <node id="2665">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="2644">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="2674">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="2641" relation="include">
+        </childnode>
+        <childnode refid="2643" relation="include">
+        </childnode>
+        <childnode refid="2644" relation="include">
+        </childnode>
+        <childnode refid="2645" relation="include">
+        </childnode>
+        <childnode refid="2675" relation="include">
+        </childnode>
+        <childnode refid="2649" relation="include">
+        </childnode>
+        <childnode refid="2652" relation="include">
+        </childnode>
+        <childnode refid="2676" relation="include">
+        </childnode>
+        <childnode refid="2653" relation="include">
+        </childnode>
+        <childnode refid="2654" relation="include">
+        </childnode>
+        <childnode refid="2677" relation="include">
+        </childnode>
+        <childnode refid="2658" relation="include">
+        </childnode>
+        <childnode refid="2678" relation="include">
+        </childnode>
+        <childnode refid="2659" relation="include">
+        </childnode>
+        <childnode refid="2671" relation="include">
+        </childnode>
+        <childnode refid="2679" relation="include">
+        </childnode>
+        <childnode refid="2660" relation="include">
+        </childnode>
+        <childnode refid="2672" relation="include">
+        </childnode>
+        <childnode refid="2680" relation="include">
+        </childnode>
+        <childnode refid="2663" relation="include">
+        </childnode>
+        <childnode refid="2673" relation="include">
+        </childnode>
+        <childnode refid="2681" relation="include">
+        </childnode>
+        <childnode refid="2665" relation="include">
+        </childnode>
+      </node>
+      <node id="2687">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi__task_8c"/>
+      </node>
+      <node id="2659">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="2666">
         <label>xplmi_plat_cmd.c</label>
         <link refid="xplmi__plat__cmd_8c"/>
       </node>
-      <node id="2549">
+      <node id="2675">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="2637">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi_proc.h"/>
+        <childnode refid="2638" relation="include">
+        </childnode>
+        <childnode refid="2669" relation="include">
+        </childnode>
+        <childnode refid="2670" relation="include">
+        </childnode>
+        <childnode refid="2647" relation="include">
+        </childnode>
+        <childnode refid="2648" relation="include">
+        </childnode>
+        <childnode refid="2675" relation="include">
+        </childnode>
+        <childnode refid="2687" relation="include">
+        </childnode>
+        <childnode refid="2650" relation="include">
+        </childnode>
+        <childnode refid="2654" relation="include">
+        </childnode>
+        <childnode refid="2659" relation="include">
+        </childnode>
+        <childnode refid="2665" relation="include">
+        </childnode>
+        <childnode refid="2668" relation="include">
+        </childnode>
+      </node>
+      <node id="2668">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="2671">
         <label>xplmi_err.c</label>
       </node>
-      <node id="2557">
+      <node id="2679">
         <label>xplmi_err.h</label>
-        <childnode refid="2520" relation="include">
-        </childnode>
-        <childnode refid="2522" relation="include">
-        </childnode>
-        <childnode refid="2523" relation="include">
-        </childnode>
-        <childnode refid="2524" relation="include">
-        </childnode>
-        <childnode refid="2549" relation="include">
-        </childnode>
-        <childnode refid="2541" relation="include">
-        </childnode>
-        <childnode refid="2543" relation="include">
+        <link refid="2vp_2server_2xplmi__err_8h"/>
+        <childnode refid="2671" relation="include">
         </childnode>
       </node>
-      <node id="2541">
-        <label>xplmi_plat.c</label>
+      <node id="2649">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
       </node>
-      <node id="2522">
-        <label>xplmi_err_cmd.c</label>
-        <link refid="xplmi__err__cmd_8c"/>
+      <node id="2641">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="2640">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="2641" relation="include">
+        </childnode>
+        <childnode refid="2642" relation="include">
+        </childnode>
+        <childnode refid="2643" relation="include">
+        </childnode>
+        <childnode refid="2644" relation="include">
+        </childnode>
+        <childnode refid="2645" relation="include">
+        </childnode>
+        <childnode refid="2646" relation="include">
+        </childnode>
+        <childnode refid="2647" relation="include">
+        </childnode>
+        <childnode refid="2648" relation="include">
+        </childnode>
+        <childnode refid="2649" relation="include">
+        </childnode>
+        <childnode refid="2650" relation="include">
+        </childnode>
+        <childnode refid="2651" relation="include">
+        </childnode>
+        <childnode refid="2655" relation="include">
+        </childnode>
+        <childnode refid="2656" relation="include">
+        </childnode>
+        <childnode refid="2657" relation="include">
+        </childnode>
+        <childnode refid="2658" relation="include">
+        </childnode>
+        <childnode refid="2659" relation="include">
+        </childnode>
+        <childnode refid="2660" relation="include">
+        </childnode>
+        <childnode refid="2661" relation="include">
+        </childnode>
+        <childnode refid="2662" relation="include">
+        </childnode>
+        <childnode refid="2663" relation="include">
+        </childnode>
+        <childnode refid="2664" relation="include">
+        </childnode>
+        <childnode refid="2665" relation="include">
+        </childnode>
+        <childnode refid="2666" relation="include">
+        </childnode>
+        <childnode refid="2667" relation="include">
+        </childnode>
+        <childnode refid="2668" relation="include">
+        </childnode>
+      </node>
+      <node id="2664">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="2644" relation="include">
+        </childnode>
+        <childnode refid="2645" relation="include">
+        </childnode>
+        <childnode refid="2647" relation="include">
+        </childnode>
+        <childnode refid="2663" relation="include">
+        </childnode>
+      </node>
+      <node id="2642">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi__debug_8c"/>
+      </node>
+      <node id="2686">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi__sysmon_8c"/>
+      </node>
+      <node id="2638">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="2639" relation="include">
+        </childnode>
+        <childnode refid="2641" relation="include">
+        </childnode>
+        <childnode refid="2674" relation="include">
+        </childnode>
+        <childnode refid="2682" relation="include">
+        </childnode>
+        <childnode refid="2683" relation="include">
+        </childnode>
+        <childnode refid="2642" relation="include">
+        </childnode>
+        <childnode refid="2670" relation="include">
+        </childnode>
+        <childnode refid="2643" relation="include">
+        </childnode>
+        <childnode refid="2646" relation="include">
+        </childnode>
+        <childnode refid="2684" relation="include">
+        </childnode>
+        <childnode refid="2675" relation="include">
+        </childnode>
+        <childnode refid="2685" relation="include">
+        </childnode>
+        <childnode refid="2686" relation="include">
+        </childnode>
+        <childnode refid="2687" relation="include">
+        </childnode>
+        <childnode refid="2650" relation="include">
+        </childnode>
+        <childnode refid="2655" relation="include">
+        </childnode>
+        <childnode refid="2656" relation="include">
+        </childnode>
+        <childnode refid="2662" relation="include">
+        </childnode>
+        <childnode refid="2668" relation="include">
+        </childnode>
+      </node>
+      <node id="2669">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="2682">
+        <label>xplmi_cdo.h</label>
+        <link refid="xplmi__cdo_8h"/>
+        <childnode refid="2669" relation="include">
+        </childnode>
+        <childnode refid="2647" relation="include">
+        </childnode>
+        <childnode refid="2666" relation="include">
+        </childnode>
+      </node>
+      <node id="2670">
+        <label>xplmi_dma.c</label>
+        <link refid="xplmi__dma_8c"/>
+      </node>
+      <node id="2677">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="2684">
+        <label>xplmi_gic_interrupts.c</label>
+        <link refid="xplmi__gic__interrupts_8c"/>
+      </node>
+      <node id="2667">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="2646">
+        <label>xplmi_event_logging.c</label>
+        <link refid="xplmi__event__logging_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_plmi___perf_time" prot="public">XPlmi_PerfTime</innerclass>
@@ -558,13 +580,13 @@
 <listitem><para>Use PIT1 and PIT2 in prescaler mode</para></listitem><listitem><para>Set the Prescaler mode</para></listitem></itemizedlist>
 </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="263" bodyend="333"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="267" endline="271">XPlmi_IsPlmUpdateDone</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb" compoundref="2vp_2server_2xplmi__status_8h" startline="90">XPLMI_ERR_IOMOD_INIT</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42" compoundref="2vp_2server_2xplmi__status_8h" startline="91">XPLMI_ERR_IOMOD_START</references>
-        <references refid="group__xilplmi__server__apis_1ga09b22ff85e1bc3e94fa588bceb30a645" compoundref="server_2xplmi__plat_8c" startline="560" endline="592">XPlmi_SetPmcIroFreq</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab01b5ef15aa6ad65bafd711e9bd52cc7" compoundref="2vp_2server_2xplmi__status_8h" startline="168">XPLMI_ERR_SET_PMC_IRO_FREQ</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="263" bodyend="333"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="269" endline="273">XPlmi_IsPlmUpdateDone</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb" compoundref="2vp_2server_2xplmi__status_8h" startline="96">XPLMI_ERR_IOMOD_INIT</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42" compoundref="2vp_2server_2xplmi__status_8h" startline="97">XPLMI_ERR_IOMOD_START</references>
+        <references refid="group__xilplmi__server__apis_1ga09b22ff85e1bc3e94fa588bceb30a645" compoundref="server_2xplmi__plat_8c" startline="567" endline="599">XPlmi_SetPmcIroFreq</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab01b5ef15aa6ad65bafd711e9bd52cc7" compoundref="2vp_2server_2xplmi__status_8h" startline="174">XPLMI_ERR_SET_PMC_IRO_FREQ</references>
         <references refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" compoundref="xplmi__scheduler_8c" startline="196" endline="208">XPlmi_SchedulerInit</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -582,14 +604,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Pit1 starts at 0 and preload the full value after pit2 expires. So, recasting TPit1 0 value to highest so that u64 comparison works for Tpit1 0 and TPit1 0xfffffffe</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="152" bodyend="174"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="632" endline="707">XPlmi_DmaXfr</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="401" endline="512">XPlmi_GenericMaskPoll</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="152" bodyend="174"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="660" endline="735">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="402" endline="513">XPlmi_GenericMaskPoll</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" compoundref="xplmi__proc_8c" startline="209" endline="213">XPlmi_MeasurePerfTime</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" compoundref="xplmi__scheduler_8c" startline="196" endline="208">XPlmi_SchedulerInit</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="202" endline="280">XPlmi_TaskDispatchLoop</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gabca9a90771dbe58c7df671842aa33c13" compoundref="xplmi__util_8c" startline="370" endline="401">XPlmi_UtilPollNs</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -611,16 +633,16 @@
 <para><itemizedlist>
 <listitem><para>Connect a device driver handler that will be called when an interrupt for the device occurs, the device driver handler performs the specific interrupt processing for the device</para></listitem><listitem><para>Register the IO module interrupt handler with the exception table.</para></listitem><listitem><para>Enable interrupts</para></listitem><listitem><para>Clear Break In Progress to get interrupts</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="347" bodyend="409"/>
-        <references refid="group__xilplmi__server__apis_1ga31f430d11612376b1e58db9d0b6a1174" compoundref="server_2xplmi__plat_8c" startline="154" endline="157">XPlmi_GetTopLevelIntrTbl</references>
-        <references refid="group__xilplmi__server__apis_1ga71713ed0ed7bf2f5f6094008105f61d9" compoundref="server_2xplmi__plat_8c" startline="166" endline="169">XPlmi_GetTopLevelIntrTblSize</references>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" compoundref="2vp_2server_2xplmi__status_8h" startline="92">XPLMI_ERR_IOMOD_CONNECT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="347" bodyend="409"/>
+        <references refid="group__xilplmi__server__apis_1ga31f430d11612376b1e58db9d0b6a1174" compoundref="server_2xplmi__plat_8c" startline="158" endline="161">XPlmi_GetTopLevelIntrTbl</references>
+        <references refid="group__xilplmi__server__apis_1ga71713ed0ed7bf2f5f6094008105f61d9" compoundref="server_2xplmi__plat_8c" startline="170" endline="173">XPlmi_GetTopLevelIntrTblSize</references>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" compoundref="2vp_2server_2xplmi__status_8h" startline="98">XPLMI_ERR_IOMOD_CONNECT</references>
         <references refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" compoundref="xplmi__proc_8c" startline="418" endline="425">XPlmi_IntrHandler</references>
         <references refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</references>
-        <references refid="group__xilplmi__server__apis_1gaa55695f726439fa48e1f16c7f02b10ca" compoundref="server_2xplmi__plat_8c" startline="543" endline="550">XPlmi_EnableIomoduleIntr</references>
+        <references refid="group__xilplmi__server__apis_1gaa55695f726439fa48e1f16c7f02b10ca" compoundref="server_2xplmi__plat_8c" startline="550" endline="557">XPlmi_EnableIomoduleIntr</references>
         <references refid="group__xilplmi__server__apis_1ga0a744b4e21fe743b44234941cacbd328" compoundref="xplmi__proc_8c" startline="79">XPLMI_MB_MSR_BIP_MASK</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" compoundref="xplmi_8c" startline="126" endline="152">XPlmi_Init</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaa729a1ad7805acd4e271e20f2b02d1f3" compoundref="xplmi_8c" startline="143" endline="179">XPlmi_Init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -632,7 +654,7 @@
           <declname>TCur</declname>
         </param>
         <param>
-          <type>XPlmi_PerfTime *</type>
+          <type><ref refid="struct_x_plmi___perf_time" kindref="compound">XPlmi_PerfTime</ref> *</type>
           <declname>PerfTime</declname>
         </param>
         <briefdescription>
@@ -656,13 +678,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="209" bodyend="213"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="209" bodyend="213"/>
         <references refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" compoundref="xplmi__proc_8c" startline="152" endline="174">XPlmi_GetTimerValue</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="632" endline="707">XPlmi_DmaXfr</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="401" endline="512">XPlmi_GenericMaskPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="660" endline="735">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="402" endline="513">XPlmi_GenericMaskPoll</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" compoundref="xplmi__proc_8c" startline="242" endline="250">XPlmi_PrintPlmTimeStamp</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="202" endline="280">XPlmi_TaskDispatchLoop</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -687,10 +709,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="434" bodyend="445"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="434" bodyend="445"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1525" endline="1605">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="626" endline="712">XPlmi_ErrorTaskHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -718,10 +740,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="457" bodyend="470"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="586" endline="615">XPlmi_ErrIntrHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="457" bodyend="470"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="585" endline="614">XPlmi_ErrIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -749,12 +771,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="482" bodyend="495"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="505" endline="540">XPlmi_IpiIntrHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="482" bodyend="495"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1525" endline="1605">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="626" endline="712">XPlmi_ErrorTaskHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="510" endline="548">XPlmi_IpiIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -804,9 +826,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="511" bodyend="532"/>
-        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ae7263d1a20bbed57dbdf53f47b69fa89" compoundref="2vp_2server_2xplmi__status_8h" startline="120">XPLMI_ERR_REGISTER_IOMOD_HANDLER</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="511" bodyend="532"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="199" endline="204">XPlmi_GetIOModuleInst</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ae7263d1a20bbed57dbdf53f47b69fa89" compoundref="2vp_2server_2xplmi__status_8h" startline="126">XPLMI_ERR_REGISTER_IOMOD_HANDLER</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -822,8 +844,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="220" bodyend="235"/>
-        <references refid="group__xilplmi__server__apis_1ga04ef1a5287595b90634a937bf3e32712" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="625" endline="628">XPlmi_GetRomIroFreq</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="220" bodyend="235"/>
+        <references refid="group__xilplmi__server__apis_1ga04ef1a5287595b90634a937bf3e32712" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="633" endline="636">XPlmi_GetRomIroFreq</references>
+        <references refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" compoundref="xplmi__proc_8h" startline="98">XPlmi_PerfTime::TPerfMs</references>
+        <references refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" compoundref="xplmi__proc_8h" startline="99">XPlmi_PerfTime::TPerfMsFrac</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -839,8 +863,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="242" bodyend="250"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="242" bodyend="250"/>
         <references refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" compoundref="xplmi__proc_8c" startline="209" endline="213">XPlmi_MeasurePerfTime</references>
+        <references refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" compoundref="xplmi__proc_8h" startline="98">XPlmi_PerfTime::TPerfMs</references>
+        <references refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" compoundref="xplmi__proc_8h" startline="99">XPlmi_PerfTime::TPerfMsFrac</references>
         <referencedby refid="group__xilplmi__server__apis_1ga2b28c3907e83a63bf43adaa1f5a545e9" compoundref="xplmi__debug_8c" startline="308" endline="321">XPlmi_Print</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -858,7 +884,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="103" bodyend="106"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="103" bodyend="106"/>
         <referencedby refid="group__xilplmi__server__apis_1gabca9a90771dbe58c7df671842aa33c13" compoundref="xplmi__util_8c" startline="370" endline="401">XPlmi_UtilPollNs</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -884,7 +910,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="418" bodyend="425"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="418" bodyend="425"/>
         <referencedby refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" compoundref="xplmi__proc_8c" startline="347" endline="409">XPlmi_SetUpInterruptSystem</referencedby>
       </memberdef>
       </sectiondef>
@@ -940,60 +966,57 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__util_8h" kindref="compound">xplmi_util.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK<sp/>(0x2U)</highlight></codeline>
-<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PMC<sp/>IRO<sp/>Frequency<sp/>related<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_IRO_FREQ_400_MHZ<sp/><sp/><sp/><sp/><sp/><sp/>(400000000U)</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_IRO_FREQ_130_MHZ<sp/><sp/><sp/><sp/><sp/><sp/>(130000000U)</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XPLMI_PIT1_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFDU)</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFEU)</highlight></codeline>
-<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT1_CYCLE_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)XPLMI_PIT1_RESET_VALUE<sp/>+<sp/>1U)</highlight></codeline>
-<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2_CYCLE_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_PIT2_RESET_VALUE<sp/>+<sp/>1U)</highlight></codeline>
-<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
-<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
-<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
-<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_IOMODULE_PMC_PIT3_IRQ<sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
-<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT_FREQ_DIVISOR_QEMU<sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
-<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT_FREQ_DIVISOR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100U)</highlight></codeline>
-<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_MEGA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000000U)</highlight></codeline>
-<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_KILO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000U)</highlight></codeline>
-<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_IRO_TRIM_SLOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
-<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_IRO_TRIM_FAST<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
-<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
-<codeline lineno="95"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>Performance<sp/>measurement<sp/>structure</highlight></codeline>
-<codeline lineno="97"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TPerfMs;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TPerfMsFrac;<sp/></highlight></codeline>
-<codeline lineno="101"><highlight class="normal">}<sp/>XPlmi_PerfTime;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga1faf13fb43ee71846b7ec8c5f22b986e" kindref="member">XPlmi_StartTimer</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="107"><highlight class="normal">u64<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" kindref="member">XPlmi_SetUpInterruptSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>(u64<sp/>TCur,<sp/>XPlmi_PerfTime<sp/>*PerfTime);</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" kindref="member">XPlmi_PlmIntrEnable</ref>(u32<sp/>IntrId);</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" kindref="member">XPlmi_PlmIntrDisable</ref>(u32<sp/>IntrId);</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" kindref="member">XPlmi_PlmIntrClear</ref>(u32<sp/>IntrId);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" kindref="member">XPlmi_RegisterHandler</ref>(u32<sp/>IntrId,<sp/>GicIntHandler_t<sp/>Handler,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" kindref="member">XPlmi_PrintRomTime</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" kindref="member">XPlmi_PrintPlmTimeStamp</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="116"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" kindref="member">XPlmi_GetPmcIroFreq</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" kindref="member">XPlmi_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_PROC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK<sp/>(0x2U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PMC<sp/>IRO<sp/>Frequency<sp/>related<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_IRO_FREQ_400_MHZ<sp/><sp/><sp/><sp/><sp/><sp/>(400000000U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_IRO_FREQ_130_MHZ<sp/><sp/><sp/><sp/><sp/><sp/>(130000000U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XPLMI_PIT1_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFDU)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFEU)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT1_CYCLE_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)XPLMI_PIT1_RESET_VALUE<sp/>+<sp/>1U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2_CYCLE_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_PIT2_RESET_VALUE<sp/>+<sp/>1U)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_IOMODULE_PMC_PIT3_IRQ<sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT_FREQ_DIVISOR_QEMU<sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PIT_FREQ_DIVISOR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_MEGA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000000U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_KILO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000U)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_IRO_TRIM_SLOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_IRO_TRIM_FAST<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="97" refid="struct_x_plmi___perf_time" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98" refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" kindref="member">TPerfMs</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" kindref="member">TPerfMsFrac</ref>;<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}<sp/><ref refid="struct_x_plmi___perf_time" kindref="compound">XPlmi_PerfTime</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga1faf13fb43ee71846b7ec8c5f22b986e" kindref="member">XPlmi_StartTimer</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">u64<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" kindref="member">XPlmi_SetUpInterruptSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>(u64<sp/>TCur,<sp/><ref refid="struct_x_plmi___perf_time" kindref="compound">XPlmi_PerfTime</ref><sp/>*PerfTime);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" kindref="member">XPlmi_PlmIntrEnable</ref>(u32<sp/>IntrId);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" kindref="member">XPlmi_PlmIntrDisable</ref>(u32<sp/>IntrId);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" kindref="member">XPlmi_PlmIntrClear</ref>(u32<sp/>IntrId);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" kindref="member">XPlmi_RegisterHandler</ref>(u32<sp/>IntrId,<sp/>GicIntHandler_t<sp/>Handler,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" kindref="member">XPlmi_PrintRomTime</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" kindref="member">XPlmi_PrintPlmTimeStamp</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" kindref="member">XPlmi_GetPmcIroFreq</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" kindref="member">XPlmi_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_PROC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h"/>
   </compounddef>
 </doxygen>

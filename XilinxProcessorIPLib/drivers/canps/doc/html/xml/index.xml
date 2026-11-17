@@ -62,7 +62,6 @@
     <member refid="group__canps_1ga6393e21002da8517ac35ae9c1be58681" kind="define"><name>XCANPS_HANDLER_RECV</name></member>
     <member refid="group__canps_1ga60962a646bcd90fd768f78ff34f17ba5" kind="define"><name>XCANPS_HANDLER_ERROR</name></member>
     <member refid="group__canps_1gad64733c5ddd21a972fc93a8d43f52d74" kind="define"><name>XCANPS_HANDLER_EVENT</name></member>
-    <member refid="group__canps_1ga71176de5a3984478078d46c61727518b" kind="define"><name>XCANPS_H</name></member>
     <member refid="group__canps_1ga97803151fa85361cf6f486bc1d278f08" kind="define"><name>XCanPs_IsTxDone</name></member>
     <member refid="group__canps_1ga24933e3b4780683d895a385e7d1b50d7" kind="define"><name>XCanPs_IsTxFifoFull</name></member>
     <member refid="group__canps_1ga8dc513dd3633b55910d20150ca42bc12" kind="define"><name>XCanPs_IsHighPriorityBufFull</name></member>
@@ -233,7 +232,6 @@
     <member refid="group__canps_1gabde095aa619a3485599cf97c2bca57b5" kind="define"><name>XCANPS_AFR_UAF1_MASK</name></member>
     <member refid="group__canps_1gadf814ffa617dee9d66af1c579fa06b64" kind="define"><name>XCANPS_AFR_UAF_ALL_MASK</name></member>
     <member refid="group__canps_1ga87adc8cfc88e067c42ee749b5e59177a" kind="define"><name>XCANPS_MAX_FRAME_SIZE</name></member>
-    <member refid="group__canps_1gaca9eb3a2aa07e9efd31ac8c83a05b57a" kind="define"><name>XCANPS_HW_H</name></member>
     <member refid="group__canps_1gafa75ffdfd5ce5f0f19a0b1c583a0b6c3" kind="define"><name>XCANPS_TXBUF_ID_OFFSET</name></member>
     <member refid="group__canps_1gaa405e7a2e1ddf872d8bc02a05f0adeab" kind="define"><name>XCANPS_TXBUF_DLC_OFFSET</name></member>
     <member refid="group__canps_1gad968b22db1079bec48ac27684f34a5e5" kind="define"><name>XCANPS_TXBUF_DW1_OFFSET</name></member>
@@ -255,12 +253,12 @@
     <member refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" kind="function"><name>XCanPs_SetHandler</name></member>
   </compound>
   <compound refid="xcanps__intr__example_8c" kind="file"><name>xcanps_intr_example.c</name>
-    <member refid="xcanps__intr__example_8c_1acfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>
-    <member refid="xcanps__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcanps__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanps__intr__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcanps__intr__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
     <member refid="xcanps__intr__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="xcanps__intr__example_8c_1acfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>
+    <member refid="xcanps__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
+    <member refid="xcanps__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanps__intr__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcanps__intr__example_8c_1a323b31d0c5505fa16493260ac9dc197b" kind="variable"><name>CanInstance</name></member>
     <member refid="xcanps__intr__example_8c_1a4b7c1fe7f8f4de478e4d08e7f3ec1861" kind="variable"><name>TxFrame</name></member>
@@ -278,12 +276,12 @@
     <member refid="xcanps__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xcanps__polled__example_8c" kind="file"><name>xcanps_polled_example.c</name>
-    <member refid="xcanps__polled__example_8c_1acfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>
-    <member refid="xcanps__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcanps__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanps__polled__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcanps__polled__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
     <member refid="xcanps__polled__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="xcanps__polled__example_8c_1acfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>
+    <member refid="xcanps__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
+    <member refid="xcanps__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanps__polled__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcanps__polled__example_8c_1a4b7c1fe7f8f4de478e4d08e7f3ec1861" kind="variable"><name>TxFrame</name></member>
     <member refid="xcanps__polled__example_8c_1a6dce7b570144913284d4d2b7175fb9ad" kind="variable"><name>RxFrame</name></member>
@@ -304,13 +302,13 @@
     <member refid="group__canps_1ga9883d8be70b9697a32bbe2e38d722cb1" kind="function"><name>XCanPs_LookupConfig</name></member>
   </compound>
   <compound refid="xcanps__watermark__intr__example_8c" kind="file"><name>xcanps_watermark_intr_example.c</name>
+    <member refid="xcanps__watermark__intr__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
+    <member refid="xcanps__watermark__intr__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
+    <member refid="xcanps__watermark__intr__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1acfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a8eb6e237c0a7704642d9a7fd361ee0b5" kind="define"><name>TEST_THRESHOLD</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
-    <member refid="xcanps__watermark__intr__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
-    <member refid="xcanps__watermark__intr__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
-    <member refid="xcanps__watermark__intr__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a323b31d0c5505fa16493260ac9dc197b" kind="variable"><name>CanInstance</name></member>
     <member refid="xcanps__watermark__intr__example_8c_1a4b7c1fe7f8f4de478e4d08e7f3ec1861" kind="variable"><name>TxFrame</name></member>
@@ -456,6 +454,13 @@
     <member refid="group__canps_1gabde095aa619a3485599cf97c2bca57b5" kind="define"><name>XCANPS_AFR_UAF1_MASK</name></member>
     <member refid="group__canps_1gadf814ffa617dee9d66af1c579fa06b64" kind="define"><name>XCANPS_AFR_UAF_ALL_MASK</name></member>
     <member refid="group__canps_1ga87adc8cfc88e067c42ee749b5e59177a" kind="define"><name>XCANPS_MAX_FRAME_SIZE</name></member>
+    <member refid="group__canps_1gafa75ffdfd5ce5f0f19a0b1c583a0b6c3" kind="define"><name>XCANPS_TXBUF_ID_OFFSET</name></member>
+    <member refid="group__canps_1gaa405e7a2e1ddf872d8bc02a05f0adeab" kind="define"><name>XCANPS_TXBUF_DLC_OFFSET</name></member>
+    <member refid="group__canps_1gad968b22db1079bec48ac27684f34a5e5" kind="define"><name>XCANPS_TXBUF_DW1_OFFSET</name></member>
+    <member refid="group__canps_1gaefcd0a123d760e519b90f7afdbab4aa6" kind="define"><name>XCANPS_TXBUF_DW2_OFFSET</name></member>
+    <member refid="group__canps_1ga00332bb0aa9a1a67d0e64887369e759b" kind="define"><name>XCANPS_RXFWIR_RXFLL_MASK</name></member>
+    <member refid="group__canps_1ga6d4277fa0965a5c80a424e5ca60ededf" kind="define"><name>XCANPS_RXWIR_OFFSET</name></member>
+    <member refid="group__canps_1gab63780641e401273577d26019b1354c8" kind="define"><name>XCANPS_IXR_RXFLL_MASK</name></member>
     <member refid="group__canps_1ga8a0277ac1de7be22b9de36ef55da1c8d" kind="typedef"><name>XCanPs_SendRecvHandler</name></member>
     <member refid="group__canps_1ga72002ff7916781152d893abbe71d83a8" kind="typedef"><name>XCanPs_ErrorHandler</name></member>
     <member refid="group__canps_1gad81f0a8035bff610185b30bec4e012ea" kind="typedef"><name>XCanPs_EventHandler</name></member>
@@ -498,7 +503,6 @@
     <member refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" kind="function"><name>XCanPs_SetHandler</name></member>
     <member refid="group__canps_1ga9883d8be70b9697a32bbe2e38d722cb1" kind="function"><name>XCanPs_LookupConfig</name></member>
     <member refid="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" kind="function"><name>XCanPs_ResetHw</name></member>
-    <member refid="group__canps_1ga71176de5a3984478078d46c61727518b" kind="define"><name>XCANPS_H</name></member>
     <member refid="group__canps_1ga97803151fa85361cf6f486bc1d278f08" kind="define"><name>XCanPs_IsTxDone</name></member>
     <member refid="group__canps_1ga24933e3b4780683d895a385e7d1b50d7" kind="define"><name>XCanPs_IsTxFifoFull</name></member>
     <member refid="group__canps_1ga8dc513dd3633b55910d20150ca42bc12" kind="define"><name>XCanPs_IsHighPriorityBufFull</name></member>
@@ -507,14 +511,6 @@
     <member refid="group__canps_1gada077a3bb7d30a6bca23529ee48ceb42" kind="define"><name>XCanPs_CreateIdValue</name></member>
     <member refid="group__canps_1ga8c9bf6d887f01a9726ef73fa9c3da816" kind="define"><name>XCanPs_CreateDlcValue</name></member>
     <member refid="group__canps_1ga7ab3760eb2d37d0385cf930fd1cba230" kind="define"><name>XCanPs_ClearTimestamp</name></member>
-    <member refid="group__canps_1gaca9eb3a2aa07e9efd31ac8c83a05b57a" kind="define"><name>XCANPS_HW_H</name></member>
-    <member refid="group__canps_1gafa75ffdfd5ce5f0f19a0b1c583a0b6c3" kind="define"><name>XCANPS_TXBUF_ID_OFFSET</name></member>
-    <member refid="group__canps_1gaa405e7a2e1ddf872d8bc02a05f0adeab" kind="define"><name>XCANPS_TXBUF_DLC_OFFSET</name></member>
-    <member refid="group__canps_1gad968b22db1079bec48ac27684f34a5e5" kind="define"><name>XCANPS_TXBUF_DW1_OFFSET</name></member>
-    <member refid="group__canps_1gaefcd0a123d760e519b90f7afdbab4aa6" kind="define"><name>XCANPS_TXBUF_DW2_OFFSET</name></member>
-    <member refid="group__canps_1ga00332bb0aa9a1a67d0e64887369e759b" kind="define"><name>XCANPS_RXFWIR_RXFLL_MASK</name></member>
-    <member refid="group__canps_1ga6d4277fa0965a5c80a424e5ca60ededf" kind="define"><name>XCANPS_RXWIR_OFFSET</name></member>
-    <member refid="group__canps_1gab63780641e401273577d26019b1354c8" kind="define"><name>XCANPS_IXR_RXFLL_MASK</name></member>
     <member refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" kind="define"><name>XCanPs_ReadReg</name></member>
     <member refid="group__canps_1ga54552fe78115d81806e23a03646efb55" kind="define"><name>XCanPs_WriteReg</name></member>
     <member refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" kind="define"><name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name></member>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xemaclite_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('xemaclite_8h.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xemaclite.h File Reference</div>  </div>
@@ -116,7 +117,7 @@ $(document).ready(function(){initNavTree('xemaclite_8h.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html">XEmacLite_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for a device.  <a href="struct_x_emac_lite___config.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds configuration information for a device.  <a href="struct_x_emac_lite___config.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite.html">XEmacLite</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_emac_lite.html" title="The XEmacLite driver instance data. ">XEmacLite</a> driver instance data.  <a href="struct_x_emac_lite.html#details">More...</a><br/></td></tr>
@@ -124,6 +125,15 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a52d1a768dfa187c3ef41f05068a69738"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemaclite_8h.html#a52d1a768dfa187c3ef41f05068a69738">XEMACLITE_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:a52d1a768dfa187c3ef41f05068a69738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard for the EmacLite driver header.  <a href="#a52d1a768dfa187c3ef41f05068a69738">More...</a><br/></td></tr>
+<tr class="separator:a52d1a768dfa187c3ef41f05068a69738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga529b4a45111f7a6a68d4e6e2df08bbac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga529b4a45111f7a6a68d4e6e2df08bbac">XEL_DEVICE_NAME</a>&#160;&#160;&#160;&quot;xemaclite&quot;</td></tr>
+<tr class="memdesc:ga529b4a45111f7a6a68d4e6e2df08bbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device name string.  <a href="group__emaclite.html#ga529b4a45111f7a6a68d4e6e2df08bbac">More...</a><br/></td></tr>
+<tr class="separator:ga529b4a45111f7a6a68d4e6e2df08bbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21df4aef1415dfcfb1a6472a0aed56b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga21df4aef1415dfcfb1a6472a0aed56b2">XEL_DEVICE_DESC</a>&#160;&#160;&#160;&quot;Xilinx Ethernet Lite 10/100 MAC&quot;</td></tr>
+<tr class="memdesc:ga21df4aef1415dfcfb1a6472a0aed56b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device description string.  <a href="group__emaclite.html#ga21df4aef1415dfcfb1a6472a0aed56b2">More...</a><br/></td></tr>
+<tr class="separator:ga21df4aef1415dfcfb1a6472a0aed56b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a02b0090a1bab8c4151fb3154e9fa0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga5a02b0090a1bab8c4151fb3154e9fa0f">XEmacLite_NextTransmitAddr</a>(InstancePtr)</td></tr>
 <tr class="memdesc:ga5a02b0090a1bab8c4151fb3154e9fa0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the next expected Transmit Buffer's address.  <a href="group__emaclite.html#ga5a02b0090a1bab8c4151fb3154e9fa0f">More...</a><br/></td></tr>
 <tr class="separator:ga5a02b0090a1bab8c4151fb3154e9fa0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +146,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gab7c326fd248dbfd0e82513810febeee9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gab7c326fd248dbfd0e82513810febeee9">XEmacLite_IsLoopbackConfigured</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;EmacLiteConfig.Loopback == 1)</td></tr>
 <tr class="memdesc:gab7c326fd248dbfd0e82513810febeee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro determines if the device is currently configured for internal loopback.  <a href="group__emaclite.html#gab7c326fd248dbfd0e82513810febeee9">More...</a><br/></td></tr>
 <tr class="separator:gab7c326fd248dbfd0e82513810febeee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gadfca662ba36ecd3fa7f5816d33e1235a"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gadfca662ba36ecd3fa7f5816d33e1235a">XEmacLite_Handler</a> )(void *CallBackRef)</td></tr>
+<tr class="memdesc:gadfca662ba36ecd3fa7f5816d33e1235a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked when data is sent or received.  <a href="group__emaclite.html#gadfca662ba36ecd3fa7f5816d33e1235a">More...</a><br/></td></tr>
+<tr class="separator:gadfca662ba36ecd3fa7f5816d33e1235a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -170,7 +186,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga55c4a0b58c4e35dbf81c4866946f368a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable Internal loop back functionality.  <a href="group__emaclite.html#ga55c4a0b58c4e35dbf81c4866946f368a">More...</a><br/></td></tr>
 <tr class="separator:ga55c4a0b58c4e35dbf81c4866946f368a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf5b9fc13f386cdaafa36a02c0f7e5dd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_emac_lite___config.html">XEmacLite_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaf5b9fc13f386cdaafa36a02c0f7e5dd4">XEmacLite_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaf5b9fc13f386cdaafa36a02c0f7e5dd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__emaclite.html#gaf5b9fc13f386cdaafa36a02c0f7e5dd4">More...</a><br/></td></tr>
+<tr class="memdesc:gaf5b9fc13f386cdaafa36a02c0f7e5dd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up device configuration by base address.  <a href="group__emaclite.html#gaf5b9fc13f386cdaafa36a02c0f7e5dd4">More...</a><br/></td></tr>
 <tr class="separator:gaf5b9fc13f386cdaafa36a02c0f7e5dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacff4eab9e90bd34cfb1ccd2338a9e4b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gacff4eab9e90bd34cfb1ccd2338a9e4b1">XEmacLite_Initialize</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:gacff4eab9e90bd34cfb1ccd2338a9e4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a specific <a class="el" href="struct_x_emac_lite.html" title="The XEmacLite driver instance data. ">XEmacLite</a> instance/driver.  <a href="group__emaclite.html#gacff4eab9e90bd34cfb1ccd2338a9e4b1">More...</a><br/></td></tr>
@@ -184,16 +200,31 @@ Functions</h2></td></tr>
 <tr class="memitem:ga72db0e7e81077c3ad3947009a5299fdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga72db0e7e81077c3ad3947009a5299fdf">XEmacLite_InterruptHandler</a> (void *InstancePtr)</td></tr>
 <tr class="memdesc:ga72db0e7e81077c3ad3947009a5299fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt handler for the EmacLite driver.  <a href="group__emaclite.html#ga72db0e7e81077c3ad3947009a5299fdf">More...</a><br/></td></tr>
 <tr class="separator:ga72db0e7e81077c3ad3947009a5299fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5bacfdd394bc95a6b34dec438bfad8bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga5bacfdd394bc95a6b34dec438bfad8bf">XEmacLite_SetRecvHandler</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr, void *CallBackRef, XEmacLite_Handler FuncPtr)</td></tr>
+<tr class="memitem:ga5bacfdd394bc95a6b34dec438bfad8bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga5bacfdd394bc95a6b34dec438bfad8bf">XEmacLite_SetRecvHandler</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr, void *CallBackRef, <a class="el" href="group__emaclite.html#gadfca662ba36ecd3fa7f5816d33e1235a">XEmacLite_Handler</a> FuncPtr)</td></tr>
 <tr class="memdesc:ga5bacfdd394bc95a6b34dec438bfad8bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callback function for handling received frames in interrupt mode.  <a href="group__emaclite.html#ga5bacfdd394bc95a6b34dec438bfad8bf">More...</a><br/></td></tr>
 <tr class="separator:ga5bacfdd394bc95a6b34dec438bfad8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2e48d33c6b41774f4cb37bffc85f59a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga2e48d33c6b41774f4cb37bffc85f59a1">XEmacLite_SetSendHandler</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr, void *CallBackRef, XEmacLite_Handler FuncPtr)</td></tr>
+<tr class="memitem:ga2e48d33c6b41774f4cb37bffc85f59a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga2e48d33c6b41774f4cb37bffc85f59a1">XEmacLite_SetSendHandler</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr, void *CallBackRef, <a class="el" href="group__emaclite.html#gadfca662ba36ecd3fa7f5816d33e1235a">XEmacLite_Handler</a> FuncPtr)</td></tr>
 <tr class="memdesc:ga2e48d33c6b41774f4cb37bffc85f59a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callback function for handling transmitted frames in interrupt mode.  <a href="group__emaclite.html#ga2e48d33c6b41774f4cb37bffc85f59a1">More...</a><br/></td></tr>
 <tr class="separator:ga2e48d33c6b41774f4cb37bffc85f59a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ea2a0f4e13ef174477a3cf2a9f86e69"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">XEmacLite_SelfTest</a> (<a class="el" href="struct_x_emac_lite.html">XEmacLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga0ea2a0f4e13ef174477a3cf2a9f86e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a SelfTest on the EmacLite device as follows:  <a href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">More...</a><br/></td></tr>
+<tr class="memdesc:ga0ea2a0f4e13ef174477a3cf2a9f86e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a self-test on the EmacLite device.  <a href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">More...</a><br/></td></tr>
 <tr class="separator:ga0ea2a0f4e13ef174477a3cf2a9f86e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a52d1a768dfa187c3ef41f05068a69738"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XEMACLITE_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard for the EmacLite driver header. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

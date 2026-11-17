@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_plmi___ssit_events__t" kind="struct" prot="public">
     <compoundname>XPlmi_SsitEvents_t</compoundname>
+    <includes local="no">xplmi_ssit.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_plmi___ssit_events__t_1a0c73dba6f2d5451ba20a3c0f2f49d6ab" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -14,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="182" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_events__t_1a6edba9664412089e967ac22af1c7d79b" prot="public" static="no" mutable="no">
         <type>XPlmi_EventHandler_t</type>
@@ -27,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="183" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>SSIT event entry holding the event origin and its handler. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="181" bodyend="184"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="179" bodyend="182"/>
     <listofallmembers>
       <member refid="struct_x_plmi___ssit_events__t_1a6edba9664412089e967ac22af1c7d79b" prot="public" virt="non-virtual"><scope>XPlmi_SsitEvents_t</scope><name>EventHandler</name></member>
       <member refid="struct_x_plmi___ssit_events__t_1a0c73dba6f2d5451ba20a3c0f2f49d6ab" prot="public" virt="non-virtual"><scope>XPlmi_SsitEvents_t</scope><name>EventOrigin</name></member>

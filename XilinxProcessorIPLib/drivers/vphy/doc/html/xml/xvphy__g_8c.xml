@@ -11,6 +11,17 @@
       <node id="73">
         <label>xil_io.h</label>
       </node>
+      <node id="72">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xvphy_dp.h</label>
+      </node>
       <node id="70">
         <label>xvphy.h</label>
         <childnode refid="71" relation="include">
@@ -24,6 +35,9 @@
         <childnode refid="76" relation="include">
         </childnode>
       </node>
+      <node id="75">
+        <label>xvidc.h</label>
+      </node>
       <node id="68">
         <label>xvphy_g.c</label>
         <link refid="xvphy_g.c"/>
@@ -31,20 +45,6 @@
         </childnode>
         <childnode refid="70" relation="include">
         </childnode>
-      </node>
-      <node id="72">
-        <label>xvphy_hw.h</label>
-        <link refid="xvphy__hw_8h"/>
-        <childnode refid="73" relation="include">
-        </childnode>
-        <childnode refid="74" relation="include">
-        </childnode>
-      </node>
-      <node id="76">
-        <label>xvphy_dp.h</label>
-      </node>
-      <node id="75">
-        <label>xvidc.h</label>
       </node>
       <node id="74">
         <label>xil_types.h</label>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" bodystart="16" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -145,6 +145,6 @@
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="43"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c"/>
   </compounddef>
 </doxygen>

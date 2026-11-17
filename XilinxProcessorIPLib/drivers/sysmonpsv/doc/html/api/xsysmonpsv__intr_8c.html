@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmonpsv__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,27 @@ $(document).ready(function(){initNavTree('xsysmonpsv__intr_8c.html','');});
 <div class="title">xsysmonpsv_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_assert.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interrupt handling functions for the <a class="el" href="struct_x_sys_mon_psv.html" title="Holds the XSysMonPsv driver instance data. ">XSysMonPsv</a> driver. </p>
+<p>The <a class="el" href="xsysmonpsv__intr_8c.html" title="Implements the interrupt handling functions for the XSysMonPsv driver. ">xsysmonpsv_intr.c</a> file provides the minimum required interrupt functions for the <a class="el" href="struct_x_sys_mon_psv.html" title="Holds the XSysMonPsv driver instance data. ">XSysMonPsv</a> driver. See <a class="el" href="xsysmonpsv_8h.html">xsysmonpsv.h</a> for a detailed description of the driver.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date         Changes
+</p>
+<hr/>
+<p>
+1.0   aad    11/20/18 First release.
+1.3   aad    06/23/20 Fixed the register to read enabled interrupts.
+2.0   aad    02/10/20 Added new Interrupt handler structure.
+2.3   aad    04/30/21 Size optimization for PLM.
+      aad    07/26/21 Fixed doxygen comments.
+      aad    09/21/21 Fixed warning.
+3.0   cog    03/25/21 Driver Restructure
+3.1   cog    04/09/22 Remove GIC standalone related functionality for
+                      arch64 architecture
+4.0   se     11/10/22 Secure and Non-Secure mode integration
+5.2   se     08/24/25 Microblaze support added
+5.3   dc     02/18/26 Correct spelling errors
+5.4   vn     07/30/26 Fix Doxygen warnings
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsysmonpsv_8h.html">xsysmonpsv.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsysmonpsv__lowlevel_8h.html">xsysmonpsv_lowlevel.h</a>&quot;</code><br/>
 <code>#include &quot;xsysmonpsv_supplylist.h&quot;</code><br/>
@@ -123,19 +143,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaf215e9abbe11273d3dd56283fed78093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the specified interrupts in the device.  <a href="group__sysmonpsv__api.html#gaf215e9abbe11273d3dd56283fed78093">More...</a><br/></td></tr>
 <tr class="separator:gaf215e9abbe11273d3dd56283fed78093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf4ecf364c69e54ddaadd4b7d2706fcf8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gaf4ecf364c69e54ddaadd4b7d2706fcf8">XSysMonPsv_IntrGetEnabled</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u8 IntrNum)</td></tr>
-<tr class="memdesc:gaf4ecf364c69e54ddaadd4b7d2706fcf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enabled interrupts read from the Interrupt Mask Register (IMR).  <a href="group__sysmonpsv__api.html#gaf4ecf364c69e54ddaadd4b7d2706fcf8">More...</a><br/></td></tr>
+<tr class="memdesc:gaf4ecf364c69e54ddaadd4b7d2706fcf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enabled interrupts read from the Interrupt Mask Register.  <a href="group__sysmonpsv__api.html#gaf4ecf364c69e54ddaadd4b7d2706fcf8">More...</a><br/></td></tr>
 <tr class="separator:gaf4ecf364c69e54ddaadd4b7d2706fcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac5de90395d396c7106b2d4c1290fed3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gac5de90395d396c7106b2d4c1290fed3c">XSysMonPsv_IntrDisable</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Mask, u8 IntrNum)</td></tr>
 <tr class="memdesc:gac5de90395d396c7106b2d4c1290fed3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the specified interrupts in the device.  <a href="group__sysmonpsv__api.html#gac5de90395d396c7106b2d4c1290fed3c">More...</a><br/></td></tr>
 <tr class="separator:gac5de90395d396c7106b2d4c1290fed3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7af4abdb0829809ed0a356cfcbefd7d5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga7af4abdb0829809ed0a356cfcbefd7d5">XSysMonPsv_IntrGetStatus</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga7af4abdb0829809ed0a356cfcbefd7d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interrupt status read from Interrupt Status Register(ISR).  <a href="group__sysmonpsv__api.html#ga7af4abdb0829809ed0a356cfcbefd7d5">More...</a><br/></td></tr>
+<tr class="memdesc:ga7af4abdb0829809ed0a356cfcbefd7d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interrupt status read from the Interrupt Status Register.  <a href="group__sysmonpsv__api.html#ga7af4abdb0829809ed0a356cfcbefd7d5">More...</a><br/></td></tr>
 <tr class="separator:ga7af4abdb0829809ed0a356cfcbefd7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9f2a84fb9f82598f93afc703d3428794"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga9f2a84fb9f82598f93afc703d3428794">XSysMonPsv_IntrClear</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga9f2a84fb9f82598f93afc703d3428794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the specified interrupts in the Interrupt Status Register (ISR).  <a href="group__sysmonpsv__api.html#ga9f2a84fb9f82598f93afc703d3428794">More...</a><br/></td></tr>
+<tr class="memdesc:ga9f2a84fb9f82598f93afc703d3428794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the specified interrupts in the Interrupt Status Register.  <a href="group__sysmonpsv__api.html#ga9f2a84fb9f82598f93afc703d3428794">More...</a><br/></td></tr>
 <tr class="separator:ga9f2a84fb9f82598f93afc703d3428794"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77add816aad89432fc3b4f87f7671133"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga77add816aad89432fc3b4f87f7671133">XSysMonPsv_SetNewDataIntSrc</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, XSysMonPsv_Supply Supply, u32 Mask)</td></tr>
-<tr class="memdesc:ga77add816aad89432fc3b4f87f7671133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a supply as a source new data interrupt.  <a href="group__sysmonpsv__api.html#ga77add816aad89432fc3b4f87f7671133">More...</a><br/></td></tr>
+<tr class="memdesc:ga77add816aad89432fc3b4f87f7671133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a supply as a new data interrupt source.  <a href="group__sysmonpsv__api.html#ga77add816aad89432fc3b4f87f7671133">More...</a><br/></td></tr>
 <tr class="separator:ga77add816aad89432fc3b4f87f7671133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

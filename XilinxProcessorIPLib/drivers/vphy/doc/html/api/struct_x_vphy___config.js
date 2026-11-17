@@ -9,6 +9,7 @@ var struct_x_vphy___config =
     [ "HdmiFastSwitch", "struct_x_vphy___config.html#a96e29e533d5dfa68d40561bd177f8349", null ],
     [ "IntrId", "struct_x_vphy___config.html#a99faf7904911b6465ea29b5826c7db45", null ],
     [ "IntrParent", "struct_x_vphy___config.html#a25da731de75a6275c0bff859a7be1ad3", null ],
+    [ "Name", "struct_x_vphy___config.html#a4e46ce5abd860393f1891835dc783583", null ],
     [ "Ppc", "struct_x_vphy___config.html#a231054143e9206cfca1c8be3ef1c3be9", null ],
     [ "RxChannels", "struct_x_vphy___config.html#af7fdb76ac0ffc18275711ae874d309a1", null ],
     [ "RxProtocol", "struct_x_vphy___config.html#a7e92f3f0a07f8d22c381b32259a58846", null ],

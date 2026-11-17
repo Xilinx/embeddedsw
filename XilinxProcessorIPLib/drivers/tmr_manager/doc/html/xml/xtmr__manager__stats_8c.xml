@@ -10,18 +10,6 @@
       <node id="166">
         <label>xil_assert.h</label>
       </node>
-      <node id="164">
-        <label>xtmr_manager_stats.c</label>
-        <link refid="xtmr_manager_stats.c"/>
-        <childnode refid="165" relation="include">
-        </childnode>
-        <childnode refid="166" relation="include">
-        </childnode>
-        <childnode refid="167" relation="include">
-        </childnode>
-        <childnode refid="169" relation="include">
-        </childnode>
-      </node>
       <node id="171">
         <label>xil_io.h</label>
       </node>
@@ -35,16 +23,6 @@
         <childnode refid="171" relation="include">
         </childnode>
       </node>
-      <node id="167">
-        <label>xtmr_manager.h</label>
-        <link refid="xtmr__manager_8h"/>
-        <childnode refid="165" relation="include">
-        </childnode>
-        <childnode refid="166" relation="include">
-        </childnode>
-        <childnode refid="168" relation="include">
-        </childnode>
-      </node>
       <node id="169">
         <label>xtmr_manager_i.h</label>
         <link refid="xtmr__manager__i_8h"/>
@@ -56,8 +34,30 @@
       <node id="168">
         <label>xstatus.h</label>
       </node>
+      <node id="164">
+        <label>xtmr_manager_stats.c</label>
+        <link refid="xtmr_manager_stats.c"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+      </node>
       <node id="165">
         <label>xil_types.h</label>
+      </node>
+      <node id="167">
+        <label>xtmr_manager.h</label>
+        <link refid="xtmr__manager_8h"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -79,27 +79,27 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>StatsPtr</parametername>
+<parametername direction="out">StatsPtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to a XTMR_ManagerStats structure to where the statistics are to be copied.</para></parameterdescription>
+<para>is a pointer to a XTMR_ManagerStats structure to where the statistics are to be copied. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c" bodystart="63" bodyend="76"/>
-        <references refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" compoundref="xtmr__manager_8h" startline="111">XTMR_Manager_Stats::InterruptCount</references>
-        <references refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" compoundref="xtmr__manager_8h" startline="112">XTMR_Manager_Stats::RecoveryCount</references>
+<para>&lt; Copy the stats from the instance to the specified stats </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c" bodystart="58" bodyend="71"/>
+        <references refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" compoundref="xtmr__manager_8h" startline="112">XTMR_Manager_Stats::InterruptCount</references>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+        <references refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" compoundref="xtmr__manager_8h" startline="113">XTMR_Manager_Stats::RecoveryCount</references>
+        <references refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" compoundref="xtmr__manager_8h" startline="159">XTMR_Manager::Stats</references>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -115,21 +115,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance.</para></parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c" bodystart="90" bodyend="100"/>
-        <references refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" compoundref="xtmr__manager_8h" startline="111">XTMR_Manager_Stats::InterruptCount</references>
-        <references refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" compoundref="xtmr__manager_8h" startline="112">XTMR_Manager_Stats::RecoveryCount</references>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c" bodystart="80" bodyend="90"/>
+        <references refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" compoundref="xtmr__manager_8h" startline="112">XTMR_Manager_Stats::InterruptCount</references>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+        <references refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" compoundref="xtmr__manager_8h" startline="113">XTMR_Manager_Stats::RecoveryCount</references>
+        <references refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" compoundref="xtmr__manager_8h" startline="159">XTMR_Manager::Stats</references>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -139,7 +139,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -167,35 +167,33 @@
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="63" refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" kindref="member">XTMR_Manager_GetStats</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_t_m_r___manager___stats" kindref="compound">XTMR_Manager_Stats</ref><sp/>*StatsPtr)</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
-<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>stats<sp/>from<sp/>the<sp/>instance<sp/>to<sp/>the<sp/>specified<sp/>stats<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref>;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref><sp/>=<sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref>;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="90" refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kindref="member">XTMR_Manager_ClearStats</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
-<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" kindref="member">XTMR_Manager_GetStats</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_t_m_r___manager___stats" kindref="compound">XTMR_Manager_Stats</ref><sp/>*StatsPtr)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" kindref="member">Stats</ref>.<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" kindref="member">Stats</ref>.<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="80" refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kindref="member">XTMR_Manager_ClearStats</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" kindref="member">Stats</ref>.<ref refid="struct_x_t_m_r___manager___stats_1ada777980dd034c3f1eef945e94570c93" kindref="member">InterruptCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" kindref="member">Stats</ref>.<ref refid="struct_x_t_m_r___manager___stats_1a14ac6c281296762e87103e4193ac4cf3" kindref="member">RecoveryCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_stats.c"/>
   </compounddef>
 </doxygen>

@@ -9,45 +9,45 @@
     <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <invincdepgraph>
-      <node id="1032">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp_2xsecure__cmd_8c"/>
-      </node>
-      <node id="1029">
-        <label>xsecure_init.c</label>
-        <link refid="xsecure__init_8c"/>
-      </node>
-      <node id="1033">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp__p_2xsecure__cmd_8c"/>
-      </node>
-      <node id="1028">
+      <node id="1064">
         <label>xsecure_cmd.h</label>
         <link refid="xsecure_cmd.h"/>
-        <childnode refid="1029" relation="include">
+        <childnode refid="1065" relation="include">
         </childnode>
-        <childnode refid="1030" relation="include">
+        <childnode refid="1066" relation="include">
         </childnode>
-        <childnode refid="1031" relation="include">
+        <childnode refid="1067" relation="include">
         </childnode>
-        <childnode refid="1032" relation="include">
+        <childnode refid="1068" relation="include">
         </childnode>
-        <childnode refid="1033" relation="include">
+        <childnode refid="1069" relation="include">
         </childnode>
-        <childnode refid="1034" relation="include">
+        <childnode refid="1070" relation="include">
         </childnode>
       </node>
-      <node id="1034">
+      <node id="1067">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1070">
         <label>xsecure_cmd.c</label>
         <link refid="net_2xsecure__cmd_8c"/>
       </node>
-      <node id="1030">
+      <node id="1065">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="1066">
         <label>xsecure_cmd.c</label>
         <link refid="xsecure__cmd_8c"/>
       </node>
-      <node id="1031">
+      <node id="1069">
         <label>xsecure_cmd.c</label>
-        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1068">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -67,8 +67,8 @@
 <para><itemizedlist>
 <listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cmd.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" bodystart="358" bodyend="368"/>
-        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cmd.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" bodystart="382" bodyend="392"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="145" endline="181">XSecure_Init</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -109,6 +109,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_CMD_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cmd.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cmd.h"/>
   </compounddef>
 </doxygen>

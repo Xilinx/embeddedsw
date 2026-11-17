@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -120,7 +121,7 @@ $(document).ready(function(){initNavTree('struct_x_asu___crypto_alg_info.html','
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a287b6874001429136e8ef2de320eef1a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#a287b6874001429136e8ef2de320eef1a">Version</a></td></tr>
-<tr class="memdesc:a287b6874001429136e8ef2de320eef1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of the cryptographic algorithm.  <a href="#a287b6874001429136e8ef2de320eef1a">More...</a><br/></td></tr>
+<tr class="memdesc:a287b6874001429136e8ef2de320eef1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Algorithm version.  <a href="#a287b6874001429136e8ef2de320eef1a">More...</a><br/></td></tr>
 <tr class="separator:a287b6874001429136e8ef2de320eef1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab24ef0fa3e2d8ca18d3956aac6a333d1"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#ab24ef0fa3e2d8ca18d3956aac6a333d1">NistStatus</a></td></tr>
 <tr class="memdesc:ab24ef0fa3e2d8ca18d3956aac6a333d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">NIST compliance status of the cryptographic algorithm.  <a href="#ab24ef0fa3e2d8ca18d3956aac6a333d1">More...</a><br/></td></tr>
@@ -128,19 +129,31 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ac2bd19fe1a7646eb60f244bedb572388"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#ac2bd19fe1a7646eb60f244bedb572388">KatStatus</a></td></tr>
 <tr class="memdesc:ac2bd19fe1a7646eb60f244bedb572388"><td class="mdescLeft">&#160;</td><td class="mdescRight">KAT status bit, 0x01 - KAT not run, 0xE2 - KAT fail and 0x1E - KAT pass.  <a href="#ac2bd19fe1a7646eb60f244bedb572388">More...</a><br/></td></tr>
 <tr class="separator:ac2bd19fe1a7646eb60f244bedb572388"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a186b8cb0aa7dbfc1940a94d3f1b80ced"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#a186b8cb0aa7dbfc1940a94d3f1b80ced">Reserved2</a></td></tr>
-<tr class="memdesc:a186b8cb0aa7dbfc1940a94d3f1b80ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved.  <a href="#a186b8cb0aa7dbfc1940a94d3f1b80ced">More...</a><br/></td></tr>
-<tr class="separator:a186b8cb0aa7dbfc1940a94d3f1b80ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85236e28676a7392030081ebb7e7aeb7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#a85236e28676a7392030081ebb7e7aeb7">Reserved3</a></td></tr>
-<tr class="memdesc:a85236e28676a7392030081ebb7e7aeb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved.  <a href="#a85236e28676a7392030081ebb7e7aeb7">More...</a><br/></td></tr>
-<tr class="separator:a85236e28676a7392030081ebb7e7aeb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94022d4d5d710c1ff98a21489758244f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#a94022d4d5d710c1ff98a21489758244f">Reserved4</a></td></tr>
-<tr class="memdesc:a94022d4d5d710c1ff98a21489758244f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved.  <a href="#a94022d4d5d710c1ff98a21489758244f">More...</a><br/></td></tr>
-<tr class="separator:a94022d4d5d710c1ff98a21489758244f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8992f4437db65b92fcd5492d627c4b03"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#a8992f4437db65b92fcd5492d627c4b03">FeatureCaps</a></td></tr>
+<tr class="memdesc:a8992f4437db65b92fcd5492d627c4b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feature capabilities bitmask.  <a href="#a8992f4437db65b92fcd5492d627c4b03">More...</a><br/></td></tr>
+<tr class="separator:a8992f4437db65b92fcd5492d627c4b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adddfb7d7581ea014f0550c62c086f27f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___crypto_alg_info.html#adddfb7d7581ea014f0550c62c086f27f">Reserved</a></td></tr>
+<tr class="memdesc:adddfb7d7581ea014f0550c62c086f27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved.  <a href="#adddfb7d7581ea014f0550c62c086f27f">More...</a><br/></td></tr>
+<tr class="separator:adddfb7d7581ea014f0550c62c086f27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This structure contains data for cryptographic algorithms, including versioning and NIST compliance status, for up to maximum modules in ASUFW. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a8992f4437db65b92fcd5492d627c4b03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XAsu_CryptoAlgInfo::FeatureCaps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Feature capabilities bitmask. </p>
+<p>Each bit indicates an enabled feature for this module. Clients read this to determine available capabilities </p>
+
+</div>
+</div>
 <a class="anchor" id="ac2bd19fe1a7646eb60f244bedb572388"></a>
 <div class="memitem">
 <div class="memproto">
@@ -170,40 +183,12 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a186b8cb0aa7dbfc1940a94d3f1b80ced"></a>
+<a class="anchor" id="adddfb7d7581ea014f0550c62c086f27f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 XAsu_CryptoAlgInfo::Reserved2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reserved. </p>
-
-</div>
-</div>
-<a class="anchor" id="a85236e28676a7392030081ebb7e7aeb7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 XAsu_CryptoAlgInfo::Reserved3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reserved. </p>
-
-</div>
-</div>
-<a class="anchor" id="a94022d4d5d710c1ff98a21489758244f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XAsu_CryptoAlgInfo::Reserved4</td>
+          <td class="memname">u32 XAsu_CryptoAlgInfo::Reserved</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -222,8 +207,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Version of the cryptographic algorithm. </p>
-<p>[15:0]: Algorithm minor version [31:16]: Algorithm major version </p>
+<p>Algorithm version. </p>
+<p>0 means the module is not available [15:0]: Algorithm minor version [31:16]: Algorithm major version </p>
 
 </div>
 </div>

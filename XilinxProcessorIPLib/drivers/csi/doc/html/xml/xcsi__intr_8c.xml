@@ -5,9 +5,6 @@
     <includes local="yes">xparameters.h</includes>
     <includes refid="xcsi_8h" local="yes">xcsi.h</includes>
     <incdepgraph>
-      <node id="58">
-        <label>xil_io.h</label>
-      </node>
       <node id="54">
         <label>xcsi.h</label>
         <link refid="xcsi_8h"/>
@@ -17,6 +14,9 @@
         </childnode>
         <childnode refid="57" relation="include">
         </childnode>
+      </node>
+      <node id="58">
+        <label>xil_io.h</label>
       </node>
       <node id="56">
         <label>xstatus.h</label>
@@ -32,9 +32,6 @@
       <node id="55">
         <label>xil_types.h</label>
       </node>
-      <node id="53">
-        <label>xparameters.h</label>
-      </node>
       <node id="57">
         <label>xcsi_hw.h</label>
         <link refid="xcsi__hw_8h"/>
@@ -42,6 +39,9 @@
         </childnode>
         <childnode refid="58" relation="include">
         </childnode>
+      </node>
+      <node id="53">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -98,9 +98,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="990" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="63" bodyend="74"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="967" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="63" bodyend="74"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
         <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
         <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
@@ -158,9 +158,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1005" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="89" bodyend="98"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="982" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="89" bodyend="98"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
         <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
         <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
       </memberdef>
@@ -199,9 +199,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="975" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="112" bodyend="122"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="952" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="112" bodyend="122"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
         <references refid="group__csi_1ga917fccb31f77be483428d2df283c5b1a" compoundref="xcsi__hw_8h" startline="64">XCSI_IER_OFFSET</references>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
@@ -241,9 +241,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1019" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="137" bodyend="147"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="996" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="137" bodyend="147"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
         <references refid="group__csi_1ga2cf032f37565c991932495f74683bad2" compoundref="xcsi__hw_8h" startline="61">XCSI_ISR_OFFSET</references>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
       </memberdef>
@@ -300,9 +300,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1034" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="163" bodyend="174"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="1011" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="163" bodyend="174"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
         <references refid="group__csi_1ga2dfe1d5cb6916acf6f8f489aac61c82b" compoundref="xcsi__hw_8h" startline="696">XCSI_IER_ALLINTR_MASK</references>
         <references refid="group__csi_1gaeb6ff00e1737f1f8b07f692bbdb287d6" compoundref="xcsi__hw_8h" startline="340">XCSI_ISR_ALLINTR_MASK</references>
         <references refid="group__csi_1ga2cf032f37565c991932495f74683bad2" compoundref="xcsi__hw_8h" startline="61">XCSI_ISR_OFFSET</references>
@@ -415,22 +415,22 @@ HandlerType                     Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="960" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="209" bodyend="259"/>
-        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="243">XCsi::DPhyLvlErrCallBack</references>
-        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="245">XCsi::DPhyLvlErrRef</references>
-        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="256">XCsi::ErrorCallBack</references>
-        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="259">XCsi::ErrRef</references>
-        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="239">XCsi::FrameRecvdCallBack</references>
-        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="241">XCsi::FrameRecvdRef</references>
-        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
-        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="247">XCsi::PktLvlErrCallBack</references>
-        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="249">XCsi::PktLvlErrRef</references>
-        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="254">XCsi::ProtDecErrRef</references>
-        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="251">XCsi::ProtDecodeErrCallBack</references>
-        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="235">XCsi::ShortPacketCallBack</references>
-        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="237">XCsi::ShortPacketRef</references>
-        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="260">XCsi::VCXErrCallBack</references>
-        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="263">XCsi::VCXErrRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="937" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="209" bodyend="259"/>
+        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="239">XCsi::DPhyLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="241">XCsi::DPhyLvlErrRef</references>
+        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="252">XCsi::ErrorCallBack</references>
+        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="255">XCsi::ErrRef</references>
+        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="235">XCsi::FrameRecvdCallBack</references>
+        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="237">XCsi::FrameRecvdRef</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="260">XCsi::IsReady</references>
+        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="243">XCsi::PktLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="245">XCsi::PktLvlErrRef</references>
+        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="250">XCsi::ProtDecErrRef</references>
+        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="247">XCsi::ProtDecodeErrCallBack</references>
+        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="231">XCsi::ShortPacketCallBack</references>
+        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="233">XCsi::ShortPacketRef</references>
+        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="256">XCsi::VCXErrCallBack</references>
+        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="259">XCsi::VCXErrRef</references>
         <references refid="group__csi_1ga5e09e8315ed79111e896d07c13bda3a8" compoundref="xcsi_8h" startline="122">XCSI_HANDLER_DPHY</references>
         <references refid="group__csi_1ga35985933f4901b919830bc8b765a866b" compoundref="xcsi_8h" startline="126">XCSI_HANDLER_FRAMERECVD</references>
         <references refid="group__csi_1ga73c4b49b1c1c0d1d887fa951de5dcb99" compoundref="xcsi_8h" startline="128">XCSI_HANDLER_OTHERERROR</references>
@@ -474,24 +474,24 @@ This handler reads the pending interrupt from the Interrupt Status register, det
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="283" bodyend="349"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
-        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="243">XCsi::DPhyLvlErrCallBack</references>
-        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="245">XCsi::DPhyLvlErrRef</references>
-        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="256">XCsi::ErrorCallBack</references>
-        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="259">XCsi::ErrRef</references>
-        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="239">XCsi::FrameRecvdCallBack</references>
-        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="241">XCsi::FrameRecvdRef</references>
-        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
-        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="247">XCsi::PktLvlErrCallBack</references>
-        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="249">XCsi::PktLvlErrRef</references>
-        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="254">XCsi::ProtDecErrRef</references>
-        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="251">XCsi::ProtDecodeErrCallBack</references>
-        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="235">XCsi::ShortPacketCallBack</references>
-        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="237">XCsi::ShortPacketRef</references>
-        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="260">XCsi::VCXErrCallBack</references>
-        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="263">XCsi::VCXErrRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="908" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c" bodystart="283" bodyend="349"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
+        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="239">XCsi::DPhyLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" compoundref="xcsi_8h" startline="241">XCsi::DPhyLvlErrRef</references>
+        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="252">XCsi::ErrorCallBack</references>
+        <references refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" compoundref="xcsi_8h" startline="255">XCsi::ErrRef</references>
+        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="235">XCsi::FrameRecvdCallBack</references>
+        <references refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" compoundref="xcsi_8h" startline="237">XCsi::FrameRecvdRef</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="260">XCsi::IsReady</references>
+        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="243">XCsi::PktLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" compoundref="xcsi_8h" startline="245">XCsi::PktLvlErrRef</references>
+        <references refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" compoundref="xcsi_8h" startline="250">XCsi::ProtDecErrRef</references>
+        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="247">XCsi::ProtDecodeErrCallBack</references>
+        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="231">XCsi::ShortPacketCallBack</references>
+        <references refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" compoundref="xcsi_8h" startline="233">XCsi::ShortPacketRef</references>
+        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="256">XCsi::VCXErrCallBack</references>
+        <references refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" compoundref="xcsi_8h" startline="259">XCsi::VCXErrRef</references>
         <references refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</references>
         <references refid="group__csi_1gad685546b6515977cc8149620ef3298bd" compoundref="xcsi__intr_8c" startline="137" endline="147">XCsi_GetIntrStatus</references>
         <references refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" compoundref="xcsi__intr_8c" startline="163" endline="174">XCsi_InterruptClear</references>
@@ -728,6 +728,6 @@ This handler reads the pending interrupt from the Interrupt Status register, det
 <codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="349"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_intr.c"/>
   </compounddef>
 </doxygen>

@@ -36,6 +36,6 @@
 <codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/>add_subdirectory(spartanup)</highlight></codeline>
 <codeline lineno="28"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

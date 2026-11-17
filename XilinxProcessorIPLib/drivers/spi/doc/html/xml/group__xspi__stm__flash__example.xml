@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__stm__flash__example" kind="group">
+    <compoundname>xspi_stm_flash_example</compoundname>
+    <title>Xspi_stm_flash_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__stm__flash__example_1ga1dc944bd1ac04c2ab436f573a526fdce" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref></type>
+        <definition>XSpi Spi</definition>
+        <argsstring></argsstring>
+        <name>Spi</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__stm__flash__example_1ga2dd94411694db2d8662ebacc6e880c0a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>TransferInProgress</name>
+        <briefdescription>
+<para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__stm__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ErrorCount</definition>
+        <argsstring></argsstring>
+        <name>ErrorCount</name>
+        <briefdescription>
+<para>The following variable tracks any errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__stm__flash__example_1ga795cc7a7f80d0863d87a2f7e06f7e8e2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[STM_PAGE_SIZE+STM_READ_WRITE_EXTRA_BYTES]</definition>
+        <argsstring>[STM_PAGE_SIZE+STM_READ_WRITE_EXTRA_BYTES]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Read buffer used during read and write transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__stm__flash__example_1gada6ed75a68552b1de21b54ca3c63767d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[STM_PAGE_SIZE+STM_READ_WRITE_EXTRA_BYTES]</definition>
+        <argsstring>[STM_PAGE_SIZE+STM_READ_WRITE_EXTRA_BYTES]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Write buffer used during read and write transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashWriteEnable</definition>
+        <argsstring>(XSpi *SpiPtr)</argsstring>
+        <name>SpiStmFlashWriteEnable</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables writes to the STM Serial Flash memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="386" bodyend="416"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__stm__flash__example_1ga9512fcca9f3f8201ddbcd9f7f33eb29b" compoundref="xspi__stm__flash__example_8c" startline="90">STM_COMMAND_WRITE_ENABLE</references>
+        <references refid="group__xspi__stm__flash__example_1ga6af335ed54e65bfcec84197eae29e73a" compoundref="xspi__stm__flash__example_8c" startline="102">STM_WRITE_ENABLE_BYTES</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashWrite</definition>
+        <argsstring>(XSpi *SpiPtr, u32 Addr, u32 ByteCount)</argsstring>
+        <name>SpiStmFlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Writes the data to the specified locations in the STM Serial Flash memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address in the Buffer, where to write the data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="431" bodyend="475"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__stm__flash__example_1ga1cec78d40bc62e93813cc388997f654f" compoundref="xspi__stm__flash__example_8c" startline="133">BYTE2</references>
+        <references refid="group__xspi__stm__flash__example_1gafce866f3fde25d9e75d531b679c00213" compoundref="xspi__stm__flash__example_8c" startline="134">BYTE3</references>
+        <references refid="group__xspi__stm__flash__example_1ga91cb164747412f1fb75f5ab9c6c91fd2" compoundref="xspi__stm__flash__example_8c" startline="135">BYTE4</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__stm__flash__example_1gaafd9849f1a6dd40f64a3ccffbd69fd21" compoundref="xspi__stm__flash__example_8c" startline="89">STM_COMMAND_PAGEPROGRAM_WRITE</references>
+        <references refid="group__xspi__stm__flash__example_1gade158881a3017a11bd4197d9bcb2e5d6" compoundref="xspi__stm__flash__example_8c" startline="127">STM_FLASH_TEST_BYTE</references>
+        <references refid="group__xspi__stm__flash__example_1ga03934c6901a241dda61e923bca702633" compoundref="xspi__stm__flash__example_8c" startline="101">STM_READ_WRITE_EXTRA_BYTES</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashRead</definition>
+        <argsstring>(XSpi *SpiPtr, u32 Addr, u32 ByteCount)</argsstring>
+        <name>SpiStmFlashRead</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Reads the data from the STM Serial Flash Memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting address in the Flash Memory from which the data is to be read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="490" bodyend="523"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__stm__flash__example_1ga1cec78d40bc62e93813cc388997f654f" compoundref="xspi__stm__flash__example_8c" startline="133">BYTE2</references>
+        <references refid="group__xspi__stm__flash__example_1gafce866f3fde25d9e75d531b679c00213" compoundref="xspi__stm__flash__example_8c" startline="134">BYTE3</references>
+        <references refid="group__xspi__stm__flash__example_1ga91cb164747412f1fb75f5ab9c6c91fd2" compoundref="xspi__stm__flash__example_8c" startline="135">BYTE4</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__stm__flash__example_1ga86cac50db1ec5e1b35597df84e069bba" compoundref="xspi__stm__flash__example_8c" startline="88">STM_COMMAND_RANDOM_READ</references>
+        <references refid="group__xspi__stm__flash__example_1ga03934c6901a241dda61e923bca702633" compoundref="xspi__stm__flash__example_8c" startline="101">STM_READ_WRITE_EXTRA_BYTES</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga9cf6f63c9b15b121231880b384d2d6fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashBulkErase</definition>
+        <argsstring>(XSpi *SpiPtr)</argsstring>
+        <name>SpiStmFlashBulkErase</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Erases the entire contents of the STM Serial Flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The erased bytes read as 0xFF. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="537" bodyend="567"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__stm__flash__example_1ga509a6683d9a4ec69ec67802de59b9971" compoundref="xspi__stm__flash__example_8c" startline="104">STM_BULK_ERASE_BYTES</references>
+        <references refid="group__xspi__stm__flash__example_1gaf3b2906c4f7fa0163b74fb14d343b209" compoundref="xspi__stm__flash__example_8c" startline="92">STM_COMMAND_BULK_ERASE</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashSectorErase</definition>
+        <argsstring>(XSpi *SpiPtr, u32 Addr)</argsstring>
+        <name>SpiStmFlashSectorErase</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>Erases the contents of the specified Sector in the STM Serial Flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address within a sector of the Buffer, which is to be erased.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The erased bytes are read back as 0xFF. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="584" bodyend="617"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__stm__flash__example_1ga1cec78d40bc62e93813cc388997f654f" compoundref="xspi__stm__flash__example_8c" startline="133">BYTE2</references>
+        <references refid="group__xspi__stm__flash__example_1gafce866f3fde25d9e75d531b679c00213" compoundref="xspi__stm__flash__example_8c" startline="134">BYTE3</references>
+        <references refid="group__xspi__stm__flash__example_1ga91cb164747412f1fb75f5ab9c6c91fd2" compoundref="xspi__stm__flash__example_8c" startline="135">BYTE4</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__stm__flash__example_1ga0a3a7e4a816526dd43782dfe8f412ea6" compoundref="xspi__stm__flash__example_8c" startline="91">STM_COMMAND_SECTOR_ERASE</references>
+        <references refid="group__xspi__stm__flash__example_1gaac4b18de92e6b6613eaec5b72e872d13" compoundref="xspi__stm__flash__example_8c" startline="103">STM_SECTOR_ERASE_BYTES</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga7dccfc93abc36cebd86eaeb6aa3ec13e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashGetStatus</definition>
+        <argsstring>(XSpi *SpiPtr)</argsstring>
+        <name>SpiStmFlashGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the Status register of the STM Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the Spi device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The status register content is stored at the second byte pointed by the ReadBuffer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="632" bodyend="662"/>
+        <references refid="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" compoundref="xspi__stm__flash__example_8c" startline="132">BYTE1</references>
+        <references refid="group__xspi__atmel__flash__example_1ga7abe7b17ce48d24409e2a49aa35d9842" compoundref="xspi__atmel__flash__example_8c" startline="190">ErrorCount</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__stm__flash__example_1ga55895e46c330afc876082313bb3599b8" compoundref="xspi__stm__flash__example_8c" startline="93">STM_COMMAND_STATUSREG_READ</references>
+        <references refid="group__xspi__stm__flash__example_1ga3a572aa707d45196b9af466d3f590d2b" compoundref="xspi__stm__flash__example_8c" startline="105">STM_STATUS_READ_BYTES</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga1a8defc410d7a2be6c2ac27f3c845ac5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiStmFlashWaitForFlashNotBusy</definition>
+        <argsstring>(void)</argsstring>
+        <name>SpiStmFlashWaitForFlashNotBusy</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Waits till the STM serial Flash is ready to accept next command. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function reads the status register of the Buffer and waits . till the WIP bit of the status register becomes 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="675" bodyend="701"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SpiHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</argsstring>
+        <name>SpiHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the status events of the SPI driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</para><para>The handler provides an example of how to handle SPI interrupts and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event that just occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes transferred up until the event occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="153" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the STM Flash example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI configuration is not found, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="198" bodyend="374"/>
+        <references refid="struct_x_spi___config_1a495ec19a4ab441ea59a0e220f0728dd9" compoundref="xspi_8h" startline="406">XSpi_Config::BaseAddress</references>
+        <references refid="struct_x_spi___config_1a3f6036a8c85e0a81febbc13c358335e0" compoundref="xspi_8h" startline="419">XSpi_Config::IntrId</references>
+        <references refid="struct_x_spi___config_1a8eab103efa3a50b4bbe39d6a002150b2" compoundref="xspi_8h" startline="421">XSpi_Config::IntrParent</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__atmel__flash__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" compoundref="xspi__atmel__flash__example_8c" startline="592" endline="608">SpiHandler</references>
+        <references refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</references>
+        <references refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</references>
+        <references refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</references>
+        <references refid="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" compoundref="xspi__stm__flash__example_8c" startline="386" endline="416">SpiStmFlashWriteEnable</references>
+        <references refid="group__xspi__stm__flash__example_1gaa8621c230cb4ede3ddec82b0871d559f" compoundref="xspi__stm__flash__example_8c" startline="121">STM_FLASH_TEST_ADDRESS</references>
+        <references refid="group__xspi__stm__flash__example_1gade158881a3017a11bd4197d9bcb2e5d6" compoundref="xspi__stm__flash__example_8c" startline="127">STM_FLASH_TEST_BYTE</references>
+        <references refid="group__xspi__stm__flash__example_1ga67fbd3fe9dcb5c2b191ef560371ea5e4" compoundref="xspi__stm__flash__example_8c" startline="116">STM_PAGE_SIZE</references>
+        <references refid="group__xspi__stm__flash__example_1ga03934c6901a241dda61e923bca702633" compoundref="xspi__stm__flash__example_8c" startline="101">STM_READ_WRITE_EXTRA_BYTES</references>
+        <references refid="group__xspi__stm__flash__example_1ga7a226f2439562fc2e8c8699d500d76e7" compoundref="xspi__stm__flash__example_8c" startline="83">STM_SPI_SELECT</references>
+        <references refid="group__spi_1gaeb7ff246ee212e9fa1379769aae76f47" compoundref="xspi_8h" startline="354">XSP_MANUAL_SSELECT_OPTION</references>
+        <references refid="group__spi_1gac2c043a14b04e38a61b1979ccaa8a200" compoundref="xspi_8h" startline="350">XSP_MASTER_OPTION</references>
+        <references refid="group__spi__api_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</references>
+        <references refid="group__spi__api_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</references>
+        <references refid="group__spi_1ga89a706debf1603a19b95d8e556f04f68" compoundref="xspi__sinit_8c" startline="93" endline="107">XSpi_LookupConfig</references>
+        <references refid="group__spi_1ga67c2076b133a55b6f80343642a1ace41" compoundref="xspi__options_8c" startline="110" endline="164">XSpi_SetOptions</references>
+        <references refid="group__spi__api_1ga162523a3e9b29f063701db303ac8cf17" compoundref="xspi_8c" startline="937" endline="984">XSpi_SetSlaveSelect</references>
+        <references refid="group__spi__api_1gabc09f4d503de2a772e5079ac46fc62b6" compoundref="xspi_8c" startline="1065" endline="1074">XSpi_SetStatusHandler</references>
+        <references refid="group__spi__api_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="318" endline="370">XSpi_Start</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga7a226f2439562fc2e8c8699d500d76e7" prot="public" static="no">
+        <name>STM_SPI_SELECT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>The following constant defines the slave select signal that selects the Flash device on the SPI bus, this signal is typically connected to the chip select of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga86cac50db1ec5e1b35597df84e069bba" prot="public" static="no">
+        <name>STM_COMMAND_RANDOM_READ</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Random read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gaafd9849f1a6dd40f64a3ccffbd69fd21" prot="public" static="no">
+        <name>STM_COMMAND_PAGEPROGRAM_WRITE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Page Program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga9512fcca9f3f8201ddbcd9f7f33eb29b" prot="public" static="no">
+        <name>STM_COMMAND_WRITE_ENABLE</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write Enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" compoundref="xspi__stm__flash__example_8c" startline="386" endline="416">SpiStmFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga0a3a7e4a816526dd43782dfe8f412ea6" prot="public" static="no">
+        <name>STM_COMMAND_SECTOR_ERASE</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>Sector Erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gaf3b2906c4f7fa0163b74fb14d343b209" prot="public" static="no">
+        <name>STM_COMMAND_BULK_ERASE</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk Erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga9cf6f63c9b15b121231880b384d2d6fe" compoundref="xspi__stm__flash__example_8c" startline="537" endline="567">SpiStmFlashBulkErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga55895e46c330afc876082313bb3599b8" prot="public" static="no">
+        <name>STM_COMMAND_STATUSREG_READ</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Status read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga7dccfc93abc36cebd86eaeb6aa3ec13e" compoundref="xspi__stm__flash__example_8c" startline="632" endline="662">SpiStmFlashGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga03934c6901a241dda61e923bca702633" prot="public" static="no">
+        <name>STM_READ_WRITE_EXTRA_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>This definitions specify the EXTRA bytes in each of the command transactions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This count includes Command byte, address bytes and any don&apos;t care bytes needed.Read/Write extra bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga6af335ed54e65bfcec84197eae29e73a" prot="public" static="no">
+        <name>STM_WRITE_ENABLE_BYTES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Write Enable bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" compoundref="xspi__stm__flash__example_8c" startline="386" endline="416">SpiStmFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gaac4b18de92e6b6613eaec5b72e872d13" prot="public" static="no">
+        <name>STM_SECTOR_ERASE_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Sector erase extra bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga509a6683d9a4ec69ec67802de59b9971" prot="public" static="no">
+        <name>STM_BULK_ERASE_BYTES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bulk erase extra bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga9cf6f63c9b15b121231880b384d2d6fe" compoundref="xspi__stm__flash__example_8c" startline="537" endline="567">SpiStmFlashBulkErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga3a572aa707d45196b9af466d3f590d2b" prot="public" static="no">
+        <name>STM_STATUS_READ_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Status read bytes count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga7dccfc93abc36cebd86eaeb6aa3ec13e" compoundref="xspi__stm__flash__example_8c" startline="632" endline="662">SpiStmFlashGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga4e16da128c05c2dbb28238cf3ea8ac0d" prot="public" static="no">
+        <name>STM_STATUS_WRITE_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Status write bytes count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga4a7516ceb2da068b737f51d5c4136bc0" prot="public" static="no">
+        <name>STM_FLASH_SR_IS_READY_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Ready mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga67fbd3fe9dcb5c2b191ef560371ea5e4" prot="public" static="no">
+        <name>STM_PAGE_SIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>Number of bytes per page in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gaa8621c230cb4ede3ddec82b0871d559f" prot="public" static="no">
+        <name>STM_FLASH_TEST_ADDRESS</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Address of the page to perform Erase, Write and Read operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gade158881a3017a11bd4197d9bcb2e5d6" prot="public" static="no">
+        <name>STM_FLASH_TEST_BYTE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Byte offset value written to Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>This needs to redefined for writing different patterns of data to the Flash device. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__stm__flash__example_8c" startline="198" endline="374">main</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga3b1468d2755101d28e3b8e7a91109d2e" prot="public" static="no">
+        <name>BYTE1</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Byte 1 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga9cf6f63c9b15b121231880b384d2d6fe" compoundref="xspi__stm__flash__example_8c" startline="537" endline="567">SpiStmFlashBulkErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga7dccfc93abc36cebd86eaeb6aa3ec13e" compoundref="xspi__stm__flash__example_8c" startline="632" endline="662">SpiStmFlashGetStatus</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" compoundref="xspi__stm__flash__example_8c" startline="386" endline="416">SpiStmFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga1cec78d40bc62e93813cc388997f654f" prot="public" static="no">
+        <name>BYTE2</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Byte 2 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1gafce866f3fde25d9e75d531b679c00213" prot="public" static="no">
+        <name>BYTE3</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Byte 3 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga91cb164747412f1fb75f5ab9c6c91fd2" prot="public" static="no">
+        <name>BYTE4</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Byte 4 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga9037d2e19fd39f4b87d7b2074050d9c1" prot="public" static="no">
+        <name>BYTE5</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Byte 5 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__stm__flash__example_1ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7" prot="public" static="no">
+        <name>STM_DUMMYBYTE</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Dummy byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_stm_flash_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

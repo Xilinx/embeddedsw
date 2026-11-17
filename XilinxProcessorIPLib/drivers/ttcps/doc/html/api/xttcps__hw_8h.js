@@ -1,5 +1,6 @@
 var xttcps__hw_8h =
 [
+    [ "ARMA9", "xttcps__hw_8h.html#ga3dde6ae31d569b01dc88903a5340d744", null ],
     [ "XTTCPS_CLK_CNTRL_EXT_EDGE_MASK", "xttcps__hw_8h.html#ga29a848536966e6edb1a59971931eb6ef", null ],
     [ "XTTCPS_CLK_CNTRL_OFFSET", "xttcps__hw_8h.html#ga3dcabe06c5c961d7613cd0d42a6b6e8e", null ],
     [ "XTTCPS_CLK_CNTRL_PS_DISABLE", "xttcps__hw_8h.html#gadc32c3958d06e5b137993806c2637244", null ],

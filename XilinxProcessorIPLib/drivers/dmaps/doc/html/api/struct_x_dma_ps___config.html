@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_dma_ps___config.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_dma_ps___config.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the device.
+<p>Holds configuration information for the device.
  <a href="struct_x_dma_ps___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xdmaps.h&gt;</code></p>
@@ -134,7 +134,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a07b95b027e1b7b87335761f529203a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the device. </p>
+<div class="textblock"><p>Holds configuration information for the device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a5f381d00a2979ddc281fc8d48d0f7b2a"></a>
 <div class="memitem">
@@ -164,7 +164,7 @@ Data Fields</h2></td></tr>
 
 <p>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </p>
 
-<p>Referenced by <a class="el" href="group__dmaps.html#ga2fed90dfba1ff9f472b40ed492d78b4c">XDmaPs_CfgInitialize()</a>, and <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#ga2fed90dfba1ff9f472b40ed492d78b4c">XDmaPs_CfgInitialize()</a>, and <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
 
 </div>
 </div>
@@ -180,7 +180,7 @@ Data Fields</h2></td></tr>
 
 <p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
 
-<p>Referenced by <a class="el" href="group__dmaps.html#ga2fed90dfba1ff9f472b40ed492d78b4c">XDmaPs_CfgInitialize()</a>, and <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#ga2fed90dfba1ff9f472b40ed492d78b4c">XDmaPs_CfgInitialize()</a>, and <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
 
 </div>
 </div>
@@ -196,7 +196,7 @@ Data Fields</h2></td></tr>
 
 <p>Unique name of the device. </p>
 
-<p>Referenced by <a class="el" href="group__dmaps.html#ga71854a1c11448fcf36b1b4f0796fd442">XDmaPs_LookupConfig()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#ga04311967e37755770921dd9f0e8f68b8">XDmaPs_GetDrvIndex()</a>, and <a class="el" href="group__dmaps.html#ga71854a1c11448fcf36b1b4f0796fd442">XDmaPs_LookupConfig()</a>.</p>
 
 </div>
 </div>

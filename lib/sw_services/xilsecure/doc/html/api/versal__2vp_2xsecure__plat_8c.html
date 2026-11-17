@@ -99,7 +99,8 @@ $(document).ready(function(){initNavTree('versal__2vp_2xsecure__plat_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">versal_2vp/xsecure_plat.c File Reference</div>  </div>
 </div><!--header-->
@@ -117,6 +118,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       tbk  02/24/26 Correct platform in <a class="el" href="group__xsecure__helper__server__apis.html#ga7ceaf28c4b557ab6cefc96402262ecc0" title="This function initializes the trng in HRNG mode if it is not initialized and it is applicable only fo...">XSecure_ECCRandInit()</a> header comment and other typo
       tbk  02/23/26 Set error status in XSecure_ECCRandInit
       rpu  04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+5.8   rap  09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 </pre> </div><div class="textblock"><code>#include &quot;xsecure_sss.h&quot;</code><br/>
 <code>#include &quot;xsecure_aes.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__init_8h.html">xsecure_init.h</a>&quot;</code><br/>
@@ -151,6 +153,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7ceaf28c4b557ab6cefc96402262ecc0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga7ceaf28c4b557ab6cefc96402262ecc0">XSecure_ECCRandInit</a> (void)</td></tr>
 <tr class="memdesc:ga7ceaf28c4b557ab6cefc96402262ecc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the trng in HRNG mode if it is not initialized and it is applicable only for Versal_2Ve_2Vm.  <a href="group__xsecure__helper__server__apis.html#ga7ceaf28c4b557ab6cefc96402262ecc0">More...</a><br/></td></tr>
 <tr class="separator:ga7ceaf28c4b557ab6cefc96402262ecc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Stream Switch (SSS) configuration lookup table.  <a href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

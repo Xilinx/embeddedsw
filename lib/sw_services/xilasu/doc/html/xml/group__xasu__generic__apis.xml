@@ -41,8 +41,76 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" bodystart="56" bodyend="73"/>
-        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" bodystart="57" bodyend="74"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="989" endline="1034">XAsu_KmImportKeyVault</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="368" endline="418">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__generic__apis_1gaed278deb4237e6e31cee0677b657aa12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XAsu_IsRangeOverlap</definition>
+        <argsstring>(u64 FirstAddr, u32 FirstLen, u64 SecondAddr, u32 SecondLen)</argsstring>
+        <name>XAsu_IsRangeOverlap</name>
+        <param>
+          <type>u64</type>
+          <declname>FirstAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FirstLen</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SecondAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SecondLen</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether two non-empty address ranges overlap or either range wraps. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FirstAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start address of the first range. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FirstLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the first range. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecondAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start address of the second range. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecondLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the second range.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XASU_TRUE, if either range wraps or the ranges overlap.</para></listitem><listitem><para>XASU_FALSE, if either range is empty or the ranges are representable and disjoint. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" bodystart="91" bodyend="104"/>
+        <references refid="group__xasu__common__defs_1ga4ed1b3c195cb21e5e43ab8926dbfe39e" compoundref="xasu__def_8h" startline="46">XASU_FALSE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

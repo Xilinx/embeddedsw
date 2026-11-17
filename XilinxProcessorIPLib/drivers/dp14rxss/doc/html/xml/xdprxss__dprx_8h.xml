@@ -21,9 +21,29 @@
         <label>xdprxss_intr_example.c</label>
         <link refid="xdprxss__intr__example_8c"/>
       </node>
+      <node id="412">
+        <label>xdprxss_hdcp_example.c</label>
+        <link refid="xdprxss__hdcp__example_8c"/>
+      </node>
+      <node id="410">
+        <label>xdprxss_sinit.c</label>
+        <link refid="xdprxss__sinit_8c"/>
+      </node>
+      <node id="415">
+        <label>xdprxss_selftest_example.c</label>
+        <link refid="xdprxss__selftest__example_8c"/>
+      </node>
       <node id="406">
         <label>xdprxss_dbg.c</label>
         <link refid="xdprxss__dbg_8c"/>
+      </node>
+      <node id="408">
+        <label>xdprxss_intr.c</label>
+        <link refid="xdprxss__intr_8c"/>
+      </node>
+      <node id="405">
+        <label>xdprxss_dp14_rx.c</label>
+        <link refid="xdprxss__dp14__rx_8c"/>
       </node>
       <node id="404">
         <label>xdprxss_mcdp6000.c</label>
@@ -39,25 +59,6 @@
         <childnode refid="405" relation="include">
         </childnode>
       </node>
-      <node id="414">
-        <label>xdprxss_mst_example.c</label>
-        <link refid="xdprxss__mst__example_8c"/>
-      </node>
-      <node id="408">
-        <label>xdprxss_intr.c</label>
-        <link refid="xdprxss__intr_8c"/>
-      </node>
-      <node id="409">
-        <label>xdprxss_selftest.c</label>
-        <link refid="xdprxss__selftest_8c"/>
-      </node>
-      <node id="407">
-        <label>xdprxss_g.c</label>
-      </node>
-      <node id="411">
-        <label>xdprxss_debug_example.c</label>
-        <link refid="xdprxss__debug__example_8c"/>
-      </node>
       <node id="400">
         <label>xdprxss_dprx.c</label>
         <link refid="xdprxss__dprx_8c"/>
@@ -70,13 +71,17 @@
         <childnode refid="401" relation="include">
         </childnode>
       </node>
+      <node id="411">
+        <label>xdprxss_debug_example.c</label>
+        <link refid="xdprxss__debug__example_8c"/>
+      </node>
+      <node id="414">
+        <label>xdprxss_mst_example.c</label>
+        <link refid="xdprxss__mst__example_8c"/>
+      </node>
       <node id="402">
         <label>xdprxss.c</label>
         <link refid="xdprxss_8c"/>
-      </node>
-      <node id="415">
-        <label>xdprxss_selftest_example.c</label>
-        <link refid="xdprxss__selftest__example_8c"/>
       </node>
       <node id="401">
         <label>xdprxss.h</label>
@@ -110,17 +115,12 @@
         <childnode refid="415" relation="include">
         </childnode>
       </node>
-      <node id="412">
-        <label>xdprxss_hdcp_example.c</label>
-        <link refid="xdprxss__hdcp__example_8c"/>
+      <node id="407">
+        <label>xdprxss_g.c</label>
       </node>
-      <node id="410">
-        <label>xdprxss_sinit.c</label>
-        <link refid="xdprxss__sinit_8c"/>
-      </node>
-      <node id="405">
-        <label>xdprxss_dp14_rx.c</label>
-        <link refid="xdprxss__dp14__rx_8c"/>
+      <node id="409">
+        <label>xdprxss_selftest.c</label>
+        <link refid="xdprxss__selftest_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -183,6 +183,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 <codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/dp/xdprxss_dprx.h"/>
   </compounddef>
 </doxygen>

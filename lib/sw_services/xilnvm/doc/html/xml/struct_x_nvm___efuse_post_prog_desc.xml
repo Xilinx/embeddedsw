@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_post_prog_desc" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePostProgDesc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1a09a46d6e20111c68ce2841c87af70f12" prot="public" static="no" mutable="no">
+        <type><ref refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720" kindref="member">XNvm_EfuseFieldId</ref></type>
+        <definition>XNvm_EfuseFieldId XNvm_EfusePostProgDesc::FieldId</definition>
+        <argsstring></argsstring>
+        <name>FieldId</name>
+        <briefdescription>
+<para>Field receiving post-program CRC check. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1a3f0a767b25d3ddb09c025a47cf11e3eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePostProgDesc::CrcRegOffset</definition>
+        <argsstring></argsstring>
+        <name>CrcRegOffset</name>
+        <briefdescription>
+<para>CRC status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1a94c9770574c2a3c1aa34a4acf1a6d893" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePostProgDesc::CrcDoneMask</definition>
+        <argsstring></argsstring>
+        <name>CrcDoneMask</name>
+        <briefdescription>
+<para>CRC done status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1a61128cfa6dd78c886c958c6cd2536519" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePostProgDesc::CrcPassMask</definition>
+        <argsstring></argsstring>
+        <name>CrcPassMask</name>
+        <briefdescription>
+<para>CRC pass status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1a2a5d28afe89d2a44e3bec9adb3985ba2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePostProgDesc::ErrWrite</definition>
+        <argsstring></argsstring>
+        <name>ErrWrite</name>
+        <briefdescription>
+<para>Error code on CRC/write failure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_post_prog_desc_1ad4bb849f732f61767709c4aea3c1af1c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePostProgDesc::CrcWordCount</definition>
+        <argsstring></argsstring>
+        <name>CrcWordCount</name>
+        <briefdescription>
+<para>Number of data words included in CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Post-program CRC verify descriptor for a key field. </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_ops.c" bodystart="76" bodyend="83"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1a94c9770574c2a3c1aa34a4acf1a6d893" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>CrcDoneMask</name></member>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1a61128cfa6dd78c886c958c6cd2536519" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>CrcPassMask</name></member>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1a3f0a767b25d3ddb09c025a47cf11e3eb" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>CrcRegOffset</name></member>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1ad4bb849f732f61767709c4aea3c1af1c" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>CrcWordCount</name></member>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1a2a5d28afe89d2a44e3bec9adb3985ba2" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>ErrWrite</name></member>
+      <member refid="struct_x_nvm___efuse_post_prog_desc_1a09a46d6e20111c68ce2841c87af70f12" prot="public" virt="non-virtual"><scope>XNvm_EfusePostProgDesc</scope><name>FieldId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

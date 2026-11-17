@@ -10,6 +10,13 @@
       <node id="434">
         <label>xil_assert.h</label>
       </node>
+      <node id="452">
+        <label>xhdmi_edid.h</label>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="453" relation="include">
+        </childnode>
+      </node>
       <node id="443">
         <label>xuartps.h</label>
       </node>
@@ -18,9 +25,6 @@
       </node>
       <node id="450">
         <label>xvphy.h</label>
-      </node>
-      <node id="451">
-        <label>sleep.h</label>
       </node>
       <node id="461">
         <label>xhdmi_hdcp_keys.h</label>
@@ -44,6 +48,17 @@
         <childnode refid="443" relation="include">
         </childnode>
       </node>
+      <node id="451">
+        <label>sleep.h</label>
+      </node>
+      <node id="445">
+        <label>si5324drv.h</label>
+        <link refid="si5324drv_8h"/>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+      </node>
       <node id="438">
         <label>stdlib.h</label>
       </node>
@@ -52,6 +67,39 @@
       </node>
       <node id="453">
         <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="465">
+        <label>xvidframe_crc.h</label>
+        <link refid="xvidframe__crc_8h"/>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="434" relation="include">
+        </childnode>
+        <childnode refid="442" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+      </node>
+      <node id="459">
+        <label>tmds181.h</label>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="458" relation="include">
+        </childnode>
+      </node>
+      <node id="464">
+        <label>stddef.h</label>
+      </node>
+      <node id="460">
+        <label>xintc.h</label>
+      </node>
+      <node id="440">
+        <label>platform_config.h</label>
+      </node>
+      <node id="431">
+        <label>string.h</label>
       </node>
       <node id="436">
         <label>xhdmi_example.h</label>
@@ -102,50 +150,72 @@
         <childnode refid="465" relation="include">
         </childnode>
       </node>
-      <node id="449">
-        <label>dp159.h</label>
-        <childnode refid="433" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-        <childnode refid="450" relation="include">
-        </childnode>
-      </node>
-      <node id="464">
-        <label>stddef.h</label>
-      </node>
-      <node id="459">
-        <label>tmds181.h</label>
-        <childnode refid="433" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-        <childnode refid="458" relation="include">
-        </childnode>
-      </node>
-      <node id="460">
-        <label>xintc.h</label>
-      </node>
-      <node id="431">
-        <label>string.h</label>
-      </node>
-      <node id="465">
-        <label>xvidframe_crc.h</label>
-        <link refid="xvidframe__crc_8h"/>
-        <childnode refid="433" relation="include">
-        </childnode>
-        <childnode refid="434" relation="include">
-        </childnode>
-        <childnode refid="442" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-      </node>
       <node id="462">
         <label>aes256.h</label>
       </node>
       <node id="458">
         <label>xhdmiphy1.h</label>
+      </node>
+      <node id="457">
+        <label>xstatus.h</label>
+      </node>
+      <node id="446">
+        <label>xvidc.h</label>
+      </node>
+      <node id="430">
+        <label>xhdcp.c</label>
+        <link refid="PassThroughVersal/xhdcp.c"/>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+      </node>
+      <node id="432">
+        <label>xhdcp.h</label>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="434" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+      </node>
+      <node id="444">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="433">
+        <label>xil_types.h</label>
+      </node>
+      <node id="463">
+        <label>sha256.h</label>
+        <childnode refid="464" relation="include">
+        </childnode>
+      </node>
+      <node id="447">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="455">
+        <label>ctype.h</label>
+      </node>
+      <node id="435">
+        <label>xparameters.h</label>
+      </node>
+      <node id="456">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="441">
+        <label>xiic.h</label>
+      </node>
+      <node id="437">
+        <label>stdio.h</label>
+      </node>
+      <node id="439">
+        <label>platform.h</label>
+        <childnode refid="440" relation="include">
+        </childnode>
       </node>
       <node id="454">
         <label>xhdmi_menu.h</label>
@@ -180,84 +250,14 @@
         <childnode refid="436" relation="include">
         </childnode>
       </node>
-      <node id="457">
-        <label>xstatus.h</label>
-      </node>
-      <node id="439">
-        <label>platform.h</label>
-        <childnode refid="440" relation="include">
-        </childnode>
-      </node>
-      <node id="463">
-        <label>sha256.h</label>
-        <childnode refid="464" relation="include">
-        </childnode>
-      </node>
-      <node id="446">
-        <label>xvidc.h</label>
-      </node>
-      <node id="440">
-        <label>platform_config.h</label>
-      </node>
-      <node id="444">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="452">
-        <label>xhdmi_edid.h</label>
-        <childnode refid="435" relation="include">
-        </childnode>
-        <childnode refid="453" relation="include">
-        </childnode>
-      </node>
-      <node id="433">
-        <label>xil_types.h</label>
-      </node>
-      <node id="447">
-        <label>xv_hdmic.h</label>
-      </node>
-      <node id="455">
-        <label>ctype.h</label>
-      </node>
-      <node id="435">
-        <label>xparameters.h</label>
-      </node>
-      <node id="456">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="441">
-        <label>xiic.h</label>
-      </node>
-      <node id="430">
-        <label>xhdcp.c</label>
-        <link refid="PassThroughVersal/xhdcp.c"/>
-        <childnode refid="431" relation="include">
-        </childnode>
-        <childnode refid="432" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-        <childnode refid="436" relation="include">
-        </childnode>
-      </node>
-      <node id="432">
-        <label>xhdcp.h</label>
-        <childnode refid="433" relation="include">
-        </childnode>
-        <childnode refid="434" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-      </node>
-      <node id="445">
-        <label>si5324drv.h</label>
-        <link refid="si5324drv_8h"/>
+      <node id="449">
+        <label>dp159.h</label>
         <childnode refid="433" relation="include">
         </childnode>
         <childnode refid="435" relation="include">
         </childnode>
-      </node>
-      <node id="437">
-        <label>stdio.h</label>
+        <childnode refid="450" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -1381,6 +1381,6 @@
 <codeline lineno="1539"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1540"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>USE_HDCP<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/PassThroughVersal/xhdcp.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/PassThroughVersal/xhdcp.c"/>
   </compounddef>
 </doxygen>

@@ -39,12 +39,12 @@
       <node id="38">
         <label>xstatus.h</label>
       </node>
-      <node id="41">
-        <label>xil_types.h</label>
-      </node>
       <node id="44">
         <label>xhdcp22_mmult_hw.h</label>
         <link refid="xhdcp22__mmult__hw_8h"/>
+      </node>
+      <node id="41">
+        <label>xil_types.h</label>
       </node>
       <node id="39">
         <label>xparameters.h</label>
@@ -60,12 +60,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="33" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="33" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
       <memberdef kind="variable" id="xhdcp22__mmult__sinit_8c_1a41d28c2ab7def2cb0f1a5378f302bee0" prot="public" static="no" mutable="no">
-        <type>XHdcp22_mmult_Config</type>
+        <type><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref></type>
         <definition>XHdcp22_mmult_Config XHdcp22_mmult_ConfigTable[]</definition>
         <argsstring>[]</argsstring>
         <name>XHdcp22_mmult_ConfigTable</name>
@@ -75,12 +75,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_g.c" bodystart="14" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_g.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="xhdcp22__mmult__sinit_8c_1a170c4f343ec4ae9c6bac6066831a0fbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>XHdcp22_mmult_Config *</type>
+        <type><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref> *</type>
         <definition>XHdcp22_mmult_Config* XHdcp22_mmult_LookupConfig</definition>
         <argsstring>(UINTPTR BaseAddress)</argsstring>
         <name>XHdcp22_mmult_LookupConfig</name>
@@ -94,7 +94,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="54" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="38" bodyend="53"/>
+        <references refid="struct_x_hdcp22__mmult___config_1a4caae91d3c978c067198b8a7c6e05ae3" compoundref="xhdcp22__mmult_8h" startline="61">XHdcp22_mmult_Config::Name</references>
+        <referencedby refid="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" compoundref="xhdcp22__mmult__sinit_8c" startline="54" endline="67">XHdcp22_mmult_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -102,7 +104,7 @@
         <argsstring>(XHdcp22_mmult *InstancePtr, UINTPTR BaseAddress)</argsstring>
         <name>XHdcp22_mmult_Initialize</name>
         <param>
-          <type>XHdcp22_mmult *</type>
+          <type><ref refid="struct_x_hdcp22__mmult" kindref="compound">XHdcp22_mmult</ref> *</type>
           <declname>InstancePtr</declname>
         </param>
         <param>
@@ -115,7 +117,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="74" bodyend="92"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="54" bodyend="67"/>
+        <references refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" compoundref="xhdcp22__mmult_8h" startline="62">XHdcp22_mmult_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22__mmult_1a67fbd087ff8010772a2c8e014db89b4a" compoundref="xhdcp22__mmult_8h" startline="68">XHdcp22_mmult::IsReady</references>
+        <references refid="group__hdcp22__mmult_1ga94b5544d7e1f29c8bac9ea8f4c40d541" compoundref="xhdcp22__mmult_8c" startline="34" endline="43">XHdcp22_mmult_CfgInitialize</references>
+        <references refid="xhdcp22__mmult_8h_1a170c4f343ec4ae9c6bac6066831a0fbb" compoundref="xhdcp22__mmult__sinit_8c" startline="38" endline="53">XHdcp22_mmult_LookupConfig</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -137,69 +143,44 @@
 <codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp22__mmult_8h" kindref="compound">xhdcp22_mmult.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XHDCP22_MMULT_NUM_INSTANCES</highlight></codeline>
-<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XHDCP22_MMULT_NUM_INSTANCES<sp/>0</highlight></codeline>
+<codeline lineno="33" refid="xhdcp22__mmult__sinit_8c_1a68b4b7bab5fab716e4f0d39359bc4f28" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XHDCP22_MMULT_NUM_INSTANCES<sp/>0</highlight></codeline>
 <codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Config<sp/>XHdcp22_mmult_ConfigTable[];</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref><sp/><ref refid="xhdcp22__mmult__g_8c_1a41d28c2ab7def2cb0f1a5378f302bee0" kindref="member">XHdcp22_mmult_ConfigTable</ref>[];</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal">XHdcp22_mmult_Config<sp/>*XHdcp22_mmult_LookupConfig(u16<sp/>DeviceId)<sp/>{</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_Config<sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="38" refid="xhdcp22__mmult__sinit_8c_1a170c4f343ec4ae9c6bac6066831a0fbb" refkind="member"><highlight class="normal"><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref><sp/>*<ref refid="xhdcp22__mmult_8h_1a170c4f343ec4ae9c6bac6066831a0fbb" kindref="member">XHdcp22_mmult_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XHDCP22_MMULT_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XHdcp22_mmult_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XHdcp22_mmult_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">XHdcp22_mmult_Config<sp/>*XHdcp22_mmult_LookupConfig(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XHdcp22_mmult_ConfigTable[Index].<ref refid="struct_x_hdcp22__mmult___config_1a4caae91d3c978c067198b8a7c6e05ae3" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XHdcp22_mmult_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>(!BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XHdcp22_mmult_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54" refid="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" kindref="member">XHdcp22_mmult_Initialize</ref>(<ref refid="struct_x_hdcp22__mmult" kindref="compound">XHdcp22_mmult</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
 <codeline lineno="55"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_Config<sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22__mmult___config" kindref="compound">XHdcp22_mmult_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XHdcp22_mmult_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XHdcp22_mmult_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>(!BaseAddress))<sp/>{</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XHdcp22_mmult_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_Config<sp/>*ConfigPtr;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XHdcp22_mmult_LookupConfig(DeviceId);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XHdcp22_mmult_LookupConfig(BaseAddress);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsReady<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XHdcp22_mmult_CfgInitialize(InstancePtr,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;BaseAddress);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xhdcp22__mmult_8h_1a170c4f343ec4ae9c6bac6066831a0fbb" kindref="member">XHdcp22_mmult_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a67fbd087ff8010772a2c8e014db89b4a" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__mmult_1ga94b5544d7e1f29c8bac9ea8f4c40d541" kindref="member">XHdcp22_mmult_CfgInitialize</ref>(InstancePtr,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c"/>
   </compounddef>
 </doxygen>

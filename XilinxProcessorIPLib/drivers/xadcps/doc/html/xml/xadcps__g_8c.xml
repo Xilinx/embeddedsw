@@ -11,12 +11,16 @@
       <node id="32">
         <label>xil_io.h</label>
       </node>
-      <node id="26">
-        <label>xadcps_g.c</label>
-        <link refid="xadcps_g.c"/>
-        <childnode refid="27" relation="include">
+      <node id="27">
+        <label>xadcps.h</label>
+        <link refid="xadcps_8h"/>
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
       <node id="30">
@@ -24,9 +28,6 @@
       </node>
       <node id="28">
         <label>xil_types.h</label>
-      </node>
-      <node id="33">
-        <label>xparameters.h</label>
       </node>
       <node id="31">
         <label>xadcps_hw.h</label>
@@ -38,16 +39,15 @@
         <childnode refid="32" relation="include">
         </childnode>
       </node>
-      <node id="27">
-        <label>xadcps.h</label>
-        <link refid="xadcps_8h"/>
-        <childnode refid="28" relation="include">
+      <node id="33">
+        <label>xparameters.h</label>
+      </node>
+      <node id="26">
+        <label>xadcps_g.c</label>
+        <link refid="xadcps_g.c"/>
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" bodystart="53" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -108,6 +108,6 @@
 <codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="59"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c"/>
   </compounddef>
 </doxygen>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxipmon__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,17 +105,54 @@ $(document).ready(function(){initNavTree('xaxipmon__hw_8h.html','');});
 <div class="title">xaxipmon_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the AXI Performance Monitor hardware registers. </p>
+<p>This header file contains identifiers and basic driver functions (or macros) that can be used to access the AXI Performance Monitor.</p>
+<p>Refer to the device specification for more information about this driver.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a bss    02/27/12 First release
+2.00a bss    06/23/12 Updated to support v2_00a version of IP.
+3.00a bss    09/03/12 Deleted XAPM_AGENT_OFFSET Macro to support
+                v2_01a version of IP.
+3.01a bss    10/25/12 To support new version of IP:
+                Added XAPM_MCXLOGEN_OFFSET and
+                XAPM_CR_EXTERNAL_TRIGGER_MASK macros.
+4.00a bss    01/17/13 To support new version of IP:
+                Added XAPM_LATENCYID_OFFSET,
+                XAPM_CR_EVTLOG_EXTTRIGGER_MASK,
+                XAPM_LATENCYID_RID_MASK and XAPM_LATENCYID_WID_MASK
+5.00a bss   08/26/13  To support new version of IP:
+                Added Macros XAPM_MC10_OFFSET to XAPM_MC47_OFFSET,
+                XAPM_SMC10_OFFSET to XAPM_SMC47_OFFSET.
+                Added macro XAPM_IDMASK_OFFSET, XAPM_SR_OFFSET.
+                Added XAPM_CR_IDFILTER_ENABLE_MASK,
+                XAPM_CR_WRLATENCY_START_MASK,
+                XAPM_CR_WRLATENCY_END_MASK,
+                XAPM_CR_RDLATENCY_START_MASK,
+                XAPM_CR_RDLATENCY_END_MASK, XAPM_MASKID_RID_MASK
+                and XAPM_MASKID_WID_MASK macros.
+                Renamed:
+                XAPM_LATENCYID_OFFSET to XAPM_ID_OFFSET,
+                XAPM_LATENCYID_RID_MASK to XAPM_ID_RID_MASK,
+                XAPM_LATENCYID_WID_MASK to XAPM_ID_WID_MASK.</pre><pre>6.2  bss  03/02/15 Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET to support
+                                 Zynq MP APM.</pre><pre>6.3  kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
+6.15 vn   07/30/26 Fix Doxygen warnings
+6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+6.15  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gab9c1c9b68b79063bea8213b96a3b752a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gab9c1c9b68b79063bea8213b96a3b752a">XAxiPmon_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;(Xil_In32((BaseAddress) + (RegOffset)))</td></tr>
-<tr class="memdesc:gab9c1c9b68b79063bea8213b96a3b752a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a register of the AXI Performance Monitor device.  <a href="group__axipmon.html#gab9c1c9b68b79063bea8213b96a3b752a">More...</a><br/></td></tr>
+<tr class="memdesc:gab9c1c9b68b79063bea8213b96a3b752a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a register of the AXI Performance Monitor device.  <a href="group__axipmon.html#gab9c1c9b68b79063bea8213b96a3b752a">More...</a><br/></td></tr>
 <tr class="separator:gab9c1c9b68b79063bea8213b96a3b752a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9c0856dc12c7ee0ab4c289b809c8c4b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga9c0856dc12c7ee0ab4c289b809c8c4b9">XAxiPmon_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;(Xil_Out32((BaseAddress) + (RegOffset), (Data)))</td></tr>
-<tr class="memdesc:ga9c0856dc12c7ee0ab4c289b809c8c4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a register of the AXI Performance Monitor device.  <a href="group__axipmon.html#ga9c0856dc12c7ee0ab4c289b809c8c4b9">More...</a><br/></td></tr>
+<tr class="memdesc:ga9c0856dc12c7ee0ab4c289b809c8c4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a register of the AXI Performance Monitor device.  <a href="group__axipmon.html#ga9c0856dc12c7ee0ab4c289b809c8c4b9">More...</a><br/></td></tr>
 <tr class="separator:ga9c0856dc12c7ee0ab4c289b809c8c4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register offsets of AXIMONITOR in the Device Config</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The following constants provide access to each of the registers of the AXI PERFORMANCE MONITOR device. </p>
@@ -585,7 +622,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ga7dcad06a501d59ea9c6609b89119b79c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga7dcad06a501d59ea9c6609b89119b79c">XAPM_SWD_OFFSET</a>&#160;&#160;&#160;0x00000404U</td></tr>
 <tr class="memdesc:ga7dcad06a501d59ea9c6609b89119b79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software-written Data Register.  <a href="group__axipmon.html#ga7dcad06a501d59ea9c6609b89119b79c">More...</a><br/></td></tr>
 <tr class="separator:ga7dcad06a501d59ea9c6609b89119b79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">AXI Monitor Sample Interval Control Register mask(s)</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">AXI Monitor Sample Interval Control Register masks</div></td></tr>
 <tr class="memitem:ga8ffaf53268e5f85af50f169022f1c295"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga8ffaf53268e5f85af50f169022f1c295">XAPM_SICR_MCNTR_RST_MASK</a>&#160;&#160;&#160;0x00000100U</td></tr>
 <tr class="memdesc:ga8ffaf53268e5f85af50f169022f1c295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Metric Counter Reset.  <a href="group__axipmon.html#ga8ffaf53268e5f85af50f169022f1c295">More...</a><br/></td></tr>
 <tr class="separator:ga8ffaf53268e5f85af50f169022f1c295"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -597,48 +634,48 @@ Macros</h2></td></tr>
 <tr class="separator:gadefca64665ddcdfb3107e85c37fc7ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Status/Enable Register Bit Definitions and Masks</div></td></tr>
 <tr class="memitem:gafbfe673c5c2c3e54b2db6a2b9f51b8c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gafbfe673c5c2c3e54b2db6a2b9f51b8c9">XAPM_IXR_MC9_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00001000U</td></tr>
-<tr class="memdesc:gafbfe673c5c2c3e54b2db6a2b9f51b8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 9 Overflow&gt;  <a href="group__axipmon.html#gafbfe673c5c2c3e54b2db6a2b9f51b8c9">More...</a><br/></td></tr>
+<tr class="memdesc:gafbfe673c5c2c3e54b2db6a2b9f51b8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 9 Overflow.  <a href="group__axipmon.html#gafbfe673c5c2c3e54b2db6a2b9f51b8c9">More...</a><br/></td></tr>
 <tr class="separator:gafbfe673c5c2c3e54b2db6a2b9f51b8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf9e2df5a1e01cac49a8dfa6ac7c61d7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gaf9e2df5a1e01cac49a8dfa6ac7c61d7b">XAPM_IXR_MC8_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000800U</td></tr>
-<tr class="memdesc:gaf9e2df5a1e01cac49a8dfa6ac7c61d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 8 Overflow&gt;  <a href="group__axipmon.html#gaf9e2df5a1e01cac49a8dfa6ac7c61d7b">More...</a><br/></td></tr>
+<tr class="memdesc:gaf9e2df5a1e01cac49a8dfa6ac7c61d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 8 Overflow.  <a href="group__axipmon.html#gaf9e2df5a1e01cac49a8dfa6ac7c61d7b">More...</a><br/></td></tr>
 <tr class="separator:gaf9e2df5a1e01cac49a8dfa6ac7c61d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga535253570247c6a96a2bccfd98b1899f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga535253570247c6a96a2bccfd98b1899f">XAPM_IXR_MC7_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000400U</td></tr>
-<tr class="memdesc:ga535253570247c6a96a2bccfd98b1899f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 7 Overflow&gt;  <a href="group__axipmon.html#ga535253570247c6a96a2bccfd98b1899f">More...</a><br/></td></tr>
+<tr class="memdesc:ga535253570247c6a96a2bccfd98b1899f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 7 Overflow.  <a href="group__axipmon.html#ga535253570247c6a96a2bccfd98b1899f">More...</a><br/></td></tr>
 <tr class="separator:ga535253570247c6a96a2bccfd98b1899f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga145c25dbdaccac52c63240a4cc17f509"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga145c25dbdaccac52c63240a4cc17f509">XAPM_IXR_MC6_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000200U</td></tr>
-<tr class="memdesc:ga145c25dbdaccac52c63240a4cc17f509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 6 Overflow&gt;  <a href="group__axipmon.html#ga145c25dbdaccac52c63240a4cc17f509">More...</a><br/></td></tr>
+<tr class="memdesc:ga145c25dbdaccac52c63240a4cc17f509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 6 Overflow.  <a href="group__axipmon.html#ga145c25dbdaccac52c63240a4cc17f509">More...</a><br/></td></tr>
 <tr class="separator:ga145c25dbdaccac52c63240a4cc17f509"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga52c1f33fbf6cc7df3d6ed83a03d61a82"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga52c1f33fbf6cc7df3d6ed83a03d61a82">XAPM_IXR_MC5_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000100U</td></tr>
-<tr class="memdesc:ga52c1f33fbf6cc7df3d6ed83a03d61a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 5 Overflow&gt;  <a href="group__axipmon.html#ga52c1f33fbf6cc7df3d6ed83a03d61a82">More...</a><br/></td></tr>
+<tr class="memdesc:ga52c1f33fbf6cc7df3d6ed83a03d61a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 5 Overflow.  <a href="group__axipmon.html#ga52c1f33fbf6cc7df3d6ed83a03d61a82">More...</a><br/></td></tr>
 <tr class="separator:ga52c1f33fbf6cc7df3d6ed83a03d61a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab6ff16bd34bef9371917907997f68fb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gab6ff16bd34bef9371917907997f68fb9">XAPM_IXR_MC4_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000080U</td></tr>
-<tr class="memdesc:gab6ff16bd34bef9371917907997f68fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 4 Overflow&gt;  <a href="group__axipmon.html#gab6ff16bd34bef9371917907997f68fb9">More...</a><br/></td></tr>
+<tr class="memdesc:gab6ff16bd34bef9371917907997f68fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 4 Overflow.  <a href="group__axipmon.html#gab6ff16bd34bef9371917907997f68fb9">More...</a><br/></td></tr>
 <tr class="separator:gab6ff16bd34bef9371917907997f68fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab1dec661765137eab97912aaf85b2803"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gab1dec661765137eab97912aaf85b2803">XAPM_IXR_MC3_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000040U</td></tr>
-<tr class="memdesc:gab1dec661765137eab97912aaf85b2803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 3 Overflow&gt;  <a href="group__axipmon.html#gab1dec661765137eab97912aaf85b2803">More...</a><br/></td></tr>
+<tr class="memdesc:gab1dec661765137eab97912aaf85b2803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 3 Overflow.  <a href="group__axipmon.html#gab1dec661765137eab97912aaf85b2803">More...</a><br/></td></tr>
 <tr class="separator:gab1dec661765137eab97912aaf85b2803"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63cb0088a17b3d38821580cf63226687"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga63cb0088a17b3d38821580cf63226687">XAPM_IXR_MC2_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000020U</td></tr>
-<tr class="memdesc:ga63cb0088a17b3d38821580cf63226687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 2 Overflow&gt;  <a href="group__axipmon.html#ga63cb0088a17b3d38821580cf63226687">More...</a><br/></td></tr>
+<tr class="memdesc:ga63cb0088a17b3d38821580cf63226687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 2 Overflow.  <a href="group__axipmon.html#ga63cb0088a17b3d38821580cf63226687">More...</a><br/></td></tr>
 <tr class="separator:ga63cb0088a17b3d38821580cf63226687"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9bc21a4f750d76a45bbcf5bbec5a7947"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga9bc21a4f750d76a45bbcf5bbec5a7947">XAPM_IXR_MC1_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000010U</td></tr>
-<tr class="memdesc:ga9bc21a4f750d76a45bbcf5bbec5a7947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 1 Overflow&gt;  <a href="group__axipmon.html#ga9bc21a4f750d76a45bbcf5bbec5a7947">More...</a><br/></td></tr>
+<tr class="memdesc:ga9bc21a4f750d76a45bbcf5bbec5a7947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 1 Overflow.  <a href="group__axipmon.html#ga9bc21a4f750d76a45bbcf5bbec5a7947">More...</a><br/></td></tr>
 <tr class="separator:ga9bc21a4f750d76a45bbcf5bbec5a7947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9a98d01e06db6301e01e69d84eb03d15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga9a98d01e06db6301e01e69d84eb03d15">XAPM_IXR_MC0_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000008U</td></tr>
-<tr class="memdesc:ga9a98d01e06db6301e01e69d84eb03d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 0 Overflow&gt;  <a href="group__axipmon.html#ga9a98d01e06db6301e01e69d84eb03d15">More...</a><br/></td></tr>
+<tr class="memdesc:ga9a98d01e06db6301e01e69d84eb03d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metric Counter 0 Overflow.  <a href="group__axipmon.html#ga9a98d01e06db6301e01e69d84eb03d15">More...</a><br/></td></tr>
 <tr class="separator:ga9a98d01e06db6301e01e69d84eb03d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga717341be557ee87e62e7d8e5cf33cc0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga717341be557ee87e62e7d8e5cf33cc0f">XAPM_IXR_FIFO_FULL_MASK</a>&#160;&#160;&#160;0x00000004U</td></tr>
-<tr class="memdesc:ga717341be557ee87e62e7d8e5cf33cc0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event Log FIFO full&gt;  <a href="group__axipmon.html#ga717341be557ee87e62e7d8e5cf33cc0f">More...</a><br/></td></tr>
+<tr class="memdesc:ga717341be557ee87e62e7d8e5cf33cc0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event Log FIFO full.  <a href="group__axipmon.html#ga717341be557ee87e62e7d8e5cf33cc0f">More...</a><br/></td></tr>
 <tr class="separator:ga717341be557ee87e62e7d8e5cf33cc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1980b3db25c69f8688dbd099cdbaca18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga1980b3db25c69f8688dbd099cdbaca18">XAPM_IXR_SIC_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000002U</td></tr>
-<tr class="memdesc:ga1980b3db25c69f8688dbd099cdbaca18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample Interval Counter Overflow&gt;  <a href="group__axipmon.html#ga1980b3db25c69f8688dbd099cdbaca18">More...</a><br/></td></tr>
+<tr class="memdesc:ga1980b3db25c69f8688dbd099cdbaca18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample Interval Counter Overflow.  <a href="group__axipmon.html#ga1980b3db25c69f8688dbd099cdbaca18">More...</a><br/></td></tr>
 <tr class="separator:ga1980b3db25c69f8688dbd099cdbaca18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga69ea91f067c2c82aaad6d3c3e519a71b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga69ea91f067c2c82aaad6d3c3e519a71b">XAPM_IXR_GCC_OVERFLOW_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
-<tr class="memdesc:ga69ea91f067c2c82aaad6d3c3e519a71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Clock Counter Overflow&gt;  <a href="group__axipmon.html#ga69ea91f067c2c82aaad6d3c3e519a71b">More...</a><br/></td></tr>
+<tr class="memdesc:ga69ea91f067c2c82aaad6d3c3e519a71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Clock Counter Overflow.  <a href="group__axipmon.html#ga69ea91f067c2c82aaad6d3c3e519a71b">More...</a><br/></td></tr>
 <tr class="separator:ga69ea91f067c2c82aaad6d3c3e519a71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac900b305a62f2816b11493a501543f12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac900b305a62f2816b11493a501543f12"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAPM_IXR_ALL_MASK</b></td></tr>
+<tr class="memitem:gac900b305a62f2816b11493a501543f12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gac900b305a62f2816b11493a501543f12">XAPM_IXR_ALL_MASK</a></td></tr>
+<tr class="memdesc:gac900b305a62f2816b11493a501543f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for all interrupt sources.  <a href="group__axipmon.html#gac900b305a62f2816b11493a501543f12">More...</a><br/></td></tr>
 <tr class="separator:gac900b305a62f2816b11493a501543f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">AXI Monitor Control Register mask(s)</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">AXI Monitor Control Register masks</div></td></tr>
 <tr class="memitem:ga4ab5fc311590b0d57fc24783fea37741"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga4ab5fc311590b0d57fc24783fea37741">XAPM_CR_FIFO_RESET_MASK</a>&#160;&#160;&#160;0x02000000U</td></tr>
 <tr class="memdesc:ga4ab5fc311590b0d57fc24783fea37741"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Reset.  <a href="group__axipmon.html#ga4ab5fc311590b0d57fc24783fea37741">More...</a><br/></td></tr>
 <tr class="separator:ga4ab5fc311590b0d57fc24783fea37741"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -649,14 +686,13 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga4533520b26fa920fd29986ae31d4395d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Clk Counter Enable.  <a href="group__axipmon.html#ga4533520b26fa920fd29986ae31d4395d">More...</a><br/></td></tr>
 <tr class="separator:ga4533520b26fa920fd29986ae31d4395d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1b9335b9da50b4f94a8b52bcb71206e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga1b9335b9da50b4f94a8b52bcb71206e3">XAPM_CR_EVTLOG_EXTTRIGGER_MASK</a>&#160;&#160;&#160;0x00000200U</td></tr>
-<tr class="memdesc:ga1b9335b9da50b4f94a8b52bcb71206e3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"> Enable External trigger
-</pre><p> to start event Log  <a href="group__axipmon.html#ga1b9335b9da50b4f94a8b52bcb71206e3">More...</a><br/></td></tr>
+<tr class="memdesc:ga1b9335b9da50b4f94a8b52bcb71206e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable External trigger to start event Log.  <a href="group__axipmon.html#ga1b9335b9da50b4f94a8b52bcb71206e3">More...</a><br/></td></tr>
 <tr class="separator:ga1b9335b9da50b4f94a8b52bcb71206e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga780c637d0f394bd2571098b471eed1a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga780c637d0f394bd2571098b471eed1a5">XAPM_CR_EVENTLOG_ENABLE_MASK</a>&#160;&#160;&#160;0x00000100U</td></tr>
 <tr class="memdesc:ga780c637d0f394bd2571098b471eed1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event Log Enable.  <a href="group__axipmon.html#ga780c637d0f394bd2571098b471eed1a5">More...</a><br/></td></tr>
 <tr class="separator:ga780c637d0f394bd2571098b471eed1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3940d2310f95ea98c048494d9788e530"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga3940d2310f95ea98c048494d9788e530">XAPM_CR_RDLATENCY_END_MASK</a>&#160;&#160;&#160;0x00000080U</td></tr>
-<tr class="memdesc:ga3940d2310f95ea98c048494d9788e530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Latency End point.  <a href="group__axipmon.html#ga3940d2310f95ea98c048494d9788e530">More...</a><br/></td></tr>
+<tr class="memdesc:ga3940d2310f95ea98c048494d9788e530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Latency End point.  <a href="group__axipmon.html#ga3940d2310f95ea98c048494d9788e530">More...</a><br/></td></tr>
 <tr class="separator:ga3940d2310f95ea98c048494d9788e530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafeff8fb223e80a597bbe2d3224dcea9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gafeff8fb223e80a597bbe2d3224dcea9f">XAPM_CR_RDLATENCY_START_MASK</a>&#160;&#160;&#160;0x00000040U</td></tr>
 <tr class="memdesc:gafeff8fb223e80a597bbe2d3224dcea9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Latency Start point.  <a href="group__axipmon.html#gafeff8fb223e80a597bbe2d3224dcea9f">More...</a><br/></td></tr>
@@ -679,14 +715,14 @@ Macros</h2></td></tr>
 <tr class="memitem:gaeceb76887c10f58cd54c15373f4ba671"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gaeceb76887c10f58cd54c15373f4ba671">XAPM_CR_MCNTR_ENABLE_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
 <tr class="memdesc:gaeceb76887c10f58cd54c15373f4ba671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metrics Counter Enable.  <a href="group__axipmon.html#gaeceb76887c10f58cd54c15373f4ba671">More...</a><br/></td></tr>
 <tr class="separator:gaeceb76887c10f58cd54c15373f4ba671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">AXI Monitor ID Register mask(s)</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">AXI Monitor ID Register masks</div></td></tr>
 <tr class="memitem:ga8d32f883f34e9726ef485f4dffd21f8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga8d32f883f34e9726ef485f4dffd21f8c">XAPM_ID_RID_MASK</a>&#160;&#160;&#160;0xFFFF0000U</td></tr>
 <tr class="memdesc:ga8d32f883f34e9726ef485f4dffd21f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ID.  <a href="group__axipmon.html#ga8d32f883f34e9726ef485f4dffd21f8c">More...</a><br/></td></tr>
 <tr class="separator:ga8d32f883f34e9726ef485f4dffd21f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab843bc96ee0d14d133a20992abcd3fbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gab843bc96ee0d14d133a20992abcd3fbe">XAPM_ID_WID_MASK</a>&#160;&#160;&#160;0x0000FFFFU</td></tr>
 <tr class="memdesc:gab843bc96ee0d14d133a20992abcd3fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write ID.  <a href="group__axipmon.html#gab843bc96ee0d14d133a20992abcd3fbe">More...</a><br/></td></tr>
 <tr class="separator:gab843bc96ee0d14d133a20992abcd3fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">AXI Monitor ID Mask Register mask(s)</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">AXI Monitor ID Mask Register masks</div></td></tr>
 <tr class="memitem:ga8e33680a6abcd0d352c601c8e66b2edd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga8e33680a6abcd0d352c601c8e66b2edd">XAPM_MASKID_RID_MASK</a>&#160;&#160;&#160;0xFFFF0000U</td></tr>
 <tr class="memdesc:ga8e33680a6abcd0d352c601c8e66b2edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ID Mask.  <a href="group__axipmon.html#ga8e33680a6abcd0d352c601c8e66b2edd">More...</a><br/></td></tr>
 <tr class="separator:ga8e33680a6abcd0d352c601c8e66b2edd"><td class="memSeparator" colspan="2">&#160;</td></tr>

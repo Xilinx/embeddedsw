@@ -110,9 +110,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa164a8fafefc1e2b183db27281ee1b13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#gaa164a8fafefc1e2b183db27281ee1b13">XOcp_ClientInit</a> (<a class="el" href="struct_x_ocp___client_instance.html">XOcp_ClientInstance</a> *const InstancePtr, XMailbox *const MailboxPtr)</td></tr>
 <tr class="memdesc:gaa164a8fafefc1e2b183db27281ee1b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the instance of mailbox.  <a href="#gaa164a8fafefc1e2b183db27281ee1b13">More...</a><br/></td></tr>
 <tr class="separator:gaa164a8fafefc1e2b183db27281ee1b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6bf28d17b9014d88926e36cd519dd804"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga6bf28d17b9014d88926e36cd519dd804">XOcp_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga6bf28d17b9014d88926e36cd519dd804"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga6bf28d17b9014d88926e36cd519dd804">More...</a><br/></td></tr>
-<tr class="separator:ga6bf28d17b9014d88926e36cd519dd804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c2f2c908935183bd19e2149fa4e525f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga0c2f2c908935183bd19e2149fa4e525f">XOcp_GetClientLibVersion</a> (u32 *Version)</td></tr>
+<tr class="memdesc:ga0c2f2c908935183bd19e2149fa4e525f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the XilOcp library version that the client is built with.  <a href="#ga0c2f2c908935183bd19e2149fa4e525f">More...</a><br/></td></tr>
+<tr class="separator:ga0c2f2c908935183bd19e2149fa4e525f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82ae11459dd1b356925ec2277e541de9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga82ae11459dd1b356925ec2277e541de9">XOcp_GetServerLibInfo</a> (<a class="el" href="struct_x_ocp___client_instance.html">XOcp_ClientInstance</a> *InstancePtr, Xil_LibInfo *LibInfo)</td></tr>
+<tr class="memdesc:ga82ae11459dd1b356925ec2277e541de9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to get the XilOcp library version and capability bits running on the PLM.  <a href="#ga82ae11459dd1b356925ec2277e541de9">More...</a><br/></td></tr>
+<tr class="separator:ga82ae11459dd1b356925ec2277e541de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga9f7c2c1f66a38ca1ae974bb1d7640812">XOcp_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga9f7c2c1f66a38ca1ae974bb1d7640812">More...</a><br/></td></tr>
+<tr class="separator:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="gaa164a8fafefc1e2b183db27281ee1b13"></a>
@@ -162,7 +168,84 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga6bf28d17b9014d88926e36cd519dd804"></a>
+<a class="anchor" id="ga0c2f2c908935183bd19e2149fa4e525f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XOcp_GetClientLibVersion </td>
+          <td>(</td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Version</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the XilOcp library version that the client is built with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Version</td><td>- Pointer to hold the 32-bit library version, where the upper 16 bits hold the major version and the lower 16 bits hold the minor version</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS - If the library version is read successfully</li>
+<li>XST_INVALID_PARAM - If Version is NULL </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga82ae11459dd1b356925ec2277e541de9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XOcp_GetServerLibInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ocp___client_instance.html">XOcp_ClientInstance</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Xil_LibInfo *&#160;</td>
+          <td class="paramname"><em>LibInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sends an IPI request to get the XilOcp library version and capability bits running on the PLM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>- Pointer to the client instance </td></tr>
+    <tr><td class="paramname">LibInfo</td><td>- Pointer to Xil_LibInfo. LibVersion and Capability are filled on success. The Version and NistStatus fields are reserved for XilOcp and must be ignored.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS - If the library information is read successfully</li>
+<li>XST_INVALID_PARAM - If any input parameter is invalid</li>
+<li>XST_FAILURE - On failure </li>
+</ul>
+</dd></dl>
+<ul>
+<li>Performs input parameter validation.</li>
+<li>Query library info via the Features command using a valid OCP api-id as the selector, so the command succeeds and the server returns the library version/capability at fixed indices.</li>
+<li>Sends the request to the server and copies the IPI payload after the status word.</li>
+</ul>
+
+<p>References <a class="el" href="struct_x_ocp___client_instance.html#ae59517a3e3e2e40d34b941bd40323cc1">XOcp_ClientInstance::MailboxPtr</a>, <a class="el" href="group__xocp__definitions.html#ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94">XOCP_API_FEATURES</a>, <a class="el" href="group__xocp__definitions.html#ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8">XOCP_API_GENDMERESP</a>, and <a class="el" href="group__xocp__mailbox__apis.html#ga9f7c2c1f66a38ca1ae974bb1d7640812">XOcp_ProcessMailbox()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga9f7c2c1f66a38ca1ae974bb1d7640812"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -182,7 +265,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>MsgLen</em>&#160;</td>
+          <td class="paramname"><em>MsgLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Response</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -197,7 +286,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">MailboxPtr</td><td>- Pointer to mailbox instance </td></tr>
     <tr><td class="paramname">MsgPtr</td><td>- Pointer to the payload message </td></tr>
-    <tr><td class="paramname">MsgLen</td><td>- Length of the message</td></tr>
+    <tr><td class="paramname">MsgLen</td><td>- Length of the message </td></tr>
+    <tr><td class="paramname">Response</td><td>- Pointer to store the IPI response. When non-NULL, the buffer must hold RESPONSE_ARG_CNT words. Word 0 is the IPI status and the following words are payload data.</td></tr>
   </table>
   </dd>
 </dl>
@@ -206,14 +296,14 @@ Functions</h2></td></tr>
 <li>XST_FAILURE - If there is a failure</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Payload consists of API id and call arguments to be written in IPI buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Payload consists of API id and call arguments to be written in IPI buffer. </dd></dl>
 <ul>
 <li>Sends IPI CDO to PLM, returns XST_FAILURE if sending data is failed.</li>
 <li>Waits for IPI response from PLM with a default timeout of 2 seconds.</li>
 <li>If the timeout exceeds then error is returned otherwise, it returns the status of the IPI response</li>
 </ul>
 
-<p>Referenced by <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga0c6bb44603339209f55de3ef94141395">XOcp_ClientAttestWithDevAk()</a>, <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga43e275e75f776f74a124968aa83d29a2">XOcp_ClientAttestWithKeyWrapDevAk()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#gabe2000beca7269b9e9f1ba0434adfbb7">XOcp_ExtendHwPcr()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gab8fbe7fbfcb136e816374b295b769972">XOcp_ExtendSwPcr()</a>, <a class="el" href="group__xocp__dme__client__apis.html#gaebd4df862308eaeebbfb06a456a19f9f">XOcp_GenDmeResp()</a>, <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga50bd2fa853d6aba7c12fec38bb3867ae">XOcp_GenSharedSecretWithDevAk()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#ga729ea6a53f3410b330a4eb6635074c88">XOcp_GetHwPcr()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#ga36f63a2e8165e1f3360f8e2858d7aa53">XOcp_GetHwPcrLog()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gaaca4f4567e961877901f3ed298ed01e9">XOcp_GetSwPcr()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gaa9d5159f23ac4215dff07b1a16a0e2e9">XOcp_GetSwPcrData()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#ga71a4d8aea262fc732fa812829dd891ae">XOcp_GetSwPcrLog()</a>, and <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga16013e82a245e7dfdd7a3c2e2df476e5">XOcp_GetX509Cert()</a>.</p>
+<p>Referenced by <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga0c6bb44603339209f55de3ef94141395">XOcp_ClientAttestWithDevAk()</a>, <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga43e275e75f776f74a124968aa83d29a2">XOcp_ClientAttestWithKeyWrapDevAk()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#gabe2000beca7269b9e9f1ba0434adfbb7">XOcp_ExtendHwPcr()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gab8fbe7fbfcb136e816374b295b769972">XOcp_ExtendSwPcr()</a>, <a class="el" href="group__xocp__dme__client__apis.html#gaebd4df862308eaeebbfb06a456a19f9f">XOcp_GenDmeResp()</a>, <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga50bd2fa853d6aba7c12fec38bb3867ae">XOcp_GenSharedSecretWithDevAk()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#ga729ea6a53f3410b330a4eb6635074c88">XOcp_GetHwPcr()</a>, <a class="el" href="group__xocp__hwpcr__client__apis.html#ga36f63a2e8165e1f3360f8e2858d7aa53">XOcp_GetHwPcrLog()</a>, <a class="el" href="group__xocp__mailbox__apis.html#ga82ae11459dd1b356925ec2277e541de9">XOcp_GetServerLibInfo()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gaaca4f4567e961877901f3ed298ed01e9">XOcp_GetSwPcr()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#gaa9d5159f23ac4215dff07b1a16a0e2e9">XOcp_GetSwPcrData()</a>, <a class="el" href="group__xocp__swpcr__client__apis.html#ga71a4d8aea262fc732fa812829dd891ae">XOcp_GetSwPcrLog()</a>, and <a class="el" href="group__xocp__key__mgmt__client__apis.html#ga16013e82a245e7dfdd7a3c2e2df476e5">XOcp_GetX509Cert()</a>.</p>
 
 </div>
 </div>

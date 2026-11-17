@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xuartpsv__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,22 +104,37 @@ $(document).ready(function(){initNavTree('xuartpsv__intr_8c.html','');});
 <div class="title">xuartpsv_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartpsv_8h.html">xuartpsv.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interrupt handling functions for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver  Who  Date      Changes
+</p>
+<hr/>
+<p>
+1.0  sg   09/18/17  First Release
+1.2  rna  01/20/20  Modify the  Interrupt sub routine
+              Add support for Rx errors
+              Change the Tx interrupt  path to support &gt; 32 byte
+              transfers
+1.3  rna  04/05/20  Correct XUartPsv_SetInterruptMask function clear IMSC
+1.15 vn   07/30/26  Fix Doxygen warnings
+1.15 vn   09/10/26  Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartpsv_8h.html">xuartpsv.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartpsv__xfer_8h.html">xuartpsv_xfer.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga049a65e8d28c43b51ce4c67b15a2d07e">XUartPsv_GetInterruptMask</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the interrupt mask.  <a href="group__uartpsv.html#ga049a65e8d28c43b51ce4c67b15a2d07e">More...</a><br/></td></tr>
+<tr class="memdesc:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the current interrupt mask.  <a href="group__uartpsv.html#ga049a65e8d28c43b51ce4c67b15a2d07e">More...</a><br/></td></tr>
 <tr class="separator:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga09b94a490c696d7ff7b1c6bbec42b226">XUartPsv_SetInterruptMask</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the interrupt mask.  <a href="group__uartpsv.html#ga09b94a490c696d7ff7b1c6bbec42b226">More...</a><br/></td></tr>
+<tr class="memdesc:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt mask.  <a href="group__uartpsv.html#ga09b94a490c696d7ff7b1c6bbec42b226">More...</a><br/></td></tr>
 <tr class="separator:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gafc24dc61fc253a957ba631fb53b5dfc8">XUartPsv_SetHandler</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, <a class="el" href="group__uartpsv.html#gab83b4279762a2b3f20b1c50998a709d3">XUartPsv_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs that needs application's attention.  <a href="group__uartpsv.html#gafc24dc61fc253a957ba631fb53b5dfc8">More...</a><br/></td></tr>
+<tr class="memdesc:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler called when an event (interrupt) occurs that needs the application's attention.  <a href="group__uartpsv.html#gafc24dc61fc253a957ba631fb53b5dfc8">More...</a><br/></td></tr>
 <tr class="separator:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga869ac0531d2e16457706d013d7f0a0cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">XUartPsv_InterruptHandler</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga869ac0531d2e16457706d013d7f0a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver.  <a href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">More...</a><br/></td></tr>
+<tr class="memdesc:ga869ac0531d2e16457706d013d7f0a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver.  <a href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">More...</a><br/></td></tr>
 <tr class="separator:ga869ac0531d2e16457706d013d7f0a0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

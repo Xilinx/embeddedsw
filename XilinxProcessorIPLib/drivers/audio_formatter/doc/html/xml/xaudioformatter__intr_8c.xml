@@ -10,14 +10,14 @@
       <node id="50">
         <label>xil_io.h</label>
       </node>
-      <node id="49">
-        <label>xaudioformatter_hw.h</label>
-        <link refid="xaudioformatter__hw_8h"/>
-        <childnode refid="50" relation="include">
-        </childnode>
-      </node>
       <node id="54">
         <label>xil_cache.h</label>
+      </node>
+      <node id="47">
+        <label>xaudioformatter_intr.c</label>
+        <link refid="xaudioformatter_intr.c"/>
+        <childnode refid="48" relation="include">
+        </childnode>
       </node>
       <node id="48">
         <label>xaudioformatter.h</label>
@@ -39,10 +39,10 @@
       <node id="51">
         <label>xil_types.h</label>
       </node>
-      <node id="47">
-        <label>xaudioformatter_intr.c</label>
-        <link refid="xaudioformatter_intr.c"/>
-        <childnode refid="48" relation="include">
+      <node id="49">
+        <label>xaudioformatter_hw.h</label>
+        <link refid="xaudioformatter__hw_8h"/>
+        <childnode refid="50" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="28" bodyend="51"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="28" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="group__audioformatter_1ga26b6f9857745896b401c69697bd578af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -103,11 +103,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="53" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="53" bodyend="76"/>
       </memberdef>
-      <memberdef kind="function" id="group__audioformatter_1gae45ba1a48542184450ef25de83ff1e73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void *</type>
-        <definition>void* XAudioFormatterS2MMIntrHandler</definition>
+      <memberdef kind="function" id="group__audioformatter_1ga16ea676685b69644cd310b70a55b8b27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterS2MMIntrHandler</definition>
         <argsstring>(void *InstancePtr)</argsstring>
         <name>XAudioFormatterS2MMIntrHandler</name>
         <param>
@@ -115,16 +115,28 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>This function is the interrupt handler for the Audio Formatter S2MM DMA. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Interrupt handler for the Audio Formatter S2MM DMA.</para><para>This handler reads the pending interrupt from the S2MM status register, determines the source of the interrupt, clears it, and calls the corresponding user-registered callback.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="78" bodyend="107"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="95" bodyend="124"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="133">XAudioFormatter::IsReady</references>
+        <references refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" compoundref="xaudioformatter_8c" startline="145" endline="163">XAudioFormatter_InterruptClear</references>
       </memberdef>
-      <memberdef kind="function" id="group__audioformatter_1ga885f34c0b1cff4b4bb04691b690dc74d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void *</type>
-        <definition>void* XAudioFormatterMM2SIntrHandler</definition>
+      <memberdef kind="function" id="group__audioformatter_1gad236d638e2ae1afe068b87d0f3621d27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterMM2SIntrHandler</definition>
         <argsstring>(void *InstancePtr)</argsstring>
         <name>XAudioFormatterMM2SIntrHandler</name>
         <param>
@@ -132,12 +144,24 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>This function is the interrupt handler for the Audio Formatter MM2S DMA. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Interrupt handler for the Audio Formatter MM2S DMA.</para><para>This handler reads the pending interrupt from the MM2S status register, determines the source of the interrupt, clears it, and calls the corresponding user-registered callback.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="109" bodyend="132"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="143" bodyend="166"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="133">XAudioFormatter::IsReady</references>
+        <references refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" compoundref="xaudioformatter_8c" startline="145" endline="163">XAudioFormatter_InterruptClear</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -147,7 +171,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -212,63 +236,65 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XAudioFormatterS2MMIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*AFPtr<sp/>=<sp/>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr-&gt;<ref refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;ChannelId<sp/>=<sp/>XAudioFormatter_S2MM;</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XAudioFormatter_ReadReg(AFPtr-&gt;BaseAddress,</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_FORMATTER_STS<sp/>+<sp/>XAUD_FORMATTER_S2MM_OFFSET);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_IOC_IRQ_MASK)<sp/>{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_IOC_IRQ_MASK);</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMIOCCallback)</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMIOCCallback(AFPtr);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_TIMEOUT_IRQ_MASK)<sp/>{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_STS_TIMEOUT_IRQ_MASK);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMTOCallback)</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMTOCallback(AFPtr);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_ERROR_IRQ_MASK)<sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_ERROR_IRQ_MASK);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMERRCallback)</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMERRCallback(AFPtr);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XAudioFormatterMM2SIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*AFPtr<sp/>=<sp/>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr-&gt;<ref refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;ChannelId<sp/>=<sp/>XAudioFormatter_MM2S;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XAudioFormatter_ReadReg(AFPtr-&gt;BaseAddress,</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_FORMATTER_STS<sp/>+<sp/>XAUD_FORMATTER_MM2S_OFFSET);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_IOC_IRQ_MASK)<sp/>{</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_IOC_IRQ_MASK);</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;MM2SIOCCallback)</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;MM2SIOCCallback(AFPtr);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_ERROR_IRQ_MASK)<sp/>{</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_ERROR_IRQ_MASK);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;MM2SERRCallback)</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;MM2SERRCallback(AFPtr);</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__audioformatter_1ga16ea676685b69644cd310b70a55b8b27" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga16ea676685b69644cd310b70a55b8b27" kindref="member">XAudioFormatterS2MMIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*AFPtr<sp/>=<sp/>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr-&gt;<ref refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;ChannelId<sp/>=<sp/>XAudioFormatter_S2MM;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XAudioFormatter_ReadReg(AFPtr-&gt;BaseAddress,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_FORMATTER_STS<sp/>+<sp/>XAUD_FORMATTER_S2MM_OFFSET);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_IOC_IRQ_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_IOC_IRQ_MASK);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMIOCCallback)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMIOCCallback(AFPtr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_TIMEOUT_IRQ_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_STS_TIMEOUT_IRQ_MASK);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMTOCallback)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMTOCallback(AFPtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_ERROR_IRQ_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_ERROR_IRQ_MASK);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;S2MMERRCallback)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;S2MMERRCallback(AFPtr);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__audioformatter_1gad236d638e2ae1afe068b87d0f3621d27" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1gad236d638e2ae1afe068b87d0f3621d27" kindref="member">XAudioFormatterMM2SIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*AFPtr<sp/>=<sp/>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AFPtr-&gt;<ref refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;ChannelId<sp/>=<sp/>XAudioFormatter_MM2S;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XAudioFormatter_ReadReg(AFPtr-&gt;BaseAddress,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAUD_FORMATTER_STS<sp/>+<sp/>XAUD_FORMATTER_MM2S_OFFSET);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_IOC_IRQ_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_IOC_IRQ_MASK);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;MM2SIOCCallback)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;MM2SIOCCallback(AFPtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>XAUD_STS_ERROR_IRQ_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(AFPtr,<sp/>XAUD_STS_ERROR_IRQ_MASK);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AFPtr-&gt;MM2SERRCallback)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AFPtr-&gt;MM2SERRCallback(AFPtr);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c"/>
   </compounddef>
 </doxygen>

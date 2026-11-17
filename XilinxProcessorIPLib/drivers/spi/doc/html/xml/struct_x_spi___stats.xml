@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="384" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -32,11 +32,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="385" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -49,11 +49,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="386" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -66,11 +66,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="387" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -83,12 +83,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="388" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
-        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -101,18 +101,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="389" bodyend="-1"/>
-        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
-        <referencedby refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
-        <referencedby refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="67" endline="79">XSpi_GetStats</referencedby>
-        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi__api_1gaf243ac522e14869af82545ffc11d5821" compoundref="xspi__stats_8c" startline="93" endline="105">XSpi_ClearStats</referencedby>
+        <referencedby refid="group__spi__api_1ga8a40aee30eb6f0240b75e6ccd7596a53" compoundref="xspi__stats_8c" startline="69" endline="81">XSpi_GetStats</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para><ref refid="struct_x_spi" kindref="compound">XSpi</ref> statistics. </para>    </briefdescription>
+<para>Holds the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> driver statistics. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="383" bodyend="390"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" bodystart="388" bodyend="395"/>
     <listofallmembers>
       <member refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" prot="public" virt="non-virtual"><scope>XSpi_Stats</scope><name>BytesTransferred</name></member>
       <member refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" prot="public" virt="non-virtual"><scope>XSpi_Stats</scope><name>ModeFaults</name></member>

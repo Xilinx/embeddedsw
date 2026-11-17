@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="769" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="769" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="791" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="791" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="423" endline="517">XLoader_PrtnCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1aa328a2478f236bcdd18a05fc09c63d1f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="770" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="770" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="792" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="792" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a727f9a1cea52e21ecd29414628e4809b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -43,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="771" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="771" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="793" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="793" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="423" endline="517">XLoader_PrtnCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1abbc93e51cf3060638961a99bb93946f9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -57,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="772" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="772" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="794" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="794" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
@@ -71,11 +71,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="773" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="773" bodyend="-1"/>
-        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="155" endline="215">XLoader_AesKatTest</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="795" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="161" endline="221">XLoader_AesKatTest</referencedby>
+        <referencedby refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" compoundref="xloader__kat_8c" startline="335" endline="463">XLoader_AuthKat</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a5dc24fec2e28c39c584dee3c8d559000" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -88,8 +89,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="774" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="774" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5ac253b7c53e277edd095f79563590c4" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1519" endline="1592">XLoader_SecureConfigMeasurement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="796" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="796" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5ac253b7c53e277edd095f79563590c4" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1570" endline="1643">XLoader_SecureConfigMeasurement</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -102,11 +103,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="775" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="775" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="797" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="797" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a98c7731b90ea1ec4414f6c29e2ecfb42" prot="public" static="no" mutable="no">
         <type>XilPdi_PrtnHdr *</type>
@@ -119,8 +120,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="776" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="776" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="798" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="798" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a607e5951793b3156983f578a5e31d028" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -133,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="777" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="799" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -146,9 +147,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="778" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="778" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="800" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="800" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1ae78d22b1294bd09514ac5e6b06d4bee0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -161,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="780" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="802" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="802" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1aa8068957063ef08e9a529c406e700a50" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -174,8 +175,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="781" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="781" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="803" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -188,9 +189,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="782" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="782" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="804" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="804" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -203,9 +204,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="783" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="805" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="805" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a4e2701cd7918854078223fa8dfcede49" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -218,7 +219,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="784" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="806" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="806" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -231,10 +232,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="785" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="785" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="807" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a7afa5d4ff6734f20aa5cc22c1c8aa533" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -247,8 +248,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="786" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="808" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="808" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a03c95327a72c1e60045cc7f6ac495dfd" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -261,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="787" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="809" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="809" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1ad981312860b9bebe52c771fd0abfb75e" prot="public" static="no" mutable="no">
         <type>XPmcDma *</type>
@@ -274,9 +275,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="788" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="555" endline="670">XLoader_VerifyHashNUpdateNext</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="810" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" compoundref="xloader__secure_8c" startline="576" endline="695">XLoader_VerifyHashNUpdateNext</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a72675da875a77e68ee27f62d18038482" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -289,8 +290,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="789" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="789" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="811" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="811" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="419" endline="462">XLoader_SecureCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a85cbcc73bb33dc8b8cd16141eafc1e6b" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -303,8 +304,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="796" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="796" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="885" endline="928">XLoader_SecureChunkCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="818" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="818" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" compoundref="xloader__secure_8c" startline="910" endline="955">XLoader_SecureChunkCopy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a816e82135f057fe0013c584186e825f0" prot="public" static="no" mutable="no">
         <type><ref refid="xloader__auth__enc_8h_1a6ea3e9ddf2374bbb9397b7e7c844fa32" kindref="member">XLoader_AuthType</ref></type>
@@ -317,10 +318,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="798" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="798" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="820" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="820" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1ac0dfc922987bb3eff336ce50996027b4" prot="public" static="no" mutable="no">
-        <type>XLoader_AuthCertificate *</type>
+        <type><ref refid="struct_x_loader___auth_certificate" kindref="compound">XLoader_AuthCertificate</ref> *</type>
         <definition>XLoader_AuthCertificate* XLoader_SecureParams::AcPtr</definition>
         <argsstring></argsstring>
         <name>AcPtr</name>
@@ -330,7 +331,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="799" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="821" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="821" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" compoundref="xloader__kat_8c" startline="335" endline="463">XLoader_AuthKat</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" compoundref="xloader__ppk_8c" startline="431" endline="506">XLoader_PpkVerify</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a74d4252aad479886e11b3d2f3e4b210d" prot="public" static="no" mutable="no">
         <type>XSecure_Aes *</type>
@@ -343,8 +346,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="800" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="800" bodyend="-1"/>
-        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="155" endline="215">XLoader_AesKatTest</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="822" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="822" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="161" endline="221">XLoader_AesKatTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a80869a11ef99165debd75a2fe9d34ad1" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_loader___auth_jtag_message" kindref="compound">XLoader_AuthJtagMessage</ref> *</type>
@@ -357,9 +360,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="801" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="801" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" compoundref="xloader__auth__enc_8c" startline="3063" endline="3191">XLoader_AuthKat</referencedby>
-        <referencedby refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" compoundref="xloader__auth__enc_8c" startline="1063" endline="1141">XLoader_VerifySignature</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="823" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="823" bodyend="-1"/>
+        <referencedby refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" compoundref="xloader__kat_8c" startline="335" endline="463">XLoader_AuthKat</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" compoundref="xloader__ppk_8c" startline="431" endline="506">XLoader_PpkVerify</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" compoundref="xloader__auth__enc_8c" startline="1160" endline="1238">XLoader_VerifySignature</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a405915f7952777a0cfabb4eea3dc6b04" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -372,8 +376,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="803" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga5ac253b7c53e277edd095f79563590c4" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1519" endline="1592">XLoader_SecureConfigMeasurement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="825" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga5ac253b7c53e277edd095f79563590c4" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1570" endline="1643">XLoader_SecureConfigMeasurement</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a8fb5ed3f7cf6b70379284ddf1293ae1b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -386,7 +390,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="804" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="804" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="826" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="826" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a2f7686e4c03ea3e10b952cc7c0562a49" prot="public" static="no" mutable="no">
         <type>XSecure_ShaMode</type>
@@ -399,7 +403,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="806" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="806" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="828" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="828" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___secure_params_1a5dcc03b8f7224cc5d9e65232d66e09d6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -412,7 +416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="807" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="829" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="829" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -420,33 +424,51 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="72">
+      <node id="80">
         <label>XLoader_HandoffParam</label>
         <link refid="struct_x_loader___handoff_param"/>
       </node>
-      <node id="73">
+      <node id="77">
+        <label>XLoader_AuthCertificate</label>
+        <link refid="struct_x_loader___auth_certificate"/>
+        <childnode refid="78" relation="usage">
+          <edgelabel>Ppk</edgelabel>
+          <edgelabel>Spk</edgelabel>
+        </childnode>
+      </node>
+      <node id="81">
         <label>XLoader_AuthJtagMessage</label>
         <link refid="struct_x_loader___auth_jtag_message"/>
+        <childnode refid="78" relation="usage">
+          <edgelabel>PpkData</edgelabel>
+        </childnode>
       </node>
-      <node id="70">
+      <node id="76">
         <label>XLoader_SecureParams</label>
         <link refid="struct_x_loader___secure_params"/>
-        <childnode refid="71" relation="usage">
+        <childnode refid="77" relation="usage">
+          <edgelabel>AcPtr</edgelabel>
+        </childnode>
+        <childnode refid="79" relation="usage">
           <edgelabel>PdiPtr</edgelabel>
         </childnode>
-        <childnode refid="73" relation="usage">
+        <childnode refid="81" relation="usage">
           <edgelabel>AuthJtagMessagePtr</edgelabel>
         </childnode>
       </node>
-      <node id="71">
+      <node id="78">
+        <label>XLoader_AuthKey</label>
+        <link refid="struct_x_loader___auth_key"/>
+      </node>
+      <node id="79">
         <label>XilPdi</label>
         <link refid="struct_xil_pdi"/>
-        <childnode refid="72" relation="usage">
+        <childnode refid="80" relation="usage">
           <edgelabel>HandoffParam</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="768" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="768" bodyend="808"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="790" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="790" bodyend="830"/>
     <listofallmembers>
       <member refid="struct_x_loader___secure_params_1ac0dfc922987bb3eff336ce50996027b4" prot="public" virt="non-virtual"><scope>XLoader_SecureParams</scope><name>AcPtr</name></member>
       <member refid="struct_x_loader___secure_params_1a74d4252aad479886e11b3d2f3e4b210d" prot="public" virt="non-virtual"><scope>XLoader_SecureParams</scope><name>AesInstPtr</name></member>

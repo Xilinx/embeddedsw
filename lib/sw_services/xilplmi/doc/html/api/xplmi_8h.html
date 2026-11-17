@@ -164,6 +164,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       aa   03/11/2025 Updated SDK release version
       tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
       ias  03/26/2026 Added RTCA register and masks for boot device release policy
+2.5   am   06/24/2026 Updated SDK release version
+      vid  08/18/2026 Added XPlmi_TpmModuleInit_t and a
+                      TpmModuleInitHandler parameter to <a class="el" href="group__xilplmi__server__apis.html#gaa729a1ad7805acd4e271e20f2b02d1f3" title="This function will initialize the PLMI module. ">XPlmi_Init()</a> to
+                      decouple TPM module init from xilplmi, avoiding a
+                      circular BitBake dependency with xiltpm
 </pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi_generic.h&quot;</code><br/>
 <code>#include &quot;xplmi_plat.h&quot;</code><br/>
@@ -173,16 +178,16 @@ Macros</h2></td></tr>
 <tr class="memitem:a92ceeeea4057c595c7df535c65e351ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#a92ceeeea4057c595c7df535c65e351ed">SDK_RELEASE_YEAR</a>&#160;&#160;&#160;&quot;2026&quot;</td></tr>
 <tr class="memdesc:a92ceeeea4057c595c7df535c65e351ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the SDK release year.  <a href="#a92ceeeea4057c595c7df535c65e351ed">More...</a><br/></td></tr>
 <tr class="separator:a92ceeeea4057c595c7df535c65e351ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0c1ecafb49cd854040429431d27fd30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#af0c1ecafb49cd854040429431d27fd30">SDK_RELEASE_QUARTER</a>&#160;&#160;&#160;&quot;1&quot;</td></tr>
+<tr class="memitem:af0c1ecafb49cd854040429431d27fd30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#af0c1ecafb49cd854040429431d27fd30">SDK_RELEASE_QUARTER</a>&#160;&#160;&#160;&quot;2&quot;</td></tr>
 <tr class="memdesc:af0c1ecafb49cd854040429431d27fd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the SDK release quarter.  <a href="#af0c1ecafb49cd854040429431d27fd30">More...</a><br/></td></tr>
 <tr class="separator:af0c1ecafb49cd854040429431d27fd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5ce4f0450661c7d604cd813d02deb36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#ab5ce4f0450661c7d604cd813d02deb36">XPLMI_PLM_MAJOR_VERSION</a>&#160;&#160;&#160;26U</td></tr>
 <tr class="memdesc:ab5ce4f0450661c7d604cd813d02deb36"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLM Major Version.  <a href="#ab5ce4f0450661c7d604cd813d02deb36">More...</a><br/></td></tr>
 <tr class="separator:ab5ce4f0450661c7d604cd813d02deb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32e2908463b2798137fb7803fbd699f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#a32e2908463b2798137fb7803fbd699f2">XPLMI_PLM_MINOR_VERSION</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memitem:a32e2908463b2798137fb7803fbd699f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#a32e2908463b2798137fb7803fbd699f2">XPLMI_PLM_MINOR_VERSION</a>&#160;&#160;&#160;2U</td></tr>
 <tr class="memdesc:a32e2908463b2798137fb7803fbd699f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLM Minor Version.  <a href="#a32e2908463b2798137fb7803fbd699f2">More...</a><br/></td></tr>
 <tr class="separator:a32e2908463b2798137fb7803fbd699f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfc039e4322a82d801b5226baee68126"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#acfc039e4322a82d801b5226baee68126">XPLMI_PLM_RC_VERSION</a>&#160;&#160;&#160;<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#ad80521701912b9aacc5aa7c3975f0663">XPLMI_PLM_PLAT_RC_VERSION</a></td></tr>
+<tr class="memitem:acfc039e4322a82d801b5226baee68126"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#acfc039e4322a82d801b5226baee68126">XPLMI_PLM_RC_VERSION</a>&#160;&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#ad80521701912b9aacc5aa7c3975f0663">XPLMI_PLM_PLAT_RC_VERSION</a></td></tr>
 <tr class="memdesc:acfc039e4322a82d801b5226baee68126"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLM RC Version.  <a href="#acfc039e4322a82d801b5226baee68126">More...</a><br/></td></tr>
 <tr class="separator:acfc039e4322a82d801b5226baee68126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa1d6f0e73669ddbf6307fb34d9f3954"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi_8h.html#aaa1d6f0e73669ddbf6307fb34d9f3954">XPLMI_PLM_MAJOR_VERSION_SHIFT</a>&#160;&#160;&#160;24U</td></tr>
@@ -281,7 +286,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDK_RELEASE_QUARTER&#160;&#160;&#160;&quot;1&quot;</td>
+          <td class="memname">#define SDK_RELEASE_QUARTER&#160;&#160;&#160;&quot;2&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -489,7 +494,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_PLM_MINOR_VERSION&#160;&#160;&#160;1U</td>
+          <td class="memname">#define XPLMI_PLM_MINOR_VERSION&#160;&#160;&#160;2U</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -521,7 +526,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_PLM_RC_VERSION&#160;&#160;&#160;<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#ad80521701912b9aacc5aa7c3975f0663">XPLMI_PLM_PLAT_RC_VERSION</a></td>
+          <td class="memname">#define XPLMI_PLM_RC_VERSION&#160;&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#ad80521701912b9aacc5aa7c3975f0663">XPLMI_PLM_PLAT_RC_VERSION</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

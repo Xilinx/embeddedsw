@@ -1,8 +1,10 @@
 var xv__mix__l2_8h =
 [
+    [ "XVMIX_CSC_COEFF_DIVISOR", "xv__mix__l2_8h.html#ga2da946f7d3233ef9a2b98bc69edd2dc2", null ],
     [ "XVMix_GetBackgndColor", "xv__mix__l2_8h.html#ga365f0a6f06d5d3cad954fcf67c74124c", null ],
     [ "XVMix_GetLayerInterfaceType", "xv__mix__l2_8h.html#ga61712123a1ec7d4f21b3e6245fb1e422", null ],
     [ "XVMix_GetNumLayers", "xv__mix__l2_8h.html#gab0893c45f2ea0018724305170296e926", null ],
+    [ "XVMIX_IRQ_DONE_MASK", "xv__mix__l2_8h.html#ga2963350337ddbd7f7117ff04beefb180", null ],
     [ "XVMix_IsAlphaEnabled", "xv__mix__l2_8h.html#ga4e3f6aec16afcf025476f4a331741d82", null ],
     [ "XVMix_IsCscCoeffsRegsEnabled", "xv__mix__l2_8h.html#ga065d3541c8ce721b6098398cf7d4e97f", null ],
     [ "XVMix_IsLayerInterfaceStream", "xv__mix__l2_8h.html#ga33dca66e76d77f9384a0fee6b662cd25", null ],
@@ -11,6 +13,7 @@ var xv__mix__l2_8h =
     [ "XVMix_IsLogoPixAlphaEnabled", "xv__mix__l2_8h.html#ga2dfd82fb182e252dfe664826a8a6c4d6", null ],
     [ "XVMix_IsScalingEnabled", "xv__mix__l2_8h.html#ga4082688759c43f2f4d6411fa01c1bd6c", null ],
     [ "XVMix_IsTileFormatEnabled", "xv__mix__l2_8h.html#ga673bd2cc41044da90fd50f08d75b11c1", null ],
+    [ "XVMIX_MAX_SUPPORTED_LAYERS", "xv__mix__l2_8h.html#ga3b03735617411ed859816ccd85b41d56", null ],
     [ "XVMix_Callback", "xv__mix__l2_8h.html#ga547d67e8ebe67c5c6f124464fa5d5783", null ],
     [ "XVMix_BackgroundId", "xv__mix__l2_8h.html#ga987d8db7bc81e9007661ca8d9457b94b", [
       [ "XVMIX_BKGND_BLACK", "xv__mix__l2_8h.html#gga987d8db7bc81e9007661ca8d9457b94ba792aadc11a85acb1674e41dd50631c30", null ],

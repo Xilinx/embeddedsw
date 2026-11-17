@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_op_l2_ctrl_irq" kind="struct" prot="public">
+    <compoundname>XPm_AieOpL2CtrlIrq</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_op_l2_ctrl_irq_1abe0e11e5dcb13ef769b27b35b405386a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpL2CtrlIrq::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_l2_ctrl_irq_1a24139e422ace699fbd3f409b2a0d6337" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpL2CtrlIrq::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_l2_ctrl_irq_1a8b119f81c211d20d6f257922b5946151" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpL2CtrlIrq::Irq</definition>
+        <argsstring></argsstring>
+        <name>Irq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="28" bodyend="32"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_op_l2_ctrl_irq_1a8b119f81c211d20d6f257922b5946151" prot="public" virt="non-virtual"><scope>XPm_AieOpL2CtrlIrq</scope><name>Irq</name></member>
+      <member refid="struct_x_pm___aie_op_l2_ctrl_irq_1a24139e422ace699fbd3f409b2a0d6337" prot="public" virt="non-virtual"><scope>XPm_AieOpL2CtrlIrq</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_op_l2_ctrl_irq_1abe0e11e5dcb13ef769b27b35b405386a" prot="public" virt="non-virtual"><scope>XPm_AieOpL2CtrlIrq</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

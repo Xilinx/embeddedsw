@@ -8,65 +8,65 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
     <incdepgraph>
-      <node id="1584">
-        <label>xplmi_get_board_client_example.c</label>
-        <link refid="xplmi_get_board_client_example.c"/>
-        <childnode refid="1585" relation="include">
-        </childnode>
-        <childnode refid="1586" relation="include">
-        </childnode>
-        <childnode refid="1593" relation="include">
-        </childnode>
-        <childnode refid="1594" relation="include">
-        </childnode>
-        <childnode refid="1591" relation="include">
-        </childnode>
-      </node>
-      <node id="1586">
-        <label>xplmi_client.h</label>
-        <link refid="xplmi__client_8h"/>
-        <childnode refid="1587" relation="include">
-        </childnode>
-        <childnode refid="1588" relation="include">
-        </childnode>
-        <childnode refid="1591" relation="include">
-        </childnode>
-      </node>
-      <node id="1594">
+      <node id="1680">
         <label>xil_cache.h</label>
       </node>
-      <node id="1593">
-        <label>xil_util.h</label>
-      </node>
-      <node id="1589">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="1585">
-        <label>xplmi_bsp_config.h</label>
-      </node>
-      <node id="1588">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="1589" relation="include">
-        </childnode>
-        <childnode refid="1590" relation="include">
-        </childnode>
-      </node>
-      <node id="1587">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1590">
-        <label>xparameters.h</label>
-      </node>
-      <node id="1592">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="1591">
+      <node id="1677">
         <label>xplmi_defs.h</label>
         <link refid="xplmi__defs_8h"/>
-        <childnode refid="1592" relation="include">
+        <childnode refid="1678" relation="include">
         </childnode>
-        <childnode refid="1587" relation="include">
+        <childnode refid="1673" relation="include">
+        </childnode>
+      </node>
+      <node id="1679">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1675">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1671">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="1672">
+        <label>xplmi_client.h</label>
+        <link refid="xplmi__client_8h"/>
+        <childnode refid="1673" relation="include">
+        </childnode>
+        <childnode refid="1674" relation="include">
+        </childnode>
+        <childnode refid="1677" relation="include">
+        </childnode>
+      </node>
+      <node id="1673">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1676">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1678">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1674">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="1675" relation="include">
+        </childnode>
+        <childnode refid="1676" relation="include">
+        </childnode>
+      </node>
+      <node id="1670">
+        <label>xplmi_get_board_client_example.c</label>
+        <link refid="xplmi_get_board_client_example.c"/>
+        <childnode refid="1671" relation="include">
+        </childnode>
+        <childnode refid="1672" relation="include">
+        </childnode>
+        <childnode refid="1679" relation="include">
+        </childnode>
+        <childnode refid="1680" relation="include">
+        </childnode>
+        <childnode refid="1677" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xplmi__client__example__apis_1gae049ba3c12f14ec60a618ed1b69caaa1" prot="public" static="no">
         <name>BUF_TOTAL_SIZE</name>
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="67" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -136,7 +136,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="128" bodyend="146"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="128" bodyend="146"/>
       </memberdef>
       <memberdef kind="function" id="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -149,7 +149,7 @@
         <briefdescription>
 <para>This main function to call the In-Place ASU Update example function to perform ASU firmware update. </para>        </briefdescription>
         <detaileddescription>
-<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the EventLogging example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure.</para></listitem></itemizedlist>
 </para><simplesectsep/><para><itemizedlist>
 <listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
@@ -161,7 +161,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Initialize mailbox instance.</para><para>Initialize the PLMI client instance.</para><para>Perform In-Place ASU Update based on configured source.</para><para>Invoke Generate for IV, SharedMem contains random data from this call. Only 12 bytes will be used for each IV</para><para>To generate glitch using test mode, configure glitch detectors with default values. To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the register values instead of efuse values, provide UserRegVal = 0x01</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
         <references refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="94">DDR_ADDR</references>
         <references refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="91">PDI_ID</references>
         <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="67">XLOADER_DDR</references>
@@ -274,6 +274,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="146"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c"/>
   </compounddef>
 </doxygen>

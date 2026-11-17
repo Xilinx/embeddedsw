@@ -14,184 +14,186 @@
     <includes refid="xsecure__init_8h" local="yes">xsecure_init.h</includes>
     <includes refid="xsecure__resourcehandling_8h" local="yes">xsecure_resourcehandling.h</includes>
     <incdepgraph>
-      <node id="1991">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="1984">
-        <label>xsecure_lms_ipihandler.c</label>
-        <link refid="xsecure_lms_ipihandler.c"/>
-        <childnode refid="1985" relation="include">
-        </childnode>
-        <childnode refid="1991" relation="include">
-        </childnode>
-        <childnode refid="1992" relation="include">
-        </childnode>
-        <childnode refid="1993" relation="include">
-        </childnode>
-        <childnode refid="1994" relation="include">
-        </childnode>
-        <childnode refid="1996" relation="include">
-        </childnode>
-        <childnode refid="1998" relation="include">
-        </childnode>
-        <childnode refid="2001" relation="include">
-        </childnode>
-        <childnode refid="1989" relation="include">
-        </childnode>
-        <childnode refid="2002" relation="include">
-        </childnode>
-        <childnode refid="2005" relation="include">
-        </childnode>
-      </node>
-      <node id="1994">
-        <label>xsecure_lms_ipihandler.h</label>
-        <link refid="xsecure__lms__ipihandler_8h"/>
-        <childnode refid="1995" relation="include">
-        </childnode>
-        <childnode refid="1987" relation="include">
-        </childnode>
-      </node>
-      <node id="1998">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="1988">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1999">
-        <label>xsecure_lms.h</label>
-        <link refid="xsecure__lms_8h"/>
-        <childnode refid="1987" relation="include">
-        </childnode>
-        <childnode refid="1997" relation="include">
-        </childnode>
-      </node>
-      <node id="1993">
-        <label>xplmi_dma.h</label>
-      </node>
-      <node id="2010">
-        <label>xplmi_scheduler.h</label>
-      </node>
-      <node id="2006">
-        <label>xsecure_sha_common.h</label>
-        <link refid="xsecure__sha__common_8h"/>
-        <childnode refid="2007" relation="include">
-        </childnode>
-        <childnode refid="2008" relation="include">
-        </childnode>
-        <childnode refid="2009" relation="include">
-        </childnode>
-      </node>
-      <node id="2008">
-        <label>xsecure_sss.h</label>
-      </node>
-      <node id="1989">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1996">
-        <label>xsecure_lms_core.h</label>
-        <link refid="xsecure__lms__core_8h"/>
-        <childnode refid="1987" relation="include">
-        </childnode>
-        <childnode refid="1997" relation="include">
-        </childnode>
-        <childnode refid="1999" relation="include">
-        </childnode>
-        <childnode refid="2000" relation="include">
-        </childnode>
-        <childnode refid="1998" relation="include">
-        </childnode>
-      </node>
-      <node id="1995">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="2002">
-        <label>xsecure_init.h</label>
-        <link refid="xsecure__init_8h"/>
-        <childnode refid="2003" relation="include">
-        </childnode>
-        <childnode refid="2004" relation="include">
-        </childnode>
-        <childnode refid="1998" relation="include">
-        </childnode>
-      </node>
-      <node id="2005">
-        <label>xsecure_resourcehandling.h</label>
-        <link refid="xsecure__resourcehandling_8h"/>
-        <childnode refid="2003" relation="include">
-        </childnode>
-        <childnode refid="2006" relation="include">
-        </childnode>
-        <childnode refid="2010" relation="include">
-        </childnode>
-        <childnode refid="2011" relation="include">
-        </childnode>
-        <childnode refid="2002" relation="include">
-        </childnode>
-        <childnode refid="2012" relation="include">
-        </childnode>
-      </node>
-      <node id="1985">
+      <node id="2071">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1986" relation="include">
+        <childnode refid="2072" relation="include">
         </childnode>
-        <childnode refid="1987" relation="include">
+        <childnode refid="2073" relation="include">
         </childnode>
-        <childnode refid="1988" relation="include">
+        <childnode refid="2074" relation="include">
         </childnode>
-        <childnode refid="1989" relation="include">
+        <childnode refid="2075" relation="include">
         </childnode>
-        <childnode refid="1990" relation="include">
+        <childnode refid="2076" relation="include">
         </childnode>
-      </node>
-      <node id="2003">
-        <label>xsecure_aes.h</label>
-      </node>
-      <node id="2012">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="2009">
-        <label>xsecure_sha_hw.h</label>
-      </node>
-      <node id="1990">
-        <label>xsecure_config.h</label>
-      </node>
-      <node id="1997">
-        <label>xsecure_lms_ots.h</label>
-        <link refid="xsecure__lms__ots_8h"/>
-        <childnode refid="1987" relation="include">
-        </childnode>
-        <childnode refid="1998" relation="include">
+        <childnode refid="2077" relation="include">
         </childnode>
       </node>
-      <node id="1987">
-        <label>xil_types.h</label>
+      <node id="2091">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="2089" relation="include">
+        </childnode>
+        <childnode refid="2092" relation="include">
+        </childnode>
+        <childnode refid="2096" relation="include">
+        </childnode>
+        <childnode refid="2097" relation="include">
+        </childnode>
+        <childnode refid="2088" relation="include">
+        </childnode>
+        <childnode refid="2098" relation="include">
+        </childnode>
       </node>
-      <node id="2007">
-        <label>xpmcdma.h</label>
+      <node id="2075">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="2001">
-        <label>xsecure_error.h</label>
+      <node id="2084">
+        <label>xsecure_sha.h</label>
       </node>
-      <node id="1986">
-        <label>xil_printf.h</label>
+      <node id="2082">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure__lms__core_8h"/>
+        <childnode refid="2073" relation="include">
+        </childnode>
+        <childnode refid="2083" relation="include">
+        </childnode>
+        <childnode refid="2085" relation="include">
+        </childnode>
+        <childnode refid="2086" relation="include">
+        </childnode>
+        <childnode refid="2084" relation="include">
+        </childnode>
       </node>
-      <node id="2000">
+      <node id="2074">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2079">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="2086">
         <label>xsecure_lms_hss.h</label>
         <link refid="xsecure__lms__hss_8h"/>
-        <childnode refid="1987" relation="include">
+        <childnode refid="2073" relation="include">
         </childnode>
-        <childnode refid="1999" relation="include">
+        <childnode refid="2085" relation="include">
         </childnode>
       </node>
-      <node id="2011">
+      <node id="2096">
+        <label>xplmi_scheduler.h</label>
+      </node>
+      <node id="2094">
+        <label>xsecure_sss.h</label>
+      </node>
+      <node id="2077">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2070">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure_lms_ipihandler.c"/>
+        <childnode refid="2071" relation="include">
+        </childnode>
+        <childnode refid="2075" relation="include">
+        </childnode>
+        <childnode refid="2078" relation="include">
+        </childnode>
+        <childnode refid="2079" relation="include">
+        </childnode>
+        <childnode refid="2080" relation="include">
+        </childnode>
+        <childnode refid="2082" relation="include">
+        </childnode>
+        <childnode refid="2084" relation="include">
+        </childnode>
+        <childnode refid="2087" relation="include">
+        </childnode>
+        <childnode refid="2077" relation="include">
+        </childnode>
+        <childnode refid="2088" relation="include">
+        </childnode>
+        <childnode refid="2091" relation="include">
+        </childnode>
+      </node>
+      <node id="2080">
+        <label>xsecure_lms_ipihandler.h</label>
+        <link refid="xsecure__lms__ipihandler_8h"/>
+        <childnode refid="2081" relation="include">
+        </childnode>
+        <childnode refid="2073" relation="include">
+        </childnode>
+      </node>
+      <node id="2081">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="2085">
+        <label>xsecure_lms.h</label>
+        <link refid="xsecure__lms_8h"/>
+        <childnode refid="2073" relation="include">
+        </childnode>
+        <childnode refid="2083" relation="include">
+        </childnode>
+      </node>
+      <node id="2089">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="2098">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2095">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="2076">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2073">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2088">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="2089" relation="include">
+        </childnode>
+        <childnode refid="2090" relation="include">
+        </childnode>
+        <childnode refid="2084" relation="include">
+        </childnode>
+      </node>
+      <node id="2093">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="2083">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure__lms__ots_8h"/>
+        <childnode refid="2073" relation="include">
+        </childnode>
+        <childnode refid="2084" relation="include">
+        </childnode>
+      </node>
+      <node id="2087">
+        <label>xsecure_error.h</label>
+      </node>
+      <node id="2072">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2097">
         <label>xsecure_sha_ipihandler.h</label>
       </node>
-      <node id="1992">
+      <node id="2078">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="2004">
+      <node id="2090">
         <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="2092">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure__sha__common_8h"/>
+        <childnode refid="2093" relation="include">
+        </childnode>
+        <childnode refid="2094" relation="include">
+        </childnode>
+        <childnode refid="2095" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -227,7 +229,7 @@
 <listitem><para>LMS single-tree if PubKeyLen == XSECURE_LMS_PUB_KEY_TOTAL_SIZE</para></listitem><listitem><para>HSS multi-tree if PubKeyLen == XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE</para></listitem></itemizedlist>
 </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="93" bodyend="214"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="93" bodyend="214"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__lms__server__apis_1gaa7a77ac17187ce85d6c0c094c1d63a56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -255,10 +257,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="56" bodyend="74"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="56" bodyend="74"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="164">XSECURE_API_LMS_SIGN_VERIFY</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -424,6 +426,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="214"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c"/>
   </compounddef>
 </doxygen>

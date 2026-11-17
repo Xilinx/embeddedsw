@@ -126,16 +126,54 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba18e605dfdd63c196fc26c718743da015" prot="public">
+          <name>XASU_FW_VERSION_MISMATCH</name>
+          <briefdescription>
+<para>0x21 - ASUFW version is not compatible with client </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba79c467e7f8105557b2ce992618772b8d" prot="public">
+          <name>XASU_INVALID_RESPONSE_SIZE</name>
+          <briefdescription>
+<para>0x22 - Registered response size exceeds the queue slot payload area </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
 <para>This contains the client error codes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="48" bodyend="67"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="49" bodyend="71"/>
       </memberdef>
       <memberdef kind="enum" id="group__xasu__client__error__codes_1gadf764cbdea00d65edcd07bb9953ad2b7" prot="public" static="no">
         <name>@1</name>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a6e015cb0072e4f44fac06001e1be074a" prot="public">
+          <name>XASU_PROVISION_DPC_SUCCESS</name>
+          <initializer>= 0x3F4U</initializer>
+          <briefdescription>
+<para>0x3F4U - Device Provisioning Certificate generated successfully </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a0e12cec74e8390ac0f1e9fdd81f26a69" prot="public">
+          <name>XASU_SLHDSA_SIGNATURE_VERIFIED</name>
+          <initializer>= 0x3F5U</initializer>
+          <briefdescription>
+<para>0x3F5U - SLH-DSA signature verification is successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a78010775ca76ccaf03f0ec46e4d5dc07" prot="public">
+          <name>XASU_MLDSA_SIGNATURE_VERIFIED</name>
+          <initializer>= 0x3F6U</initializer>
+          <briefdescription>
+<para>0x3F6U - Successfully verified ML-DSA signature </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7aadc3b6c86c335200f8c1c8328574826d" prot="public">
           <name>XASU_OCP_CERT_GENERATION_SUCCESS</name>
           <initializer>= 0x3F7U</initializer>
@@ -199,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="73" bodyend="85"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="77" bodyend="95"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

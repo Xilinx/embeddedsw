@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanps__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,41 +106,42 @@ $(document).ready(function(){initNavTree('xcanps__hw_8h.html','');});
 <div class="title">xcanps_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Provides hardware register definitions for the CAN PS driver. </p>
+<p>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the device. Other driver functions are defined in <a class="el" href="xcanps_8h.html">xcanps.h</a>.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00a xd/sv  01/12/10 First release
+1.01a sbs    12/27/11 Updated the Register/bit definitions
+                      Changed XCANPS_RXFWIR_RXFLL_MASK to XCANPS_WIR_FW_MASK
+                      Changed XCANPS_RXWIR_OFFSET to XCANPS_WIR_OFFSET
+                Added XCANPS_IXR_TXFEMP_MASK for Tx Fifo Empty
+                Changed XCANPS_IXR_RXFLL_MASK to
+                XCANPS_IXR_RXFWMFLL_MASK
+                        Changed
+                XCANPS_TXBUF_ID_OFFSET to XCANPS_TXHPB_ID_OFFSET
+                        XCANPS_TXBUF_DLC_OFFSET to XCANPS_TXHPB_DLC_OFFSET
+                XCANPS_TXBUF_DW1_OFFSET  to XCANPS_TXHPB_DW1_OFFSET
+                XCANPS_TXBUF_DW2_OFFSET  to XCANPS_TXHPB_DW2_OFFSET
+1.02a adk   08/08/13  Updated for including the function prototype
+3.00  kvn   02/13/15  Modified code for MISRA-C:2012 compliance.
+3.5     sne   07/01/20  Fixed MISRAC warnings.
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+3.13  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaca9eb3a2aa07e9efd31ac8c83a05b57a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gaca9eb3a2aa07e9efd31ac8c83a05b57a">XCANPS_HW_H</a></td></tr>
-<tr class="memdesc:gaca9eb3a2aa07e9efd31ac8c83a05b57a"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__canps.html#gaca9eb3a2aa07e9efd31ac8c83a05b57a">More...</a><br/></td></tr>
-<tr class="separator:gaca9eb3a2aa07e9efd31ac8c83a05b57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gafa75ffdfd5ce5f0f19a0b1c583a0b6c3">XCANPS_TXBUF_ID_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga5c6477d3dc9fa44898e0c45848784fd3">XCANPS_TXHPB_ID_OFFSET</a></td></tr>
-<tr class="memdesc:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buffer ID.  <a href="group__canps.html#gafa75ffdfd5ce5f0f19a0b1c583a0b6c3">More...</a><br/></td></tr>
-<tr class="separator:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gaa405e7a2e1ddf872d8bc02a05f0adeab">XCANPS_TXBUF_DLC_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga77cb2726abe4719e42371b4925de121c">XCANPS_TXHPB_DLC_OFFSET</a></td></tr>
-<tr class="memdesc:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buffer DLC.  <a href="group__canps.html#gaa405e7a2e1ddf872d8bc02a05f0adeab">More...</a><br/></td></tr>
-<tr class="separator:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad968b22db1079bec48ac27684f34a5e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gad968b22db1079bec48ac27684f34a5e5">XCANPS_TXBUF_DW1_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga69e8639d7e62a61f25cff6be0637bee2">XCANPS_TXHPB_DW1_OFFSET</a></td></tr>
-<tr class="memdesc:gad968b22db1079bec48ac27684f34a5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buf Data 1.  <a href="group__canps.html#gad968b22db1079bec48ac27684f34a5e5">More...</a><br/></td></tr>
-<tr class="separator:gad968b22db1079bec48ac27684f34a5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gaefcd0a123d760e519b90f7afdbab4aa6">XCANPS_TXBUF_DW2_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga44b907a14b92140955ab6a16fe0264d8">XCANPS_TXHPB_DW2_OFFSET</a></td></tr>
-<tr class="memdesc:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buf Data Word 2.  <a href="group__canps.html#gaefcd0a123d760e519b90f7afdbab4aa6">More...</a><br/></td></tr>
-<tr class="separator:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00332bb0aa9a1a67d0e64887369e759b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga00332bb0aa9a1a67d0e64887369e759b">XCANPS_RXFWIR_RXFLL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga6d56baf5cc7a7eb6c54f3f2255e2291a">XCANPS_WIR_FW_MASK</a></td></tr>
-<tr class="memdesc:ga00332bb0aa9a1a67d0e64887369e759b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Full Threshold mask.  <a href="group__canps.html#ga00332bb0aa9a1a67d0e64887369e759b">More...</a><br/></td></tr>
-<tr class="separator:ga00332bb0aa9a1a67d0e64887369e759b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga6d4277fa0965a5c80a424e5ca60ededf">XCANPS_RXWIR_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#gafc95b4cb9252a27181088ceb7ea55368">XCANPS_WIR_OFFSET</a></td></tr>
-<tr class="memdesc:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watermark Interrupt Reg.  <a href="group__canps.html#ga6d4277fa0965a5c80a424e5ca60ededf">More...</a><br/></td></tr>
-<tr class="separator:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab63780641e401273577d26019b1354c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gab63780641e401273577d26019b1354c8">XCANPS_IXR_RXFLL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#gafe154f7d522c1a8e7e26f20d1e8df897">XCANPS_IXR_RXFWMFLL_MASK</a></td></tr>
-<tr class="memdesc:gab63780641e401273577d26019b1354c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx FIFO Watermark Full.  <a href="group__canps.html#gab63780641e401273577d26019b1354c8">More...</a><br/></td></tr>
-<tr class="separator:gab63780641e401273577d26019b1354c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6bace9f8a3ecc5df69b5e9611deaa47c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga6bace9f8a3ecc5df69b5e9611deaa47c">XCanPs_ReadReg</a>(BaseAddr, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddr) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga6bace9f8a3ecc5df69b5e9611deaa47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the given register.  <a href="group__canps.html#ga6bace9f8a3ecc5df69b5e9611deaa47c">More...</a><br/></td></tr>
+<tr class="memdesc:ga6bace9f8a3ecc5df69b5e9611deaa47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given register.  <a href="group__canps.html#ga6bace9f8a3ecc5df69b5e9611deaa47c">More...</a><br/></td></tr>
 <tr class="separator:ga6bace9f8a3ecc5df69b5e9611deaa47c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga54552fe78115d81806e23a03646efb55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga54552fe78115d81806e23a03646efb55">XCanPs_WriteReg</a>(BaseAddr, RegOffset, Data)&#160;&#160;&#160;Xil_Out32((BaseAddr) + (u32)(RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:ga54552fe78115d81806e23a03646efb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes the given register.  <a href="group__canps.html#ga54552fe78115d81806e23a03646efb55">More...</a><br/></td></tr>
+<tr class="memdesc:ga54552fe78115d81806e23a03646efb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given register.  <a href="group__canps.html#ga54552fe78115d81806e23a03646efb55">More...</a><br/></td></tr>
 <tr class="separator:ga54552fe78115d81806e23a03646efb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register offsets for the CAN. Each register is 32 bits.</div></td></tr>
 <tr class="memitem:gafb27f73bff57c437925c094d2accbeca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gafb27f73bff57c437925c094d2accbeca">XCANPS_SRR_OFFSET</a>&#160;&#160;&#160;0x00000000U</td></tr>
@@ -446,7 +447,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gad609eaa96de046faa06b2450792594d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift Value for DLC.  <a href="group__canps.html#gad609eaa96de046faa06b2450792594d2">More...</a><br/></td></tr>
 <tr class="separator:gad609eaa96de046faa06b2450792594d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2000262a11f01d0b8a890445292b95f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gae2000262a11f01d0b8a890445292b95f">XCANPS_DLCR_TIMESTAMP_MASK</a>&#160;&#160;&#160;0x0000FFFFU</td></tr>
-<tr class="memdesc:gae2000262a11f01d0b8a890445292b95f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp Mask (Rx only)  <a href="group__canps.html#gae2000262a11f01d0b8a890445292b95f">More...</a><br/></td></tr>
+<tr class="memdesc:gae2000262a11f01d0b8a890445292b95f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp Mask (Rx only).  <a href="group__canps.html#gae2000262a11f01d0b8a890445292b95f">More...</a><br/></td></tr>
 <tr class="separator:gae2000262a11f01d0b8a890445292b95f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">CAN Frame Data Word 1 (TX High Priority Buffer/TX/RX)</div></td></tr>
 <tr class="memitem:gabfe44e5fafc88252567d9313d7b4ce94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gabfe44e5fafc88252567d9313d7b4ce94">XCANPS_DW1R_DB0_MASK</a>&#160;&#160;&#160;0xFF000000U</td></tr>
@@ -481,7 +482,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaf30904663d3fb9139dddd22035abe323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Byte 5.  <a href="group__canps.html#gaf30904663d3fb9139dddd22035abe323">More...</a><br/></td></tr>
 <tr class="separator:gaf30904663d3fb9139dddd22035abe323"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga39b1a54a7891d3c2c39fdb026c58abf3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga39b1a54a7891d3c2c39fdb026c58abf3">XCANPS_DW2R_DB5_SHIFT</a>&#160;&#160;&#160;16U</td></tr>
-<tr class="memdesc:ga39b1a54a7891d3c2c39fdb026c58abf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift Value for Data Bbyet 5.  <a href="group__canps.html#ga39b1a54a7891d3c2c39fdb026c58abf3">More...</a><br/></td></tr>
+<tr class="memdesc:ga39b1a54a7891d3c2c39fdb026c58abf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift Value for Data Byte 5.  <a href="group__canps.html#ga39b1a54a7891d3c2c39fdb026c58abf3">More...</a><br/></td></tr>
 <tr class="separator:ga39b1a54a7891d3c2c39fdb026c58abf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga25a82b59a9f09988b49bca491c3a5577"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga25a82b59a9f09988b49bca491c3a5577">XCANPS_DW2R_DB6_MASK</a>&#160;&#160;&#160;0x0000FF00U</td></tr>
 <tr class="memdesc:ga25a82b59a9f09988b49bca491c3a5577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Byte 6.  <a href="group__canps.html#ga25a82b59a9f09988b49bca491c3a5577">More...</a><br/></td></tr>
@@ -506,17 +507,39 @@ Macros</h2></td></tr>
 <tr class="memdesc:gabde095aa619a3485599cf97c2bca57b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use Acceptance Filter No.1.  <a href="group__canps.html#gabde095aa619a3485599cf97c2bca57b5">More...</a><br/></td></tr>
 <tr class="separator:gabde095aa619a3485599cf97c2bca57b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadf814ffa617dee9d66af1c579fa06b64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gadf814ffa617dee9d66af1c579fa06b64">XCANPS_AFR_UAF_ALL_MASK</a></td></tr>
-<tr class="memdesc:gadf814ffa617dee9d66af1c579fa06b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Acceptance Filers.  <a href="group__canps.html#gadf814ffa617dee9d66af1c579fa06b64">More...</a><br/></td></tr>
+<tr class="memdesc:gadf814ffa617dee9d66af1c579fa06b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Acceptance Filters.  <a href="group__canps.html#gadf814ffa617dee9d66af1c579fa06b64">More...</a><br/></td></tr>
 <tr class="separator:gadf814ffa617dee9d66af1c579fa06b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">CAN frame length constants</div></td></tr>
 <tr class="memitem:ga87adc8cfc88e067c42ee749b5e59177a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga87adc8cfc88e067c42ee749b5e59177a">XCANPS_MAX_FRAME_SIZE</a>&#160;&#160;&#160;sizeof(u32)*16U</td></tr>
 <tr class="memdesc:ga87adc8cfc88e067c42ee749b5e59177a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum CAN frame length in bytes.  <a href="group__canps.html#ga87adc8cfc88e067c42ee749b5e59177a">More...</a><br/></td></tr>
 <tr class="separator:ga87adc8cfc88e067c42ee749b5e59177a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">For backwards compatibility</div></td></tr>
+<tr class="memitem:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gafa75ffdfd5ce5f0f19a0b1c583a0b6c3">XCANPS_TXBUF_ID_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga5c6477d3dc9fa44898e0c45848784fd3">XCANPS_TXHPB_ID_OFFSET</a></td></tr>
+<tr class="memdesc:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buffer ID.  <a href="group__canps.html#gafa75ffdfd5ce5f0f19a0b1c583a0b6c3">More...</a><br/></td></tr>
+<tr class="separator:gafa75ffdfd5ce5f0f19a0b1c583a0b6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gaa405e7a2e1ddf872d8bc02a05f0adeab">XCANPS_TXBUF_DLC_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga77cb2726abe4719e42371b4925de121c">XCANPS_TXHPB_DLC_OFFSET</a></td></tr>
+<tr class="memdesc:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buffer DLC.  <a href="group__canps.html#gaa405e7a2e1ddf872d8bc02a05f0adeab">More...</a><br/></td></tr>
+<tr class="separator:gaa405e7a2e1ddf872d8bc02a05f0adeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad968b22db1079bec48ac27684f34a5e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gad968b22db1079bec48ac27684f34a5e5">XCANPS_TXBUF_DW1_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga69e8639d7e62a61f25cff6be0637bee2">XCANPS_TXHPB_DW1_OFFSET</a></td></tr>
+<tr class="memdesc:gad968b22db1079bec48ac27684f34a5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buf Data 1.  <a href="group__canps.html#gad968b22db1079bec48ac27684f34a5e5">More...</a><br/></td></tr>
+<tr class="separator:gad968b22db1079bec48ac27684f34a5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gaefcd0a123d760e519b90f7afdbab4aa6">XCANPS_TXBUF_DW2_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga44b907a14b92140955ab6a16fe0264d8">XCANPS_TXHPB_DW2_OFFSET</a></td></tr>
+<tr class="memdesc:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX High Priority Buf Data Word 2.  <a href="group__canps.html#gaefcd0a123d760e519b90f7afdbab4aa6">More...</a><br/></td></tr>
+<tr class="separator:gaefcd0a123d760e519b90f7afdbab4aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga00332bb0aa9a1a67d0e64887369e759b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga00332bb0aa9a1a67d0e64887369e759b">XCANPS_RXFWIR_RXFLL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#ga6d56baf5cc7a7eb6c54f3f2255e2291a">XCANPS_WIR_FW_MASK</a></td></tr>
+<tr class="memdesc:ga00332bb0aa9a1a67d0e64887369e759b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Full Threshold mask.  <a href="group__canps.html#ga00332bb0aa9a1a67d0e64887369e759b">More...</a><br/></td></tr>
+<tr class="separator:ga00332bb0aa9a1a67d0e64887369e759b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga6d4277fa0965a5c80a424e5ca60ededf">XCANPS_RXWIR_OFFSET</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#gafc95b4cb9252a27181088ceb7ea55368">XCANPS_WIR_OFFSET</a></td></tr>
+<tr class="memdesc:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watermark Interrupt Reg.  <a href="group__canps.html#ga6d4277fa0965a5c80a424e5ca60ededf">More...</a><br/></td></tr>
+<tr class="separator:ga6d4277fa0965a5c80a424e5ca60ededf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab63780641e401273577d26019b1354c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#gab63780641e401273577d26019b1354c8">XCANPS_IXR_RXFLL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__canps.html#gafe154f7d522c1a8e7e26f20d1e8df897">XCANPS_IXR_RXFWMFLL_MASK</a></td></tr>
+<tr class="memdesc:gab63780641e401273577d26019b1354c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx FIFO Watermark Full.  <a href="group__canps.html#gab63780641e401273577d26019b1354c8">More...</a><br/></td></tr>
+<tr class="separator:gab63780641e401273577d26019b1354c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga15c5dee7163ddf071ad33c3d0f884469"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga15c5dee7163ddf071ad33c3d0f884469">XCanPs_ResetHw</a> (UINTPTR BaseAddr)</td></tr>
-<tr class="memdesc:ga15c5dee7163ddf071ad33c3d0f884469"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets the CAN device.  <a href="group__canps.html#ga15c5dee7163ddf071ad33c3d0f884469">More...</a><br/></td></tr>
+<tr class="memdesc:ga15c5dee7163ddf071ad33c3d0f884469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the CAN device.  <a href="group__canps.html#ga15c5dee7163ddf071ad33c3d0f884469">More...</a><br/></td></tr>
 <tr class="separator:ga15c5dee7163ddf071ad33c3d0f884469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

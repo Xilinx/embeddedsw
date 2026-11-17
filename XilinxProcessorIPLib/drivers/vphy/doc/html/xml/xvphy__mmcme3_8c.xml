@@ -13,17 +13,16 @@
       <node id="283">
         <label>xil_io.h</label>
       </node>
-      <node id="277">
-        <label>xvphy_mmcme3.c</label>
-        <link refid="xvphy_mmcme3.c"/>
-        <childnode refid="278" relation="include">
+      <node id="282">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="283" relation="include">
         </childnode>
-        <childnode refid="279" relation="include">
+        <childnode refid="284" relation="include">
         </childnode>
-        <childnode refid="280" relation="include">
-        </childnode>
-        <childnode refid="287" relation="include">
-        </childnode>
+      </node>
+      <node id="286">
+        <label>xvphy_dp.h</label>
       </node>
       <node id="280">
         <label>xvphy.h</label>
@@ -38,29 +37,6 @@
         <childnode refid="286" relation="include">
         </childnode>
       </node>
-      <node id="282">
-        <label>xvphy_hw.h</label>
-        <link refid="xvphy__hw_8h"/>
-        <childnode refid="283" relation="include">
-        </childnode>
-        <childnode refid="284" relation="include">
-        </childnode>
-      </node>
-      <node id="286">
-        <label>xvphy_dp.h</label>
-      </node>
-      <node id="279">
-        <label>xstatus.h</label>
-      </node>
-      <node id="285">
-        <label>xvidc.h</label>
-      </node>
-      <node id="284">
-        <label>xil_types.h</label>
-      </node>
-      <node id="278">
-        <label>xparameters.h</label>
-      </node>
       <node id="287">
         <label>xvphy_i.h</label>
         <link refid="xvphy__i_8h"/>
@@ -74,6 +50,30 @@
         </childnode>
         <childnode refid="286" relation="include">
         </childnode>
+      </node>
+      <node id="279">
+        <label>xstatus.h</label>
+      </node>
+      <node id="285">
+        <label>xvidc.h</label>
+      </node>
+      <node id="284">
+        <label>xil_types.h</label>
+      </node>
+      <node id="277">
+        <label>xvphy_mmcme3.c</label>
+        <link refid="xvphy_mmcme3.c"/>
+        <childnode refid="278" relation="include">
+        </childnode>
+        <childnode refid="279" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+      </node>
+      <node id="278">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -439,6 +439,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="448"><highlight class="normal"></highlight></codeline>
 <codeline lineno="449"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme3.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme3.c"/>
   </compounddef>
 </doxygen>

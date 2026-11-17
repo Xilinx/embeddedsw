@@ -5,99 +5,107 @@
     <includes local="yes">xparameters.h</includes>
     <includes refid="xwdttb_8h" local="yes">xwdttb.h</includes>
     <incdepgraph>
-      <node id="153">
+      <node id="208">
         <label>xil_assert.h</label>
       </node>
-      <node id="154">
-        <label>xstatus.h</label>
-      </node>
-      <node id="152">
-        <label>xil_types.h</label>
-      </node>
-      <node id="155">
-        <label>xwdttb_l.h</label>
-        <link refid="xwdttb__l_8h"/>
-      </node>
-      <node id="150">
-        <label>xparameters.h</label>
-      </node>
-      <node id="149">
-        <label>xwdttb_winwdt_example.c</label>
-        <link refid="xwdttb_winwdt_example.c"/>
-        <childnode refid="150" relation="include">
-        </childnode>
-        <childnode refid="151" relation="include">
-        </childnode>
-      </node>
-      <node id="151">
+      <node id="206">
         <label>xwdttb.h</label>
         <link refid="xwdttb_8h"/>
-        <childnode refid="152" relation="include">
+        <childnode refid="207" relation="include">
         </childnode>
-        <childnode refid="153" relation="include">
+        <childnode refid="208" relation="include">
         </childnode>
-        <childnode refid="154" relation="include">
+        <childnode refid="209" relation="include">
         </childnode>
-        <childnode refid="155" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
       </node>
+      <node id="212">
+        <label>xil_io.h</label>
+      </node>
+      <node id="211">
+        <label>xwdttb_hw.h</label>
+        <link refid="xwdttb__hw_8h"/>
+        <childnode refid="212" relation="include">
+        </childnode>
+      </node>
+      <node id="204">
+        <label>xwdttb_winwdt_example.c</label>
+        <link refid="xwdttb_winwdt_example.c"/>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+      </node>
+      <node id="210">
+        <label>xwdttb_l.h</label>
+        <link refid="xwdttb__l_8h"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+      </node>
+      <node id="209">
+        <label>xstatus.h</label>
+      </node>
+      <node id="207">
+        <label>xil_types.h</label>
+      </node>
+      <node id="205">
+        <label>xparameters.h</label>
+      </node>
     </incdepgraph>
-      <sectiondef kind="define">
+      <sectiondef kind="user-defined">
+      <header>Window WDT feature enables</header>
+      <description><para>These constants are user modifiable to enable or disable Secondary Sequence Timer (SST), Program Sequence Monitor (PSM), Fail Counter (FC) and Window WDT protection.</para><para>They are all enabled by default. </para></description>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a8da1a97c761e2252677b421916522b14" prot="public" static="no">
         <name>WDTTB_EN_SST</name>
         <initializer>0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Enables Second Sequence Timer. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a74953e24323328fb9e670af5781fcb1d" prot="public" static="no">
         <name>WDTTB_EN_PSM</name>
         <initializer>0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Enables Program Sequence Monitor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a1a6a133dfc5cf1913bb4a219b23c61b1" prot="public" static="no">
         <name>WDTTB_EN_FC</name>
         <initializer>0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Enables Fail Counter. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1abf95c544ede691d0160c3841f4b23186" prot="public" static="no">
         <name>WDTTB_EN_WDP</name>
         <initializer>0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Enables Window WDT protection. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="63" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" prot="public" static="no">
-        <name>WDTTB_TSR_VAL</name>
-        <initializer>&apos;W&apos;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="69" bodyend="-1"/>
-      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Window WDT configuration values</header>
+      <description><para>These constants are user modifiable and provide values to configure Window Watchdog Timer.</para><para><orderedlist>
+<listitem><para>First Window Count</para></listitem><listitem><para>Second Window Count</para></listitem><listitem><para>Selected Byte Count</para></listitem><listitem><para>Byte Segment Selection </para></listitem></orderedlist>
+</para></description>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a2f5793923e00b88a8fb0acb82f94a9af" prot="public" static="no">
         <name>WDTTB_FW_COUNT</name>
         <initializer>31</initializer>
@@ -107,7 +115,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="82" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a8090b9e054a00a126b6baa1cd2118305" prot="public" static="no">
         <name>WDTTB_SW_COUNT</name>
@@ -118,7 +127,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="84" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a1aee861e5a8130a2590fbabd10cccbeb" prot="public" static="no">
         <name>WDTTB_BYTE_COUNT</name>
@@ -129,7 +139,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="85" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1a0f042882baa1ded6c87fd10cfab456db" prot="public" static="no">
         <name>WDTTB_BYTE_SEGMENT</name>
@@ -140,7 +151,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
       </memberdef>
       <memberdef kind="define" id="xwdttb__winwdt__example_8c_1ae8b4b1a275d1d9e87eb2f9aadb1b61dd" prot="public" static="no">
         <name>WDTTB_SST_COUNT</name>
@@ -151,7 +163,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" prot="public" static="no">
+        <name>WDTTB_TSR_VAL</name>
+        <initializer>&apos;W&apos;</initializer>
+        <briefdescription>
+<para>This constant is used as Task Status Register (TSR) value for additional check when PSM is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -161,12 +188,12 @@
         <argsstring></argsstring>
         <name>WindowWatchdogTimebase</name>
         <briefdescription>
-        </briefdescription>
+<para>The instance of the Watchdog Time Base. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="106" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -184,31 +211,70 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function tests the functioning of the TimeBase WatchDog Timer module with window feature in the polled mode. </para>        </briefdescription>
+<para>Tests the TimeBase WatchDog Timer with window feature in polled mode. </para>        </briefdescription>
         <detaileddescription>
 <para>In window, this function polls interrupt programmed point in second window, checks the interrupt bit is set. If the bit is set clears the bit and restart the watchdog timer. If bit is not cleared before overflowing the second window, the watchdog timer resets.</para><para>This function may require some time (seconds or even minutes) to execute because it waits for the watchdog timer to expire.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>WdtTbInstancePtr</parametername>
+<parametername direction="in">WdtTbInstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to the instance of <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver. </para></parameterdescription>
+<para>Pointer to the instance of <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>contains the base address of the device</para></parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS, in window, there is no bad event.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
 </para></simplesect>
-<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the example uses DeviceId to look up the device configuration. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="179" bodyend="391"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="176" bodyend="388"/>
+        <references refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" compoundref="xwdttb_8h" startline="154">XWdtTb_Config::BaseAddr</references>
+        <references refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" compoundref="xwdttb_8h" startline="178">XWdtTb::Config</references>
+        <references refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" compoundref="xwdttb_8h" startline="152">XWdtTb_Config::Name</references>
+        <references refid="xwdttb__winwdt__example_8c_1a1aee861e5a8130a2590fbabd10cccbeb" compoundref="xwdttb__winwdt__example_8c" startline="85">WDTTB_BYTE_COUNT</references>
+        <references refid="xwdttb__winwdt__example_8c_1a0f042882baa1ded6c87fd10cfab456db" compoundref="xwdttb__winwdt__example_8c" startline="86">WDTTB_BYTE_SEGMENT</references>
+        <references refid="xwdttb__winwdt__example_8c_1a2f5793923e00b88a8fb0acb82f94a9af" compoundref="xwdttb__winwdt__example_8c" startline="82">WDTTB_FW_COUNT</references>
+        <references refid="xwdttb__winwdt__example_8c_1ae8b4b1a275d1d9e87eb2f9aadb1b61dd" compoundref="xwdttb__winwdt__example_8c" startline="88">WDTTB_SST_COUNT</references>
+        <references refid="xwdttb__winwdt__example_8c_1a8090b9e054a00a126b6baa1cd2118305" compoundref="xwdttb__winwdt__example_8c" startline="84">WDTTB_SW_COUNT</references>
+        <references refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" compoundref="xwdttb__winwdt__example_8c" startline="70">WDTTB_TSR_VAL</references>
+        <references refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="204" endline="257">XWdtTb_CfgInitialize</references>
+        <references refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="658" endline="673">XWdtTb_ClearResetPending</references>
+        <references refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1074" endline="1089">XWdtTb_DisableExtraProtection</references>
+        <references refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1016" endline="1033">XWdtTb_DisableFailCounter</references>
+        <references refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="954" endline="969">XWdtTb_DisablePsm</references>
+        <references refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="891" endline="906">XWdtTb_DisableSst</references>
+        <references refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1046" endline="1061">XWdtTb_EnableExtraProtection</references>
+        <references refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="987" endline="1004">XWdtTb_EnableFailCounter</references>
+        <references refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="926" endline="941">XWdtTb_EnablePsm</references>
+        <references refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="863" endline="878">XWdtTb_EnableSst</references>
+        <references refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="683" endline="716">XWdtTb_IntrClear</references>
+        <references refid="group__wdttb__api_1gad27ab5404921a0500231b02220f0dee4" compoundref="xwdttb__sinit_8c" startline="103" endline="117">XWdtTb_LookupConfig</references>
+        <references refid="group__wdttb__api_1gga6ce266ea00535f8b8c9594d2e1f0e630a46d6c3798d61cc4e49a0d5a117c2c44c" compoundref="xwdttb_8h" startline="138">XWDTTB_NO_BAD_EVENT</references>
+        <references refid="group__wdttb__api_1gafa6b4b0d4c816cd9bd6da3c9fe7caac3" compoundref="xwdttb__hw_8h" startline="282">XWdtTb_ReadReg</references>
+        <references refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="532" endline="583">XWdtTb_RestartWdt</references>
+        <references refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="107" endline="231">XWdtTb_SelfTest</references>
+        <references refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="736" endline="755">XWdtTb_SetByteCount</references>
+        <references refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="800" endline="820">XWdtTb_SetByteSegment</references>
+        <references refid="group__wdttb__api_1ga924185ce28862e06ea62fa4f51bfed8d" compoundref="xwdttb_8c" startline="1112" endline="1126">XWdtTb_SetWindowCount</references>
+        <references refid="group__wdttb__api_1gaab195e280eca1e2985509d954c2e4e52" compoundref="xwdttb_8c" startline="342" endline="366">XWdtTb_Start</references>
+        <references refid="group__wdttb__api_1gacd5617bce061deaa57743ea46008daf8" compoundref="xwdttb_8c" startline="393" endline="419">XWdtTb_Stop</references>
+        <references refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" compoundref="xwdttb__hw_8h" startline="300">XWdtTb_WriteReg</references>
+        <references refid="group__wdttb__api_1ga8bbfe46af730f1e35b02a1808ff03801" compoundref="xwdttb__hw_8h" startline="109">XWT_STR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga382bb24e468cb44f1e41e637b55bf2ac" compoundref="xwdttb__hw_8h" startline="103">XWT_STR_WWDT_OFFSET</references>
+        <references refid="group__wdttb__api_1ga5eda163c25dfcd74c15bf08ed8c1328e" compoundref="xwdttb__hw_8h" startline="105">XWT_TSR0_OFFSET</references>
+        <references refid="group__wdttb__api_1ga2bb97a5e8848b30592b0d0136c0eba15" compoundref="xwdttb__hw_8h" startline="99">XWT_TSR0_WWDT_OFFSET</references>
+        <references refid="group__wdttb__api_1ga1e231a73df7e205e266fb1198e222814" compoundref="xwdttb__hw_8h" startline="107">XWT_TSR1_OFFSET</references>
+        <references refid="group__wdttb__api_1ga86f549a5c1a92ee963e1516d6e271f92" compoundref="xwdttb__hw_8h" startline="101">XWT_TSR1_WWDT_OFFSET</references>
+        <references refid="group__wdttb__api_1ga812114b38de6dd94691113164c16bf26" compoundref="xwdttb__hw_8h" startline="250">XWT_WWDT</references>
+        <referencedby refid="xwdttb__winwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwdttb__winwdt__example_8c" startline="121" endline="142">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="xwdttb__winwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -219,23 +285,22 @@
           <type>void</type>
         </param>
         <briefdescription>
-<para>Main function to call the example.This function is not included if the example is generated from the TestAppGen test tool. </para>        </briefdescription>
+<para>Calls the Window WDT example from the main function. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
+<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if unsuccessful. </para></listitem></itemizedlist>
 </para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="123" bodyend="144"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c" bodystart="121" bodyend="142"/>
+        <references refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" compoundref="xwdttb__winwdt__example_8c" startline="176" endline="388">WinWdtTbExample</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This file contains a design example using the Watchdog Timer Timebase (<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref>) driver with window feature. </para>    </briefdescription>
+<para>Demonstrates the <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver with window feature in polled mode. </para>    </briefdescription>
     <detaileddescription>
-<para>The WDTTB core will be generated either in legacy or window feature.</para><para><simplesect kind="note"><para></para></simplesect>
-None</para><para>MODIFICATION HISTORY:</para><para><preformatted>
+<para>This file contains a design example using the Watchdog Timer Timebase (<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref>) driver with window feature. The WDTTB core is generated either in legacy or window feature.</para><para>MODIFICATION HISTORY:</para><para><preformatted>
 Ver   Who  Date     Changes
 <hruler/>
 
@@ -249,7 +314,8 @@ Ver   Who  Date     Changes
 5.9     ht   07/22/24 Add support for peripheral tests in SDT flow.
 5.10  ht   10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 5.11  bkv  07/08/25 Fixed GCC Warning.
-5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
@@ -258,104 +324,87 @@ Ver   Who  Date     Changes
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xwdttb_8h" kindref="compound">xwdttb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xwdttb_8h" kindref="compound">xwdttb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
-<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
-<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
-<codeline lineno="50"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_DEVICE_ID</highlight></codeline>
-<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>These<sp/>constants<sp/>are<sp/>user<sp/>modifiable<sp/>to<sp/>enable<sp/>or<sp/>disable<sp/>Secondary<sp/>Sequence</highlight></codeline>
-<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>Timer<sp/>(SST),<sp/>Program<sp/>Sequence<sp/>Monitor<sp/>(PSM),<sp/>Fail<sp/>Counter<sp/>(FC)<sp/>and<sp/>Window</highlight></codeline>
-<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>WDT<sp/>protection.<sp/>They<sp/>are<sp/>all<sp/>enabled<sp/>by<sp/>default.</highlight></codeline>
-<codeline lineno="59"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_EN_SST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_EN_PSM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_EN_FC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_EN_WDP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="66"><highlight class="comment"><sp/>*<sp/>This<sp/>constant<sp/>is<sp/>used<sp/>as<sp/>Task<sp/>Status<sp/>Register<sp/>(TSR)<sp/>value<sp/>for<sp/>additional</highlight></codeline>
-<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>check<sp/>when<sp/>PSM<sp/>is<sp/>enabled.</highlight></codeline>
-<codeline lineno="68"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_TSR_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;W&apos;</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>These<sp/>constants<sp/>are<sp/>user<sp/>modifiable<sp/>and<sp/>provide<sp/>values<sp/>to<sp/>configure<sp/>Window</highlight></codeline>
-<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Watchdog<sp/>Timer.</highlight></codeline>
-<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>1.<sp/>First<sp/>Window<sp/>Count</highlight></codeline>
-<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>2.<sp/>Second<sp/>Window<sp/>Count</highlight></codeline>
-<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>3.<sp/>Selected<sp/>Byte<sp/>Count</highlight></codeline>
-<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>4.<sp/>Byte<sp/>Segment<sp/>Selection</highlight></codeline>
-<codeline lineno="78"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79" refid="xwdttb__winwdt__example_8c_1a2f5793923e00b88a8fb0acb82f94a9af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_FW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="81"><highlight class="preprocessor">#define<sp/>WDTTB_SW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01110000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="83"><highlight class="preprocessor">#define<sp/>WDTTB_BYTE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>154<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="84"><highlight class="preprocessor">#define<sp/>WDTTB_BYTE_SEGMENT<sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="85" refid="xwdttb__winwdt__example_8c_1a1aee861e5a8130a2590fbabd10cccbeb" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_SST_COUNT<sp/><sp/><sp/><sp/><sp/>0x00011000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="87" refid="xwdttb__winwdt__example_8c_1ae8b4b1a275d1d9e87eb2f9aadb1b61dd" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>WDTTB_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xwdttb__winwdt__example_8c_1a8da1a97c761e2252677b421916522b14" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_EN_SST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="61" refid="xwdttb__winwdt__example_8c_1a74953e24323328fb9e670af5781fcb1d" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_EN_PSM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="62" refid="xwdttb__winwdt__example_8c_1a1a6a133dfc5cf1913bb4a219b23c61b1" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_EN_FC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="63" refid="xwdttb__winwdt__example_8c_1abf95c544ede691d0160c3841f4b23186" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_EN_WDP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="70" refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_TSR_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;W&apos;</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="xwdttb__winwdt__example_8c_1a2f5793923e00b88a8fb0acb82f94a9af" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_FW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="xwdttb__winwdt__example_8c_1a8090b9e054a00a126b6baa1cd2118305" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_SW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01110000</highlight></codeline>
+<codeline lineno="85" refid="xwdttb__winwdt__example_8c_1a1aee861e5a8130a2590fbabd10cccbeb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDTTB_BYTE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>154<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="xwdttb__winwdt__example_8c_1a0f042882baa1ded6c87fd10cfab456db" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_BYTE_SEGMENT<sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="xwdttb__winwdt__example_8c_1ae8b4b1a275d1d9e87eb2f9aadb1b61dd" refkind="member"><highlight class="preprocessor">#define<sp/>WDTTB_SST_COUNT<sp/><sp/><sp/><sp/><sp/>0x00011000</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>*WdtTbInstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>instance<sp/>of<sp/>the<sp/>Watchdog<sp/>Time<sp/>Base<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>WindowWatchdogTimebase;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>*WdtTbInstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="119"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="121"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="123" refid="xwdttb__winwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>example,<sp/>specify<sp/>the<sp/>device<sp/>ID<sp/>that<sp/>is<sp/>generated</highlight></codeline>
-<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>xparameters.h</highlight></codeline>
-<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(WDTTB_DEVICE_ID);</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(&amp;WindowWatchdogTimebase,<sp/>XPAR_XWDTTB_0_BASEADDR);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Window<sp/>WDT<sp/>example<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Window<sp/>WDT<sp/>example.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="xwdttb__winwdt__example_8c_1a4555711ea4c3a491ac027e2cfb682ee5" refkind="member"><highlight class="normal"><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/><ref refid="xwdttb__winwdt__example_8c_1a4555711ea4c3a491ac027e2cfb682ee5" kindref="member">WindowWatchdogTimebase</ref>;<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="121" refid="xwdttb__winwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>example,<sp/>specify<sp/>the<sp/>device<sp/>ID<sp/>that<sp/>is<sp/>generated</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(WDTTB_DEVICE_ID);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(&amp;WindowWatchdogTimebase,<sp/>XPAR_XWDTTB_0_BASEADDR);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Window<sp/>WDT<sp/>example<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Window<sp/>WDT<sp/>example.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="173"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
 <codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>*WdtTbInstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="176" refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kindref="member">WinWdtTbExample</ref>(<ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>*WdtTbInstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="179" refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Count<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_wdt_tb___config" kindref="compound">XWdtTb_Config</ref><sp/>*Config;</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"></highlight></codeline>
@@ -391,7 +440,7 @@ Ver   Who  Date     Changes
 <codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(strcmp(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,versal-wwdt-1.0&quot;</highlight><highlight class="normal">)))<sp/>{</highlight></codeline>
 <codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Enable<sp/>Window<sp/>Watchdog<sp/>Feature<sp/>in<sp/>WWDT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XWdtTb_ConfigureWDTMode(&amp;WindowWatchdogTimebase,<sp/><ref refid="xwdttb__hw_8h_1a812114b38de6dd94691113164c16bf26" kindref="member">XWT_WWDT</ref>);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XWdtTb_ConfigureWDTMode(&amp;WindowWatchdogTimebase,<sp/><ref refid="group__wdttb__api_1ga812114b38de6dd94691113164c16bf26" kindref="member">XWT_WWDT</ref>);</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"></highlight></codeline>
 <codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
@@ -447,11 +496,11 @@ Ver   Who  Date     Changes
 <codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(strcmp(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,versal-wwdt-1.0&quot;</highlight><highlight class="normal">)))<sp/>{</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga5eda163c25dfcd74c15bf08ed8c1328e" kindref="member">XWT_TSR0_OFFSET</ref>,</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WDTTB_TSR_VAL);</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga5eda163c25dfcd74c15bf08ed8c1328e" kindref="member">XWT_TSR0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kindref="member">WDTTB_TSR_VAL</ref>);</highlight></codeline>
 <codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga2bb97a5e8848b30592b0d0136c0eba15" kindref="member">XWT_TSR0_WWDT_OFFSET</ref>,</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WDTTB_TSR_VAL);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga2bb97a5e8848b30592b0d0136c0eba15" kindref="member">XWT_TSR0_WWDT_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kindref="member">WDTTB_TSR_VAL</ref>);</highlight></codeline>
 <codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>Program<sp/>Sequence<sp/>Monitor<sp/>(PSM)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -495,11 +544,11 @@ Ver   Who  Date     Changes
 <codeline lineno="316"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(strcmp(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,versal-wwdt-1.0&quot;</highlight><highlight class="normal">)))<sp/>{</highlight></codeline>
 <codeline lineno="318"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga1e231a73df7e205e266fb1198e222814" kindref="member">XWT_TSR1_OFFSET</ref>,<sp/>WDTTB_TSR_VAL);</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga1e231a73df7e205e266fb1198e222814" kindref="member">XWT_TSR1_OFFSET</ref>,<sp/><ref refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kindref="member">WDTTB_TSR_VAL</ref>);</highlight></codeline>
 <codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga86f549a5c1a92ee963e1516d6e271f92" kindref="member">XWT_TSR1_WWDT_OFFSET</ref>,<sp/>WDTTB_TSR_VAL);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga86f549a5c1a92ee963e1516d6e271f92" kindref="member">XWT_TSR1_WWDT_OFFSET</ref>,<sp/><ref refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kindref="member">WDTTB_TSR_VAL</ref>);</highlight></codeline>
 <codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>register<sp/>space<sp/>to<sp/>read-only<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XWdtTb_SetRegSpaceAccessMode(&amp;WindowWatchdogTimebase,<sp/>0);</highlight></codeline>
@@ -555,17 +604,17 @@ Ver   Who  Date     Changes
 <codeline lineno="376"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(strcmp(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,versal-wwdt-1.0&quot;</highlight><highlight class="normal">)))<sp/>{</highlight></codeline>
 <codeline lineno="377"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="378"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n\rSST<sp/>counter<sp/>value<sp/>is<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gafa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga8bbfe46af730f1e35b02a1808ff03801" kindref="member">XWT_STR_OFFSET</ref>));</highlight></codeline>
 <codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n\rSST<sp/>counter<sp/>value<sp/>is<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gafa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(WindowWatchdogTimebase.<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga382bb24e468cb44f1e41e637b55bf2ac" kindref="member">XWT_STR_WWDT_OFFSET</ref>));</highlight></codeline>
 <codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="386"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="387"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="388"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_example.c"/>
   </compounddef>
 </doxygen>

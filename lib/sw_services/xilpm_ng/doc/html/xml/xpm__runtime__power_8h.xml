@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__power_8h" kind="file">
+    <compoundname>xpm_runtime_power.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__core_8c" local="yes">xpm_runtime_core.c</includedby>
+    <includedby refid="xpm__runtime__power_8c" local="yes">xpm_runtime_power.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <incdepgraph>
+      <node id="4990">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4991" relation="include">
+        </childnode>
+      </node>
+      <node id="4986">
+        <label>xpm_runtime_power.h</label>
+        <link refid="xpm_runtime_power.h"/>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4988" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+      </node>
+      <node id="4995">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4997">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4988" relation="include">
+        </childnode>
+      </node>
+      <node id="4991">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4996">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4994">
+        <label>xpm_common.h</label>
+        <childnode refid="4988" relation="include">
+        </childnode>
+        <childnode refid="4995" relation="include">
+        </childnode>
+        <childnode refid="4996" relation="include">
+        </childnode>
+        <childnode refid="4997" relation="include">
+        </childnode>
+        <childnode refid="4998" relation="include">
+        </childnode>
+        <childnode refid="4990" relation="include">
+        </childnode>
+      </node>
+      <node id="4998">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4992">
+        <label>xpm_node.h</label>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4988" relation="include">
+        </childnode>
+        <childnode refid="4993" relation="include">
+        </childnode>
+        <childnode refid="4994" relation="include">
+        </childnode>
+      </node>
+      <node id="4989">
+        <label>xpm_power.h</label>
+        <childnode refid="4990" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+      </node>
+      <node id="4988">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4987">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4993">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5003">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="5002">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="4999">
+        <label>xpm_runtime_power.h</label>
+        <link refid="xpm_runtime_power.h"/>
+        <childnode refid="5000" relation="include">
+        </childnode>
+        <childnode refid="5001" relation="include">
+        </childnode>
+        <childnode refid="5002" relation="include">
+        </childnode>
+        <childnode refid="5003" relation="include">
+        </childnode>
+      </node>
+      <node id="5000">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="5001">
+        <label>xpm_runtime_core.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__power_8h_1a9fbe1b34a3129455c228e725cd06c440" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_Power *</type>
+        <definition>XPm_Power* XPmPower_HoldFpd</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmPower_HoldFpd</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Hold FPD on across a subsystem level request. </para>        </briefdescription>
+        <detaileddescription>
+<para>Takes one reference on FPD so that releasing devices during a subsystem restart, forced power down or subsystem shutdown cannot switch it off. The reference goes through the power state machine, so that taking an unused FPD to used also requests its power parent, as for any other user. When FPD is not on, nothing is held: it has no users that the scope could release, and a power up inside the scope is counted by the power state machine itself.</para><para><simplesect kind="return"><para>FPD if a reference was taken, NULL otherwise. Pass the result to XPmPower_ReleaseFpd() at the end of the scope. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.c" bodystart="148" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__power_8h_1aeba92f59b7148d647344f139bd2ebc9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmPower_ReleaseFpd</definition>
+        <argsstring>(XPm_Power *Fpd)</argsstring>
+        <name>XPmPower_ReleaseFpd</name>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Fpd</declname>
+        </param>
+        <briefdescription>
+<para>Drop the FPD reference taken by XPmPower_HoldFpd() </para>        </briefdescription>
+        <detaileddescription>
+<para>FPD is never powered off here. If this is its last reference while it is on, FPD is left on and unused, and its power parent is released as the power state machine does when a domain goes from used to unused, so that the next request of FPD requests the parent again and the parent use count stays balanced.</para><para>Assumption of use: FPD is not the only user of its power parent. Otherwise releasing the last hold makes the parent&apos;s state machine power the parent down while FPD stays on. LPD always has other users, such as the ASU and RPU IPIs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Fpd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Result of XPmPower_HoldFpd(); NULL if no reference was taken </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.c" bodystart="189" bodyend="222"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_POWER_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_POWER_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">XPm_Power<sp/>*XPmPower_HoldFpd(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmPower_ReleaseFpd(XPm_Power<sp/>*Fpd);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_POWER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.h"/>
+  </compounddef>
+</doxygen>

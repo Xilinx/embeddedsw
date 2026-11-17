@@ -106,18 +106,59 @@ $(document).ready(function(){initNavTree('xqspipsu__options_8c.html','');});
 <div class="title">xqspipsu_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu__control_8h.html">xqspipsu_control.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the option, clock, and flash configuration functions. </p>
+<p>The <a class="el" href="xqspipsu__options_8c.html" title="Implements the option, clock, and flash configuration functions. ">xqspipsu_options.c</a> file implements functions to configure the QSPIPSU component, specifically some optional settings, clock and flash related information.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   hk  08/21/14 First release
+      sk  03/13/15 Added IO mode support.
+      sk  04/24/15 Modified the code according to MISRAC-2012.
+1.1   sk  04/12/16 Added debug message prints.
+1.2     nsk 07/01/16 Modified <a class="el" href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7" title="Sets the options for the QSPIPSU device driver. ">XQspiPsu_SetOptions()</a> to support
+             LQSPI options and updated OptionsTable
+      rk  07/15/16 Added support for TapDelays at different frequencies.
+1.7     tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+1.7     tjs     03/14/18 Added support in EL1 NS mode. (CR#974882)
+1.8  tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+1.8  tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
+1.9     tjs     04/17/18 Updated register addresses as per the latest revision
+                                         of versal (CR#999610)
+1.9  aru 01/17/19 Fixes violations according to MISRAC-2012
+                 in safety mode and modified the code such as
+                 Added Xil_MemCpy inplace of memcpy,Declared the pointer param
+                 as Pointer to const, declared XQspi_Set_TapDelay() as static.
+1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
+           100MHZ and 150MHZ frequencies(CR#1023187)
+1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
+            150MHZ frequencies in Versal.
+1.11    akm 11/07/19 Removed LQSPI register access in Versal.
+1.11    akm 11/15/19 Fixed Coverity deadcode warning in
+                                XQspipsu_Calculate_Tapdelay().
+1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
+             interrupts in <a class="el" href="group__qspipsu__api.html#ga803eccd67d1dfde416b54488865c1e9d" title="Initializes an XQspiPsu instance so that the driver is ready to use. ">XQspiPsu_CfgInitialize()</a> API.
+1.13 akm 01/04/21 Fix MISRA-C violations.
+1.15 akm 03/03/22 Enable tapdelay settings for applications on Microblaze
+                     platform.
+1.18 sb  08/01/23 Added support for Feed back clock
+1.18 sb  09/11/23 Fix MISRA-C violation 10.1.
+1.18 sb  09/11/23 Fix MISRA-C violation 2.2 and 2.6.
+1.24 vn  08/26/26 Fix Doxygen warnings.
+1.24 tb  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu__control_8h.html">xqspipsu_control.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga7270573aac2e897d40123dcb0a181aac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga7270573aac2e897d40123dcb0a181aac">XQSPIPSU_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(OptionsMap))</td></tr>
-<tr class="memdesc:ga7270573aac2e897d40123dcb0a181aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of options in option table.  <a href="group__qspipsu__api.html#ga7270573aac2e897d40123dcb0a181aac">More...</a><br/></td></tr>
+<tr class="memdesc:ga7270573aac2e897d40123dcb0a181aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of options in the option table.  <a href="group__qspipsu__api.html#ga7270573aac2e897d40123dcb0a181aac">More...</a><br/></td></tr>
 <tr class="separator:ga7270573aac2e897d40123dcb0a181aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gad0fea713a1ec2a4ce6159439e30f7cd7"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7">XQspiPsu_SetOptions</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 Options)</td></tr>
-<tr class="memdesc:gad0fea713a1ec2a4ce6159439e30f7cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the QSPIPSU device driver.The options control how the device behaves relative to the QSPIPSU bus.  <a href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7">More...</a><br/></td></tr>
+<tr class="memdesc:gad0fea713a1ec2a4ce6159439e30f7cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the QSPIPSU device driver.  <a href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7">More...</a><br/></td></tr>
 <tr class="separator:gad0fea713a1ec2a4ce6159439e30f7cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0948cd1e33a60561c808e681306bcc65"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga0948cd1e33a60561c808e681306bcc65">XQspiPsu_ClearOptions</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 Options)</td></tr>
 <tr class="memdesc:ga0948cd1e33a60561c808e681306bcc65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the options for the QSPIPSU device driver.  <a href="group__qspipsu__api.html#ga0948cd1e33a60561c808e681306bcc65">More...</a><br/></td></tr>
@@ -129,7 +170,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9b86ec1c50d3af19b922698fa9ba7dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the clock according to the prescaler passed.  <a href="group__qspipsu__api.html#ga9b86ec1c50d3af19b922698fa9ba7dfb">More...</a><br/></td></tr>
 <tr class="separator:ga9b86ec1c50d3af19b922698fa9ba7dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga28338ae42ed4f7d2685ab18de2d21128"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga28338ae42ed4f7d2685ab18de2d21128">XQspiPsu_SelectFlash</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u8 FlashCS, u8 FlashBus)</td></tr>
-<tr class="memdesc:ga28338ae42ed4f7d2685ab18de2d21128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to tell the QSPIPSU driver the hardware flash configuration being used.  <a href="group__qspipsu__api.html#ga28338ae42ed4f7d2685ab18de2d21128">More...</a><br/></td></tr>
+<tr class="memdesc:ga28338ae42ed4f7d2685ab18de2d21128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the hardware flash configuration used by the QSPIPSU driver.  <a href="group__qspipsu__api.html#ga28338ae42ed4f7d2685ab18de2d21128">More...</a><br/></td></tr>
 <tr class="separator:ga28338ae42ed4f7d2685ab18de2d21128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3a37a08570be55ea07945a18a80306f3"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga3a37a08570be55ea07945a18a80306f3">XQspiPsu_SetReadMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 Mode)</td></tr>
 <tr class="memdesc:ga3a37a08570be55ea07945a18a80306f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Read mode for the QSPIPSU device driver.  <a href="group__qspipsu__api.html#ga3a37a08570be55ea07945a18a80306f3">More...</a><br/></td></tr>

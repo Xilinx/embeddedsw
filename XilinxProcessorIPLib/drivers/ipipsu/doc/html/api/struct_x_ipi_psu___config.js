@@ -4,6 +4,7 @@ var struct_x_ipi_psu___config =
     [ "BitMask", "struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222", null ],
     [ "BufferIndex", "struct_x_ipi_psu___config.html#a05cc5c627e65d8e37754913d0fc90470", null ],
     [ "IntId", "struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f", null ],
+    [ "IntrParent", "struct_x_ipi_psu___config.html#ac77f391158f02bcfb7f38200f5a97b7a", null ],
     [ "Name", "struct_x_ipi_psu___config.html#a1c9364d2c9eaa634447fe03442dbb225", null ],
     [ "TargetCount", "struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626", null ],
     [ "TargetList", "struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727", null ]

@@ -9,20 +9,6 @@
       <node id="10">
         <label>xil_io.h</label>
       </node>
-      <node id="9">
-        <label>xdphy_hw.h</label>
-        <link refid="xdphy__hw_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>xstatus.h</label>
-      </node>
-      <node id="8">
-        <label>xil_types.h</label>
-      </node>
       <node id="4">
         <label>xdphy.c</label>
         <link refid="xdphy.c"/>
@@ -41,6 +27,20 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
+      <node id="9">
+        <label>xdphy_hw.h</label>
+        <link refid="xdphy__hw_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
       <node id="5">
         <label>xparameters.h</label>
       </node>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -108,10 +108,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="64" bodyend="80"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="317">XDphy::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="64" bodyend="80"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="312">XDphy::IsReady</references>
         <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga0d72a217f030e5c452ce1e61c92f1a29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -163,12 +163,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="98" bodyend="261"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="305">XDphy_Config::EnableTimeOutRegs</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="294">XDphy_Config::IsRx</references>
-        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="296">XDphy_Config::MaxLanesPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="98" bodyend="261"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="300">XDphy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="289">XDphy_Config::IsRx</references>
+        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="291">XDphy_Config::MaxLanesPresent</references>
         <references refid="group__xdphy_1gaf8434e556500223be8da85f4682ffdb9" compoundref="xdphy__hw_8h" startline="60">XDPHY_ESCTIMEOUT_REG_OFFSET</references>
         <references refid="group__dphy_1ga463bc6fb3c22165f08b03a9f5517a790" compoundref="xdphy_8h" startline="146">XDPHY_HANDLE_CLKLANE</references>
         <references refid="group__dphy_1ga60bfd702fffbc997a2a575f847c8a722" compoundref="xdphy_8h" startline="147">XDPHY_HANDLE_DLANE0</references>
@@ -197,17 +197,17 @@
         <references refid="group__dphy_1gab6e4356b5dbb8a90f6e5ee5cb8330a4a" compoundref="xdphy_8h" startline="171">XDPHY_HS_TIMEOUT_MAX_VALUE</references>
         <references refid="group__dphy_1ga0aaacbc10c3e54e9f03d7c8668c049c1" compoundref="xdphy_8h" startline="170">XDPHY_HS_TIMEOUT_MIN_VALUE</references>
         <references refid="group__xdphy_1ga84f9c23d5261fbe306b81a330253d013" compoundref="xdphy__hw_8h" startline="48">XDPHY_HSEXIT_IDELAY_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga70e60705745389c874fc4931105a958b" compoundref="xdphy__hw_8h" startline="127">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</references>
-        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="84">XDPHY_HSSETTLE1_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="85">XDPHY_HSSETTLE2_REG_OFFSET</references>
-        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="86">XDPHY_HSSETTLE3_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="88">XDPHY_HSSETTLE4_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="89">XDPHY_HSSETTLE5_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="90">XDPHY_HSSETTLE6_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="91">XDPHY_HSSETTLE7_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="80">XDPHY_HSSETTLE_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga70e60705745389c874fc4931105a958b" compoundref="xdphy__hw_8h" startline="126">XDPHY_HSEXIT_IDELAY_REG_TAP_MASK</references>
+        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="97">XDPHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="98">XDPHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="99">XDPHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="100">XDPHY_HSSETTLE4_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="101">XDPHY_HSSETTLE5_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="102">XDPHY_HSSETTLE6_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="103">XDPHY_HSSETTLE7_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="93">XDPHY_HSSETTLE_REG_OFFSET</references>
         <references refid="group__xdphy_1ga3bfe3e75d075f2eff4f7d80bc96e117b" compoundref="xdphy__hw_8h" startline="57">XDPHY_HSTIMEOUT_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga5a463a15b499f6c6f02caba145928f60" compoundref="xdphy__hw_8h" startline="81">XDPHY_IDELAY58_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga5a463a15b499f6c6f02caba145928f60" compoundref="xdphy__hw_8h" startline="94">XDPHY_IDELAY58_REG_OFFSET</references>
         <references refid="group__xdphy_1gab6765e9a336e4a9d4598a2ade003fa3f" compoundref="xdphy__hw_8h" startline="51">XDPHY_INIT_REG_OFFSET</references>
         <references refid="group__dphy_1gad526fba138789830b02aca34e757145b" compoundref="xdphy_8h" startline="134">XDPHY_MAX_LANES_V10</references>
         <references refid="group__xdphy_1gadd318931e0e4e7edb5b388566d03d2be" compoundref="xdphy__hw_8h" startline="54">XDPHY_WAKEUP_REG_OFFSET</references>
@@ -239,9 +239,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="276" bodyend="282"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="276" bodyend="282"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
         <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga08901fa94d34b59883610d1590165919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -280,23 +280,23 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="295" bodyend="446"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="305">XDphy_Config::EnableTimeOutRegs</references>
-        <references refid="struct_x_dphy___config_1a255e8ec1757ac017a2bb60c81a914467" compoundref="xdphy_8h" startline="298">XDphy_Config::EscTimeout</references>
-        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="300">XDphy_Config::HSTimeOut</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="294">XDphy_Config::IsRx</references>
-        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="296">XDphy_Config::MaxLanesPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="295" bodyend="446"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a58f6a8702accf8ef4f5affef6efa5565" compoundref="xdphy_8h" startline="300">XDphy_Config::EnableTimeOutRegs</references>
+        <references refid="struct_x_dphy___config_1a255e8ec1757ac017a2bb60c81a914467" compoundref="xdphy_8h" startline="293">XDphy_Config::EscTimeout</references>
+        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="295">XDphy_Config::HSTimeOut</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="struct_x_dphy___config_1a357d54e40b4a8ebde78b99d47fa5bb64" compoundref="xdphy_8h" startline="289">XDphy_Config::IsRx</references>
+        <references refid="struct_x_dphy___config_1aeae063e9d5b0df42dbad7d68ba4e9d04" compoundref="xdphy_8h" startline="291">XDphy_Config::MaxLanesPresent</references>
         <references refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" compoundref="xdphy__hw_8h" startline="65">XDPHY_CLSTATUS_REG_OFFSET</references>
         <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
         <references refid="group__xdphy_1ga6bb71b3acc1149468ae0d63a28c37702" compoundref="xdphy__hw_8h" startline="71">XDPHY_DL1STATUS_REG_OFFSET</references>
         <references refid="group__xdphy_1ga86a14e2060bf5c00383ba8e36aa00723" compoundref="xdphy__hw_8h" startline="74">XDPHY_DL2STATUS_REG_OFFSET</references>
         <references refid="group__xdphy_1ga9ecccc042a9a7f589b7bd9535470e8d9" compoundref="xdphy__hw_8h" startline="77">XDPHY_DL3STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" compoundref="xdphy__hw_8h" startline="93">XDPHY_DL4STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" compoundref="xdphy__hw_8h" startline="96">XDPHY_DL5STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" compoundref="xdphy__hw_8h" startline="99">XDPHY_DL6STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" compoundref="xdphy__hw_8h" startline="102">XDPHY_DL7STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" compoundref="xdphy__hw_8h" startline="80">XDPHY_DL4STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" compoundref="xdphy__hw_8h" startline="83">XDPHY_DL5STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" compoundref="xdphy__hw_8h" startline="86">XDPHY_DL6STATUS_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" compoundref="xdphy__hw_8h" startline="89">XDPHY_DL7STATUS_REG_OFFSET</references>
         <references refid="group__xdphy_1gaf8434e556500223be8da85f4682ffdb9" compoundref="xdphy__hw_8h" startline="60">XDPHY_ESCTIMEOUT_REG_OFFSET</references>
         <references refid="group__dphy_1ga463bc6fb3c22165f08b03a9f5517a790" compoundref="xdphy_8h" startline="146">XDPHY_HANDLE_CLKLANE</references>
         <references refid="group__dphy_1ga60bfd702fffbc997a2a575f847c8a722" compoundref="xdphy_8h" startline="147">XDPHY_HANDLE_DLANE0</references>
@@ -322,14 +322,14 @@
         <references refid="group__dphy_1gafdb51ec2ec713b4a6ab46ede99dac72e" compoundref="xdphy_8h" startline="163">XDPHY_HANDLE_MAX</references>
         <references refid="group__dphy_1ga1f5ca25326171d6b8cb5132f946bdbbf" compoundref="xdphy_8h" startline="143">XDPHY_HANDLE_WAKEUP</references>
         <references refid="group__xdphy_1ga84f9c23d5261fbe306b81a330253d013" compoundref="xdphy__hw_8h" startline="48">XDPHY_HSEXIT_IDELAY_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="84">XDPHY_HSSETTLE1_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="85">XDPHY_HSSETTLE2_REG_OFFSET</references>
-        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="86">XDPHY_HSSETTLE3_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="88">XDPHY_HSSETTLE4_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="89">XDPHY_HSSETTLE5_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="90">XDPHY_HSSETTLE6_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="91">XDPHY_HSSETTLE7_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="80">XDPHY_HSSETTLE_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" compoundref="xdphy__hw_8h" startline="97">XDPHY_HSSETTLE1_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga660530de8184f4f12f3d8e1195e941bc" compoundref="xdphy__hw_8h" startline="98">XDPHY_HSSETTLE2_REG_OFFSET</references>
+        <references refid="group__xdphy_1gafe067e3255620e461f86671b620b97b5" compoundref="xdphy__hw_8h" startline="99">XDPHY_HSSETTLE3_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3251252b22de55f4efb044c630916e15" compoundref="xdphy__hw_8h" startline="100">XDPHY_HSSETTLE4_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" compoundref="xdphy__hw_8h" startline="101">XDPHY_HSSETTLE5_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" compoundref="xdphy__hw_8h" startline="102">XDPHY_HSSETTLE6_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" compoundref="xdphy__hw_8h" startline="103">XDPHY_HSSETTLE7_REG_OFFSET</references>
+        <references refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" compoundref="xdphy__hw_8h" startline="93">XDPHY_HSSETTLE_REG_OFFSET</references>
         <references refid="group__xdphy_1ga3bfe3e75d075f2eff4f7d80bc96e117b" compoundref="xdphy__hw_8h" startline="57">XDPHY_HSTIMEOUT_REG_OFFSET</references>
         <references refid="group__xdphy_1gab6765e9a336e4a9d4598a2ade003fa3f" compoundref="xdphy__hw_8h" startline="51">XDPHY_INIT_REG_OFFSET</references>
         <references refid="group__dphy_1gad526fba138789830b02aca34e757145b" compoundref="xdphy_8h" startline="134">XDPHY_MAX_LANES_V10</references>
@@ -360,12 +360,39 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="458" bodyend="491"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="317">XDphy::IsReady</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="458" bodyend="491"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy_1a5632460e67abd76b814bf07408462762" compoundref="xdphy_8h" startline="312">XDphy::IsReady</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
         <references refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" compoundref="xdphy__hw_8h" startline="47">XDPHY_CTRL_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga0fed5f106749e7c30ccf47874b18d587" compoundref="xdphy__hw_8h" startline="112">XDPHY_CTRL_REG_SOFTRESET_MASK</references>
+        <references refid="group__xdphy_1ga0fed5f106749e7c30ccf47874b18d587" compoundref="xdphy__hw_8h" startline="111">XDPHY_CTRL_REG_SOFTRESET_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dphy_1gaeb731e30acb3752e5a1eb783b254098a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDphy_GetDLStatusRegOffset</definition>
+        <argsstring>(u8 DataLane)</argsstring>
+        <name>XDphy_GetDLStatusRegOffset</name>
+        <param>
+          <type>u8</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the status register offset for the requested data lane. </para>        </briefdescription>
+        <detaileddescription>
+<para>The data lane 0-3 status registers are contiguous, but the data lane 4-7 status registers reside at a separate, non-contiguous block of offsets. A plain linear stride from lane 0 therefore addresses the wrong register (or an offset outside the DPHY register space) for lanes 4-7; this helper maps each lane to its correct register offset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data lane (0 through 7) whose status register offset is required.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Offset of the Data Lane status register for the requested lane.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="509" bodyend="544"/>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -385,7 +412,7 @@
           <declname>Mask</declname>
         </param>
         <briefdescription>
-<para>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 3. </para>        </briefdescription>
+<para>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 7. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -413,13 +440,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="505" bodyend="520"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" compoundref="xdphy__hw_8h" startline="227">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</references>
-        <references refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" compoundref="xdphy__hw_8h" startline="230">XDPHY_DLXSTATUS_REG_HSABRT_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="558" bodyend="573"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" compoundref="xdphy__hw_8h" startline="226">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</references>
+        <references refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" compoundref="xdphy__hw_8h" startline="229">XDPHY_DLXSTATUS_REG_HSABRT_MASK</references>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -446,12 +472,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="533" bodyend="542"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="586" bodyend="595"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
         <references refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" compoundref="xdphy__hw_8h" startline="65">XDPHY_CLSTATUS_REG_OFFSET</references>
-        <referencedby refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" compoundref="xdphy_8c" startline="554" endline="565">XDphy_GetClkLaneMode</referencedby>
+        <referencedby refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" compoundref="xdphy_8c" startline="607" endline="618">XDphy_GetClkLaneMode</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1gad2110f5c852b9ef0b78a892625051646" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -478,11 +504,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="554" bodyend="565"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1gaabcdc97a4b6fe84878848175e059319a" compoundref="xdphy__hw_8h" startline="191">XDPHY_CLSTATUS_REG_MODE_MASK</references>
-        <references refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" compoundref="xdphy_8c" startline="533" endline="542">XDphy_GetClkLaneStatus</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="607" bodyend="618"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gaabcdc97a4b6fe84878848175e059319a" compoundref="xdphy__hw_8h" startline="190">XDPHY_CLSTATUS_REG_MODE_MASK</references>
+        <references refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" compoundref="xdphy_8c" startline="586" endline="595">XDphy_GetClkLaneStatus</references>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga006589112115f10a2dc19853bae893ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -520,12 +546,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="579" bodyend="588"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
-        <referencedby refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" compoundref="xdphy_8c" startline="641" endline="653">XDphy_GetDataLaneMode</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="632" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="632" bodyend="641"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <referencedby refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" compoundref="xdphy_8c" startline="694" endline="706">XDphy_GetDataLaneMode</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -563,14 +588,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="603" bodyend="628"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="group__xdphy_1ga4dab676485278ae963ba2a5c4e5d0063" compoundref="xdphy__hw_8h" startline="284">DL_LANE_OFFSET</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1ga836e2f220b7102ea3a9e6459a0d1e1dd" compoundref="xdphy__hw_8h" startline="225">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</references>
-        <references refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" compoundref="xdphy__hw_8h" startline="224">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="656" bodyend="681"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1ga836e2f220b7102ea3a9e6459a0d1e1dd" compoundref="xdphy__hw_8h" startline="224">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</references>
+        <references refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" compoundref="xdphy__hw_8h" startline="223">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</references>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -608,11 +631,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="641" bodyend="653"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1gacb7931a2a11c01f1a0bf86eaf3813ad1" compoundref="xdphy__hw_8h" startline="239">XDPHY_DLXSTATUS_REG_MODE_MASK</references>
-        <references refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" compoundref="xdphy_8c" startline="579" endline="588">XDphy_GetDataLaneStatus</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="694" bodyend="706"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gacb7931a2a11c01f1a0bf86eaf3813ad1" compoundref="xdphy__hw_8h" startline="238">XDPHY_DLXSTATUS_REG_MODE_MASK</references>
+        <references refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" compoundref="xdphy_8c" startline="632" endline="641">XDphy_GetDataLaneStatus</references>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u16</type>
@@ -650,13 +673,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="667" bodyend="682"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" compoundref="xdphy__hw_8h" startline="68">XDPHY_DL0STATUS_REG_OFFSET</references>
-        <references refid="group__xdphy_1gad0aef49004b2cf549d98ad9f596db44c" compoundref="xdphy__hw_8h" startline="258">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</references>
-        <references refid="group__xdphy_1ga5e883a6b8e54d4a9399a9f66a2b69087" compoundref="xdphy__hw_8h" startline="223">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="720" bodyend="735"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gad0aef49004b2cf549d98ad9f596db44c" compoundref="xdphy__hw_8h" startline="257">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</references>
+        <references refid="group__xdphy_1ga5e883a6b8e54d4a9399a9f66a2b69087" compoundref="xdphy__hw_8h" startline="222">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</references>
       </memberdef>
       <memberdef kind="function" id="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -693,11 +715,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="694" bodyend="716"/>
-        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="292">XDphy_Config::BaseAddr</references>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="295">XDphy_Config::IsRegisterPresent</references>
-        <references refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" compoundref="xdphy__hw_8h" startline="113">XDPHY_CTRL_REG_DPHYEN_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" line="747" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c" bodystart="747" bodyend="769"/>
+        <references refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" compoundref="xdphy_8h" startline="288">XDphy_Config::BaseAddr</references>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" compoundref="xdphy_8h" startline="290">XDphy_Config::IsRegisterPresent</references>
+        <references refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" compoundref="xdphy__hw_8h" startline="112">XDPHY_CTRL_REG_DPHYEN_MASK</references>
         <references refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" compoundref="xdphy__hw_8h" startline="47">XDPHY_CTRL_REG_OFFSET</references>
         <references refid="group__dphy_1ga785db23ac1e4dd31bc64e52477284a34" compoundref="xdphy_8h" startline="184">XDPHY_DISABLE_FLAG</references>
         <references refid="group__dphy_1ga1928ad1fc94b6207188388aab7b2cc5e" compoundref="xdphy_8h" startline="183">XDPHY_ENABLE_FLAG</references>
@@ -1121,147 +1143,185 @@
 <codeline lineno="491"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="492"><highlight class="normal"></highlight></codeline>
 <codeline lineno="493"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="505" refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" kindref="member">XDphy_ClearDataLane</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane,<sp/>u32<sp/>Mask)</highlight></codeline>
-<codeline lineno="506"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
-<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(<ref refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" kindref="member">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
-<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" kindref="member">XDPHY_DLXSTATUS_REG_HSABRT_MASK</ref>))<sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="513"><highlight class="normal"></highlight></codeline>
-<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>only<sp/>Escape<sp/>Abort<sp/>or<sp/>HS<sp/>Abort<sp/>are<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>Mask<sp/>&amp;<sp/>(<ref refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" kindref="member">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
-<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" kindref="member">XDPHY_DLXSTATUS_REG_HSABRT_MASK</ref>);</highlight></codeline>
-<codeline lineno="517"><highlight class="normal"></highlight></codeline>
-<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(DataLane<sp/>*<sp/>4),<sp/>Mask);</highlight></codeline>
-<codeline lineno="520"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="521"><highlight class="normal"></highlight></codeline>
-<codeline lineno="522"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="533" refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kindref="member">XDphy_GetClkLaneStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="534"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="538"><highlight class="normal"></highlight></codeline>
-<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" kindref="member">XDPHY_CLSTATUS_REG_OFFSET</ref>));</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"></highlight></codeline>
-<codeline lineno="542"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="543"><highlight class="normal"></highlight></codeline>
-<codeline lineno="544"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="554" refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" kindref="member">XDphy_GetClkLaneMode</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="555"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
-<codeline lineno="557"><highlight class="normal"></highlight></codeline>
-<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="561"><highlight class="normal"></highlight></codeline>
-<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kindref="member">XDphy_GetClkLaneStatus</ref>(InstancePtr);</highlight></codeline>
-<codeline lineno="563"><highlight class="normal"></highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__xdphy_1gaabcdc97a4b6fe84878848175e059319a" kindref="member">XDPHY_CLSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
-<codeline lineno="565"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="509"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDphy_GetDLStatusRegOffset(u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="510"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(DataLane)<sp/>{</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0:</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1:</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga6bb71b3acc1149468ae0d63a28c37702" kindref="member">XDPHY_DL1STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>2:</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga86a14e2060bf5c00383ba8e36aa00723" kindref="member">XDPHY_DL2STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>3:</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga9ecccc042a9a7f589b7bd9535470e8d9" kindref="member">XDPHY_DL3STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>4:</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" kindref="member">XDPHY_DL4STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>5:</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" kindref="member">XDPHY_DL5STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>6:</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" kindref="member">XDPHY_DL6STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>7:</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" kindref="member">XDPHY_DL7STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Offset;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="558" refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" kindref="member">XDphy_ClearDataLane</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="559"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(<ref refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" kindref="member">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" kindref="member">XDPHY_DLXSTATUS_REG_HSABRT_MASK</ref>))<sp/>!=<sp/>0);</highlight></codeline>
 <codeline lineno="566"><highlight class="normal"></highlight></codeline>
-<codeline lineno="567"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="579" refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" kindref="member">XDphy_GetDataLaneStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
-<codeline lineno="580"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
-<codeline lineno="585"><highlight class="normal"></highlight></codeline>
-<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(4<sp/>*<sp/>DataLane))));</highlight></codeline>
-<codeline lineno="588"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="589"><highlight class="normal"></highlight></codeline>
-<codeline lineno="590"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="603" refid="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" kindref="member">XDphy_GetDLCalibStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
-<codeline lineno="604"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
-<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ret;</highlight></codeline>
-<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
-<codeline lineno="611"><highlight class="normal"></highlight></codeline>
-<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(<ref refid="group__xdphy_1ga4dab676485278ae963ba2a5c4e5d0063" kindref="member">DL_LANE_OFFSET</ref><sp/>*<sp/>DataLane)));</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>only<sp/>Escape<sp/>Abort<sp/>or<sp/>HS<sp/>Abort<sp/>are<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>Mask<sp/>&amp;<sp/>(<ref refid="group__xdphy_1ga115ba74c0024df0afb08ac195b2516db" kindref="member">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga6d0dfe6cdce39bb092251a352bbdd2c1" kindref="member">XDPHY_DLXSTATUS_REG_HSABRT_MASK</ref>);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_GetDLStatusRegOffset(DataLane),<sp/>Mask);</highlight></codeline>
+<codeline lineno="573"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"></highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="586" refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kindref="member">XDphy_GetClkLaneStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="587"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1ga06c1da75b71989cce8e56af324969d0a" kindref="member">XDPHY_CLSTATUS_REG_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="607" refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" kindref="member">XDphy_GetClkLaneMode</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="608"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"></highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
 <codeline lineno="614"><highlight class="normal"></highlight></codeline>
-<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga836e2f220b7102ea3a9e6459a0d1e1dd" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
-<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
-<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_NO_DATA;</highlight></codeline>
-<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="626"><highlight class="normal"></highlight></codeline>
-<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
-<codeline lineno="628"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="629"><highlight class="normal"></highlight></codeline>
-<codeline lineno="630"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="641" refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" kindref="member">XDphy_GetDataLaneMode</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
-<codeline lineno="642"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
-<codeline lineno="644"><highlight class="normal"></highlight></codeline>
-<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
-<codeline lineno="649"><highlight class="normal"></highlight></codeline>
-<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" kindref="member">XDphy_GetDataLaneStatus</ref>(InstancePtr,<sp/>DataLane);</highlight></codeline>
-<codeline lineno="651"><highlight class="normal"></highlight></codeline>
-<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__xdphy_1gacb7931a2a11c01f1a0bf86eaf3813ad1" kindref="member">XDPHY_DLXSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
-<codeline lineno="653"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="654"><highlight class="normal"></highlight></codeline>
-<codeline lineno="655"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="667" refid="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" kindref="member">XDphy_GetPacketCount</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
-<codeline lineno="668"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
-<codeline lineno="670"><highlight class="normal"></highlight></codeline>
-<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
-<codeline lineno="675"><highlight class="normal"></highlight></codeline>
-<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xdphy_1ga0910333b8c2727d176c2e0246a33fdeb" kindref="member">XDPHY_DL0STATUS_REG_OFFSET</ref><sp/>+<sp/>(4<sp/>*<sp/>DataLane))));</highlight></codeline>
-<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>Value<sp/>&amp;<sp/><ref refid="group__xdphy_1ga5e883a6b8e54d4a9399a9f66a2b69087" kindref="member">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</ref>;</highlight></codeline>
-<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&gt;&gt;=<sp/><ref refid="group__xdphy_1gad0aef49004b2cf549d98ad9f596db44c" kindref="member">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</ref>;</highlight></codeline>
-<codeline lineno="680"><highlight class="normal"></highlight></codeline>
-<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u16)Value;</highlight></codeline>
-<codeline lineno="682"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="683"><highlight class="normal"></highlight></codeline>
-<codeline lineno="684"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="694" refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" kindref="member">XDphy_Activate</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kindref="member">XDphy_GetClkLaneStatus</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__xdphy_1gaabcdc97a4b6fe84878848175e059319a" kindref="member">XDPHY_CLSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="618"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="632" refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" kindref="member">XDphy_GetDataLaneStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="633"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"></highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_GetDLStatusRegOffset(DataLane)));</highlight></codeline>
+<codeline lineno="641"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="656" refid="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__dphy_1gaa18b76f92d1ac7c35e0b72d191952273" kindref="member">XDphy_GetDLCalibStatus</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="657"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ret;</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_GetDLStatusRegOffset(DataLane));</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"></highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga836e2f220b7102ea3a9e6459a0d1e1dd" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__xdphy_1ga0f336da68e6b0da446cd41cf9f2ef8d2" kindref="member">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref>)</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"></highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="681"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="694" refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dphy_1ga0a8e793032f9c635bcbf2abf6a1d9832" kindref="member">XDphy_GetDataLaneMode</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
 <codeline lineno="695"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
 <codeline lineno="697"><highlight class="normal"></highlight></codeline>
-<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
-<codeline lineno="700"><highlight class="normal"></highlight></codeline>
-<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" kindref="member">XDPHY_CTRL_REG_OFFSET</ref>);</highlight></codeline>
-<codeline lineno="703"><highlight class="normal"></highlight></codeline>
-<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__dphy_1ga1928ad1fc94b6207188388aab7b2cc5e" kindref="member">XDPHY_ENABLE_FLAG</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/><ref refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kindref="member">XDPHY_CTRL_REG_DPHYEN_MASK</ref>;</highlight></codeline>
-<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__dphy_1ga785db23ac1e4dd31bc64e52477284a34" kindref="member">XDPHY_DISABLE_FLAG</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>~(<ref refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kindref="member">XDPHY_CTRL_REG_DPHYEN_MASK</ref>);</highlight></codeline>
-<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="710"><highlight class="normal"></highlight></codeline>
-<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>or<sp/>reset<sp/>the<sp/>DPhy<sp/>Enable<sp/>bit<sp/>in<sp/>Control<sp/>Register<sp/>based</highlight></codeline>
-<codeline lineno="712"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>the<sp/>flag</highlight></codeline>
-<codeline lineno="713"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" kindref="member">XDPHY_CTRL_REG_OFFSET</ref>,<sp/>Value);</highlight></codeline>
-<codeline lineno="716"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__dphy_1ga006589112115f10a2dc19853bae893ce" kindref="member">XDphy_GetDataLaneStatus</ref>(InstancePtr,<sp/>DataLane);</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"></highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Value<sp/>&amp;<sp/><ref refid="group__xdphy_1gacb7931a2a11c01f1a0bf86eaf3813ad1" kindref="member">XDPHY_DLXSTATUS_REG_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="706"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="720" refid="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__dphy_1ga0da2a930bce29d8c6a2b74d020aa3561" kindref="member">XDphy_GetPacketCount</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane)</highlight></codeline>
+<codeline lineno="721"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"></highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataLane<sp/>&lt;<sp/>InstancePtr-&gt;Config.MaxLanesPresent);</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"></highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_GetDLStatusRegOffset(DataLane)));</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>Value<sp/>&amp;<sp/><ref refid="group__xdphy_1ga5e883a6b8e54d4a9399a9f66a2b69087" kindref="member">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</ref>;</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&gt;&gt;=<sp/><ref refid="group__xdphy_1gad0aef49004b2cf549d98ad9f596db44c" kindref="member">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="733"><highlight class="normal"></highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u16)Value;</highlight></codeline>
+<codeline lineno="735"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="737"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="747" refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dphy_1gab83aed5a09f62e3a68e5d6cc06bad18d" kindref="member">XDphy_Activate</ref>(<ref refid="struct_x_dphy" kindref="compound">XDphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="748"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"></highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a56ad1e1658db486364b0bfc8dd9d9117" kindref="member">IsRegisterPresent</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"></highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XDphy_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" kindref="member">XDPHY_CTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"></highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__dphy_1ga1928ad1fc94b6207188388aab7b2cc5e" kindref="member">XDPHY_ENABLE_FLAG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/><ref refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kindref="member">XDPHY_CTRL_REG_DPHYEN_MASK</ref>;</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__dphy_1ga785db23ac1e4dd31bc64e52477284a34" kindref="member">XDPHY_DISABLE_FLAG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>~(<ref refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kindref="member">XDPHY_CTRL_REG_DPHYEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"></highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>or<sp/>reset<sp/>the<sp/>DPhy<sp/>Enable<sp/>bit<sp/>in<sp/>Control<sp/>Register<sp/>based</highlight></codeline>
+<codeline lineno="765"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>the<sp/>flag</highlight></codeline>
+<codeline lineno="766"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" kindref="member">Config</ref>.<ref refid="struct_x_dphy___config_1a2494e733c95a9a99495333fd0679222c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xdphy_1gae4e31f2e733bf381fd409fb8440f0692" kindref="member">XDPHY_CTRL_REG_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="769"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.c"/>
   </compounddef>
 </doxygen>

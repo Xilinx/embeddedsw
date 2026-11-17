@@ -4,37 +4,45 @@
     <compoundname>xdsi2rx.c</compoundname>
     <includes local="yes">xstatus.h</includes>
     <includes refid="xdsi2rx_8h" local="yes">xdsi2rx.h</includes>
+    <includes local="yes">xvidc.h</includes>
     <incdepgraph>
-      <node id="13">
-        <label>xdsi2rx.c</label>
-        <link refid="xdsi2rx.c"/>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
+      <node id="18">
+        <label>xdsi2rx_hw.h</label>
+        <link refid="xdsi2rx__hw_8h"/>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="15">
-        <label>xdsi2rx.h</label>
-        <link refid="xdsi2rx_8h"/>
+      <node id="19">
+        <label>xil_io.h</label>
+      </node>
+      <node id="14">
+        <label>xdsi2rx.c</label>
+        <link refid="xdsi2rx.c"/>
+        <childnode refid="15" relation="include">
+        </childnode>
         <childnode refid="16" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xdsi2rx.h</label>
+        <link refid="xdsi2rx_8h"/>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>xstatus.h</label>
       </node>
-      <node id="18">
+      <node id="20">
         <label>xvidc.h</label>
       </node>
-      <node id="16">
-        <label>xil_types.h</label>
-      </node>
       <node id="17">
-        <label>xdsi2rx_hw.h</label>
-        <link refid="xdsi2rx__hw_8h"/>
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -74,7 +82,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="249" bodyend="254"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="251" bodyend="256"/>
       </memberdef>
       <memberdef kind="function" id="group__dsi2rx_1gaadb1544327c1439ba3f228abf4804e9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -125,11 +133,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="73" bodyend="110"/>
-        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="79">XDsi2Rx_Config::BaseAddr</references>
-        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="116">XDsi2Rx::Config</references>
-        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="168">XDsi2Rx::IsReady</references>
-        <references refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" compoundref="xdsi2rx_8h" startline="121">XDsi2Rx::UnSupportedDataTypeCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="73" bodyend="112"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx_1a6742caa96bdac8c5f1dec6f9b0d27ce4" compoundref="xdsi2rx_8h" startline="177">XDsi2Rx::IncorrectLaneConfigCallback</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" compoundref="xdsi2rx_8h" startline="131">XDsi2Rx::UnSupportedDataTypeCallback</references>
+        <references refid="struct_x_dsi2_rx_1a9a0e70ea3c19401527a9a819b963f830" compoundref="xdsi2rx_8h" startline="184">XDsi2Rx::WCCorruptionCallback</references>
       </memberdef>
       <memberdef kind="function" id="group__dsi2rx_1ga65a43a81fab8a3ad7fcef5f03ad53585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -156,7 +166,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="128" bodyend="136"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="130" bodyend="138"/>
       </memberdef>
       <memberdef kind="function" id="group__dsi2rx_1gad2aafbf53090a3e04a8c1fcac80c54e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -185,9 +195,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="151" bodyend="164"/>
-        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="168">XDsi2Rx::IsReady</references>
-        <references refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" compoundref="xdsi2rx_8h" startline="118">XDsi2Rx::PixelMode</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="153" bodyend="166"/>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" compoundref="xdsi2rx_8h" startline="128">XDsi2Rx::PixelMode</references>
+        <references refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" compoundref="xdsi2rx__hw_8h" startline="45">XDSI2RX_PCR_OFFSET</references>
+        <references refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" compoundref="xdsi2rx__hw_8h" startline="104">XDSI2RX_PCR_PIXELMODE_MASK</references>
+        <references refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" compoundref="xdsi2rx__hw_8h" startline="115">XDSI2RX_PCR_PIXELMODE_SHIFT</references>
       </memberdef>
       <memberdef kind="function" id="group__dsi2rx_1ga19af397133295c990ad132a86b515819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -229,8 +242,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="181" bodyend="198"/>
-        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="168">XDsi2Rx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="183" bodyend="200"/>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="group__dsi2rx_1ga732edd1bd3354efe3715f684a341f873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -268,11 +281,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="214" bodyend="228"/>
-        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="79">XDsi2Rx_Config::BaseAddr</references>
-        <references refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" compoundref="xdsi2rx_8h" startline="88">XDsi2Rx_ConfigParameters::Config</references>
-        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="116">XDsi2Rx::Config</references>
-        <references refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_ConfigParameters::PixelMode</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="216" bodyend="230"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" compoundref="xdsi2rx_8h" startline="98">XDsi2Rx_ConfigParameters::Config</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" compoundref="xdsi2rx_8h" startline="99">XDsi2Rx_ConfigParameters::PixelMode</references>
+        <references refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" compoundref="xdsi2rx__hw_8h" startline="45">XDSI2RX_PCR_OFFSET</references>
+        <references refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" compoundref="xdsi2rx__hw_8h" startline="104">XDSI2RX_PCR_PIXELMODE_MASK</references>
+        <references refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" compoundref="xdsi2rx__hw_8h" startline="115">XDSI2RX_PCR_PIXELMODE_SHIFT</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -281,7 +297,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
@@ -347,84 +363,86 @@
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;GSPFifoNECallback<sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;GSPFifoFullCallback<sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;FrmStartDetCallback<sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a6742caa96bdac8c5f1dec6f9b0d27ce4" kindref="member">IncorrectLaneConfigCallback</ref><sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a9a0e70ea3c19401527a9a819b963f830" kindref="member">WCCorruptionCallback</ref><sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="128" refid="group__dsi_1ga65a43a81fab8a3ad7fcef5f03ad53585" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi2rx_1ga65a43a81fab8a3ad7fcef5f03ad53585" kindref="member">XDsi2Rx_Reset</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__dsi_1ga65a43a81fab8a3ad7fcef5f03ad53585" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi2rx_1ga65a43a81fab8a3ad7fcef5f03ad53585" kindref="member">XDsi2Rx_Reset</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_ClearSoftReset(InstancePtr);</highlight></codeline>
-<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="151" refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi2rx_1gad2aafbf53090a3e04a8c1fcac80c54e2" kindref="member">XDsi2Rx_DefaultConfigure</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Pixel<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDSI2RX_PCR_OFFSET,<sp/>XDSI2RX_PCR_PIXELMODE_MASK,<sp/>XDSI2RX_PCR_PIXELMODE_SHIFT,</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" kindref="member">PixelMode</ref>);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="181" refid="group__dsi_1ga19af397133295c990ad132a86b515819" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi2rx_1ga19af397133295c990ad132a86b515819" kindref="member">XDsi2Rx_Activate</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr,<sp/>XDsi2Rx_Selection<sp/>Flag)</highlight></codeline>
-<codeline lineno="182"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/>XDSI2RX_DISABLE)<sp/>{</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_ResetGlobalInterrupt(InstancePtr);</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_Disable(InstancePtr);</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetGlobalInterrupt(InstancePtr);</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_Enable(InstancePtr);</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="214" refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi2rx_1ga732edd1bd3354efe3715f684a341f873" kindref="member">XDsi2Rx_GetConfigParams</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx___config_parameters" kindref="compound">XDsi2Rx_ConfigParameters</ref><sp/>*ConfigInfo)</highlight></codeline>
-<codeline lineno="216"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ConfigInfo<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>read<sp/>xdsi2rx<sp/>config<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" kindref="member">Config</ref><sp/>=<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" kindref="member">Config</ref>;</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>get<sp/>the<sp/>video<sp/>mode<sp/>transmission<sp/>sequence*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" kindref="member">PixelMode</ref><sp/>=<sp/>XDsi2Rx_GetBitField</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" kindref="member">Config</ref>.<ref refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" kindref="member">BaseAddr</ref>,<sp/>XDSI2RX_PCR_OFFSET,</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDSI2RX_PCR_PIXELMODE_MASK,<sp/>XDSI2RX_PCR_PIXELMODE_SHIFT);</highlight></codeline>
-<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="249"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>ErrorMask)</highlight></codeline>
-<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CallbackRef);</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>ErrorMask;</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
-<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_ClearSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="153" refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi2rx_1gad2aafbf53090a3e04a8c1fcac80c54e2" kindref="member">XDsi2Rx_DefaultConfigure</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Pixel<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" kindref="member">XDSI2RX_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" kindref="member">XDSI2RX_PCR_PIXELMODE_MASK</ref>,<sp/><ref refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" kindref="member">XDSI2RX_PCR_PIXELMODE_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" kindref="member">PixelMode</ref>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="183" refid="group__dsi_1ga19af397133295c990ad132a86b515819" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi2rx_1ga19af397133295c990ad132a86b515819" kindref="member">XDsi2Rx_Activate</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr,<sp/>XDsi2Rx_Selection<sp/>Flag)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/>XDSI2RX_DISABLE)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_ResetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="216" refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi2rx_1ga732edd1bd3354efe3715f684a341f873" kindref="member">XDsi2Rx_GetConfigParams</ref>(<ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx___config_parameters" kindref="compound">XDsi2Rx_ConfigParameters</ref><sp/>*ConfigInfo)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ConfigInfo<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>read<sp/>xdsi2rx<sp/>config<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" kindref="member">Config</ref><sp/>=<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" kindref="member">Config</ref>;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>get<sp/>the<sp/>video<sp/>mode<sp/>transmission<sp/>sequence*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" kindref="member">PixelMode</ref><sp/>=<sp/>XDsi2Rx_GetBitField</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" kindref="member">Config</ref>.<ref refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" kindref="member">XDSI2RX_PCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" kindref="member">XDSI2RX_PCR_PIXELMODE_MASK</ref>,<sp/><ref refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" kindref="member">XDSI2RX_PCR_PIXELMODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="251"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>ErrorMask)</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CallbackRef);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>ErrorMask;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c"/>
   </compounddef>
 </doxygen>

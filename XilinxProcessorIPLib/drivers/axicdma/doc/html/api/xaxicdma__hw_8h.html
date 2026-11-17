@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li><a href="pages.html"><span>Examples</span></a></li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxicdma__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,11 +110,17 @@ $(document).ready(function(){initNavTree('xaxicdma__hw_8h.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga2f2bfb34c5bfec00baa06b782e7e68a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga2f2bfb34c5bfec00baa06b782e7e68a6">XAxiCdma_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XAxiCdma_In32((BaseAddress) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga2f2bfb34c5bfec00baa06b782e7e68a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a given register.  <a href="group__axicdma.html#ga2f2bfb34c5bfec00baa06b782e7e68a6">More...</a><br/></td></tr>
+<tr class="memitem:gac9fc3d4c400e8f31af400be84cf4052d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gac9fc3d4c400e8f31af400be84cf4052d">XAxiCdma_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gac9fc3d4c400e8f31af400be84cf4052d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a 32-bit value from a memory-mapped register.  <a href="group__axicdma.html#gac9fc3d4c400e8f31af400be84cf4052d">More...</a><br/></td></tr>
+<tr class="separator:gac9fc3d4c400e8f31af400be84cf4052d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1fa6d35d9f3f8d672057c04c7d5083b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga1fa6d35d9f3f8d672057c04c7d5083b2">XAxiCdma_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:ga1fa6d35d9f3f8d672057c04c7d5083b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a 32-bit value to a memory-mapped register.  <a href="group__axicdma.html#ga1fa6d35d9f3f8d672057c04c7d5083b2">More...</a><br/></td></tr>
+<tr class="separator:ga1fa6d35d9f3f8d672057c04c7d5083b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f2bfb34c5bfec00baa06b782e7e68a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga2f2bfb34c5bfec00baa06b782e7e68a6">XAxiCdma_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__axicdma.html#gac9fc3d4c400e8f31af400be84cf4052d">XAxiCdma_In32</a>((BaseAddress) + (u32)(RegOffset))</td></tr>
+<tr class="memdesc:ga2f2bfb34c5bfec00baa06b782e7e68a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a device register.  <a href="group__axicdma.html#ga2f2bfb34c5bfec00baa06b782e7e68a6">More...</a><br/></td></tr>
 <tr class="separator:ga2f2bfb34c5bfec00baa06b782e7e68a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4d7304606411f8ed955c6d930e387c18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga4d7304606411f8ed955c6d930e387c18">XAxiCdma_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;XAxiCdma_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:ga4d7304606411f8ed955c6d930e387c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a given register.  <a href="group__axicdma.html#ga4d7304606411f8ed955c6d930e387c18">More...</a><br/></td></tr>
+<tr class="memitem:ga4d7304606411f8ed955c6d930e387c18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga4d7304606411f8ed955c6d930e387c18">XAxiCdma_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group__axicdma.html#ga1fa6d35d9f3f8d672057c04c7d5083b2">XAxiCdma_Out32</a>((BaseAddress) + (u32)(RegOffset), (u32)(Data))</td></tr>
+<tr class="memdesc:ga4d7304606411f8ed955c6d930e387c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a device register.  <a href="group__axicdma.html#ga4d7304606411f8ed955c6d930e387c18">More...</a><br/></td></tr>
 <tr class="separator:ga4d7304606411f8ed955c6d930e387c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Buffer Descriptor Alignment</div></td></tr>
 <tr class="memitem:gaae822f32753ddd2fec7be5d3c9e9a4ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gaae822f32753ddd2fec7be5d3c9e9a4ff">XAXICDMA_BD_MINIMUM_ALIGNMENT</a>&#160;&#160;&#160;0x40</td></tr>
@@ -161,24 +168,25 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9a61d8801792647638b54afcafbd8a86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga9a61d8801792647638b54afcafbd8a86">XAXICDMA_DSTADDR_MSB_OFFSET</a>&#160;&#160;&#160;0x00000024</td></tr>
 <tr class="memdesc:ga9a61d8801792647638b54afcafbd8a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination address register.  <a href="group__axicdma.html#ga9a61d8801792647638b54afcafbd8a86">More...</a><br/></td></tr>
 <tr class="separator:ga9a61d8801792647638b54afcafbd8a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">XAXICDMA_BTT_OFFSET</a>&#160;&#160;&#160;0x00000028</td></tr>
+<tr class="memdesc:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes to transfer.  <a href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">More...</a><br/></td></tr>
+<tr class="separator:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Bitmasks of XAXICDMA_CR_OFFSET register</div></td></tr>
+<tr class="memitem:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">XAXICDMA_CR_RESET_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:ga0f6d1104468e9f155a3b9477a84531a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset DMA engine.  <a href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">More...</a><br/></td></tr>
+<tr class="separator:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0e7fa6cee94c02784164c315268c6a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">XAXICDMA_CR_SGMODE_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="memdesc:gae0e7fa6cee94c02784164c315268c6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scatter gather mode.  <a href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">More...</a><br/></td></tr>
+<tr class="separator:gae0e7fa6cee94c02784164c315268c6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac31916a2867c9e47834091131d449f88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">XAXICDMA_CR_KHOLE_RD_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
+<tr class="memdesc:gac31916a2867c9e47834091131d449f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Read.  <a href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">More...</a><br/></td></tr>
+<tr class="separator:gac31916a2867c9e47834091131d449f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">XAXICDMA_CR_KHOLE_WR_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Write.  <a href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">More...</a><br/></td></tr>
+<tr class="separator:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmasks of XAXICDMA_SR_OFFSET register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This register reports status of a DMA channel, including idle state, errors, and interrupts </p>
 </div></td></tr>
-<tr class="memitem:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">XAXICDMA_BTT_OFFSET</a>&#160;&#160;&#160;0x00000028</td></tr>
-<tr class="memdesc:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes to transfer.  <a href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">More...</a><br/></td></tr>
-<tr class="separator:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga73bb174cc046fe8f5d51da6f2d11cfaa">XAXICDMA_SR_IDLE_MASK</a>&#160;&#160;&#160;0x00000002</td></tr>
-<tr class="memdesc:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel idle.  <a href="group__axicdma.html#ga73bb174cc046fe8f5d51da6f2d11cfaa">More...</a><br/></td></tr>
-<tr class="separator:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada1a00e54aeb12049cd23a005eb47c52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gada1a00e54aeb12049cd23a005eb47c52">XAXICDMA_SR_SGINCLD_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
-<tr class="memdesc:gada1a00e54aeb12049cd23a005eb47c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hybrid build.  <a href="group__axicdma.html#gada1a00e54aeb12049cd23a005eb47c52">More...</a><br/></td></tr>
-<tr class="separator:gada1a00e54aeb12049cd23a005eb47c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c4d04c2dc3d2601d5e63067a7e5e751"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga9c4d04c2dc3d2601d5e63067a7e5e751">XAXICDMA_SR_ERR_INTERNAL_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
-<tr class="memdesc:ga9c4d04c2dc3d2601d5e63067a7e5e751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Datamover internal err.  <a href="group__axicdma.html#ga9c4d04c2dc3d2601d5e63067a7e5e751">More...</a><br/></td></tr>
-<tr class="separator:ga9c4d04c2dc3d2601d5e63067a7e5e751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">XAXICDMA_BTT_OFFSET</a>&#160;&#160;&#160;0x00000028</td></tr>
-<tr class="memdesc:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes to transfer.  <a href="group__axicdma.html#gaf2b93c5bebf2fdcf9516bcfefc7ae356">More...</a><br/></td></tr>
-<tr class="separator:gaf2b93c5bebf2fdcf9516bcfefc7ae356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga73bb174cc046fe8f5d51da6f2d11cfaa">XAXICDMA_SR_IDLE_MASK</a>&#160;&#160;&#160;0x00000002</td></tr>
 <tr class="memdesc:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel idle.  <a href="group__axicdma.html#ga73bb174cc046fe8f5d51da6f2d11cfaa">More...</a><br/></td></tr>
 <tr class="separator:ga73bb174cc046fe8f5d51da6f2d11cfaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,31 +214,6 @@ Macros</h2></td></tr>
 <tr class="memitem:gabec2417b4096d65fa8f07a84eef38cea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gabec2417b4096d65fa8f07a84eef38cea">XAXICDMA_SR_ERR_ALL_MASK</a>&#160;&#160;&#160;0x00000770</td></tr>
 <tr class="memdesc:gabec2417b4096d65fa8f07a84eef38cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">All errors.  <a href="group__axicdma.html#gabec2417b4096d65fa8f07a84eef38cea">More...</a><br/></td></tr>
 <tr class="separator:gabec2417b4096d65fa8f07a84eef38cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Bitmasks of XAXICDMA_CR_OFFSET register</div></td></tr>
-<tr class="memitem:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">XAXICDMA_CR_RESET_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
-<tr class="memdesc:ga0f6d1104468e9f155a3b9477a84531a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset DMA engine.  <a href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">More...</a><br/></td></tr>
-<tr class="separator:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0e7fa6cee94c02784164c315268c6a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">XAXICDMA_CR_SGMODE_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
-<tr class="memdesc:gae0e7fa6cee94c02784164c315268c6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scatter gather mode.  <a href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">More...</a><br/></td></tr>
-<tr class="separator:gae0e7fa6cee94c02784164c315268c6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac31916a2867c9e47834091131d449f88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">XAXICDMA_CR_KHOLE_RD_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
-<tr class="memdesc:gac31916a2867c9e47834091131d449f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Read.  <a href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">More...</a><br/></td></tr>
-<tr class="separator:gac31916a2867c9e47834091131d449f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">XAXICDMA_CR_KHOLE_WR_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
-<tr class="memdesc:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Write.  <a href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">More...</a><br/></td></tr>
-<tr class="separator:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">XAXICDMA_CR_RESET_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
-<tr class="memdesc:ga0f6d1104468e9f155a3b9477a84531a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset DMA engine.  <a href="group__axicdma.html#ga0f6d1104468e9f155a3b9477a84531a6">More...</a><br/></td></tr>
-<tr class="separator:ga0f6d1104468e9f155a3b9477a84531a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0e7fa6cee94c02784164c315268c6a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">XAXICDMA_CR_SGMODE_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
-<tr class="memdesc:gae0e7fa6cee94c02784164c315268c6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scatter gather mode.  <a href="group__axicdma.html#gae0e7fa6cee94c02784164c315268c6a6">More...</a><br/></td></tr>
-<tr class="separator:gae0e7fa6cee94c02784164c315268c6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac31916a2867c9e47834091131d449f88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">XAXICDMA_CR_KHOLE_RD_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
-<tr class="memdesc:gac31916a2867c9e47834091131d449f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Read.  <a href="group__axicdma.html#gac31916a2867c9e47834091131d449f88">More...</a><br/></td></tr>
-<tr class="separator:gac31916a2867c9e47834091131d449f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">XAXICDMA_CR_KHOLE_WR_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
-<tr class="memdesc:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyhole Write.  <a href="group__axicdma.html#ga5ddbb13c86e6c75d5dd928447e3ec8bb">More...</a><br/></td></tr>
-<tr class="separator:ga5ddbb13c86e6c75d5dd928447e3ec8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmask for descriptor</div></td></tr>
 <tr class="memitem:gaca543a8c03c6cd2d6d7284cc4bd119c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gaca543a8c03c6cd2d6d7284cc4bd119c2">XAXICDMA_DESC_LSB_MASK</a>&#160;&#160;&#160;(0xFFFFFFC0U)</td></tr>
 <tr class="memdesc:gaca543a8c03c6cd2d6d7284cc4bd119c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSB Address mask.  <a href="group__axicdma.html#gaca543a8c03c6cd2d6d7284cc4bd119c2">More...</a><br/></td></tr>
@@ -262,11 +245,11 @@ Macros</h2></td></tr>
 <tr class="memitem:ga156955220ded772774e8146b2ff6e7d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga156955220ded772774e8146b2ff6e7d6">XAXICDMA_XR_COALESCE_MASK</a>&#160;&#160;&#160;0x00FF0000</td></tr>
 <tr class="memdesc:ga156955220ded772774e8146b2ff6e7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coalesce counter.  <a href="group__axicdma.html#ga156955220ded772774e8146b2ff6e7d6">More...</a><br/></td></tr>
 <tr class="separator:ga156955220ded772774e8146b2ff6e7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd5fcf58a67d3125264a9930e1ee0da0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadd5fcf58a67d3125264a9930e1ee0da0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXICDMA_DELAY_SHIFT</b>&#160;&#160;&#160;24</td></tr>
+<tr class="memitem:gadd5fcf58a67d3125264a9930e1ee0da0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gadd5fcf58a67d3125264a9930e1ee0da0">XAXICDMA_DELAY_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:gadd5fcf58a67d3125264a9930e1ee0da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for delay timeout counter.  <a href="group__axicdma.html#gadd5fcf58a67d3125264a9930e1ee0da0">More...</a><br/></td></tr>
 <tr class="separator:gadd5fcf58a67d3125264a9930e1ee0da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac6d3dbc7858fabcf9a243ef0cd2f5daa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac6d3dbc7858fabcf9a243ef0cd2f5daa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXICDMA_COALESCE_SHIFT</b>&#160;&#160;&#160;16</td></tr>
+<tr class="memitem:gac6d3dbc7858fabcf9a243ef0cd2f5daa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gac6d3dbc7858fabcf9a243ef0cd2f5daa">XAXICDMA_COALESCE_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gac6d3dbc7858fabcf9a243ef0cd2f5daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for coalesce counter.  <a href="group__axicdma.html#gac6d3dbc7858fabcf9a243ef0cd2f5daa">More...</a><br/></td></tr>
 <tr class="separator:gac6d3dbc7858fabcf9a243ef0cd2f5daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c26fb92eb7913f78454aeaae8f91115"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga5c26fb92eb7913f78454aeaae8f91115">XAXICDMA_DELAY_MAX</a>&#160;&#160;&#160;0xFF</td></tr>
 <tr class="memdesc:ga5c26fb92eb7913f78454aeaae8f91115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum delay counter value.  <a href="group__axicdma.html#ga5c26fb92eb7913f78454aeaae8f91115">More...</a><br/></td></tr>

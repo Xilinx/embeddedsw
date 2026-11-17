@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___ps_lp_domain" kind="struct" prot="public">
+    <compoundname>XPm_PsLpDomain</compoundname>
+    <includes local="no">xpm_pslpdomain.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___ps_lp_domain_1ae458f9c775a03a9b69320f02e8b07101" prot="public" static="no" mutable="no">
+        <type>XPm_PowerDomain</type>
+        <definition>XPm_PowerDomain XPm_PsLpDomain::Domain</definition>
+        <argsstring></argsstring>
+        <name>Domain</name>
+        <briefdescription>
+<para>Power domain node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ps_lp_domain_1ad09f83f89ff10e286186f34d6c412098" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PsLpDomain::LpdIouSlcrBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>LpdIouSlcrBaseAddr</name>
+        <briefdescription>
+<para>LPD IOU SLCR Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ps_lp_domain_1aad5c70fcf2f6c8f66e68e341b95c85c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PsLpDomain::LpdSlcrBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>LpdSlcrBaseAddr</name>
+        <briefdescription>
+<para>LPD SLCR Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ps_lp_domain_1aa79eacf63549b7b0d07c091bc726d2b2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PsLpDomain::LpdSlcrSecureBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>LpdSlcrSecureBaseAddr</name>
+        <briefdescription>
+<para>LPD SLCR Secure base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ps_lp_domain_1a7dfa3de1e779e7d6103832a08dc781c3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PsLpDomain::LpdBisrFlags</definition>
+        <argsstring></argsstring>
+        <name>LpdBisrFlags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The PS low power domain node class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.h" bodystart="24" bodyend="30"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___ps_lp_domain_1ae458f9c775a03a9b69320f02e8b07101" prot="public" virt="non-virtual"><scope>XPm_PsLpDomain</scope><name>Domain</name></member>
+      <member refid="struct_x_pm___ps_lp_domain_1a7dfa3de1e779e7d6103832a08dc781c3" prot="public" virt="non-virtual"><scope>XPm_PsLpDomain</scope><name>LpdBisrFlags</name></member>
+      <member refid="struct_x_pm___ps_lp_domain_1ad09f83f89ff10e286186f34d6c412098" prot="public" virt="non-virtual"><scope>XPm_PsLpDomain</scope><name>LpdIouSlcrBaseAddr</name></member>
+      <member refid="struct_x_pm___ps_lp_domain_1aad5c70fcf2f6c8f66e68e341b95c85c8" prot="public" virt="non-virtual"><scope>XPm_PsLpDomain</scope><name>LpdSlcrBaseAddr</name></member>
+      <member refid="struct_x_pm___ps_lp_domain_1aa79eacf63549b7b0d07c091bc726d2b2" prot="public" virt="non-virtual"><scope>XPm_PsLpDomain</scope><name>LpdSlcrSecureBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

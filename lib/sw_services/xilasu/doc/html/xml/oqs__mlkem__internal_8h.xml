@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="oqs__mlkem__internal_8h" kind="file">
+    <compoundname>oqs_mlkem_internal.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <incdepgraph>
+      <node id="17">
+        <label>stdint.h</label>
+      </node>
+      <node id="16">
+        <label>oqs_mlkem_internal.h</label>
+        <link refid="oqs_mlkem_internal.h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="oqs__mlkem__internal_8h_1a1845324bd051d92b564f080300e6cc55" prot="public" static="no">
+        <name>MLKEM_KEYPAIR_SEEDBYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Key generation seed length (d || z) in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oqs__mlkem__internal_8h_1a62653263305b0e0f8c9d49cf95db2e75" prot="public" static="no">
+        <name>MLKEM_ENCAPS_SEEDBYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Encapsulation message (m) length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oqs__mlkem__internal_8h_1ab5c831ada2eef8f6841d1ec6846c66ed" prot="public" static="no">
+        <name>MLKEM_SSBYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shared secret length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1a58dc2acd071090f1d6536c2cbf739b2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM512_C_keypair_derand</definition>
+        <argsstring>(uint8_t *PubKey, uint8_t *SecKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM512_C_keypair_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function generates an ML-KEM-512 key pair from the given seed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated secret (decapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_KEYPAIR_SEEDBYTES seed (d || z).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1ac60b145454d91bbd816b38a7e6334ae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM512_C_enc_derand</definition>
+        <argsstring>(uint8_t *CipherText, uint8_t *SharedSecret, const uint8_t *PubKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM512_C_enc_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-512 encapsulation with the given message, producing a ciphertext and the shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_ENCAPS_SEEDBYTES message (m).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1aa19d18cfb362cf07795b48cb1c96a365" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM512_C_dec</definition>
+        <argsstring>(uint8_t *SharedSecret, const uint8_t *CipherText, const uint8_t *SecKey)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM512_C_dec</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-512 decapsulation, recovering the shared secret from the given ciphertext. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the recovered shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the secret (decapsulation) key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success. A ciphertext that does not match the key yields the implicit rejection shared secret rather than an error, as specified by FIPS 203.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1a95232f827ea7c77dc2dc249ff5149ce0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM768_C_keypair_derand</definition>
+        <argsstring>(uint8_t *PubKey, uint8_t *SecKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM768_C_keypair_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function generates an ML-KEM-768 key pair from the given seed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated secret (decapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_KEYPAIR_SEEDBYTES seed (d || z).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1aa016405ff197af25817d8e8f98858b6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM768_C_enc_derand</definition>
+        <argsstring>(uint8_t *CipherText, uint8_t *SharedSecret, const uint8_t *PubKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM768_C_enc_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-768 encapsulation with the given message, producing a ciphertext and the shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_ENCAPS_SEEDBYTES message (m).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="160" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1a6cba105783b698d8eb34d597529c23d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM768_C_dec</definition>
+        <argsstring>(uint8_t *SharedSecret, const uint8_t *CipherText, const uint8_t *SecKey)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM768_C_dec</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-768 decapsulation, recovering the shared secret from the given ciphertext. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the recovered shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the secret (decapsulation) key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success. A ciphertext that does not match the key yields the implicit rejection shared secret rather than an error, as specified by FIPS 203.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1ae0ff5be70c10b07afc7181350f57989f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM1024_C_keypair_derand</definition>
+        <argsstring>(uint8_t *PubKey, uint8_t *SecKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM1024_C_keypair_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function generates an ML-KEM-1024 key pair from the given seed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated secret (decapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_KEYPAIR_SEEDBYTES seed (d || z).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="198" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1ad47b78e9e9a06aae06bf8c08242498ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM1024_C_enc_derand</definition>
+        <argsstring>(uint8_t *CipherText, uint8_t *SharedSecret, const uint8_t *PubKey, const uint8_t *Seed)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM1024_C_enc_derand</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>Seed</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-1024 encapsulation with the given message, producing a ciphertext and the shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the generated shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the public (encapsulation) key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MLKEM_ENCAPS_SEEDBYTES message (m).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="217" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="oqs__mlkem__internal_8h_1adf851d0330c37154b82929743ac1f084" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PQCP_MLKEM_NATIVE_MLKEM1024_C_dec</definition>
+        <argsstring>(uint8_t *SharedSecret, const uint8_t *CipherText, const uint8_t *SecKey)</argsstring>
+        <name>PQCP_MLKEM_NATIVE_MLKEM1024_C_dec</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>CipherText</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>SecKey</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ML-KEM-1024 decapsulation, recovering the shared secret from the given ciphertext. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which holds the recovered shared secret. It must be at least MLKEM_SSBYTES long. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CipherText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the ciphertext. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the secret (decapsulation) key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 on success. A ciphertext that does not match the key yields the implicit rejection shared secret rather than an error, as specified by FIPS 203.</para></listitem><listitem><para>Non-zero mlkem-native error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h" line="236" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header is the ASU firmware CONTRACT for the lower-level (native) ML-KEM entry points exposed by the liboqs &quot;mlkem-native&quot; backend. </para>    </briefdescription>
+    <detaileddescription>
+<para>liboqs&apos;s generic OQS_KEM API reaches these same functions indirectly, through a descriptor object that OQS_KEM_new() looks up by algorithm name and allocates on the heap. The firmware calls the native symbols directly instead, so that the ML-KEM path needs no allocator, and so that the name-keyed registry, which references every algorithm liboqs was built with, does not defeat <ndash/>gc-sections and anchor unused backends.</para><para>These prototypes MUST match the symbols exported by liboqs.a exactly. The exact link-level names were verified via <computeroutput>nm liboqs.a</computeroutput> and follow the pattern: PQCP_MLKEM_NATIVE_MLKEM{512|768|1024}_C_&lt;function&gt;</para><para>The build of liboqs used here does NOT define MLK_CONFIG_CONTEXT_PARAMETER, therefore the functions have NO trailing application-context argument. Defining it would add that argument without changing a single symbol name, so the mismatch would link silently. build_liboqs.sh checks for exactly that before it builds: it compiles these declarations alongside mlkem-native&apos;s own, where a disagreement is a compile error. Keep the two in step, and see README.liboqs.md section 2 if that check fires.</para><para>NOTE: The liboqs drop agent must ensure these symbols are exported (not stripped) from liboqs.a. This header is the single source of truth; the drop must conform to it.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>OQS_MLKEM_INTERNAL_H_</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OQS_MLKEM_INTERNAL_H_</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Byte<sp/>lengths<sp/>shared<sp/>across<sp/>all<sp/>ML-KEM<sp/>parameter<sp/>sets<sp/>(FIPS<sp/>203).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="oqs__mlkem__internal_8h_1a1845324bd051d92b564f080300e6cc55" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLKEM_KEYPAIR_SEEDBYTES<sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="oqs__mlkem__internal_8h_1a62653263305b0e0f8c9d49cf95db2e75" refkind="member"><highlight class="preprocessor">#define<sp/>MLKEM_ENCAPS_SEEDBYTES<sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="oqs__mlkem__internal_8h_1ab5c831ada2eef8f6841d1ec6846c66ed" refkind="member"><highlight class="preprocessor">#define<sp/>MLKEM_SSBYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>The<sp/>native<sp/>entry<sp/>points,<sp/>one<sp/>set<sp/>per<sp/>parameter<sp/>set.<sp/>Buffer<sp/>lengths<sp/>that<sp/>are<sp/>not<sp/>stated<sp/>with<sp/>the</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>argument<sp/>are<sp/>the<sp/>parameter-set<sp/>lengths<sp/>from<sp/>FIPS<sp/>203.</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>Only<sp/>the<sp/>derandomized<sp/>entry<sp/>points<sp/>are<sp/>declared.<sp/>The<sp/>backend&apos;s<sp/>non-derandomized<sp/>keypair()<sp/>and</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*<sp/>enc()<sp/>draw<sp/>their<sp/>randomness<sp/>through<sp/>OQS_randombytes,<sp/>which<sp/>this<sp/>bare-metal<sp/>drop<sp/>leaves<sp/>as<sp/>a</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/>*<sp/>do-nothing<sp/>stub,<sp/>so<sp/>every<sp/>caller<sp/>must<sp/>draw<sp/>its<sp/>own<sp/>seed<sp/>from<sp/>the<sp/>ASU<sp/>TRNG<sp/>and<sp/>pass<sp/>it<sp/>in.</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>-------------------------------<sp/>ML-KEM-512<sp/>------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="84"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1a58dc2acd071090f1d6536c2cbf739b2a" kindref="member">PQCP_MLKEM_NATIVE_MLKEM512_C_keypair_derand</ref>(uint8_t<sp/>*PubKey,<sp/>uint8_t<sp/>*SecKey,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="103"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1ac60b145454d91bbd816b38a7e6334ae0" kindref="member">PQCP_MLKEM_NATIVE_MLKEM512_C_enc_derand</ref>(uint8_t<sp/>*CipherText,<sp/>uint8_t<sp/>*SharedSecret,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*PubKey,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="122"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1aa19d18cfb362cf07795b48cb1c96a365" kindref="member">PQCP_MLKEM_NATIVE_MLKEM512_C_dec</ref>(uint8_t<sp/>*SharedSecret,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*CipherText,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*SecKey);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>-------------------------------<sp/>ML-KEM-768<sp/>------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="141"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1a95232f827ea7c77dc2dc249ff5149ce0" kindref="member">PQCP_MLKEM_NATIVE_MLKEM768_C_keypair_derand</ref>(uint8_t<sp/>*PubKey,<sp/>uint8_t<sp/>*SecKey,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="160"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1aa016405ff197af25817d8e8f98858b6b" kindref="member">PQCP_MLKEM_NATIVE_MLKEM768_C_enc_derand</ref>(uint8_t<sp/>*CipherText,<sp/>uint8_t<sp/>*SharedSecret,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*PubKey,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="179"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1a6cba105783b698d8eb34d597529c23d1" kindref="member">PQCP_MLKEM_NATIVE_MLKEM768_C_dec</ref>(uint8_t<sp/>*SharedSecret,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*CipherText,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*SecKey);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------<sp/>ML-KEM-1024<sp/>------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="198"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1ae0ff5be70c10b07afc7181350f57989f" kindref="member">PQCP_MLKEM_NATIVE_MLKEM1024_C_keypair_derand</ref>(uint8_t<sp/>*PubKey,<sp/>uint8_t<sp/>*SecKey,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="217"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1ad47b78e9e9a06aae06bf8c08242498ba" kindref="member">PQCP_MLKEM_NATIVE_MLKEM1024_C_enc_derand</ref>(uint8_t<sp/>*CipherText,<sp/>uint8_t<sp/>*SharedSecret,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*PubKey,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*Seed);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="236"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oqs__mlkem__internal_8h_1adf851d0330c37154b82929743ac1f084" kindref="member">PQCP_MLKEM_NATIVE_MLKEM1024_C_dec</ref>(uint8_t<sp/>*SharedSecret,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*CipherText,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*SecKey);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>OQS_MLKEM_INTERNAL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/oqs_mlkem_internal.h"/>
+  </compounddef>
+</doxygen>

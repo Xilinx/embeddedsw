@@ -21,114 +21,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="203">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="197">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="195">
-        <label>xhdmi_example.h</label>
-        <childnode refid="196" relation="include">
-        </childnode>
-        <childnode refid="197" relation="include">
-        </childnode>
-      </node>
-      <node id="193">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="190">
-        <label>xhdmi_example.h</label>
-        <childnode refid="191" relation="include">
-        </childnode>
-        <childnode refid="192" relation="include">
-        </childnode>
-        <childnode refid="193" relation="include">
-        </childnode>
-      </node>
-      <node id="188">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="185">
-        <label>xhdmi_example.h</label>
-        <childnode refid="186" relation="include">
-        </childnode>
-        <childnode refid="187" relation="include">
-        </childnode>
-        <childnode refid="188" relation="include">
-        </childnode>
-      </node>
-      <node id="196">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="183">
-        <label>platform.h</label>
-        <link refid="platform.h"/>
-        <childnode refid="184" relation="include">
-        </childnode>
-        <childnode refid="185" relation="include">
-        </childnode>
-        <childnode refid="190" relation="include">
-        </childnode>
-        <childnode refid="195" relation="include">
-        </childnode>
-        <childnode refid="198" relation="include">
-        </childnode>
-        <childnode refid="202" relation="include">
-        </childnode>
-      </node>
-      <node id="201">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="198">
-        <label>xhdmi_example.h</label>
-        <childnode refid="199" relation="include">
-        </childnode>
-        <childnode refid="200" relation="include">
-        </childnode>
-        <childnode refid="201" relation="include">
-        </childnode>
-      </node>
-      <node id="184">
-        <label>hdcp_key_utility.c</label>
-      </node>
-      <node id="189">
-        <label>xhdmi_menu.c</label>
-      </node>
-      <node id="187">
-        <label>xhdmi_menu.h</label>
-        <childnode refid="185" relation="include">
-        </childnode>
-        <childnode refid="188" relation="include">
-        </childnode>
-        <childnode refid="189" relation="include">
-        </childnode>
-      </node>
-      <node id="200">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="199">
-        <label>xhdcp.h</label>
-        <childnode refid="200" relation="include">
-        </childnode>
-        <childnode refid="198" relation="include">
-        </childnode>
-      </node>
-      <node id="205">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="202">
-        <label>xhdmi_example.h</label>
-        <childnode refid="203" relation="include">
-        </childnode>
-        <childnode refid="204" relation="include">
-        </childnode>
-        <childnode refid="205" relation="include">
-        </childnode>
-      </node>
-      <node id="191">
-        <label>xhdcp.c</label>
-      </node>
       <node id="206">
         <label>xhdmi_menu.c</label>
       </node>
@@ -149,6 +41,101 @@
         <childnode refid="206" relation="include">
         </childnode>
       </node>
+      <node id="193">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="190">
+        <label>xhdmi_example.h</label>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+      </node>
+      <node id="183">
+        <label>platform.h</label>
+        <link refid="platform.h"/>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+      <node id="205">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="202">
+        <label>xhdmi_example.h</label>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+      </node>
+      <node id="201">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="198">
+        <label>xhdmi_example.h</label>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="195">
+        <label>xhdmi_example.h</label>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+      </node>
+      <node id="186">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="188">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="185">
+        <label>xhdmi_example.h</label>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="187" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+      </node>
+      <node id="189">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="187">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="184">
+        <label>hdcp_key_utility.c</label>
+      </node>
       <node id="194">
         <label>xhdmi_menu.c</label>
       </node>
@@ -161,7 +148,20 @@
         <childnode refid="194" relation="include">
         </childnode>
       </node>
-      <node id="186">
+      <node id="200">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="199">
+        <label>xhdcp.h</label>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="191">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="203">
         <label>xhdcp.c</label>
       </node>
     </invincdepgraph>
@@ -177,7 +177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.c" bodystart="60" bodyend="73"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.c" bodystart="60" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -190,7 +190,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.c" bodystart="76" bodyend="79"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.c" bodystart="76" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -214,6 +214,6 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/platforms/platform.h"/>
   </compounddef>
 </doxygen>

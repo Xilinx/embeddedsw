@@ -4,6 +4,7 @@
     <member refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" kind="variable"><name>XTimer_ModifyInterval</name></member>
     <member refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" kind="variable"><name>XTimer_TickIntrHandler</name></member>
     <member refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kind="variable"><name>XTimer_TickInterval</name></member>
+    <member refid="struct_x_timer_tag_1a793bd1f723f0570b86cfdd0802cc46a5" kind="variable"><name>XTimer_TickIntervalHz</name></member>
     <member refid="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" kind="variable"><name>XSleepTimer_Stop</name></member>
     <member refid="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" kind="variable"><name>XTickTimer_Stop</name></member>
     <member refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" kind="variable"><name>XTickTimer_ClearInterrupt</name></member>
@@ -21,6 +22,7 @@
   </compound>
   <compound refid="core_2default__timer_2_c_make_lists_8txt" kind="file"><name>core/default_timer/CMakeLists.txt</name>
     <member refid="core_2default__timer_2_c_make_lists_8txt_1ae9e45733bfebc1adc2a763f2383f9c0c" kind="function"><name>if</name></member>
+    <member refid="core_2default__timer_2_c_make_lists_8txt_1a088f26378faa1f007d720df5630e9a49" kind="function"><name>OR</name></member>
     <member refid="core_2default__timer_2_c_make_lists_8txt_1a7da938b0e5caaaf71ba0d26269e2dc56" kind="function"><name>OR</name></member>
     <member refid="core_2default__timer_2_c_make_lists_8txt_1a34a00bbf298dffb25efbf69b33fe8582" kind="function"><name>OR</name></member>
   </compound>
@@ -62,6 +64,7 @@
     <member refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" kind="function"><name>xtimerinit</name></member>
     <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
     <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kind="function"><name>XTimer_SetIntervalHz</name></member>
     <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
   </compound>
   <compound refid="xiltimer_8h" kind="file"><name>xiltimer.h</name>
@@ -80,6 +83,7 @@
     <member refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52" kind="function"><name>XilTickTimer_Init</name></member>
     <member refid="xiltimer_8h_1a6d069e6cf82031c469818523a5d7ab82" kind="function"><name>XTime_GetTime</name></member>
     <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kind="function"><name>XTimer_SetIntervalHz</name></member>
     <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
     <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
   </compound>
@@ -95,6 +99,7 @@
     <member refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" kind="function"><name>xtimerinit</name></member>
     <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
     <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kind="function"><name>XTimer_SetIntervalHz</name></member>
     <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
     <member refid="group__xiltimer__api_1gae14eaaed1fe7cdf491da54a714c426b3" kind="define"><name>MAX_COUNT</name></member>
     <member refid="group__xiltimer__api_1gaca6f06685ab6904b49da2f41d3c7b46b" kind="define"><name>REG_SHIFT</name></member>

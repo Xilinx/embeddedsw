@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="644" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="644" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1a046a2c039dafbf3410cda64e0195be4b" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v___hdmi_c___video_timing_ext_meta" kindref="compound">XV_HdmiC_VideoTimingExtMeta</ref></type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="646" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="646" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1ab773206480b036a36187bb1f11fa529a" prot="public" static="no" mutable="no">
         <type><ref refid="union_x_v___hdmi_c___src_prod_desc_i_f" kindref="compound">XV_HdmiC_SrcProdDescIF</ref></type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="647" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="647" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1a8a27cd6149827faf9a95076fdae4a2f1" prot="public" static="no" mutable="no">
         <type>union XV_HdmiC_VrrInfoFrame::@2</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="648" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="648" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -79,7 +79,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="643" bodyend="649"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="643" bodyend="649"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_c___vrr_info_frame_1ab773206480b036a36187bb1f11fa529a" prot="public" virt="non-virtual"><scope>XV_HdmiC_VrrInfoFrame</scope><name>SrcProdDescIF</name></member>
       <member refid="struct_x_v___hdmi_c___vrr_info_frame_1a046a2c039dafbf3410cda64e0195be4b" prot="public" virt="non-virtual"><scope>XV_HdmiC_VrrInfoFrame</scope><name>VidTimingExtMeta</name></member>

@@ -39,10 +39,11 @@
     <innerfile refid="xplmi__task_8h">xplmi_task.h</innerfile>
     <innerfile refid="xplmi__util_8c">xplmi_util.c</innerfile>
     <innerfile refid="xplmi__util_8h">xplmi_util.h</innerfile>
+    <innerfile refid="xplmi__wdt__hw_8h">xplmi_wdt_hw.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/"/>
   </compounddef>
 </doxygen>

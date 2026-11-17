@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___provision_ude_params" kind="struct" prot="public">
+    <compoundname>XAsu_ProvisionUdeParams</compoundname>
+    <includes local="no">xasu_provisioninfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1a1e071825e84c46236ff53aa02922157f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_ProvisionUdeParams::CertBufAddr</definition>
+        <argsstring></argsstring>
+        <name>CertBufAddr</name>
+        <briefdescription>
+<para>Address of the caller buffer that receives the generated UDE self-signed X.509 certificate (DER encoded). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1a445dd925fb2e1ea985e119a4a6182693" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_ProvisionUdeParams::CertActualSizeAddr</definition>
+        <argsstring></argsstring>
+        <name>CertActualSizeAddr</name>
+        <briefdescription>
+<para>Address of the caller u32 that receives the actual size in bytes of the generated certificate. </para>        </briefdescription>
+        <detaileddescription>
+<para>The server returns the size through the response buffer and the client copies it to this address during the callback. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga0a67b6effa75ba432c9cfbb4985ad6f4" compoundref="xasu__provision_8c" startline="486" endline="537">XAsu_ProvisionUde</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1a60a9a053131982cf36ac5547a8ac3578" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ProvisionUdeParams::CertBufSize</definition>
+        <argsstring></argsstring>
+        <name>CertBufSize</name>
+        <briefdescription>
+<para>Size in bytes of the caller certificate buffer at CertBufAddr. </para>        </briefdescription>
+        <detaileddescription>
+<para>Must be able to hold up to XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1ad299a518f363ed3e3de150df11a74dd0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUdeParams::UdeSlot</definition>
+        <argsstring></argsstring>
+        <name>UdeSlot</name>
+        <briefdescription>
+<para>Target UDE eFUSE slot to program (XASU_OCP_UDE_USER_KEY_0/1/2_ID). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1af0d072ebae19d3b61b628a808dc6eee7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUdeParams::UdeKeyType</definition>
+        <argsstring></argsstring>
+        <name>UdeKeyType</name>
+        <briefdescription>
+<para>UDE key type (XASU_PROVISION_UDE_KEY_TYPE_ECC_P384). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_ude_params_1a21b377e2b93d4ede8b0b3df906d547b9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_ProvisionUdeParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters for the Unique Device Endorsement (UDE) key provisioning command. </para>    </briefdescription>
+    <detaileddescription>
+<para>The UDE key pair (ECC NIST P-384) is generated inside the ASU (the private key never leaves the ASU), the private key is encrypted with the PUF KEK and programmed into the requested eFUSE slot, and a self-signed X.509 certificate over the generated public key is returned to the caller at CertBufAddr with its actual size at CertActualSizeAddr. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="229" bodyend="242"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___provision_ude_params_1a445dd925fb2e1ea985e119a4a6182693" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>CertActualSizeAddr</name></member>
+      <member refid="struct_x_asu___provision_ude_params_1a1e071825e84c46236ff53aa02922157f" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>CertBufAddr</name></member>
+      <member refid="struct_x_asu___provision_ude_params_1a60a9a053131982cf36ac5547a8ac3578" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>CertBufSize</name></member>
+      <member refid="struct_x_asu___provision_ude_params_1a21b377e2b93d4ede8b0b3df906d547b9" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___provision_ude_params_1af0d072ebae19d3b61b628a808dc6eee7" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>UdeKeyType</name></member>
+      <member refid="struct_x_asu___provision_ude_params_1ad299a518f363ed3e3de150df11a74dd0" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUdeParams</scope><name>UdeSlot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

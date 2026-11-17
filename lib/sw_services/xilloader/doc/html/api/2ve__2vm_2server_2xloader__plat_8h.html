@@ -156,7 +156,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  03/23/2026 Added support to extend to TPM PCRs
       sri  03/26/2026 Added IPI API definition for Versal 2VE and 2VM devices
       sk   04/02/2026 Added TAP Unlock register defines
-      pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xpm_node.h&quot;</code><br/>
+      pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
+2.5   pre  06/29/2026 Removed XLoader_GetBootHeaderIvAddr function declaration
+      pre  07/14/2026 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
+                      XLoader_GetI2CDeviceID function declaration
+      pre  08/05/2026 Removed unused error code
+      ng   08/21/2026 Added prototype for XLoader_ConfigureGlitchDetector function
+      pre  08/17/2026 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
+      ng   09/11/2026 Added XLOADER_ERR_NO_VALID_TLBIN error code
+      pre  10/09/2026 Added XLOADER_ERR_INVALID_ROW_RANGE error code
+      ng   10/14/2026 Added error codes for I2C handshake
+      pre  10/22/2026 Dropped XPAR calib source, filename, and warm-boot tables.
+                      DDR MC list macros are under PLM_ENABLE_DDR_CALIB_RESTORE
+                      and are disabled by default
+      pre  10/23/2026 Define I2C device IDs when the handshake is enabled</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xpm_node.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -306,6 +319,36 @@ Macros</h2></td></tr>
 <tr class="memitem:a2557fa7faf632e7bdf46dcc1526089be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a2557fa7faf632e7bdf46dcc1526089be">XLOADER_PMC_TAP_UNLOCK_VAL</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:a2557fa7faf632e7bdf46dcc1526089be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to unlock write to PMC_TAP registers.  <a href="#a2557fa7faf632e7bdf46dcc1526089be">More...</a><br/></td></tr>
 <tr class="separator:a2557fa7faf632e7bdf46dcc1526089be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d421d905be523714cad2e39d0d086bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a7d421d905be523714cad2e39d0d086bc">XLOADER_RST_ASU_GD_ASSERT_VAL</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:a7d421d905be523714cad2e39d0d086bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to assert ASU glitch detector reset.  <a href="#a7d421d905be523714cad2e39d0d086bc">More...</a><br/></td></tr>
+<tr class="separator:a7d421d905be523714cad2e39d0d086bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afebdf4ac34f0d45dab59a7469ed5c1f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#afebdf4ac34f0d45dab59a7469ed5c1f1">XLOADER_RST_ASU_GD_RELEASE_VAL</a>&#160;&#160;&#160;(0x0U)</td></tr>
+<tr class="memdesc:afebdf4ac34f0d45dab59a7469ed5c1f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to release ASU glitch detector reset.  <a href="#afebdf4ac34f0d45dab59a7469ed5c1f1">More...</a><br/></td></tr>
+<tr class="separator:afebdf4ac34f0d45dab59a7469ed5c1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3e376f254fda2661ccbcd909014c349"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#af3e376f254fda2661ccbcd909014c349">XLOADER_RST_ASU_GD_RMW_MASK</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:af3e376f254fda2661ccbcd909014c349"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for ASU glitch detector reset register.  <a href="#af3e376f254fda2661ccbcd909014c349">More...</a><br/></td></tr>
+<tr class="separator:af3e376f254fda2661ccbcd909014c349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a62da32246ff4efe69b826d8c3a28f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a06a62da32246ff4efe69b826d8c3a28f">XLOADER_RST_LPD_GD_RMW_MASK</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:a06a62da32246ff4efe69b826d8c3a28f"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for LPD glitch detector reset register.  <a href="#a06a62da32246ff4efe69b826d8c3a28f">More...</a><br/></td></tr>
+<tr class="separator:a06a62da32246ff4efe69b826d8c3a28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3dcdc6c1900bba63673275b3291f59a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#ae3dcdc6c1900bba63673275b3291f59a">XLOADER_RST_LPD_GD_ASSERT_VAL</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:ae3dcdc6c1900bba63673275b3291f59a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to assert LPD glitch detector reset.  <a href="#ae3dcdc6c1900bba63673275b3291f59a">More...</a><br/></td></tr>
+<tr class="separator:ae3dcdc6c1900bba63673275b3291f59a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca239fa1b8e76513eda2caac3dbff2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a1ca239fa1b8e76513eda2caac3dbff2c">XLOADER_RST_LPD_GD_RELEASE_VAL</a>&#160;&#160;&#160;(0x0U)</td></tr>
+<tr class="memdesc:a1ca239fa1b8e76513eda2caac3dbff2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to release LPD glitch detector reset.  <a href="#a1ca239fa1b8e76513eda2caac3dbff2c">More...</a><br/></td></tr>
+<tr class="separator:a1ca239fa1b8e76513eda2caac3dbff2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94f7e86f6ebede3b0734aecf1ee458d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a94f7e86f6ebede3b0734aecf1ee458d1">XLOADER_GD_VAL_SEL_RMW_MASK</a>&#160;&#160;&#160;(0x7U)</td></tr>
+<tr class="memdesc:a94f7e86f6ebede3b0734aecf1ee458d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for GD VAL_SEL field.  <a href="#a94f7e86f6ebede3b0734aecf1ee458d1">More...</a><br/></td></tr>
+<tr class="separator:a94f7e86f6ebede3b0734aecf1ee458d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c4c7d0becb4380554ab219be7d1c987"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a1c4c7d0becb4380554ab219be7d1c987">XLOADER_GD_COMP_SEL_RMW_MASK</a>&#160;&#160;&#160;(0x3U)</td></tr>
+<tr class="memdesc:a1c4c7d0becb4380554ab219be7d1c987"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for GD COMP_SEL field.  <a href="#a1c4c7d0becb4380554ab219be7d1c987">More...</a><br/></td></tr>
+<tr class="separator:a1c4c7d0becb4380554ab219be7d1c987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a590c06312f390552d46a0a3dc909b31c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a590c06312f390552d46a0a3dc909b31c">XLOADER_GD_DEL_SEL_RMW_MASK</a>&#160;&#160;&#160;(0xFU)</td></tr>
+<tr class="memdesc:a590c06312f390552d46a0a3dc909b31c"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for GD DEL_SEL field.  <a href="#a590c06312f390552d46a0a3dc909b31c">More...</a><br/></td></tr>
+<tr class="separator:a590c06312f390552d46a0a3dc909b31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9d0424a7b44dcb5415d725c999c888a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#aa9d0424a7b44dcb5415d725c999c888a">XLOADER_GD_SPARE_SEL_RMW_MASK</a>&#160;&#160;&#160;(0xFU)</td></tr>
+<tr class="memdesc:aa9d0424a7b44dcb5415d725c999c888a"><td class="mdescLeft">&#160;</td><td class="mdescRight">RMW mask for GD SPARE_SEL field.  <a href="#aa9d0424a7b44dcb5415d725c999c888a">More...</a><br/></td></tr>
+<tr class="separator:aa9d0424a7b44dcb5415d725c999c888a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4403f6d235119bd4078254da5fe4b71d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a4403f6d235119bd4078254da5fe4b71d">XLOADER_GET_PDISRC_INFO</a>()</td></tr>
 <tr class="memdesc:a4403f6d235119bd4078254da5fe4b71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get PDI source info.  <a href="#a4403f6d235119bd4078254da5fe4b71d">More...</a><br/></td></tr>
 <tr class="separator:a4403f6d235119bd4078254da5fe4b71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -371,14 +414,52 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a2012645b4e22bc9d4aa39f681d342579">XLOADER_ERR_I2C_TRANSACTION</a>,
 <a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a60be37c37f4d4b324de92648f56647bf">XLOADER_ERR_I2C_BUS_BUSY</a>,
 <a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ac1625e2d90f82beba52ba71e3e5cae56">XLOADER_ERR_I2C_DEV_RELEASE</a>,
-<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a2663b0dca759e1d11b4b1856e287e71e">XLOADER_ERR_ASU_FW_NOT_FOUND</a>
-, <br/>
-&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5af76a9307dd97fbf0348f51b59e4ec85a">XLOADER_ERR_INVALID_JTAG_OPERATION</a> = 0x100,
-<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a83c4396c2addb02e462194a3675ddcea">XLOADER_ERR_DDR_DEVICE_ID</a>,
-<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a884fb6887a49557dc740784b436e3a01">XLOADER_ERR_PCOMPLETE_NOT_DONE</a>,
-<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a3887a56ded4ed9f48e07ac5ee76cc749">XLOADER_ERR_MEMSET_UFS_BOOT_FILE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a2663b0dca759e1d11b4b1856e287e71e">XLOADER_ERR_ASU_FW_NOT_FOUND</a>,
 <br/>
-&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5afc1ad523f0e79e62b283dea21de9d74f">XLOADER_ERR_I2C_MASTER_DEVID_READ</a>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a95603e0759b64a1992f6f68b35fc0dce">XLOADER_ERR_INVALID_ADDR_RANGE</a> = 0x32,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a71b5b79039c4de83fcb1de25bba20f25">XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ac7a4f304bf549787d0c40cebec510ced">XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ae6693f0a02bacd4ab6290c893a13fa61">XLOADER_ERR_INVALID_NVSTORAGE_ADDR</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a4745b86aaaa79d2b51e005ea8f57eec1">XLOADER_ERR_INVALID_XRAM_ADDR</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a80276488f576a1e202c63bbd1a9f2272">XLOADER_ERR_INVALID_PHYS_ADDR</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5adfcdd64b3d52639d4022317232501b1e">XLOADER_ERR_CALIBDATA_WRITE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a30d223b1ed8a2f0b4ba21ea1aa9ef826">XLOADER_ERR_SET_CALIB_SKIP_FLAG</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5aa703df3e524ae7b08d5fba2adb58c81d">XLOADER_ERR_INVALID_ROW_RANGE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a67abacb18b94267d502a17a93d065569">XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5abf6938a61557af32c363ce8eebf72882">XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a9a9487060d07b3b7ca2cee3990ec8cd5">XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a4f003bc00169955b2092199571c330c6">XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ac5095cfe5162f2c0c4deab32d3c8ae38">XLOADER_ERR_I2C_INVALID_DATA_SIZE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5af76a9307dd97fbf0348f51b59e4ec85a">XLOADER_ERR_INVALID_JTAG_OPERATION</a> = 0x100,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a83c4396c2addb02e462194a3675ddcea">XLOADER_ERR_DDR_DEVICE_ID</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a884fb6887a49557dc740784b436e3a01">XLOADER_ERR_PCOMPLETE_NOT_DONE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a3887a56ded4ed9f48e07ac5ee76cc749">XLOADER_ERR_MEMSET_UFS_BOOT_FILE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5afbbdc65fdac14c1419644ed685d16032">XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a7101c8cec982000cfedeea7734cbd63d">XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a6d6e0cd35ee76fe37d738f2d5645c806">XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5adaae4c9d02c2e084f8f9a7451873e9de">XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a084c59681feeb1774ba30eb82dcf40b4">XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a4ffb13e3e208a1bd6c8a417ea265127e">XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a223035805c03c45a97597c1d1260ca4a">XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5aff597bf1e481323cdaefc77c5b87d415">XLOADER_ERR_ASU_GD_RESET_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ad016af801e4ff284ced9c8323bcb48d7">XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ab7408dc68d7a48a32b4aa684d1f0bd4a">XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a4c38bf9977b15fc5635a85d42848413f">XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ae8ca3f541b8293b620f8cebaa1b98372">XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ac3d5b7653b31eb3a23423300d3d4ca58">XLOADER_ERR_LPD_GD_RESET_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ada69d587e0674d43d2d264d5d1778153">XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a9ca94b7a53a7cbeb9fd91dad5a944526">XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a612670c9186c3997aa3d35d7e6c098be">XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a113d8877d93008c125eeff93af464c6b">XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED</a>,
+<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ab02849b95dd056d95be456c043d595f1">XLOADER_ERR_NO_VALID_TLBIN</a>
 <br/>
  }</td></tr>
 <tr class="separator:a99fb83031ce9923c84392b4e92f956b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -590,6 +671,62 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1c4c7d0becb4380554ab219be7d1c987"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_GD_COMP_SEL_RMW_MASK&#160;&#160;&#160;(0x3U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for GD COMP_SEL field. </p>
+
+</div>
+</div>
+<a class="anchor" id="a590c06312f390552d46a0a3dc909b31c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_GD_DEL_SEL_RMW_MASK&#160;&#160;&#160;(0xFU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for GD DEL_SEL field. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa9d0424a7b44dcb5415d725c999c888a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_GD_SPARE_SEL_RMW_MASK&#160;&#160;&#160;(0xFU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for GD SPARE_SEL field. </p>
+
+</div>
+</div>
+<a class="anchor" id="a94f7e86f6ebede3b0734aecf1ee458d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_GD_VAL_SEL_RMW_MASK&#160;&#160;&#160;(0x7U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for GD VAL_SEL field. </p>
+
+</div>
+</div>
 <a class="anchor" id="a4403f6d235119bd4078254da5fe4b71d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -620,7 +757,7 @@ Functions</h2></td></tr>
 <div class="line">                {<span class="stringliteral">&quot;SDLS_B1&quot;</span>, XLOADER_SD_INDEX}, <span class="comment">/* SDLS_B1 - 0xE */</span>\</div>
 <div class="line">                {<span class="stringliteral">&quot;DDR&quot;</span>, XLOADER_DDR_INDEX}, <span class="comment">/* DDR - 0xF */</span>\</div>
 <div class="line">        }</div>
-<div class="ttc" id="xloader_8h_html_ac8097924f1abad9477162e3b273ccfc6"><div class="ttname"><a href="xloader_8h.html#ac8097924f1abad9477162e3b273ccfc6">XLOADER_SBI_INDEX</a></div><div class="ttdeci">#define XLOADER_SBI_INDEX</div><div class="ttdoc">&amp;lt; PDI Src index </div><div class="ttdef"><b>Definition:</b> xloader.h:273</div></div>
+<div class="ttc" id="xloader_8h_html_ac8097924f1abad9477162e3b273ccfc6"><div class="ttname"><a href="xloader_8h.html#ac8097924f1abad9477162e3b273ccfc6">XLOADER_SBI_INDEX</a></div><div class="ttdeci">#define XLOADER_SBI_INDEX</div><div class="ttdoc">&amp;lt; PDI Src index </div><div class="ttdef"><b>Definition:</b> xloader.h:286</div></div>
 </div><!-- fragment -->
 <p>Get PDI source info. </p>
 
@@ -645,8 +782,8 @@ Functions</h2></td></tr>
 <div class="line">                                (PM_DEV_RPU_A_0 + (ClusterId * 2) + <a class="code" href="2ve__2vm_2server_2xloader__plat_8h.html#a4a374db81a9c33034d6b3b250cfb683c">XLOADER_RPU_CORE0</a>) \</div>
 <div class="line">                        : (PM_DEV_RPU_C_0 + ((ClusterId - <a class="code" href="2ve__2vm_2server_2xloader__plat_8h.html#a26efe26a98cb57cab8afd85a1ab192eb">XLOADER_RPU_CLUSTERC_IDX</a>) * 2) + <a class="code" href="2ve__2vm_2server_2xloader__plat_8h.html#a4a374db81a9c33034d6b3b250cfb683c">\</a></div>
 <div class="line"><a class="code" href="2ve__2vm_2server_2xloader__plat_8h.html#a4a374db81a9c33034d6b3b250cfb683c">					XLOADER_RPU_CORE0</a>);</div>
-<div class="ttc" id="2ve__2vm_2server_2xloader__plat_8h_html_a26efe26a98cb57cab8afd85a1ab192eb"><div class="ttname"><a href="2ve__2vm_2server_2xloader__plat_8h.html#a26efe26a98cb57cab8afd85a1ab192eb">XLOADER_RPU_CLUSTERC_IDX</a></div><div class="ttdeci">#define XLOADER_RPU_CLUSTERC_IDX</div><div class="ttdoc">RPU cluster C. </div><div class="ttdef"><b>Definition:</b> 2ve_2vm/server/xloader_plat.h:112</div></div>
-<div class="ttc" id="2ve__2vm_2server_2xloader__plat_8h_html_a4a374db81a9c33034d6b3b250cfb683c"><div class="ttname"><a href="2ve__2vm_2server_2xloader__plat_8h.html#a4a374db81a9c33034d6b3b250cfb683c">XLOADER_RPU_CORE0</a></div><div class="ttdeci">#define XLOADER_RPU_CORE0</div><div class="ttdoc">RPU core 0. </div><div class="ttdef"><b>Definition:</b> 2ve_2vm/server/xloader_plat.h:114</div></div>
+<div class="ttc" id="2ve__2vm_2server_2xloader__plat_8h_html_a26efe26a98cb57cab8afd85a1ab192eb"><div class="ttname"><a href="2ve__2vm_2server_2xloader__plat_8h.html#a26efe26a98cb57cab8afd85a1ab192eb">XLOADER_RPU_CLUSTERC_IDX</a></div><div class="ttdeci">#define XLOADER_RPU_CLUSTERC_IDX</div><div class="ttdoc">RPU cluster C. </div><div class="ttdef"><b>Definition:</b> 2ve_2vm/server/xloader_plat.h:143</div></div>
+<div class="ttc" id="2ve__2vm_2server_2xloader__plat_8h_html_a4a374db81a9c33034d6b3b250cfb683c"><div class="ttname"><a href="2ve__2vm_2server_2xloader__plat_8h.html#a4a374db81a9c33034d6b3b250cfb683c">XLOADER_RPU_CORE0</a></div><div class="ttdeci">#define XLOADER_RPU_CORE0</div><div class="ttdoc">RPU core 0. </div><div class="ttdef"><b>Definition:</b> 2ve_2vm/server/xloader_plat.h:145</div></div>
 </div><!-- fragment -->
 <p>Macro to calculate the Device Id for RPU core1 based on cluster. </p>
 
@@ -1119,6 +1256,90 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7d421d905be523714cad2e39d0d086bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_ASU_GD_ASSERT_VAL&#160;&#160;&#160;(0x3U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to assert ASU glitch detector reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="afebdf4ac34f0d45dab59a7469ed5c1f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_ASU_GD_RELEASE_VAL&#160;&#160;&#160;(0x0U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to release ASU glitch detector reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="af3e376f254fda2661ccbcd909014c349"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_ASU_GD_RMW_MASK&#160;&#160;&#160;(0x3U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for ASU glitch detector reset register. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae3dcdc6c1900bba63673275b3291f59a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_LPD_GD_ASSERT_VAL&#160;&#160;&#160;(0x3U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to assert LPD glitch detector reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1ca239fa1b8e76513eda2caac3dbff2c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_LPD_GD_RELEASE_VAL&#160;&#160;&#160;(0x0U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value to release LPD glitch detector reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a06a62da32246ff4efe69b826d8c3a28f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_RST_LPD_GD_RMW_MASK&#160;&#160;&#160;(0x3U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RMW mask for LPD glitch detector reset register. </p>
+
+</div>
+</div>
 <a class="anchor" id="a3944db2060fd83c89b79580dd0caa0de"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1316,7 +1537,48 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a2663b0dca759e1d11b4b1856e287e71e"></a>XLOADER_ERR_ASU_FW_NOT_FOUND</em>&nbsp;</td><td class="fielddoc">
 <p>0x31 - ASUFW image not found in PDI </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a95603e0759b64a1992f6f68b35fc0dce"></a>XLOADER_ERR_INVALID_ADDR_RANGE</em>&nbsp;</td><td class="fielddoc">
 <p>0x32 - Error when invalid address range is detected. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a71b5b79039c4de83fcb1de25bba20f25"></a>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</em>&nbsp;</td><td class="fielddoc">
+<p>0x33 - Error when reserved Image Store PDI ID is used in IPI command </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ac7a4f304bf549787d0c40cebec510ced"></a>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</em>&nbsp;</td><td class="fielddoc">
+<p>0x34 - Error when primary boot mode cannot store calibration data </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ae6693f0a02bacd4ab6290c893a13fa61"></a>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</em>&nbsp;</td><td class="fielddoc">
+<p>0x35 - Error when non-volatile storage address is invalid </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a4745b86aaaa79d2b51e005ea8f57eec1"></a>XLOADER_ERR_INVALID_XRAM_ADDR</em>&nbsp;</td><td class="fielddoc">
+<p>0x36 - Error when XRAM destination address is invalid </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a80276488f576a1e202c63bbd1a9f2272"></a>XLOADER_ERR_INVALID_PHYS_ADDR</em>&nbsp;</td><td class="fielddoc">
+<p>0x37 - Error when the DDR MC physical address does not match a DDR MC </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5adfcdd64b3d52639d4022317232501b1e"></a>XLOADER_ERR_CALIBDATA_WRITE</em>&nbsp;</td><td class="fielddoc">
+<p>0x38 - Error while writing calibration data </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a30d223b1ed8a2f0b4ba21ea1aa9ef826"></a>XLOADER_ERR_SET_CALIB_SKIP_FLAG</em>&nbsp;</td><td class="fielddoc">
+<p>0x39 - Error while setting calibration skip flag </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5aa703df3e524ae7b08d5fba2adb58c81d"></a>XLOADER_ERR_INVALID_ROW_RANGE</em>&nbsp;</td><td class="fielddoc">
+<p>0x3A - CFU row count is zero or does not match the rows checked </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a67abacb18b94267d502a17a93d065569"></a>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</em>&nbsp;</td><td class="fielddoc">
+<p>0x3B - Error when I2C handshake buffer address is not word-aligned </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5abf6938a61557af32c363ce8eebf72882"></a>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</em>&nbsp;</td><td class="fielddoc">
+<p>0x3C - Error when I2C handshake buffer address is below UB window offset </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a9a9487060d07b3b7ca2cee3990ec8cd5"></a>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</em>&nbsp;</td><td class="fielddoc">
+<p>0x3D - Error when I2C handshake buffer address exceeds UB window </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a4f003bc00169955b2092199571c330c6"></a>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</em>&nbsp;</td><td class="fielddoc">
+<p>0x3E - Error when I2C handshake transfer length exceeds UB window </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ac5095cfe5162f2c0c4deab32d3c8ae38"></a>XLOADER_ERR_I2C_INVALID_DATA_SIZE</em>&nbsp;</td><td class="fielddoc">
+<p>0x3F - Error when I2C handshake data size is invalid </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5af76a9307dd97fbf0348f51b59e4ec85a"></a>XLOADER_ERR_INVALID_JTAG_OPERATION</em>&nbsp;</td><td class="fielddoc">
 <p>0x100 - Invalid JTAG/DAP config request </p>
@@ -1330,8 +1592,59 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a3887a56ded4ed9f48e07ac5ee76cc749"></a>XLOADER_ERR_MEMSET_UFS_BOOT_FILE</em>&nbsp;</td><td class="fielddoc">
 <p>0x103 - Error during memset on UFS Bootfile </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5afc1ad523f0e79e62b283dea21de9d74f"></a>XLOADER_ERR_I2C_MASTER_DEVID_READ</em>&nbsp;</td><td class="fielddoc">
-<p>0x104 - Error in parsing I2C master while reading device ID </p>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5afbbdc65fdac14c1419644ed685d16032"></a>XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM</em>&nbsp;</td><td class="fielddoc">
+<p>0x104 - Invalid glitch detector number </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a7101c8cec982000cfedeea7734cbd63d"></a>XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN</em>&nbsp;</td><td class="fielddoc">
+<p>0x105 - Invalid payload length for Configure Glitch Detector command </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a6d6e0cd35ee76fe37d738f2d5645c806"></a>XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE</em>&nbsp;</td><td class="fielddoc">
+<p>0x106 - Invalid glitch detector type in Configure Glitch Detector command </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5adaae4c9d02c2e084f8f9a7451873e9de"></a>XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM</em>&nbsp;</td><td class="fielddoc">
+<p>0x107 - Invalid Depth/Width/RefVoltage in Configure Glitch Detector command </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a084c59681feeb1774ba30eb82dcf40b4"></a>XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x108 - Failed to configure PMC glitch detector </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a4ffb13e3e208a1bd6c8a417ea265127e"></a>XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED</em>&nbsp;</td><td class="fielddoc">
+<p>0x109 - ASU GD config Depth/Width/RefVoltage exceed permitted field lengths </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a223035805c03c45a97597c1d1260ca4a"></a>XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10A - LPD GD config GdNum/Depth/Width/RefVoltage exceed permitted field lengths </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5aff597bf1e481323cdaefc77c5b87d415"></a>XLOADER_ERR_ASU_GD_RESET_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10B - Failed to assert/release ASU GD </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ad016af801e4ff284ced9c8323bcb48d7"></a>XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10C - ASU glitch detector VAL_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ab7408dc68d7a48a32b4aa684d1f0bd4a"></a>XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10D - ASU glitch detector COMP_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a4c38bf9977b15fc5635a85d42848413f"></a>XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10E - ASU glitch detector DEL_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ae8ca3f541b8293b620f8cebaa1b98372"></a>XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x10F - ASU glitch detector SPARE_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ac3d5b7653b31eb3a23423300d3d4ca58"></a>XLOADER_ERR_LPD_GD_RESET_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x110 - Failed to assert/release LPD GD </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ada69d587e0674d43d2d264d5d1778153"></a>XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x111 - LPD glitch detector VAL_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a9ca94b7a53a7cbeb9fd91dad5a944526"></a>XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x112 - LPD glitch detector COMP_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a612670c9186c3997aa3d35d7e6c098be"></a>XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x113 - LPD glitch detector DEL_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a113d8877d93008c125eeff93af464c6b"></a>XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x114 - LPD glitch detector SPARE_SEL write failed </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ab02849b95dd056d95be456c043d595f1"></a>XLOADER_ERR_NO_VALID_TLBIN</em>&nbsp;</td><td class="fielddoc">
+<p>0x115 - Error when no valid TL bin partition has been loaded </p>
 </td></tr>
 </table>
 

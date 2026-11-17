@@ -72,6 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -94,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_mmi_dp.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,6 +105,8 @@ $(document).ready(function(){initNavTree('struct_x_mmi_dp.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XMmiDp Struct Reference</div>  </div>
 </div><!--header-->
@@ -113,10 +116,53 @@ $(document).ready(function(){initNavTree('struct_x_mmi_dp.html','');});
  <a href="struct_x_mmi_dp.html#details">More...</a></p>
 
 <p><code>#include &lt;xmmidp.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a7c58a1c7566c0866665bf88c536627f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mmi_dp___mst_stream.html">XMmiDp_MstStream</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp.html#a7c58a1c7566c0866665bf88c536627f4">MstStreamConfig</a> [XMMIDP_STREAM_ID4]</td></tr>
+<tr class="memdesc:a7c58a1c7566c0866665bf88c536627f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">MST payload allocation per stream.  <a href="#a7c58a1c7566c0866665bf88c536627f4">More...</a><br/></td></tr>
+<tr class="separator:a7c58a1c7566c0866665bf88c536627f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34151617e88b9050784f87aadbf6bfd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mmi_dp___mst_topology.html">XMmiDp_MstTopology</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp.html#ae34151617e88b9050784f87aadbf6bfd">MstTopology</a></td></tr>
+<tr class="memdesc:ae34151617e88b9050784f87aadbf6bfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of the last MST topology discovery.  <a href="#ae34151617e88b9050784f87aadbf6bfd">More...</a><br/></td></tr>
+<tr class="separator:ae34151617e88b9050784f87aadbf6bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_mmi_dp.html" title="The XMmiDp driver instance data. ">XMmiDp</a> driver instance data. </p>
 <p>The user is required to allocate a variable of this type for every <a class="el" href="struct_x_mmi_dp.html" title="The XMmiDp driver instance data. ">XMmiDp</a> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a7c58a1c7566c0866665bf88c536627f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_mmi_dp___mst_stream.html">XMmiDp_MstStream</a> XMmiDp::MstStreamConfig[XMMIDP_STREAM_ID4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MST payload allocation per stream. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#gaeff3308ad4eedd26fe06b70c7b36e48b">XMmiDp_AllocatePayloadStream()</a>, <a class="el" href="group__mmi__dppsu14.html#ga201c5cfe6b195d1f214a706f41c0fe22">XMmiDp_ComputeTimeSlot()</a>, <a class="el" href="group__mmi__dppsu14.html#gaf94b814b5fe5d3155d7920dd31d86b43">XMmiDp_ComputeTuParams()</a>, <a class="el" href="group__mmi__dppsu14.html#ga28b8a293ece904a674e3c45b2ad592ba">XMmiDp_DistributeMstPayloadSlots()</a>, <a class="el" href="group__mmi__dppsu14.html#ga025150b2b7700952c53e12927875873c">XMmiDp_MstSetStreamSink()</a>, <a class="el" href="group__mmi__dppsu14.html#gafe77bc22c82563d0ff294dc96f77740b">XMmiDp_SetSinkVcPayloadTable()</a>, and <a class="el" href="group__mmi__dppsu14.html#gaf08de325c6163c2ebff2c9ac6c898d2f">XMmiDp_SetTxVcPayloadTable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae34151617e88b9050784f87aadbf6bfd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_mmi_dp___mst_topology.html">XMmiDp_MstTopology</a> XMmiDp::MstTopology</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Result of the last MST topology discovery. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">XMmiDp_MstDiscoverTopology()</a>, and <a class="el" href="group__mmi__dppsu14.html#ga025150b2b7700952c53e12927875873c">XMmiDp_MstSetStreamSink()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

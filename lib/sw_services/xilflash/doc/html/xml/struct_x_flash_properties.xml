@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_flash_properties_1af9139346cd39ce597cdf8992a82c8bc7" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_flash_timing" kindref="compound">XFlashTiming</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_flash_properties_1a6a5946e05e746bdbca1f03fa6a53cadd" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_flash_timing" kindref="compound">XFlashTiming</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_flash_properties_1a24de0e7e02af0a46862c4a83b2dc09ce" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_flash_prog_cap" kindref="compound">XFlashProgCap</ref></type>
@@ -54,11 +54,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Consolidated parameters. </para>    </briefdescription>
+<para>Holds the consolidated flash properties. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
@@ -89,7 +89,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="95" bodyend="100"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="95" bodyend="100"/>
     <listofallmembers>
       <member refid="struct_x_flash_properties_1ab4349ddb8d4f7d7268ff7c0d4a736c89" prot="public" virt="non-virtual"><scope>XFlashProperties</scope><name>PartID</name></member>
       <member refid="struct_x_flash_properties_1a24de0e7e02af0a46862c4a83b2dc09ce" prot="public" virt="non-virtual"><scope>XFlashProperties</scope><name>ProgCap</name></member>

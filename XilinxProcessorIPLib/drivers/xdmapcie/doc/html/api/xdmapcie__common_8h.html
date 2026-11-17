@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xdmapcie__common_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,20 +99,208 @@ $(document).ready(function(){initNavTree('xdmapcie__common_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">xdmapcie_common.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Definitions of commonly used macros. </p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-1.0     tk      01/30/2019      First release
-</pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
-</div></div><!-- contents -->
+<div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+<code>#include &quot;xil_types.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xdmapcie__hw_8h.html">xdmapcie_hw.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gac80a3592e72fd96b772ee47a7d8e0d0a">DEBUG_MODE</a></td></tr>
+<tr class="memdesc:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the <a class="el" href="group__xdmapcie.html#gaa053bee08c32cd92a838901e816f1146" title="Prints a debug message when DEBUG_MODE is defined. ">XDmaPcie_Dbg()</a> prints.  <a href="group__xdmapcie.html#gac80a3592e72fd96b772ee47a7d8e0d0a">More...</a><br/></td></tr>
+<tr class="separator:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff301a59ddcf02c138ed20f280c45a9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaff301a59ddcf02c138ed20f280c45a9b">XDMAPCIE_CFG_HEADER_O_TYPE</a>&#160;&#160;&#160;0x0000</td></tr>
+<tr class="memdesc:gaff301a59ddcf02c138ed20f280c45a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint header type.  <a href="group__xdmapcie.html#gaff301a59ddcf02c138ed20f280c45a9b">More...</a><br/></td></tr>
+<tr class="separator:gaff301a59ddcf02c138ed20f280c45a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9de872390cb70dfb8238c55b2d4da21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaa9de872390cb70dfb8238c55b2d4da21">XDMAPCIE_PRIMARY_BUS</a>&#160;&#160;&#160;0x18</td></tr>
+<tr class="memdesc:gaa9de872390cb70dfb8238c55b2d4da21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary bus number register offset.  <a href="group__xdmapcie.html#gaa9de872390cb70dfb8238c55b2d4da21">More...</a><br/></td></tr>
+<tr class="separator:gaa9de872390cb70dfb8238c55b2d4da21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadbf696e34d96a5e7cd7556aae69770c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gadbf696e34d96a5e7cd7556aae69770c5">XDMAPCIE_ECAM_MEMSIZE</a>&#160;&#160;&#160;16*1024*1024</td></tr>
+<tr class="memdesc:gadbf696e34d96a5e7cd7556aae69770c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default ECAM region size.  <a href="group__xdmapcie.html#gadbf696e34d96a5e7cd7556aae69770c5">More...</a><br/></td></tr>
+<tr class="separator:gadbf696e34d96a5e7cd7556aae69770c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34f0a5de101597f7a82c3f6960341bf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga34f0a5de101597f7a82c3f6960341bf1">XDMAPCIE_LINKUP_SUCCESS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga34f0a5de101597f7a82c3f6960341bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The PCIe link is up.  <a href="group__xdmapcie.html#ga34f0a5de101597f7a82c3f6960341bf1">More...</a><br/></td></tr>
+<tr class="separator:ga34f0a5de101597f7a82c3f6960341bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga932db5531af654eecdcee784dcb3fb94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga932db5531af654eecdcee784dcb3fb94">XDMAPCIE_LINKUP_FAIL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga932db5531af654eecdcee784dcb3fb94"><td class="mdescLeft">&#160;</td><td class="mdescRight">The PCIe link is down.  <a href="group__xdmapcie.html#ga932db5531af654eecdcee784dcb3fb94">More...</a><br/></td></tr>
+<tr class="separator:ga932db5531af654eecdcee784dcb3fb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ef659e7349926fefde329eb30c9d6ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5ef659e7349926fefde329eb30c9d6ae">DATA_MASK_32</a>&#160;&#160;&#160;(0xFFFFFFFF)</td></tr>
+<tr class="memdesc:ga5ef659e7349926fefde329eb30c9d6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the lower 32 bits.  <a href="group__xdmapcie.html#ga5ef659e7349926fefde329eb30c9d6ae">More...</a><br/></td></tr>
+<tr class="separator:ga5ef659e7349926fefde329eb30c9d6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Bit and mask helpers</div></td></tr>
+<tr class="memitem:gad27cc17b25bb93134368d5eb21126eae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gad27cc17b25bb93134368d5eb21126eae">BIT</a>(x)&#160;&#160;&#160;(1 &lt;&lt; (x))</td></tr>
+<tr class="memdesc:gad27cc17b25bb93134368d5eb21126eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a mask with bit x set.  <a href="group__xdmapcie.html#gad27cc17b25bb93134368d5eb21126eae">More...</a><br/></td></tr>
+<tr class="separator:gad27cc17b25bb93134368d5eb21126eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82e8a8554eb90b5a969bbbd7ed73c5b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga82e8a8554eb90b5a969bbbd7ed73c5b9">GET_MAX_BUS_NO</a>(ecam_sz)&#160;&#160;&#160;(((ecam_sz) / (1024 * 1024)) - 1)</td></tr>
+<tr class="memdesc:ga82e8a8554eb90b5a969bbbd7ed73c5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derives the highest bus number from the ECAM size, 1 MB per bus.  <a href="group__xdmapcie.html#ga82e8a8554eb90b5a969bbbd7ed73c5b9">More...</a><br/></td></tr>
+<tr class="separator:ga82e8a8554eb90b5a969bbbd7ed73c5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9b607a0ece709cf8506dd0ce4a1c3ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaa9b607a0ece709cf8506dd0ce4a1c3ac">BITSPERLONG</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:gaa9b607a0ece709cf8506dd0ce4a1c3ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of the <a class="el" href="group__xdmapcie.html#ga58530d20924859d16358c7400c37738d" title="Builds a contiguous mask with bits h down to l set. ">GENMASK()</a> operand.  <a href="group__xdmapcie.html#gaa9b607a0ece709cf8506dd0ce4a1c3ac">More...</a><br/></td></tr>
+<tr class="separator:gaa9b607a0ece709cf8506dd0ce4a1c3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58530d20924859d16358c7400c37738d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga58530d20924859d16358c7400c37738d">GENMASK</a>(h, l)&#160;&#160;&#160;(((~0ULL) &lt;&lt; (l)) &amp; (~0ULL) &gt;&gt; (BITSPERLONG - 1 - (h)))</td></tr>
+<tr class="memdesc:ga58530d20924859d16358c7400c37738d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a contiguous mask with bits h down to l set.  <a href="group__xdmapcie.html#ga58530d20924859d16358c7400c37738d">More...</a><br/></td></tr>
+<tr class="separator:ga58530d20924859d16358c7400c37738d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Configuration read error detection</div></td></tr>
+<tr class="memitem:ga324c8773bbd4d42eb28bafaba926040a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga324c8773bbd4d42eb28bafaba926040a">XDMAPCIE_ERROR_RESPONSE</a>&#160;&#160;&#160;(~0ULL)</td></tr>
+<tr class="memdesc:ga324c8773bbd4d42eb28bafaba926040a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value returned on a failed config read.  <a href="group__xdmapcie.html#ga324c8773bbd4d42eb28bafaba926040a">More...</a><br/></td></tr>
+<tr class="separator:ga324c8773bbd4d42eb28bafaba926040a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28905f147083756a8613e2b86bb73beb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga28905f147083756a8613e2b86bb73beb">XDMAPCIE_POSSIBLE_ERROR</a>(val)&#160;&#160;&#160;((val) == ((typeof(val)) <a class="el" href="group__xdmapcie.html#ga324c8773bbd4d42eb28bafaba926040a">XDMAPCIE_ERROR_RESPONSE</a>))</td></tr>
+<tr class="memdesc:ga28905f147083756a8613e2b86bb73beb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates to TRUE when a config read returned the all ones error response.  <a href="group__xdmapcie.html#ga28905f147083756a8613e2b86bb73beb">More...</a><br/></td></tr>
+<tr class="separator:ga28905f147083756a8613e2b86bb73beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae57bb2cba7081138536771f21126a079"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gae57bb2cba7081138536771f21126a079">XDMAPCIE_IS_BAR_UNIMPLEMENTED</a>(size)</td></tr>
+<tr class="memdesc:gae57bb2cba7081138536771f21126a079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates to TRUE when a BAR is unimplemented, that is too small or all ones.  <a href="group__xdmapcie.html#gae57bb2cba7081138536771f21126a079">More...</a><br/></td></tr>
+<tr class="separator:gae57bb2cba7081138536771f21126a079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">PCIe command register bit definitions</div></td></tr>
+<tr class="memitem:ga37da4c63ff84af1054c53bfa5979ea37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga37da4c63ff84af1054c53bfa5979ea37">XDMAPCIE_CFG_CMD_MEM_EN</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:ga37da4c63ff84af1054c53bfa5979ea37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory access enable.  <a href="group__xdmapcie.html#ga37da4c63ff84af1054c53bfa5979ea37">More...</a><br/></td></tr>
+<tr class="separator:ga37da4c63ff84af1054c53bfa5979ea37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab5815362f8f8277fdbfcb6fdc86cd460"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gab5815362f8f8277fdbfcb6fdc86cd460">XDMAPCIE_CFG_CMD_BUSM_EN</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:gab5815362f8f8277fdbfcb6fdc86cd460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bus master enable.  <a href="group__xdmapcie.html#gab5815362f8f8277fdbfcb6fdc86cd460">More...</a><br/></td></tr>
+<tr class="separator:gab5815362f8f8277fdbfcb6fdc86cd460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">PCIe configuration space register offsets, in doublewords</div></td></tr>
+<tr class="memitem:ga140dbf6dcbc78e635e2ca2b141b415ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga140dbf6dcbc78e635e2ca2b141b415ed">XDMAPCIE_CFG_ID_REG</a>&#160;&#160;&#160;0x0000</td></tr>
+<tr class="memdesc:ga140dbf6dcbc78e635e2ca2b141b415ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor ID and Device ID.  <a href="group__xdmapcie.html#ga140dbf6dcbc78e635e2ca2b141b415ed">More...</a><br/></td></tr>
+<tr class="separator:ga140dbf6dcbc78e635e2ca2b141b415ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5057433f4b81c9ee1e0d4c4d778645f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5057433f4b81c9ee1e0d4c4d778645f0">XDMAPCIE_CFG_CMD_STATUS_REG</a>&#160;&#160;&#160;0x0001</td></tr>
+<tr class="memdesc:ga5057433f4b81c9ee1e0d4c4d778645f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command and Status.  <a href="group__xdmapcie.html#ga5057433f4b81c9ee1e0d4c4d778645f0">More...</a><br/></td></tr>
+<tr class="separator:ga5057433f4b81c9ee1e0d4c4d778645f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cbab682cfdcfcdc1e4ba3b76fff7ed0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5cbab682cfdcfcdc1e4ba3b76fff7ed0">XDMAPCIE_CFG_PRI_SEC_BUS_REG</a>&#160;&#160;&#160;0x0006</td></tr>
+<tr class="memdesc:ga5cbab682cfdcfcdc1e4ba3b76fff7ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary and Secondary Bus.  <a href="group__xdmapcie.html#ga5cbab682cfdcfcdc1e4ba3b76fff7ed0">More...</a><br/></td></tr>
+<tr class="separator:ga5cbab682cfdcfcdc1e4ba3b76fff7ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13e864bba6533f9f4c09d59615c54979"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga13e864bba6533f9f4c09d59615c54979">XDMAPCIE_CFG_CAH_LAT_HD_REG</a>&#160;&#160;&#160;0x0003</td></tr>
+<tr class="memdesc:ga13e864bba6533f9f4c09d59615c54979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache Line, Latency Timer, Header Type and BIST.  <a href="group__xdmapcie.html#ga13e864bba6533f9f4c09d59615c54979">More...</a><br/></td></tr>
+<tr class="separator:ga13e864bba6533f9f4c09d59615c54979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65f144b3affa5b9c29e976bd613b085d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga65f144b3affa5b9c29e976bd613b085d">XDMAPCIE_CFG_BAR_MEM_TYPE_MASK</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:ga65f144b3affa5b9c29e976bd613b085d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory or IO request.  <a href="group__xdmapcie.html#ga65f144b3affa5b9c29e976bd613b085d">More...</a><br/></td></tr>
+<tr class="separator:ga65f144b3affa5b9c29e976bd613b085d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf81aed1442c688866ab96dcf40f22e9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaf81aed1442c688866ab96dcf40f22e9b">XDMAPCIE_CFG_BAR_MEM_AS_MASK</a>&#160;&#160;&#160;0x8</td></tr>
+<tr class="memdesc:gaf81aed1442c688866ab96dcf40f22e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">32 bit or 64 bit address space  <a href="group__xdmapcie.html#gaf81aed1442c688866ab96dcf40f22e9b">More...</a><br/></td></tr>
+<tr class="separator:gaf81aed1442c688866ab96dcf40f22e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cbb2cf43fb8d4d8ed8ac491e433d5bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga9cbb2cf43fb8d4d8ed8ac491e433d5bc">XDMAPCIE_CFG_BAR_BASE_OFFSET</a>&#160;&#160;&#160;0x0004</td></tr>
+<tr class="memdesc:ga9cbb2cf43fb8d4d8ed8ac491e433d5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">First Base Address Register.  <a href="group__xdmapcie.html#ga9cbb2cf43fb8d4d8ed8ac491e433d5bc">More...</a><br/></td></tr>
+<tr class="separator:ga9cbb2cf43fb8d4d8ed8ac491e433d5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga02ece52c9439ad0e3a37bde8afad7da8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga02ece52c9439ad0e3a37bde8afad7da8">XDMAPCIE_CFG_BAR_0_REG</a>&#160;&#160;&#160;0x0004</td></tr>
+<tr class="memdesc:ga02ece52c9439ad0e3a37bde8afad7da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 0.  <a href="group__xdmapcie.html#ga02ece52c9439ad0e3a37bde8afad7da8">More...</a><br/></td></tr>
+<tr class="separator:ga02ece52c9439ad0e3a37bde8afad7da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga186af69a6418ffca697b39ba587ab32a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga186af69a6418ffca697b39ba587ab32a">XDMAPCIE_CFG_BAR_1_REG</a>&#160;&#160;&#160;0x0005</td></tr>
+<tr class="memdesc:ga186af69a6418ffca697b39ba587ab32a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 1.  <a href="group__xdmapcie.html#ga186af69a6418ffca697b39ba587ab32a">More...</a><br/></td></tr>
+<tr class="separator:ga186af69a6418ffca697b39ba587ab32a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b246c0f2c26869d21f12de7d763e5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga40b246c0f2c26869d21f12de7d763e5f">XDMAPCIE_CFG_BAR_2_REG</a>&#160;&#160;&#160;0x0006</td></tr>
+<tr class="memdesc:ga40b246c0f2c26869d21f12de7d763e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 2.  <a href="group__xdmapcie.html#ga40b246c0f2c26869d21f12de7d763e5f">More...</a><br/></td></tr>
+<tr class="separator:ga40b246c0f2c26869d21f12de7d763e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba8b8ad988d2dfa56547b8ae7d099ae1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaba8b8ad988d2dfa56547b8ae7d099ae1">XDMAPCIE_CFG_BAR_3_REG</a>&#160;&#160;&#160;0x0007</td></tr>
+<tr class="memdesc:gaba8b8ad988d2dfa56547b8ae7d099ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 3.  <a href="group__xdmapcie.html#gaba8b8ad988d2dfa56547b8ae7d099ae1">More...</a><br/></td></tr>
+<tr class="separator:gaba8b8ad988d2dfa56547b8ae7d099ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10759323d7f60e819931c99c672a71c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga10759323d7f60e819931c99c672a71c3">XDMAPCIE_CFG_BAR_4_REG</a>&#160;&#160;&#160;0x0008</td></tr>
+<tr class="memdesc:ga10759323d7f60e819931c99c672a71c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 4.  <a href="group__xdmapcie.html#ga10759323d7f60e819931c99c672a71c3">More...</a><br/></td></tr>
+<tr class="separator:ga10759323d7f60e819931c99c672a71c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Type 1 configuration header register offsets</div></td></tr>
+<tr class="memitem:ga6b87fb6c8f14c21f9ebd35d145de29eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga6b87fb6c8f14c21f9ebd35d145de29eb">XDMAPCIE_CFG_BUS_NUMS_T1_REG</a>&#160;&#160;&#160;0X0006</td></tr>
+<tr class="memdesc:ga6b87fb6c8f14c21f9ebd35d145de29eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bus number register.  <a href="group__xdmapcie.html#ga6b87fb6c8f14c21f9ebd35d145de29eb">More...</a><br/></td></tr>
+<tr class="separator:ga6b87fb6c8f14c21f9ebd35d145de29eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b4774dd12701eacae07192f9f6b7f32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga2b4774dd12701eacae07192f9f6b7f32">XDMAPCIE_CFG_NP_MEM_T1_REG</a>&#160;&#160;&#160;0X0008</td></tr>
+<tr class="memdesc:ga2b4774dd12701eacae07192f9f6b7f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non prefetchable memory base and limit.  <a href="group__xdmapcie.html#ga2b4774dd12701eacae07192f9f6b7f32">More...</a><br/></td></tr>
+<tr class="separator:ga2b4774dd12701eacae07192f9f6b7f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga991630d9f2f5a2eb00fbf856cce5f926"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga991630d9f2f5a2eb00fbf856cce5f926">XDMAPCIE_CFG_P_MEM_T1_REG</a>&#160;&#160;&#160;0X0009</td></tr>
+<tr class="memdesc:ga991630d9f2f5a2eb00fbf856cce5f926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefetchable memory base and limit.  <a href="group__xdmapcie.html#ga991630d9f2f5a2eb00fbf856cce5f926">More...</a><br/></td></tr>
+<tr class="separator:ga991630d9f2f5a2eb00fbf856cce5f926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa374ccd5a23577e61b6a9b3ad71987c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaa374ccd5a23577e61b6a9b3ad71987c8">XDMAPCIE_CFG_P_UPPER_MEM_T1_REG</a>&#160;&#160;&#160;0X000A</td></tr>
+<tr class="memdesc:gaa374ccd5a23577e61b6a9b3ad71987c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefetchable memory base, upper 32 bits.  <a href="group__xdmapcie.html#gaa374ccd5a23577e61b6a9b3ad71987c8">More...</a><br/></td></tr>
+<tr class="separator:gaa374ccd5a23577e61b6a9b3ad71987c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed9e16bb3bede3d81837b661ea45ae6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaed9e16bb3bede3d81837b661ea45ae6e">XDMAPCIE_CFG_P_LIMIT_MEM_T1_REG</a>&#160;&#160;&#160;0X000B</td></tr>
+<tr class="memdesc:gaed9e16bb3bede3d81837b661ea45ae6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefetchable memory limit, upper 32 bits.  <a href="group__xdmapcie.html#gaed9e16bb3bede3d81837b661ea45ae6e">More...</a><br/></td></tr>
+<tr class="separator:gaed9e16bb3bede3d81837b661ea45ae6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Configuration header field masks</div></td></tr>
+<tr class="memitem:gaddd8a68182edf4fd6f5e737dc188d823"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaddd8a68182edf4fd6f5e737dc188d823">XDMAPCIE_CFG_FUN_NOT_IMP_MASK</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:gaddd8a68182edf4fd6f5e737dc188d823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a function that is not implemented.  <a href="group__xdmapcie.html#gaddd8a68182edf4fd6f5e737dc188d823">More...</a><br/></td></tr>
+<tr class="separator:gaddd8a68182edf4fd6f5e737dc188d823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5be55760942601a23e3772e83cd6e9c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5be55760942601a23e3772e83cd6e9c9">XDMAPCIE_CFG_HEADER_TYPE_MASK</a>&#160;&#160;&#160;0x00010000</td></tr>
+<tr class="memdesc:ga5be55760942601a23e3772e83cd6e9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bridge or endpoint header type.  <a href="group__xdmapcie.html#ga5be55760942601a23e3772e83cd6e9c9">More...</a><br/></td></tr>
+<tr class="separator:ga5be55760942601a23e3772e83cd6e9c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0dbee209fda9d696391113afbe63934"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gac0dbee209fda9d696391113afbe63934">XDMAPCIE_CFG_MUL_FUN_DEV_MASK</a>&#160;&#160;&#160;0x00800000</td></tr>
+<tr class="memdesc:gac0dbee209fda9d696391113afbe63934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi function device.  <a href="group__xdmapcie.html#gac0dbee209fda9d696391113afbe63934">More...</a><br/></td></tr>
+<tr class="separator:gac0dbee209fda9d696391113afbe63934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Enumeration limits</div></td></tr>
+<tr class="memitem:ga5e06f01b78d5f8fe0dd75cc76cee78a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5e06f01b78d5f8fe0dd75cc76cee78a9">XDMAPCIE_CFG_MAX_NUM_OF_BUS</a>&#160;&#160;&#160;256</td></tr>
+<tr class="memdesc:ga5e06f01b78d5f8fe0dd75cc76cee78a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of buses.  <a href="group__xdmapcie.html#ga5e06f01b78d5f8fe0dd75cc76cee78a9">More...</a><br/></td></tr>
+<tr class="separator:ga5e06f01b78d5f8fe0dd75cc76cee78a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d925db33d2d6f8dbaa1a35c62724666"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5d925db33d2d6f8dbaa1a35c62724666">XDMAPCIE_CFG_MAX_NUM_OF_DEV</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga5d925db33d2d6f8dbaa1a35c62724666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of devices per bus.  <a href="group__xdmapcie.html#ga5d925db33d2d6f8dbaa1a35c62724666">More...</a><br/></td></tr>
+<tr class="separator:ga5d925db33d2d6f8dbaa1a35c62724666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47944786a8931dc345fc15eb2c6e6f3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga47944786a8931dc345fc15eb2c6e6f3d">XDMAPCIE_CFG_MAX_NUM_OF_FUN</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga47944786a8931dc345fc15eb2c6e6f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of functions per device.  <a href="group__xdmapcie.html#ga47944786a8931dc345fc15eb2c6e6f3d">More...</a><br/></td></tr>
+<tr class="separator:ga47944786a8931dc345fc15eb2c6e6f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">BAR address and type encodings</div></td></tr>
+<tr class="memitem:ga93ce1d57a532c5ae8cb6712ce377b32d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga93ce1d57a532c5ae8cb6712ce377b32d">XDMAPCIE_BAR_IO_MEM</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga93ce1d57a532c5ae8cb6712ce377b32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">BAR maps IO space.  <a href="group__xdmapcie.html#ga93ce1d57a532c5ae8cb6712ce377b32d">More...</a><br/></td></tr>
+<tr class="separator:ga93ce1d57a532c5ae8cb6712ce377b32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6585649117d455abac790454984055d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaf6585649117d455abac790454984055d">XDMAPCIE_BAR_ADDR_MEM</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gaf6585649117d455abac790454984055d"><td class="mdescLeft">&#160;</td><td class="mdescRight">BAR maps memory space.  <a href="group__xdmapcie.html#gaf6585649117d455abac790454984055d">More...</a><br/></td></tr>
+<tr class="separator:gaf6585649117d455abac790454984055d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9bed3ff7c724656fc6639254a2f9912a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga9bed3ff7c724656fc6639254a2f9912a">XDMAPCIE_BAR_MEM_TYPE_64</a>&#160;&#160;&#160;0x4</td></tr>
+<tr class="memdesc:ga9bed3ff7c724656fc6639254a2f9912a"><td class="mdescLeft">&#160;</td><td class="mdescRight">64 bit BAR  <a href="group__xdmapcie.html#ga9bed3ff7c724656fc6639254a2f9912a">More...</a><br/></td></tr>
+<tr class="separator:ga9bed3ff7c724656fc6639254a2f9912a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga494d867610067f1460f826ec78653d6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga494d867610067f1460f826ec78653d6b">XDMAPCIE_BAR_MEM_TYPE_32</a>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memdesc:ga494d867610067f1460f826ec78653d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">32 bit BAR  <a href="group__xdmapcie.html#ga494d867610067f1460f826ec78653d6b">More...</a><br/></td></tr>
+<tr class="separator:ga494d867610067f1460f826ec78653d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Shift and nibble width helpers</div></td></tr>
+<tr class="memitem:ga2067bec8de1f4e6afe1e0267c1d7469b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga2067bec8de1f4e6afe1e0267c1d7469b">MB_SHIFT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga2067bec8de1f4e6afe1e0267c1d7469b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for one megabyte.  <a href="group__xdmapcie.html#ga2067bec8de1f4e6afe1e0267c1d7469b">More...</a><br/></td></tr>
+<tr class="separator:ga2067bec8de1f4e6afe1e0267c1d7469b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6969b3bfa2c0c6ab0ff00af8725aa551"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga6969b3bfa2c0c6ab0ff00af8725aa551">HEX_NIBBLE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga6969b3bfa2c0c6ab0ff00af8725aa551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits in one hex nibble.  <a href="group__xdmapcie.html#ga6969b3bfa2c0c6ab0ff00af8725aa551">More...</a><br/></td></tr>
+<tr class="separator:ga6969b3bfa2c0c6ab0ff00af8725aa551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff25a05314ed7d54162bde2a735da4dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaff25a05314ed7d54162bde2a735da4dc">TWO_HEX_NIBBLES</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:gaff25a05314ed7d54162bde2a735da4dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits in two hex nibbles.  <a href="group__xdmapcie.html#gaff25a05314ed7d54162bde2a735da4dc">More...</a><br/></td></tr>
+<tr class="separator:gaff25a05314ed7d54162bde2a735da4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga133994e0b57fb789c358235bdfd13289"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga133994e0b57fb789c358235bdfd13289">FOUR_HEX_NIBBLES</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga133994e0b57fb789c358235bdfd13289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits in four hex nibbles.  <a href="group__xdmapcie.html#ga133994e0b57fb789c358235bdfd13289">More...</a><br/></td></tr>
+<tr class="separator:ga133994e0b57fb789c358235bdfd13289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f0b1b2189edcd9c29caf3b59ac00f0e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga4f0b1b2189edcd9c29caf3b59ac00f0e">EIGHT_HEX_NIBBLES</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga4f0b1b2189edcd9c29caf3b59ac00f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits in eight hex nibbles.  <a href="group__xdmapcie.html#ga4f0b1b2189edcd9c29caf3b59ac00f0e">More...</a><br/></td></tr>
+<tr class="separator:ga4f0b1b2189edcd9c29caf3b59ac00f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Capability pointer register and masks</div></td></tr>
+<tr class="memitem:ga90374d2c13553eb5f7770e3b9f44db4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga90374d2c13553eb5f7770e3b9f44db4b">XDMAPCIE_CFG_P_CAP_PTR_T1_REG</a>&#160;&#160;&#160;0X000D</td></tr>
+<tr class="memdesc:ga90374d2c13553eb5f7770e3b9f44db4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capability pointer register.  <a href="group__xdmapcie.html#ga90374d2c13553eb5f7770e3b9f44db4b">More...</a><br/></td></tr>
+<tr class="separator:ga90374d2c13553eb5f7770e3b9f44db4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga183b500ed4d69a72c4b1b6e5c42b2155"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga183b500ed4d69a72c4b1b6e5c42b2155">XDMAPCIE_CFG_CAP_ID_LOC</a>&#160;&#160;&#160;<a class="el" href="group__xdmapcie.html#ga58530d20924859d16358c7400c37738d">GENMASK</a>(7, 0)</td></tr>
+<tr class="memdesc:ga183b500ed4d69a72c4b1b6e5c42b2155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capability ID field.  <a href="group__xdmapcie.html#ga183b500ed4d69a72c4b1b6e5c42b2155">More...</a><br/></td></tr>
+<tr class="separator:ga183b500ed4d69a72c4b1b6e5c42b2155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5e15543e884455365753170dd698ce2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaf5e15543e884455365753170dd698ce2">XDMAPCIE_CAP_PTR_LOC</a>&#160;&#160;&#160;<a class="el" href="group__xdmapcie.html#ga58530d20924859d16358c7400c37738d">GENMASK</a>(7, 0)</td></tr>
+<tr class="memdesc:gaf5e15543e884455365753170dd698ce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Next capability pointer field.  <a href="group__xdmapcie.html#gaf5e15543e884455365753170dd698ce2">More...</a><br/></td></tr>
+<tr class="separator:gaf5e15543e884455365753170dd698ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada9f742437f2f0e6330733b1a801c66a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gada9f742437f2f0e6330733b1a801c66a">XDMAPCIE_CAP_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:gada9f742437f2f0e6330733b1a801c66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift to reach the next capability pointer.  <a href="group__xdmapcie.html#gada9f742437f2f0e6330733b1a801c66a">More...</a><br/></td></tr>
+<tr class="separator:gada9f742437f2f0e6330733b1a801c66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fe28bf3f3ba24ea6f3f1db593d4341c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga3fe28bf3f3ba24ea6f3f1db593d4341c">XDMAPCIE_DOUBLEWORD</a>(x)&#160;&#160;&#160;(x / 4)</td></tr>
+<tr class="memdesc:ga3fe28bf3f3ba24ea6f3f1db593d4341c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a byte offset to a doubleword offset.  <a href="group__xdmapcie.html#ga3fe28bf3f3ba24ea6f3f1db593d4341c">More...</a><br/></td></tr>
+<tr class="separator:ga3fe28bf3f3ba24ea6f3f1db593d4341c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga415ee0a473d47d6a14922b4ac0ecf732"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga415ee0a473d47d6a14922b4ac0ecf732">CAP_PRESENT</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:ga415ee0a473d47d6a14922b4ac0ecf732"><td class="mdescLeft">&#160;</td><td class="mdescRight">The capability is present.  <a href="group__xdmapcie.html#ga415ee0a473d47d6a14922b4ac0ecf732">More...</a><br/></td></tr>
+<tr class="separator:ga415ee0a473d47d6a14922b4ac0ecf732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8346fb16fc3e00bb2fec31a73a7f3b1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga8346fb16fc3e00bb2fec31a73a7f3b1e">CAP_NOT_PRESENT</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:ga8346fb16fc3e00bb2fec31a73a7f3b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The capability is not present.  <a href="group__xdmapcie.html#ga8346fb16fc3e00bb2fec31a73a7f3b1e">More...</a><br/></td></tr>
+<tr class="separator:ga8346fb16fc3e00bb2fec31a73a7f3b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Logging macros</div></td></tr>
+<tr class="memitem:ga9853405f7b8676a0d4cedaf3c31932eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga9853405f7b8676a0d4cedaf3c31932eb">XDmaPcie_Print</a>(MSG,...)&#160;&#160;&#160;xil_printf(&quot;xdma_pcie: &quot;MSG,##__VA_ARGS__)</td></tr>
+<tr class="memdesc:ga9853405f7b8676a0d4cedaf3c31932eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an informational message.  <a href="group__xdmapcie.html#ga9853405f7b8676a0d4cedaf3c31932eb">More...</a><br/></td></tr>
+<tr class="separator:ga9853405f7b8676a0d4cedaf3c31932eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96d02bf332d69987c7b508be06c762f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga96d02bf332d69987c7b508be06c762f0">XDmaPcie_Error</a>(MSG,...)&#160;&#160;&#160;xil_printf(&quot;xdma_pcie: &quot;MSG,##__VA_ARGS__)</td></tr>
+<tr class="memdesc:ga96d02bf332d69987c7b508be06c762f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an error message.  <a href="group__xdmapcie.html#ga96d02bf332d69987c7b508be06c762f0">More...</a><br/></td></tr>
+<tr class="separator:ga96d02bf332d69987c7b508be06c762f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d608c2b0533ae43450c2a9b4cf6b82a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#ga5d608c2b0533ae43450c2a9b4cf6b82a">XDmaPcie_Err</a>(MSG,...)</td></tr>
+<tr class="memdesc:ga5d608c2b0533ae43450c2a9b4cf6b82a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an error message unconditionally.  <a href="group__xdmapcie.html#ga5d608c2b0533ae43450c2a9b4cf6b82a">More...</a><br/></td></tr>
+<tr class="separator:ga5d608c2b0533ae43450c2a9b4cf6b82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa053bee08c32cd92a838901e816f1146"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xdmapcie.html#gaa053bee08c32cd92a838901e816f1146">XDmaPcie_Dbg</a>(MSG,...)</td></tr>
+<tr class="memdesc:gaa053bee08c32cd92a838901e816f1146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a debug message when DEBUG_MODE is defined.  <a href="group__xdmapcie.html#gaa053bee08c32cd92a838901e816f1146">More...</a><br/></td></tr>
+<tr class="separator:gaa053bee08c32cd92a838901e816f1146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -99,8 +99,6 @@
   </compound>
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
   <compound refid="vtc__selftest__example_8c" kind="file"><name>vtc_selftest_example.c</name>
     <member refid="vtc__selftest__example_8c_1a52d3e65492376526b4713ffc1141de7f" kind="variable"><name>VtcInst</name></member>
     <member refid="vtc__selftest__example_8c_1ad1efe3b317dd63a9c36b6caecfcbf172" kind="function"><name>XVtcSelfTestExample</name></member>
@@ -762,8 +760,6 @@
     <member refid="group__vtc_1ga5fc8912377f9336b9efee77b62937cc7" kind="define"><name>XVtc_Sync_Reset</name></member>
     <member refid="group__vtc_1ga5be2d72e7f52f6c37b32e746dba9e988" kind="define"><name>XVTC_HW_H_</name></member>
     <member refid="group__vtc_1ga739d773758ebb5e951594859be6ac82f" kind="define"><name>XPAR_XVTC_NUM_INSTANCES</name></member>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_3700f4968955a5ef783d29f326f5c497" kind="dir"><name>examples</name>
   </compound>

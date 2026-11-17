@@ -4,6 +4,12 @@
     <compoundname>xavbuf_videoformats.c</compoundname>
     <includes refid="xavbuf_8h" local="yes">xavbuf.h</includes>
     <incdepgraph>
+      <node id="44">
+        <label>xavbuf_videoformats.c</label>
+        <link refid="xavbuf_videoformats.c"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
       <node id="47">
         <label>xil_io.h</label>
       </node>
@@ -29,12 +35,6 @@
       <node id="48">
         <label>xil_types.h</label>
       </node>
-      <node id="44">
-        <label>xavbuf_videoformats.c</label>
-        <link refid="xavbuf_videoformats.c"/>
-        <childnode refid="45" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
       <sectiondef kind="var">
       <memberdef kind="variable" id="group__xavbuf__v2__5_1gac655e28ee8f40b84927f4ed0062f6ad1" prot="public" static="no" mutable="no">
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -238,6 +238,6 @@
 <codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="202"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_videoformats.c"/>
   </compounddef>
 </doxygen>

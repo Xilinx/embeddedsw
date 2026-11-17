@@ -1,7 +1,7 @@
 var searchData=
 [
   ['xipipsu_5fcfginitialize',['XIpiPsu_CfgInitialize',['../group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357',1,'XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr, UINTPTR EffectiveAddress):&#160;xipipsu.c'],['../group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357',1,'XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr, UINTPTR EffectiveAddress):&#160;xipipsu.c']]],
-  ['xipipsu_5fgetbufferaddress',['XIpiPsu_GetBufferAddress',['../group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5',1,'xipipsu_buf.c']]],
+  ['xipipsu_5fgetbufferaddress',['XIpiPsu_GetBufferAddress',['../group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f',1,'xipipsu_buf.c']]],
   ['xipipsu_5fgetbufferindex',['XIpiPsu_GetBufferIndex',['../group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3',1,'xipipsu_helper.c']]],
   ['xipipsu_5flookupconfig',['XIpiPsu_LookupConfig',['../group__ipipsu.html#gacb9c27ce83faa62ddce4b6898ddb419e',1,'XIpiPsu_LookupConfig(UINTPTR BaseAddress):&#160;xipipsu_sinit.c'],['../group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e',1,'XIpiPsu_LookupConfig(UINTPTR BaseAddress):&#160;xipipsu_sinit.c']]],
   ['xipipsu_5fpollforack',['XIpiPsu_PollForAck',['../group__ipipsu__api.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2',1,'XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask, u32 TimeOutCount):&#160;xipipsu.c'],['../group__ipipsu.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2',1,'XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask, u32 TimeOutCount):&#160;xipipsu.c']]],

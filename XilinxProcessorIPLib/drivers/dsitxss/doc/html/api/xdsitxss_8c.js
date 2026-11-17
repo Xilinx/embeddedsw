@@ -7,12 +7,17 @@ var xdsitxss_8c =
     [ "XDsiTxSs_GetConfigParams", "xdsitxss_8c.html#gac93ca99af9ece26def34b60fb799d987", null ],
     [ "XDsiTxSs_GetPixelFormat", "xdsitxss_8c.html#ga6d071b004409f448e6fb61a523063084", null ],
     [ "XDsiTxSs_IsControllerReady", "xdsitxss_8c.html#gadf12e1fbe0e429e5874b882919d18fa9", null ],
+    [ "XDsiTxSs_IsEscModeEnabled", "xdsitxss_8c.html#gad3510c4989ab120ed55d7585a809bce0", null ],
+    [ "XDsiTxSs_IsUlps", "xdsitxss_8c.html#gac32b7e8b09624965b57d6b7aa4ed4d6a", null ],
     [ "XDsiTxSs_ReportCoreInfo", "xdsitxss_8c.html#gacdbf8bdffcc5c58bafabca09ce89ffbb", null ],
     [ "XDsiTxSs_Reset", "xdsitxss_8c.html#ga72465c9ad620c0103bfdc2055f4db426", null ],
     [ "XDsiTxSs_SendCmdModePacket", "xdsitxss_8c.html#gaa327e5adf508da3fec9e669c2110da1b", null ],
+    [ "XDsiTxSs_SendLpdtPacket", "xdsitxss_8c.html#ga93f44f5a03cc37ffdff5f4856afb3a28", null ],
     [ "XDsiTxSs_SendShortPacket", "xdsitxss_8c.html#ga8792189e4eb55d1bd09b2f60c4dcae3f", null ],
     [ "XDsiTxSs_SetCustomVideoInterfaceTiming", "xdsitxss_8c.html#ga1b9246c8e349c6dac5aa6c7f40a69bf8", null ],
     [ "XDsiTxSs_SetDSIMode", "xdsitxss_8c.html#ga8412315a375f8096c48c24be87cc09fb", null ],
+    [ "XDsiTxSs_SetLpdtMode", "xdsitxss_8c.html#ga18327366981b03ec0dcf47b46adf85c7", null ],
+    [ "XDsiTxSs_SetUlpsMode", "xdsitxss_8c.html#gaa5ccb4e2ae14b0f12ad892c0ab4c7816", null ],
     [ "XDsiTxSs_SetVideoInterfaceTiming", "xdsitxss_8c.html#gab4c4ef25cc3f604f21ce98446cdfe482", null ],
     [ "DsiTxSsSubCores", "xdsitxss_8c.html#gac6fbd81acb511e3559569ca1f2c0052e", null ]
 ];

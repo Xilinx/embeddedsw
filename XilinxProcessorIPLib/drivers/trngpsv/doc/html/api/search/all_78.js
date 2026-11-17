@@ -9,6 +9,7 @@ var searchData=
   ['xtrngpsv_5fcatastrophic',['XTRNGPSV_CATASTROPHIC',['../group__trngpsv__api.html#gga09343136ce617c1b5f78773c5c76a65ca1ade1f44706d24f4ae27731f6af005d6',1,'xtrngpsv.h']]],
   ['xtrngpsv_5fcfginitialize',['XTrngpsv_CfgInitialize',['../group__trngpsv__api.html#ga092381b1f5b73eed497579c6fce84b91',1,'xtrngpsv.c']]],
   ['xtrngpsv_5fconfig',['XTrngpsv_Config',['../struct_x_trngpsv___config.html',1,'']]],
+  ['xtrngpsv_5fconfigtable',['XTrngpsv_ConfigTable',['../group__trngpsv__api.html#ga82a931f91cc6d614497e94b6012554f1',1,'XTrngpsv_ConfigTable():&#160;xtrngpsv_g.c'],['../group__trngpsv__api.html#ga645b006a09b8276cbf25503e85ef38cd',1,'XTrngpsv_ConfigTable():&#160;xtrngpsv_g.c']]],
   ['xtrngpsv_5fdf',['XTrngpsv_DF',['../group__trngpsv__api.html#ga385580225d449ba49c6425fc61836092',1,'xtrngpsv_df.c']]],
   ['xtrngpsv_5fdf_2ec',['xtrngpsv_df.c',['../xtrngpsv__df_8c.html',1,'']]],
   ['xtrngpsv_5fdfinput',['XTrngpsv_DFInput',['../struct_x_trngpsv___d_f_input.html',1,'']]],

@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___features.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,18 +106,97 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___features.html','')
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XNandPsu_Features Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XNandPsu_Features Struct Reference<div class="ingroups"><a class="el" href="group__nandpsu.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_nand_psu___features.html" title="The XNandPsu_Features structure contains the ONFI features information. ">XNandPsu_Features</a> structure contains the ONFI features information.
+<p>Holds the ONFI features information.
  <a href="struct_x_nand_psu___features.html#details">More...</a></p>
 
 <p><code>#include &lt;xnandpsu.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a534b1775620f5cecfda6fe31d3747556"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___features.html#a534b1775620f5cecfda6fe31d3747556">NvDdr</a></td></tr>
+<tr class="memdesc:a534b1775620f5cecfda6fe31d3747556"><td class="mdescLeft">&#160;</td><td class="mdescRight">NVDDR data interface support.  <a href="#a534b1775620f5cecfda6fe31d3747556">More...</a><br/></td></tr>
+<tr class="separator:a534b1775620f5cecfda6fe31d3747556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7984e002c8717a26d50a36728a0a1fcf"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___features.html#a7984e002c8717a26d50a36728a0a1fcf">EzNand</a></td></tr>
+<tr class="memdesc:a7984e002c8717a26d50a36728a0a1fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">EZ-NAND support.  <a href="#a7984e002c8717a26d50a36728a0a1fcf">More...</a><br/></td></tr>
+<tr class="separator:a7984e002c8717a26d50a36728a0a1fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad347c7947d04431e7e943834522db6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___features.html#adad347c7947d04431e7e943834522db6">OnDie</a></td></tr>
+<tr class="memdesc:adad347c7947d04431e7e943834522db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">On-die ECC support.  <a href="#adad347c7947d04431e7e943834522db6">More...</a><br/></td></tr>
+<tr class="separator:adad347c7947d04431e7e943834522db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adece8dd9e5b159dd5abbdeba4b3c151f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___features.html#adece8dd9e5b159dd5abbdeba4b3c151f">ExtPrmPage</a></td></tr>
+<tr class="memdesc:adece8dd9e5b159dd5abbdeba4b3c151f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended parameter page support.  <a href="#adece8dd9e5b159dd5abbdeba4b3c151f">More...</a><br/></td></tr>
+<tr class="separator:adece8dd9e5b159dd5abbdeba4b3c151f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_nand_psu___features.html" title="The XNandPsu_Features structure contains the ONFI features information. ">XNandPsu_Features</a> structure contains the ONFI features information. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the ONFI features information. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="adece8dd9e5b159dd5abbdeba4b3c151f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XNandPsu_Features::ExtPrmPage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extended parameter page support. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7984e002c8717a26d50a36728a0a1fcf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XNandPsu_Features::EzNand</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EZ-NAND support. </p>
+
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga8268e05a9d1a0339dc2ec672d7dd8c79">XNandPsu_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a534b1775620f5cecfda6fe31d3747556"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XNandPsu_Features::NvDdr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NVDDR data interface support. </p>
+
+</div>
+</div>
+<a class="anchor" id="adad347c7947d04431e7e943834522db6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XNandPsu_Features::OnDie</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>On-die ECC support. </p>
+
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga8268e05a9d1a0339dc2ec672d7dd8c79">XNandPsu_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

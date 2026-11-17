@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_cpd_status__s_1a0d763b280c0e4bfd1e0c15d07a8806ef" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_cpd_status__s_1a4ef61f56aad02c4ed96cbe2795642064" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__cpd_1ga770ebba776000646b8c3865596aa59b9" kindref="member">CamDeviceExpandConfig_t</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -49,19 +49,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="236">
+      <node id="238">
         <label>CamDeviceCpdStatus_s</label>
         <link refid="struct_cam_device_cpd_status__s"/>
-        <childnode refid="237" relation="usage">
+        <childnode refid="239" relation="usage">
           <edgelabel>currentCfg</edgelabel>
         </childnode>
       </node>
-      <node id="237">
+      <node id="239">
         <label>CamDeviceExpandConfig_s</label>
         <link refid="struct_cam_device_expand_config__s"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="84" bodyend="88"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="84" bodyend="88"/>
     <listofallmembers>
       <member refid="struct_cam_device_cpd_status__s_1a4ef61f56aad02c4ed96cbe2795642064" prot="public" virt="non-virtual"><scope>CamDeviceCpdStatus_s</scope><name>currentCfg</name></member>
       <member refid="struct_cam_device_cpd_status__s_1a0d763b280c0e4bfd1e0c15d07a8806ef" prot="public" virt="non-virtual"><scope>CamDeviceCpdStatus_s</scope><name>currentMode</name></member>

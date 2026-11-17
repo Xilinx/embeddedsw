@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ecc_5f1bit_5frxfifo_5fcnt',['ecc_1bit_rxfifo_cnt',['../struct_x_can.html#af0b4e5ccbd492654934cea6e75f0d6d0',1,'XCan']]],
   ['ecc_5f1bit_5ftxolfifo_5fcnt',['ecc_1bit_txolfifo_cnt',['../struct_x_can.html#a0309ac9be44b592655714b4e6e30dcfd',1,'XCan']]],
   ['ecc_5f1bit_5ftxtlfifo_5fcnt',['ecc_1bit_txtlfifo_cnt',['../struct_x_can.html#a3cc5989a39ce47d7eaeb1dc2ee29570d',1,'XCan']]],
   ['ecc_5f2bit_5frxfifo_5fcnt',['ecc_2bit_rxfifo_cnt',['../struct_x_can.html#a02d7f8dee1f68f1d4481f3adfcac85ce',1,'XCan']]],

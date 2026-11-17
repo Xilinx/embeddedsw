@@ -1,5 +1,6 @@
 var xstreamer_8c =
 [
+    [ "min", "xstreamer_8c.html#gabb702d8b501669a23aa0ab3b281b9384", null ],
     [ "XStrm_Read", "xstreamer_8c.html#ga915d68a9cce0f2464fc7644383cb887a", null ],
     [ "XStrm_RxGetLen", "xstreamer_8c.html#ga479d2eb3193ad0a5efc3c3b432a78381", null ],
     [ "XStrm_RxInitialize", "xstreamer_8c.html#ga52ec29cc3b758b6a2b857d883ac69d4a", null ],

@@ -9,6 +9,8 @@ var xiic__multi__master__example_8c =
     [ "IicMultiMasterExample", "xiic__multi__master__example_8c.html#a1910a4a03c18e6dcc001ad0880af0782", null ],
     [ "main", "xiic__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "BusNotBusy", "xiic__multi__master__example_8c.html#ab2eeb777b1cd8225afdb03dacaec7a4d", null ],
+    [ "IicInstance", "xiic__multi__master__example_8c.html#a82ac42ea08442144b4d372ff9f7740c0", null ],
     [ "ReceiveComplete", "xiic__multi__master__example_8c.html#a9f1fae969d865449aacad8208e70ce16", null ],
+    [ "TransmitComplete", "xiic__multi__master__example_8c.html#a19d9dd848a431a459bff8db6e3eb2985", null ],
     [ "WriteBuffer", "xiic__multi__master__example_8c.html#a301b988b2453fda0d2780ed4d82c8450", null ]
 ];

@@ -2,7 +2,6 @@ var xscuwdt_8h =
 [
     [ "XScuWdt_EnableAutoReload", "xscuwdt_8h.html#ga34698453a13b46c1e87f3a8ff3510f37", null ],
     [ "XScuWdt_GetControlReg", "xscuwdt_8h.html#gaf62532fc29f79a73a2a058d6e81586a6", null ],
-    [ "XSCUWDT_H", "xscuwdt_8h.html#ga0bc0278a14721ac3733d4080e7a03ee3", null ],
     [ "XScuWdt_IsTimerExpired", "xscuwdt_8h.html#ga551b705d1ebbb530ac7a2a9752c8f5cb", null ],
     [ "XScuWdt_IsWdtExpired", "xscuwdt_8h.html#ga9481fbc75254dd60304af3fd0254e3f6", null ],
     [ "XScuWdt_LoadWdt", "xscuwdt_8h.html#ga7dca99f7a6158d27399eb355f40e3367", null ],

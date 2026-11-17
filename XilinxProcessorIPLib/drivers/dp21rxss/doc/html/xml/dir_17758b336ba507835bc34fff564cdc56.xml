@@ -6,9 +6,12 @@
     <innerdir refid="dir_0784395120f106f4110aac7bf3f72e25">hdcp1x</innerdir>
     <innerdir refid="dir_24bb2c184dda3e547f716742853f1da8">hdcp22</innerdir>
     <innerdir refid="dir_ceccfe06a94a8898e7351bec117ab855">iic</innerdir>
+    <innerfile refid="xdp21rxss__hw_8h">xdp21rxss_hw.h</innerfile>
     <innerfile refid="xdprxss_8c">xdprxss.c</innerfile>
     <innerfile refid="xdprxss_8h">xdprxss.h</innerfile>
     <innerfile refid="xdprxss__dbg_8c">xdprxss_dbg.c</innerfile>
+    <innerfile refid="xdprxss__dsc__fec_8c">xdprxss_dsc_fec.c</innerfile>
+    <innerfile refid="xdprxss__dsc__fec_8h">xdprxss_dsc_fec.h</innerfile>
     <innerfile refid="xdprxss__g_8c">xdprxss_g.c</innerfile>
     <innerfile refid="xdprxss__hw_8h">xdprxss_hw.h</innerfile>
     <innerfile refid="xdprxss__intr_8c">xdprxss_intr.c</innerfile>
@@ -18,6 +21,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/"/>
   </compounddef>
 </doxygen>

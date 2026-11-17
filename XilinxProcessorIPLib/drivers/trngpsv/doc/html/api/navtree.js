@@ -1,31 +1,120 @@
 var NAVTREE =
 [
-  [ "trngpsv", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xtrngpsv_drng_example.c", "example.html#ex1", null ],
-      [ "xtrngpsv_drng_df_example.c", "example.html#ex2", null ],
-      [ "xtrngpsv_ptrng_example.c", "example.html#ex3", null ],
-      [ "xtrngpsv_ptrng_df_example.c", "example.html#ex4", null ],
-      [ "xtrngpsv_hrng_example.c", "example.html#ex5", null ],
-      [ "xtrngpsv_hrng_df_example.c", "example.html#ex6", null ]
-    ] ]
-  ] ]
+  [
+    "trngpsv",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xtrngpsv_drng_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xtrngpsv_drng_df_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xtrngpsv_ptrng_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xtrngpsv_ptrng_df_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xtrngpsv_hrng_example.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xtrngpsv_hrng_df_example.c",
+            "example.html#ex6",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

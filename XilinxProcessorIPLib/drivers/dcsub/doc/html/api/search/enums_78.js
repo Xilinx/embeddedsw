@@ -1,9 +1,11 @@
 var searchData=
 [
   ['xdc_5falphablend',['XDc_AlphaBlend',['../xdc_8h.html#aae2fc17de8e29853ca4a5e187d9f7ded',1,'xdc.h']]],
+  ['xdc_5faudchannels',['XDc_AudChannels',['../xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1',1,'xdc.h']]],
   ['xdc_5fauden',['XDc_AudEn',['../xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbb',1,'xdc.h']]],
   ['xdc_5faudinterface',['XDc_AudInterface',['../xdc_8h.html#a937bdfbb7f35c3ba41caebf7d8208e8e',1,'xdc.h']]],
   ['xdc_5faudiostream',['XDc_AudioStream',['../xdc_8h.html#a999bb0a1f86e3d9c5f03f4bfaf96d7d5',1,'xdc.h']]],
+  ['xdc_5faudsamplefreq',['XDc_AudSampleFreq',['../xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d',1,'xdc.h']]],
   ['xdc_5fchromablend',['XDc_ChromaBlend',['../xdc_8h.html#a465de7d2b9607709912074fb3bc129d9',1,'xdc.h']]],
   ['xdc_5fchromamaster',['XDc_ChromaMaster',['../xdc_8h.html#aac5e0c4426b85e85e7352fd0dc24c587',1,'xdc.h']]],
   ['xdc_5fcursorblend',['XDc_CursorBlend',['../xdc_8h.html#a89f97a13057417752351b72afc565101',1,'xdc.h']]],

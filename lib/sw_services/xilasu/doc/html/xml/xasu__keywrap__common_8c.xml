@@ -8,124 +8,114 @@
     <includes refid="xasu__aes__common_8h" local="yes">xasu_aes_common.h</includes>
     <includes refid="xasu__keymanager__common_8h" local="yes">xasu_keymanager_common.h</includes>
     <incdepgraph>
-      <node id="667">
-        <label>xasu_shainfo.h</label>
-        <link refid="xasu__shainfo_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="668" relation="include">
-        </childnode>
-      </node>
-      <node id="675">
+      <node id="841">
         <label>xasu_def.h</label>
         <link refid="xasu__def_8h"/>
-        <childnode refid="666" relation="include">
+        <childnode refid="832" relation="include">
         </childnode>
       </node>
-      <node id="676">
-        <label>xasu_keymanager_common.h</label>
-        <link refid="xasu__keymanager__common_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="677" relation="include">
-        </childnode>
-      </node>
-      <node id="664">
+      <node id="830">
         <label>xasu_keywrap_common.c</label>
         <link refid="xasu_keywrap_common.c"/>
-        <childnode refid="665" relation="include">
+        <childnode refid="831" relation="include">
         </childnode>
-        <childnode refid="671" relation="include">
+        <childnode refid="837" relation="include">
         </childnode>
-        <childnode refid="673" relation="include">
+        <childnode refid="839" relation="include">
         </childnode>
-        <childnode refid="674" relation="include">
+        <childnode refid="840" relation="include">
         </childnode>
-        <childnode refid="676" relation="include">
+        <childnode refid="842" relation="include">
         </childnode>
       </node>
-      <node id="665">
+      <node id="831">
         <label>xasu_keywrap_common.h</label>
         <link refid="xasu__keywrap__common_8h"/>
-        <childnode refid="666" relation="include">
+        <childnode refid="832" relation="include">
         </childnode>
-        <childnode refid="667" relation="include">
+        <childnode refid="833" relation="include">
         </childnode>
-        <childnode refid="669" relation="include">
-        </childnode>
-      </node>
-      <node id="672">
-        <label>xil_util.h</label>
-      </node>
-      <node id="670">
-        <label>xasu_bsp_config.h</label>
-      </node>
-      <node id="677">
-        <label>xasu_keymanagerinfo.h</label>
-        <link refid="xasu__keymanagerinfo_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="672" relation="include">
-        </childnode>
-        <childnode refid="671" relation="include">
-        </childnode>
-        <childnode refid="678" relation="include">
-        </childnode>
-        <childnode refid="673" relation="include">
-        </childnode>
-        <childnode refid="670" relation="include">
+        <childnode refid="835" relation="include">
         </childnode>
       </node>
-      <node id="668">
-        <label>xstatus.h</label>
-      </node>
-      <node id="669">
-        <label>xasu_keywrapinfo.h</label>
-        <link refid="xasu__keywrapinfo_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="670" relation="include">
-        </childnode>
-      </node>
-      <node id="666">
-        <label>xil_types.h</label>
-      </node>
-      <node id="674">
-        <label>xasu_aes_common.h</label>
-        <link refid="xasu__aes__common_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="668" relation="include">
-        </childnode>
-        <childnode refid="675" relation="include">
-        </childnode>
-        <childnode refid="673" relation="include">
-        </childnode>
-      </node>
-      <node id="678">
-        <label>xasu_eccinfo.h</label>
-        <link refid="xasu__eccinfo_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="670" relation="include">
-        </childnode>
-      </node>
-      <node id="671">
-        <label>xasu_rsainfo.h</label>
-        <link refid="xasu__rsainfo_8h"/>
-        <childnode refid="666" relation="include">
-        </childnode>
-        <childnode refid="672" relation="include">
-        </childnode>
-        <childnode refid="670" relation="include">
-        </childnode>
-      </node>
-      <node id="673">
+      <node id="839">
         <label>xasu_aesinfo.h</label>
         <link refid="xasu__aesinfo_8h"/>
-        <childnode refid="666" relation="include">
+        <childnode refid="832" relation="include">
         </childnode>
-        <childnode refid="670" relation="include">
+        <childnode refid="836" relation="include">
+        </childnode>
+      </node>
+      <node id="838">
+        <label>xil_util.h</label>
+      </node>
+      <node id="836">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="842">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="843" relation="include">
+        </childnode>
+      </node>
+      <node id="840">
+        <label>xasu_aes_common.h</label>
+        <link refid="xasu__aes__common_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="834" relation="include">
+        </childnode>
+        <childnode refid="841" relation="include">
+        </childnode>
+        <childnode refid="839" relation="include">
+        </childnode>
+      </node>
+      <node id="834">
+        <label>xstatus.h</label>
+      </node>
+      <node id="835">
+        <label>xasu_keywrapinfo.h</label>
+        <link refid="xasu__keywrapinfo_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+      </node>
+      <node id="832">
+        <label>xil_types.h</label>
+      </node>
+      <node id="833">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="834" relation="include">
+        </childnode>
+      </node>
+      <node id="843">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="838" relation="include">
+        </childnode>
+        <childnode refid="837" relation="include">
+        </childnode>
+        <childnode refid="839" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+      </node>
+      <node id="837">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="838" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -167,7 +157,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate that the addresses of all input and output buffers are non-zero.</para><para>Validate that the length of all input and output sizes are non-zero.</para><para>Validate AES key size.</para><para>Validate that exactly one of KeyCompAddr or RsaKeyId is provided.</para><para>Validate SHA Mode and SHAType.</para><para>Validate RSA key size. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c" bodystart="63" bodyend="119"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c" bodystart="63" bodyend="119"/>
         <references refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" compoundref="xasu__keywrapinfo_8h" startline="65">XAsu_KeyWrapParams::ActualOutputDataLenAddr</references>
         <references refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" compoundref="xasu__keywrapinfo_8h" startline="76">XAsu_KeyWrapParams::AesKeySize</references>
         <references refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" compoundref="xasu__keywrapinfo_8h" startline="57">XAsu_KeyWrapParams::InputDataAddr</references>
@@ -180,11 +170,11 @@
         <references refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" compoundref="xasu__keywrapinfo_8h" startline="68">XAsu_KeyWrapParams::RsaKeySize</references>
         <references refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" compoundref="xasu__keywrapinfo_8h" startline="79">XAsu_KeyWrapParams::ShaMode</references>
         <references refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" compoundref="xasu__keywrapinfo_8h" startline="78">XAsu_KeyWrapParams::ShaType</references>
-        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="102">XASU_AES_KEY_SIZE_128_BITS</references>
-        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="119">XASU_AES_KEY_SIZE_128_BITS</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="120">XASU_AES_KEY_SIZE_256_BITS</references>
         <references refid="group__xasu__keywrap__common__apis_1ga218017686329e536888b64661693bc53" compoundref="xasu__keywrap__common_8h" startline="42">XASU_KEYWRAP_AES_KWPUNWP</references>
         <references refid="group__xasu__keywrap__common__apis_1ga0a36595ec32a7d8031744471a14db798" compoundref="xasu__keywrap__common_8h" startline="41">XASU_KEYWRAP_AES_RSA_KWPUNWP</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" compoundref="xasu__keymanager__common_8c" startline="598" endline="622">XAsu_KmValidateKeyAddrNdKeyId</references>
         <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
         <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
       </memberdef>
@@ -252,7 +242,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationType<sp/>==<sp/><ref refid="group__xasu__keywrap__common__apis_1ga0a36595ec32a7d8031744471a14db798" kindref="member">XASU_KEYWRAP_AES_RSA_KWPUNWP</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" kindref="member">XAsu_KmValidateKeyAddrNdKeyId</ref>(KwpunwpParamsPtr-&gt;<ref refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" kindref="member">KeyCompAddr</ref>,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" kindref="member">XAsu_KmValidateKeyAddrNdKeyId</ref>(KwpunwpParamsPtr-&gt;<ref refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" kindref="member">KeyCompAddr</ref>,<sp/>0U,</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpParamsPtr-&gt;<ref refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" kindref="member">RsaKeyId</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -277,6 +267,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="119"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrap_common.c"/>
   </compounddef>
 </doxygen>

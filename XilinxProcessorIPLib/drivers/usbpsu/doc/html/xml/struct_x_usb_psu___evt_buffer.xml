@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="317" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
-        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="540" endline="556">XUsbPsu_EventBuffersSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="161" endline="204">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="523" endline="539">XUsbPsu_EventBuffersSetup</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___evt_buffer_1a472a238711aef2a1def50982a63dddea" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,9 +30,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="318" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
-        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="540" endline="556">XUsbPsu_EventBuffersSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="161" endline="204">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="523" endline="539">XUsbPsu_EventBuffersSetup</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___evt_buffer_1a32f76341c5591067f8bf87c8d1e3bc86" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -45,9 +45,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="319" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
-        <referencedby refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="395" endline="427">XUsbPsu_IntrHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="161" endline="204">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="368" endline="400">XUsbPsu_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___evt_buffer_1a00eecccee1e7f806361d8133b1ed0eb5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -60,9 +60,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="320" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
-        <referencedby refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="395" endline="427">XUsbPsu_IntrHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="161" endline="204">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="368" endline="400">XUsbPsu_IntrHandler</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -70,39 +70,39 @@
     <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BuffAddr</parametername>
-<parametername>:</parametername>
+<parametername direction="in">BuffAddr</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Event Buffer address </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Offset</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Offset</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Event Buffer offset </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Count</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Count</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Event Buffer count </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Flags</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Event Buffer Flag - PENDING /NOT PENDING </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="316" bodyend="321"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="316" bodyend="321"/>
     <listofallmembers>
       <member refid="struct_x_usb_psu___evt_buffer_1a054fe3eb0cdfde62dee738647bd46cd3" prot="public" virt="non-virtual"><scope>XUsbPsu_EvtBuffer</scope><name>BuffAddr</name></member>
       <member refid="struct_x_usb_psu___evt_buffer_1a32f76341c5591067f8bf87c8d1e3bc86" prot="public" virt="non-virtual"><scope>XUsbPsu_EvtBuffer</scope><name>Count</name></member>

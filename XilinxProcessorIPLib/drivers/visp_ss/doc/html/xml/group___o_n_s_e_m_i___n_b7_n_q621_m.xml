@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="70" bodyend="105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="71" bodyend="106"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -268,8 +268,8 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="54" bodyend="-1"/>
-        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" compoundref="onsemi__nb7nq621m_8c" startline="1217" endline="1230">ONSEMI_NB7NQ621M_RegisterLibraryDump</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" compoundref="onsemi__nb7nq621m_8c" startline="1232" endline="1245">ONSEMI_NB7NQ621M_RegisterLibraryDump</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -342,7 +342,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="648" bodyend="690"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="648" bodyend="690"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gafaf95099a67317660e469a5d57654a9d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -413,7 +413,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="712" bodyend="749"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="712" bodyend="749"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga6a9208a713a9d69b3a6d63f40bd578f7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -457,7 +457,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="798" bodyend="809"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="798" bodyend="809"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab4ab20260c782417e0048554648a801f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -505,7 +505,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="766" bodyend="781"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="766" bodyend="781"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga137f0bf469bfc29758da13b6dfe8aca4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -567,7 +567,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="869" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="869" bodyend="930"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="869" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="869" bodyend="937"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -607,8 +607,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="947" bodyend="977"/>
-        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" compoundref="onsemi__nb7nq621m_8c" startline="1245" endline="1281">ONSEMI_NB7NQ621M_RegisterDump</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="954" bodyend="984"/>
+        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" compoundref="onsemi__nb7nq621m_8c" startline="1260" endline="1296">ONSEMI_NB7NQ621M_RegisterDump</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga433132f50e696e116cdb516571b86072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -648,7 +648,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="994" bodyend="1013"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1001" bodyend="1020"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga889c7576a2aa608de7b1fb633cbb06e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -732,7 +732,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1034" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1034" bodyend="1203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1041" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1041" bodyend="1218"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -758,7 +758,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1217" bodyend="1230"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1232" bodyend="1245"/>
         <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaf765b2cbc5bdae5de39f3290253f1e4f" compoundref="onsemi__nb7nq621m_8c" startline="54">OnsemiRegisterFields</references>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -797,8 +797,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1245" bodyend="1281"/>
-        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" compoundref="onsemi__nb7nq621m_8c" startline="947" endline="977">ONSEMI_NB7NQ621M_CheckDeviceID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1260" bodyend="1296"/>
+        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" compoundref="onsemi__nb7nq621m_8c" startline="954" endline="984">ONSEMI_NB7NQ621M_CheckDeviceID</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -811,7 +811,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="41" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="41" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -822,7 +822,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2d4c1d29c96a3f1b1df99aebd6f9342d" prot="public" static="no">
         <name>REG04_BIT7_LANE_CTRL_GLOBAL</name>
@@ -833,7 +833,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gabb47b2144ddfb3f754a34cf53fa7bddd" prot="public" static="no">
         <name>REG04_BIT7_LANE_CTRL_INDIVIDUAL</name>
@@ -844,7 +844,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga08d8563da6d89b95275da64e94b8dd5d" prot="public" static="no">
         <name>REG04_BIT6_LANE_SWAP_DISABLE</name>
@@ -855,7 +855,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga071fd2c9ae991fe90b898b83a5c2e5d7" prot="public" static="no">
         <name>REG04_BIT6_LANE_SWAP_ENABLE</name>
@@ -866,7 +866,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga837a32af24007fdc9e378c12afb27895" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_HIZ</name>
@@ -877,7 +877,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga54f3e76371813cd05aa230060c993708" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_300</name>
@@ -888,7 +888,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga4705f5bc8a6f8e8b1e658cbbb0be4210" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_200</name>
@@ -899,7 +899,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga5c0714c33b9b6241c30fd9e56afeabe4" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_100</name>
@@ -910,7 +910,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaa41c1f819eb01bace837e50f03e371af" prot="public" static="no">
         <name>REG04_BIT53_MODE_FRL_DC</name>
@@ -921,7 +921,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gae8f2b4ce752dc4f3b0657fbebadb94bb" prot="public" static="no">
         <name>REG04_BIT53_MODE_FRL_AC</name>
@@ -932,7 +932,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2e19b1affd4bc4526d04acfa298ed246" prot="public" static="no">
         <name>REG04_BIT53_MODE_ML</name>
@@ -943,7 +943,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

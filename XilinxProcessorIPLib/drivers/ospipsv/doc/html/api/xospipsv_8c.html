@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xospipsv_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,50 @@ $(document).ready(function(){initNavTree('xospipsv_8c.html','');});
 <div class="title">xospipsv.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xospipsv_8h.html">xospipsv.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the functions to perform transfers on the OSPIPSV hardware. </p>
+<p>These are accessible to the user via XOspiPsv.h.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  02/19/18 First release
+      sk   01/09/19 Added interrupt mode support.
+                    Remove STIG/DMA mode selection by the user, driver will
+                    take care of operating in DMA/STIG based on command.
+                    Added support for unaligned byte count read.
+      sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+      sk   02/07/19 Added OSPI Idling sequence.
+1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+1.1   mus  07/31/19 Added CCI support at EL1 NS
+      sk   08/08/19 Added flash device reset support.
+1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
+      sk   02/20/20 Reorganize the source code, enable the interrupts
+                    by default and updated <a class="el" href="group__ospipsv__api.html#ga16fcc38cab80027ea601c99569517067" title="Resets the OSPI flash device. ">XOspiPsv_DeviceReset()</a> API with
+                    masked data writes.
+      sk   02/20/20 Make <a class="el" href="group__ospipsv__api.html#ga3946ea37da6d9ce478f29eca239b597b" title="Configures TX and RX DLL Delay. ">XOspiPsv_SetDllDelay()</a> API as user API.
+      sk   02/20/20 Added support for DLL Master mode.
+1.3   sk   10/06/20 Clear the ISR for polled mode transfers.
+1.4   sk   02/18/21 Added support for Dual byte opcode.
+      sk   05/07/21 Fixed MISRAC violations.
+1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
+1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
+      sk   11/29/22 Added support for Indirect Non-Dma write.
+1.9   sb   09/06/23 Fixed MISRAC violations.
+1.10    akm  01/31/24 Use OSPI controller reset for resetting flash device.
+1.10    akm  02/06/24 Increase the delay after device reset.
+1.10    sb   02/09/24 Add support for Infineon flash part S28HS02G.
+1.11  ng  08/20/24 Add spartanup device support
+1.12  sb  01/28/25 Use stig read for byte count less than 8bytes.
+1.13  sb  06/26/25 Set the required configurations for SpartanUp in
+                   SDR-PHY &amp; DDR-PHY mode.
+1.13  sb  10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+1.15  zm  08/07/26 Reject interrupt transfers the STIG path cannot issue.
+1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
+1.15  vn  09/03/26 Fix doxygen warnings.
+1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xospipsv_8h.html">xospipsv.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
@@ -116,20 +159,17 @@ Macros</h2></td></tr>
 <tr class="memitem:gae47ce4e107756cbd213bf34e51f8ce21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gae47ce4e107756cbd213bf34e51f8ce21">SILICON_VERSION_1</a>&#160;&#160;&#160;0x10U</td></tr>
 <tr class="memdesc:gae47ce4e107756cbd213bf34e51f8ce21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Silicon version.  <a href="group__ospipsv__api.html#gae47ce4e107756cbd213bf34e51f8ce21">More...</a><br/></td></tr>
 <tr class="separator:gae47ce4e107756cbd213bf34e51f8ce21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gae90b7e8c7fe9d94c5c156a07e57fc27c">READ_ID</a>&#160;&#160;&#160;0x9FU</td></tr>
-<tr class="memdesc:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Id opcode.  <a href="group__ospipsv__api.html#gae90b7e8c7fe9d94c5c156a07e57fc27c">More...</a><br/></td></tr>
-<tr class="separator:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gae5a31f79cc2df46027e4b9f26cad97ad"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gae5a31f79cc2df46027e4b9f26cad97ad">XOspiPsv_CfgInitialize</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, const <a class="el" href="struct_x_ospi_psv___config.html">XOspiPsv_Config</a> *ConfigPtr)</td></tr>
-<tr class="memdesc:gae5a31f79cc2df46027e4b9f26cad97ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_ospi_psv.html" title="The XOspiPsv driver instance data. ">XOspiPsv</a> instance so that the driver is ready to use.  <a href="group__ospipsv__api.html#gae5a31f79cc2df46027e4b9f26cad97ad">More...</a><br/></td></tr>
+<tr class="memdesc:gae5a31f79cc2df46027e4b9f26cad97ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_ospi_psv.html" title="Holds the XOspiPsv driver instance data. ">XOspiPsv</a> instance so that the driver is ready to use.  <a href="group__ospipsv__api.html#gae5a31f79cc2df46027e4b9f26cad97ad">More...</a><br/></td></tr>
 <tr class="separator:gae5a31f79cc2df46027e4b9f26cad97ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab43ba912b750cce29cef9d5d652e11af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gab43ba912b750cce29cef9d5d652e11af">XOspiPsv_Reset</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gab43ba912b750cce29cef9d5d652e11af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the configuration register.  <a href="group__ospipsv__api.html#gab43ba912b750cce29cef9d5d652e11af">More...</a><br/></td></tr>
 <tr class="separator:gab43ba912b750cce29cef9d5d652e11af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga16fcc38cab80027ea601c99569517067"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga16fcc38cab80027ea601c99569517067">XOspiPsv_DeviceReset</a> (u8 Type)</td></tr>
-<tr class="memdesc:ga16fcc38cab80027ea601c99569517067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the OSPI flash device.  <a href="group__ospipsv__api.html#ga16fcc38cab80027ea601c99569517067">More...</a><br/></td></tr>
+<tr class="memdesc:ga16fcc38cab80027ea601c99569517067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the OSPI flash device.  <a href="group__ospipsv__api.html#ga16fcc38cab80027ea601c99569517067">More...</a><br/></td></tr>
 <tr class="separator:ga16fcc38cab80027ea601c99569517067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga26ffa91c5d5d79028535a2e3381174e6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga26ffa91c5d5d79028535a2e3381174e6">XOspiPsv_DeviceResetViaOspi</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, u8 Type)</td></tr>
 <tr class="memdesc:ga26ffa91c5d5d79028535a2e3381174e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the OSPI flash device via OSPI controller.  <a href="group__ospipsv__api.html#ga26ffa91c5d5d79028535a2e3381174e6">More...</a><br/></td></tr>
@@ -158,7 +198,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gabba4009ea62fb0b8c856a8582ed9f77b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gabba4009ea62fb0b8c856a8582ed9f77b">XOspiPsv_ConfigDualByteOpcode</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, u8 Enable)</td></tr>
 <tr class="memdesc:gabba4009ea62fb0b8c856a8582ed9f77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the dual-byte opcode mode.  <a href="group__ospipsv__api.html#gabba4009ea62fb0b8c856a8582ed9f77b">More...</a><br/></td></tr>
 <tr class="separator:gabba4009ea62fb0b8c856a8582ed9f77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga96e167a2c7e8917efaf4bcab5c3d561b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga96e167a2c7e8917efaf4bcab5c3d561b">XOspiPsv_SetStatusHandler</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, void *CallBackRef, <a class="el" href="group__ospipsv__api.html#ga2fded7b6bdbc994e9358fed0cda3a103">XOspiPsv_StatusHandler</a> FuncPointer)</td></tr>
+<tr class="memitem:ga96e167a2c7e8917efaf4bcab5c3d561b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga96e167a2c7e8917efaf4bcab5c3d561b">XOspiPsv_SetStatusHandler</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, void *CallBackRef, <a class="el" href="group__ospipsv.html#ga2fded7b6bdbc994e9358fed0cda3a103">XOspiPsv_StatusHandler</a> FuncPointer)</td></tr>
 <tr class="memdesc:ga96e167a2c7e8917efaf4bcab5c3d561b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the status callback function, the status handler, which the driver calls when it encounters conditions that should be reported to upper layer software.  <a href="group__ospipsv__api.html#ga96e167a2c7e8917efaf4bcab5c3d561b">More...</a><br/></td></tr>
 <tr class="separator:ga96e167a2c7e8917efaf4bcab5c3d561b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

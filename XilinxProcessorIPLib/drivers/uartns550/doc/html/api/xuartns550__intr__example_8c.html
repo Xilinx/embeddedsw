@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__intr__example_8c.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,54 +100,103 @@ $(document).ready(function(){initNavTree('xuartns550__intr__example_8c.html','')
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xuartns550_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the UART 16450/16550 driver (<a class="el" href="struct_x_uart_ns550.html" title="The XUartNs550 driver instance data. ">XUartNs550</a>) and hardware device using interrupt mode. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
+<div class="textblock"><p>Demonstrates <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> driver usage in interrupt mode. </p>
+<p>This file contains a design example using the UART 16450/16550 driver (<a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a>) and hardware device using interrupt mode.</p>
+<dl class="section note"><dt>Note</dt><dd><pre>
+MODIFICATION HISTORY:</pre></dd></dl>
+<p>Ver Who Date Changes </p>
 <hr/>
-<p>
-1.00b jhl  02/13/02 First release
-1.00b sv   06/08/05 Minor changes to comply to Doxygen and coding guidelines
-1.01a sv   05/08/06 Minor changes for supporting Test App Interrupt examples
-2.00a ktn  10/20/09 Updated to use HAL processor APIs and minor modifications
-              as per coding guidelines.
-2.01a ssb  01/11/01 Updated the example to be used with the SCUGIC in
-              Zynq.
-3.2   adk  15/10/14 Clear the global counters.If multiple instance of ip is
-              present in the h/w design without clearing these counters
-              will result undefined behaviour for the second ip
-                      instance while running the peripheral tests.
-3.4   ms   01/23/17 Added xil_printf statement in main function to
-                    ensure that "Successfully ran" and "Failed" strings
-                    are available in all examples. This is a fix for
-                    CR-965028.
-3.6   rna  01/06/20 Clean up options at end to get Success/Failure strings
-3.9   gm   07/09/23 Added SDT support.
-3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
-</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<p> 1.00b jhl 02/13/02 First release 1.00b sv 06/08/05 Minor changes to comply to Doxygen and coding guidelines 1.01a sv 05/08/06 Minor changes for supporting Test App Interrupt examples 2.00a ktn 10/20/09 Updated to use HAL processor APIs and minor modifications as per coding guidelines. 2.01a ssb 01/11/01 Updated the example to be used with the SCUGIC in Zynq. 3.2 adk 15/10/14 Clear the global counters.If multiple instance of ip is present in the h/w design without clearing these counters will result undefined behaviour for the second ip instance while running the peripheral tests. 3.4 ms 01/23/17 Added xil_printf statement in main function to ensure that "Successfully ran" and "Failed" strings are available in all examples. This is a fix for CR-965028. 3.6 rna 01/06/20 Clean up options at end to get Success/Failure strings 3.9 gm 07/09/23 Added SDT support. 3.14 vlt 12/18/25 Update Doxygen comments to include SDT flow details. 3.15 vn 07/30/26 Fix Doxygen warnings 3.15 vn 09/09/26 Align Doxygen comments with AMD standards  </p>
+</div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a0b71e527200033092ab1ebd5c0c077ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:a0b71e527200033092ab1ebd5c0c077ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the send and receive buffers.  <a href="#a0b71e527200033092ab1ebd5c0c077ed">More...</a><br/></td></tr>
+<tr class="separator:a0b71e527200033092ab1ebd5c0c077ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the XPAR parameters created in the xparameters.h file.</p>
+<p>They are defined here such that a user can easily change all the needed parameters in one place. </p>
+</div></td></tr>
+<tr class="memitem:ac9565031659897863ae69977e7021556"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#ac9565031659897863ae69977e7021556">XUARTNS550_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XUARTNS550_0_BASEADDR</td></tr>
+<tr class="memdesc:ac9565031659897863ae69977e7021556"><td class="mdescLeft">&#160;</td><td class="mdescRight">UART base address.  <a href="#ac9565031659897863ae69977e7021556">More...</a><br/></td></tr>
+<tr class="separator:ac9565031659897863ae69977e7021556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a11f829fa6a144951a80eaaf4f433dfe9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *UartInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a11f829fa6a144951a80eaaf4f433dfe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the UartNs550 device and driver as a design example.  <a href="#a11f829fa6a144951a80eaaf4f433dfe9">More...</a><br/></td></tr>
+<tr class="memdesc:a11f829fa6a144951a80eaaf4f433dfe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a minimal interrupt-mode test on the UartNs550 device.  <a href="#a11f829fa6a144951a80eaaf4f433dfe9">More...</a><br/></td></tr>
 <tr class="separator:a11f829fa6a144951a80eaaf4f433dfe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6afc272c9c7feecb2b9b25f00c430227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a6afc272c9c7feecb2b9b25f00c430227">UartNs550IntrHandler</a> (void *CallBackRef, u32 Event, unsigned int EventData)</td></tr>
-<tr class="memdesc:a6afc272c9c7feecb2b9b25f00c430227"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to handle data events from the UartNs550.  <a href="#a6afc272c9c7feecb2b9b25f00c430227">More...</a><br/></td></tr>
+<tr class="memdesc:a6afc272c9c7feecb2b9b25f00c430227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles data events from the UartNs550.  <a href="#a6afc272c9c7feecb2b9b25f00c430227">More...</a><br/></td></tr>
 <tr class="separator:a6afc272c9c7feecb2b9b25f00c430227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the UartNs550 interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the UartNs550 interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac9d3d00553431391ec5272c9b2ccc106"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ns550.html">XUartNs550</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#ac9d3d00553431391ec5272c9b2ccc106">UartNs550Instance</a></td></tr>
+<tr class="memdesc:ac9d3d00553431391ec5272c9b2ccc106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the UART Device.  <a href="#ac9d3d00553431391ec5272c9b2ccc106">More...</a><br/></td></tr>
+<tr class="separator:ac9d3d00553431391ec5272c9b2ccc106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Data buffers</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following buffers are used in this example to send and receive data with the UART. </p>
+</div></td></tr>
+<tr class="memitem:a21a34b7f8d09398f53237562bd1f579b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a> [<a class="el" href="xuartns550__polled__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:a21a34b7f8d09398f53237562bd1f579b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Transmitting Data.  <a href="#a21a34b7f8d09398f53237562bd1f579b">More...</a><br/></td></tr>
+<tr class="separator:a21a34b7f8d09398f53237562bd1f579b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__intr__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a> [<a class="el" href="xuartns550__polled__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:a97ff43d2dc0c58afc33efc1304f40b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Receiving Data.  <a href="#a97ff43d2dc0c58afc33efc1304f40b09">More...</a><br/></td></tr>
+<tr class="separator:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Transfer counters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following counters are used to determine when the entire buffer has been sent and received. </p>
+</div></td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a0b71e527200033092ab1ebd5c0c077ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BUFFER_SIZE&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the send and receive buffers. </p>
+<p>The following constant controls the length of the buffers to be sent and received with the UART. </p>
+
+<p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9565031659897863ae69977e7021556"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUARTNS550_BASEADDRESS&#160;&#160;&#160;XPAR_XUARTNS550_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UART base address. </p>
+
+<p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -163,11 +212,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the UartNs550 interrupt example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Calls the UartNs550 interrupt example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>.</p>
+<p>References <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>, and <a class="el" href="xuartns550__intr__example_8c.html#ac9565031659897863ae69977e7021556">XUARTNS550_BASEADDRESS</a>.</p>
 
 </div>
 </div>
@@ -195,14 +243,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the UartNs550 device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_uart_ns550.html" title="The XUartNs550 driver instance data. ">XUartNs550</a> component.</p>
+<p>Performs a minimal interrupt-mode test on the UartNs550 device. </p>
+<p>This is a design example that tests the device and driver.</p>
+<p>This function illustrates how to use the <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> component.</p>
 <p>This function transmits data and expects to receive the same data through the UART using the local loopback of the hardware.</p>
 <p>This function uses interrupt driver mode of the UART.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">UartInstancePtr</td><td>is a pointer to the instance of the UART . </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UartInstancePtr</td><td>Pointer to the instance of the UART . </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -212,7 +261,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_ns550___config.html#a1ba011ce4ae71fa08741281f9b19710d">XUartNs550_Config::IntrId</a>, <a class="el" href="struct_x_uart_ns550___config.html#a388cf489eb04e7d10e139e6b290b440e">XUartNs550_Config::IntrParent</a>, <a class="el" href="xuartns550__intr__example_8c.html#a6afc272c9c7feecb2b9b25f00c430227">UartNs550IntrHandler()</a>, <a class="el" href="group__uartns550.html#ga120797e7b4fc719c827c4378e387efe4">XUartNs550_GetOptions()</a>, <a class="el" href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">XUartNs550_Initialize()</a>, <a class="el" href="group__uartns550.html#ga6e8579fcf317e1f30d61b4fb7fe60434">XUartNs550_InterruptHandler()</a>, <a class="el" href="group__uartns550.html#ga6121a7c3b5ad2899eb7fa058df9201d2">XUartNs550_LookupConfig()</a>, <a class="el" href="group__uartns550.html#ga35fc171801e394fce29cbcb09dc1ff99">XUartNs550_Recv()</a>, <a class="el" href="group__uartns550.html#ga2ec86252a3b83b8d7b4815ffb960562d">XUartNs550_SelfTest()</a>, <a class="el" href="group__uartns550.html#ga421921af6a8df7c51ddbfa5d2301ad1b">XUartNs550_Send()</a>, <a class="el" href="group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d">XUartNs550_SetHandler()</a>, <a class="el" href="group__uartns550.html#gac2270082fbb7d7b2c32bd9208dae5be3">XUartNs550_SetOptions()</a>, <a class="el" href="group__uartns550.html#ga616329329f125e69b957d98d23c0c80d">XUN_OPTION_DATA_INTR</a>, <a class="el" href="group__uartns550.html#ga9bd45da1706d1d6cfc0f22d4fca46100">XUN_OPTION_FIFOS_ENABLE</a>, and <a class="el" href="group__uartns550.html#gaaf47eddf3f91b4dfea5fa70849ccf094">XUN_OPTION_LOOPBACK</a>.</p>
+<p>References <a class="el" href="struct_x_uart_ns550___config.html#a1ba011ce4ae71fa08741281f9b19710d">XUartNs550_Config::IntrId</a>, <a class="el" href="struct_x_uart_ns550___config.html#a388cf489eb04e7d10e139e6b290b440e">XUartNs550_Config::IntrParent</a>, <a class="el" href="xuartns550__intr__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a>, <a class="el" href="xuartns550__intr__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a>, <a class="el" href="xuartns550__intr__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>, <a class="el" href="xuartns550__intr__example_8c.html#a6afc272c9c7feecb2b9b25f00c430227">UartNs550IntrHandler()</a>, <a class="el" href="group__uartns550.html#ga120797e7b4fc719c827c4378e387efe4">XUartNs550_GetOptions()</a>, <a class="el" href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">XUartNs550_Initialize()</a>, <a class="el" href="group__uartns550.html#ga6e8579fcf317e1f30d61b4fb7fe60434">XUartNs550_InterruptHandler()</a>, <a class="el" href="group__uartns550.html#ga6121a7c3b5ad2899eb7fa058df9201d2">XUartNs550_LookupConfig()</a>, <a class="el" href="group__uartns550.html#ga35fc171801e394fce29cbcb09dc1ff99">XUartNs550_Recv()</a>, <a class="el" href="group__uartns550.html#ga2ec86252a3b83b8d7b4815ffb960562d">XUartNs550_SelfTest()</a>, <a class="el" href="group__uartns550.html#ga421921af6a8df7c51ddbfa5d2301ad1b">XUartNs550_Send()</a>, <a class="el" href="group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d">XUartNs550_SetHandler()</a>, <a class="el" href="group__uartns550.html#gac2270082fbb7d7b2c32bd9208dae5be3">XUartNs550_SetOptions()</a>, <a class="el" href="group__uartns550.html#ga616329329f125e69b957d98d23c0c80d">XUN_OPTION_DATA_INTR</a>, <a class="el" href="group__uartns550.html#ga9bd45da1706d1d6cfc0f22d4fca46100">XUN_OPTION_FIFOS_ENABLE</a>, and <a class="el" href="group__uartns550.html#gaaf47eddf3f91b4dfea5fa70849ccf094">XUN_OPTION_LOOPBACK</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -248,23 +297,68 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the handler which performs processing to handle data events from the UartNs550. </p>
+<p>Handles data events from the UartNs550. </p>
 <p>It is called from an interrupt context such that the amount of processing performed should be minimized.</p>
 <p>This handler provides an example of how to handle data for the UART and is application specific.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>contains a callback reference from the driver, in thiscase it is the instance pointer for the UART driver. </td></tr>
-    <tr><td class="paramname">Event</td><td>contains the specific kind of event that has occurred. </td></tr>
-    <tr><td class="paramname">EventData</td><td>contains the number of bytes sent or received for sent and receive events.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Callback reference from the driver, in this case it is the instance pointer for the UART driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event</td><td>Specific kind of event that has occurred. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EventData</td><td>Number of bytes sent or received for sent and receive events. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="group__uartns550.html#gab5c78c74113daef4f74aefbc57e92b3a">XUartNs550_GetLastErrors()</a>, <a class="el" href="group__uartns550.html#gabc9845fc2ec5078c1beea2b1e1f8458c">XUN_EVENT_RECV_DATA</a>, <a class="el" href="group__uartns550.html#ga658d137ce80d2dba58593fdc9266eded">XUN_EVENT_RECV_ERROR</a>, <a class="el" href="group__uartns550.html#gadcf08384f79c532d7476ef470eeef32a">XUN_EVENT_RECV_TIMEOUT</a>, and <a class="el" href="group__uartns550.html#ga935c9a27e790c469337b884f42db9266">XUN_EVENT_SENT_DATA</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a97ff43d2dc0c58afc33efc1304f40b09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 RecvBuffer[<a class="el" href="xuartns550__polled__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for Receiving Data. </p>
+
+<p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>, <a class="el" href="xuartns550__polled__example_8c.html#a7c4c6161e43a4f7d84845cab7c612b4a">UartNs550PolledExample()</a>, and <a class="el" href="xuartns550__low__level__example_8c.html#adb369a61c1b28dd7908e165c0c408efc">XUartNs550_LowLevelExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21a34b7f8d09398f53237562bd1f579b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 SendBuffer[<a class="el" href="xuartns550__polled__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for Transmitting Data. </p>
+
+<p>Referenced by <a class="el" href="xuartns550__intr__example_8c.html#a11f829fa6a144951a80eaaf4f433dfe9">UartNs550IntrExample()</a>, <a class="el" href="xuartns550__polled__example_8c.html#a7c4c6161e43a4f7d84845cab7c612b4a">UartNs550PolledExample()</a>, and <a class="el" href="xuartns550__low__level__example_8c.html#adb369a61c1b28dd7908e165c0c408efc">XUartNs550_LowLevelExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9d3d00553431391ec5272c9b2ccc106"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> UartNs550Instance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the UART Device. </p>
 
 </div>
 </div>

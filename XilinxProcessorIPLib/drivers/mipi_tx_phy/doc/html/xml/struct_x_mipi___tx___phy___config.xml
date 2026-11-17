@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>Name</name>
         <briefdescription>
-        </briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="285" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" compoundref="xmipi__tx__phy__sinit_8c" startline="45" endline="60">XMipi_Tx_Phy_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,9 +29,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="286" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="293" bodyend="-1"/>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
-        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="65" endline="81">XMipi_Tx_Phy_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -43,7 +44,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="287" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -56,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="295" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -69,7 +71,21 @@
 <para>Range 1 - 4 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="289" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a31bfb6dff5f914a09f7c6307a704f063" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::IsDynamicLineRate</definition>
+        <argsstring></argsstring>
+        <name>IsDynamicLineRate</name>
+        <briefdescription>
+<para>Enable dynamic line rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -82,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="290" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="298" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -95,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="291" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="299" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -108,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="292" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="300" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -121,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="293" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="301" bodyend="-1"/>
         <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" prot="public" static="no" mutable="no">
@@ -135,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="294" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="302" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -148,14 +164,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="295" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="303" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The configuration structure for mipi_tx_phy. </para>    </briefdescription>
     <detaileddescription>
 <para>This structure passes the hardware building information to the driver </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="284" bodyend="296"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="291" bodyend="304"/>
     <listofallmembers>
       <member refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>EscClkPeriod</name></member>
@@ -163,6 +179,7 @@
       <member refid="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>HSLineRate</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>HSTimeOut</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>IsDphy</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a31bfb6dff5f914a09f7c6307a704f063" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>IsDynamicLineRate</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>IsRegisterPresent</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>LPXPeriod</name></member>
       <member refid="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>MaxLanesPresent</name></member>

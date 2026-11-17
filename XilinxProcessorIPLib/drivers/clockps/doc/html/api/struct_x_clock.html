@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_clock.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,32 +113,34 @@ $(document).ready(function(){initNavTree('struct_x_clock.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The XClockPs driver instance data.
+<p>Holds instance data for a CLOCKPS device.
  <a href="struct_x_clock.html#details">More...</a></p>
 
 <p><code>#include &lt;xclockps.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:afc660e49f3583f669e5e63a1204dc1ed"><td class="memItemLeft" align="right" valign="top">XClockPs_Config&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clock.html#afc660e49f3583f669e5e63a1204dc1ed">Config</a></td></tr>
+<tr class="memitem:afc660e49f3583f669e5e63a1204dc1ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_clock_ps___config.html">XClockPs_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clock.html#afc660e49f3583f669e5e63a1204dc1ed">Config</a></td></tr>
 <tr class="memdesc:afc660e49f3583f669e5e63a1204dc1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware Configuration.  <a href="#afc660e49f3583f669e5e63a1204dc1ed">More...</a><br/></td></tr>
 <tr class="separator:afc660e49f3583f669e5e63a1204dc1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The XClockPs driver instance data. </p>
-<p>The user is required to allocate a variable of this type for every clock controller device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>Holds instance data for a CLOCKPS device. </p>
+<p>Allocate a variable of this type for every clock controller in the system. Pass a pointer to that variable to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="afc660e49f3583f669e5e63a1204dc1ed"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XClockPs_Config XClock::Config</td>
+          <td class="memname"><a class="el" href="struct_x_clock_ps___config.html">XClockPs_Config</a> XClock::Config</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Hardware Configuration. </p>
+
+<p>Referenced by <a class="el" href="group__clockps.html#ga27a346cef56805f43f1bd2251402189c">XClock_CfgInitialize()</a>.</p>
 
 </div>
 </div>

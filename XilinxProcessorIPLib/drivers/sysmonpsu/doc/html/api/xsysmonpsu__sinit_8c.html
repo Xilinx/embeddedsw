@@ -106,65 +106,30 @@ $(document).ready(function(){initNavTree('xsysmonpsu__sinit_8c.html','');});
 <div class="title">xsysmonpsu_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements static initialization for the <a class="el" href="struct_x_sys_mon_psu.html" title="Holds the XSysMonPsu driver instance data. ">XSysMonPsu</a> driver. </p>
+<p>This file contains the implementation of the <a class="el" href="struct_x_sys_mon_psu.html" title="Holds the XSysMonPsu driver instance data. ">XSysMonPsu</a> driver's static initialization functionality.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date           Changes
+</p>
+<hr/>
+<p>
+1.0   kvn    12/15/15 First release.
+2.9   cog    07/20/23 Added support for SDT flow.
+3.4   vn     07/30/26 Fix Doxygen warnings
+3.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a58103c6523a6624346c905932a73d71b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__sinit_8c.html#a58103c6523a6624346c905932a73d71b">XSysMonPsu_LookupConfig</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:a58103c6523a6624346c905932a73d71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#a58103c6523a6624346c905932a73d71b">More...</a><br/></td></tr>
-<tr class="separator:a58103c6523a6624346c905932a73d71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a11ec81f2d4878cb085b8b1b6c75092"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8a11ec81f2d4878cb085b8b1b6c75092">XSysMonPsu_LookupConfig</a> (u32 BaseAddress)</td></tr>
+<tr class="memdesc:ga8a11ec81f2d4878cb085b8b1b6c75092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID.  <a href="group___overview.html#ga8a11ec81f2d4878cb085b8b1b6c75092">More...</a><br/></td></tr>
+<tr class="separator:ga8a11ec81f2d4878cb085b8b1b6c75092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5786b89f1402c9448a7f7e5acbbae649"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__sinit_8c.html#a5786b89f1402c9448a7f7e5acbbae649">XSysMonPsu_ConfigTable</a> []</td></tr>
-<tr class="memdesc:a5786b89f1402c9448a7f7e5acbbae649"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for SYSMON device in the system.  <a href="#a5786b89f1402c9448a7f7e5acbbae649">More...</a><br/></td></tr>
-<tr class="separator:a5786b89f1402c9448a7f7e5acbbae649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5786b89f1402c9448a7f7e5acbbae649"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga5786b89f1402c9448a7f7e5acbbae649">XSysMonPsu_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga5786b89f1402c9448a7f7e5acbbae649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration table of SYSMONPSU device instances.  <a href="group___overview.html#ga5786b89f1402c9448a7f7e5acbbae649">More...</a><br/></td></tr>
+<tr class="separator:ga5786b89f1402c9448a7f7e5acbbae649"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a58103c6523a6624346c905932a73d71b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a>* XSysMonPsu_LookupConfig </td>
-          <td>(</td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function looks for the device configuration based on the unique device ID. </p>
-<p>The table XSysmonPsu_ConfigTable[] contains the configuration information for each device in the system.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a61d355bff86a58c5cc63a7dafbcc5ea8">SysMonPsuAMSExample()</a>, <a class="el" href="xsysmonpsu__intr__example_8c.html#a26b92e20e1b2b69c588591b91d185d12">SysMonPsuIntrExample()</a>, <a class="el" href="xsysmonpsu__polled__example_8c.html#ae53b4649b4f9335a87072df7e5e579c4">SysMonPsuPolledPrintfExample()</a>, and <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a6f2a932c9e346a5009826057a3e7bd69">SysMonPsuSingleChannelIntrExample()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a5786b89f1402c9448a7f7e5acbbae649"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a> XSysMonPsu_ConfigTable[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This table contains configuration information for SYSMON device in the system. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -5,115 +5,131 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1a21d272f0aa8094c619a6c4be4ecfef1f" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Signal_Detector_Settings::Mode</definition>
         <argsstring></argsstring>
         <name>Mode</name>
         <briefdescription>
-        </briefdescription>
+<para>Signal detector mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="459" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="509" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1a4c266c246e3b302bf73e42b0b295321b" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Signal_Detector_Settings::TimeConstant</definition>
         <argsstring></argsstring>
         <name>TimeConstant</name>
         <briefdescription>
-        </briefdescription>
+<para>Integration time constant. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="460" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="510" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1a7ff442b103e68a197c1d694043b65e2a" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Signal_Detector_Settings::Flush</definition>
         <argsstring></argsstring>
         <name>Flush</name>
         <briefdescription>
-        </briefdescription>
+<para>Flushes the integrator. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="461" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="511" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1aff0b475bf10d3ece903173f649f64ec9" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Signal_Detector_Settings::EnableIntegrator</definition>
         <argsstring></argsstring>
         <name>EnableIntegrator</name>
         <briefdescription>
-        </briefdescription>
+<para>Enables the integrator. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="462" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="512" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1ac2049b37a911eece5a24a5871900af22" prot="public" static="no" mutable="no">
-        <type>u16</type>
+        <type><ref refid="group___overview_1ga511bb645f13930f9dfb7378323c18d8c" kindref="member">u16</ref></type>
         <definition>u16 XRFdc_Signal_Detector_Settings::Threshold</definition>
         <argsstring></argsstring>
         <name>Threshold</name>
         <briefdescription>
-        </briefdescription>
+<para>Signal detect threshold. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="463" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="513" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1a67a9bc0f7bc44c157fb08edce6796a29" prot="public" static="no" mutable="no">
-        <type>u16</type>
+        <type><ref refid="group___overview_1ga511bb645f13930f9dfb7378323c18d8c" kindref="member">u16</ref></type>
         <definition>u16 XRFdc_Signal_Detector_Settings::ThreshOnTriggerCnt</definition>
         <argsstring></argsstring>
         <name>ThreshOnTriggerCnt</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of times the value must exceed Threshold before turning on. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="464" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="514" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1a5ce128353666ccbfdee0698eb736cf0e" prot="public" static="no" mutable="no">
-        <type>u16</type>
+        <type><ref refid="group___overview_1ga511bb645f13930f9dfb7378323c18d8c" kindref="member">u16</ref></type>
         <definition>u16 XRFdc_Signal_Detector_Settings::ThreshOffTriggerCnt</definition>
         <argsstring></argsstring>
         <name>ThreshOffTriggerCnt</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of times the value must be less than Threshold before turning off. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="465" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="516" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___signal___detector___settings_1ace1c18c604cf490d4161de41834f3910" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_Signal_Detector_Settings::HysteresisEnable</definition>
         <argsstring></argsstring>
         <name>HysteresisEnable</name>
         <briefdescription>
-        </briefdescription>
+<para>Enables hysteresis. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="466" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="518" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>ADC Signal Detect Settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="458" bodyend="467"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="508" bodyend="519"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___signal___detector___settings_1aff0b475bf10d3ece903173f649f64ec9" prot="public" virt="non-virtual"><scope>XRFdc_Signal_Detector_Settings</scope><name>EnableIntegrator</name></member>
       <member refid="struct_x_r_fdc___signal___detector___settings_1a7ff442b103e68a197c1d694043b65e2a" prot="public" virt="non-virtual"><scope>XRFdc_Signal_Detector_Settings</scope><name>Flush</name></member>

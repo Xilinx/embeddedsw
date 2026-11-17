@@ -100,13 +100,15 @@ $(document).ready(function(){initNavTree('xbram__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xbram_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a self test example using the BRAM driver (<a class="el" href="struct_x_bram.html" title="The XBram driver instance data. ">XBram</a>). </p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> polled self-test example. </p>
+<p>This file contains a self test example using the BRAM driver (<a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a>).</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who  Date         Changes
 </p>
@@ -121,6 +123,8 @@ $(document).ready(function(){initNavTree('xbram__example_8c.html','');});
                      available in all examples. This is a fix for CR-965028.
  4.9   sd   07/07/23 Added SDT support.
  4.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
+ 4.15  vn   07/30/26 Fix Doxygen warnings
+ 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
@@ -128,11 +132,17 @@ $(document).ready(function(){initNavTree('xbram__example_8c.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af99823d42c99fe4218a5cbfe293d5c59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__example_8c.html#af99823d42c99fe4218a5cbfe293d5c59">BramExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:af99823d42c99fe4218a5cbfe293d5c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the entry point for the BRAM example.  <a href="#af99823d42c99fe4218a5cbfe293d5c59">More...</a><br/></td></tr>
+<tr class="memdesc:af99823d42c99fe4218a5cbfe293d5c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the BRAM polled example for one device.  <a href="#af99823d42c99fe4218a5cbfe293d5c59">More...</a><br/></td></tr>
 <tr class="separator:af99823d42c99fe4218a5cbfe293d5c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the BRAM example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the BRAM polled example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3fe81d94ba7141ef7245c77657f98465"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram.html">XBram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__example_8c.html#a3fe81d94ba7141ef7245c77657f98465">Bram</a></td></tr>
+<tr class="memdesc:a3fe81d94ba7141ef7245c77657f98465"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the BRAM driver.  <a href="#a3fe81d94ba7141ef7245c77657f98465">More...</a><br/></td></tr>
+<tr class="separator:a3fe81d94ba7141ef7245c77657f98465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="af99823d42c99fe4218a5cbfe293d5c59"></a>
@@ -149,10 +159,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is the entry point for the BRAM example. </p>
+<p>Runs the BRAM polled example for one device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -163,7 +173,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_bram___config.html#ae96ce11672cf82713b994dc80a1a05aa">XBram_Config::CtrlBaseAddress</a>, <a class="el" href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram.html#ga08f91d2ae010f1a11667b587f582b654">XBram_LookupConfig()</a>, and <a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
+<p>References <a class="el" href="struct_x_bram___config.html#ae96ce11672cf82713b994dc80a1a05aa">XBram_Config::CtrlBaseAddress</a>, <a class="el" href="group__bram__api.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram.html#gab2056c1f9272b35a37e7f20ac2fd0af9">XBram_LookupConfig()</a>, and <a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
 
 <p>Referenced by <a class="el" href="xbram__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -183,21 +193,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the main function of the BRAM example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Runs the BRAM polled example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE to indicate failure.</li>
+<li>XST_FAILURE to indicate failure. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xbram__example_8c.html#af99823d42c99fe4218a5cbfe293d5c59">BramExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a3fe81d94ba7141ef7245c77657f98465"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_bram.html">XBram</a> Bram</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the BRAM driver. </p>
 
 </div>
 </div>

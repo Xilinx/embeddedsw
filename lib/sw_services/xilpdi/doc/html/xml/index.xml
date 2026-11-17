@@ -143,6 +143,7 @@
   <compound refid="xilpdi_8c" kind="file"><name>xilpdi.c</name>
     <member refid="group__xilpdi__apis_1gae284d479dc26f7eaf10c544b88b31ce2" kind="define"><name>XILPDI_PDI_TYPE_PARTIAL_METAHEADER</name></member>
     <member refid="group__xilpdi__apis_1gab2efc9caae5b45150e579dddc12bd225" kind="define"><name>XILPDI_PDI_TYPE_PARTIAL</name></member>
+    <member refid="group__xilpdi__apis_1ga6dc0e81411e6a8bf2c9967d03fd597ae" kind="define"><name>XILPDI_PDI_TYPE_IAU</name></member>
     <member refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kind="function"><name>XilPdi_ValidateChecksum</name></member>
     <member refid="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" kind="function"><name>XilPdi_ValidateImgHdrTbl</name></member>
     <member refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" kind="function"><name>XilPdi_ValidatePrtnHdr</name></member>
@@ -152,7 +153,7 @@
     <member refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" kind="function"><name>XilPdi_ReadOptionalData</name></member>
     <member refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" kind="function"><name>XilPdi_StoreDigestTable</name></member>
     <member refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" kind="function"><name>XilPdi_SearchOptionalData</name></member>
-    <member refid="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
+    <member refid="group__xilpdi__apis_1ga100ef0559ecd6bfa98c1c97c1838692b" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
     <member refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" kind="function"><name>XilPdi_ReadImgHdrs</name></member>
     <member refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" kind="function"><name>XilPdi_ReadPrtnHdrs</name></member>
     <member refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" kind="function"><name>XilPdi_VerifyPrtnHdrs</name></member>
@@ -213,6 +214,7 @@
     <member refid="xilpdi_8h_1a92789b1333bf52f9418ba09998ac0b64" kind="define"><name>XILPDI_ERR_TOTAL_LENGTH</name></member>
     <member refid="xilpdi_8h_1ace607c8b47a03118eae8219707c34be5" kind="define"><name>XILPDI_ERR_PRTN_TYPE</name></member>
     <member refid="xilpdi_8h_1afd334250881c64975fbca0c9e1af65b0" kind="define"><name>XILPDI_ERR_NO_OF_IMGS</name></member>
+    <member refid="xilpdi_8h_1a3ef00fe6fefe0453bdf0bf588f9a4758" kind="define"><name>XILPDI_ERR_IMG_NO_OF_PRTNS</name></member>
     <member refid="xilpdi_8h_1a1885706027ca5f25657481f9cb82d492" kind="define"><name>XILPDI_ERR_IH_CHECKSUM</name></member>
     <member refid="xilpdi_8h_1a56b363fb7d1774624a258939865350b0" kind="define"><name>XILPDI_ERR_PH_CHECKSUM</name></member>
     <member refid="xilpdi_8h_1a11e0014d294adf83986fc23499c596d8" kind="define"><name>XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED</name></member>
@@ -228,6 +230,7 @@
     <member refid="xilpdi_8h_1a2aadc896b8c367654a52c3de7d830e43" kind="define"><name>XILPDI_CHECKSUM_MIN_BUF_LEN</name></member>
     <member refid="xilpdi_8h_1a84ae0b3fa3d2f28040e775618d16ce93" kind="define"><name>XILPDI_INVERT_CHECKSUM</name></member>
     <member refid="xilpdi_8h_1acc7c7bce644442453baceece73a280ee" kind="define"><name>XILPDI_PARTITION_HASH_DATA_ID</name></member>
+    <member refid="xilpdi_8h_1a852078c87101c2a6752cddb6d5a58e47" kind="define"><name>XILPDI_OSPI_RX_TUNING_DATA_ID</name></member>
     <member refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" kind="define"><name>XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</name></member>
     <member refid="xilpdi_8h_1ac7dd901f5a4647ca8a8b5540a6dd421c" kind="define"><name>XILPDI_OPTIONAL_DATA_WORD_LEN</name></member>
     <member refid="xilpdi_8h_1a51373d3d62f7fa21b2856243b13b82ba" kind="define"><name>XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN</name></member>
@@ -268,7 +271,7 @@
     <member refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" kind="function"><name>XilPdi_ReadPrtnHdrs</name></member>
     <member refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" kind="function"><name>XilPdi_ReadIhtAndOptionalData</name></member>
     <member refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kind="function"><name>XilPdi_ValidateChecksum</name></member>
-    <member refid="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
+    <member refid="group__xilpdi__apis_1ga100ef0559ecd6bfa98c1c97c1838692b" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
     <member refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" kind="function"><name>XilPdi_StoreDigestTable</name></member>
     <member refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" kind="function"><name>XilPdi_SearchOptionalData</name></member>
     <member refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" kind="function"><name>XilPdi_ReadOptionalData</name></member>
@@ -371,6 +374,7 @@
     <member refid="2ve__2vm_2xilpdi__plat_8h_1ad2b34f8a94535a70a9cf14898261181f" kind="define"><name>XIH_PH_ATTRB_PRTN_TYPE_RSVD</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1af34246e5a3d9d462a83b3677a8defb63" kind="define"><name>XIH_PH_ATTRB_PRTN_TYPE_ELF</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a4eecaad1480a70584baef454ddba8cf6" kind="define"><name>XIH_PH_ATTRB_PRTN_TYPE_CDO</name></member>
+    <member refid="2ve__2vm_2xilpdi__plat_8h_1a177118bf74b43bfeabfb52a779dce22e" kind="define"><name>XIH_PH_ATTRB_PRTN_TYPE_TLBIN</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1aabacf40da5795b93b64f865838a583a2" kind="define"><name>XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a32873589c2f891a5ed3a90e6430e0c70" kind="define"><name>XIH_PH_ATTRB_PRTN_OWNER_PLM</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a0a8867e50938d82f439df9604712b766" kind="define"><name>XIH_PH_ATTRB_HASH_SHA3</name></member>
@@ -410,6 +414,7 @@
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a351bff832c12cc8b15dc7dfc48466dfe" kind="define"><name>XIH_OPTIONAL_DATA_LEN_OFFSET</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a7aff05bfefb04b4412302f9f1c40e571" kind="define"><name>XIH_OPT_DATA_NON_DATA_LEN</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1aee6cc0a34ff814c9516e3d510f1e0b94" kind="define"><name>XIH_OPT_DATA_STRUCT_INFO_ID</name></member>
+    <member refid="2ve__2vm_2xilpdi__plat_8h_1a4ce872e72904f503c3da3b439d04e532" kind="define"><name>XIH_OPT_DATA_ASU_STRUCT_INFO_ID</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1abe0eb8b87843a088c0ec15d589f47ade" kind="define"><name>XIH_BH_META_HDR_OFFSET</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" kind="define"><name>XIH_BH_PRAM_ADDR</name></member>
     <member refid="2ve__2vm_2xilpdi__plat_8h_1a1585788135e348a94b7ed1ab644f1b9a" kind="define"><name>XIH_HASH_BLOCK_1_HASH_OFFSET</name></member>
@@ -574,13 +579,14 @@
     <member refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" kind="function"><name>XilPdi_ReadOptionalData</name></member>
     <member refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" kind="function"><name>XilPdi_StoreDigestTable</name></member>
     <member refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" kind="function"><name>XilPdi_SearchOptionalData</name></member>
-    <member refid="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
+    <member refid="group__xilpdi__apis_1ga100ef0559ecd6bfa98c1c97c1838692b" kind="function"><name>XilPdi_IsPrtnHashPresent</name></member>
     <member refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" kind="function"><name>XilPdi_ReadImgHdrs</name></member>
     <member refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" kind="function"><name>XilPdi_ReadPrtnHdrs</name></member>
     <member refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" kind="function"><name>XilPdi_VerifyPrtnHdrs</name></member>
     <member refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" kind="function"><name>XilPdi_VerifyImgHdrs</name></member>
     <member refid="group__xilpdi__apis_1gae284d479dc26f7eaf10c544b88b31ce2" kind="define"><name>XILPDI_PDI_TYPE_PARTIAL_METAHEADER</name></member>
     <member refid="group__xilpdi__apis_1gab2efc9caae5b45150e579dddc12bd225" kind="define"><name>XILPDI_PDI_TYPE_PARTIAL</name></member>
+    <member refid="group__xilpdi__apis_1ga6dc0e81411e6a8bf2c9967d03fd597ae" kind="define"><name>XILPDI_PDI_TYPE_IAU</name></member>
   </compound>
   <compound refid="dir_7dcabd9aba4b30d471d5d0da5533cbd6" kind="dir"><name>common</name>
   </compound>

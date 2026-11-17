@@ -23,7 +23,7 @@
 <para><verbatim>    Primarily this function sends an IPI request to PLM to invoke
     SEM Event Notifier registration, waits for PLM to process the
     request and check the status. Since SLR slave devices do not support
-    IPI, registering events to mater registers events on all slave SLRs
+    IPI, registering events to master registers events on all slave SLRs
     In case of EL1 Non-Secure mode, this function generates an SMC call
     to TF-A. The SMC request goes to the PLM through the TF-A.
     This function reads the response of the SMC call
@@ -52,12 +52,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="126" bodyend="182"/>
-        <references refid="xsem__client__api_8h_1ac4647a15a88b83a78b121aa668f0d218" compoundref="xsem__client__api_8h" startline="175">CMD_EM_EVENT_REGISTER</references>
-        <references refid="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" compoundref="xsem__client__api_8h" startline="488">XSem_Notifier::Event</references>
-        <references refid="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" compoundref="xsem__client__api_8h" startline="494">XSem_Notifier::Flag</references>
-        <references refid="struct_x_sem___notifier_1a3eb242c1c56c426c65843c162e46725d" compoundref="xsem__client__api_8h" startline="466">XSem_Notifier::Module</references>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1ad815d14892da5f95a002dea17c44cb4b" compoundref="xsem__npi__example__pl__mb_8c" startline="254" endline="271">XSem_NpiEventRegisterNotifier</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="128" bodyend="184"/>
+        <references refid="xsem__client__api_8h_1ac4647a15a88b83a78b121aa668f0d218" compoundref="xsem__client__api_8h" startline="220">CMD_EM_EVENT_REGISTER</references>
+        <references refid="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" compoundref="xsem__client__api_8h" startline="535">XSem_Notifier::Event</references>
+        <references refid="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" compoundref="xsem__client__api_8h" startline="541">XSem_Notifier::Flag</references>
+        <references refid="struct_x_sem___notifier_1a3eb242c1c56c426c65843c162e46725d" compoundref="xsem__client__api_8h" startline="513">XSem_Notifier::Module</references>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1ad815d14892da5f95a002dea17c44cb4b" compoundref="xsem__npi__example__pl__mb_8c" startline="256" endline="273">XSem_NpiEventRegisterNotifier</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga4ad805fe6e1e1dd17beebd59619f7dcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -105,10 +105,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="209" bodyend="262"/>
-        <references refid="xsem__client__api_8h_1a3799e4e04c0e264dd4c641b3c83ff772" compoundref="xsem__client__api_8h" startline="147">CMD_ID_CFR_INIT</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="211" bodyend="264"/>
+        <references refid="xsem__client__api_8h_1a3799e4e04c0e264dd4c641b3c83ff772" compoundref="xsem__client__api_8h" startline="192">CMD_ID_CFR_INIT</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga852f1273f06ed25758db240b4d96442e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -156,10 +156,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="288" bodyend="340"/>
-        <references refid="xsem__client__api_8h_1a4ae7ee4caa1c070afe0abb2db78cd91f" compoundref="xsem__client__api_8h" startline="149">CMD_ID_CFR_START_SCAN</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="290" bodyend="342"/>
+        <references refid="xsem__client__api_8h_1a4ae7ee4caa1c070afe0abb2db78cd91f" compoundref="xsem__client__api_8h" startline="194">CMD_ID_CFR_START_SCAN</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1gae3a1c02a449b46f046e00dae2b2a0a7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -207,10 +207,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="364" bodyend="415"/>
-        <references refid="xsem__client__api_8h_1a9cbf382ac9d472a65ba10de162fe0512" compoundref="xsem__client__api_8h" startline="151">CMD_ID_CFR_STOP_SCAN</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="366" bodyend="417"/>
+        <references refid="xsem__client__api_8h_1a9cbf382ac9d472a65ba10de162fe0512" compoundref="xsem__client__api_8h" startline="196">CMD_ID_CFR_STOP_SCAN</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1gade8e42013440053cf0eeb5e6d34dfa15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -278,14 +278,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="469" bodyend="535"/>
-        <references refid="struct_x_sem_cfr_err_inj_data_1a12e52c2f767a33cb05539e9871cd580a" compoundref="xsem__client__api_8h" startline="285">XSemCfrErrInjData::Bit</references>
-        <references refid="xsem__client__api_8h_1a11bd900b5acf0c06c8c3b247af069159" compoundref="xsem__client__api_8h" startline="153">CMD_ID_CFR_NJCT_ERR</references>
-        <references refid="struct_x_sem_cfr_err_inj_data_1a254b3d1dd5ee7d247574ec3d589d8267" compoundref="xsem__client__api_8h" startline="283">XSemCfrErrInjData::Efar</references>
-        <references refid="struct_x_sem_cfr_err_inj_data_1a497a888fda44876daa4b459540ef28d1" compoundref="xsem__client__api_8h" startline="284">XSemCfrErrInjData::Qword</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <references refid="struct_x_sem_cfr_err_inj_data_1aa3295aad6d645a2a33e3a11c3e028ce1" compoundref="xsem__client__api_8h" startline="286">XSemCfrErrInjData::Row</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="471" bodyend="537"/>
+        <references refid="struct_x_sem_cfr_err_inj_data_1a12e52c2f767a33cb05539e9871cd580a" compoundref="xsem__client__api_8h" startline="330">XSemCfrErrInjData::Bit</references>
+        <references refid="xsem__client__api_8h_1a11bd900b5acf0c06c8c3b247af069159" compoundref="xsem__client__api_8h" startline="198">CMD_ID_CFR_NJCT_ERR</references>
+        <references refid="struct_x_sem_cfr_err_inj_data_1a254b3d1dd5ee7d247574ec3d589d8267" compoundref="xsem__client__api_8h" startline="328">XSemCfrErrInjData::Efar</references>
+        <references refid="struct_x_sem_cfr_err_inj_data_1a497a888fda44876daa4b459540ef28d1" compoundref="xsem__client__api_8h" startline="329">XSemCfrErrInjData::Qword</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <references refid="struct_x_sem_cfr_err_inj_data_1aa3295aad6d645a2a33e3a11c3e028ce1" compoundref="xsem__client__api_8h" startline="331">XSemCfrErrInjData::Row</references>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -307,7 +307,7 @@
 <para>Structure Pointer with CRAM Status details<itemizedlist>
 <listitem><para>CfrStatusInfo-&gt;Status: Provides details about CRAM scan<itemizedlist>
 <listitem><para>Bit [31-29]: Reserved</para></listitem><listitem><para>Bit [28-25]: CRAM Target SLR ID<itemizedlist>
-<listitem><para>0001: Target is master only</para></listitem><listitem><para>0010: Target is slave 0 only</para></listitem><listitem><para>0100: Target is slave 1 only</para></listitem><listitem><para>1000: Target is slave 2 onl</para></listitem></itemizedlist>
+<listitem><para>0001: Target is master only</para></listitem><listitem><para>0010: Target is slave 0 only</para></listitem><listitem><para>0100: Target is slave 1 only</para></listitem><listitem><para>1000: Target is slave 2 only</para></listitem></itemizedlist>
 </para></listitem><listitem><para>Bit [24:20]: CRAM Error codes<itemizedlist>
 <listitem><para>00001: Unexpected CRC error when CRAM is not in observation state</para></listitem><listitem><para>00010: Unexpected ECC error when CRAM is not in Observation or Initialization state</para></listitem><listitem><para>00011: Safety write error in SEU handler</para></listitem><listitem><para>00100: ECC/CRC ISR not found in any Row</para></listitem><listitem><para>00101: CRAM Initialization is not done</para></listitem><listitem><para>00110: CRAM Start Scan failure</para></listitem><listitem><para>00111: CRAM Stop Scan failure</para></listitem><listitem><para>01000: Invalid Row for Error Injection</para></listitem><listitem><para>01001: Invalid QWord for Error Injection</para></listitem><listitem><para>01010: Invalid Bit for Error Injection</para></listitem><listitem><para>01011: Invalid Frame Address for Error Injection</para></listitem><listitem><para>01100: Unexpected Bit flip during Error Injection</para></listitem><listitem><para>01101: Masked Bit during Injection</para></listitem><listitem><para>01110: Invalid Block Type for Error Injection</para></listitem><listitem><para>01111: CRC or Uncorrectable Error or correctable error(when correction is disabled) is active in CRAM</para></listitem><listitem><para>10000: ECC or CRC Error detected during CRAM Calibration in case of SWECC</para></listitem></itemizedlist>
 </para></listitem><listitem><para>Bit [19-18]: Reserved</para></listitem><listitem><para>Bit [17]: 0: CRAM scan is enabled in design 1: CRAM scan is disabled in design</para></listitem><listitem><para>Bit [16]: 0: CRAM scan is not initialized 1: CRAM Initialization is completed</para></listitem><listitem><para>Bit [15-14]: CRAM Correctable ECC error status<itemizedlist>
@@ -329,17 +329,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="661" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="661" bodyend="688"/>
-        <references refid="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" compoundref="xsem__client__api_8h" startline="303">XSemCfrStatus::ErrAddrH</references>
-        <references refid="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" compoundref="xsem__client__api_8h" startline="302">XSemCfrStatus::ErrAddrL</references>
-        <references refid="struct_x_sem_cfr_status_1a4761efb652d2500853d8cb20c54f6578" compoundref="xsem__client__api_8h" startline="304">XSemCfrStatus::ErrCorCnt</references>
-        <references refid="xsem__client__api_8h_1a4a89a50aecbaec25f7bf43f69ca7ad12" compoundref="xsem__client__api_8h" startline="104">MAX_CRAMERR_REGISTER_CNT</references>
-        <references refid="xsem__client__api_8h_1a8d464c27800a055938fc7bfee75e5e61" compoundref="xsem__client__api_8h" startline="143">PMC_RAM_SEM_CRAM_COR_BITCNT</references>
-        <references refid="xsem__client__api_8h_1aeb022611cd619fbb98c478a089d77bf3" compoundref="xsem__client__api_8h" startline="134">PMC_RAM_SEM_CRAM_STATUS</references>
-        <references refid="xsem__client__api_8h_1aef301aacc998d1a27fb3ed51688a728a" compoundref="xsem__client__api_8h" startline="140">PMC_RAM_SEM_CRAMERR_ADDRH0</references>
-        <references refid="xsem__client__api_8h_1afdeb9be3fb0531467fe29cb8f70b3d9c" compoundref="xsem__client__api_8h" startline="137">PMC_RAM_SEM_CRAMERR_ADDRL0</references>
-        <references refid="struct_x_sem_cfr_status_1addd887c9fd58e8458504557f871e9db3" compoundref="xsem__client__api_8h" startline="301">XSemCfrStatus::Status</references>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="663" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="663" bodyend="690"/>
+        <references refid="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" compoundref="xsem__client__api_8h" startline="348">XSemCfrStatus::ErrAddrH</references>
+        <references refid="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" compoundref="xsem__client__api_8h" startline="347">XSemCfrStatus::ErrAddrL</references>
+        <references refid="struct_x_sem_cfr_status_1a4761efb652d2500853d8cb20c54f6578" compoundref="xsem__client__api_8h" startline="349">XSemCfrStatus::ErrCorCnt</references>
+        <references refid="xsem__client__api_8h_1a4a89a50aecbaec25f7bf43f69ca7ad12" compoundref="xsem__client__api_8h" startline="106">MAX_CRAMERR_REGISTER_CNT</references>
+        <references refid="xsem__client__api_8h_1a8d464c27800a055938fc7bfee75e5e61" compoundref="xsem__client__api_8h" startline="145">PMC_RAM_SEM_CRAM_COR_BITCNT</references>
+        <references refid="xsem__client__api_8h_1aeb022611cd619fbb98c478a089d77bf3" compoundref="xsem__client__api_8h" startline="136">PMC_RAM_SEM_CRAM_STATUS</references>
+        <references refid="xsem__client__api_8h_1aef301aacc998d1a27fb3ed51688a728a" compoundref="xsem__client__api_8h" startline="142">PMC_RAM_SEM_CRAMERR_ADDRH0</references>
+        <references refid="xsem__client__api_8h_1afdeb9be3fb0531467fe29cb8f70b3d9c" compoundref="xsem__client__api_8h" startline="139">PMC_RAM_SEM_CRAMERR_ADDRL0</references>
+        <references refid="struct_x_sem_cfr_status_1addd887c9fd58e8458504557f871e9db3" compoundref="xsem__client__api_8h" startline="346">XSemCfrStatus::Status</references>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga3b46228cefc81560e659ca60f5f5d4ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -415,13 +415,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="729" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="729" bodyend="788"/>
-        <references refid="xsem__client__api_8h_1aece47ef6425a671a394be12f2f689b17" compoundref="xsem__client__api_8h" startline="155">CMD_ID_CFR_RDFRAME_ECC</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <references refid="struct_x_sem_ipi_resp_1a279939a3e855020b8e0648fb7d95a1e5" compoundref="xsem__client__api_8h" startline="265">XSemIpiResp::RespMsg3</references>
-        <references refid="struct_x_sem_ipi_resp_1a6c53aa10485996d8a9a3ad24a667e058" compoundref="xsem__client__api_8h" startline="266">XSemIpiResp::RespMsg4</references>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="731" bodyend="790"/>
+        <references refid="xsem__client__api_8h_1aece47ef6425a671a394be12f2f689b17" compoundref="xsem__client__api_8h" startline="200">CMD_ID_CFR_RDFRAME_ECC</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <references refid="struct_x_sem_ipi_resp_1a279939a3e855020b8e0648fb7d95a1e5" compoundref="xsem__client__api_8h" startline="310">XSemIpiResp::RespMsg3</references>
+        <references refid="struct_x_sem_ipi_resp_1a6c53aa10485996d8a9a3ad24a667e058" compoundref="xsem__client__api_8h" startline="311">XSemIpiResp::RespMsg4</references>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1gac7eac8a55d819df4d84df2c48d95e5d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -469,11 +469,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="810" bodyend="861"/>
-        <references refid="xsem__client__api_8h_1a711a5fc40b1fdc6f6192a50e1e1eb238" compoundref="xsem__client__api_8h" startline="166">CMD_NPI_STARTSCAN</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="812" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="812" bodyend="863"/>
+        <references refid="xsem__client__api_8h_1a711a5fc40b1fdc6f6192a50e1e1eb238" compoundref="xsem__client__api_8h" startline="211">CMD_NPI_STARTSCAN</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1gacabf49b2dbc63f0d9e960b32de5594d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -521,11 +521,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="883" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="883" bodyend="934"/>
-        <references refid="xsem__client__api_8h_1acfd51048ab4d01bbeef1fc3ff2f44a40" compoundref="xsem__client__api_8h" startline="168">CMD_NPI_STOPSCAN</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="885" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="885" bodyend="936"/>
+        <references refid="xsem__client__api_8h_1acfd51048ab4d01bbeef1fc3ff2f44a40" compoundref="xsem__client__api_8h" startline="213">CMD_NPI_STOPSCAN</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1gae1747f42d213d24731e0004b1a47e99b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -574,11 +574,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="960" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="960" bodyend="1011"/>
-        <references refid="xsem__client__api_8h_1a4e58c5f6fd099aaea1da4e1b2ba2575d" compoundref="xsem__client__api_8h" startline="170">CMD_NPI_ERRINJECT</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="962" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="962" bodyend="1013"/>
+        <references refid="xsem__client__api_8h_1a4e58c5f6fd099aaea1da4e1b2ba2575d" compoundref="xsem__client__api_8h" startline="215">CMD_NPI_ERRINJECT</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga90b532fd63cfdad4790f9144aaca2523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -630,11 +630,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1033" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1033" bodyend="1088"/>
-        <references refid="xsem__client__api_8h_1a20b6bbd3a459b393712afc49cc6a8350" compoundref="xsem__client__api_8h" startline="172">CMD_NPI_GET_GLDN_SHA</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1035" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1035" bodyend="1090"/>
+        <references refid="xsem__client__api_8h_1a20b6bbd3a459b393712afc49cc6a8350" compoundref="xsem__client__api_8h" startline="217">CMD_NPI_GET_GLDN_SHA</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -655,7 +655,7 @@
 <parameterdescription>
 <para>Structure Pointer with NPI Status details<itemizedlist>
 <listitem><para>NpiStatusInfo-&gt;Status: Provides details about NPI scan<itemizedlist>
-<listitem><para>Bit [31]: 0 - No error, SHA-3 engine is present 1 - Cryptographic acceleration blocks are disabled for export compliance. No support for NPI scan, an event will be sent to R5</para></listitem><listitem><para>Bit [30]: 0 - NPI scan is running for scheduled interval 1 - Indicates NPI scan failed to run on scheduled interval. If NPI scan is not executed as per the configured periodicity, the error will notified to R5 user. The scan will continue to run</para></listitem><listitem><para>Bit [29]: 0- No descriptor missed during scanning 1- Indicates NPI scan failed to scan all descriptors completely (excluding arbitration failures). This will be notified to R5 user and the scan will continue to run.</para></listitem><listitem><para>Bit [28]: 0 - NPI scan executing within budget time 1 - Indicates NPI scan has exceeded maximum budget execution time of 20ms. This will be notified to R5 user and the scan will continue to run.</para></listitem><listitem><para>Bit [27]: 0 - No error in SLR to SLR communication 1 - Indicates failure in SSIT internal communication channel This bit is applicable for SSIT devices.</para></listitem><listitem><para>Bit [26]: Reserved</para></listitem><listitem><para>Bit [25]: 0 - No error in PMC_PL_GPO 1 - Indicates GPO Initialization or write failed. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [24]: 0 - No error SHA-3 engine 1 - Indicates SHA engine failed to function during initialization or start or DMA transfer. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [23]: 0 - No error in register writes 1 - Indicates the register write and read back failure occurred during the scan. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [22]: Reserved</para></listitem><listitem><para>Bit [21]: 0 - No error in DDR calibration 1 - Indicates NPI DDRMC Main Slave Arbitration Timeout occurred during the scan. If the DDRMC calibration is not done, the descriptor will be skipped and scan will continue to run for next descriptor</para></listitem><listitem><para>Bit [20]: 0 - No error in descriptor format 1 - Indicates NPI Descriptor has invalid format. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [19]: 0 - No error in NPI Descriptor SHA header 1 - Indicates NPI Descriptor SHA Header mismatch occurred during the scan. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [18]: 0 - NPI descriptors are present in the memory 1 - Indicates the absence of NPI Descriptor (Zero descriptors) This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [17]: 0 - No error in SHA comparison during run time 1- Indicates SHA comparison failure occurred during run time. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</para></listitem><listitem><para>Bit [16]: 0 - No error in SHA comparison during first scan 1- Indicates SHA comparison failure occurred during initialization. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</para></listitem><listitem><para>Bit [15-12]: NPI Target SLR ID 0001 - Target is master only 0010 - Target is slave 0 only 0100 - Target is slave 1 only 1000 - Target is slave 2 only</para></listitem><listitem><para>Bit [11]: 0 - NPI scan task is not added to PLM Scheduler to run periodically 1 - NPI scan task is added to PLM Scheduler to run periodically This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [10]: NPI scan is suspended 0 - NPI scan is not suspended 1 - NPI scan is suspended due to errors This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [09]: 0 - NPI scan initialization is not done 1 - NPI scan initialization is done This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [08]: 0 - NPI scan is present in the design 1 - NPI scan disabled in the design This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [07-06]: Reserved</para></listitem><listitem><para>Bit [05]: 0 - No internal error 1 - NPI scan is in error state (due to timeouts, invalid descriptors) This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [04]: 0 - No error in NPI Scan 1 - NPI scan in SHA comparison mismatch error state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [03]: 0 - NPI scan is not in SHA error inject state 1 - NPI scan is in SHA error inject state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [02]: 0 - NPI scan is not in scan state 1 - NPI scan is in scan state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [01]: 0 - NPI scan is not in initialization state 1 - NPI scan is in initialization state This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [00]: 0 - NPI scan is not in idle state 1 - NPI scan is in idle state This bit is for NPI scan state information.</para></listitem></itemizedlist>
+<listitem><para>Bit [31]: 0 - No error, SHA-3 engine is present 1 - Cryptographic acceleration blocks are disabled for export compliance. No support for NPI scan, an event will be sent to R5</para></listitem><listitem><para>Bit [30]: 0 - NPI scan is running for scheduled interval 1 - Indicates NPI scan failed to run on scheduled interval. If NPI scan is not executed as per the configured periodicity, the error will notified to R5 user. The scan will continue to run</para></listitem><listitem><para>Bit [29]: 0- No descriptor missed during scanning 1- Indicates NPI scan failed to scan all descriptors completely (excluding arbitration failures). This will be notified to R5 user and the scan will continue to run.</para></listitem><listitem><para>Bit [28]: 0 - NPI scan executing within budget time 1 - Indicates NPI scan has exceeded maximum budget execution time of 20ms. This will be notified to R5 user and the scan will continue to run.</para></listitem><listitem><para>Bit [27]: 0 - No error in SLR to SLR communication 1 - Indicates failure in SSIT internal communication channel This bit is applicable for SSIT devices.</para></listitem><listitem><para>Bit [26]: Reserved</para></listitem><listitem><para>Bit [25]: 0 - No error in PMC_PL_GPO 1 - Indicates GPO Initialization or write failed. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [24]: 0 - No error SHA-3 engine 1 - Indicates SHA engine failed to function during initialization or start or DMA transfer. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [23]: 0 - No error in register writes 1 - Indicates the register write and read back failure occurred during the scan. This is HW failure. In this condition, the scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [22]: Reserved</para></listitem><listitem><para>Bit [21]: 0 - No error in DDR calibration 1 - Indicates NPI DDRMC Main Slave Arbitration Timeout occurred during the scan. If the DDRMC calibration is not done, the descriptor will be skipped and scan will continue to run for next descriptor</para></listitem><listitem><para>Bit [20]: 0 - No error in descriptor format 1 - Indicates NPI Descriptor has invalid format. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [19]: 0 - No error in NPI Descriptor SHA header 1 - Indicates NPI Descriptor SHA Header mismatch occurred during the scan. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</para></listitem><listitem><para>Bit [18]: Reserved</para></listitem><listitem><para>Bit [17]: 0 - No error in SHA comparison during run time 1- Indicates SHA comparison failure occurred during run time. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</para></listitem><listitem><para>Bit [16]: 0 - No error in SHA comparison during first scan 1- Indicates SHA comparison failure occurred during initialization. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</para></listitem><listitem><para>Bit [15-12]: NPI Target SLR ID 0001 - Target is master only 0010 - Target is slave 0 only 0100 - Target is slave 1 only 1000 - Target is slave 2 only</para></listitem><listitem><para>Bit [11]: 0 - NPI scan task is not added to PLM Scheduler to run periodically 1 - NPI scan task is added to PLM Scheduler to run periodically This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [10]: NPI scan is suspended 0 - NPI scan is not suspended 1 - NPI scan is suspended due to errors This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [09]: 0 - NPI scan initialization is not done 1 - NPI scan initialization is done This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [08]: 0 - NPI scan is present in the design 1 - NPI scan disabled in the design This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [07-06]: Reserved</para></listitem><listitem><para>Bit [05]: 0 - No internal error 1 - NPI scan is in error state (due to timeouts, invalid descriptors) This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [04]: 0 - No error in NPI Scan 1 - NPI scan in SHA comparison mismatch error state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [03]: 0 - NPI scan is not in SHA error inject state 1 - NPI scan is in SHA error inject state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [02]: 0 - NPI scan is not in scan state 1 - NPI scan is in scan state. This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [01]: 0 - NPI scan is not in initialization state 1 - NPI scan is in initialization state This bit is for NPI scan state information.</para></listitem><listitem><para>Bit [00]: 0 - NPI scan is not in idle state 1 - NPI scan is in idle state This bit is for NPI scan state information.</para></listitem></itemizedlist>
 </para></listitem><listitem><para>NpiStatusInfo-&gt;SlvSkipCnt: Provides NPI descriptor slave skip counter value if arbitration failure. This is 8 words result to accommodate 32 1-Byte skip counters for individual slaves arbitration failures. Slaves can be DDRMC Main, GT for which arbitration is required before performing scanning.</para></listitem><listitem><para>NpiStatusInfo-&gt;ScanCnt: NPI scan counter value. This counter represents number of periodic scan cycle completion.</para></listitem><listitem><para>NpiStatusInfo-&gt;HbCnt: NPI heartbeat counter value. This counter represents number of scanned descriptor slaves.</para></listitem><listitem><para>NpiStatusInfo-&gt;ErrInfo: NPI scan error information if SHA mismatch is detected. This is 2 word information.<itemizedlist>
 <listitem><para>Word 0: Node ID of descriptor for which SHA mismatch is detected</para></listitem><listitem><para>Word 1 Bit [15-8]: NPI descriptor index number</para></listitem><listitem><para>Word 1 Bit [7-0]: NPI Slave Skip count Index</para></listitem></itemizedlist>
 </para></listitem></itemizedlist>
@@ -668,22 +668,22 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1221" bodyend="1254"/>
-        <references refid="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" compoundref="xsem__client__api_8h" startline="326">XSemNpiStatus::ErrInfo</references>
-        <references refid="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" compoundref="xsem__client__api_8h" startline="324">XSemNpiStatus::HbCnt</references>
-        <references refid="xsem__client__api_8h_1af3fd0512f794e86ac22bce16c7b4a170" compoundref="xsem__client__api_8h" startline="110">MAX_NPI_ERR_INFO_CNT</references>
-        <references refid="xsem__client__api_8h_1af9560eda50f4b3e80b3113074fb27707" compoundref="xsem__client__api_8h" startline="108">MAX_NPI_SLV_SKIP_CNT</references>
-        <references refid="xsem__client__api_8h_1a51c4e53fcfa0392e930ffc8ebf07a939" compoundref="xsem__client__api_8h" startline="125">PMC_RAM_SEM_NPI_HEARTBEAT_CNT</references>
-        <references refid="xsem__client__api_8h_1a07e62de90c40d738d76765718322ff46" compoundref="xsem__client__api_8h" startline="122">PMC_RAM_SEM_NPI_SCAN_CNT</references>
-        <references refid="xsem__client__api_8h_1ad592ec6982164cd96c3a020aa0bc0982" compoundref="xsem__client__api_8h" startline="119">PMC_RAM_SEM_NPI_SLVSKIP_CNT0</references>
-        <references refid="xsem__client__api_8h_1a6ab5c3a093b73fb19251432cf39e0ea0" compoundref="xsem__client__api_8h" startline="116">PMC_RAM_SEM_NPI_STATUS</references>
-        <references refid="xsem__client__api_8h_1aab6ea9e6ac69e6b30b9e038b690d0135" compoundref="xsem__client__api_8h" startline="128">PMC_RAM_SEM_NPIERR_INFO0</references>
-        <references refid="struct_x_sem_npi_status_1af86519a71bc534fd458933dd18fa46d4" compoundref="xsem__client__api_8h" startline="322">XSemNpiStatus::ScanCnt</references>
-        <references refid="struct_x_sem_npi_status_1ad6bb1c2e66f4523d239e18ff685a9ca9" compoundref="xsem__client__api_8h" startline="319">XSemNpiStatus::SlvSkipCnt</references>
-        <references refid="struct_x_sem_npi_status_1a00fb9e1d6176efdd76fa98fb28e68234" compoundref="xsem__client__api_8h" startline="318">XSemNpiStatus::Status</references>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1a8eda281f7a0e850ffe2973a997cc8fbd" compoundref="xsem__npi__example__pl__mb_8c" startline="205" endline="245">XSem_ApiCheckHbtCount</referencedby>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1a0d1727d5d5abe0b3a960bc035bc4d45e" compoundref="xsem__npi__example__pl__mb_8c" startline="155" endline="196">XSem_ApiCheckScanCount</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1219" bodyend="1252"/>
+        <references refid="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" compoundref="xsem__client__api_8h" startline="371">XSemNpiStatus::ErrInfo</references>
+        <references refid="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" compoundref="xsem__client__api_8h" startline="369">XSemNpiStatus::HbCnt</references>
+        <references refid="xsem__client__api_8h_1af3fd0512f794e86ac22bce16c7b4a170" compoundref="xsem__client__api_8h" startline="112">MAX_NPI_ERR_INFO_CNT</references>
+        <references refid="xsem__client__api_8h_1af9560eda50f4b3e80b3113074fb27707" compoundref="xsem__client__api_8h" startline="110">MAX_NPI_SLV_SKIP_CNT</references>
+        <references refid="xsem__client__api_8h_1a51c4e53fcfa0392e930ffc8ebf07a939" compoundref="xsem__client__api_8h" startline="127">PMC_RAM_SEM_NPI_HEARTBEAT_CNT</references>
+        <references refid="xsem__client__api_8h_1a07e62de90c40d738d76765718322ff46" compoundref="xsem__client__api_8h" startline="124">PMC_RAM_SEM_NPI_SCAN_CNT</references>
+        <references refid="xsem__client__api_8h_1ad592ec6982164cd96c3a020aa0bc0982" compoundref="xsem__client__api_8h" startline="121">PMC_RAM_SEM_NPI_SLVSKIP_CNT0</references>
+        <references refid="xsem__client__api_8h_1a6ab5c3a093b73fb19251432cf39e0ea0" compoundref="xsem__client__api_8h" startline="118">PMC_RAM_SEM_NPI_STATUS</references>
+        <references refid="xsem__client__api_8h_1aab6ea9e6ac69e6b30b9e038b690d0135" compoundref="xsem__client__api_8h" startline="130">PMC_RAM_SEM_NPIERR_INFO0</references>
+        <references refid="struct_x_sem_npi_status_1af86519a71bc534fd458933dd18fa46d4" compoundref="xsem__client__api_8h" startline="367">XSemNpiStatus::ScanCnt</references>
+        <references refid="struct_x_sem_npi_status_1ad6bb1c2e66f4523d239e18ff685a9ca9" compoundref="xsem__client__api_8h" startline="364">XSemNpiStatus::SlvSkipCnt</references>
+        <references refid="struct_x_sem_npi_status_1a00fb9e1d6176efdd76fa98fb28e68234" compoundref="xsem__client__api_8h" startline="363">XSemNpiStatus::Status</references>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a8eda281f7a0e850ffe2973a997cc8fbd" compoundref="xsem__npi__example__pl__mb_8c" startline="207" endline="247">XSem_ApiCheckHbtCount</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a0d1727d5d5abe0b3a960bc035bc4d45e" compoundref="xsem__npi__example__pl__mb_8c" startline="157" endline="198">XSem_ApiCheckScanCount</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga4ba3494dc86f68d1843feb2ad69fbbe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -745,13 +745,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1321" bodyend="1375"/>
-        <references refid="xsem__client__api_8h_1aa6c03ecbb045cdc96df0a216a6516531" compoundref="xsem__client__api_8h" startline="178">CMD_ID_SEM_GET_CONFIG</references>
-        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="263">XSemIpiResp::RespMsg1</references>
-        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="264">XSemIpiResp::RespMsg2</references>
-        <references refid="struct_x_sem_ipi_resp_1a279939a3e855020b8e0648fb7d95a1e5" compoundref="xsem__client__api_8h" startline="265">XSemIpiResp::RespMsg3</references>
-        <references refid="struct_x_sem_ipi_resp_1a6c53aa10485996d8a9a3ad24a667e058" compoundref="xsem__client__api_8h" startline="266">XSemIpiResp::RespMsg4</references>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1319" bodyend="1373"/>
+        <references refid="xsem__client__api_8h_1aa6c03ecbb045cdc96df0a216a6516531" compoundref="xsem__client__api_8h" startline="223">CMD_ID_SEM_GET_CONFIG</references>
+        <references refid="struct_x_sem_ipi_resp_1a7d7eea2dd43f003a0602eeebaf3ac85d" compoundref="xsem__client__api_8h" startline="308">XSemIpiResp::RespMsg1</references>
+        <references refid="struct_x_sem_ipi_resp_1a1502bcdecb5e80f54fd9f283dfeb8a2c" compoundref="xsem__client__api_8h" startline="309">XSemIpiResp::RespMsg2</references>
+        <references refid="struct_x_sem_ipi_resp_1a279939a3e855020b8e0648fb7d95a1e5" compoundref="xsem__client__api_8h" startline="310">XSemIpiResp::RespMsg3</references>
+        <references refid="struct_x_sem_ipi_resp_1a6c53aa10485996d8a9a3ad24a667e058" compoundref="xsem__client__api_8h" startline="311">XSemIpiResp::RespMsg4</references>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga328b7ac78458167adf6d0379b01c7540" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -780,11 +780,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>SEU Golden Hardware CRC from first scan is stored in Bits [95:64] of CFRAME_SEU_CRC_ADDR (128-Bit) register</para><para>Read CRC register word 0</para><para>Read CRC register word 1</para><para>Read CRC register word 2 and store it as GoldenCrc</para><para>Read CRC register word 3</para><para>Return GoldenCrc </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1392" bodyend="1416"/>
-        <references refid="xsem__client__api_8h_1abee8d469be42a99f2db8f9322a0bd3d6" compoundref="xsem__client__api_8h" startline="187">CFRAME_BASE_ADDRESS</references>
-        <references refid="xsem__client__api_8h_1ab009a618e254320a9dbf57562214fb83" compoundref="xsem__client__api_8h" startline="190">CFRAME_ROW_OFFSET</references>
-        <references refid="xsem__client__api_8h_1a2593a7cfde0f1b857b4368a92d5aa84c" compoundref="xsem__client__api_8h" startline="193">CFRAME_SEU_CRC_ADDR</references>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1390" bodyend="1417"/>
+        <references refid="xsem__client__api_8h_1abee8d469be42a99f2db8f9322a0bd3d6" compoundref="xsem__client__api_8h" startline="232">CFRAME_BASE_ADDRESS</references>
+        <references refid="xsem__client__api_8h_1ab009a618e254320a9dbf57562214fb83" compoundref="xsem__client__api_8h" startline="235">CFRAME_ROW_OFFSET</references>
+        <references refid="xsem__client__api_8h_1a2593a7cfde0f1b857b4368a92d5aa84c" compoundref="xsem__client__api_8h" startline="238">CFRAME_SEU_CRC_ADDR</references>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsem__client__apis_1ga6aad75df1ff864f2897a8416c0914157" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -825,22 +825,22 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1444" bodyend="1486"/>
-        <references refid="xsem__client__api_8h_1abee8d469be42a99f2db8f9322a0bd3d6" compoundref="xsem__client__api_8h" startline="187">CFRAME_BASE_ADDRESS</references>
-        <references refid="xsem__client__api_8h_1a3853441dd07e42d092fcd13292e4594b" compoundref="xsem__client__api_8h" startline="202">CFRAME_BIT_0_19_MASK</references>
-        <references refid="xsem__client__api_8h_1afb6badc42fd343ce74a376e55d4c4bd6" compoundref="xsem__client__api_8h" startline="208">CFRAME_BIT_20_39_MASK_HIGH</references>
-        <references refid="xsem__client__api_8h_1a73f9414c1bea3aa72fa0c7f97c667788" compoundref="xsem__client__api_8h" startline="205">CFRAME_BIT_20_39_MASK_LOW</references>
-        <references refid="xsem__client__api_8h_1a902d9ef0d5507a54e428f6d19bf4f579" compoundref="xsem__client__api_8h" startline="214">CFRAME_BIT_20_39_SHIFT_L</references>
-        <references refid="xsem__client__api_8h_1ad9f0d95bafbce3fa6025a1cf8e3117aa" compoundref="xsem__client__api_8h" startline="211">CFRAME_BIT_20_39_SHIFT_R</references>
-        <references refid="xsem__client__api_8h_1a370b7c2865e181d6e45e3b54e59ab71f" compoundref="xsem__client__api_8h" startline="217">CFRAME_BIT_40_59_MASK</references>
-        <references refid="xsem__client__api_8h_1a61c67de2fe36179e9c8b9af263184489" compoundref="xsem__client__api_8h" startline="220">CFRAME_BIT_40_59_SHIFT_R</references>
-        <references refid="xsem__client__api_8h_1a7e924755fecccdd378ce5e90c5630b79" compoundref="xsem__client__api_8h" startline="226">CFRAME_BIT_60_79_MASK_HIGH</references>
-        <references refid="xsem__client__api_8h_1ab38ccfe0f01c730a7d4dc427d434467b" compoundref="xsem__client__api_8h" startline="223">CFRAME_BIT_60_79_MASK_LOW</references>
-        <references refid="xsem__client__api_8h_1abdde51af4e812983d0f737525f0d047b" compoundref="xsem__client__api_8h" startline="232">CFRAME_BIT_60_79_SHIFT_L</references>
-        <references refid="xsem__client__api_8h_1a4ac783f0014e9c0978d3f548a72abb9e" compoundref="xsem__client__api_8h" startline="229">CFRAME_BIT_60_79_SHIFT_R</references>
-        <references refid="xsem__client__api_8h_1abdd8131147d8721efb53d6fd1091e3f2" compoundref="xsem__client__api_8h" startline="196">CFRAME_LAST_BOT_ADDR</references>
-        <references refid="xsem__client__api_8h_1ab009a618e254320a9dbf57562214fb83" compoundref="xsem__client__api_8h" startline="190">CFRAME_ROW_OFFSET</references>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" line="1445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.c" bodystart="1445" bodyend="1487"/>
+        <references refid="xsem__client__api_8h_1abee8d469be42a99f2db8f9322a0bd3d6" compoundref="xsem__client__api_8h" startline="232">CFRAME_BASE_ADDRESS</references>
+        <references refid="xsem__client__api_8h_1a3853441dd07e42d092fcd13292e4594b" compoundref="xsem__client__api_8h" startline="247">CFRAME_BIT_0_19_MASK</references>
+        <references refid="xsem__client__api_8h_1afb6badc42fd343ce74a376e55d4c4bd6" compoundref="xsem__client__api_8h" startline="253">CFRAME_BIT_20_39_MASK_HIGH</references>
+        <references refid="xsem__client__api_8h_1a73f9414c1bea3aa72fa0c7f97c667788" compoundref="xsem__client__api_8h" startline="250">CFRAME_BIT_20_39_MASK_LOW</references>
+        <references refid="xsem__client__api_8h_1a902d9ef0d5507a54e428f6d19bf4f579" compoundref="xsem__client__api_8h" startline="259">CFRAME_BIT_20_39_SHIFT_L</references>
+        <references refid="xsem__client__api_8h_1ad9f0d95bafbce3fa6025a1cf8e3117aa" compoundref="xsem__client__api_8h" startline="256">CFRAME_BIT_20_39_SHIFT_R</references>
+        <references refid="xsem__client__api_8h_1a370b7c2865e181d6e45e3b54e59ab71f" compoundref="xsem__client__api_8h" startline="262">CFRAME_BIT_40_59_MASK</references>
+        <references refid="xsem__client__api_8h_1a61c67de2fe36179e9c8b9af263184489" compoundref="xsem__client__api_8h" startline="265">CFRAME_BIT_40_59_SHIFT_R</references>
+        <references refid="xsem__client__api_8h_1a7e924755fecccdd378ce5e90c5630b79" compoundref="xsem__client__api_8h" startline="271">CFRAME_BIT_60_79_MASK_HIGH</references>
+        <references refid="xsem__client__api_8h_1ab38ccfe0f01c730a7d4dc427d434467b" compoundref="xsem__client__api_8h" startline="268">CFRAME_BIT_60_79_MASK_LOW</references>
+        <references refid="xsem__client__api_8h_1abdde51af4e812983d0f737525f0d047b" compoundref="xsem__client__api_8h" startline="277">CFRAME_BIT_60_79_SHIFT_L</references>
+        <references refid="xsem__client__api_8h_1a4ac783f0014e9c0978d3f548a72abb9e" compoundref="xsem__client__api_8h" startline="274">CFRAME_BIT_60_79_SHIFT_R</references>
+        <references refid="xsem__client__api_8h_1abdd8131147d8721efb53d6fd1091e3f2" compoundref="xsem__client__api_8h" startline="241">CFRAME_LAST_BOT_ADDR</references>
+        <references refid="xsem__client__api_8h_1ab009a618e254320a9dbf57562214fb83" compoundref="xsem__client__api_8h" startline="235">CFRAME_ROW_OFFSET</references>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

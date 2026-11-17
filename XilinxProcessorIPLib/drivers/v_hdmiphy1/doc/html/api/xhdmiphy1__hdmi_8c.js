@@ -22,16 +22,16 @@ var xhdmiphy1__hdmi_8c =
     [ "XHdmiphy1_Hdmi21Config", "xhdmiphy1__hdmi_8c.html#ga2aa401218d0bc4c64c2210f85ccee457", null ],
     [ "XHdmiphy1_Hdmi_CfgInitialize", "xhdmiphy1__hdmi_8c.html#gaa15dd35a9b1670aab091738d3ecca9df", null ],
     [ "XHdmiphy1_HdmiCfgCalcMmcmParam", "xhdmiphy1__hdmi_8c.html#gafa361514e8315c25876867a1ded2c99b", null ],
-    [ "XHdmiphy1_HdmiCpllParam", "xhdmiphy1__hdmi_8c.html#aefc037877ed6316c6995845442a31971", null ],
+    [ "XHdmiphy1_HdmiCpllParam", "xhdmiphy1__hdmi_8c.html#gaefc037877ed6316c6995845442a31971", null ],
     [ "XHdmiphy1_HdmiDebugInfo", "xhdmiphy1__hdmi_8c.html#ga16dfea31e43d9da2c4c00cd0785b6248", null ],
     [ "XHdmiphy1_HdmiGtDruModeEnable", "xhdmiphy1__hdmi_8c.html#gae9070f7158ccb8538edf80a5ec4c8da6", null ],
-    [ "XHdmiphy1_HdmiQpllParam", "xhdmiphy1__hdmi_8c.html#a026bd874ba52e36d8f0e770b962543f9", null ],
+    [ "XHdmiphy1_HdmiQpllParam", "xhdmiphy1__hdmi_8c.html#ga026bd874ba52e36d8f0e770b962543f9", null ],
     [ "XHdmiphy1_HdmiUpdateClockSelection", "xhdmiphy1__hdmi_8c.html#ga1d8702f582054727e5bafc4e6cf32739", null ],
     [ "XHdmiphy1_PatgenEnable", "xhdmiphy1__hdmi_8c.html#gafe6529e3429c7199f87f7f8fc7f43fe0", null ],
     [ "XHdmiphy1_PatgenSetRatio", "xhdmiphy1__hdmi_8c.html#ga51d10d93fa76ebe0c031600b61955d4d", null ],
     [ "Xhdmiphy1_RefClkValue", "xhdmiphy1__hdmi_8c.html#a6379077b417b3f435699335235439978", null ],
     [ "XHdmiphy1_SetHdmiRxParam", "xhdmiphy1__hdmi_8c.html#ga2bf27809a22eecc5194a8bad16261280", null ],
     [ "XHdmiphy1_SetHdmiTxParam", "xhdmiphy1__hdmi_8c.html#ga69e679f0c4444350910817be69cde77c", null ],
-    [ "XHdmiphy1_TxAlignReset", "xhdmiphy1__hdmi_8c.html#a355efb9fbbf8e3d0102738e912971bca", null ],
-    [ "XHdmiphy1_TxAlignStart", "xhdmiphy1__hdmi_8c.html#a579cfbb41fbd51477dd902f9a1758826", null ]
+    [ "XHdmiphy1_TxAlignReset", "xhdmiphy1__hdmi_8c.html#ga355efb9fbbf8e3d0102738e912971bca", null ],
+    [ "XHdmiphy1_TxAlignStart", "xhdmiphy1__hdmi_8c.html#ga579cfbb41fbd51477dd902f9a1758826", null ]
 ];

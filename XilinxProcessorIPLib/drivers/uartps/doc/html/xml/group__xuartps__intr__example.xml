@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xuartps__intr__example" kind="group">
+    <compoundname>xuartps_intr_example</compoundname>
+    <title>Xuartps_intr_example</title>
+      <sectiondef kind="user-defined">
+      <header>Device parameters</header>
+      <description><para>The following constants map to the XPAR parameters created in the xparameters.h file.</para><para>They are defined here such that a user can easily change all the needed parameters in one place. </para></description>
+      <memberdef kind="define" id="group__xuartps__intr__example_1ga1978f7e46ae20e71943d4b3c15e8dd0e" prot="public" static="no">
+        <name>XUARTPS_BASEADDRESS</name>
+        <initializer>XPAR_XUARTPS_0_BASEADDR</initializer>
+        <briefdescription>
+<para>UART base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xuartps__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartps__intr__example_8c" startline="164" endline="182">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Data buffers</header>
+      <description><para>The following buffers are used in this example to send and receive data with the UART. </para></description>
+      <memberdef kind="variable" id="group__xuartps__intr__example_1ga21a34b7f8d09398f53237562bd1f579b" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SendBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Buffer for Transmitting Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartps__intr__example_1ga97ff43d2dc0c58afc33efc1304f40b09" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 RecvBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>RecvBuffer</name>
+        <briefdescription>
+<para>Buffer for Receiving Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transfer counters</header>
+      <description><para>The following counters are used to determine when the entire buffer has been sent and received. </para></description>
+      <memberdef kind="variable" id="group__xuartps__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalReceivedCount</definition>
+        <argsstring></argsstring>
+        <name>TotalReceivedCount</name>
+        <briefdescription>
+<para>Total bytes received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" compoundref="xuartps__intr__example_8c" startline="392" endline="440">Handler</referencedby>
+        <referencedby refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="222" endline="372">UartPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartps__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalSentCount</definition>
+        <argsstring></argsstring>
+        <name>TotalSentCount</name>
+        <briefdescription>
+<para>Total bytes sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" compoundref="xuartps__intr__example_8c" startline="392" endline="440">Handler</referencedby>
+        <referencedby refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="222" endline="372">UartPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartps__intr__example_1ga75ec25052fcbff7fd7bfbea7bd47df7d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TotalErrorCount</definition>
+        <argsstring></argsstring>
+        <name>TotalErrorCount</name>
+        <briefdescription>
+<para>Total error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" compoundref="xuartps__intr__example_8c" startline="392" endline="440">Handler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xuartps__intr__example_1gab3787fde8ffe5678ebc1a52acb8b2908" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref></type>
+        <definition>XUartPs UartPs</definition>
+        <argsstring></argsstring>
+        <name>UartPs</name>
+        <briefdescription>
+<para>Instance of the UART Device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int UartPsIntrExample</definition>
+        <argsstring>(XUartPs *UartInstPtr, UINTPTR BaseAddress)</argsstring>
+        <name>UartPsIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> *</type>
+          <declname>UartInstPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Performs a minimal test on the UartPS device and driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is a design example that illustrates how to use the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> driver.</para><para>This function sends data and expects to receive the same data through the device using the local loopback mode.</para><para>This function uses interrupt mode of the device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UartInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the UART driver which is going to be connected to the interrupt controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<itemizedlist>
+<listitem><para>This function contains an infinite loop such that if interrupts are not working it may never return. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="222" bodyend="372"/>
+        <references refid="struct_x_uart_ps___config_1a17ad7e10fcc2b3645537bb6ba93ee6b2" compoundref="xuartps_8h" startline="303">XUartPs_Config::BaseAddress</references>
+        <references refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" compoundref="xuartps__intr__example_8c" startline="392" endline="440">Handler</references>
+        <references refid="struct_x_uart_ps___config_1aae3ce9c8681479278fc7e511f1dc5228" compoundref="xuartps_8h" startline="311">XUartPs_Config::IntrId</references>
+        <references refid="struct_x_uart_ps___config_1adad7df252c9ceaa89bfb37e2ac015e0a" compoundref="xuartps_8h" startline="313">XUartPs_Config::IntrParent</references>
+        <references refid="struct_x_uart_ps_1a934372f095fd87736dfd83781f0fe065" compoundref="xuartps_8h" startline="373">XUartPs::Platform</references>
+        <references refid="xuartps__low__echo__example_8c_1a21a34b7f8d09398f53237562bd1f579b" compoundref="xuartps__low__echo__example_8c" startline="94">SendBuffer</references>
+        <references refid="group__xuartps__intr__example_1ga0b71e527200033092ab1ebd5c0c077ed" compoundref="xuartps__intr__example_8c" startline="104">TEST_BUFFER_SIZE</references>
+        <references refid="group__xuartps__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" compoundref="xuartps__intr__example_8c" startline="150">TotalReceivedCount</references>
+        <references refid="group__xuartps__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" compoundref="xuartps__intr__example_8c" startline="151">TotalSentCount</references>
+        <references refid="group__uartps_1ga371d525c4d48239a3ce77c44d0a92b05" compoundref="xuartps_8c" startline="115" endline="204">XUartPs_CfgInitialize</references>
+        <references refid="group__uartps_1gabf86fb20a58e4a7fbd73afa49f8eb604" compoundref="xuartps__intr_8c" startline="155" endline="206">XUartPs_InterruptHandler</references>
+        <references refid="group__uartps_1gaa6048212fde48f7188efd90c83c4822d" compoundref="xuartps__hw_8h" startline="210">XUARTPS_IXR_FRAMING</references>
+        <references refid="group__uartps_1gafd4a37077bddeeefcc39d58b4f08fb23" compoundref="xuartps__hw_8h" startline="212">XUARTPS_IXR_OVER</references>
+        <references refid="group__uartps_1ga2a11620ed0dd465adf0de24f6d7ad418" compoundref="xuartps__hw_8h" startline="208">XUARTPS_IXR_PARITY</references>
+        <references refid="group__uartps_1gab5df3d1fd00008bd7cc177abd02f07e5" compoundref="xuartps__hw_8h" startline="196">XUARTPS_IXR_RBRK</references>
+        <references refid="group__uartps_1gae374cc3c085d3cac795d95b657b03d5e" compoundref="xuartps__hw_8h" startline="218">XUARTPS_IXR_RXFULL</references>
+        <references refid="group__uartps_1gaad5de1c646049d7ced8841e316a34892" compoundref="xuartps__hw_8h" startline="222">XUARTPS_IXR_RXOVR</references>
+        <references refid="group__uartps_1ga7194f5e99a1a98178f6bf1462791aaac" compoundref="xuartps__hw_8h" startline="206">XUARTPS_IXR_TOUT</references>
+        <references refid="group__uartps_1ga9a4207349f3980046ba4ea9e4379007a" compoundref="xuartps__hw_8h" startline="216">XUARTPS_IXR_TXEMPTY</references>
+        <references refid="group__uartps_1ga35a351ea7a51809810dc9da08e2d68ef" compoundref="xuartps__sinit_8c" startline="100" endline="114">XUartPs_LookupConfig</references>
+        <references refid="group__uartps_1ga3a71908d40b06c097599a5a29d61e800" compoundref="xuartps_8h" startline="236">XUARTPS_OPER_MODE_LOCAL_LOOP</references>
+        <references refid="group__uartps_1ga9d916026363230478a8c8729e23f3352" compoundref="xuartps_8h" startline="232">XUARTPS_OPER_MODE_NORMAL</references>
+        <references refid="group__uartps_1gadc16932076b99cd747e702dcbecd102b" compoundref="xuartps_8c" startline="304" endline="340">XUartPs_Recv</references>
+        <references refid="group__uartps_1ga64e7142d1c69e2e29c9e323c4497baaf" compoundref="xuartps__selftest_8c" startline="76" endline="148">XUartPs_SelfTest</references>
+        <references refid="group__uartps_1ga17b3e12a296eecf17be4a4b8583576e7" compoundref="xuartps_8c" startline="239" endline="271">XUartPs_Send</references>
+        <references refid="group__uartps_1ga9528098e589491997c7805592a4b5a7b" compoundref="xuartps__intr_8c" startline="129" endline="142">XUartPs_SetHandler</references>
+        <references refid="group__uartps_1gab3b65e926f6f4ac7ab41a70801ba12c3" compoundref="xuartps__intr_8c" startline="94" endline="110">XUartPs_SetInterruptMask</references>
+        <references refid="group__uartps_1ga9c84f5324979f1ba3a9f5a866806d0e8" compoundref="xuartps__options_8c" startline="410" endline="448">XUartPs_SetOperMode</references>
+        <references refid="group__uartps_1ga75f0201ac3749384f29171565410a8df" compoundref="xuartps__options_8c" startline="557" endline="578">XUartPs_SetRecvTimeout</references>
+        <referencedby refid="group__xuartps__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartps__intr__example_8c" startline="164" endline="182">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Handler</definition>
+        <argsstring>(void *CallBackRef, u32 Event, unsigned int EventData)</argsstring>
+        <name>Handler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles data events from the UART device in interrupt context. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context, so the amount of processing should be minimal.</para><para>This handler provides an example of how to handle data for the device and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver, in this case it is the instance pointer for the <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specific kind of event that has occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="392" bodyend="440"/>
+        <references refid="group__xuartps__intr__example_1ga75ec25052fcbff7fd7bfbea7bd47df7d" compoundref="xuartps__intr__example_8c" startline="152">TotalErrorCount</references>
+        <references refid="group__xuartps__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" compoundref="xuartps__intr__example_8c" startline="150">TotalReceivedCount</references>
+        <references refid="group__xuartps__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" compoundref="xuartps__intr__example_8c" startline="151">TotalSentCount</references>
+        <references refid="group__uartps_1gaeb3a7014313858cc5bc8c0e1a779afd4" compoundref="xuartps_8h" startline="283">XUARTPS_EVENT_PARE_FRAME_BRKE</references>
+        <references refid="group__uartps_1ga5df58daf8b254add987548848166a4ea" compoundref="xuartps_8h" startline="273">XUARTPS_EVENT_RECV_DATA</references>
+        <references refid="group__uartps_1ga4664232aba4f5873439dd72b68cea266" compoundref="xuartps_8h" startline="279">XUARTPS_EVENT_RECV_ERROR</references>
+        <references refid="group__uartps_1ga1371facb57f230f8c3516c95d50db6f0" compoundref="xuartps_8h" startline="285">XUARTPS_EVENT_RECV_ORERR</references>
+        <references refid="group__uartps_1ga60c5fbf323a23405b48de1eaebb69876" compoundref="xuartps_8h" startline="275">XUARTPS_EVENT_RECV_TOUT</references>
+        <references refid="group__uartps_1ga83784b7f23f91b771059aac0125b20a6" compoundref="xuartps_8h" startline="277">XUARTPS_EVENT_SENT_DATA</references>
+        <referencedby refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="222" endline="372">UartPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartps__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the UART interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="164" bodyend="182"/>
+        <references refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="222" endline="372">UartPsIntrExample</references>
+        <references refid="group__xuartps__intr__example_1ga1978f7e46ae20e71943d4b3c15e8dd0e" compoundref="xuartps__intr__example_8c" startline="82">XUARTPS_BASEADDRESS</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xuartps__intr__example_1ga0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
+        <name>TEST_BUFFER_SIZE</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Test buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/examples/xuartps_intr_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" compoundref="xuartps__intr__example_8c" startline="222" endline="372">UartPsIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

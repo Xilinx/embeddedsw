@@ -54,6 +54,20 @@
     <member refid="struct_xil_loader___h_b_sign_params_1ac658502ff13ba44e3dfde650d95fb6c0" kind="variable"><name>HBSize</name></member>
     <member refid="struct_xil_loader___h_b_sign_params_1a76261b3ec81f96007e1d7a5fc78fcc27" kind="variable"><name>AuthHdr</name></member>
   </compound>
+  <compound refid="struct_xil_loader___img_hdr" kind="struct"><name>XilLoader_ImgHdr</name>
+    <member refid="struct_xil_loader___img_hdr_1a7882ef6e084b36386ebce7b644f30712" kind="variable"><name>FirstPrtnHdr</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a66bb0f1174e462d1ba88801d3943a9e9" kind="variable"><name>NoOfPrtns</name></member>
+    <member refid="struct_xil_loader___img_hdr_1aedf8f976ffc74a46d2cf177e7dcdec2b" kind="variable"><name>EncRevokeID</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a1a3cc3c0fb90a33b3cafb480eb75ad9c" kind="variable"><name>ImgAttr</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a74e39ba40ce6e20138c07db827e99c0f" kind="variable"><name>ImgName</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a27051fa2fc3c83ba922d5ed0a97857d1" kind="variable"><name>ImgID</name></member>
+    <member refid="struct_xil_loader___img_hdr_1aae77766f9bdd8e8efd6f4b85e704d263" kind="variable"><name>UID</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a00d0e8899db69d11c55885ff40c958b2" kind="variable"><name>PUID</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a900f8e3117942ef7ef22e13df68a91cd" kind="variable"><name>FuncID</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a4a094d8d07dfb5211121eb5ee90bdcb2" kind="variable"><name>Reserved</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a07f4e262e4963a37783ec2bd6ff872ee" kind="variable"><name>PcrInfo</name></member>
+    <member refid="struct_xil_loader___img_hdr_1a3329b621cc6c8447267800f4d94e40d7" kind="variable"><name>Checksum</name></member>
+  </compound>
   <compound refid="struct_xil_loader___img_hdr_tbl" kind="struct"><name>XilLoader_ImgHdrTbl</name>
     <member refid="struct_xil_loader___img_hdr_tbl_1a581e811177466948e07f7623eef8e1d5" kind="variable"><name>Version</name></member>
     <member refid="struct_xil_loader___img_hdr_tbl_1a7767b66da779692e71775cd8600c3b45" kind="variable"><name>NoOfImgs</name></member>
@@ -203,6 +217,10 @@
     <member refid="struct_xloader___ddrmc_registers_1ae6158f6d62eb4ceb3fd21faf3e7059c3" kind="variable"><name>RegStr</name></member>
     <member refid="struct_xloader___ddrmc_registers_1aa14542241d439eea734ab9c25d12e9f5" kind="variable"><name>Offset</name></member>
   </compound>
+  <compound refid="struct_x_loader___ddr_pdi_info" kind="struct"><name>XLoader_DdrPdiInfo</name>
+    <member refid="struct_x_loader___ddr_pdi_info_1a535b05795db3ba52a25b7b6ac6bfe9b5" kind="variable"><name>DdrPdiAddr</name></member>
+    <member refid="struct_x_loader___ddr_pdi_info_1ab246f4890a2ca4adbbfb13293a0a8af8" kind="variable"><name>IsDdrAddrValid</name></member>
+  </compound>
   <compound refid="struct_x_loader___device_copy" kind="struct"><name>XLoader_DeviceCopy</name>
     <member refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kind="variable"><name>SrcAddr</name></member>
     <member refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kind="variable"><name>DestAddr</name></member>
@@ -339,9 +357,13 @@
   </compound>
   <compound refid="versal__2ve__2vm_2server_2_c_make_lists_8txt" kind="file"><name>versal_2ve_2vm/server/CMakeLists.txt</name>
   </compound>
+  <compound refid="versal__2vp_2client_2_c_make_lists_8txt" kind="file"><name>versal_2vp/client/CMakeLists.txt</name>
+  </compound>
   <compound refid="versal__2vp_2_c_make_lists_8txt" kind="file"><name>versal_2vp/CMakeLists.txt</name>
   </compound>
   <compound refid="versal__2vp_2server_2_c_make_lists_8txt" kind="file"><name>versal_2vp/server/CMakeLists.txt</name>
+  </compound>
+  <compound refid="versal__2vp__p_2client_2_c_make_lists_8txt" kind="file"><name>versal_2vp_p/client/CMakeLists.txt</name>
   </compound>
   <compound refid="versal__2vp__p_2_c_make_lists_8txt" kind="file"><name>versal_2vp_p/CMakeLists.txt</name>
   </compound>
@@ -409,6 +431,37 @@
     <member refid="group__xloader__apis_1ga38813d19521c175eb5062683ba443be0" kind="function"><name>GetOptDataFromPdi</name></member>
     <member refid="group__xloader__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
+  <compound refid="xilloader__glitch__detector__example_8c" kind="file"><name>xilloader_glitch_detector_example.c</name>
+    <member refid="group__xloader__client__example__apis_1ga88b8ffca75405e0b24c30ad939f95778" kind="define"><name>CONFIG_PMC_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga37ae8a2db5068c1ffb388685c4e48e22" kind="define"><name>CONFIG_ASU_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga124d5a42cf456d60780eed17a9dc93ee" kind="define"><name>CONFIG_LPD_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga0dab6e87247f450bd48fb461a1b92aab" kind="define"><name>TEST_GLITCH_ENABLE</name></member>
+    <member refid="group__xloader__client__example__apis_1gac0e5f382137550daa07888413965f44f" kind="define"><name>TEST_GLITCH_PMC_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1gaee72608834da36951f91ee6547a68356" kind="define"><name>TEST_GLITCH_ASU_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga5d58c9927deab35bd792bc08a2a29a0b" kind="define"><name>TEST_GLITCH_LPD_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga687685e790c7b097141611087905a4ea" kind="define"><name>GD_DEPTH_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga50b58fa911ba6643a8f2ab7c3d45e818" kind="define"><name>GD_WIDTH_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga42aeadb12aebb366cb70ede8f6db898a" kind="define"><name>GD_REFVOL_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga26c8d334438d04066e4f8c3e8b5a31f3" kind="define"><name>PMC_GLOBAL_BASE_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1ga052604e803dce9cb18f1b978c2739831" kind="define"><name>PMC_GLOBAL_PMC_ERR1_STATUS</name></member>
+    <member refid="group__xloader__client__example__apis_1ga0a8e7efa01437106adcc21c1173e6fd6" kind="define"><name>PMC_GLOBAL_REG_ERR_OFFSET</name></member>
+    <member refid="group__xloader__client__example__apis_1ga233aaf66754fa3a9c833f47ee483a82f" kind="define"><name>PMC_EAM_ERR3_INDEX</name></member>
+    <member refid="group__xloader__client__example__apis_1ga3c178173a24f433148ee03f5797997c8" kind="define"><name>PMC_EAM_ERR3_STATUS_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1ga85f3833957458ce6a908f660a039f73b" kind="define"><name>PMC_EAM_GD_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga2dc49a3de565e12db06341b8e940ccc3" kind="define"><name>ASU_EAM_GD_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga20fb78dc837a51ac7f5375e905286036" kind="define"><name>LPD_SLCR_EAM_ERR0_STATUS</name></member>
+    <member refid="group__xloader__client__example__apis_1ga8c94cc05834b7f3041f909a657ae4b3b" kind="define"><name>LPD_SLCR_REG_ERR_OFFSET</name></member>
+    <member refid="group__xloader__client__example__apis_1gabc5092d52741fb85c37037db36f0fa86" kind="define"><name>LPD_EAM_ERR2_INDEX</name></member>
+    <member refid="group__xloader__client__example__apis_1gaea8241939322e5454579bfc4e45d1e5d" kind="define"><name>LPD_EAM_ERR2_STATUS_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1gab95548b2955041dd54b08cb5a1445a33" kind="define"><name>LPD_GD0_EAM_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga228234cb88798477b6b107bddc8ec577" kind="define"><name>LPD_GD1_EAM_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa3f1205707f0131526c25344900d379d" kind="define"><name>CFG_PMC_SELECTED</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa6f4164c4c1bde69ae8e117f97c08f64" kind="define"><name>CFG_ASU_SELECTED</name></member>
+    <member refid="group__xloader__client__example__apis_1ga7424fc01d34f6fa290a275c713526402" kind="define"><name>CFG_LPD_SELECTED</name></member>
+    <member refid="group__xloader__client__example__apis_1gad4440229d5d2e16f516f53cc50431fa0" kind="variable"><name>MailboxInstance</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa5db83c26a0b4f063cfd7343653ba201" kind="variable"><name>LoaderClientInstance</name></member>
+    <member refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
   <compound refid="xilloader__image__store__pdi__client__example_8c" kind="file"><name>xilloader_image_store_pdi_client_example.c</name>
     <member refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kind="define"><name>PDI_ID</name></member>
     <member refid="group__xloader__client__example__apis_1ga8d375fa48781630123b41ee18fef838b" kind="define"><name>PDI_SIZE_IN_WORDS</name></member>
@@ -435,12 +488,17 @@
     <member refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kind="define"><name>PDI_ID</name></member>
     <member refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
+  <compound refid="xilloader__set__ddr__addr__restart__image__client__example_8c" kind="file"><name>xilloader_set_ddr_addr_restart_image_client_example.c</name>
+    <member refid="group__xloader__client__example__apis_1ga8550471d6d799445eb1ef168a28d71b3" kind="define"><name>DDR_PDI_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
   <compound refid="xilloader__update__multiboot__client__example_8c" kind="file"><name>xilloader_update_multiboot_client_example.c</name>
     <member refid="xilloader__update__multiboot__client__example_8c_1a6fadd8a01fd1eeb727dbbe12c4134127" kind="define"><name>PDI_ADDR</name></member>
     <member refid="xilloader__update__multiboot__client__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xilloader__validate__pdi__auth__example_8c" kind="file"><name>xilloader_validate_pdi_auth_example.c</name>
     <member refid="group__xloader__apis_1ga50bc47889e36ccd506a9cdf1528b050b" kind="define"><name>PDI_SRC_ADDR</name></member>
+    <member refid="group__xloader__apis_1ga1b5a3ba7f3db7236d3bf4f1ee749d3e8" kind="define"><name>PDI_SRC_SIZE_IN_BYTES</name></member>
     <member refid="group__xloader__apis_1gaba48a7835dd58698e529a2fbfe1274f5" kind="define"><name>PDI_TYPE</name></member>
     <member refid="group__xloader__apis_1gaac2e1811f478b0e8c771f75be2bc60b8" kind="variable"><name>SharedMem</name></member>
     <member refid="group__xloader__apis_1ga40cc51525b6d71241f2e395bb79b6332" kind="function"><name>ValidateAuthPdi</name></member>
@@ -448,6 +506,9 @@
   </compound>
   <compound refid="xloader_8c" kind="file"><name>xloader.c</name>
     <member refid="group__xloader__server__apis_1ga1e7b2ae49b2f41294ba3e4c7403df20b" kind="define"><name>XLOADER_IMAGE_INFO_TBL_MAX_NUM</name></member>
+    <member refid="group__xloader__server__apis_1ga141333640799672d40890822b7cea2c7" kind="define"><name>XLOADER_IDCODE_BYPASS_ACTIVE</name></member>
+    <member refid="group__xloader__server__apis_1ga8f7cc07d2a5a731d223bc6c06858b578" kind="define"><name>XLOADER_IDCODE_BYPASS_INACTIVE</name></member>
+    <member refid="group__xloader__server__apis_1ga8b460b13aba27b3bf1e5251196cf6ad1" kind="variable"><name>IdCodeBypassFlag</name></member>
     <member refid="group__xloader__server__apis_1ga4033a5bb9f090d170c2d25fb9907cb71" kind="function"><name>XLoader_ReadAndValidateHdrs</name></member>
     <member refid="group__xloader__server__apis_1gaf1bd8f8546671f81be2f0438fa8580e9" kind="function"><name>XLoader_LoadAndStartSubSystemImages</name></member>
     <member refid="group__xloader__server__apis_1ga48cefd3c751fd03e62288b35a6d016f3" kind="function"><name>XLoader_LoadAndStartSubSystemPdi</name></member>
@@ -459,6 +520,9 @@
     <member refid="group__xloader__server__apis_1gafbfa5eb738e848e293eba92f586b2c45" kind="function"><name>XLoader_ClearKeys</name></member>
     <member refid="group__xloader__server__apis_1gacba1c8d077ffca54738c7d43e0038092" kind="function"><name>XLoader_ReadIHsAndPHs</name></member>
     <member refid="group__xloader__server__apis_1gaf2679622e178fd2d620f479066079908" kind="function"><name>XLoader_VerifyIHsAndPHs</name></member>
+    <member refid="group__xloader__server__apis_1ga0b758d005352c903dc52769701a1c6e5" kind="function"><name>XLoader_GetDdrPdiAddr</name></member>
+    <member refid="group__xloader__server__apis_1gafce3455b5919a1e5be5e6d423e9c25ea" kind="function"><name>XLoader_SetIdCodeBypassFlag</name></member>
+    <member refid="group__xloader__server__apis_1ga252ce894e9f2b7b730e7684891c2b1a6" kind="function"><name>XLoader_ClearIdCodeBypassFlag</name></member>
     <member refid="group__xloader__server__apis_1gacb10f2e97fecfb15aae4fed081b02502" kind="function"><name>XLoader_Init</name></member>
     <member refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" kind="function"><name>XLoader_PdiInit</name></member>
     <member refid="group__xloader__server__apis_1ga8493673eccf135010606bf9449bc5ee4" kind="function"><name>XLoader_LoadPdi</name></member>
@@ -466,6 +530,8 @@
     <member refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" kind="function"><name>XLoader_StoreImageInfo</name></member>
     <member refid="group__xloader__server__apis_1ga304b923a96834575c1fee9eed2ffb870" kind="function"><name>XLoader_LoadImageInfoTbl</name></member>
     <member refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" kind="function"><name>XLoader_LoadImage</name></member>
+    <member refid="group__xloader__server__apis_1ga6dc6297b507b506332f4a2cb8602497a" kind="function"><name>XLoader_SetDdrPdiAddr</name></member>
+    <member refid="group__xloader__server__apis_1ga888c20437b7c6ce0384eba4001666074" kind="function"><name>XLoader_LoadImageFromAddr</name></member>
     <member refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" kind="function"><name>XLoader_RestartImage</name></member>
     <member refid="group__xloader__server__apis_1ga168d5df4c9c896833846a6fcc9693451" kind="function"><name>XLoader_IdCodeCheck</name></member>
     <member refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" kind="function"><name>XLoader_ReadImageStoreCfg</name></member>
@@ -526,7 +592,9 @@
     <member refid="xloader_8h_1a276f17de892a055f66ab00fe7def7b07" kind="define"><name>XLOADER_INVALID_UID</name></member>
     <member refid="xloader_8h_1a9c615acff1f97aef1faf318328da9cc6" kind="define"><name>XLOADER_IMG_INDEX_NOT_FOUND</name></member>
     <member refid="xloader_8h_1abd92637607e4c3b9763909501b74e53d" kind="define"><name>XLOADER_IMG_STORE_INVALID_ADDR</name></member>
+    <member refid="xloader_8h_1aa5fa23b8b411ef7f9efdffc3636b1338" kind="define"><name>XLOADER_INVALID_ADDR</name></member>
     <member refid="xloader_8h_1adbc3b9297a363fb6e4d32eae5981995e" kind="define"><name>XLOADER_IMG_STORE_INVALID_SIZE</name></member>
+    <member refid="xloader_8h_1ab86d389b5a897c804bec2ca1876b9d50" kind="define"><name>XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK</name></member>
     <member refid="xloader_8h_1a1b158ce0f453a76bb3cf394a719e1828" kind="define"><name>PdiSrc_t</name></member>
     <member refid="xloader_8h_1afd7ea75c6ca83abbd15d201bfc2d676a" kind="define"><name>XLOADER_MULTIBOOT_OFFSET_MASK</name></member>
     <member refid="xloader_8h_1a899656e989a770acad6086a0c6dee62a" kind="define"><name>XLOADER_SD_MAX_BOOT_FILES_LIMIT</name></member>
@@ -536,14 +604,15 @@
     <member refid="xloader_8h_1ab43be0ab24bd22666f1918beb5a4a4f7" kind="define"><name>XLOADER_CL_BEFORE_BOOT</name></member>
     <member refid="xloader_8h_1a28c6892b9f06581da463ef4df6c44713" kind="define"><name>XLOADER_CL_AFTER_BOOT</name></member>
     <member refid="xloader_8h_1aee5a3e9eec7b723b60ae4c0c692a56c0" kind="define"><name>XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK</name></member>
+    <member refid="xloader_8h_1a770177a68e0763f8f38ead2d6e2a7916" kind="enum"><name>XLoader_DdrPdiAddrStatus</name></member>
+    <member refid="xloader_8h_1a770177a68e0763f8f38ead2d6e2a7916acac96b124ee171109d13439a73cf81d7" kind="enumvalue"><name>XLOADER_DDR_PDI_ADDR_INVALID</name></member>
+    <member refid="xloader_8h_1a770177a68e0763f8f38ead2d6e2a7916aa5ce9a297003f68091b3f7b4882daa9a" kind="enumvalue"><name>XLOADER_DDR_PDI_ADDR_VALID</name></member>
     <member refid="xloader_8h_1ab3a68d10eb61c5976906cb59431ca3b7" kind="function"><name>XLoader_GetBootMode</name></member>
     <member refid="group__xloader__server__apis_1gacb10f2e97fecfb15aae4fed081b02502" kind="function"><name>XLoader_Init</name></member>
     <member refid="group__xloader__server__apis_1gaf60991670bc1598b674f3f81d3982caf" kind="function"><name>XLoader_GetPdiInstance</name></member>
     <member refid="group__xloader__server__apis_1ga8493673eccf135010606bf9449bc5ee4" kind="function"><name>XLoader_LoadPdi</name></member>
   </compound>
   <compound refid="xloader__auth__enc_8c" kind="file"><name>xloader_auth_enc.c</name>
-    <member refid="group__xloader__server__apis_1gab5e43af745222cb78f6a71853c891183" kind="define"><name>XLOADER_RSA_PSS_MSB_PADDING_MASK</name></member>
-    <member refid="group__xloader__server__apis_1ga98ac029ac7965b392e6bb0097876fd94" kind="define"><name>XLOADER_RSA_EM_MSB_INDEX</name></member>
     <member refid="group__xloader__server__apis_1gaad372ad8e543134647457ddfd18128ab" kind="define"><name>XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga37451d47afb1549cfd45ae1c5947d579" kind="define"><name>XLOADER_AES_RESET_VAL</name></member>
     <member refid="group__xloader__server__apis_1ga05d874ef5d60f3bba3fe7e580e2335b4" kind="define"><name>XLOADER_AES_RESET_REG</name></member>
@@ -554,7 +623,6 @@
     <member refid="group__xloader__server__apis_1ga75648061e8ddd40fb9103e1a859b5114" kind="function"><name>XLoader_RsaSignVerify</name></member>
     <member refid="group__xloader__server__apis_1ga33b5c12446a0e19c8ebb43017c912051" kind="function"><name>XLoader_AesDecryption</name></member>
     <member refid="group__xloader__server__apis_1gad385fae9cc97cab96e42d108a2977e36" kind="function"><name>XLoader_AesKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1gac8155c97621aa3406f16fd58b37de8c3" kind="function"><name>XLoader_PpkCompare</name></member>
     <member refid="group__xloader__server__apis_1ga36a8244203deabeb1b3f7c1e882492e2" kind="function"><name>XLoader_DecHdrs</name></member>
     <member refid="group__xloader__server__apis_1ga989dd82506af81c806aba4ce001fb607" kind="function"><name>XLoader_SpkAuthentication</name></member>
     <member refid="group__xloader__server__apis_1ga5d3bc6b495fbd9083312f0755aa59386" kind="function"><name>XLoader_AuthNDecHdrs</name></member>
@@ -566,14 +634,13 @@
     <member refid="group__xloader__server__apis_1ga741419e8413d393f5ac701cd0b82d03e" kind="function"><name>XLoader_SecureEncOnlyValidations</name></member>
     <member refid="group__xloader__server__apis_1ga5bbd480d466b142a9648d1e07c6245ae" kind="function"><name>XLoader_ValidateIV</name></member>
     <member refid="group__xloader__server__apis_1ga205fae720cf0e4ae44e99dee851f3c9c" kind="function"><name>XLoader_ClearAesKeysOnCfg</name></member>
+    <member refid="group__xloader__server__apis_1gae092162d3342eb2e9fd416cb75a964ae" kind="function"><name>XLoader_MapRsaPssSecureStatus</name></member>
     <member refid="group__xloader__server__apis_1ga5aef75ed3205f50c75189b7c46099856" kind="function"><name>XLoader_SecureAuthInit</name></member>
     <member refid="group__xloader__server__apis_1ga9df696fd17dec50576f817a1cd1f7105" kind="function"><name>XLoader_SecureEncInit</name></member>
     <member refid="group__xloader__server__apis_1ga7d852b900fa863fa8719bba0e2699423" kind="function"><name>XLoader_SecureValidations</name></member>
     <member refid="group__xloader__server__apis_1gac4b3b88f124856db12efa0ce4d6c81d0" kind="function"><name>XLoader_ReadAndVerifySecureHdrs</name></member>
     <member refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" kind="function"><name>XLoader_VerifySignature</name></member>
-    <member refid="group__xloader__server__apis_1gab6898ef045d13b406a9ac80d1c8d0d11" kind="function"><name>XLoader_VerifyRevokeId</name></member>
-    <member refid="group__xloader__server__apis_1gadec7b8bbeb190d83de231b302c251533" kind="function"><name>XLoader_IsPpkValid</name></member>
-    <member refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" kind="function"><name>XLoader_PpkVerify</name></member>
+    <member refid="group__xloader__server__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" kind="function"><name>XLoader_VerifyRevokeId</name></member>
     <member refid="group__xloader__server__apis_1ga314c67dbef884040c630923f3b48416a" kind="function"><name>XLoader_RsaPssSignVerify</name></member>
     <member refid="group__xloader__server__apis_1ga4fc52ccf8ab9611ffc3222d5dd7b16a2" kind="function"><name>XLoader_DecryptSecureBlk</name></member>
     <member refid="group__xloader__server__apis_1ga7c96d7f3ab2558ba88b36cdaf642fbc0" kind="function"><name>XLoader_DataDecrypt</name></member>
@@ -583,12 +650,8 @@
     <member refid="group__xloader__server__apis_1ga399279fd63d1bed34a886c24c414ee48" kind="function"><name>XLoader_ClearAesKey</name></member>
     <member refid="group__xloader__server__apis_1gaa912487046c04b1c90ca418a19ac3e0d" kind="function"><name>XLoader_ProcessAuthEncPrtn</name></member>
     <member refid="group__xloader__server__apis_1gacb572c209348e5ec41f2e15c92de9c36" kind="function"><name>XLoader_CheckSecureState</name></member>
-    <member refid="group__xloader__server__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
     <member refid="group__xloader__server__apis_1ga677a618842a76cb8ee935fd0e5bd18fa" kind="function"><name>XLoader_ImgHdrTblAuth</name></member>
     <member refid="group__xloader__server__apis_1ga112597ce43d11195a3d8924eb435254f" kind="function"><name>XLoader_DataAuth</name></member>
-    <member refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" kind="function"><name>XLoader_GetPpkInvalidMaskAndOffset</name></member>
-    <member refid="group__xloader__server__apis_1gae0beb003c621ffb731a7ca0c5409b9d8" kind="function"><name>XLoader_IsPpkRevoked</name></member>
-    <member refid="group__xloader__server__apis_1ga0471c92b49e77af3b786d1b1484c99a5" kind="function"><name>XLoader_ValidatePpkHash</name></member>
   </compound>
   <compound refid="xloader__auth__enc_8h" kind="file"><name>xloader_auth_enc.h</name>
     <member refid="xloader__auth__enc_8h_1a4d1f3cc7abae866a021988424e97f30c" kind="define"><name>XLOADER_RSA_SIG_EXP_BYTE</name></member>
@@ -725,19 +788,14 @@
     <member refid="group__xloader__server__apis_1ga22f293db863b881993077e17fc892007" kind="function"><name>XLoader_AuthEncClear</name></member>
     <member refid="group__xloader__server__apis_1gaa912487046c04b1c90ca418a19ac3e0d" kind="function"><name>XLoader_ProcessAuthEncPrtn</name></member>
     <member refid="group__xloader__server__apis_1ga314c67dbef884040c630923f3b48416a" kind="function"><name>XLoader_RsaPssSignVerify</name></member>
-    <member refid="group__xloader__server__apis_1gadec7b8bbeb190d83de231b302c251533" kind="function"><name>XLoader_IsPpkValid</name></member>
     <member refid="group__xloader__server__apis_1ga399279fd63d1bed34a886c24c414ee48" kind="function"><name>XLoader_ClearAesKey</name></member>
-    <member refid="group__xloader__server__apis_1gae0beb003c621ffb731a7ca0c5409b9d8" kind="function"><name>XLoader_IsPpkRevoked</name></member>
-    <member refid="group__xloader__server__apis_1ga0471c92b49e77af3b786d1b1484c99a5" kind="function"><name>XLoader_ValidatePpkHash</name></member>
-    <member refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" kind="function"><name>XLoader_GetPpkInvalidMaskAndOffset</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
     <member refid="group__xloader__server__apis_1gacb572c209348e5ec41f2e15c92de9c36" kind="function"><name>XLoader_CheckSecureState</name></member>
     <member refid="group__xloader__server__apis_1ga677a618842a76cb8ee935fd0e5bd18fa" kind="function"><name>XLoader_ImgHdrTblAuth</name></member>
     <member refid="group__xloader__server__apis_1ga112597ce43d11195a3d8924eb435254f" kind="function"><name>XLoader_DataAuth</name></member>
     <member refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" kind="function"><name>XLoader_VerifySignature</name></member>
     <member refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" kind="function"><name>XLoader_PpkVerify</name></member>
-    <member refid="group__xloader__server__apis_1gab6898ef045d13b406a9ac80d1c8d0d11" kind="function"><name>XLoader_VerifyRevokeId</name></member>
-    <member refid="group__xloader__server__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
+    <member refid="group__xloader__server__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" kind="function"><name>XLoader_VerifyRevokeId</name></member>
   </compound>
   <compound refid="xloader__auth__jtag_8c" kind="file"><name>xloader_auth_jtag.c</name>
   </compound>
@@ -754,6 +812,7 @@
     <member refid="group__xloader__server__apis_1ga8baed59f0b542201eae4c147aad4e686" kind="define"><name>XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID</name></member>
     <member refid="group__xloader__server__apis_1ga891205248039898c45e6ba5b3cce1d60" kind="define"><name>PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga793661d8d658946d02519dc42237529d" kind="variable"><name>XLoader_CframeIns</name></member>
+    <member refid="group__xloader__server__apis_1ga04a8f209fc54a091f07d79e1a5ef748e" kind="function"><name>XLoader_CfuInit</name></member>
     <member refid="group__xloader__server__apis_1ga1ad709da8e2f49344fe40aa7688d9990" kind="function"><name>XLoader_CfiErrHandler</name></member>
     <member refid="group__xloader__server__apis_1gac74498338178bcdd1235a9fe650156d4" kind="function"><name>XLoader_CfuErrHandler</name></member>
     <member refid="group__xloader__server__apis_1ga953be1ba88ede7dedb1f86081b14f221" kind="function"><name>XLoader_CframeInit</name></member>
@@ -781,6 +840,9 @@
     <member refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" kind="function"><name>XLoader_CfiSelectiveReadback</name></member>
     <member refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" kind="function"><name>XLoader_InputSlrIndex</name></member>
     <member refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" kind="function"><name>XLoader_GetOptionalData</name></member>
+    <member refid="group__xloader__client__apis_1gad2ea291a5214f42c54ab14c0a394bbaa" kind="function"><name>XLoader_SetDdrAddrForRestartImage</name></member>
+    <member refid="group__xloader__client__apis_1ga4d5910ac3bfbc18dd6d16f68009dfc6c" kind="function"><name>XLoader_GetClientLibVersion</name></member>
+    <member refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" kind="function"><name>XLoader_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xloader__client_8h" kind="file"><name>xloader_client.h</name>
     <member refid="xloader__client_8h_1a763acba7e7932449564354fc2b968da0" kind="define"><name>XLOADER_SLR_INDEX_SHIFT</name></member>
@@ -826,6 +888,9 @@
     <member refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" kind="function"><name>XLoader_CfiSelectiveReadback</name></member>
     <member refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" kind="function"><name>XLoader_InputSlrIndex</name></member>
     <member refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" kind="function"><name>XLoader_GetOptionalData</name></member>
+    <member refid="group__xloader__client__apis_1gad2ea291a5214f42c54ab14c0a394bbaa" kind="function"><name>XLoader_SetDdrAddrForRestartImage</name></member>
+    <member refid="group__xloader__client__apis_1ga4d5910ac3bfbc18dd6d16f68009dfc6c" kind="function"><name>XLoader_GetClientLibVersion</name></member>
+    <member refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" kind="function"><name>XLoader_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xloader__cmd_8c" kind="file"><name>xloader_cmd.c</name>
     <member refid="group__xloader__server__apis_1ga1d620be32c8ed4581dcca4a47e460f20" kind="function"><name>XLoader_LoadDdrCpyImg</name></member>
@@ -840,17 +905,20 @@
     <member refid="group__xloader__server__apis_1ga1811923118246087f12ecb410efa66c1" kind="function"><name>XLoader_GetExportableBuffer</name></member>
     <member refid="group__xloader__server__apis_1gaea6ead08e784ca4676f210db8caf5148" kind="function"><name>XLoader_ExtractMetaheader</name></member>
     <member refid="group__xloader__server__apis_1ga5f25b85598042a32e52b95786c69cc15" kind="function"><name>XLoader_GetATFHandOffParams</name></member>
+    <member refid="group__xloader__server__apis_1ga409f57412c01bcb8747c04c152b70fa7" kind="function"><name>XLoader_SetDdrAddrForImageRestart</name></member>
   </compound>
   <compound refid="xloader__ddr_8c" kind="file"><name>xloader_ddr.c</name>
     <member refid="group__xloader__server__apis_1ga223154cf25b1e977b59cd52e5717cf07" kind="variable"><name>DdrRequested</name></member>
     <member refid="group__xloader__server__apis_1ga9df79c2616e31ed2a2060900a4222464" kind="function"><name>XLoader_DdrInit</name></member>
     <member refid="group__xloader__server__apis_1gaa03c18623c76cf0e2f5effddd4b15415" kind="function"><name>XLoader_DdrCopy</name></member>
     <member refid="group__xloader__server__apis_1ga7a4c313af5a0caa20fa13c561ba0f04a" kind="function"><name>XLoader_DdrRelease</name></member>
+    <member refid="group__xloader__server__apis_1ga9870c3bf75d6cfbd669c535dd7f7a589" kind="function"><name>XLoader_CalibDataRestore</name></member>
   </compound>
   <compound refid="xloader__ddr_8h" kind="file"><name>xloader_ddr.h</name>
     <member refid="group__xloader__server__apis_1ga9df79c2616e31ed2a2060900a4222464" kind="function"><name>XLoader_DdrInit</name></member>
     <member refid="group__xloader__server__apis_1gaa03c18623c76cf0e2f5effddd4b15415" kind="function"><name>XLoader_DdrCopy</name></member>
     <member refid="group__xloader__server__apis_1ga7a4c313af5a0caa20fa13c561ba0f04a" kind="function"><name>XLoader_DdrRelease</name></member>
+    <member refid="group__xloader__server__apis_1ga9870c3bf75d6cfbd669c535dd7f7a589" kind="function"><name>XLoader_CalibDataRestore</name></member>
   </compound>
   <compound refid="xloader__ddr__init_8c" kind="file"><name>xloader_ddr_init.c</name>
     <member refid="group__xloader__server__apis_1ga5a50858612ed6ece8fff88a67b9f30ec" kind="function"><name>XLoader_MbPmcI2cHandshake</name></member>
@@ -882,6 +950,10 @@
     <member refid="xloader__defs_8h_1a344f5a7d03754227dcd155e53446e192" kind="define"><name>XLOADER_CMD_ID_I2C_HANDSHAKE</name></member>
     <member refid="xloader__defs_8h_1a9ee68374f4b17a023334b2ebd25a5077" kind="define"><name>XLOADER_CMD_ID_DATA_AUTH</name></member>
     <member refid="xloader__defs_8h_1a54d872b87e11572aa56efe1aa586240e" kind="define"><name>XLOADER_CFI_SEL_READBACK_ID</name></member>
+    <member refid="xloader__defs_8h_1abb3dbcb76972041c70447f40745052f0" kind="define"><name>XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID</name></member>
+    <member refid="xloader__defs_8h_1a6781626f4cd510b61bb82d7d104dee6c" kind="define"><name>XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR</name></member>
+    <member refid="xloader__defs_8h_1a916bc048b27810685fb062cdc9def9df" kind="define"><name>XLOADER_CMD_ID_CALIBDATA_RESTORE</name></member>
+    <member refid="xloader__defs_8h_1ade0996ff5dc3acb83ddf9787911738dd" kind="define"><name>XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR</name></member>
     <member refid="xloader__defs_8h_1acf8f803d138a9c88fc766505351c4fa8" kind="define"><name>XLOADER_HEADER_LEN_1</name></member>
     <member refid="xloader__defs_8h_1ad72876693f09db2dd0707ff1d3f28b98" kind="define"><name>XLOADER_HEADER_LEN_2</name></member>
     <member refid="xloader__defs_8h_1a43e61a389f49a2de1be36dc46ffc04df" kind="define"><name>XLOADER_HEADER_LEN_3</name></member>
@@ -890,6 +962,7 @@
     <member refid="xloader__defs_8h_1ac4f713ab0f0e33d1a11290869da9a793" kind="define"><name>XLOADER_HEADER_LEN_6</name></member>
     <member refid="xloader__defs_8h_1abd3e6b81339122b2fc4ecad981f1a9cd" kind="define"><name>XLOADER_ADDR_HIGH_SHIFT</name></member>
     <member refid="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" kind="define"><name>XLOADER_GET_OPT_DATA_FLAG</name></member>
+    <member refid="xloader__defs_8h_1ae8c1f05045478ffe7ef4be0401aa762d" kind="define"><name>XLOADER_IDCODE_BYPASS_FLAG</name></member>
     <member refid="xloader__defs_8h_1a9849c69818df75599877328a2c15c297" kind="define"><name>XLOADER_DATA_ID_SHIFT</name></member>
     <member refid="xloader__defs_8h_1ab56cdbed933158c3c55c888b846697e5" kind="define"><name>XLOADER_DEBUG</name></member>
     <member refid="xloader__defs_8h_1a9573907a95c55d62457f4518c4c12614" kind="define"><name>XLOADER_DEBUG_GENERAL</name></member>
@@ -919,12 +992,18 @@
     <member refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" kind="function"><name>XLoader_Sha3Kat</name></member>
     <member refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" kind="function"><name>XLoader_ClearKatOnPPDI</name></member>
     <member refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" kind="function"><name>XLoader_AesKatTest</name></member>
+    <member refid="group__xloader__kat__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga1ba46d8e0c55427374c37e0d5543113d" kind="function"><name>XLoader_EccKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
   </compound>
   <compound refid="xloader__kat_8h" kind="file"><name>xloader_kat.h</name>
     <member refid="xloader__kat_8h_1a65b65ad6b29899a52ba236cc53649540" kind="define"><name>XLOADER_PPDI_KAT_MASK</name></member>
     <member refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" kind="function"><name>XLoader_Sha3Kat</name></member>
     <member refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" kind="function"><name>XLoader_ClearKatOnPPDI</name></member>
     <member refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" kind="function"><name>XLoader_AesKatTest</name></member>
+    <member refid="group__xloader__kat__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga1ba46d8e0c55427374c37e0d5543113d" kind="function"><name>XLoader_EccKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
   </compound>
   <compound refid="xloader__mailbox_8c" kind="file"><name>xloader_mailbox.c</name>
     <member refid="group__xloader__client__apis_1gaec362edc32aeb812a5a06179372d81d1" kind="function"><name>XLoader_ProcessMailbox</name></member>
@@ -1006,6 +1085,9 @@
     <member refid="group__xloader__server__apis_1ga046afb20e36313e56a14baee4f7af1cd" kind="define"><name>XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga0f3a4259a39ba9150209331448492640" kind="function"><name>XLoader_CheckHandoffCpu</name></member>
     <member refid="group__xloader__server__apis_1gab5de0a88addbec67cede663f46b0534c" kind="function"><name>XLoader_InitTrngInstance</name></member>
+    <member refid="group__xloader__server__apis_1gaa63509cf6817bc0ec81000d2b6f3668c" kind="function"><name>XLoader_ConfigureAsuGd</name></member>
+    <member refid="group__xloader__server__apis_1gad9415e4d5029312e5e1bef584bef25ff" kind="function"><name>XLoader_ConfigureLpdGd</name></member>
+    <member refid="group__xloader__server__apis_1gac64cdb0e92b50924decc6e3ea0431e54" kind="function"><name>XLoader_ConfigurePmcGd</name></member>
     <member refid="group__xloader__server__apis_1ga8ee855df9e0b6924472583ce2ed0edf9" kind="function"><name>XLoader_GetImageInfoTbl</name></member>
     <member refid="group__xloader__server__apis_1ga3c4719cd0b80cb8626bbd934db116429" kind="function"><name>XLoader_GetPdiList</name></member>
     <member refid="group__xloader__server__apis_1ga66559b884d7cf9ebdeb4850cc1b32a30" kind="function"><name>XLoader_GetATFHandoffParamsAddr</name></member>
@@ -1029,6 +1111,7 @@
     <member refid="group__xloader__server__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
     <member refid="group__xloader__server__apis_1ga8ceadff6112bda923ba5f400913f04d0" kind="function"><name>XLoader_LoadAsuImage</name></member>
+    <member refid="group__xloader__server__apis_1ga99cb23eeabc014f2214b0abe45dfa3c9" kind="function"><name>XLoader_ConfigureGlitchDetector</name></member>
   </compound>
   <compound refid="2vp_2server_2xloader__plat_8c" kind="file"><name>2vp/server/xloader_plat.c</name>
     <member refid="group__xloader__server__apis_1gafb8da78a452c3524858aa626b6a91797" kind="define"><name>XLOADER_TCM_0</name></member>
@@ -1037,11 +1120,17 @@
     <member refid="group__xloader__server__apis_1ga690701a566a217bfc9daf80efdaa1602" kind="define"><name>XLOADER_TCMCOMB_MASK</name></member>
     <member refid="group__xloader__server__apis_1gad403a72b35f69de5a924f73a3508d354" kind="define"><name>XLOADER_TCMCOMB_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga01c00225c89279d31e9ee223214a95e4" kind="define"><name>PLM_VP1802_POR_SETTLE_TIME</name></member>
+    <member refid="group__xloader__server__apis_1ga6cce691e196dc2b9637fa0d443517afa" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX</name></member>
+    <member refid="group__xloader__server__apis_1ga57693974e707c6a48cd7fbabc088e59e" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK</name></member>
+    <member refid="group__xloader__server__apis_1ga52d1e34b4e890bfeefe1628bfd7b23bc" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE</name></member>
+    <member refid="group__xloader__server__apis_1gafd5144bf150041ae57d72cde9f8ee700" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE</name></member>
     <member refid="2vp_2server_2xloader__plat_8c_1gaf0fd61ef961fe1bba1810a832048fa03" kind="function"><name>XLoader_A72Config</name></member>
     <member refid="2vp_2server_2xloader__plat_8c_1ga71dde9ce587d2123364d06235b4ae80f" kind="function"><name>XLoader_RequestTCM</name></member>
     <member refid="2vp_2server_2xloader__plat_8c_1gafc819b8b4eeab4d928f81a9435dc6614" kind="function"><name>XLoader_CheckHandoffCpu</name></member>
     <member refid="2vp_2server_2xloader__plat_8c_1gaf02e6c64268296fd8bdbbb8a60921c99" kind="function"><name>XLoader_GetLoadAddr</name></member>
     <member refid="2vp_2server_2xloader__plat_8c_1ga5c26bcc51fa70b2692ec7448a69422a0" kind="function"><name>XLoader_DumpDdrmcRegisters</name></member>
+    <member refid="2vp_2server_2xloader__plat_8c_1gab5de0a88addbec67cede663f46b0534c" kind="function"><name>XLoader_InitTrngInstance</name></member>
+    <member refid="group__xloader__server__apis_1ga04befe9c1a6316307f00cd64d0594273" kind="function"><name>XLoader_LogMeasurementModuleStatus</name></member>
     <member refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kind="function"><name>XLoader_UpdateDataMeasurement</name></member>
     <member refid="group__xloader__server__apis_1ga8ee855df9e0b6924472583ce2ed0edf9" kind="function"><name>XLoader_GetImageInfoTbl</name></member>
     <member refid="group__xloader__server__apis_1ga3c4719cd0b80cb8626bbd934db116429" kind="function"><name>XLoader_GetPdiList</name></member>
@@ -1050,6 +1139,7 @@
     <member refid="group__xloader__server__apis_1gabdd3f08598453e93f5b6ce59411c1824" kind="function"><name>XLoader_StartImage</name></member>
     <member refid="group__xloader__server__apis_1ga5ac253b7c53e277edd095f79563590c4" kind="function"><name>XLoader_SecureConfigMeasurement</name></member>
     <member refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" kind="function"><name>XLoader_MeasureNLoad</name></member>
+    <member refid="group__xloader__server__apis_1ga39e3983708ba469e91b85a555434f61e" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
     <member refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" kind="function"><name>XLoader_DataMeasurement</name></member>
     <member refid="group__xloader__server__apis_1ga0b1966d6afb00e55785154bac01c8228" kind="function"><name>XLoader_SetATFHandoffParameters</name></member>
     <member refid="group__xloader__server__apis_1ga3c6d50618fcc0ebd51c6790069b5c5cd" kind="function"><name>XLoader_SetJtagTapToReset</name></member>
@@ -1060,6 +1150,7 @@
     <member refid="group__xloader__server__apis_1ga99e1b8db2c77863361f3d8802cff6d8b" kind="function"><name>XLoader_ProcessDeferredError</name></member>
     <member refid="group__xloader__server__apis_1ga95eeb47f59afe0b42f06502ee0bd39f9" kind="function"><name>XLoader_PerformInternalPOR</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
+    <member refid="group__xloader__server__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="group__xloader__server__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
   </compound>
   <compound refid="2vp__p_2server_2xloader__plat_8c" kind="file"><name>2vp_p/server/xloader_plat.c</name>
@@ -1070,6 +1161,10 @@
     <member refid="group__xloader__server__apis_1gad403a72b35f69de5a924f73a3508d354" kind="define"><name>XLOADER_TCMCOMB_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga8885a14f6729baadfbbbbdd8e6b14cbf" kind="define"><name>XLOADER_TRNG_DEVICE_ID</name></member>
     <member refid="group__xloader__server__apis_1ga01c00225c89279d31e9ee223214a95e4" kind="define"><name>PLM_VP1802_POR_SETTLE_TIME</name></member>
+    <member refid="group__xloader__server__apis_1ga6cce691e196dc2b9637fa0d443517afa" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX</name></member>
+    <member refid="group__xloader__server__apis_1ga57693974e707c6a48cd7fbabc088e59e" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK</name></member>
+    <member refid="group__xloader__server__apis_1ga52d1e34b4e890bfeefe1628bfd7b23bc" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE</name></member>
+    <member refid="group__xloader__server__apis_1gafd5144bf150041ae57d72cde9f8ee700" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE</name></member>
     <member refid="2vp__p_2server_2xloader__plat_8c_1gaf0fd61ef961fe1bba1810a832048fa03" kind="function"><name>XLoader_A72Config</name></member>
     <member refid="2vp__p_2server_2xloader__plat_8c_1ga71dde9ce587d2123364d06235b4ae80f" kind="function"><name>XLoader_RequestTCM</name></member>
     <member refid="2vp__p_2server_2xloader__plat_8c_1gafc819b8b4eeab4d928f81a9435dc6614" kind="function"><name>XLoader_CheckHandoffCpu</name></member>
@@ -1094,6 +1189,8 @@
     <member refid="group__xloader__server__apis_1ga95eeb47f59afe0b42f06502ee0bd39f9" kind="function"><name>XLoader_PerformInternalPOR</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
     <member refid="group__xloader__server__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
+    <member refid="group__xloader__server__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__server__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
   </compound>
   <compound refid="net_2server_2xloader__plat_8c" kind="file"><name>net/server/xloader_plat.c</name>
     <member refid="group__xloader__server__apis_1ga4b029f8eb41a438e0a2851c15a0055a0" kind="define"><name>XLOADER_IMAGE_INFO_VERSION</name></member>
@@ -1234,6 +1331,19 @@
     <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba60be37c37f4d4b324de92648f56647bf" kind="enumvalue"><name>XLOADER_ERR_I2C_BUS_BUSY</name></member>
     <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55bac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
     <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55bac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55bae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55badfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55baa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55babf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55ba4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="server_2xloader__plat_8h_1a06fc87d81c62e9abb8790b6e5713c55bac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
     <member refid="server_2xloader__plat_8h_1adf764cbdea00d65edcd07bb9953ad2b7" kind="enum"><name>@1</name></member>
     <member refid="server_2xloader__plat_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8aa39b8dead2ded3450c3946bd1024d6" kind="enumvalue"><name>XLOADER_IMAGE_NOT_AUTHENTICATED</name></member>
     <member refid="server_2xloader__plat_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9d8f32f3fbd6de764566a83fd63c2ff7" kind="enumvalue"><name>XLOADER_IMAGE_FULL_AUTHENTICATED</name></member>
@@ -1312,6 +1422,16 @@
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1ab05afaed03bdef7d4b548d58d5882698" kind="define"><name>XLOADER_PMC_TAP_LOCK_ADDR</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a65339b71b7d3b6aa5d09faa19ae3eda4" kind="define"><name>XLOADER_PMC_TAP_LOCK_VAL</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a2557fa7faf632e7bdf46dcc1526089be" kind="define"><name>XLOADER_PMC_TAP_UNLOCK_VAL</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a7d421d905be523714cad2e39d0d086bc" kind="define"><name>XLOADER_RST_ASU_GD_ASSERT_VAL</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1afebdf4ac34f0d45dab59a7469ed5c1f1" kind="define"><name>XLOADER_RST_ASU_GD_RELEASE_VAL</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1af3e376f254fda2661ccbcd909014c349" kind="define"><name>XLOADER_RST_ASU_GD_RMW_MASK</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a06a62da32246ff4efe69b826d8c3a28f" kind="define"><name>XLOADER_RST_LPD_GD_RMW_MASK</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1ae3dcdc6c1900bba63673275b3291f59a" kind="define"><name>XLOADER_RST_LPD_GD_ASSERT_VAL</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a1ca239fa1b8e76513eda2caac3dbff2c" kind="define"><name>XLOADER_RST_LPD_GD_RELEASE_VAL</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a94f7e86f6ebede3b0734aecf1ee458d1" kind="define"><name>XLOADER_GD_VAL_SEL_RMW_MASK</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a1c4c7d0becb4380554ab219be7d1c987" kind="define"><name>XLOADER_GD_COMP_SEL_RMW_MASK</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a590c06312f390552d46a0a3dc909b31c" kind="define"><name>XLOADER_GD_DEL_SEL_RMW_MASK</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1aa9d0424a7b44dcb5415d725c999c888a" kind="define"><name>XLOADER_GD_SPARE_SEL_RMW_MASK</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a4403f6d235119bd4078254da5fe4b71d" kind="define"><name>XLOADER_GET_PDISRC_INFO</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5" kind="enum"><name>@2</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ab95acdc21ce4db0bd63047ffdf920bf1" kind="enumvalue"><name>XLOADER_ERR_FAILURE</name></member>
@@ -1364,11 +1484,41 @@
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a2663b0dca759e1d11b4b1856e287e71e" kind="enumvalue"><name>XLOADER_ERR_ASU_FW_NOT_FOUND</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5adfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5aa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5abf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5af76a9307dd97fbf0348f51b59e4ec85a" kind="enumvalue"><name>XLOADER_ERR_INVALID_JTAG_OPERATION</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a83c4396c2addb02e462194a3675ddcea" kind="enumvalue"><name>XLOADER_ERR_DDR_DEVICE_ID</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a884fb6887a49557dc740784b436e3a01" kind="enumvalue"><name>XLOADER_ERR_PCOMPLETE_NOT_DONE</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a3887a56ded4ed9f48e07ac5ee76cc749" kind="enumvalue"><name>XLOADER_ERR_MEMSET_UFS_BOOT_FILE</name></member>
-    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5afc1ad523f0e79e62b283dea21de9d74f" kind="enumvalue"><name>XLOADER_ERR_I2C_MASTER_DEVID_READ</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5afbbdc65fdac14c1419644ed685d16032" kind="enumvalue"><name>XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a7101c8cec982000cfedeea7734cbd63d" kind="enumvalue"><name>XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a6d6e0cd35ee76fe37d738f2d5645c806" kind="enumvalue"><name>XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5adaae4c9d02c2e084f8f9a7451873e9de" kind="enumvalue"><name>XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a084c59681feeb1774ba30eb82dcf40b4" kind="enumvalue"><name>XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4ffb13e3e208a1bd6c8a417ea265127e" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a223035805c03c45a97597c1d1260ca4a" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5aff597bf1e481323cdaefc77c5b87d415" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_RESET_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ad016af801e4ff284ced9c8323bcb48d7" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ab7408dc68d7a48a32b4aa684d1f0bd4a" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4c38bf9977b15fc5635a85d42848413f" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ae8ca3f541b8293b620f8cebaa1b98372" kind="enumvalue"><name>XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ac3d5b7653b31eb3a23423300d3d4ca58" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_RESET_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ada69d587e0674d43d2d264d5d1778153" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a9ca94b7a53a7cbeb9fd91dad5a944526" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a612670c9186c3997aa3d35d7e6c098be" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a113d8877d93008c125eeff93af464c6b" kind="enumvalue"><name>XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED</name></member>
+    <member refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ab02849b95dd056d95be456c043d595f1" kind="enumvalue"><name>XLOADER_ERR_NO_VALID_TLBIN</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a715dfe0fe719d5ebd2d483687dafc738" kind="function"><name>XLoader_IsDFxApplicable</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1ae815d760cdf6ec08d1155d87e4b36e94" kind="function"><name>XLoader_IsPdiSrcSD</name></member>
     <member refid="2ve__2vm_2server_2xloader__plat_8h_1a85a54db21d52bb72170d2738d7842b76" kind="function"><name>XLoader_IsPdiSrcSD0</name></member>
@@ -1397,7 +1547,6 @@
     <member refid="group__xloader__server__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" kind="function"><name>XLoader_MeasureNLoad</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
-    <member refid="2ve__2vm_2server_2xloader__plat_8h_1abf626a793c898845cffd2e64772a6394" kind="function"><name>XLoader_GetBootHeaderIvAddr</name></member>
     <member refid="group__xloader__server__apis_1ga39e3983708ba469e91b85a555434f61e" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
   </compound>
   <compound refid="2vp_2server_2xloader__plat_8h" kind="file"><name>2vp/server/xloader_plat.h</name>
@@ -1436,10 +1585,6 @@
     <member refid="2vp_2server_2xloader__plat_8h_1a474f39d4068be77f0242a44df973ec49" kind="define"><name>XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU1</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1afa0725067458e9b23c9c28d175e9c077" kind="define"><name>XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1a80b6e74b7b1ba2239f9ff42d66db6b24" kind="define"><name>XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1a52c44b2aa324f1c51bcc8faddd3f3f90" kind="define"><name>XLOADER_MEASURE_START</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1a06ae41365bea45324b30988a11fb3810" kind="define"><name>XLOADER_MEASURE_UPDATE</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1a27cccfb3c7b604d554371c7c5b6e8ca3" kind="define"><name>XLOADER_MEASURE_FINISH</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1a29e4550c196dd134eb5b971b06987fd4" kind="define"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1a4403f6d235119bd4078254da5fe4b71d" kind="define"><name>XLOADER_GET_PDISRC_INFO</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1afedb40d72fbcf73160458d2b50146e2e" kind="define"><name>XLoader_VerifyDataAuth</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04" kind="enum"><name>@3</name></member>
@@ -1491,12 +1636,25 @@
     <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a2012645b4e22bc9d4aa39f681d342579" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSACTION</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a60be37c37f4d4b324de92648f56647bf" kind="enumvalue"><name>XLOADER_ERR_I2C_BUS_BUSY</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04ac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04afc1ad523f0e79e62b283dea21de9d74f" kind="enumvalue"><name>XLOADER_ERR_I2C_MASTER_DEVID_READ</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04ac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04ae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04adfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04aa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04abf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04a4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04ac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
+    <member refid="2vp_2server_2xloader__plat_8h_1abc6126af1d45847bc59afa0aa3216b04af76a9307dd97fbf0348f51b59e4ec85a" kind="enumvalue"><name>XLOADER_ERR_INVALID_JTAG_OPERATION</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1adc29c2ff13d900c2f185ee95427fb06c" kind="enum"><name>@4</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1adc29c2ff13d900c2f185ee95427fb06ca8aa39b8dead2ded3450c3946bd1024d6" kind="enumvalue"><name>XLOADER_IMAGE_NOT_AUTHENTICATED</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1adc29c2ff13d900c2f185ee95427fb06ca9d8f32f3fbd6de764566a83fd63c2ff7" kind="enumvalue"><name>XLOADER_IMAGE_FULL_AUTHENTICATED</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1adc29c2ff13d900c2f185ee95427fb06ca45b7e007d4eadc9e0af336a82d87e7d1" kind="enumvalue"><name>XLOADER_IMAGE_PARTIALLY_AUTHENTICATED</name></member>
-    <member refid="2vp_2server_2xloader__plat_8h_1a7e519868c6b72ecd382522753f68edd1" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1a715dfe0fe719d5ebd2d483687dafc738" kind="function"><name>XLoader_IsDFxApplicable</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1ae815d760cdf6ec08d1155d87e4b36e94" kind="function"><name>XLoader_IsPdiSrcSD</name></member>
     <member refid="2vp_2server_2xloader__plat_8h_1a85a54db21d52bb72170d2738d7842b76" kind="function"><name>XLoader_IsPdiSrcSD0</name></member>
@@ -1520,6 +1678,8 @@
     <member refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" kind="function"><name>XLoader_DataMeasurement</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
     <member refid="group__xloader__server__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
+    <member refid="group__xloader__server__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__server__apis_1ga39e3983708ba469e91b85a555434f61e" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
     <member refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kind="function"><name>XLoader_UpdateDataMeasurement</name></member>
   </compound>
   <compound refid="2vp__p_2server_2xloader__plat_8h" kind="file"><name>2vp_p/server/xloader_plat.h</name>
@@ -1561,7 +1721,7 @@
     <member refid="group__xloader__plat__apis_1ga52c44b2aa324f1c51bcc8faddd3f3f90" kind="define"><name>XLOADER_MEASURE_START</name></member>
     <member refid="group__xloader__plat__apis_1ga06ae41365bea45324b30988a11fb3810" kind="define"><name>XLOADER_MEASURE_UPDATE</name></member>
     <member refid="group__xloader__plat__apis_1ga27cccfb3c7b604d554371c7c5b6e8ca3" kind="define"><name>XLOADER_MEASURE_FINISH</name></member>
-    <member refid="group__xloader__plat__apis_1ga29e4550c196dd134eb5b971b06987fd4" kind="define"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__plat__apis_1ga9ea89e3e32477d3d1bad84419ae23769" kind="define"><name>XLOADER_MEASURE_LAST</name></member>
     <member refid="group__xloader__plat__apis_1ga4403f6d235119bd4078254da5fe4b71d" kind="define"><name>XLOADER_GET_PDISRC_INFO</name></member>
     <member refid="group__xloader__plat__apis_1gafedb40d72fbcf73160458d2b50146e2e" kind="define"><name>XLoader_VerifyDataAuth</name></member>
     <member refid="group__xloader__plat__apis_1ga61dadd085c1777f559549e05962b2c9e" kind="enum"><name>@5</name></member>
@@ -1613,7 +1773,21 @@
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea2012645b4e22bc9d4aa39f681d342579" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSACTION</name></member>
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea60be37c37f4d4b324de92648f56647bf" kind="enumvalue"><name>XLOADER_ERR_I2C_BUS_BUSY</name></member>
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
-    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eafc1ad523f0e79e62b283dea21de9d74f" kind="enumvalue"><name>XLOADER_ERR_I2C_MASTER_DEVID_READ</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eadfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eaa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eabf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eaf76a9307dd97fbf0348f51b59e4ec85a" kind="enumvalue"><name>XLOADER_ERR_INVALID_JTAG_OPERATION</name></member>
     <member refid="group__xloader__plat__apis_1ga7e519868c6b72ecd382522753f68edd1" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
     <member refid="group__xloader__plat__apis_1ga715dfe0fe719d5ebd2d483687dafc738" kind="function"><name>XLoader_IsDFxApplicable</name></member>
     <member refid="group__xloader__plat__apis_1gae815d760cdf6ec08d1155d87e4b36e94" kind="function"><name>XLoader_IsPdiSrcSD</name></member>
@@ -1621,7 +1795,6 @@
     <member refid="group__xloader__plat__apis_1ga5ac253b7c53e277edd095f79563590c4" kind="function"><name>XLoader_SecureConfigMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1gab56c01f9c63e2c9f6c7a1a234884dc24" kind="function"><name>XLoader_HdrMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1gab17e2c006c5297f10536988e704c69cb" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
-    <member refid="group__xloader__plat__apis_1ga80c4032b571aff3cc4af2996871f5887" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__plat__apis_1ga297896f5684c377e54d7ce2779552509" kind="function"><name>Xloader_SsitEoPdiSync</name></member>
     <member refid="group__xloader__plat__apis_1ga7f5d2dba94af1f4dea053add5877d1b8" kind="function"><name>XLoader_SetJtagTapToReset</name></member>
     <member refid="group__xloader__plat__apis_1ga87d4ee2a850dfbb7fdeba9e0bfd76ec4" kind="function"><name>XLoader_GetImageInfoTbl</name></member>
@@ -1638,6 +1811,8 @@
     <member refid="group__xloader__plat__apis_1gafbdd06a059cd7970791f71533c47b8d6" kind="function"><name>XLoader_DataMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
     <member refid="group__xloader__plat__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
+    <member refid="group__xloader__plat__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__plat__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__plat__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kind="function"><name>XLoader_UpdateDataMeasurement</name></member>
   </compound>
   <compound refid="net_2server_2xloader__plat_8h" kind="file"><name>net/server/xloader_plat.h</name>
@@ -1731,6 +1906,19 @@
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635ac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635aa58fd4a03b3f75d7ed8a7949cc2491b0" kind="enumvalue"><name>XLOADER_ERR_PSM_FW_NOT_FOUND</name></member>
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635ac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635ae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635adfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635aa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635abf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635ac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635af76a9307dd97fbf0348f51b59e4ec85a" kind="enumvalue"><name>XLOADER_ERR_INVALID_JTAG_OPERATION</name></member>
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a83c4396c2addb02e462194a3675ddcea" kind="enumvalue"><name>XLOADER_ERR_DDR_DEVICE_ID</name></member>
     <member refid="net_2server_2xloader__plat_8h_1a726ca809ffd3d67ab4b8476646f26635a884fb6887a49557dc740784b436e3a01" kind="enumvalue"><name>XLOADER_ERR_PCOMPLETE_NOT_DONE</name></member>
@@ -1773,6 +1961,7 @@
     <member refid="group__xloader__client__apis_1ga7a25bbff08f68862ab8bc39e15f08fd4" kind="define"><name>XLOADER_WORD_LEN_SHIFT</name></member>
     <member refid="group__xloader__client__apis_1ga04ec63dddbf3945d73f5b13ae83c626b" kind="define"><name>XLOADER_IHT_SIZE</name></member>
     <member refid="group__xloader__client__apis_1gada006ae035089b3c6de79991719c0873" kind="define"><name>XLOADER_IH_MAX_PRTNS</name></member>
+    <member refid="group__xloader__client__apis_1gaa337398fab98b0b698f9923e2621f22d" kind="define"><name>XLOADER_IH_MAX_IMGS</name></member>
     <member refid="group__xloader__client__apis_1ga33b508569cdb359f4dc551ad7b3a4520" kind="define"><name>XLOADER_IH_SIZE</name></member>
     <member refid="group__xloader__client__apis_1ga866e549f88755df02ebd1810de626204" kind="define"><name>XLOADER_PHT_SIZE</name></member>
     <member refid="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" kind="define"><name>XLOADER_SECURE_CHUNK_SIZE</name></member>
@@ -1782,6 +1971,17 @@
     <member refid="group__xloader__client__apis_1gaea1ffd5351aa7bd7cc5b005327c085c7" kind="define"><name>XLOADER_HB0_INDEX_2_PMC_DATA</name></member>
     <member refid="group__xloader__client__apis_1gae63c90e760476e6b7515d603c3c74145" kind="define"><name>XLOADER_HB0_INDEX_3_HB1</name></member>
     <member refid="group__xloader__client__apis_1gad1c8437b1bd29a933eb6216578c48fc7" kind="define"><name>XLOADER_HB1_INDEX_0_MH</name></member>
+    <member refid="group__xloader__client__apis_1gaf93036bc269814bac54f8923d55d5f12" kind="define"><name>XLOADER_REVOCATION_ID_MAX</name></member>
+    <member refid="group__xloader__client__apis_1ga1b172f48cb0c1a221cf6000d05e694d0" kind="define"><name>XLOADER_REVOCATION_ROW_SHIFT</name></member>
+    <member refid="group__xloader__client__apis_1ga6cf6741efb4cee5f0e1a465c07a5f467" kind="define"><name>XLOADER_REVOCATION_BIT_MASK</name></member>
+    <member refid="group__xloader__client__apis_1gaec6ef8745ec9a311c1f358cd3e90e9e1" kind="define"><name>XLOADER_EFUSE_REVOCATION_ID_0_ADDR</name></member>
+    <member refid="group__xloader__client__apis_1ga08baf0c3ea32e964cc3e0c1997358b09" kind="define"><name>XLOADER_RTCFG_BASEADDR</name></member>
+    <member refid="group__xloader__client__apis_1gaa25f084133da8d0f0099eefa86236871" kind="define"><name>XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR</name></member>
+    <member refid="group__xloader__client__apis_1gadaeae5328e042077515653dff8983cdc" kind="define"><name>XLOADER_RTCFG_SECURESTATE_AHWROT</name></member>
+    <member refid="group__xloader__client__apis_1ga9bf8cd1c6d3eb1eee378cbfef0417891" kind="define"><name>XLOADER_RTCFG_SECURESTATE_EMUL_AHWROT</name></member>
+    <member refid="group__xloader__client__apis_1gab19940fafa2cca389dfcfa986102bca2" kind="define"><name>XLOADER_RTCFG_SECURESTATE_NONSECURE</name></member>
+    <member refid="group__xloader__client__apis_1ga5946614664cc0c526ebe121ab2ac9c6a" kind="define"><name>XLOADER_REVOKEID_OUTOFRANGE_ERR</name></member>
+    <member refid="group__xloader__client__apis_1ga3b0e267f7ac547ec411cf018abe9fd0a" kind="define"><name>XLOADER_REVOKEID_REVOKED_ERR</name></member>
     <member refid="group__xloader__client__apis_1ga76d5c66cac1c3c2570ec13ff5ecaa2e7" kind="variable"><name>SecureClientInstance</name></member>
     <member refid="group__xloader__client__apis_1gaa368e4e92e996a9d06b829558d1b2b38" kind="variable"><name>Sha3Hash</name></member>
     <member refid="group__xloader__client__apis_1ga1ff66969db3f61e078385ffdf9161ab8" kind="variable"><name>NextHash</name></member>
@@ -1794,9 +1994,21 @@
     <member refid="group__xloader__client__apis_1ga17671ee1b440cc2699ca26373826ea8a" kind="function"><name>XLoader_ValidateMhAndPrtnAuth</name></member>
     <member refid="group__xloader__client__apis_1ga5a8d7994c3fee37fd0258525d1bd5091" kind="function"><name>XLoader_VerifyPrtnAuth</name></member>
     <member refid="group__xloader__client__apis_1ga912014ed7f0e456a10ccf0c4ae41baad" kind="function"><name>XLoader_VerifyAuthHashBlock</name></member>
+    <member refid="group__xloader__client__apis_1ga009316c8420fcb02ff68df4647a39dd8" kind="function"><name>XLoader_ReadRtcfgSecureState</name></member>
+    <member refid="group__xloader__client__apis_1gafefc0664ab259451a4820bad79880453" kind="function"><name>XLoader_IsRtcfgSecureStateConsistent</name></member>
+    <member refid="group__xloader__client__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" kind="function"><name>XLoader_VerifyRevokeId</name></member>
+    <member refid="group__xloader__client__apis_1ga97465ee7b7e3aaf3029176234e234dde" kind="function"><name>XLoader_ValidateRevokeIds</name></member>
     <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
     <member refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kind="function"><name>XLoader_ValidatePdiAuth</name></member>
+    <member refid="group__xloader__client__apis_1ga3b72ed1bce0c661b7082f291e11fde08" kind="function"><name>XLoader_ConfigureGlitchDetector</name></member>
+    <member refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" kind="function"><name>XLoader_GetTlbinLoadAddr</name></member>
+  </compound>
+  <compound refid="versal__2vp_2client_2xloader__plat__client_8c" kind="file"><name>versal_2vp/client/xloader_plat_client.c</name>
+    <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+  </compound>
+  <compound refid="versal__2vp__p_2client_2xloader__plat__client_8c" kind="file"><name>versal_2vp_p/client/xloader_plat_client.c</name>
+    <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
   </compound>
   <compound refid="versal__net_2client_2xloader__plat__client_8c" kind="file"><name>versal_net/client/xloader_plat_client.c</name>
     <member refid="group__xloader__client__apis_1gafdae4141f4f8a677bb78c5aada121372" kind="define"><name>XLOADER_SMAP_WD_PATTERN_SIZE</name></member>
@@ -1841,17 +2053,27 @@
     <member refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kind="function"><name>XLoader_ValidatePdiAuth</name></member>
   </compound>
   <compound refid="versal__2ve__2vm_2client_2xloader__plat__client_8h" kind="file"><name>versal_2ve_2vm/client/xloader_plat_client.h</name>
-    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" kind="define"><name>XLOADER_PDI_SRC_DDR</name></member>
-    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a8bf2f25bb888f10360209991f0fa866a" kind="define"><name>XLOADER_PDI_SRC_IS</name></member>
     <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" kind="define"><name>XLOADER_PDI_TYPE_FULL</name></member>
     <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a32a5a2918cb9e891e72c3501ea804e6c" kind="define"><name>XLOADER_PDI_TYPE_PARTIAL</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1aa762dbe29109f1f8392f117489dab15d" kind="define"><name>XLOADER_GD_CFG_LEN_1</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a6d5fc81c963b37af26ed3c8a53326dad" kind="define"><name>XLOADER_GD_CFG_LEN_2</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1ac529057b7a672e7c8cc5b841d3214672" kind="define"><name>XLOADER_GD_CFG_LEN_3</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a592bdb45ab1bc388aecb59ac961cf037" kind="define"><name>XLOADER_GD_CFG_LEN_4</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a57af13b77945662d6dc35e10d9812df1" kind="define"><name>XLOADER_GD_CFG_LEN_5</name></member>
+    <member refid="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a17ee83994393c4ceb224be232da3022a" kind="function"><name>XLoader_PackGlitchDetectorCfg</name></member>
     <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
     <member refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kind="function"><name>XLoader_ValidatePdiAuth</name></member>
+    <member refid="group__xloader__client__apis_1ga3b72ed1bce0c661b7082f291e11fde08" kind="function"><name>XLoader_ConfigureGlitchDetector</name></member>
+    <member refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" kind="function"><name>XLoader_GetTlbinLoadAddr</name></member>
+  </compound>
+  <compound refid="versal__2vp_2client_2xloader__plat__client_8h" kind="file"><name>versal_2vp/client/xloader_plat_client.h</name>
+    <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+  </compound>
+  <compound refid="versal__2vp__p_2client_2xloader__plat__client_8h" kind="file"><name>versal_2vp_p/client/xloader_plat_client.h</name>
+    <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
   </compound>
   <compound refid="versal__net_2client_2xloader__plat__client_8h" kind="file"><name>versal_net/client/xloader_plat_client.h</name>
-    <member refid="versal__net_2client_2xloader__plat__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" kind="define"><name>XLOADER_PDI_SRC_DDR</name></member>
-    <member refid="versal__net_2client_2xloader__plat__client_8h_1a8bf2f25bb888f10360209991f0fa866a" kind="define"><name>XLOADER_PDI_SRC_IS</name></member>
     <member refid="versal__net_2client_2xloader__plat__client_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" kind="define"><name>XLOADER_PDI_TYPE_FULL</name></member>
     <member refid="versal__net_2client_2xloader__plat__client_8h_1a32a5a2918cb9e891e72c3501ea804e6c" kind="define"><name>XLOADER_PDI_TYPE_PARTIAL</name></member>
     <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
@@ -1859,11 +2081,8 @@
     <member refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kind="function"><name>XLoader_ValidatePdiAuth</name></member>
   </compound>
   <compound refid="server_2xloader__plat__secure_8c" kind="file"><name>server/xloader_plat_secure.c</name>
-    <member refid="group__xloader__server__apis_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
   </compound>
   <compound refid="2ve__2vm_2server_2xloader__plat__secure_8c" kind="file"><name>2ve_2vm/server/xloader_plat_secure.c</name>
@@ -1871,13 +2090,11 @@
     <member refid="group__xloader__server__apis_1ga539d826d2600671de8f64468dce86cb9" kind="define"><name>XLOADER_BBRAM_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1gad91eeacdb8e0914b1e96182c942d6f95" kind="define"><name>XLOADER_BH_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1ga869d714a2f8dc2f3a0029983b9c3e26c" kind="define"><name>XLOADER_INVALID_OBFUS_KEY</name></member>
-    <member refid="group__xloader__server__apis_1gabc69f0f8de3d7de9d1148a2624cebb24" kind="function"><name>XLoader_RsaPssSignVeirfyKat</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
     <member refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
     <member refid="group__xloader__server__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
-    <member refid="2ve__2vm_2server_2xloader__plat__secure_8c_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
+    <member refid="group__xloader__server__apis_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gab224d645e2c390ff06c8aec01babcae0" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
   </compound>
@@ -1885,7 +2102,6 @@
     <member refid="2vp_2server_2xloader__plat__secure_8c_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
     <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
   </compound>
@@ -1897,7 +2113,8 @@
     <member refid="2vp__p_2server_2xloader__plat__secure_8c_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
+    <member refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
+    <member refid="group__xloader__server__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
     <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
   </compound>
@@ -1905,11 +2122,9 @@
     <member refid="group__xloader__server__apis_1ga047cb86e4b5bd655438c68ad0979377e" kind="define"><name>XLOADER_EFUSE_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1ga539d826d2600671de8f64468dce86cb9" kind="define"><name>XLOADER_BBRAM_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1gad91eeacdb8e0914b1e96182c942d6f95" kind="define"><name>XLOADER_BH_OBFUS_KEY</name></member>
-    <member refid="net_2server_2xloader__plat__secure_8c_1gabc69f0f8de3d7de9d1148a2624cebb24" kind="function"><name>XLoader_RsaPssSignVeirfyKat</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
     <member refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
     <member refid="group__xloader__server__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
     <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
@@ -2101,6 +2316,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -2147,10 +2363,9 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" kind="enumvalue"><name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" kind="enumvalue"><name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name></member>
     <member refid="group__xloader__apis_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
   </compound>
   <compound refid="2ve__2vm_2server_2xloader__plat__secure_8h" kind="file"><name>2ve_2vm/server/xloader_plat_secure.h</name>
     <member refid="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" kind="define"><name>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK</name></member>
@@ -2355,6 +2570,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -2406,8 +2622,7 @@
     <member refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
     <member refid="group__xloader__apis_1ga647a935c43dcde43b8f4c308764fbd6d" kind="function"><name>XLoader_UpdateCfgLimitCount</name></member>
     <member refid="group__xloader__apis_1gacab6dc67b284d4e40675a3a2db2dae2b" kind="function"><name>XLoader_CheckAndUpdateCfgLimit</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
   </compound>
   <compound refid="2vp_2server_2xloader__plat__secure_8h" kind="file"><name>2vp/server/xloader_plat_secure.h</name>
     <member refid="group__xloader__apis_1ga7d8acff2a4081c51964f881ef7aa89a4" kind="define"><name>XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK</name></member>
@@ -2596,6 +2811,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -2644,10 +2860,13 @@
     <member refid="2vp_2server_2xloader__plat__secure_8h_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
     <member refid="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
   </compound>
   <compound refid="2vp__p_2server_2xloader__plat__secure_8h" kind="file"><name>2vp_p/server/xloader_plat_secure.h</name>
+    <member refid="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" kind="define"><name>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK</name></member>
+    <member refid="group__xloader__apis_1ga23eb31b043f46073edbb1cbfdde09b2c" kind="define"><name>XLOADER_JTAG_SEC_GATE_CLOSE</name></member>
+    <member refid="group__xloader__apis_1ga55f22124092b10460be08e5d91a908a0" kind="define"><name>XLOADER_JTAG_SEC_GATE_OPEN</name></member>
+    <member refid="group__xloader__apis_1gaa899516ff2dd76c1c6dbcc30d8ecc57f" kind="define"><name>XLOADER_DEVICE_STATE_POLL_INTERVAL</name></member>
     <member refid="group__xloader__apis_1ga26e69763ed64ad78255b2e5e6a84f0f8" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD</name></member>
     <member refid="group__xloader__apis_1gab5fe27ace34e536b9f4d44bd3bc3011e" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD</name></member>
     <member refid="group__xloader__apis_1ga713325eea03027677b818544a3ac8dbe" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK5_INVLD</name></member>
@@ -2840,6 +3059,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -2885,11 +3105,11 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" kind="enumvalue"><name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" kind="enumvalue"><name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" kind="enumvalue"><name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name></member>
-    <member refid="2vp__p_2server_2xloader__plat__secure_8h_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
     <member refid="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
+    <member refid="group__xloader__apis_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
+    <member refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
   </compound>
   <compound refid="net_2server_2xloader__plat__secure_8h" kind="file"><name>net/server/xloader_plat_secure.h</name>
     <member refid="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" kind="define"><name>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK</name></member>
@@ -3084,6 +3304,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -3133,8 +3354,15 @@
     <member refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
     <member refid="group__xloader__apis_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
     <member refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
+  </compound>
+  <compound refid="xloader__ppk_8c" kind="file"><name>xloader_ppk.c</name>
+    <member refid="group__xloader__server__apis_1ga9c0c51a3ffa9c7f1ff62383e012f711b" kind="function"><name>XLoader_GetPpkInvalidMaskAndOffset</name></member>
+    <member refid="group__xloader__server__apis_1gac8155c97621aa3406f16fd58b37de8c3" kind="function"><name>XLoader_PpkCompare</name></member>
+    <member refid="group__xloader__server__apis_1gae1562a12435f66d13b602ecb4e27056e" kind="function"><name>XLoader_ValidatePpkHash</name></member>
+    <member refid="group__xloader__server__apis_1ga8a6f6cd0f991c82546623ef84916bd90" kind="function"><name>XLoader_IsPpkRevoked</name></member>
+    <member refid="group__xloader__server__apis_1ga13780db027e3ab429eef9c4768b1aed1" kind="function"><name>XLoader_IsPpkValid</name></member>
+    <member refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" kind="function"><name>XLoader_PpkVerify</name></member>
   </compound>
   <compound refid="xloader__prtn__load_8c" kind="file"><name>xloader_prtn_load.c</name>
     <member refid="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" kind="define"><name>XLOADER_SUCCESS_NOT_PRTN_OWNER</name></member>
@@ -3184,7 +3412,6 @@
     <member refid="xloader__secure_8h_1aa233d1265392f76e260ac09c0d16c8f8" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_OFFSET</name></member>
     <member refid="xloader__secure_8h_1ac1a5aaf74405026b6bae569bc422bace" kind="define"><name>XLOADER_BBRAM_CL_INCREMENT_COUNT</name></member>
     <member refid="xloader__secure_8h_1a4bad464b42af8b211d6354872c0cb265" kind="define"><name>XLOADER_BBRAM_CL_DECREMENT_COUNT</name></member>
-    <member refid="xloader__secure_8h_1aa0c2619b66b85993f7396174f8344adb" kind="define"><name>XLOADER_ENTRY_SIZE_IN_HASHBLOCK</name></member>
     <member refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" kind="function"><name>XLoader_SecureInit</name></member>
     <member refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" kind="function"><name>XLoader_SecureCopy</name></member>
     <member refid="group__xloader__server__apis_1ga9171035e129091fbaddbc27756381f76" kind="function"><name>XLoader_SecureClear</name></member>
@@ -3208,6 +3435,11 @@
   </compound>
   <compound refid="xloader__usb_8h" kind="file"><name>xloader_usb.h</name>
   </compound>
+  <compound refid="xloader__ver_8h" kind="file"><name>xloader_ver.h</name>
+    <member refid="xloader__ver_8h_1acb216e2cc97b8f582ea94634e6b07600" kind="define"><name>XLOADER_MODULE_MAJOR_VERSION</name></member>
+    <member refid="xloader__ver_8h_1a71779eaba525051131f41ae49c5f295e" kind="define"><name>XLOADER_MODULE_MINOR_VERSION</name></member>
+    <member refid="xloader__ver_8h_1a3fbdae1620bf00e87a303962a331ad28" kind="function"><name>XLoader_GetLibVersion</name></member>
+  </compound>
   <compound refid="group__xloader__client__apis" kind="group"><name>xloader_client_apis</name>
     <member refid="group__xloader__client__apis_1ga76d5c66cac1c3c2570ec13ff5ecaa2e7" kind="variable"><name>SecureClientInstance</name></member>
     <member refid="group__xloader__client__apis_1gaa368e4e92e996a9d06b829558d1b2b38" kind="variable"><name>Sha3Hash</name></member>
@@ -3230,6 +3462,9 @@
     <member refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" kind="function"><name>XLoader_CfiSelectiveReadback</name></member>
     <member refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" kind="function"><name>XLoader_InputSlrIndex</name></member>
     <member refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" kind="function"><name>XLoader_GetOptionalData</name></member>
+    <member refid="group__xloader__client__apis_1gad2ea291a5214f42c54ab14c0a394bbaa" kind="function"><name>XLoader_SetDdrAddrForRestartImage</name></member>
+    <member refid="group__xloader__client__apis_1ga4d5910ac3bfbc18dd6d16f68009dfc6c" kind="function"><name>XLoader_GetClientLibVersion</name></member>
+    <member refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" kind="function"><name>XLoader_GetServerLibInfo</name></member>
     <member refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kind="function"><name>XLoader_SendRequest</name></member>
     <member refid="group__xloader__client__apis_1gaec362edc32aeb812a5a06179372d81d1" kind="function"><name>XLoader_ProcessMailbox</name></member>
     <member refid="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" kind="function"><name>XLoader_ClientInit</name></member>
@@ -3239,9 +3474,15 @@
     <member refid="group__xloader__client__apis_1ga17671ee1b440cc2699ca26373826ea8a" kind="function"><name>XLoader_ValidateMhAndPrtnAuth</name></member>
     <member refid="group__xloader__client__apis_1ga5a8d7994c3fee37fd0258525d1bd5091" kind="function"><name>XLoader_VerifyPrtnAuth</name></member>
     <member refid="group__xloader__client__apis_1ga912014ed7f0e456a10ccf0c4ae41baad" kind="function"><name>XLoader_VerifyAuthHashBlock</name></member>
+    <member refid="group__xloader__client__apis_1ga009316c8420fcb02ff68df4647a39dd8" kind="function"><name>XLoader_ReadRtcfgSecureState</name></member>
+    <member refid="group__xloader__client__apis_1gafefc0664ab259451a4820bad79880453" kind="function"><name>XLoader_IsRtcfgSecureStateConsistent</name></member>
+    <member refid="group__xloader__client__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" kind="function"><name>XLoader_VerifyRevokeId</name></member>
+    <member refid="group__xloader__client__apis_1ga97465ee7b7e3aaf3029176234e234dde" kind="function"><name>XLoader_ValidateRevokeIds</name></member>
     <member refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kind="function"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
     <member refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kind="function"><name>XLoader_ValidatePdiAuth</name></member>
+    <member refid="group__xloader__client__apis_1ga3b72ed1bce0c661b7082f291e11fde08" kind="function"><name>XLoader_ConfigureGlitchDetector</name></member>
+    <member refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" kind="function"><name>XLoader_GetTlbinLoadAddr</name></member>
     <member refid="group__xloader__client__apis_1ga63c3fa02e1a1497e488099939893bc92" kind="function"><name>XLoader_VerifyPrtnAuth</name></member>
     <member refid="group__xloader__client__apis_1ga89324bc30f2d1f9371bf9952c55d414e" kind="function"><name>XLoader_VerifyDataAuth</name></member>
     <member refid="group__xloader__client__apis_1ga5c0df5eb5bb51432a51dbdd333d671fb" kind="function"><name>XLoader_ValidateBhAndPlmNPmcCdoAuth</name></member>
@@ -3265,6 +3506,7 @@
     <member refid="group__xloader__client__apis_1ga7a25bbff08f68862ab8bc39e15f08fd4" kind="define"><name>XLOADER_WORD_LEN_SHIFT</name></member>
     <member refid="group__xloader__client__apis_1ga04ec63dddbf3945d73f5b13ae83c626b" kind="define"><name>XLOADER_IHT_SIZE</name></member>
     <member refid="group__xloader__client__apis_1gada006ae035089b3c6de79991719c0873" kind="define"><name>XLOADER_IH_MAX_PRTNS</name></member>
+    <member refid="group__xloader__client__apis_1gaa337398fab98b0b698f9923e2621f22d" kind="define"><name>XLOADER_IH_MAX_IMGS</name></member>
     <member refid="group__xloader__client__apis_1ga33b508569cdb359f4dc551ad7b3a4520" kind="define"><name>XLOADER_IH_SIZE</name></member>
     <member refid="group__xloader__client__apis_1ga866e549f88755df02ebd1810de626204" kind="define"><name>XLOADER_PHT_SIZE</name></member>
     <member refid="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" kind="define"><name>XLOADER_SECURE_CHUNK_SIZE</name></member>
@@ -3274,6 +3516,17 @@
     <member refid="group__xloader__client__apis_1gaea1ffd5351aa7bd7cc5b005327c085c7" kind="define"><name>XLOADER_HB0_INDEX_2_PMC_DATA</name></member>
     <member refid="group__xloader__client__apis_1gae63c90e760476e6b7515d603c3c74145" kind="define"><name>XLOADER_HB0_INDEX_3_HB1</name></member>
     <member refid="group__xloader__client__apis_1gad1c8437b1bd29a933eb6216578c48fc7" kind="define"><name>XLOADER_HB1_INDEX_0_MH</name></member>
+    <member refid="group__xloader__client__apis_1gaf93036bc269814bac54f8923d55d5f12" kind="define"><name>XLOADER_REVOCATION_ID_MAX</name></member>
+    <member refid="group__xloader__client__apis_1ga1b172f48cb0c1a221cf6000d05e694d0" kind="define"><name>XLOADER_REVOCATION_ROW_SHIFT</name></member>
+    <member refid="group__xloader__client__apis_1ga6cf6741efb4cee5f0e1a465c07a5f467" kind="define"><name>XLOADER_REVOCATION_BIT_MASK</name></member>
+    <member refid="group__xloader__client__apis_1gaec6ef8745ec9a311c1f358cd3e90e9e1" kind="define"><name>XLOADER_EFUSE_REVOCATION_ID_0_ADDR</name></member>
+    <member refid="group__xloader__client__apis_1ga08baf0c3ea32e964cc3e0c1997358b09" kind="define"><name>XLOADER_RTCFG_BASEADDR</name></member>
+    <member refid="group__xloader__client__apis_1gaa25f084133da8d0f0099eefa86236871" kind="define"><name>XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR</name></member>
+    <member refid="group__xloader__client__apis_1gadaeae5328e042077515653dff8983cdc" kind="define"><name>XLOADER_RTCFG_SECURESTATE_AHWROT</name></member>
+    <member refid="group__xloader__client__apis_1ga9bf8cd1c6d3eb1eee378cbfef0417891" kind="define"><name>XLOADER_RTCFG_SECURESTATE_EMUL_AHWROT</name></member>
+    <member refid="group__xloader__client__apis_1gab19940fafa2cca389dfcfa986102bca2" kind="define"><name>XLOADER_RTCFG_SECURESTATE_NONSECURE</name></member>
+    <member refid="group__xloader__client__apis_1ga5946614664cc0c526ebe121ab2ac9c6a" kind="define"><name>XLOADER_REVOKEID_OUTOFRANGE_ERR</name></member>
+    <member refid="group__xloader__client__apis_1ga3b0e267f7ac547ec411cf018abe9fd0a" kind="define"><name>XLOADER_REVOKEID_REVOKED_ERR</name></member>
     <member refid="group__xloader__client__apis_1gafdae4141f4f8a677bb78c5aada121372" kind="define"><name>XLOADER_SMAP_WD_PATTERN_SIZE</name></member>
     <member refid="group__xloader__client__apis_1gaf27661c555a6b2443ee26f1d09d74021" kind="define"><name>XLOADER_BH_SIZE_WO_PADDING</name></member>
     <member refid="group__xloader__client__apis_1ga62da55ade4828f8c589dc23c689e5d9b" kind="define"><name>XLOADER_BH_SIZE</name></member>
@@ -3305,6 +3558,8 @@
     <member refid="group__xloader__client__example__apis_1gaf4b924101084f3b25663a05d36e605d2" kind="variable"><name>Buffer</name></member>
     <member refid="group__xloader__client__example__apis_1gaf4b924101084f3b25663a05d36e605d2" kind="variable"><name>Buffer</name></member>
     <member refid="group__xloader__client__example__apis_1gaf4b924101084f3b25663a05d36e605d2" kind="variable"><name>Buffer</name></member>
+    <member refid="group__xloader__client__example__apis_1gad4440229d5d2e16f516f53cc50431fa0" kind="variable"><name>MailboxInstance</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa5db83c26a0b4f063cfd7343653ba201" kind="variable"><name>LoaderClientInstance</name></member>
     <member refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
     <member refid="group__xloader__client__example__apis_1ga2bdc7af600fc90ce831ee29ab75a292c" kind="function"><name>ExtractMetaheader</name></member>
     <member refid="group__xloader__client__example__apis_1ga80c104de8204b14332293725a2ee20c5" kind="function"><name>GetATFHandOffParams</name></member>
@@ -3329,6 +3584,32 @@
     <member refid="group__xloader__client__example__apis_1gae049ba3c12f14ec60a618ed1b69caaa1" kind="define"><name>BUF_TOTAL_SIZE</name></member>
     <member refid="group__xloader__client__example__apis_1gae19bfd2ea75b7ddfc0c9e520240ab733" kind="define"><name>NODE_ID</name></member>
     <member refid="group__xloader__client__example__apis_1gae049ba3c12f14ec60a618ed1b69caaa1" kind="define"><name>BUF_TOTAL_SIZE</name></member>
+    <member refid="group__xloader__client__example__apis_1ga88b8ffca75405e0b24c30ad939f95778" kind="define"><name>CONFIG_PMC_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga37ae8a2db5068c1ffb388685c4e48e22" kind="define"><name>CONFIG_ASU_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga124d5a42cf456d60780eed17a9dc93ee" kind="define"><name>CONFIG_LPD_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga0dab6e87247f450bd48fb461a1b92aab" kind="define"><name>TEST_GLITCH_ENABLE</name></member>
+    <member refid="group__xloader__client__example__apis_1gac0e5f382137550daa07888413965f44f" kind="define"><name>TEST_GLITCH_PMC_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1gaee72608834da36951f91ee6547a68356" kind="define"><name>TEST_GLITCH_ASU_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga5d58c9927deab35bd792bc08a2a29a0b" kind="define"><name>TEST_GLITCH_LPD_GD</name></member>
+    <member refid="group__xloader__client__example__apis_1ga687685e790c7b097141611087905a4ea" kind="define"><name>GD_DEPTH_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga50b58fa911ba6643a8f2ab7c3d45e818" kind="define"><name>GD_WIDTH_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga42aeadb12aebb366cb70ede8f6db898a" kind="define"><name>GD_REFVOL_VAL</name></member>
+    <member refid="group__xloader__client__example__apis_1ga26c8d334438d04066e4f8c3e8b5a31f3" kind="define"><name>PMC_GLOBAL_BASE_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1ga052604e803dce9cb18f1b978c2739831" kind="define"><name>PMC_GLOBAL_PMC_ERR1_STATUS</name></member>
+    <member refid="group__xloader__client__example__apis_1ga0a8e7efa01437106adcc21c1173e6fd6" kind="define"><name>PMC_GLOBAL_REG_ERR_OFFSET</name></member>
+    <member refid="group__xloader__client__example__apis_1ga233aaf66754fa3a9c833f47ee483a82f" kind="define"><name>PMC_EAM_ERR3_INDEX</name></member>
+    <member refid="group__xloader__client__example__apis_1ga3c178173a24f433148ee03f5797997c8" kind="define"><name>PMC_EAM_ERR3_STATUS_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1ga85f3833957458ce6a908f660a039f73b" kind="define"><name>PMC_EAM_GD_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga2dc49a3de565e12db06341b8e940ccc3" kind="define"><name>ASU_EAM_GD_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga20fb78dc837a51ac7f5375e905286036" kind="define"><name>LPD_SLCR_EAM_ERR0_STATUS</name></member>
+    <member refid="group__xloader__client__example__apis_1ga8c94cc05834b7f3041f909a657ae4b3b" kind="define"><name>LPD_SLCR_REG_ERR_OFFSET</name></member>
+    <member refid="group__xloader__client__example__apis_1gabc5092d52741fb85c37037db36f0fa86" kind="define"><name>LPD_EAM_ERR2_INDEX</name></member>
+    <member refid="group__xloader__client__example__apis_1gaea8241939322e5454579bfc4e45d1e5d" kind="define"><name>LPD_EAM_ERR2_STATUS_ADDR</name></member>
+    <member refid="group__xloader__client__example__apis_1gab95548b2955041dd54b08cb5a1445a33" kind="define"><name>LPD_GD0_EAM_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1ga228234cb88798477b6b107bddc8ec577" kind="define"><name>LPD_GD1_EAM_MASK</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa3f1205707f0131526c25344900d379d" kind="define"><name>CFG_PMC_SELECTED</name></member>
+    <member refid="group__xloader__client__example__apis_1gaa6f4164c4c1bde69ae8e117f97c08f64" kind="define"><name>CFG_ASU_SELECTED</name></member>
+    <member refid="group__xloader__client__example__apis_1ga7424fc01d34f6fa290a275c713526402" kind="define"><name>CFG_LPD_SELECTED</name></member>
     <member refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kind="define"><name>PDI_ID</name></member>
     <member refid="group__xloader__client__example__apis_1ga8d375fa48781630123b41ee18fef838b" kind="define"><name>PDI_SIZE_IN_WORDS</name></member>
     <member refid="group__xloader__client__example__apis_1ga16ace37f7b732061b0144e81f9cae4e9" kind="define"><name>PDI_LOW_ADDRESS</name></member>
@@ -3337,12 +3618,16 @@
     <member refid="group__xloader__client__example__apis_1ga50bc47889e36ccd506a9cdf1528b050b" kind="define"><name>PDI_SRC_ADDR</name></member>
     <member refid="group__xloader__client__example__apis_1ga0b85963cace75e76ae726bcffb04eb70" kind="define"><name>DEVICE_ID</name></member>
     <member refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kind="define"><name>PDI_ID</name></member>
+    <member refid="group__xloader__client__example__apis_1ga8550471d6d799445eb1ef168a28d71b3" kind="define"><name>DDR_PDI_ADDR</name></member>
   </compound>
   <compound refid="group__xloader__kat__apis" kind="group"><name>xloader_kat_apis</name>
     <member refid="group__xloader__kat__apis_1gae405ddd66749be44915e8ae9a73aa8e0" kind="function"><name>XLoader_ClearKatStatusOnCfg</name></member>
     <member refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" kind="function"><name>XLoader_Sha3Kat</name></member>
     <member refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" kind="function"><name>XLoader_ClearKatOnPPDI</name></member>
     <member refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" kind="function"><name>XLoader_AesKatTest</name></member>
+    <member refid="group__xloader__kat__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga1ba46d8e0c55427374c37e0d5543113d" kind="function"><name>XLoader_EccKat</name></member>
+    <member refid="group__xloader__kat__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
   </compound>
   <compound refid="group__xloader__mailbox__apis" kind="group"><name>xloader_mailbox_apis</name>
     <member refid="group__xloader__mailbox__apis_1ga30114da18bad5f444a159376bfe3ac6e" kind="function"><name>PACK_XLOADER_HEADER</name></member>
@@ -3366,6 +3651,7 @@
   <compound refid="group__xloader__sd__apis" kind="group"><name>xloader_sd_apis</name>
   </compound>
   <compound refid="group__xloader__server__apis" kind="group"><name>xloader_server_apis</name>
+    <member refid="group__xloader__server__apis_1ga8b460b13aba27b3bf1e5251196cf6ad1" kind="variable"><name>IdCodeBypassFlag</name></member>
     <member refid="group__xloader__server__apis_1ga793661d8d658946d02519dc42237529d" kind="variable"><name>XLoader_CframeIns</name></member>
     <member refid="group__xloader__server__apis_1ga223154cf25b1e977b59cd52e5717cf07" kind="variable"><name>DdrRequested</name></member>
     <member refid="group__xloader__server__apis_1ga4033a5bb9f090d170c2d25fb9907cb71" kind="function"><name>XLoader_ReadAndValidateHdrs</name></member>
@@ -3379,6 +3665,9 @@
     <member refid="group__xloader__server__apis_1gafbfa5eb738e848e293eba92f586b2c45" kind="function"><name>XLoader_ClearKeys</name></member>
     <member refid="group__xloader__server__apis_1gacba1c8d077ffca54738c7d43e0038092" kind="function"><name>XLoader_ReadIHsAndPHs</name></member>
     <member refid="group__xloader__server__apis_1gaf2679622e178fd2d620f479066079908" kind="function"><name>XLoader_VerifyIHsAndPHs</name></member>
+    <member refid="group__xloader__server__apis_1ga0b758d005352c903dc52769701a1c6e5" kind="function"><name>XLoader_GetDdrPdiAddr</name></member>
+    <member refid="group__xloader__server__apis_1gafce3455b5919a1e5be5e6d423e9c25ea" kind="function"><name>XLoader_SetIdCodeBypassFlag</name></member>
+    <member refid="group__xloader__server__apis_1ga252ce894e9f2b7b730e7684891c2b1a6" kind="function"><name>XLoader_ClearIdCodeBypassFlag</name></member>
     <member refid="group__xloader__server__apis_1gacb10f2e97fecfb15aae4fed081b02502" kind="function"><name>XLoader_Init</name></member>
     <member refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" kind="function"><name>XLoader_PdiInit</name></member>
     <member refid="group__xloader__server__apis_1ga8493673eccf135010606bf9449bc5ee4" kind="function"><name>XLoader_LoadPdi</name></member>
@@ -3386,6 +3675,8 @@
     <member refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" kind="function"><name>XLoader_StoreImageInfo</name></member>
     <member refid="group__xloader__server__apis_1ga304b923a96834575c1fee9eed2ffb870" kind="function"><name>XLoader_LoadImageInfoTbl</name></member>
     <member refid="group__xloader__server__apis_1ga443aaeef586ee9cefe8509092d99ca17" kind="function"><name>XLoader_LoadImage</name></member>
+    <member refid="group__xloader__server__apis_1ga6dc6297b507b506332f4a2cb8602497a" kind="function"><name>XLoader_SetDdrPdiAddr</name></member>
+    <member refid="group__xloader__server__apis_1ga888c20437b7c6ce0384eba4001666074" kind="function"><name>XLoader_LoadImageFromAddr</name></member>
     <member refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" kind="function"><name>XLoader_RestartImage</name></member>
     <member refid="group__xloader__server__apis_1ga168d5df4c9c896833846a6fcc9693451" kind="function"><name>XLoader_IdCodeCheck</name></member>
     <member refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" kind="function"><name>XLoader_ReadImageStoreCfg</name></member>
@@ -3399,7 +3690,6 @@
     <member refid="group__xloader__server__apis_1ga75648061e8ddd40fb9103e1a859b5114" kind="function"><name>XLoader_RsaSignVerify</name></member>
     <member refid="group__xloader__server__apis_1ga33b5c12446a0e19c8ebb43017c912051" kind="function"><name>XLoader_AesDecryption</name></member>
     <member refid="group__xloader__server__apis_1gad385fae9cc97cab96e42d108a2977e36" kind="function"><name>XLoader_AesKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1gac8155c97621aa3406f16fd58b37de8c3" kind="function"><name>XLoader_PpkCompare</name></member>
     <member refid="group__xloader__server__apis_1ga36a8244203deabeb1b3f7c1e882492e2" kind="function"><name>XLoader_DecHdrs</name></member>
     <member refid="group__xloader__server__apis_1ga989dd82506af81c806aba4ce001fb607" kind="function"><name>XLoader_SpkAuthentication</name></member>
     <member refid="group__xloader__server__apis_1ga5d3bc6b495fbd9083312f0755aa59386" kind="function"><name>XLoader_AuthNDecHdrs</name></member>
@@ -3411,14 +3701,13 @@
     <member refid="group__xloader__server__apis_1ga741419e8413d393f5ac701cd0b82d03e" kind="function"><name>XLoader_SecureEncOnlyValidations</name></member>
     <member refid="group__xloader__server__apis_1ga5bbd480d466b142a9648d1e07c6245ae" kind="function"><name>XLoader_ValidateIV</name></member>
     <member refid="group__xloader__server__apis_1ga205fae720cf0e4ae44e99dee851f3c9c" kind="function"><name>XLoader_ClearAesKeysOnCfg</name></member>
+    <member refid="group__xloader__server__apis_1gae092162d3342eb2e9fd416cb75a964ae" kind="function"><name>XLoader_MapRsaPssSecureStatus</name></member>
     <member refid="group__xloader__server__apis_1ga5aef75ed3205f50c75189b7c46099856" kind="function"><name>XLoader_SecureAuthInit</name></member>
     <member refid="group__xloader__server__apis_1ga9df696fd17dec50576f817a1cd1f7105" kind="function"><name>XLoader_SecureEncInit</name></member>
     <member refid="group__xloader__server__apis_1ga7d852b900fa863fa8719bba0e2699423" kind="function"><name>XLoader_SecureValidations</name></member>
     <member refid="group__xloader__server__apis_1gac4b3b88f124856db12efa0ce4d6c81d0" kind="function"><name>XLoader_ReadAndVerifySecureHdrs</name></member>
     <member refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" kind="function"><name>XLoader_VerifySignature</name></member>
-    <member refid="group__xloader__server__apis_1gab6898ef045d13b406a9ac80d1c8d0d11" kind="function"><name>XLoader_VerifyRevokeId</name></member>
-    <member refid="group__xloader__server__apis_1gadec7b8bbeb190d83de231b302c251533" kind="function"><name>XLoader_IsPpkValid</name></member>
-    <member refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" kind="function"><name>XLoader_PpkVerify</name></member>
+    <member refid="group__xloader__server__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" kind="function"><name>XLoader_VerifyRevokeId</name></member>
     <member refid="group__xloader__server__apis_1ga314c67dbef884040c630923f3b48416a" kind="function"><name>XLoader_RsaPssSignVerify</name></member>
     <member refid="group__xloader__server__apis_1ga4fc52ccf8ab9611ffc3222d5dd7b16a2" kind="function"><name>XLoader_DecryptSecureBlk</name></member>
     <member refid="group__xloader__server__apis_1ga7c96d7f3ab2558ba88b36cdaf642fbc0" kind="function"><name>XLoader_DataDecrypt</name></member>
@@ -3428,12 +3717,9 @@
     <member refid="group__xloader__server__apis_1ga399279fd63d1bed34a886c24c414ee48" kind="function"><name>XLoader_ClearAesKey</name></member>
     <member refid="group__xloader__server__apis_1gaa912487046c04b1c90ca418a19ac3e0d" kind="function"><name>XLoader_ProcessAuthEncPrtn</name></member>
     <member refid="group__xloader__server__apis_1gacb572c209348e5ec41f2e15c92de9c36" kind="function"><name>XLoader_CheckSecureState</name></member>
-    <member refid="group__xloader__server__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" kind="function"><name>XLoader_AuthKat</name></member>
     <member refid="group__xloader__server__apis_1ga677a618842a76cb8ee935fd0e5bd18fa" kind="function"><name>XLoader_ImgHdrTblAuth</name></member>
     <member refid="group__xloader__server__apis_1ga112597ce43d11195a3d8924eb435254f" kind="function"><name>XLoader_DataAuth</name></member>
-    <member refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" kind="function"><name>XLoader_GetPpkInvalidMaskAndOffset</name></member>
-    <member refid="group__xloader__server__apis_1gae0beb003c621ffb731a7ca0c5409b9d8" kind="function"><name>XLoader_IsPpkRevoked</name></member>
-    <member refid="group__xloader__server__apis_1ga0471c92b49e77af3b786d1b1484c99a5" kind="function"><name>XLoader_ValidatePpkHash</name></member>
+    <member refid="group__xloader__server__apis_1ga04a8f209fc54a091f07d79e1a5ef748e" kind="function"><name>XLoader_CfuInit</name></member>
     <member refid="group__xloader__server__apis_1ga1ad709da8e2f49344fe40aa7688d9990" kind="function"><name>XLoader_CfiErrHandler</name></member>
     <member refid="group__xloader__server__apis_1gac74498338178bcdd1235a9fe650156d4" kind="function"><name>XLoader_CfuErrHandler</name></member>
     <member refid="group__xloader__server__apis_1ga953be1ba88ede7dedb1f86081b14f221" kind="function"><name>XLoader_CframeInit</name></member>
@@ -3452,14 +3738,22 @@
     <member refid="group__xloader__server__apis_1ga1811923118246087f12ecb410efa66c1" kind="function"><name>XLoader_GetExportableBuffer</name></member>
     <member refid="group__xloader__server__apis_1gaea6ead08e784ca4676f210db8caf5148" kind="function"><name>XLoader_ExtractMetaheader</name></member>
     <member refid="group__xloader__server__apis_1ga5f25b85598042a32e52b95786c69cc15" kind="function"><name>XLoader_GetATFHandOffParams</name></member>
+    <member refid="group__xloader__server__apis_1ga409f57412c01bcb8747c04c152b70fa7" kind="function"><name>XLoader_SetDdrAddrForImageRestart</name></member>
     <member refid="group__xloader__server__apis_1ga9df79c2616e31ed2a2060900a4222464" kind="function"><name>XLoader_DdrInit</name></member>
     <member refid="group__xloader__server__apis_1gaa03c18623c76cf0e2f5effddd4b15415" kind="function"><name>XLoader_DdrCopy</name></member>
     <member refid="group__xloader__server__apis_1ga7a4c313af5a0caa20fa13c561ba0f04a" kind="function"><name>XLoader_DdrRelease</name></member>
+    <member refid="group__xloader__server__apis_1ga9870c3bf75d6cfbd669c535dd7f7a589" kind="function"><name>XLoader_CalibDataRestore</name></member>
     <member refid="group__xloader__server__apis_1ga5a50858612ed6ece8fff88a67b9f30ec" kind="function"><name>XLoader_MbPmcI2cHandshake</name></member>
     <member refid="group__xloader__server__apis_1ga691d27c1426830109b7f2f72b623482f" kind="function"><name>XLoader_SbiLoadPdi</name></member>
     <member refid="group__xloader__server__apis_1ga11387289357f0d56f5ee8f21f16aba70" kind="function"><name>XLoader_IntrInit</name></member>
     <member refid="group__xloader__server__apis_1gafb988cc645f5d3b315b8eba734ab65d8" kind="function"><name>XLoader_PpdiEventHandling</name></member>
     <member refid="group__xloader__server__apis_1gab95ab788a5e95180a0593bae5cd039b6" kind="function"><name>XLoader_PpdiEventParamsPtr</name></member>
+    <member refid="group__xloader__server__apis_1ga9c0c51a3ffa9c7f1ff62383e012f711b" kind="function"><name>XLoader_GetPpkInvalidMaskAndOffset</name></member>
+    <member refid="group__xloader__server__apis_1gac8155c97621aa3406f16fd58b37de8c3" kind="function"><name>XLoader_PpkCompare</name></member>
+    <member refid="group__xloader__server__apis_1gae1562a12435f66d13b602ecb4e27056e" kind="function"><name>XLoader_ValidatePpkHash</name></member>
+    <member refid="group__xloader__server__apis_1ga8a6f6cd0f991c82546623ef84916bd90" kind="function"><name>XLoader_IsPpkRevoked</name></member>
+    <member refid="group__xloader__server__apis_1ga13780db027e3ab429eef9c4768b1aed1" kind="function"><name>XLoader_IsPpkValid</name></member>
+    <member refid="group__xloader__server__apis_1ga41c7e98dc575b59226d0bb8cb6344787" kind="function"><name>XLoader_PpkVerify</name></member>
     <member refid="group__xloader__server__apis_1ga4429c37dc44d7558af33c99f6ca93630" kind="function"><name>XLoader_PrtnHdrValidation</name></member>
     <member refid="group__xloader__server__apis_1gaeb1ceafa503b9b1161b4764d9e2781cd" kind="function"><name>XLoader_ProcessCdo</name></member>
     <member refid="group__xloader__server__apis_1gabdb666b144c4a300aa374babfa729bab" kind="function"><name>XLoader_ProcessPrtn</name></member>
@@ -3502,14 +3796,14 @@
     <member refid="group__xloader__server__apis_1ga95eeb47f59afe0b42f06502ee0bd39f9" kind="function"><name>XLoader_PerformInternalPOR</name></member>
     <member refid="group__xloader__server__apis_1ga56a9ce1c4ab7abdcba0759e1165c8e57" kind="function"><name>Xloader_SsitEoPdiSync</name></member>
     <member refid="group__xloader__server__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
-    <member refid="group__xloader__server__apis_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kind="function"><name>XLoader_CheckSecureStateAuth</name></member>
     <member refid="group__xloader__server__apis_1ga0f3a4259a39ba9150209331448492640" kind="function"><name>XLoader_CheckHandoffCpu</name></member>
     <member refid="group__xloader__server__apis_1gab5de0a88addbec67cede663f46b0534c" kind="function"><name>XLoader_InitTrngInstance</name></member>
+    <member refid="group__xloader__server__apis_1gaa63509cf6817bc0ec81000d2b6f3668c" kind="function"><name>XLoader_ConfigureAsuGd</name></member>
+    <member refid="group__xloader__server__apis_1gad9415e4d5029312e5e1bef584bef25ff" kind="function"><name>XLoader_ConfigureLpdGd</name></member>
+    <member refid="group__xloader__server__apis_1gac64cdb0e92b50924decc6e3ea0431e54" kind="function"><name>XLoader_ConfigurePmcGd</name></member>
     <member refid="group__xloader__server__apis_1ga256f3577575dfc0f2b9de5df039a2f2d" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
     <member refid="group__xloader__server__apis_1ga36eeb66375a1d833608e9869ac5e8c25" kind="function"><name>XLoader_UpdateHandler</name></member>
     <member refid="group__xloader__server__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
@@ -3518,14 +3812,17 @@
     <member refid="group__xloader__server__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
     <member refid="group__xloader__server__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__server__apis_1ga8ceadff6112bda923ba5f400913f04d0" kind="function"><name>XLoader_LoadAsuImage</name></member>
-    <member refid="group__xloader__server__apis_1gabc69f0f8de3d7de9d1148a2624cebb24" kind="function"><name>XLoader_RsaPssSignVeirfyKat</name></member>
+    <member refid="group__xloader__server__apis_1ga99cb23eeabc014f2214b0abe45dfa3c9" kind="function"><name>XLoader_ConfigureGlitchDetector</name></member>
     <member refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
     <member refid="group__xloader__server__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
+    <member refid="group__xloader__server__apis_1ga23ebf2ce0221cdf9f6da349c6524faaa" kind="function"><name>XLoader_I2Osp</name></member>
     <member refid="group__xloader__server__apis_1gab224d645e2c390ff06c8aec01babcae0" kind="function"><name>XLoader_MaskGenFunc</name></member>
+    <member refid="group__xloader__server__apis_1ga04befe9c1a6316307f00cd64d0594273" kind="function"><name>XLoader_LogMeasurementModuleStatus</name></member>
+    <member refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__server__apis_1ga3ceca49125b11c6e3a58844b216886fa" kind="function"><name>XLoader_LoadLpdAndPsmElf</name></member>
     <member refid="group__xloader__server__apis_1ga1e7b2ae49b2f41294ba3e4c7403df20b" kind="define"><name>XLOADER_IMAGE_INFO_TBL_MAX_NUM</name></member>
-    <member refid="group__xloader__server__apis_1gab5e43af745222cb78f6a71853c891183" kind="define"><name>XLOADER_RSA_PSS_MSB_PADDING_MASK</name></member>
-    <member refid="group__xloader__server__apis_1ga98ac029ac7965b392e6bb0097876fd94" kind="define"><name>XLOADER_RSA_EM_MSB_INDEX</name></member>
+    <member refid="group__xloader__server__apis_1ga141333640799672d40890822b7cea2c7" kind="define"><name>XLOADER_IDCODE_BYPASS_ACTIVE</name></member>
+    <member refid="group__xloader__server__apis_1ga8f7cc07d2a5a731d223bc6c06858b578" kind="define"><name>XLOADER_IDCODE_BYPASS_INACTIVE</name></member>
     <member refid="group__xloader__server__apis_1gaad372ad8e543134647457ddfd18128ab" kind="define"><name>XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga37451d47afb1549cfd45ae1c5947d579" kind="define"><name>XLOADER_AES_RESET_VAL</name></member>
     <member refid="group__xloader__server__apis_1ga05d874ef5d60f3bba3fe7e580e2335b4" kind="define"><name>XLOADER_AES_RESET_REG</name></member>
@@ -3588,6 +3885,10 @@
     <member refid="group__xloader__server__apis_1ga690701a566a217bfc9daf80efdaa1602" kind="define"><name>XLOADER_TCMCOMB_MASK</name></member>
     <member refid="group__xloader__server__apis_1gad403a72b35f69de5a924f73a3508d354" kind="define"><name>XLOADER_TCMCOMB_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga01c00225c89279d31e9ee223214a95e4" kind="define"><name>PLM_VP1802_POR_SETTLE_TIME</name></member>
+    <member refid="group__xloader__server__apis_1ga6cce691e196dc2b9637fa0d443517afa" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX</name></member>
+    <member refid="group__xloader__server__apis_1ga57693974e707c6a48cd7fbabc088e59e" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK</name></member>
+    <member refid="group__xloader__server__apis_1ga52d1e34b4e890bfeefe1628bfd7b23bc" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE</name></member>
+    <member refid="group__xloader__server__apis_1gafd5144bf150041ae57d72cde9f8ee700" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE</name></member>
     <member refid="group__xloader__server__apis_1gafb8da78a452c3524858aa626b6a91797" kind="define"><name>XLOADER_TCM_0</name></member>
     <member refid="group__xloader__server__apis_1gac7aac7aa870f5c4290d6ad101dbfe39d" kind="define"><name>XLOADER_TCM_1</name></member>
     <member refid="group__xloader__server__apis_1gabdc35282335ca2e17f74dd302d034667" kind="define"><name>XLOADER_RPU_GLBL_CNTL</name></member>
@@ -3595,6 +3896,10 @@
     <member refid="group__xloader__server__apis_1gad403a72b35f69de5a924f73a3508d354" kind="define"><name>XLOADER_TCMCOMB_SHIFT</name></member>
     <member refid="group__xloader__server__apis_1ga8885a14f6729baadfbbbbdd8e6b14cbf" kind="define"><name>XLOADER_TRNG_DEVICE_ID</name></member>
     <member refid="group__xloader__server__apis_1ga01c00225c89279d31e9ee223214a95e4" kind="define"><name>PLM_VP1802_POR_SETTLE_TIME</name></member>
+    <member refid="group__xloader__server__apis_1ga6cce691e196dc2b9637fa0d443517afa" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX</name></member>
+    <member refid="group__xloader__server__apis_1ga57693974e707c6a48cd7fbabc088e59e" kind="define"><name>XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK</name></member>
+    <member refid="group__xloader__server__apis_1ga52d1e34b4e890bfeefe1628bfd7b23bc" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE</name></member>
+    <member refid="group__xloader__server__apis_1gafd5144bf150041ae57d72cde9f8ee700" kind="define"><name>XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE</name></member>
     <member refid="group__xloader__server__apis_1ga047cb86e4b5bd655438c68ad0979377e" kind="define"><name>XLOADER_EFUSE_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1ga539d826d2600671de8f64468dce86cb9" kind="define"><name>XLOADER_BBRAM_OBFUS_KEY</name></member>
     <member refid="group__xloader__server__apis_1gad91eeacdb8e0914b1e96182c942d6f95" kind="define"><name>XLOADER_BH_OBFUS_KEY</name></member>
@@ -3813,6 +4118,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -4042,6 +4348,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -4271,6 +4578,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -4500,6 +4808,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -4729,6 +5038,7 @@
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kind="enumvalue"><name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kind="enumvalue"><name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kind="enumvalue"><name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name></member>
+    <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kind="enumvalue"><name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kind="enumvalue"><name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kind="enumvalue"><name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name></member>
     <member refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kind="enumvalue"><name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name></member>
@@ -4778,10 +5088,9 @@
     <member refid="group__xloader__apis_1ga3db62cec88b2643e0eaf2fe1aea01dd1" kind="variable"><name>OptData</name></member>
     <member refid="group__xloader__apis_1gaac2e1811f478b0e8c771f75be2bc60b8" kind="variable"><name>SharedMem</name></member>
     <member refid="group__xloader__apis_1ga944e827539b7d91e136e4e64f8411a9a" kind="function"><name>XLoader_AddDeviceStateChangeToScheduler</name></member>
+    <member refid="group__xloader__apis_1gaf2260199f403747e2d426cbcaeb47f30" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" kind="function"><name>XLoader_GetKekSrc</name></member>
     <member refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" kind="function"><name>XLoader_AesObfusKeySelect</name></member>
-    <member refid="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" kind="function"><name>XLoader_RsaKat</name></member>
-    <member refid="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" kind="function"><name>XLoader_MaskGenFunc</name></member>
     <member refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kind="function"><name>XLoader_CheckDeviceStateChange</name></member>
     <member refid="group__xloader__apis_1ga647a935c43dcde43b8f4c308764fbd6d" kind="function"><name>XLoader_UpdateCfgLimitCount</name></member>
     <member refid="group__xloader__apis_1gacab6dc67b284d4e40675a3a2db2dae2b" kind="function"><name>XLoader_CheckAndUpdateCfgLimit</name></member>
@@ -4810,6 +5119,10 @@
     <member refid="group__xloader__apis_1ga1f8c9ff94d21dc60ec6d54247e94cc8a" kind="define"><name>XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK</name></member>
     <member refid="group__xloader__apis_1ga7d8acff2a4081c51964f881ef7aa89a4" kind="define"><name>XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK</name></member>
     <member refid="group__xloader__apis_1ga1f8c9ff94d21dc60ec6d54247e94cc8a" kind="define"><name>XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK</name></member>
+    <member refid="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" kind="define"><name>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK</name></member>
+    <member refid="group__xloader__apis_1ga23eb31b043f46073edbb1cbfdde09b2c" kind="define"><name>XLOADER_JTAG_SEC_GATE_CLOSE</name></member>
+    <member refid="group__xloader__apis_1ga55f22124092b10460be08e5d91a908a0" kind="define"><name>XLOADER_JTAG_SEC_GATE_OPEN</name></member>
+    <member refid="group__xloader__apis_1gaa899516ff2dd76c1c6dbcc30d8ecc57f" kind="define"><name>XLOADER_DEVICE_STATE_POLL_INTERVAL</name></member>
     <member refid="group__xloader__apis_1ga26e69763ed64ad78255b2e5e6a84f0f8" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD</name></member>
     <member refid="group__xloader__apis_1gab5fe27ace34e536b9f4d44bd3bc3011e" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD</name></member>
     <member refid="group__xloader__apis_1ga713325eea03027677b818544a3ac8dbe" kind="define"><name>XLOADER_EFUSE_MISC_CTRL_PPK5_INVLD</name></member>
@@ -4833,6 +5146,7 @@
     <member refid="group__xloader__apis_1gabf68dddec126f79c069eb06e007c6c22" kind="define"><name>OPT_DATA_BUFFER_SIZE_IN_BYTES</name></member>
     <member refid="group__xloader__apis_1gacceb00140e2a0a8443cd8b268538e7f9" kind="define"><name>XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE</name></member>
     <member refid="group__xloader__apis_1ga50bc47889e36ccd506a9cdf1528b050b" kind="define"><name>PDI_SRC_ADDR</name></member>
+    <member refid="group__xloader__apis_1ga1b5a3ba7f3db7236d3bf4f1ee749d3e8" kind="define"><name>PDI_SRC_SIZE_IN_BYTES</name></member>
     <member refid="group__xloader__apis_1gaba48a7835dd58698e529a2fbfe1274f5" kind="define"><name>PDI_TYPE</name></member>
   </compound>
   <compound refid="group__xloader__plat__apis" kind="group"><name>xloader_plat_apis</name>
@@ -4885,7 +5199,21 @@
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea2012645b4e22bc9d4aa39f681d342579" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSACTION</name></member>
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea60be37c37f4d4b324de92648f56647bf" kind="enumvalue"><name>XLOADER_ERR_I2C_BUS_BUSY</name></member>
     <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac1625e2d90f82beba52ba71e3e5cae56" kind="enumvalue"><name>XLOADER_ERR_I2C_DEV_RELEASE</name></member>
-    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eafc1ad523f0e79e62b283dea21de9d74f" kind="enumvalue"><name>XLOADER_ERR_I2C_MASTER_DEVID_READ</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea95603e0759b64a1992f6f68b35fc0dce" kind="enumvalue"><name>XLOADER_ERR_INVALID_ADDR_RANGE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea71b5b79039c4de83fcb1de25bba20f25" kind="enumvalue"><name>XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac7a4f304bf549787d0c40cebec510ced" kind="enumvalue"><name>XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eae6693f0a02bacd4ab6290c893a13fa61" kind="enumvalue"><name>XLOADER_ERR_INVALID_NVSTORAGE_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea4745b86aaaa79d2b51e005ea8f57eec1" kind="enumvalue"><name>XLOADER_ERR_INVALID_XRAM_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea80276488f576a1e202c63bbd1a9f2272" kind="enumvalue"><name>XLOADER_ERR_INVALID_PHYS_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eadfcdd64b3d52639d4022317232501b1e" kind="enumvalue"><name>XLOADER_ERR_CALIBDATA_WRITE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea30d223b1ed8a2f0b4ba21ea1aa9ef826" kind="enumvalue"><name>XLOADER_ERR_SET_CALIB_SKIP_FLAG</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eaa703df3e524ae7b08d5fba2adb58c81d" kind="enumvalue"><name>XLOADER_ERR_INVALID_ROW_RANGE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea67abacb18b94267d502a17a93d065569" kind="enumvalue"><name>XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eabf6938a61557af32c363ce8eebf72882" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea9a9487060d07b3b7ca2cee3990ec8cd5" kind="enumvalue"><name>XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9ea4f003bc00169955b2092199571c330c6" kind="enumvalue"><name>XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eac5095cfe5162f2c0c4deab32d3c8ae38" kind="enumvalue"><name>XLOADER_ERR_I2C_INVALID_DATA_SIZE</name></member>
+    <member refid="group__xloader__plat__apis_1gga61dadd085c1777f559549e05962b2c9eaf76a9307dd97fbf0348f51b59e4ec85a" kind="enumvalue"><name>XLOADER_ERR_INVALID_JTAG_OPERATION</name></member>
     <member refid="group__xloader__plat__apis_1ga7e519868c6b72ecd382522753f68edd1" kind="function"><name>XLoader_MeasureRomAndPlm</name></member>
     <member refid="group__xloader__plat__apis_1ga715dfe0fe719d5ebd2d483687dafc738" kind="function"><name>XLoader_IsDFxApplicable</name></member>
     <member refid="group__xloader__plat__apis_1gae815d760cdf6ec08d1155d87e4b36e94" kind="function"><name>XLoader_IsPdiSrcSD</name></member>
@@ -4893,7 +5221,6 @@
     <member refid="group__xloader__plat__apis_1ga5ac253b7c53e277edd095f79563590c4" kind="function"><name>XLoader_SecureConfigMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1gab56c01f9c63e2c9f6c7a1a234884dc24" kind="function"><name>XLoader_HdrMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1gab17e2c006c5297f10536988e704c69cb" kind="function"><name>XLoader_ReadDdrCryptoPerfCounters</name></member>
-    <member refid="group__xloader__plat__apis_1ga80c4032b571aff3cc4af2996871f5887" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__plat__apis_1ga297896f5684c377e54d7ce2779552509" kind="function"><name>Xloader_SsitEoPdiSync</name></member>
     <member refid="group__xloader__plat__apis_1ga7f5d2dba94af1f4dea053add5877d1b8" kind="function"><name>XLoader_SetJtagTapToReset</name></member>
     <member refid="group__xloader__plat__apis_1ga87d4ee2a850dfbb7fdeba9e0bfd76ec4" kind="function"><name>XLoader_GetImageInfoTbl</name></member>
@@ -4910,6 +5237,8 @@
     <member refid="group__xloader__plat__apis_1gafbdd06a059cd7970791f71533c47b8d6" kind="function"><name>XLoader_DataMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1ga75e0c82458d57df5ea5e62a0de714abc" kind="function"><name>XLoader_ShaInstance1Reset</name></member>
     <member refid="group__xloader__plat__apis_1ga7318d4d7ae39a9e258676bbb949341d0" kind="function"><name>XLoader_PlatInit</name></member>
+    <member refid="group__xloader__plat__apis_1ga63654b2e9bd794bd9dedfeadd404b109" kind="function"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__plat__apis_1ga830f47f91bd5f3b12b41a8e80108017d" kind="function"><name>XLoader_CheckAndUpdateSecureState</name></member>
     <member refid="group__xloader__plat__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kind="function"><name>XLoader_UpdateDataMeasurement</name></member>
     <member refid="group__xloader__plat__apis_1ga3944db2060fd83c89b79580dd0caa0de" kind="define"><name>XLOADER_SECURE_CHUNK_SIZE</name></member>
     <member refid="group__xloader__plat__apis_1ga3678eb84184f7bd1beaa8efc5d946ed5" kind="define"><name>XLOADER_PDI_SRC_JTAG</name></member>
@@ -4949,11 +5278,15 @@
     <member refid="group__xloader__plat__apis_1ga52c44b2aa324f1c51bcc8faddd3f3f90" kind="define"><name>XLOADER_MEASURE_START</name></member>
     <member refid="group__xloader__plat__apis_1ga06ae41365bea45324b30988a11fb3810" kind="define"><name>XLOADER_MEASURE_UPDATE</name></member>
     <member refid="group__xloader__plat__apis_1ga27cccfb3c7b604d554371c7c5b6e8ca3" kind="define"><name>XLOADER_MEASURE_FINISH</name></member>
-    <member refid="group__xloader__plat__apis_1ga29e4550c196dd134eb5b971b06987fd4" kind="define"><name>XLoader_ConfigureJtagState</name></member>
+    <member refid="group__xloader__plat__apis_1ga9ea89e3e32477d3d1bad84419ae23769" kind="define"><name>XLOADER_MEASURE_LAST</name></member>
     <member refid="group__xloader__plat__apis_1ga4403f6d235119bd4078254da5fe4b71d" kind="define"><name>XLOADER_GET_PDISRC_INFO</name></member>
     <member refid="group__xloader__plat__apis_1gafedb40d72fbcf73160458d2b50146e2e" kind="define"><name>XLoader_VerifyDataAuth</name></member>
   </compound>
   <compound refid="dir_666a9b4688f9ec8a8cdadfbbbe45f2a2" kind="dir"><name>client</name>
+  </compound>
+  <compound refid="dir_1a53e5bafbb61c16addb111fb330491d" kind="dir"><name>client</name>
+  </compound>
+  <compound refid="dir_d35722143a1edf090e2f4206ce87d7ea" kind="dir"><name>client</name>
   </compound>
   <compound refid="dir_665889a58dbc3f9bb9ecc1e26e44da06" kind="dir"><name>client</name>
   </compound>

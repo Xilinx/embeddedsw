@@ -42,11 +42,6 @@
     <member refid="main_8c_1a1404ec37649e5775142431036025c57a" kind="function"><name>resetIp</name></member>
     <member refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
-  <compound refid="vaxi4s__remapper__example__kc705_8tcl" kind="file"><name>vaxi4s_remapper_example_kc705.tcl</name>
-    <member refid="vaxi4s__remapper__example__kc705_8tcl_1a92c650c6db473fd695c8a5483d8e7614" kind="function"><name>vaxi4s_remapper_example</name></member>
-  </compound>
   <compound refid="xv__axi4s__remap_8c" kind="file"><name>xv_axi4s_remap.c</name>
     <member refid="xv__axi4s__remap_8c_1ae173d8c933eff784e841ac5f0210f9bc" kind="function"><name>XV_axi4s_remap_CfgInitialize</name></member>
     <member refid="xv__axi4s__remap_8c_1a20a0ac05eb63d7d010fcc6b8fcce01e6" kind="function"><name>XV_axi4s_remap_Start</name></member>
@@ -155,8 +150,6 @@
     <member refid="xv__axi4s__remap__sinit_8c_1ad3b6d0fd3c85cdabcfb25e77b0806eae" kind="function"><name>XV_axi4s_remap_Initialize</name></member>
   </compound>
   <compound refid="group__v__axi4s__remap" kind="group"><name>v_axi4s_remap</name>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_711407c011dd3e7e8576b6cef5945660" kind="dir"><name>examples</name>
   </compound>

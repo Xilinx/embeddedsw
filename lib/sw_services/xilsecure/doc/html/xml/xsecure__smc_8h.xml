@@ -65,6 +65,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="79"><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SMC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/smc/xsecure_smc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/smc/xsecure_smc.h"/>
   </compounddef>
 </doxygen>

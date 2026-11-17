@@ -8,74 +8,79 @@
     <includedby refid="xsecure__slhdsaclient_8c" local="yes">xsecure_slhdsaclient.c</includedby>
     <includedby refid="xilsecure__slhdsa__client__example_8c" local="yes">xilsecure_slhdsa_client_example.c</includedby>
     <incdepgraph>
-      <node id="4593">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="4594">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="4589">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="4586">
-        <label>xsecure_slhdsaclient.h</label>
-        <link refid="xsecure_slhdsaclient.h"/>
-        <childnode refid="4587" relation="include">
-        </childnode>
-        <childnode refid="4588" relation="include">
-        </childnode>
-        <childnode refid="4591" relation="include">
-        </childnode>
-      </node>
-      <node id="4591">
+      <node id="4852">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="4592" relation="include">
+        <childnode refid="4853" relation="include">
         </childnode>
-        <childnode refid="4587" relation="include">
+        <childnode refid="4848" relation="include">
         </childnode>
-        <childnode refid="4593" relation="include">
+        <childnode refid="4854" relation="include">
         </childnode>
-        <childnode refid="4594" relation="include">
+        <childnode refid="4855" relation="include">
         </childnode>
-        <childnode refid="4595" relation="include">
+        <childnode refid="4856" relation="include">
+        </childnode>
+        <childnode refid="4857" relation="include">
         </childnode>
       </node>
-      <node id="4595">
-        <label>xsecure_config.h</label>
+      <node id="4855">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="4587">
-        <label>xil_types.h</label>
+      <node id="4854">
+        <label>xil_cache.h</label>
       </node>
-      <node id="4590">
-        <label>xparameters.h</label>
+      <node id="4847">
+        <label>xsecure_slhdsaclient.h</label>
+        <link refid="xsecure_slhdsaclient.h"/>
+        <childnode refid="4848" relation="include">
+        </childnode>
+        <childnode refid="4849" relation="include">
+        </childnode>
+        <childnode refid="4852" relation="include">
+        </childnode>
       </node>
-      <node id="4592">
-        <label>xil_printf.h</label>
+      <node id="4857">
+        <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="4588">
+      <node id="4850">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="4849">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="4589" relation="include">
+        <childnode refid="4850" relation="include">
         </childnode>
-        <childnode refid="4590" relation="include">
+        <childnode refid="4851" relation="include">
         </childnode>
+      </node>
+      <node id="4856">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="4848">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4851">
+        <label>xparameters.h</label>
+      </node>
+      <node id="4853">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4597">
+      <node id="4859">
         <label>xsecure_slhdsaclient.c</label>
         <link refid="xsecure__slhdsaclient_8c"/>
       </node>
-      <node id="4596">
+      <node id="4858">
         <label>xsecure_slhdsaclient.h</label>
         <link refid="xsecure_slhdsaclient.h"/>
-        <childnode refid="4597" relation="include">
+        <childnode refid="4859" relation="include">
         </childnode>
-        <childnode refid="4598" relation="include">
+        <childnode refid="4860" relation="include">
         </childnode>
       </node>
-      <node id="4598">
+      <node id="4860">
         <label>xilsecure_slhdsa_client_example.c</label>
         <link refid="xilsecure__slhdsa__client__example_8c"/>
       </node>
@@ -120,11 +125,11 @@
 <para><itemizedlist>
 <listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_SlhdsaVerify API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" bodystart="42" bodyend="69"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="126">XSECURE_API_SLHDSA_SIGN_VERIFY</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" bodystart="43" bodyend="70"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="133">XSECURE_API_SLHDSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
         <referencedby refid="group__xsecure__slhdsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__slhdsa__client__example_8c" startline="1992" endline="2077">main</referencedby>
       </memberdef>
       </sectiondef>
@@ -171,6 +176,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLHDSA_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.h"/>
   </compounddef>
 </doxygen>

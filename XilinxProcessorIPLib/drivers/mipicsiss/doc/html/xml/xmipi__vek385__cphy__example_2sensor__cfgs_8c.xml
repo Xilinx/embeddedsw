@@ -5,28 +5,28 @@
     <includes refid="xmipi__vek385__cphy__example_2sensor__cfgs_8h" local="yes">sensor_cfgs.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="711">
+      <node id="746">
         <label>sensor_cfgs.c</label>
         <link refid="xmipi_vek385_cphy_example/sensor_cfgs.c"/>
-        <childnode refid="712" relation="include">
+        <childnode refid="747" relation="include">
         </childnode>
-        <childnode refid="715" relation="include">
+        <childnode refid="750" relation="include">
         </childnode>
       </node>
-      <node id="712">
+      <node id="747">
         <label>sensor_cfgs.h</label>
-        <childnode refid="713" relation="include">
+        <childnode refid="748" relation="include">
         </childnode>
-        <childnode refid="714" relation="include">
+        <childnode refid="749" relation="include">
         </childnode>
       </node>
-      <node id="714">
+      <node id="749">
         <label>xvidc.h</label>
       </node>
-      <node id="713">
+      <node id="748">
         <label>xil_types.h</label>
       </node>
-      <node id="715">
+      <node id="750">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1948" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1948" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1948" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1948" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="33" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8c_1a231ea201d0544b93a97c4326e187fb75" prot="public" static="no" mutable="no">
         <type>struct regval_list</type>
@@ -69,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="990" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="990" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8c_1ae9fcf99bd0f77d32d47a57d7ade44652" prot="public" static="no" mutable="no">
         <type>const int</type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1951" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1951" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1951" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1951" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8c_1a5b3f3e3ee99a31970fb47ba95f94195c" prot="public" static="no" mutable="no">
         <type>const int</type>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1954" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" line="1954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1954" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2042,6 +2042,6 @@
 <codeline lineno="1955"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARRAY_SIZE(OS12D40_config_4K_60fps_regs);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="1956"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c"/>
   </compounddef>
 </doxygen>

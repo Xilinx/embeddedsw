@@ -6,32 +6,32 @@
     <includes local="yes">xil_io.h</includes>
     <includes refid="xsecure__lms__ots_8h" local="yes">xsecure_lms_ots.h</includes>
     <incdepgraph>
-      <node id="2022">
+      <node id="2108">
         <label>xil_io.h</label>
       </node>
-      <node id="2021">
+      <node id="2107">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="2020">
+      <node id="2110">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2106">
         <label>xsecure_lms_ots.c</label>
         <link refid="xsecure_lms_ots.c"/>
-        <childnode refid="2021" relation="include">
+        <childnode refid="2107" relation="include">
         </childnode>
-        <childnode refid="2022" relation="include">
+        <childnode refid="2108" relation="include">
         </childnode>
-        <childnode refid="2023" relation="include">
+        <childnode refid="2109" relation="include">
         </childnode>
       </node>
-      <node id="2023">
+      <node id="2109">
         <label>xsecure_lms_ots.h</label>
         <link refid="xsecure__lms__ots_8h"/>
-        <childnode refid="2024" relation="include">
+        <childnode refid="2110" relation="include">
         </childnode>
-        <childnode refid="2021" relation="include">
+        <childnode refid="2107" relation="include">
         </childnode>
-      </node>
-      <node id="2024">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga26b91a0ed39ac68b2c4f7c292449fb57" prot="public" static="no">
         <name>XSECURE_BYTE_REM</name>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga2a946fa69f5e672112631a9d0db9b813" prot="public" static="no">
         <name>XSECURE_BIT_MASK</name>
@@ -69,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__lms__server__apis_1ga5f639efdfe0c1381535aa60460056a42" prot="public" static="no">
         <name>XSECURE_BITS_PER_BYTE</name>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__lms__server__apis_1gaefb8d6303ac0e111916c8093ed635e1b" prot="public" static="no">
         <name>XSECURE_LOWER_16_BIT_MASK</name>
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -144,7 +144,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="90" bodyend="108"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="90" bodyend="108"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__lms__server__apis_1gae4b1b7bba0abda9f7e5f7431cf2e07ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -218,8 +218,8 @@
 <para><itemizedlist>
 <listitem><para>If loop counter is glitched, the signature verification fails </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="124" bodyend="155"/>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da6d64080b375d7a684165177f5467469b" compoundref="spartanup_2xsecure__error_8h" startline="219">XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="124" bodyend="155"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da6d64080b375d7a684165177f5467469b" compoundref="spartanup_2xsecure__error_8h" startline="218">XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -260,16 +260,16 @@
 <para><itemizedlist>
 <listitem><para>Lookup table for &apos;n&apos;, &apos;w&apos;, &apos;p&apos;, &apos;ls&apos; &amp; Signature lengths</para></listitem><listitem><para>XSECURE_LMS_OTS_RESERVED, XSECURE_LMS_OTS_NOT_SUPPORTED, default</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W2</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W4</para></listitem><listitem><para>XSECURE_LMS_OTS_SHA256_N32_W8</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W2</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W4</para></listitem><listitem><para>XSECURE_LMS_OTS_SHAKE_N32_W8</para></listitem><listitem><para>Redundant type for temporal check</para></listitem><listitem><para>&apos;w&apos; = 1&apos; variations and 24 bit hash outputs are not supported in this library</para></listitem><listitem><para>SHA-256 options</para></listitem><listitem><para>SHAKE 256 options</para></listitem><listitem><para>default, and other not supported options</para></listitem><listitem><para>Two possible glitches, replacing this condition with a NOP, we will update error and exit flipping condition, we update error and exit, so both cases it is OK.</para></listitem><listitem><para>Update register to be taken care by caller </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="170" bodyend="339"/>
-        <references refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" compoundref="xsecure__lms__ots_8h" startline="288">XSecure_LmsOtsParam::H</references>
-        <references refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a0636fed8c37d4a35fce4dc7eb7e7d5aa" compoundref="xsecure__lms__ots_8h" startline="270">XSECURE_LMS_OTS_LS_NOT_SUPPORTED</references>
-        <references refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" compoundref="xsecure__lms__ots_8h" startline="278">XSECURE_LMS_OTS_P_NOT_SUPPORTED</references>
-        <references refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" compoundref="xsecure__lms__ots_8h" startline="245">XSECURE_LMS_OTS_U_NOT_SUPPORTED</references>
-        <references refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" compoundref="xsecure__lms__ots_8h" startline="256">XSECURE_LMS_OTS_V_NOT_SUPPORTED</references>
-        <references refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" compoundref="xsecure__lms__ots_8h" startline="234">XSECURE_LMS_OTS_W_NOT_SUPPORTED</references>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c" bodystart="170" bodyend="339"/>
+        <references refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" compoundref="xsecure__lms__ots_8h" startline="289">XSecure_LmsOtsParam::H</references>
+        <references refid="group__xsecure__lms__server__apis_1gga934fb8a4fb645f4419a0c10eceb4b883a0636fed8c37d4a35fce4dc7eb7e7d5aa" compoundref="xsecure__lms__ots_8h" startline="271">XSECURE_LMS_OTS_LS_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga54c7dfec9549d6617d8bcd3bf7b1f8bdac960b8575b2955bb26f4157068ecea3f" compoundref="xsecure__lms__ots_8h" startline="279">XSECURE_LMS_OTS_P_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga797bf08fbeb731c200889e97c2024349a561d2d6b1b26104e5c40e36fff90eec8" compoundref="xsecure__lms__ots_8h" startline="246">XSECURE_LMS_OTS_U_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga48ca7b856b1c924469c32ed0b974b8d5a18294c25b7a211115412003dc263ed82" compoundref="xsecure__lms__ots_8h" startline="257">XSECURE_LMS_OTS_V_NOT_SUPPORTED</references>
+        <references refid="group__xsecure__lms__server__apis_1gga98e7ae28a938a2adda1c9d415f68a3cdac57e881a59dd722d254d0fab00b1d5bd" compoundref="xsecure__lms__ots_8h" startline="235">XSECURE_LMS_OTS_W_NOT_SUPPORTED</references>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1364" endline="1467">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="905" endline="1263">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -509,6 +509,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="329"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c"/>
   </compounddef>
 </doxygen>

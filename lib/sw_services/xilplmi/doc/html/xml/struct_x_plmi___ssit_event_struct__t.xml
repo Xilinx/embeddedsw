@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_plmi___ssit_event_struct__t" kind="struct" prot="public">
     <compoundname>XPlmi_SsitEventStruct_t</compoundname>
+    <includes local="no">xplmi_ssit.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1aa80bc1243f0687c76d2c09130d5e4cd6" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -14,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="187" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1ad7a99bb8c59d5e636fe29d75e6d252a9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -27,7 +28,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="188" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf24bb1ce85073deed1339422ee5d915f" compoundref="xplmi__ssit_8c" startline="1837" endline="1888">XPlmi_SsitSyncMaster</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad6d0e16deb820f98b18689dc9966f3ff" compoundref="xplmi__ssit_8c" startline="1904" endline="1987">XPlmi_SsitSyncSlaves</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga5cb88dc15cd3354f65b346c3e92c2d88" compoundref="xplmi__ssit_8c" startline="2003" endline="2056">XPlmi_SsitWaitSlaves</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a1bf81f6416476f36f307c68bf1cc7a4b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -40,10 +44,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="189" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="188" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a254ed570fd434f05f81b810349f1d592" prot="public" static="no" mutable="no">
-        <type>XPlmi_SsitEvents_t</type>
+        <type><ref refid="struct_x_plmi___ssit_events__t" kindref="compound">XPlmi_SsitEvents_t</ref></type>
         <definition>XPlmi_SsitEvents_t XPlmi_SsitEventStruct_t::Events[XPLMI_SSIT_MAX_EVENTS]</definition>
         <argsstring>[XPLMI_SSIT_MAX_EVENTS]</argsstring>
         <name>Events</name>
@@ -53,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="189" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a17a730be6cee9cabcbf2686d6463d543" prot="public" static="no" mutable="no">
         <type>XPlmi_TaskNode *</type>
@@ -66,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a914cfb7bb11e85c2ee58482fcd8f68f6" prot="public" static="no" mutable="no">
         <type>XPlmi_TaskNode *</type>
@@ -79,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1ac7e911f5d96e634fa2094792c130bf9a" prot="public" static="no" mutable="no">
         <type>XPlmi_TaskNode *</type>
@@ -92,14 +96,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="193" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Per-SLR SSIT event table with the event array and associated task nodes. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="186" bodyend="194"/>
+    <collaborationgraph>
+      <node id="42">
+        <label>XPlmi_SsitEventStruct_t</label>
+        <link refid="struct_x_plmi___ssit_event_struct__t"/>
+        <childnode refid="43" relation="usage">
+          <edgelabel>Events</edgelabel>
+        </childnode>
+      </node>
+      <node id="43">
+        <label>XPlmi_SsitEvents_t</label>
+        <link refid="struct_x_plmi___ssit_events__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="185" bodyend="193"/>
     <listofallmembers>
       <member refid="struct_x_plmi___ssit_event_struct__t_1a254ed570fd434f05f81b810349f1d592" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>Events</name></member>
       <member refid="struct_x_plmi___ssit_event_struct__t_1ad7a99bb8c59d5e636fe29d75e6d252a9" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>IsIntrEnabled</name></member>

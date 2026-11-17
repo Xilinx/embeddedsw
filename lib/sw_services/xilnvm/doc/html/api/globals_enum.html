@@ -72,6 +72,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li class="current"><a href="globals_enum.html"><span>Enumerations</span></a></li>
       <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
@@ -97,7 +99,7 @@ $(document).ready(function(){initNavTree('globals_enum.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,10 +115,13 @@ $(document).ready(function(){initNavTree('globals_enum.html','');});
 </li>
 <li>XNvm_ApiId
 : <a class="el" href="group__xnvm__def__api__ids.html#gafefb58b4bc539bff958b4da2dbdfdd15">common/xnvm_defs.h</a>
-, <a class="el" href="group__xnvm__def__api__ids.html#gafefb58b4bc539bff958b4da2dbdfdd15">net/common/xnvm_defs.h</a>
+, <a class="el" href="group__xnvm__def__api__ids.html#gafefb58b4bc539bff958b4da2dbdfdd15">next/common/xnvm_defs.h</a>
 </li>
 <li>XNvm_EfuseCommonErrorCodes
 : <a class="el" href="group__xilnvm__error__codes.html#ga00c7dbe244969a974957cec19d29f1fc">xnvm_efuse_error.h</a>
+</li>
+<li>XNvm_EfuseFieldId
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720">xnvm_efuse_common_field.h</a>
 </li>
 <li>XNvm_EfuseIvType
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ga6615efa385d955cf1a35c58c8822bc85">spartanup/xnvm_efuse.h</a>
@@ -126,6 +131,12 @@ $(document).ready(function(){initNavTree('globals_enum.html','');});
 </li>
 <li>XNvm_EfusePpkType
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gaf1c02a37ed9053839674b9a9adf3e169">spartanup/xnvm_efuse.h</a>
+</li>
+<li>XNvm_EfusePrecondId
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a64e8ef18eac841d6b49b94213bf9b5a0">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNvm_EfuseProtTriggerType
+: <a class="el" href="xnvm__efuse__common__field_8h.html#af9636449640eb9cd08a5e7c6c58c2db4">xnvm_efuse_common_field.h</a>
 </li>
 <li>XNvm_EfuseRdMode
 : <a class="el" href="group__xnvm__efuse__server__apis.html#ga626bd515d5b319991d9b6b337ac3eafa">xnvm_efuse_common.h</a>
@@ -137,7 +148,7 @@ $(document).ready(function(){initNavTree('globals_enum.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#ga86e3961e656aebaac884575ef08d47ad">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNvm_EfuseVersalNetErrorCodes
-: <a class="el" href="group__xilnvm__error__codes.html#ga30215236c6d8dc87857fb0cee99c658a">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#ga30215236c6d8dc87857fb0cee99c658a">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNvm_IvType
 : <a class="el" href="group__xnvm__def__api__ids.html#ga9b9c488dfe06ff2966d5ded5f5ec76ba">xnvm_common_defs.h</a>

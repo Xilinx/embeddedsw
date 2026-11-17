@@ -1,0 +1,580 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__eeprom__example" kind="group">
+    <compoundname>xspi_eeprom_example</compoundname>
+    <title>Xspi_eeprom_example</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xspi__eeprom__example_1gaa4e3dacd5dff65e71d69eed321c4d7bf" prot="public" static="no">
+        <type>u8</type>
+        <definition>typedef u8 EepromBuffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>EepromBuffer</name>
+        <briefdescription>
+<para>Holds the data sent to and received from the serial EEPROM device connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is an array of bytes rather than a structure for portability avoiding packing issues. The application must setup the data to be written in this buffer and retrieve the data read from it. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1ga1dc944bd1ac04c2ab436f573a526fdce" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref></type>
+        <definition>XSpi Spi</definition>
+        <argsstring></argsstring>
+        <name>Spi</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>TransferInProgress</name>
+        <briefdescription>
+<para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga86d8ebdee181c36e305d15812df9d774" compoundref="xspi__numonyx__flash__quad__example_8c" startline="742" endline="780">SpiFlashBulkErase</referencedby>
+        <referencedby refid="group__xspi__winbond__flash__quad__example_1ga29b2b437252838fd655646e018a44fa8" compoundref="xspi__winbond__flash__quad__example_8c" startline="982" endline="1027">SpiFlashEnableHPM</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga4007c2150a6cc4c1f0e890fcb784a52e" compoundref="xspi__numonyx__flash__quad__example_8c" startline="853" endline="883">SpiFlashGetStatus</referencedby>
+        <referencedby refid="group__xspi__winbond__flash__quad__example_1gaa80e27c647fe6b86b58019a9af60c1b3" compoundref="xspi__winbond__flash__quad__example_8c" startline="885" endline="969">SpiFlashQuadEnable</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga48599e715e854c930ad7682db64c5716" compoundref="xspi__numonyx__flash__quad__example_8c" startline="556" endline="594">SpiFlashWriteEnable</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1ga504d4dbb0eda6e379a09eceb1c46780b" compoundref="xspi__intel__flash__example_8c" startline="578" endline="608">SpiIntelFlashBulkErase</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1gaf1df55f074e01da3a431a6b4dffe5906" compoundref="xspi__intel__flash__example_8c" startline="672" endline="702">SpiIntelFlashGetStatus</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1ga187ad5a1ce8a9fdd0cfe915aa07c4c68" compoundref="xspi__intel__flash__example_8c" startline="531" endline="564">SpiIntelFlashRead</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1ga692a3c13eb25182574d572b40d6f409d" compoundref="xspi__intel__flash__example_8c" startline="624" endline="657">SpiIntelFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1ga9fc6213c851b1f3156bfe642080ddfa6" compoundref="xspi__intel__flash__example_8c" startline="472" endline="516">SpiIntelFlashWrite</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1gafd36247f46468f8a699dbed74b666b6d" compoundref="xspi__intel__flash__example_8c" startline="424" endline="454">SpiIntelFlashWriteEnable</referencedby>
+        <referencedby refid="group__xspi__intel__flash__example_1gadd79104b20e650bddfefb137c77a22c7" compoundref="xspi__intel__flash__example_8c" startline="719" endline="750">SpiIntelFlashWriteStatus</referencedby>
+        <referencedby refid="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" compoundref="xspi__intr__example_8c" startline="227" endline="354">SpiIntrExample</referencedby>
+        <referencedby refid="group__xspi__intr__example_1ga60c82f8284908b74700875c6dadf9a49" compoundref="xspi__intr__example_8c" startline="375" endline="391">SpiIntrHandler</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga9cf6f63c9b15b121231880b384d2d6fe" compoundref="xspi__stm__flash__example_8c" startline="537" endline="567">SpiStmFlashBulkErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga7dccfc93abc36cebd86eaeb6aa3ec13e" compoundref="xspi__stm__flash__example_8c" startline="632" endline="662">SpiStmFlashGetStatus</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga4d6873a7dfd6f962658f9c38c16922bf" compoundref="xspi__stm__flash__example_8c" startline="490" endline="523">SpiStmFlashRead</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1ga67e2c3caac23cc5879eb277cdd2476fd" compoundref="xspi__stm__flash__example_8c" startline="584" endline="617">SpiStmFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gaa941537bff54666b063ae5d01f2a82e8" compoundref="xspi__stm__flash__example_8c" startline="431" endline="475">SpiStmFlashWrite</referencedby>
+        <referencedby refid="group__xspi__stm__flash__example_1gacd35c3715d81555e31510cd8e985f4de" compoundref="xspi__stm__flash__example_8c" startline="386" endline="416">SpiStmFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>The following variable tracks any errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__xspi__intr__example_1ga60c82f8284908b74700875c6dadf9a49" compoundref="xspi__intr__example_8c" startline="375" endline="391">SpiIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the EEPROM such that unique values can be generated to guarantee the writes to the EEPROM were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+        <referencedby refid="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" compoundref="xspi__intr__example_8c" startline="227" endline="354">SpiIntrExample</referencedby>
+        <referencedby refid="group__xspi__polled__example_1ga51fea113687f9f21f812495c1f61f00b" compoundref="xspi__polled__example_8c" startline="164" endline="253">SpiPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1ga5faf644bedc2f77c4dc8631d5a5a0482" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xspi__eeprom__example_1gaa4e3dacd5dff65e71d69eed321c4d7bf" kindref="member">EepromBuffer</ref></type>
+        <definition>EepromBuffer ReadBuffer</definition>
+        <argsstring></argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Buffer to read from the EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__eeprom__example_1gaaf9b16ecdabdeade00c3e9616cd7e560" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xspi__eeprom__example_1gaa4e3dacd5dff65e71d69eed321c4d7bf" kindref="member">EepromBuffer</ref></type>
+        <definition>EepromBuffer WriteBuffer</definition>
+        <argsstring></argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Buffer to write to the EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__eeprom__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SpiHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</argsstring>
+        <name>SpiHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the status events of the SPI driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</para><para>This handler provides an example of how to handle SPI interrupts but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference passed to the handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the SPI. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes transferred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="150" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EepromRead</definition>
+        <argsstring>(XSpi *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)</argsstring>
+        <name>EepromRead</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xspi__eeprom__example_1gaa4e3dacd5dff65e71d69eed321c4d7bf" kindref="member">EepromBuffer</ref></type>
+          <declname>Buffer</declname>
+        </param>
+        <briefdescription>
+<para>Reads from the Microchip serial EEPROM connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to read data from in the EEPROM. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to read the data into. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="379" bodyend="403"/>
+        <references refid="group__xspi__eeprom__example_1gabb162281f5a7d62f2acc8d091a97ba52" compoundref="xspi__eeprom__example_8c" startline="95">ADDRESS_LSB_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1ga47e17a2c44fb806fc1ff6d3e9397e253" compoundref="xspi__eeprom__example_8c" startline="94">ADDRESS_MSB_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1gadb83c033ee492824badb77fa8ebd5c5d" compoundref="xspi__eeprom__example_8c" startline="93">COMMAND_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1ga11faa4c105a137b8edaa096de5063835" compoundref="xspi__eeprom__example_8c" startline="96">DATA_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1ga635c69a613273e533212c0bf3c15b8c4" compoundref="xspi__eeprom__example_8c" startline="105">OVERHEAD_SIZE</references>
+        <references refid="group__xspi__eeprom__example_1ga21623e2a5501c821da54dd76ffc1d077" compoundref="xspi__eeprom__example_8c" startline="81">READ_CMD</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EepromWrite</definition>
+        <argsstring>(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)</argsstring>
+        <name>EepromWrite</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xspi__eeprom__example_1gaa4e3dacd5dff65e71d69eed321c4d7bf" kindref="member">EepromBuffer</ref></type>
+          <declname>Buffer</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the Microchip serial EEPROM connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function is not designed to be a driver to handle all the conditions of the EEPROM device. The EEPROM contains a 32 byte write buffer which can be filled and then a write is automatically performed by the device. All the data put into the buffer must be in the same page of the device with page boundaries being on 32 byte boundaries.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to write data to in the EEPROM. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer of data to write from. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="422" bodyend="503"/>
+        <references refid="group__xspi__eeprom__example_1gabb162281f5a7d62f2acc8d091a97ba52" compoundref="xspi__eeprom__example_8c" startline="95">ADDRESS_LSB_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1ga47e17a2c44fb806fc1ff6d3e9397e253" compoundref="xspi__eeprom__example_8c" startline="94">ADDRESS_MSB_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1gadb83c033ee492824badb77fa8ebd5c5d" compoundref="xspi__eeprom__example_8c" startline="93">COMMAND_OFFSET</references>
+        <references refid="group__xspi__eeprom__example_1ga635c69a613273e533212c0bf3c15b8c4" compoundref="xspi__eeprom__example_8c" startline="105">OVERHEAD_SIZE</references>
+        <references refid="group__xspi__eeprom__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" compoundref="xspi__eeprom__example_8c" startline="83">READ_STATUS_CMD</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__eeprom__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" compoundref="xspi__eeprom__example_8c" startline="80">WRITE_CMD</references>
+        <references refid="group__xspi__eeprom__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" compoundref="xspi__eeprom__example_8c" startline="84">WRITE_ENABLE_CMD</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The test writes and reads data from a Microchip serial EEPROM. This part must be present in the hardware to use this example.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI configuration is not found, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function calls functions which contain loops that may be infinite if interrupts are not working such that it may not return. If the device slave select is not correct and the device is not responding on bus it reads a status of 0xFF for the status register as the bus is pulled up. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="212" bodyend="331"/>
+        <references refid="struct_x_spi___config_1a495ec19a4ab441ea59a0e220f0728dd9" compoundref="xspi_8h" startline="406">XSpi_Config::BaseAddress</references>
+        <references refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</references>
+        <references refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</references>
+        <references refid="struct_x_spi___config_1a3f6036a8c85e0a81febbc13c358335e0" compoundref="xspi_8h" startline="419">XSpi_Config::IntrId</references>
+        <references refid="struct_x_spi___config_1a8eab103efa3a50b4bbe39d6a002150b2" compoundref="xspi_8h" startline="421">XSpi_Config::IntrParent</references>
+        <references refid="group__xspi__eeprom__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" compoundref="xspi__eeprom__example_8c" startline="120">MAX_DATA</references>
+        <references refid="group__xspi__eeprom__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" compoundref="xspi__eeprom__example_8c" startline="113">PAGE_COUNT</references>
+        <references refid="group__xspi__eeprom__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" compoundref="xspi__eeprom__example_8c" startline="112">PAGE_SIZE</references>
+        <references refid="group__xspi__eeprom__example_1gae81191a53faa3dd6f1218212910f55dd" compoundref="xspi__eeprom__example_8c" startline="98">READ_DATA_OFFSET</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__eeprom__example_1ga1e1eee15689857f68f7a239b5b6f8519" compoundref="xspi__eeprom__example_8c" startline="128">SEEPROM_SPI_SELECT</references>
+        <references refid="group__xspi__atmel__flash__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" compoundref="xspi__atmel__flash__example_8c" startline="592" endline="608">SpiHandler</references>
+        <references refid="group__xspi__eeprom__example_1gab3bcee72bda39943b664463f1df4d211" compoundref="xspi__eeprom__example_8c" startline="185">Test</references>
+        <references refid="group__xspi__eeprom__example_1ga39cfafaf06548fe0f678d193a1c2ec00" compoundref="xspi__eeprom__example_8c" startline="97">WRITE_DATA_OFFSET</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi_1gaeb7ff246ee212e9fa1379769aae76f47" compoundref="xspi_8h" startline="354">XSP_MANUAL_SSELECT_OPTION</references>
+        <references refid="group__spi_1gac2c043a14b04e38a61b1979ccaa8a200" compoundref="xspi_8h" startline="350">XSP_MASTER_OPTION</references>
+        <references refid="group__spi__api_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</references>
+        <references refid="group__spi__api_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</references>
+        <references refid="group__spi_1ga89a706debf1603a19b95d8e556f04f68" compoundref="xspi__sinit_8c" startline="93" endline="107">XSpi_LookupConfig</references>
+        <references refid="group__spi_1ga67c2076b133a55b6f80343642a1ace41" compoundref="xspi__options_8c" startline="110" endline="164">XSpi_SetOptions</references>
+        <references refid="group__spi__api_1ga162523a3e9b29f063701db303ac8cf17" compoundref="xspi_8c" startline="937" endline="984">XSpi_SetSlaveSelect</references>
+        <references refid="group__spi__api_1gabc09f4d503de2a772e5079ac46fc62b6" compoundref="xspi_8c" startline="1065" endline="1074">XSpi_SetStatusHandler</references>
+        <references refid="group__spi__api_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="318" endline="370">XSpi_Start</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" prot="public" static="no">
+        <name>WRITE_CMD</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Write data command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga21623e2a5501c821da54dd76ffc1d077" prot="public" static="no">
+        <name>READ_CMD</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Read data command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga12fe83d74a765a1b4ae033e22a23dafe" prot="public" static="no">
+        <name>WRITE_DISABLE_CMD</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Write disable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gadb83c033ee492824badb77fa8ebd5c5d" prot="public" static="no">
+        <name>COMMAND_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>EEPROM instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga47e17a2c44fb806fc1ff6d3e9397e253" prot="public" static="no">
+        <name>ADDRESS_MSB_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>MSB of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gabb162281f5a7d62f2acc8d091a97ba52" prot="public" static="no">
+        <name>ADDRESS_LSB_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>LSB of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga11faa4c105a137b8edaa096de5063835" prot="public" static="no">
+        <name>DATA_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Offset of data in the buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga39cfafaf06548fe0f678d193a1c2ec00" prot="public" static="no">
+        <name>WRITE_DATA_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Start of data to write to the EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gae81191a53faa3dd6f1218212910f55dd" prot="public" static="no">
+        <name>READ_DATA_OFFSET</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Start of data read from the EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga635c69a613273e533212c0bf3c15b8c4" prot="public" static="no">
+        <name>OVERHEAD_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>The following constants specify the extra bytes which are sent to the EEPROM on the SPI interface, that are not data, but control information which includes the command and address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1gaf63163cf8fa5318000173043114d45a3" compoundref="xspi__eeprom__example_8c" startline="379" endline="403">EepromRead</referencedby>
+        <referencedby refid="group__xspi__eeprom__example_1ga6e2e0f5d20d6b8785f6c3323a947ba5d" compoundref="xspi__eeprom__example_8c" startline="422" endline="503">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>EEPROM page size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" prot="public" static="no">
+        <name>PAGE_COUNT</name>
+        <initializer>128</initializer>
+        <briefdescription>
+<para>Number of EEPROM pages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" prot="public" static="no">
+        <name>MAX_DATA</name>
+        <initializer><ref refid="group__xspi__eeprom__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kindref="member">PAGE_COUNT</ref> * <ref refid="group__xspi__winbond__flash__quad__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref></initializer>
+        <briefdescription>
+<para>Maximum data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga6b20d41d6252e9871430c242cb1a56e7" prot="public" static="no">
+        <name>BUFFER_SIZE</name>
+        <initializer><ref refid="group__xspi__eeprom__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" kindref="member">MAX_DATA</ref> + <ref refid="group__xspi__eeprom__example_1gae81191a53faa3dd6f1218212910f55dd" kindref="member">READ_DATA_OFFSET</ref></initializer>
+        <briefdescription>
+<para>Buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__eeprom__example_1ga1e1eee15689857f68f7a239b5b6f8519" prot="public" static="no">
+        <name>SEEPROM_SPI_SELECT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>The following constant defines the slave select signal that selects the EEPROM device on the SPI bus, this signal is typically connected to the chip select of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_eeprom_example.c" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xspi__eeprom__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__eeprom__example_8c" startline="212" endline="331">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

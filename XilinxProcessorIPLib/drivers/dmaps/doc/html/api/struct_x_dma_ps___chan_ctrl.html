@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_dma_ps___chan_ctrl.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_dma_ps___chan_ctrl.html','');
 </div><!--header-->
 <div class="contents">
 
-<p>DMA channel control structure.
+<p>Holds AXI channel control settings translated into a 32-bit CCR value.
  <a href="struct_x_dma_ps___chan_ctrl.html#details">More...</a></p>
 
 <p><code>#include &lt;xdmaps.h&gt;</code></p>
@@ -155,8 +155,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a3585627ef02899b75c5f2f716d3ab52f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>DMA channel control structure. </p>
-<p>It's for AXI bus transaction. This struct will be translated into a 32-bit channel control register value. </p>
+<div class="textblock"><p>Holds AXI channel control settings translated into a 32-bit CCR value. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a853e35c04d6373b1c91b4d3b85fd21ab"></a>
 <div class="memitem">
@@ -170,7 +169,7 @@ Data Fields</h2></td></tr>
 
 <p>Destination burst length. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>
@@ -186,7 +185,7 @@ Data Fields</h2></td></tr>
 
 <p>Destination burst size. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>
@@ -218,7 +217,7 @@ Data Fields</h2></td></tr>
 
 <p>Destination incrementing or fixed address. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, <a class="el" href="group__dmaps.html#ga3691ba115c788c4f68a05cf05c486eeb">XDmaPs_Start()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, <a class="el" href="group__dmaps.html#ga3691ba115c788c4f68a05cf05c486eeb">XDmaPs_Start()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>
@@ -266,7 +265,7 @@ Data Fields</h2></td></tr>
 
 <p>Source burst length. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>
@@ -282,7 +281,7 @@ Data Fields</h2></td></tr>
 
 <p>Source burst size. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>
@@ -314,7 +313,7 @@ Data Fields</h2></td></tr>
 
 <p>Source incrementing or fixed address. </p>
 
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, <a class="el" href="group__dmaps.html#ga3691ba115c788c4f68a05cf05c486eeb">XDmaPs_Start()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
+<p>Referenced by <a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>, <a class="el" href="group__dmaps.html#gabc2e04f69037f0bdba33275ae017af8a">XDmaPs_GenDmaProg()</a>, <a class="el" href="group__dmaps.html#ga3691ba115c788c4f68a05cf05c486eeb">XDmaPs_Start()</a>, and <a class="el" href="group__dmaps.html#ga68a8d4fbf7cf6154ad2c58df0479d329">XDmaPs_ToCCRValue()</a>.</p>
 
 </div>
 </div>

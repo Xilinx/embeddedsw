@@ -297,7 +297,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac41347532d96ebbd3f55642d75c82505"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_tx_ss___config.html">XV_HdmiTxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#ac41347532d96ebbd3f55642d75c82505">XV_HdmiTxSs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ac41347532d96ebbd3f55642d75c82505"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#ac41347532d96ebbd3f55642d75c82505">More...</a><br/></td></tr>
+<tr class="memdesc:ac41347532d96ebbd3f55642d75c82505"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device base address.  <a href="#ac41347532d96ebbd3f55642d75c82505">More...</a><br/></td></tr>
 <tr class="separator:ac41347532d96ebbd3f55642d75c82505"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addd4ba1ab1d472da573ea2c6dc519576"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#addd4ba1ab1d472da573ea2c6dc519576">XV_HdmiTxSs_GetDrvIndex</a> (UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:addd4ba1ab1d472da573ea2c6dc519576"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the Index number of config table using BaseAddress.  <a href="#addd4ba1ab1d472da573ea2c6dc519576">More...</a><br/></td></tr>
@@ -1536,15 +1536,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function looks for the device configuration based on the unique device ID. </p>
+<p>This function looks for the device configuration based on the unique device base address. </p>
 <p>The table XV_HdmiTxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the unique base address of the device being looked up</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found </dd></dl>
 
 </div>
 </div>

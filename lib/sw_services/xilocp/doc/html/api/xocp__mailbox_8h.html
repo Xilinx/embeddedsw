@@ -113,6 +113,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   am   12/21/22 Initial release
 1.1   obs  02/18/25 Fixed IPI message length
 1.7   rpu  02/18/26 Fixed Doxygen warnings
+1.8   tus  08/07/26 Added optional IPI response argument to XOcp_ProcessMailbox
 </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xilmailbox.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
@@ -125,9 +126,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga6bf28d17b9014d88926e36cd519dd804"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga6bf28d17b9014d88926e36cd519dd804">XOcp_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga6bf28d17b9014d88926e36cd519dd804"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xocp__mailbox__apis.html#ga6bf28d17b9014d88926e36cd519dd804">More...</a><br/></td></tr>
-<tr class="separator:ga6bf28d17b9014d88926e36cd519dd804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xocp__mailbox__apis.html#ga9f7c2c1f66a38ca1ae974bb1d7640812">XOcp_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xocp__mailbox__apis.html#ga9f7c2c1f66a38ca1ae974bb1d7640812">More...</a><br/></td></tr>
+<tr class="separator:ga9f7c2c1f66a38ca1ae974bb1d7640812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

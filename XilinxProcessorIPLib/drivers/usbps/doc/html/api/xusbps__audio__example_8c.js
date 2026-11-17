@@ -1,5 +1,27 @@
 var xusbps__audio__example_8c =
 [
+    [ "CUR_AUDIOFREQ", "xusbps__audio__example_8c.html#aecb8957bb59a9457cec1df28b26c9b35", null ],
+    [ "DIV_ROUND_UP", "xusbps__audio__example_8c.html#ae664e7492e37d324831caf2321ddda37", null ],
+    [ "MEMORY_SIZE", "xusbps__audio__example_8c.html#a5ad3f75a4e38fd9bbed917c71ca4e9e0", null ],
+    [ "RAMBLOCKS", "xusbps__audio__example_8c.html#a2017db239ba3a65f9ede9e7a873057ee", null ],
+    [ "RAMDISKSECTORS", "xusbps__audio__example_8c.html#a58070a01669124f3f6692703b2b7db7f", null ],
+    [ "USBPS_BASEADDR", "xusbps__audio__example_8c.html#aa80926c978b855240e1d9d1f0884e8c2", null ],
     [ "main", "xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
-    [ "XUsbPs_CfgInit", "xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d", null ]
+    [ "XUsbPs_CfgInit", "xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d", null ],
+    [ "ALIGNMENT_CACHELINE", "xusbps__audio__example_8c.html#af8a218469831b07d43523f639ebe648c", null ],
+    [ "AudioFreq", "xusbps__audio__example_8c.html#a34a89895affe26a393b45a5ebd506564", null ],
+    [ "BufferPtrTemp", "xusbps__audio__example_8c.html#a1f946c7d2b74571706ecb53626f2fa19", null ],
+    [ "DeviceConfig", "xusbps__audio__example_8c.html#a41079ea5f43773b72f02eaa3e270b91a", null ],
+    [ "FirstPktFrame", "xusbps__audio__example_8c.html#aca71b1f96a92142d9ee89511138e54d9", null ],
+    [ "Framesize", "xusbps__audio__example_8c.html#adb4a1d183567e8c092e96d3b14250cbe", null ],
+    [ "Index", "xusbps__audio__example_8c.html#ae015863885aec059536758b1a3fffb87", null ],
+    [ "Interval", "xusbps__audio__example_8c.html#a95236f13662ead86d06423103950e825", null ],
+    [ "PacketResidue", "xusbps__audio__example_8c.html#a026146bba85464df240db43d3d573648", null ],
+    [ "PacketSize", "xusbps__audio__example_8c.html#a65a5d9627e475658ede68b4b4ae9f9f0", null ],
+    [ "PrivateData", "xusbps__audio__example_8c.html#a8eaf1459b662084ad66e4c8a1bcdabf8", null ],
+    [ "RamDisk", "xusbps__audio__example_8c.html#ab4735984aee206f4be757912a3c60f02", null ],
+    [ "Residue", "xusbps__audio__example_8c.html#a5c474c16eab5b4dc8baf76c3be90f989", null ],
+    [ "UsbConfigPtr", "xusbps__audio__example_8c.html#ad8a46af61df28d52dfa260f3e35387eb", null ],
+    [ "UsbInstance", "xusbps__audio__example_8c.html#a35b6a61151282f1695a33ba48778b541", null ],
+    [ "WrRamDiskPtr", "xusbps__audio__example_8c.html#a22c8f2bd88e52421cdd12d857c424eee", null ]
 ];

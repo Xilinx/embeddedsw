@@ -1,0 +1,1849 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmmidp__mst_8c" kind="file">
+    <compoundname>xmmidp_mst.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includes local="no">xil_assert.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes refid="xmmidp_8h" local="yes">xmmidp.h</includes>
+    <incdepgraph>
+      <node id="55">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="58">
+        <label>xmmidp_hw.h</label>
+        <link refid="xmmidp__hw_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xil_io.h</label>
+      </node>
+      <node id="57">
+        <label>xmmidp.h</label>
+        <link refid="xmmidp_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>string.h</label>
+      </node>
+      <node id="54">
+        <label>xstatus.h</label>
+      </node>
+      <node id="61">
+        <label>xvidc.h</label>
+      </node>
+      <node id="60">
+        <label>xil_types.h</label>
+      </node>
+      <node id="56">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="52">
+        <label>xmmidp_mst.c</label>
+        <link refid="xmmidp_mst.c"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_mmi_dp___sb_reply" prot="public">XMmiDp_SbReply</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Sideband message transport</header>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" prot="public" static="no">
+        <name>XMMIDP_SBMSG_MAX_BYTES</name>
+        <initializer>48</initializer>
+        <briefdescription>
+<para>One message transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" prot="public" static="no">
+        <name>XMMIDP_SBMSG_REPLY_MAX_BYTES</name>
+        <initializer>320</initializer>
+        <briefdescription>
+<para>Largest LINK_ADDRESS reply. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" prot="public" static="no">
+        <name>XMMIDP_SBMSG_AUX_CHUNK</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bytes per AUX transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga2345f5ea873711188565dc37ddfdc670" prot="public" static="no">
+        <name>XMMIDP_SBMSG_REPLY_POLL_US</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+<para>Reply poll interval. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga77f1a91e54e67542a398e83a9e48b9fe" prot="public" static="no">
+        <name>XMMIDP_SBMSG_REPLY_TIMEOUT</name>
+        <initializer>5000</initializer>
+        <briefdescription>
+<para>Polls of REPLY_POLL_US. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga36b0f119152d251b7aedb1291a117a47" prot="public" static="no">
+        <name>XMMIDP_SBMSG_BROADCAST_LCR</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>LCR of a broadcast. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gab545404fb1f8fcc027ebbd185cdd1c28" prot="public" static="no">
+        <name>XMMIDP_SBMSG_NAK_MASK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Reply type NAK bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gad1d85698842e3dffcd4a25e566968835" prot="public" static="no">
+        <name>XMMIDP_SBMSG_REQ_ID_MASK</name>
+        <initializer>0x7F</initializer>
+        <briefdescription>
+<para>Request ID bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gadc1ef4c7ae2a474c895ff6d78678b8de" prot="public" static="no">
+        <name>XMMIDP_SBMSG_SOMT_MASK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Start of transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" prot="public" static="no">
+        <name>XMMIDP_SBMSG_EOMT_MASK</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>End of transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" prot="public" static="no">
+        <name>XMMIDP_SBMSG_BODY_LEN_MASK</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+<para>Body length bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" prot="public" static="no">
+        <name>XMMIDP_SBMSG_NAK_REASON_IDX</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>After request ID and GUID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" prot="public" static="no">
+        <name>XMMIDP_SBMSG_CRC4_POLY</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+<para>x^4 + x + 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" prot="public" static="no">
+        <name>XMMIDP_SBMSG_CRC8_POLY</name>
+        <initializer>0x1D5</initializer>
+        <briefdescription>
+<para>x^8+x^7+x^6+x^4+x^2+1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" prot="public" static="no">
+        <name>XMMIDP_MST_MAX_LCT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Discovery skips the ports of a branch at this LCT or deeper. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__mmi__dppsu14_1gaa0c41e1ac7a1c74aa6be4254c78a2aa1" prot="public" static="yes" mutable="no">
+        <type>XMmiDp_SbReply</type>
+        <definition>XMmiDp_SbReply SbReply</definition>
+        <argsstring></argsstring>
+        <name>SbReply</name>
+        <briefdescription>
+<para>Reassembled reply body, kept off the stack because it is too large for the stacks these designs run on. </para>        </briefdescription>
+        <detaileddescription>
+<para>One buffer is shared by every sideband transaction, so the transport is not reentrant. A transaction started from the HPD interrupt handler while a main-loop transaction is in flight would overwrite the reassembly in place. SbBusy rejects the nested call instead. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__mmi__dppsu14_1gacc72d598e1930d4bd7d5e570b05ce6c2" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 SbBusy</definition>
+        <argsstring></argsstring>
+        <name>SbBusy</name>
+        <briefdescription>
+<para>Set while a sideband transaction owns SbReply. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga9e5ee4b87503261708d96c28113f6348" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbClaim</definition>
+        <argsstring>(void)</argsstring>
+        <name>XMmiDp_SbClaim</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Claims the shared sideband reply buffer for one transaction. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS when the caller owns the buffer, XST_DEVICE_BUSY when a sideband transaction is already in flight.</para></simplesect>
+<simplesect kind="note"><para>The test and the set are not atomic, so this is not a formal critical section. It rejects the case that occurs in practice, an HPD interrupt handler starting a transaction while the main loop is inside one. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="102" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gae260a4fad5ab858980f6f1e2baf0d33e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XMmiDp_SbRelease</definition>
+        <argsstring>(void)</argsstring>
+        <name>XMmiDp_SbRelease</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Releases the shared sideband reply buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga075003c62a06a4faa7b5d6485e677cc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XMmiDp_SbCrc</definition>
+        <argsstring>(const u8 *Data, u32 NumBits, u16 Poly, u8 Width)</argsstring>
+        <name>XMmiDp_SbCrc</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumBits</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Poly</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Width</declname>
+        </param>
+        <briefdescription>
+<para>Bitwise CRC over Width-bit units packed MSB first: CRC4 over header nibbles, CRC8 over body bytes (DP 1.4 section 2.11.3). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the packed input. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of input bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Poly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the generator polynomial including its top bit. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is 4 for CRC4 or 8 for CRC8.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The CRC value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="135" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga76e8a4bbfeb9b479866421de69c5a521" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XMmiDp_SbBuildHeader</definition>
+        <argsstring>(u8 *Buf, u8 LinkCountTotal, u8 LinkCountRemaining, const u8 *RelativeAddress, u8 Broadcast, u8 PathMsg, u8 BodyLength)</argsstring>
+        <name>XMmiDp_SbBuildHeader</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountRemaining</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Broadcast</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PathMsg</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BodyLength</declname>
+        </param>
+        <briefdescription>
+<para>Writes a single-chunk sideband message header into Buf and fills in its CRC4. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the header bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the header LCT. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountRemaining</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the header LCR. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds LinkCountTotal - 1 port numbers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Broadcast</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the broadcast message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PathMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the path message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BodyLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the body length including the CRC8 byte.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The header length in bytes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="174" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga700619bca10b23b80d983ab5206fd52f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbAckDownRep</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_SbAckDownRep</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Acknowledges DOWN_REP_MSG_RDY in DPCD ESI0 so the branch can post the next reply chunk. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The AUX write status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="209" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga4b7276ae17e74f3238301ec02ffcdd4e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbSendRequest</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u8 Broadcast, u8 PathMsg, const u8 *Body, u8 BodyBytes)</argsstring>
+        <name>XMmiDp_SbSendRequest</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Broadcast</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PathMsg</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Body</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BodyBytes</declname>
+        </param>
+        <briefdescription>
+<para>Writes a sideband request to DPCD DOWN_REQ. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the target branch. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the target branch. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Broadcast</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the broadcast message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PathMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the path message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Body</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the request body without CRC8. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BodyBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes in Body.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_FAILURE if the request does not fit one chunk, or the failing AUX status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="234" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga2c658f094b962be05f4a6ed8b3dacb6a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbWaitDownRep</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_SbWaitDownRep</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Polls DPCD ESI0 until the branch posts a reply chunk in DOWN_REP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_ERROR_COUNT_MAX on timeout, or the failing AUX status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="282" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gacf75409eae319a3799827b3f34b96993" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbReceiveReply</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 ReqId)</argsstring>
+        <name>XMmiDp_SbReceiveReply</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReqId</declname>
+        </param>
+        <briefdescription>
+<para>Receives a complete sideband reply into SbReply, reassembling chunks until EOMT, and checks that it is an ACK for ReqId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the request identifier the reply must match.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on ACK, XST_FAILURE on NAK, CRC error, malformed or mismatched reply, or the wait/AUX status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="314" bodyend="392"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gaf63c5ac5760f744d21323c591350188b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbTransact</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u8 Broadcast, u8 PathMsg, const u8 *Body, u8 BodyBytes)</argsstring>
+        <name>XMmiDp_SbTransact</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Broadcast</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PathMsg</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Body</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BodyBytes</declname>
+        </param>
+        <briefdescription>
+<para>Sends one sideband request and waits for its ACK. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the target branch. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the target branch. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Broadcast</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the broadcast message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PathMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the path message flag. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Body</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the request body; Body[0] is the request identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BodyBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes in Body.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when the reply is an ACK; otherwise the failing status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="410" bodyend="428"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga003029dcf9175f81e3ec539ecde6eaf7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbMsgLinkAddress</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, XMmiDp_SbLinkAddressReply *Reply)</argsstring>
+        <name>XMmiDp_SbMsgLinkAddress</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mmi_dp___sb_link_address_reply" kindref="compound">XMmiDp_SbLinkAddressReply</ref> *</type>
+          <declname>Reply</declname>
+        </param>
+        <briefdescription>
+<para>Sends LINK_ADDRESS to a branch device and decodes its port list. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the branch (1 = directly attached). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the branch; unused when LCT is 1. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Reply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the decoded reply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, or XST_FAILURE / AUX status on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="442" bodyend="500"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SendSbMsgLinkAddress</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, XMmiDp_SbLinkAddressReply *Reply)</argsstring>
+        <name>XMmiDp_SendSbMsgLinkAddress</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mmi_dp___sb_link_address_reply" kindref="compound">XMmiDp_SbLinkAddressReply</ref> *</type>
+          <declname>Reply</declname>
+        </param>
+        <briefdescription>
+<para>Sends LINK_ADDRESS to a branch device and decodes its port list. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the branch (1 = directly attached). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the branch; unused when LCT is 1. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Reply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the decoded reply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_DEVICE_BUSY when another sideband transaction is in flight, or XST_FAILURE / AUX status on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="515" bodyend="530"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga08d695c0be06153e037ae8df4ba0d008" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbMsgEnumPathResources</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)</argsstring>
+        <name>XMmiDp_SbMsgEnumPathResources</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>AvailPbn</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>FullPbn</declname>
+        </param>
+        <briefdescription>
+<para>Sends ENUM_PATH_RESOURCES for the path to a sink. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the sink (&gt;= 2). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the sink. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AvailPbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the available PBN of the path. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FullPbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the full PBN of the path.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, or XST_FAILURE / AUX status on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="545" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SendSbMsgEnumPathResources</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)</argsstring>
+        <name>XMmiDp_SendSbMsgEnumPathResources</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>AvailPbn</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>FullPbn</declname>
+        </param>
+        <briefdescription>
+<para>Sends ENUM_PATH_RESOURCES for the path to a sink. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the sink (&gt;= 2). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the sink. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AvailPbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the available PBN of the path. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FullPbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receives the full PBN of the path.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_DEVICE_BUSY when another sideband transaction is in flight, or XST_FAILURE / AUX status on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="590" bodyend="606"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga77f158f40a26187188c403fd88eaf38e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMmiDp_SbMsgAllocatePayload</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u8 VcId, u16 Pbn)</argsstring>
+        <name>XMmiDp_SbMsgAllocatePayload</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VcId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Pbn</declname>
+        </param>
+        <briefdescription>
+<para>Sends ALLOCATE_PAYLOAD so the branch that owns the sink&apos;s port maps virtual channel VcId to that port with Pbn bandwidth. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the sink (&gt;= 2). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the sink. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VcId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual channel payload ID (the stream ID). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the payload bandwidth number; 0 deallocates.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, or XST_FAILURE / AUX status on error.</para></simplesect>
+<simplesect kind="note"><para>Call after the upstream payload table update and ACT. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="624" bodyend="658"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SendSbMsgAllocatePayload</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u8 VcId, u16 Pbn)</argsstring>
+        <name>XMmiDp_SendSbMsgAllocatePayload</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LinkCountTotal</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RelativeAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VcId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Pbn</declname>
+        </param>
+        <briefdescription>
+<para>Sends ALLOCATE_PAYLOAD so the branch that owns the sink&apos;s port maps virtual channel VcId to that port with Pbn bandwidth. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkCountTotal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the LCT of the sink (&gt;= 2). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RelativeAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the RAD of the sink. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VcId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual channel payload ID (the stream ID). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pbn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the payload bandwidth number; 0 deallocates.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_DEVICE_BUSY when another sideband transaction is in flight, or XST_FAILURE / AUX status on error.</para></simplesect>
+<simplesect kind="note"><para>Call after the upstream payload table update and ACT. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="677" bodyend="692"/>
+        <referencedby refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" compoundref="xmmidp__stream_8c" startline="2872" endline="2901">XMmiDp_AllocatePayloadStream</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SendSbMsgClearPayloadIdTable</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_SendSbMsgClearPayloadIdTable</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Broadcasts CLEAR_PAYLOAD_ID_TABLE so every downstream branch drops its payload allocations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, XST_DEVICE_BUSY when another sideband transaction is in flight, or XST_FAILURE / AUX status on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="705" bodyend="721"/>
+        <references refid="xmmidp__hw_8h_1a74ca782acc0883a48d3b2ba400b5fa31" compoundref="xmmidp__hw_8h" startline="1970">XMMIDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_MstDiscoverTopology</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_MstDiscoverTopology</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Discovers the MST topology with LINK_ADDRESS, breadth first from the directly attached branch, and records every plugged DP monitor (SST sink) in InstancePtr-&gt;MstTopology in port order. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, or the status of the failing LINK_ADDRESS.</para></simplesect>
+<simplesect kind="note"><para>Branches beyond XMMIDP_MST_MAX_BRANCHES and sinks beyond XMMIDP_MST_MAX_SINKS are ignored. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="737" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="737" bodyend="808"/>
+        <references refid="struct_x_mmi_dp___mst_topology_1a2975f3c0925a236fbf3199cd3afbe5ca" compoundref="xmmidp_8h" startline="413">XMmiDp_MstTopology::BranchTotal</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" compoundref="xmmidp_8h" startline="384">XMmiDp_SbLinkAddressPort::DpcdRev</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1ae0c59fc5046bb8b69954dce8d8fb0f68" compoundref="xmmidp_8h" startline="406">XMmiDp_MstSink::DpcdRev</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" compoundref="xmmidp_8h" startline="382">XMmiDp_SbLinkAddressPort::DpDevPlugStatus</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" compoundref="xmmidp_8h" startline="378">XMmiDp_SbLinkAddressPort::InputPort</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" compoundref="xmmidp_8h" startline="403">XMmiDp_MstSink::LinkCountTotal</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" compoundref="xmmidp_8h" startline="381">XMmiDp_SbLinkAddressPort::MsgCapStatus</references>
+        <references refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" compoundref="xmmidp_8h" startline="514">XMmiDp::MstTopology</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_reply_1a418a18116f2b2fe8560b842f5777bb8b" compoundref="xmmidp_8h" startline="394">XMmiDp_SbLinkAddressReply::NumPorts</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" compoundref="xmmidp_8h" startline="379">XMmiDp_SbLinkAddressPort::PeerDeviceType</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1a6031928789eea71e3e972dc2619ddc63" compoundref="xmmidp_8h" startline="405">XMmiDp_MstSink::PeerDeviceType</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" compoundref="xmmidp_8h" startline="380">XMmiDp_SbLinkAddressPort::PortNum</references>
+        <references refid="struct_x_mmi_dp___sb_link_address_reply_1aba76cb80593fc30fac0993f9ba081fa9" compoundref="xmmidp_8h" startline="396">XMmiDp_SbLinkAddressReply::Ports</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" compoundref="xmmidp_8h" startline="404">XMmiDp_MstSink::RelativeAddress</references>
+        <references refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" compoundref="xmmidp_8h" startline="415">XMmiDp_MstTopology::Sinks</references>
+        <references refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" compoundref="xmmidp_8h" startline="414">XMmiDp_MstTopology::SinkTotal</references>
+        <references refid="xmmidp_8h_1a4f591a2ee30db4ebc89d7b4c1956040a" compoundref="xmmidp_8h" startline="358">XMMIDP_MST_MAX_BRANCHES</references>
+        <references refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" compoundref="xmmidp__mst_8c" startline="59">XMMIDP_MST_MAX_LCT</references>
+        <references refid="xmmidp_8h_1a35540ca7f268e7d28ce610273940aa8a" compoundref="xmmidp_8h" startline="355">XMMIDP_MST_MAX_RAD</references>
+        <references refid="xmmidp_8h_1a5ec0ff75ff43472cdbdd3fe50adc33b3" compoundref="xmmidp_8h" startline="357">XMMIDP_MST_MAX_SINKS</references>
+        <references refid="xmmidp__hw_8h_1a4a7c298158e1858d5e8947b7d7fa217d" compoundref="xmmidp__hw_8h" startline="1978">XMMIDP_PEER_DEVICE_MST_BRANCHING_UNIT</references>
+        <references refid="xmmidp__hw_8h_1aca35bf43a41c8b829568219b7ed4488a" compoundref="xmmidp__hw_8h" startline="1979">XMMIDP_PEER_DEVICE_SST_SINK</references>
+        <references refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" compoundref="xmmidp__mst_8c" startline="515" endline="530">XMmiDp_SendSbMsgLinkAddress</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_MstSetStreamSink</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 Stream, u8 SinkIdx)</argsstring>
+        <name>XMmiDp_MstSetStreamSink</name>
+        <param>
+          <type><ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SinkIdx</declname>
+        </param>
+        <briefdescription>
+<para>Routes a stream to a sink found by <ref refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kindref="member">XMmiDp_MstDiscoverTopology()</ref>; the sink address is used by <ref refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" kindref="member">XMmiDp_AllocatePayloadStream()</ref> for ALLOCATE_PAYLOAD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the stream ID (XMMIDP_STREAM_ID1..ID4). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SinkIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index into InstancePtr-&gt;MstTopology.Sinks.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS, or XST_FAILURE if SinkIdx is out of range. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="822" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="822" bodyend="841"/>
+        <references refid="struct_x_mmi_dp___mst_stream_1aab1a34be76dbbbe30a262f46c58722ce" compoundref="xmmidp_8h" startline="370">XMmiDp_MstStream::LinkCountTotal</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" compoundref="xmmidp_8h" startline="403">XMmiDp_MstSink::LinkCountTotal</references>
+        <references refid="struct_x_mmi_dp_1a7c58a1c7566c0866665bf88c536627f4" compoundref="xmmidp_8h" startline="512">XMmiDp::MstStreamConfig</references>
+        <references refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" compoundref="xmmidp_8h" startline="514">XMmiDp::MstTopology</references>
+        <references refid="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" compoundref="xmmidp_8h" startline="371">XMmiDp_MstStream::RelativeAddress</references>
+        <references refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" compoundref="xmmidp_8h" startline="404">XMmiDp_MstSink::RelativeAddress</references>
+        <references refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" compoundref="xmmidp_8h" startline="415">XMmiDp_MstTopology::Sinks</references>
+        <references refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" compoundref="xmmidp_8h" startline="414">XMmiDp_MstTopology::SinkTotal</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmmidp_8h" kindref="compound">xmmidp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_MAX_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>48<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_REPLY_MAX_BYTES<sp/><sp/><sp/><sp/>320<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_AUX_CHUNK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__mmi__dppsu14_1ga2345f5ea873711188565dc37ddfdc670" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_REPLY_POLL_US<sp/><sp/><sp/><sp/><sp/><sp/>1000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="group__mmi__dppsu14_1ga77f1a91e54e67542a398e83a9e48b9fe" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_REPLY_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/>5000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group__mmi__dppsu14_1ga36b0f119152d251b7aedb1291a117a47" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_BROADCAST_LCR<sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group__mmi__dppsu14_1gab545404fb1f8fcc027ebbd185cdd1c28" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_NAK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group__mmi__dppsu14_1gad1d85698842e3dffcd4a25e566968835" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_REQ_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7F<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group__mmi__dppsu14_1gadc1ef4c7ae2a474c895ff6d78678b8de" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_SOMT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_EOMT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_BODY_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x3F<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_NAK_REASON_IDX<sp/><sp/><sp/><sp/><sp/>17<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_CRC4_POLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x13<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_SBMSG_CRC8_POLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1D5<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" refkind="member"><highlight class="preprocessor">#define<sp/>XMMIDP_MST_MAX_LCT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Length;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data[<ref refid="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" kindref="member">XMMIDP_SBMSG_REPLY_MAX_BYTES</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/>XMmiDp_SbReply;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XMmiDp_SbReply<sp/>SbReply;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>SbBusy;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="102"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbClaim(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SbBusy<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SbBusy<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="117"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMmiDp_SbRelease(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SbBusy<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="135"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>XMmiDp_SbCrc(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/>u32<sp/>NumBits,<sp/>u16<sp/>Poly,<sp/>u8<sp/>Width)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TopBit<sp/>=<sp/>(u16)(1U<sp/>&lt;&lt;<sp/>Width);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Remainder<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitIdx;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(BitIdx<sp/>=<sp/>0U;<sp/>BitIdx<sp/>&lt;<sp/>NumBits;<sp/>BitIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>=<sp/>(u16)((Remainder<sp/>&lt;&lt;<sp/>1)<sp/>|</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data[BitIdx<sp/>&gt;&gt;<sp/>3]<sp/>&gt;&gt;<sp/>(7U<sp/>-<sp/>(BitIdx<sp/>&amp;<sp/>7U)))<sp/>&amp;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U));</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Remainder<sp/>&amp;<sp/>TopBit)<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>^=<sp/>Poly;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(BitIdx<sp/>=<sp/>0U;<sp/>BitIdx<sp/>&lt;<sp/>Width;<sp/>BitIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>=<sp/>(u16)(Remainder<sp/>&lt;&lt;<sp/>1);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Remainder<sp/>&amp;<sp/>TopBit)<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Remainder<sp/>^=<sp/>Poly;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(Remainder<sp/>&amp;<sp/>(TopBit<sp/>-<sp/>1U));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="174"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>XMmiDp_SbBuildHeader(u8<sp/>*Buf,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkCountRemaining,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Broadcast,<sp/>u8<sp/>PathMsg,<sp/>u8<sp/>BodyLength)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Len<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Idx;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len++]<sp/>=<sp/>(u8)((LinkCountTotal<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>(LinkCountRemaining<sp/>&amp;<sp/>0x0FU));</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>(Idx<sp/>+<sp/>1U)<sp/>&lt;<sp/>LinkCountTotal;<sp/>Idx<sp/>+=<sp/>2U)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len]<sp/>=<sp/>(u8)(RelativeAddress[Idx]<sp/>&lt;&lt;<sp/>4);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Idx<sp/>+<sp/>2U)<sp/>&lt;<sp/>LinkCountTotal)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len]<sp/>|=<sp/>RelativeAddress[Idx<sp/>+<sp/>1U]<sp/>&amp;<sp/>0x0FU;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len++;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len++]<sp/>=<sp/>(u8)((Broadcast<sp/>&lt;&lt;<sp/>7)<sp/>|<sp/>(PathMsg<sp/>&lt;&lt;<sp/>6)<sp/>|</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BodyLength<sp/>&amp;<sp/><ref refid="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" kindref="member">XMMIDP_SBMSG_BODY_LEN_MASK</ref>));</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len++]<sp/>=<sp/><ref refid="group__mmi__dppsu14_1gadc1ef4c7ae2a474c895ff6d78678b8de" kindref="member">XMMIDP_SBMSG_SOMT_MASK</ref><sp/>|<sp/><ref refid="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" kindref="member">XMMIDP_SBMSG_EOMT_MASK</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>CRC4<sp/>covers<sp/>every<sp/>header<sp/>nibble<sp/>except<sp/>the<sp/>CRC<sp/>nibble<sp/>itself.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Buf[Len<sp/>-<sp/>1U]<sp/>|=<sp/>XMmiDp_SbCrc(Buf,<sp/>((Len<sp/>*<sp/>2U)<sp/>-<sp/>1U)<sp/>*<sp/>4U,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" kindref="member">XMMIDP_SBMSG_CRC4_POLY</ref>,<sp/>4U);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Len;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="209"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbAckDownRep(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AuxData<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a28a6867c8b56ac33a68aeba0cc360d7a" kindref="member">XMMIDP_DPCD_ESI0_DOWN_REP_MSG_RDY_MASK</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga801d0c3bbe8822dbb0b75af631c1c828" kindref="member">XMmiDp_AuxWrite</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a0f7254ed770e03cfcc2f6f1e6b841898" kindref="member">XMMIDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0</ref>,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>&amp;AuxData);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="234"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbSendRequest(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,<sp/>u8<sp/>Broadcast,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PathMsg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Body,<sp/>u8<sp/>BodyBytes)</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Msg[<ref refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kindref="member">XMMIDP_SBMSG_MAX_BYTES</ref>];</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkCountRemaining;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Esi0;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Len;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Drop<sp/>a<sp/>stale<sp/>reply<sp/>so<sp/>it<sp/>is<sp/>not<sp/>taken<sp/>as<sp/>this<sp/>request&apos;s<sp/>reply.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mmi__dppsu14_1gac6ab04ec398a03237bc3fc128528e708" kindref="member">XMmiDp_AuxRead</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a0f7254ed770e03cfcc2f6f1e6b841898" kindref="member">XMMIDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0</ref>,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>&amp;Esi0);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Esi0<sp/>&amp;<sp/><ref refid="xmmidp__hw_8h_1a28a6867c8b56ac33a68aeba0cc360d7a" kindref="member">XMMIDP_DPCD_ESI0_DOWN_REP_MSG_RDY_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbAckDownRep(InstancePtr);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinkCountRemaining<sp/>=<sp/>(Broadcast<sp/>!=<sp/>0U)<sp/>?<sp/><ref refid="group__mmi__dppsu14_1ga36b0f119152d251b7aedb1291a117a47" kindref="member">XMMIDP_SBMSG_BROADCAST_LCR</ref><sp/>:</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(LinkCountTotal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>=<sp/>XMmiDp_SbBuildHeader(Msg,<sp/>LinkCountTotal,<sp/>LinkCountRemaining,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>Broadcast,<sp/>PathMsg,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(BodyBytes<sp/>+<sp/>1U));</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u32)Len<sp/>+<sp/>BodyBytes<sp/>+<sp/>1U)<sp/>&gt;<sp/><ref refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kindref="member">XMMIDP_SBMSG_MAX_BYTES</ref>)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Msg[Len],<sp/>Body,<sp/>BodyBytes);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg[Len<sp/>+<sp/>BodyBytes]<sp/>=<sp/>XMmiDp_SbCrc(Body,<sp/>(u32)BodyBytes<sp/>*<sp/>8U,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" kindref="member">XMMIDP_SBMSG_CRC8_POLY</ref>,<sp/>8U);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>+=<sp/>BodyBytes<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dppsu14_1ga801d0c3bbe8822dbb0b75af631c1c828" kindref="member">XMmiDp_AuxWrite</ref>(InstancePtr,<sp/><ref refid="xmmidp__hw_8h_1aaeae5e920a8b9732c6274b3ae12a5964" kindref="member">XMMIDP_DPCD_DOWN_REQ</ref>,<sp/>Len,<sp/>Msg);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="282"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbWaitDownRep(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Poll;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Esi0;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Poll<sp/>=<sp/>0U;<sp/>Poll<sp/>&lt;<sp/><ref refid="group__mmi__dppsu14_1ga77f1a91e54e67542a398e83a9e48b9fe" kindref="member">XMMIDP_SBMSG_REPLY_TIMEOUT</ref>;<sp/>Poll++)<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mmi__dppsu14_1gac6ab04ec398a03237bc3fc128528e708" kindref="member">XMmiDp_AuxRead</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a0f7254ed770e03cfcc2f6f1e6b841898" kindref="member">XMMIDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0</ref>,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>&amp;Esi0);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Esi0<sp/>&amp;<sp/>XMMIDP_DPCD_ESI0_DOWN_REP_MSG_RDY_MASK)<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga0ce3540c32ce1bdcbe2b43fecb15e47d" kindref="member">XMmiDp_WaitUs</ref>(InstancePtr,<sp/><ref refid="group__mmi__dppsu14_1ga2345f5ea873711188565dc37ddfdc670" kindref="member">XMMIDP_SBMSG_REPLY_POLL_US</ref>);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_ERROR_COUNT_MAX;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="314"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbReceiveReply(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>ReqId)</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Chunk[<ref refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kindref="member">XMMIDP_SBMSG_MAX_BYTES</ref>];</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HdrLen;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BodyLen;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MsgLen;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Eomt;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SbReply.Length<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbWaitDownRep(InstancePtr);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mmi__dppsu14_1gac6ab04ec398a03237bc3fc128528e708" kindref="member">XMmiDp_AuxRead</ref>(InstancePtr,<sp/><ref refid="xmmidp__hw_8h_1a0b04580b8f0310def0c1c90fac055fee" kindref="member">XMMIDP_DPCD_DOWN_REP</ref>,</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kindref="member">XMMIDP_SBMSG_AUX_CHUNK</ref>,<sp/>Chunk);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>LCT/LCR<sp/>byte,<sp/>(LCT<sp/>-<sp/>1)<sp/>RAD<sp/>nibbles,<sp/>two<sp/>fixed<sp/>bytes.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdrLen<sp/>=<sp/>(u8)(3U<sp/>+<sp/>((Chunk[0]<sp/>&gt;&gt;<sp/>4)<sp/>/<sp/>2U));</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BodyLen<sp/>=<sp/>Chunk[HdrLen<sp/>-<sp/>2U]<sp/>&amp;<sp/><ref refid="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" kindref="member">XMMIDP_SBMSG_BODY_LEN_MASK</ref>;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsgLen<sp/>=<sp/>HdrLen<sp/>+<sp/>BodyLen;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((BodyLen<sp/>==<sp/>0U)<sp/>||<sp/>(MsgLen<sp/>&gt;<sp/><ref refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kindref="member">XMMIDP_SBMSG_MAX_BYTES</ref>))</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MsgLen<sp/>&gt;<sp/><ref refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kindref="member">XMMIDP_SBMSG_AUX_CHUNK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mmi__dppsu14_1gac6ab04ec398a03237bc3fc128528e708" kindref="member">XMmiDp_AuxRead</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a0b04580b8f0310def0c1c90fac055fee" kindref="member">XMMIDP_DPCD_DOWN_REP</ref><sp/>+</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kindref="member">XMMIDP_SBMSG_AUX_CHUNK</ref>,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsgLen<sp/>-<sp/><ref refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kindref="member">XMMIDP_SBMSG_AUX_CHUNK</ref>,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Chunk[<ref refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kindref="member">XMMIDP_SBMSG_AUX_CHUNK</ref>]);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbAckDownRep(InstancePtr);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Chunk[HdrLen<sp/>-<sp/>1U]<sp/>&amp;<sp/>0x0FU)<sp/>!=</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbCrc(Chunk,<sp/>((HdrLen<sp/>*<sp/>2U)<sp/>-<sp/>1U)<sp/>*<sp/>4U,</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" kindref="member">XMMIDP_SBMSG_CRC4_POLY</ref>,<sp/>4U))<sp/>||</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Chunk[MsgLen<sp/>-<sp/>1U]<sp/>!=</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbCrc(&amp;Chunk[HdrLen],<sp/>(BodyLen<sp/>-<sp/>1U)<sp/>*<sp/>8U,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" kindref="member">XMMIDP_SBMSG_CRC8_POLY</ref>,<sp/>8U)))<sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[MSTM]<sp/>ERROR:<sp/>Sideband<sp/>reply<sp/>CRC<sp/>mismatch\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eomt<sp/>=<sp/>Chunk[HdrLen<sp/>-<sp/>1U]<sp/>&amp;<sp/><ref refid="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" kindref="member">XMMIDP_SBMSG_EOMT_MASK</ref>;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SbReply.Length<sp/>+<sp/>BodyLen<sp/>-<sp/>1U)<sp/>&gt;<sp/><ref refid="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" kindref="member">XMMIDP_SBMSG_REPLY_MAX_BYTES</ref>)</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;SbReply.Data[SbReply.Length],<sp/>&amp;Chunk[HdrLen],</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BodyLen<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SbReply.Length<sp/>+=<sp/>BodyLen<sp/>-<sp/>1U;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Eomt<sp/>==<sp/>0U);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SbReply.Length<sp/>==<sp/>0U)</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SbReply.Data[0]<sp/>&amp;<sp/><ref refid="group__mmi__dppsu14_1gab545404fb1f8fcc027ebbd185cdd1c28" kindref="member">XMMIDP_SBMSG_NAK_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[MSTM]<sp/>ERROR:<sp/>Sideband<sp/>request<sp/>0x%02X<sp/>NAK<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;(reason<sp/>0x%02X)\r\n&quot;</highlight><highlight class="normal">,<sp/>ReqId,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SbReply.Length<sp/>&gt;<sp/><ref refid="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" kindref="member">XMMIDP_SBMSG_NAK_REASON_IDX</ref>)<sp/>?</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SbReply.Data[<ref refid="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" kindref="member">XMMIDP_SBMSG_NAK_REASON_IDX</ref>]<sp/>:<sp/>0U);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SbReply.Data[0]<sp/>&amp;<sp/><ref refid="group__mmi__dppsu14_1gad1d85698842e3dffcd4a25e566968835" kindref="member">XMMIDP_SBMSG_REQ_ID_MASK</ref>)<sp/>!=<sp/>ReqId)<sp/>{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[MSTM]<sp/>ERROR:<sp/>Sideband<sp/>reply<sp/>0x%02X<sp/>does<sp/>not<sp/>match<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;request<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,<sp/>SbReply.Data[0],<sp/>ReqId);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="410"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbTransact(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,<sp/>u8<sp/>Broadcast,</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PathMsg,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Body,<sp/>u8<sp/>BodyBytes)</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbSendRequest(InstancePtr,<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>Broadcast,<sp/>PathMsg,</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body,<sp/>BodyBytes);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbReceiveReply(InstancePtr,<sp/>Body[0]);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[MSTM]<sp/>ERROR:<sp/>Sideband<sp/>request<sp/>0x%02X<sp/>(LCT<sp/>%u)<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;failed,<sp/>status<sp/>%u\r\n&quot;</highlight><highlight class="normal">,<sp/>Body[0],<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="442"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbMsgLinkAddress(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___sb_link_address_reply" kindref="compound">XMmiDp_SbLinkAddressReply</ref><sp/>*Reply)</highlight></codeline>
+<codeline lineno="445"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Body[1]<sp/>=<sp/>{<sp/><ref refid="xmmidp__hw_8h_1a455e5d0452719198a7c3d0ce5b9572f5" kindref="member">XMMIDP_SBMSG_LINK_ADDRESS</ref><sp/>};</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___sb_link_address_port" kindref="compound">XMmiDp_SbLinkAddressPort</ref><sp/>*Port;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Idx;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PortIdx;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((LinkCountTotal<sp/>&gt;=<sp/>1U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LinkCountTotal<sp/>&lt;=<sp/><ref refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kindref="member">XMMIDP_MST_MAX_LCT</ref>));</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((LinkCountTotal<sp/>==<sp/>1U)<sp/>||<sp/>(RelativeAddress<sp/>!=<sp/>NULL));</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Reply<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbTransact(InstancePtr,<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>0U,<sp/>0U,<sp/>Body,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Body));</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="464"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Request<sp/>ID,<sp/>GUID,<sp/>port<sp/>count,<sp/>then<sp/>2<sp/>bytes<sp/>per<sp/>input<sp/>port<sp/>and</highlight></codeline>
+<codeline lineno="465"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>20<sp/>bytes<sp/>per<sp/>output<sp/>port.</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SbReply.Length<sp/>&lt;<sp/>(Idx<sp/>+<sp/><ref refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kindref="member">XMMIDP_GUID_NBYTES</ref><sp/>+<sp/>1U))</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Reply-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_reply_1a6221aab9e7adf0f032f3dc0d9ba8f907" kindref="member">Guid</ref>,<sp/>&amp;SbReply.Data[Idx],<sp/><ref refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kindref="member">XMMIDP_GUID_NBYTES</ref>);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kindref="member">XMMIDP_GUID_NBYTES</ref>;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reply-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_reply_1a418a18116f2b2fe8560b842f5777bb8b" kindref="member">NumPorts</ref><sp/>=<sp/>SbReply.Data[Idx++]<sp/>&amp;<sp/>0x0FU;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(PortIdx<sp/>=<sp/>0U;<sp/>PortIdx<sp/>&lt;<sp/>Reply-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_reply_1a418a18116f2b2fe8560b842f5777bb8b" kindref="member">NumPorts</ref>;<sp/>PortIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port<sp/>=<sp/>&amp;Reply-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_reply_1aba76cb80593fc30fac0993f9ba081fa9" kindref="member">Ports</ref>[PortIdx];</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Port,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(*Port));</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Idx<sp/>+<sp/>2U)<sp/>&gt;<sp/>SbReply.Length)</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" kindref="member">InputPort</ref><sp/>=<sp/>SbReply.Data[Idx]<sp/>&gt;&gt;<sp/>7;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" kindref="member">PeerDeviceType</ref><sp/>=<sp/>(SbReply.Data[Idx]<sp/>&gt;&gt;<sp/>4)<sp/>&amp;<sp/>0x07U;</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" kindref="member">PortNum</ref><sp/>=<sp/>SbReply.Data[Idx++]<sp/>&amp;<sp/>0x0FU;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" kindref="member">MsgCapStatus</ref><sp/>=<sp/>SbReply.Data[Idx]<sp/>&gt;&gt;<sp/>7;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" kindref="member">DpDevPlugStatus</ref><sp/>=<sp/>(SbReply.Data[Idx]<sp/>&gt;&gt;<sp/>6)<sp/>&amp;<sp/>0x01U;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" kindref="member">InputPort</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx++;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a9c1968942d9c970f25676d057e1d2184" kindref="member">LegacyDevPlugStatus</ref><sp/>=<sp/>(SbReply.Data[Idx++]<sp/>&gt;&gt;<sp/>5)<sp/>&amp;<sp/>0x01U;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Idx<sp/>+<sp/>2U<sp/>+<sp/><ref refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kindref="member">XMMIDP_GUID_NBYTES</ref>)<sp/>&gt;<sp/>SbReply.Length)</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" kindref="member">DpcdRev</ref><sp/>=<sp/>SbReply.Data[Idx++];</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kindref="member">XMMIDP_GUID_NBYTES</ref>;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a20ad53d6d448e35d9abcf07a5e9cbc27" kindref="member">NumSdpStreams</ref><sp/>=<sp/>SbReply.Data[Idx]<sp/>&gt;&gt;<sp/>4;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1ac5d8719bf7fb54c931d74b49d29677a9" kindref="member">NumSdpStreamSinks</ref><sp/>=<sp/>SbReply.Data[Idx++]<sp/>&amp;<sp/>0x0FU;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="515" refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" kindref="member">XMmiDp_SendSbMsgLinkAddress</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___sb_link_address_reply" kindref="compound">XMmiDp_SbLinkAddressReply</ref><sp/>*Reply)</highlight></codeline>
+<codeline lineno="518"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbClaim();</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbMsgLinkAddress(InstancePtr,<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>Reply);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbRelease();</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="545"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbMsgEnumPathResources(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*AvailPbn,<sp/>u16<sp/>*FullPbn)</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Body[2];</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((LinkCountTotal<sp/>&gt;=<sp/><ref refid="xmmidp_8h_1aea63cc3b8d5aa823cc3d452a6dcab068" kindref="member">XMMIDP_MST_SINK_MIN_LCT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LinkCountTotal<sp/>&lt;=<sp/><ref refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kindref="member">XMMIDP_MST_MAX_LCT</ref>));</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(RelativeAddress<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((AvailPbn<sp/>!=<sp/>NULL)<sp/>&amp;&amp;<sp/>(FullPbn<sp/>!=<sp/>NULL));</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Addressed<sp/>to<sp/>the<sp/>branch<sp/>that<sp/>owns<sp/>the<sp/>sink&apos;s<sp/>port.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[0]<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a9e4dfded4e0601c6c7d59588e81de74f" kindref="member">XMMIDP_SBMSG_ENUM_PATH_RESOURCES</ref>;</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[1]<sp/>=<sp/>(u8)(RelativeAddress[LinkCountTotal<sp/>-<sp/>2U]<sp/>&lt;&lt;<sp/>4);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbTransact(InstancePtr,<sp/>LinkCountTotal<sp/>-<sp/>1U,</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>0U,<sp/>1U,<sp/>Body,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Body));</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Request<sp/>ID,<sp/>port,<sp/>full<sp/>PBN,<sp/>available<sp/>PBN.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SbReply.Length<sp/>&lt;<sp/>6U)</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*FullPbn<sp/>=<sp/>(u16)((SbReply.Data[2]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>SbReply.Data[3]);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*AvailPbn<sp/>=<sp/>(u16)((SbReply.Data[4]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>SbReply.Data[5]);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="574"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="590" refid="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" kindref="member">XMmiDp_SendSbMsgEnumPathResources</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*AvailPbn,<sp/>u16<sp/>*FullPbn)</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbClaim();</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbMsgEnumPathResources(InstancePtr,<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>AvailPbn,</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FullPbn);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbRelease();</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="624"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMmiDp_SbMsgAllocatePayload(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,<sp/>u8<sp/>VcId,</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Pbn)</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Body[5];</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>AllocPbn;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((LinkCountTotal<sp/>&gt;=<sp/><ref refid="xmmidp_8h_1aea63cc3b8d5aa823cc3d452a6dcab068" kindref="member">XMMIDP_MST_SINK_MIN_LCT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LinkCountTotal<sp/>&lt;=<sp/><ref refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kindref="member">XMMIDP_MST_MAX_LCT</ref>));</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(RelativeAddress<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[0]<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a5b80dbcff804ea6362ea00f05ee31e9c" kindref="member">XMMIDP_SBMSG_ALLOCATE_PAYLOAD</ref>;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[1]<sp/>=<sp/>(u8)(RelativeAddress[LinkCountTotal<sp/>-<sp/>2U]<sp/>&lt;&lt;<sp/>4);</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[2]<sp/>=<sp/>VcId<sp/>&amp;<sp/>0x7FU;</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[3]<sp/>=<sp/>(u8)(Pbn<sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Body[4]<sp/>=<sp/>(u8)(Pbn<sp/>&amp;<sp/>0xFFU);</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbTransact(InstancePtr,<sp/>LinkCountTotal<sp/>-<sp/>1U,</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>0U,<sp/>1U,<sp/>Body,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Body));</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Request<sp/>ID,<sp/>port,<sp/>VC<sp/>ID,<sp/>allocated<sp/>PBN.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SbReply.Length<sp/>&gt;=<sp/>5U)<sp/>{</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AllocPbn<sp/>=<sp/>(u16)((SbReply.Data[3]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>SbReply.Data[4]);</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AllocPbn<sp/>!=<sp/>Pbn)</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[MSTM]<sp/>WARNING:<sp/>VC<sp/>%u<sp/>requested<sp/>PBN<sp/>%u,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;branch<sp/>allocated<sp/>%u\r\n&quot;</highlight><highlight class="normal">,<sp/>VcId,<sp/>Pbn,</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AllocPbn);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="677" refid="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" kindref="member">XMmiDp_SendSbMsgAllocatePayload</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RelativeAddress,<sp/>u8<sp/>VcId,</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Pbn)</highlight></codeline>
+<codeline lineno="680"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbClaim();</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbMsgAllocatePayload(InstancePtr,<sp/>LinkCountTotal,</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RelativeAddress,<sp/>VcId,<sp/>Pbn);</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbRelease();</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="692"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"></highlight></codeline>
+<codeline lineno="694"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="705" refid="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" kindref="member">XMmiDp_SendSbMsgClearPayloadIdTable</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="706"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Body[1]<sp/>=<sp/>{<sp/><ref refid="xmmidp__hw_8h_1a74ca782acc0883a48d3b2ba400b5fa31" kindref="member">XMMIDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE</ref><sp/>};</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"></highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbClaim();</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"></highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SbTransact(InstancePtr,<sp/>1U,<sp/>NULL,<sp/>1U,<sp/>1U,<sp/>Body,</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Body));</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SbRelease();</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"></highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="721"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"></highlight></codeline>
+<codeline lineno="723"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="737" refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kindref="member">XMmiDp_MstDiscoverTopology</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="738"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___mst_topology" kindref="compound">XMmiDp_MstTopology</ref><sp/>*Topology;</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___sb_link_address_reply" kindref="compound">XMmiDp_SbLinkAddressReply</ref><sp/>Reply;</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___sb_link_address_port" kindref="compound">XMmiDp_SbLinkAddressPort</ref><sp/>*Port;</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___mst_sink" kindref="compound">XMmiDp_MstSink</ref><sp/>*Sink;</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BranchLct[<ref refid="xmmidp_8h_1a4f591a2ee30db4ebc89d7b4c1956040a" kindref="member">XMMIDP_MST_MAX_BRANCHES</ref>];</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BranchRad[<ref refid="xmmidp_8h_1a4f591a2ee30db4ebc89d7b4c1956040a" kindref="member">XMMIDP_MST_MAX_BRANCHES</ref>][<ref refid="xmmidp_8h_1a35540ca7f268e7d28ce610273940aa8a" kindref="member">XMMIDP_MST_MAX_RAD</ref>]<sp/>=<sp/>{<sp/>{<sp/>0U<sp/>}<sp/>};</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Head<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Tail<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Lct;</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PortIdx;</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"></highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"></highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Topology<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" kindref="member">MstTopology</ref>;</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Topology,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(*Topology));</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"></highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BranchLct[Tail++]<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Head<sp/>&lt;<sp/>Tail)<sp/>{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Lct<sp/>=<sp/>BranchLct[Head];</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"></highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" kindref="member">XMmiDp_SendSbMsgLinkAddress</ref>(InstancePtr,<sp/>Lct,</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BranchRad[Head],<sp/>&amp;Reply);</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Topology-&gt;<ref refid="struct_x_mmi_dp___mst_topology_1a2975f3c0925a236fbf3199cd3afbe5ca" kindref="member">BranchTotal</ref>++;</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"></highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(PortIdx<sp/>=<sp/>0U;<sp/>PortIdx<sp/>&lt;<sp/>Reply.<ref refid="struct_x_mmi_dp___sb_link_address_reply_1a418a18116f2b2fe8560b842f5777bb8b" kindref="member">NumPorts</ref>;<sp/>PortIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port<sp/>=<sp/>&amp;Reply.<ref refid="struct_x_mmi_dp___sb_link_address_reply_1aba76cb80593fc30fac0993f9ba081fa9" kindref="member">Ports</ref>[PortIdx];</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" kindref="member">InputPort</ref><sp/>!=<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" kindref="member">DpDevPlugStatus</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Lct<sp/>&gt;=<sp/><ref refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kindref="member">XMMIDP_MST_MAX_LCT</ref>))</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"></highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" kindref="member">PeerDeviceType</ref><sp/>==</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a4a7c298158e1858d5e8947b7d7fa217d" kindref="member">XMMIDP_PEER_DEVICE_MST_BRANCHING_UNIT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" kindref="member">MsgCapStatus</ref><sp/>!=<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Tail<sp/>&lt;<sp/><ref refid="xmmidp_8h_1a4f591a2ee30db4ebc89d7b4c1956040a" kindref="member">XMMIDP_MST_MAX_BRANCHES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BranchLct[Tail]<sp/>=<sp/>Lct<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(BranchRad[Tail],<sp/>BranchRad[Head],</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Lct<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BranchRad[Tail][Lct<sp/>-<sp/>1U]<sp/>=<sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" kindref="member">PortNum</ref>;</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tail++;</highlight></codeline>
+<codeline lineno="783"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="785"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="786"><highlight class="normal"></highlight></codeline>
+<codeline lineno="787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="788"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Only<sp/>DP<sp/>monitors<sp/>are<sp/>routed;<sp/>legacy<sp/>converters<sp/>and</highlight></codeline>
+<codeline lineno="789"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>branches<sp/>without<sp/>messaging<sp/>are<sp/>not<sp/>supported.</highlight></codeline>
+<codeline lineno="790"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="791"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" kindref="member">PeerDeviceType</ref><sp/>!=</highlight></codeline>
+<codeline lineno="792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1aca35bf43a41c8b829568219b7ed4488a" kindref="member">XMMIDP_PEER_DEVICE_SST_SINK</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Topology-&gt;<ref refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" kindref="member">SinkTotal</ref><sp/>&gt;=<sp/><ref refid="xmmidp_8h_1a5ec0ff75ff43472cdbdd3fe50adc33b3" kindref="member">XMMIDP_MST_MAX_SINKS</ref>))</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"></highlight></codeline>
+<codeline lineno="796"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink<sp/>=<sp/>&amp;Topology-&gt;<ref refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" kindref="member">Sinks</ref>[Topology-&gt;<ref refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" kindref="member">SinkTotal</ref>++];</highlight></codeline>
+<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" kindref="member">LinkCountTotal</ref><sp/>=<sp/>Lct<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" kindref="member">RelativeAddress</ref>,<sp/>BranchRad[Head],<sp/>Lct<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" kindref="member">RelativeAddress</ref>[Lct<sp/>-<sp/>1U]<sp/>=<sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" kindref="member">PortNum</ref>;</highlight></codeline>
+<codeline lineno="800"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1a6031928789eea71e3e972dc2619ddc63" kindref="member">PeerDeviceType</ref><sp/>=<sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" kindref="member">PeerDeviceType</ref>;</highlight></codeline>
+<codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1ae0c59fc5046bb8b69954dce8d8fb0f68" kindref="member">DpcdRev</ref><sp/>=<sp/>Port-&gt;<ref refid="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" kindref="member">DpcdRev</ref>;</highlight></codeline>
+<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="803"><highlight class="normal"></highlight></codeline>
+<codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Head++;</highlight></codeline>
+<codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="806"><highlight class="normal"></highlight></codeline>
+<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="808"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"></highlight></codeline>
+<codeline lineno="810"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="822" refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" kindref="member">XMmiDp_MstSetStreamSink</ref>(<ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>Stream,<sp/>u8<sp/>SinkIdx)</highlight></codeline>
+<codeline lineno="823"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___mst_stream" kindref="compound">XMmiDp_MstStream</ref><sp/>*MstStream;</highlight></codeline>
+<codeline lineno="825"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mmi_dp___mst_sink" kindref="compound">XMmiDp_MstSink</ref><sp/>*Sink;</highlight></codeline>
+<codeline lineno="826"><highlight class="normal"></highlight></codeline>
+<codeline lineno="827"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="828"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Stream<sp/>&gt;=<sp/>XMMIDP_STREAM_ID1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="829"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Stream<sp/>&lt;=<sp/>XMMIDP_STREAM_ID4));</highlight></codeline>
+<codeline lineno="830"><highlight class="normal"></highlight></codeline>
+<codeline lineno="831"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SinkIdx<sp/>&gt;=<sp/>InstancePtr-&gt;<ref refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" kindref="member">MstTopology</ref>.<ref refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" kindref="member">SinkTotal</ref>)</highlight></codeline>
+<codeline lineno="832"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="833"><highlight class="normal"></highlight></codeline>
+<codeline lineno="834"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sink<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" kindref="member">MstTopology</ref>.<ref refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" kindref="member">Sinks</ref>[SinkIdx];</highlight></codeline>
+<codeline lineno="835"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MstStream<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mmi_dp_1a7c58a1c7566c0866665bf88c536627f4" kindref="member">MstStreamConfig</ref>[Stream<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="836"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MstStream-&gt;<ref refid="struct_x_mmi_dp___mst_stream_1aab1a34be76dbbbe30a262f46c58722ce" kindref="member">LinkCountTotal</ref><sp/>=<sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" kindref="member">LinkCountTotal</ref>;</highlight></codeline>
+<codeline lineno="837"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(MstStream-&gt;<ref refid="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" kindref="member">RelativeAddress</ref>,<sp/>Sink-&gt;<ref refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" kindref="member">RelativeAddress</ref>,</highlight></codeline>
+<codeline lineno="838"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(MstStream-&gt;<ref refid="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" kindref="member">RelativeAddress</ref>));</highlight></codeline>
+<codeline lineno="839"><highlight class="normal"></highlight></codeline>
+<codeline lineno="840"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="841"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c"/>
+  </compounddef>
+</doxygen>

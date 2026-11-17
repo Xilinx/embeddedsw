@@ -1,0 +1,634 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__power__handlers_8h" kind="file">
+    <compoundname>xpm_power_handlers.h</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includedby refid="xpm__power__handlers_8c" local="yes">xpm_power_handlers.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="3059">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3060" relation="include">
+        </childnode>
+        <childnode refid="3061" relation="include">
+        </childnode>
+      </node>
+      <node id="3052">
+        <label>xpm_power_handlers.h</label>
+        <link refid="xpm_power_handlers.h"/>
+        <childnode refid="3053" relation="include">
+        </childnode>
+      </node>
+      <node id="3055">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3057">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3054" relation="include">
+        </childnode>
+      </node>
+      <node id="3061">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3056">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3053">
+        <label>xpm_common.h</label>
+        <childnode refid="3054" relation="include">
+        </childnode>
+        <childnode refid="3055" relation="include">
+        </childnode>
+        <childnode refid="3056" relation="include">
+        </childnode>
+        <childnode refid="3057" relation="include">
+        </childnode>
+        <childnode refid="3058" relation="include">
+        </childnode>
+        <childnode refid="3059" relation="include">
+        </childnode>
+      </node>
+      <node id="3058">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3054">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3060">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3063">
+        <label>xpm_power_handlers.c</label>
+      </node>
+      <node id="3062">
+        <label>xpm_power_handlers.h</label>
+        <link refid="xpm_power_handlers.h"/>
+        <childnode refid="3063" relation="include">
+        </childnode>
+        <childnode refid="3064" relation="include">
+        </childnode>
+      </node>
+      <node id="3064">
+        <label>xpm_runtime_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_handler_table" prot="public">HandlerTable</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a54220a982046e1562360732dbdfd96f9" prot="public" static="no">
+        <name>PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ</name>
+        <initializer>(0xeb4606e0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aad1f0b7dcf7bbf95084303ed5f38c58a" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_SHIFT</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a5e8d616433d288408e8da61df5b5ac4c" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_MASK</name>
+        <initializer>((u32)0x00000800U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aa5c2f0b7a10e46a9efcc716524e6d621" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_SHIFT</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a6d12925dafd04890d62041fc94f97450" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_MASK</name>
+        <initializer>((u32)0x00001000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1ae566f08ed780b6a7835c69b5ae1b0b5f" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_SHIFT</name>
+        <initializer>14U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aed3a3f24cb173166461d53ba4d488d52" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_MASK</name>
+        <initializer>((u32)0x00004000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a993bc05deadb1a3af426d7a41162fad4" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_SHIFT</name>
+        <initializer>15U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aa3e631d28b91041e8fcce53d5357e338" prot="public" static="no">
+        <name>PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_MASK</name>
+        <initializer>((u32)0x00008000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a632c7347d0e5122abb80e16b36653dc7" prot="public" static="no">
+        <name>X_APU_MACRO_ENTRIES</name>
+        <param><defname>HandlerTable</defname></param>
+        <initializer>HandlerTable(0, 0) \
+HandlerTable(0, 1) \
+HandlerTable(0, 2) \
+HandlerTable(0, 3) \
+HandlerTable(1, 0) \
+HandlerTable(1, 1) \
+HandlerTable(2, 0) \
+HandlerTable(2, 1) \
+HandlerTable(3, 0) \
+HandlerTable(3, 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a03be859520fd9d41e859a75bff41ab95" prot="public" static="no">
+        <name>X_RPU_MACRO_ENTRIES</name>
+        <param><defname>HandlerTable</defname></param>
+        <initializer>HandlerTable(A, 0) \
+HandlerTable(A, 1) \
+HandlerTable(B, 0) \
+HandlerTable(B, 1) \
+HandlerTable(C, 0) \
+HandlerTable(C, 1) \
+HandlerTable(D, 0) \
+HandlerTable(D, 1) \
+HandlerTable(E, 0) \
+HandlerTable(E, 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1ac94ec5d3532b2ea83c44461969ba0d7d" prot="public" static="no">
+        <name>X_APU_PWR_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PSXC_LPX_SLCR_REQ_PWRUP0_STATUS_APU##cluster##_CORE##core##_MASK, PSXC_LPX_SLCR_REQ_PWRDWN0_STATUS_APU##cluster##_CORE##core##_MASK, &amp;Acpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1af828b108cb5098389e3307a5e537ccc5" prot="public" static="no">
+        <name>X_RPU_PWR_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_RPU##cluster##_CORE##core##_MASK, PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_RPU##cluster##_CORE##core##_MASK, &amp;Rpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a5b95a45f927c71693c2b100eeaf69886" prot="public" static="no">
+        <name>X_APU_WAKEUP_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PM_DEV_ACPU_##cluster##_##core, PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS_APU##cluster##_CORE##core##_MASK, &amp;Acpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a46c1fa79697fce3dc2e20d1e42fbe9d0" prot="public" static="no">
+        <name>X_RPU_WAKEUP_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PM_DEV_RPU_##cluster##_##core, PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS_RPU##cluster##_CORE##core##_MASK, &amp;Rpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a03f2d3d5ae7747bb05b877e6ee3d9f09" prot="public" static="no">
+        <name>X_APU_SLEEP_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PM_DEV_ACPU_##cluster##_##core, PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS_APU##cluster##_CORE##core##_MASK, &amp;Acpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a03230e7292093d06e0addd8d067d9220" prot="public" static="no">
+        <name>X_RPU_SLEEP_HANDLER</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>{PM_DEV_RPU_##cluster##_##core, PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS_RPU##cluster##_CORE##core##_MASK, &amp;Rpu##cluster##_Core##core##PwrCtrl},</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a5d3c7e7e7db240b1a24fca911e7eab02" prot="public" static="no">
+        <name>X_APU_PWRCTRL_DECL</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>extern const XPmFwPwrCtrl_t Acpu##cluster##_Core##core##PwrCtrl;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a76db5fce4c371b52a14211485245cc6c" prot="public" static="no">
+        <name>X_RPU_PWRCTRL_DECL</name>
+        <param><defname>cluster</defname></param>
+        <param><defname>core</defname></param>
+        <initializer>extern const XPmFwPwrCtrl_t Rpu##cluster##_Core##core##PwrCtrl;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a09269287844d1d8f186a78543d1cf0c2" prot="public" static="no">
+        <name>CREATE_TABLE_APU_PWRUPDOWNHANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrHandlerTable_t ApuPwrUpDwnHandlerTable[] = { \
+X_APU_MACRO_ENTRIES(X_APU_PWR_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1ad75fa2ce892c94104963f80351e6e8aa" prot="public" static="no">
+        <name>CREATE_TABLE_RPU_PWRUPDOWNHANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrHandlerTable_t RpuPwrUpDwnHandlerTable[] = { \
+X_RPU_MACRO_ENTRIES(X_RPU_PWR_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a6cb59b9dbe004a9a5b056ecfec8c0d94" prot="public" static="no">
+        <name>CREATE_TABLE_APU_WAKEUP_HANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrCtlWakeupHandlerTable_t ApuWakeupHandlerTable[] = { \
+X_APU_MACRO_ENTRIES(X_APU_WAKEUP_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aaecfe05aa97145ac94da20aad15f79b2" prot="public" static="no">
+        <name>CREATE_TABLE_RPU_WAKEUP_HANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrCtlWakeupHandlerTable_t RpuWakeupHandlerTable[] = { \
+X_RPU_MACRO_ENTRIES(X_RPU_WAKEUP_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1aeeb79406b259aaa5dfda5664db8699d5" prot="public" static="no">
+        <name>CREATE_TABLE_APU_SLEEP_HANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrCtlWakeupHandlerTable_t ApuSleepHandlerTable[] = { \
+X_APU_MACRO_ENTRIES(X_APU_SLEEP_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a7650a0258142063a5eb7f99fa26c0dca" prot="public" static="no">
+        <name>CREATE_TABLE_RPU_SLEEP_HANDLER</name>
+        <param><defname>NumClusters</defname></param>
+        <param><defname>NumCores</defname></param>
+        <initializer>static const struct PwrCtlWakeupHandlerTable_t RpuSleepHandlerTable[] = { \
+X_RPU_MACRO_ENTRIES(X_RPU_SLEEP_HANDLER) \
+};</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a323ad5e964f2d2f8974d918374982d52" prot="public" static="no">
+        <name>DECLARE_APU_PWRCTRL</name>
+        <param></param>
+        <initializer>X_APU_MACRO_ENTRIES(X_APU_PWRCTRL_DECL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__handlers_8h_1a0c0c6556d033126236727ad3f34dbc97" prot="public" static="no">
+        <name>DECLARE_RPU_PWRCTRL</name>
+        <param></param>
+        <initializer>X_RPU_MACRO_ENTRIES(X_RPU_PWRCTRL_DECL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__power__handlers_8h_1a6e83094811ce81d4482b604205c37a51" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* VoidFunction_t)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>VoidFunction_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__power__handlers_8h_1a49a11edeb79eba743a1784c2318d3321" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPm_PwrIntrHandler</definition>
+        <argsstring>(void *IntrNumber)</argsstring>
+        <name>XPm_PwrIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>IntrNumber</declname>
+        </param>
+        <briefdescription>
+<para>Top level power interrupt handler that dispatches power up, power down, wakeup and power control requests to their handlers and ACKs the serviced interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IntrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt number that triggered the handler</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_FAILURE or error code during failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.c" bodystart="181" bodyend="224"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_IOMODULE_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_IOMODULE_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xeb4606e0U)</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000800U)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00001000U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14U</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00004000U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15U</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00008000U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>APU<sp/>macro<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_APU_MACRO_ENTRIES(HandlerTable)<sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">HandlerTable(0,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">HandlerTable(0,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">HandlerTable(0,<sp/>2)<sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">HandlerTable(0,<sp/>3)<sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">HandlerTable(1,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">HandlerTable(1,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">HandlerTable(2,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">HandlerTable(2,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">HandlerTable(3,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">HandlerTable(3,<sp/>1)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>RPU<sp/>macro<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_RPU_MACRO_ENTRIES(HandlerTable)<sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">HandlerTable(A,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">HandlerTable(A,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">HandlerTable(B,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">HandlerTable(B,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">HandlerTable(C,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">HandlerTable(C,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">HandlerTable(D,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">HandlerTable(D,<sp/>1)<sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">HandlerTable(E,<sp/>0)<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">HandlerTable(E,<sp/>1)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>APU<sp/>power<sp/>up/down<sp/>handler<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_APU_PWR_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">{PSXC_LPX_SLCR_REQ_PWRUP0_STATUS_APU##cluster##_CORE##core##_MASK,<sp/>PSXC_LPX_SLCR_REQ_PWRDWN0_STATUS_APU##cluster##_CORE##core##_MASK,<sp/>&amp;Acpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>RPU<sp/>power<sp/>up/down<sp/>handle<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_RPU_PWR_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">{PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_RPU##cluster##_CORE##core##_MASK,<sp/>PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_RPU##cluster##_CORE##core##_MASK,<sp/>&amp;Rpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>APU<sp/>wakeup<sp/>handler<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_APU_WAKEUP_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">{PM_DEV_ACPU_##cluster##_##core,<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS_APU##cluster##_CORE##core##_MASK,<sp/>&amp;Acpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>RPU<sp/>wakeup<sp/>handler<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_RPU_WAKEUP_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">{PM_DEV_RPU_##cluster##_##core,<sp/>PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS_RPU##cluster##_CORE##core##_MASK,<sp/>&amp;Rpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>APU<sp/>sleep<sp/>handler<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_APU_SLEEP_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">{PM_DEV_ACPU_##cluster##_##core,<sp/>PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS_APU##cluster##_CORE##core##_MASK,<sp/>&amp;Acpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>the<sp/>RPU<sp/>sleep<sp/>handler<sp/>table<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_RPU_SLEEP_HANDLER(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">{PM_DEV_RPU_##cluster##_##core,<sp/>PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS_RPU##cluster##_CORE##core##_MASK,<sp/>&amp;Rpu##cluster##_Core##core##PwrCtrl},</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>APU<sp/>power<sp/>control<sp/>declarations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_APU_PWRCTRL_DECL(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">extern<sp/>const<sp/>XPmFwPwrCtrl_t<sp/>Acpu##cluster##_Core##core##PwrCtrl;</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>generate<sp/>RPU<sp/>power<sp/>control<sp/>declarations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>X_RPU_PWRCTRL_DECL(cluster,<sp/>core)<sp/>\</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">extern<sp/>const<sp/>XPmFwPwrCtrl_t<sp/>Rpu##cluster##_Core##core##PwrCtrl;</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>APU<sp/>power<sp/>up/down<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_APU_PWRUPDOWNHANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrHandlerTable_t<sp/>ApuPwrUpDwnHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">X_APU_MACRO_ENTRIES(X_APU_PWR_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>RPU<sp/>power<sp/>up/down<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_RPU_PWRUPDOWNHANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrHandlerTable_t<sp/>RpuPwrUpDwnHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">X_RPU_MACRO_ENTRIES(X_RPU_PWR_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>APU<sp/>wakeup<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_APU_WAKEUP_HANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrCtlWakeupHandlerTable_t<sp/>ApuWakeupHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">X_APU_MACRO_ENTRIES(X_APU_WAKEUP_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>RPU<sp/>wakeup<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_RPU_WAKEUP_HANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrCtlWakeupHandlerTable_t<sp/>RpuWakeupHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">X_RPU_MACRO_ENTRIES(X_RPU_WAKEUP_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>APU<sp/>sleep<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_APU_SLEEP_HANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrCtlWakeupHandlerTable_t<sp/>ApuSleepHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">X_APU_MACRO_ENTRIES(X_APU_SLEEP_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>the<sp/>macro<sp/>to<sp/>create<sp/>the<sp/>RPU<sp/>sleep<sp/>handler<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TABLE_RPU_SLEEP_HANDLER(NumClusters,<sp/>NumCores)<sp/>\</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">static<sp/>const<sp/>struct<sp/>PwrCtlWakeupHandlerTable_t<sp/>RpuSleepHandlerTable[]<sp/>=<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">X_RPU_MACRO_ENTRIES(X_RPU_SLEEP_HANDLER)<sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">};</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Generate<sp/>all<sp/>APU<sp/>power<sp/>control<sp/>declarations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DECLARE_APU_PWRCTRL()<sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">X_APU_MACRO_ENTRIES(X_APU_PWRCTRL_DECL)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Generate<sp/>all<sp/>RPU<sp/>power<sp/>control<sp/>declarations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DECLARE_RPU_PWRCTRL()<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">X_RPU_MACRO_ENTRIES(X_RPU_PWRCTRL_DECL)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*VoidFunction_t)(void);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HandlerTable<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Shift;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VoidFunction_t<sp/>Handler;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPm_PwrIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IntrNumber);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_IOMODULE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h"/>
+  </compounddef>
+</doxygen>

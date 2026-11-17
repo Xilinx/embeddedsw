@@ -1,34 +1,107 @@
 var NAVTREE =
 [
-  [ "visp_ss", "index.html", [
-    [ "This function calls: \\ref CamDeviceIspcoreInit, \\ref CamDeviceRequestInstance,", "index.html", null ],
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Variables", "functions_vars.html", "functions_vars" ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Module Name", "module_name_page.html", null ]
-  ] ]
+  [
+    "visp_ss",
+    "index.html",
+    [
+      [
+        "This function calls: \\ref CamDeviceIspcoreInit, \\ref CamDeviceRequestInstance,",
+        "index.html",
+        null
+      ],
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                "functions_dup"
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                "functions_vars"
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Module Name",
+        "module_name_page.html",
+        null
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "align_8h.html",
-"isi__common_8h.html#ga7f4924d3ad266d23630906be294b3cf9",
-"struct_cam_device_sensor_connect_port_info__s.html#a55f2794d67517ac027ac17b2895ba53f"
+"isi__common_8h.html#ga7c4d0dc3475eabd1451916951167a4e9",
+"oslayer_8h.html#a2df73b76a371066dd2073c08bfef2e89",
+"structxvisp__ss___config.html#a8c9bf7638c1fb455ed878f1349d8904f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

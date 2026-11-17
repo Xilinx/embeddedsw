@@ -1,6 +1,5 @@
 var xdphy__hw_8h =
 [
-    [ "DL_LANE_OFFSET", "xdphy__hw_8h.html#ga4dab676485278ae963ba2a5c4e5d0063", null ],
     [ "XDPHY_CLSTATUS_ALLMASK", "xdphy__hw_8h.html#gad0d8a99b274aecc21c3123cf57107ea0", null ],
     [ "XDPHY_CLSTATUS_REG_ERRCTRL_MASK", "xdphy__hw_8h.html#gaae3b5a38d6148049808a4d7f93eef6fd", null ],
     [ "XDPHY_CLSTATUS_REG_ERRCTRL_OFFSET", "xdphy__hw_8h.html#gaa857f48d553b9ed179970cdfbf80c742", null ],

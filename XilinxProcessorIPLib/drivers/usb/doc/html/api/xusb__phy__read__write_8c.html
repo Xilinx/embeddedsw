@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xusb__phy__read__write_8c.html','');})
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_phy_read_write.c File Reference</div>  </div>
 </div><!--header-->
@@ -123,6 +125,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a33cce89b845dc983ddda704adb937017"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a33cce89b845dc983ddda704adb937017">ULPI_SCRATCH_REGISTER</a>&#160;&#160;&#160;0x16</td></tr>
+<tr class="memdesc:a33cce89b845dc983ddda704adb937017"><td class="mdescLeft">&#160;</td><td class="mdescRight">ULPI PHY scratch register address.  <a href="#a33cce89b845dc983ddda704adb937017">More...</a><br/></td></tr>
+<tr class="separator:a33cce89b845dc983ddda704adb937017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4728fae78283c9b48fc0ea65b2270f3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a4728fae78283c9b48fc0ea65b2270f3c">WRITE_REG_DATA</a>&#160;&#160;&#160;0xAA</td></tr>
+<tr class="memdesc:a4728fae78283c9b48fc0ea65b2270f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data value to write to the PHY register.  <a href="#a4728fae78283c9b48fc0ea65b2270f3c">More...</a><br/></td></tr>
+<tr class="separator:a4728fae78283c9b48fc0ea65b2270f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a84cae8b57eaffc9a0fbe11a02e2429e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a84cae8b57eaffc9a0fbe11a02e2429e8">UsbIfPhyIntrHandler</a> (void *CallBackRef, u32 IntrStatus)</td></tr>
@@ -131,7 +142,52 @@ Functions</h2></td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This main function starts the USB application.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a62cef26eb4d9076d0888c81106bf2146"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb.html">XUsb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a62cef26eb4d9076d0888c81106bf2146">UsbInstance</a></td></tr>
+<tr class="memdesc:a62cef26eb4d9076d0888c81106bf2146"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device instance.  <a href="#a62cef26eb4d9076d0888c81106bf2146">More...</a><br/></td></tr>
+<tr class="separator:a62cef26eb4d9076d0888c81106bf2146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0184f31affcf6284ad838ccaac7e67cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb___config.html">XUsb_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a0184f31affcf6284ad838ccaac7e67cb">UsbConfigPtr</a></td></tr>
+<tr class="memdesc:a0184f31affcf6284ad838ccaac7e67cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the USB configuration structure.  <a href="#a0184f31affcf6284ad838ccaac7e67cb">More...</a><br/></td></tr>
+<tr class="separator:a0184f31affcf6284ad838ccaac7e67cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6abb3bc174e1e76af9da4e79b737b5c3"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__phy__read__write_8c.html#a6abb3bc174e1e76af9da4e79b737b5c3">PhyAccessDone</a> = 0</td></tr>
+<tr class="memdesc:a6abb3bc174e1e76af9da4e79b737b5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating ULPI PHY access completion.  <a href="#a6abb3bc174e1e76af9da4e79b737b5c3">More...</a><br/></td></tr>
+<tr class="separator:a6abb3bc174e1e76af9da4e79b737b5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a33cce89b845dc983ddda704adb937017"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ULPI_SCRATCH_REGISTER&#160;&#160;&#160;0x16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ULPI PHY scratch register address. </p>
+
+<p>Referenced by <a class="el" href="xusb__phy__read__write_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4728fae78283c9b48fc0ea65b2270f3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WRITE_REG_DATA&#160;&#160;&#160;0xAA</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data value to write to the PHY register. </p>
+
+<p>Referenced by <a class="el" href="xusb__phy__read__write_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 <div class="memitem">
@@ -148,20 +204,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This main function starts the USB application. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
 <li>XST_FAILURE if test fails. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb___config.html#a4c3940ad84a72a33f98856da250dab3f">XUsb_Config::BaseAddress</a>, <a class="el" href="struct_x_usb___config.html#a49c7946b8a90eb3e6f00ead057694bce">XUsb_Config::IntrId</a>, <a class="el" href="struct_x_usb___config.html#a88f694c6cfdc5ccb605421afe3ae35a3">XUsb_Config::IntrParent</a>, <a class="el" href="xusb__phy__read__write_8c.html#a84cae8b57eaffc9a0fbe11a02e2429e8">UsbIfPhyIntrHandler()</a>, <a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa">XUsb_CfgInitialize()</a>, <a class="el" href="group__usb.html#gafcd3e91e72783087a0c6902724b8087f">XUsb_IntrEnable()</a>, <a class="el" href="group__usb.html#gacc119aa9f628ab0cc3fac2f63073e386">XUsb_IntrHandler()</a>, <a class="el" href="group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856">XUsb_LookupConfig()</a>, <a class="el" href="group__usb.html#ga4708ca8b9ca477b58d7da7db3f1be308">XUsb_Start()</a>, <a class="el" href="group__usb.html#gaf35c023a0d3ac069b7ab105b1c0c2509">XUSB_STATUS_GLOBAL_INTR_MASK</a>, <a class="el" href="group__usb.html#ga495c2a96c4f20b1d91fde87acee5a9b8">XUSB_STATUS_PHY_ACCESS_MASK</a>, <a class="el" href="group__usb.html#ga0573097a6ec999bac0f865dc18113df3">XUsb_UlpiIntrSetHandler()</a>, <a class="el" href="group__usb.html#ga9d1522d41344290899ebbf1a40824697">XUsb_UlpiPhyReadRegister()</a>, and <a class="el" href="group__usb.html#ga5464e6b0871344e088f252872554b7bb">XUsb_UlpiPhyWriteRegister()</a>.</p>
+<p>References <a class="el" href="struct_x_usb___config.html#a4c3940ad84a72a33f98856da250dab3f">XUsb_Config::BaseAddress</a>, <a class="el" href="struct_x_usb___config.html#a49c7946b8a90eb3e6f00ead057694bce">XUsb_Config::IntrId</a>, <a class="el" href="struct_x_usb___config.html#a88f694c6cfdc5ccb605421afe3ae35a3">XUsb_Config::IntrParent</a>, <a class="el" href="xusb__phy__read__write_8c.html#a6abb3bc174e1e76af9da4e79b737b5c3">PhyAccessDone</a>, <a class="el" href="xusb__phy__read__write_8c.html#a33cce89b845dc983ddda704adb937017">ULPI_SCRATCH_REGISTER</a>, <a class="el" href="xusb__phy__read__write_8c.html#a84cae8b57eaffc9a0fbe11a02e2429e8">UsbIfPhyIntrHandler()</a>, <a class="el" href="xusb__phy__read__write_8c.html#a4728fae78283c9b48fc0ea65b2270f3c">WRITE_REG_DATA</a>, <a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa">XUsb_CfgInitialize()</a>, <a class="el" href="group__usb.html#gafcd3e91e72783087a0c6902724b8087f">XUsb_IntrEnable()</a>, <a class="el" href="group__usb.html#gacc119aa9f628ab0cc3fac2f63073e386">XUsb_IntrHandler()</a>, <a class="el" href="group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856">XUsb_LookupConfig()</a>, <a class="el" href="group__usb.html#ga4708ca8b9ca477b58d7da7db3f1be308">XUsb_Start()</a>, <a class="el" href="group__usb.html#gaf35c023a0d3ac069b7ab105b1c0c2509">XUSB_STATUS_GLOBAL_INTR_MASK</a>, <a class="el" href="group__usb.html#ga495c2a96c4f20b1d91fde87acee5a9b8">XUSB_STATUS_PHY_ACCESS_MASK</a>, <a class="el" href="group__usb.html#ga0573097a6ec999bac0f865dc18113df3">XUsb_UlpiIntrSetHandler()</a>, <a class="el" href="group__usb.html#ga9d1522d41344290899ebbf1a40824697">XUsb_UlpiPhyReadRegister()</a>, and <a class="el" href="group__usb.html#ga5464e6b0871344e088f252872554b7bb">XUsb_UlpiPhyWriteRegister()</a>.</p>
 
 </div>
 </div>
@@ -192,17 +241,60 @@ Functions</h2></td></tr>
 <p>This function is the ULPI PHY interrupt handler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__usb.html#ga495c2a96c4f20b1d91fde87acee5a9b8">XUSB_STATUS_PHY_ACCESS_MASK</a>.</p>
+<p>References <a class="el" href="xusb__phy__read__write_8c.html#a6abb3bc174e1e76af9da4e79b737b5c3">PhyAccessDone</a>, and <a class="el" href="group__usb.html#ga495c2a96c4f20b1d91fde87acee5a9b8">XUSB_STATUS_PHY_ACCESS_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__phy__read__write_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a6abb3bc174e1e76af9da4e79b737b5c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 PhyAccessDone = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating ULPI PHY access completion. </p>
+
+<p>Referenced by <a class="el" href="xusb__phy__read__write_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="xusb__phy__read__write_8c.html#a84cae8b57eaffc9a0fbe11a02e2429e8">UsbIfPhyIntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0184f31affcf6284ad838ccaac7e67cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb___config.html">XUsb_Config</a>* UsbConfigPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the USB configuration structure. </p>
+
+</div>
+</div>
+<a class="anchor" id="a62cef26eb4d9076d0888c81106bf2146"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb.html">XUsb</a> UsbInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device instance. </p>
 
 </div>
 </div>

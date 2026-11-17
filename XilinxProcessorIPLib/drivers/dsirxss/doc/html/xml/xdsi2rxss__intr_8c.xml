@@ -19,6 +19,12 @@
         <childnode refid="38" relation="include">
         </childnode>
       </node>
+      <node id="35">
+        <label>xdsi2rx.h</label>
+      </node>
+      <node id="37">
+        <label>xil_types.h</label>
+      </node>
       <node id="33">
         <label>xdsi2rxss_intr.c</label>
         <link refid="xdsi2rxss_intr.c"/>
@@ -29,55 +35,11 @@
         <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="35">
-        <label>xdsi2rx.h</label>
-      </node>
-      <node id="37">
-        <label>xil_types.h</label>
-      </node>
       <node id="38">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__dsirxss_1ga54b30c41e3c917badd1eba84e3644fa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void XDsi2Rx_IntrHandler</definition>
-        <argsstring>(void *InstancePtr)</argsstring>
-        <name>XDsi2Rx_IntrHandler</name>
-        <param>
-          <type>void *</type>
-          <declname>InstancePtr</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="48" column="1"/>
-      </memberdef>
-      <memberdef kind="function" id="group__dsirxss_1gaa210595203e836002bc8fad6184dec92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void XDsi2Rx_InterruptEnable</definition>
-        <argsstring>(void *InstancePtr, u32 Mask)</argsstring>
-        <name>XDsi2Rx_InterruptEnable</name>
-        <param>
-          <type>void *</type>
-          <declname>InstancePtr</declname>
-        </param>
-        <param>
-          <type>u32</type>
-          <declname>Mask</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="49" column="1"/>
-      </memberdef>
       <memberdef kind="function" id="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void XDsi2RxSs_IntrHandler</definition>
@@ -103,7 +65,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="72" bodyend="81"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="70" bodyend="79"/>
         <references refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" compoundref="xdsi2rxss_8h" startline="202">XDsi2RxSs::Dsi2RxPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -131,7 +93,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="95" bodyend="104"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="93" bodyend="102"/>
         <references refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" compoundref="xdsi2rxss_8h" startline="202">XDsi2RxSs::Dsi2RxPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -169,7 +131,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="117" bodyend="126"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="115" bodyend="124"/>
         <references refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" compoundref="xdsi2rxss_8h" startline="202">XDsi2RxSs::Dsi2RxPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -255,7 +217,7 @@ XDSI2RX_HANDLER_FRAME_STARTED           frame started</preformatted></para><para
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="174" bodyend="188"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c" bodystart="172" bodyend="186"/>
         <references refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" compoundref="xdsi2rxss_8h" startline="202">XDsi2RxSs::Dsi2RxPtr</references>
         <references refid="struct_x_dsi2_rx_ss_1a21fefc626aab09c5536c07a030e90674" compoundref="xdsi2rxss_8h" startline="200">XDsi2RxSs::IsReady</references>
       </memberdef>
@@ -291,65 +253,63 @@ XDSI2RX_HANDLER_FRAME_STARTED           frame started</preformatted></para><para
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDsi2Rx_IntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDsi2Rx_InterruptEnable(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="72" refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kindref="member">XDsi2RxSs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_IntrHandler(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="95" refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kindref="member">XDsi2RxSs_SetGlobalInterrupt</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetGlobalInterrupt(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="117" refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kindref="member">XDsi2RxSs_InterruptEnable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
-<codeline lineno="118"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_InterruptEnable(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>,<sp/>Mask);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="174" refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kindref="member">XDsi2RxSs_SetCallback</ref>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
-<codeline lineno="176"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1a21fefc626aab09c5536c07a030e90674" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDsi2Rx_SetCallback(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>,<sp/>HandlerType,</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kindref="member">XDsi2RxSs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_IntrHandler(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="93" refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kindref="member">XDsi2RxSs_SetGlobalInterrupt</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_SetGlobalInterrupt(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="115" refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kindref="member">XDsi2RxSs_InterruptEnable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*XDsi2RxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi2Rx_InterruptEnable(XDsi2RxSsPtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="172" refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kindref="member">XDsi2RxSs_SetCallback</ref>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1a21fefc626aab09c5536c07a030e90674" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDsi2Rx_SetCallback(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kindref="member">Dsi2RxPtr</ref>,<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_intr.c"/>
   </compounddef>
 </doxygen>

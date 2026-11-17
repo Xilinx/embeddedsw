@@ -5,6 +5,7 @@ var mbox__fifo_8h =
     [ "FifoControl", "struct_fifo_control.html", null ],
     [ "FifoInitData", "struct_fifo_init_data.html", null ],
     [ "MboxPostMsg", "struct_mbox_post_msg.html", null ],
+    [ "MBOX_COOKIE_NOT_USED", "mbox__fifo_8h.html#ae26d28c6e1a404ea560db5840b47d7d3", null ],
     [ "FifoInitData", "mbox__fifo_8h.html#a2ba8194513d7a6e49482e4df29d9f901", null ],
     [ "MboxIntId", "mbox__fifo_8h.html#aa3a625821e7ca0be62feecaca4217ad8", null ],
     [ "Payload_packet", "mbox__fifo_8h.html#afbb21034653fa377acc38d088c0d8704", null ],

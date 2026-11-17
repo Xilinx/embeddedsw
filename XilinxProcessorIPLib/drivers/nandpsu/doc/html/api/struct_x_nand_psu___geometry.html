@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___geometry.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,11 +109,11 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___geometry.html','')
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XNandPsu_Geometry Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XNandPsu_Geometry Struct Reference<div class="ingroups"><a class="el" href="group__nandpsu.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_nand_psu___geometry.html" title="The XNandPsu_Geometry structure contains the ONFI geometry information. ">XNandPsu_Geometry</a> structure contains the ONFI geometry information.
+<p>Holds the ONFI geometry information.
  <a href="struct_x_nand_psu___geometry.html#details">More...</a></p>
 
 <p><code>#include &lt;xnandpsu.h&gt;</code></p>
@@ -176,7 +176,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a64dbdabcd40797abaedc65e04ae873bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_nand_psu___geometry.html" title="The XNandPsu_Geometry structure contains the ONFI geometry information. ">XNandPsu_Geometry</a> structure contains the ONFI geometry information. </p>
+<div class="textblock"><p>Holds the ONFI geometry information. </p>
+<p>The members from BytesPerPage to EccCodeWordSize hold the parameter page information. The remaining members hold driver specific information. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a7a931d5c8554b4bfa678f7b435526cff"></a>
 <div class="memitem">
@@ -190,7 +191,7 @@ Data Fields</h2></td></tr>
 
 <p>Block size. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group___overview.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group___overview.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group__nandpsu.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group__nandpsu.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
 
 </div>
 </div>
@@ -220,7 +221,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of bytes per page. </p>
 
-<p>Referenced by <a class="el" href="xnandpsu__example_8c.html#a0c1e522624d1136adbaad719e207a90f">NandReadWriteExample()</a>, <a class="el" href="group___overview.html#ga81efec47413599300b874c98ceffee81">XNandPsu_InitBbtDesc()</a>, <a class="el" href="group___overview.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, <a class="el" href="group___overview.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, <a class="el" href="group___overview.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>, and <a class="el" href="group___overview.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+<p>Referenced by <a class="el" href="xnandpsu__example_8c.html#a0c1e522624d1136adbaad719e207a90f">NandReadWriteExample()</a>, <a class="el" href="group__nandpsu__api.html#ga81efec47413599300b874c98ceffee81">XNandPsu_InitBbtDesc()</a>, <a class="el" href="group__nandpsu.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, <a class="el" href="group__nandpsu.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, <a class="el" href="group__nandpsu.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>, and <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
 
 </div>
 </div>
@@ -236,7 +237,7 @@ Data Fields</h2></td></tr>
 
 <p>Column address cycles. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group___overview.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
 
 </div>
 </div>
@@ -252,7 +253,7 @@ Data Fields</h2></td></tr>
 
 <p>Total flash size in bytes. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group___overview.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group___overview.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group__nandpsu.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group__nandpsu.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
 
 </div>
 </div>
@@ -310,7 +311,7 @@ Data Fields</h2></td></tr>
 
 <p>Total number of blocks. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga834baaa423d26638d10ad7195ba097fa">XNandPsu_ScanBbt()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu__api.html#ga834baaa423d26638d10ad7195ba097fa">XNandPsu_ScanBbt()</a>.</p>
 
 </div>
 </div>
@@ -354,7 +355,7 @@ Data Fields</h2></td></tr>
 
 <p>Total number of blocks in a Target. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group___overview.html#ga81efec47413599300b874c98ceffee81">XNandPsu_InitBbtDesc()</a>, and <a class="el" href="group___overview.html#ga8d3500cacdc26941b76db6a74f8e2b0f">XNandPsu_MarkBlockBad()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga7fb413a5f75317e698fe97ba12fc7d44">XNandPsu_Erase()</a>, <a class="el" href="group__nandpsu__api.html#ga81efec47413599300b874c98ceffee81">XNandPsu_InitBbtDesc()</a>, and <a class="el" href="group__nandpsu__api.html#ga8d3500cacdc26941b76db6a74f8e2b0f">XNandPsu_MarkBlockBad()</a>.</p>
 
 </div>
 </div>
@@ -370,7 +371,7 @@ Data Fields</h2></td></tr>
 
 <p>Total number of pages in a Target. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, <a class="el" href="group___overview.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, <a class="el" href="group___overview.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>, and <a class="el" href="group___overview.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, <a class="el" href="group__nandpsu.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, <a class="el" href="group__nandpsu.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>, and <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
 
 </div>
 </div>
@@ -386,7 +387,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of targets present. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga22080a2813ff692c0b64e0bbd9715f91">XNandPsu_ChangeTimingMode()</a>, and <a class="el" href="group___overview.html#ga834baaa423d26638d10ad7195ba097fa">XNandPsu_ScanBbt()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga22080a2813ff692c0b64e0bbd9715f91">XNandPsu_ChangeTimingMode()</a>, and <a class="el" href="group__nandpsu__api.html#ga834baaa423d26638d10ad7195ba097fa">XNandPsu_ScanBbt()</a>.</p>
 
 </div>
 </div>
@@ -402,7 +403,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of pages per block. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga59942044a415eacf3399b77b70fe3a20">XNandPsu_EraseBlock()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga59942044a415eacf3399b77b70fe3a20">XNandPsu_EraseBlock()</a>.</p>
 
 </div>
 </div>
@@ -418,7 +419,7 @@ Data Fields</h2></td></tr>
 
 <p>Row address cycles. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga59942044a415eacf3399b77b70fe3a20">XNandPsu_EraseBlock()</a>, <a class="el" href="group___overview.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group___overview.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga59942044a415eacf3399b77b70fe3a20">XNandPsu_EraseBlock()</a>, <a class="el" href="group__nandpsu.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
 
 </div>
 </div>
@@ -434,7 +435,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of spare bytes per page. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group___overview.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3">XNandPsu_ReadSpareBytes()</a>, and <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
 
 </div>
 </div>
@@ -450,7 +451,7 @@ Data Fields</h2></td></tr>
 
 <p>Target size in bytes. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group___overview.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__nandpsu.html#gad7e291db556ad9d33fbd06aa6ab79cb6">XNandPsu_Read()</a>, and <a class="el" href="group__nandpsu.html#gaf276d363e46822efd9ff8ee7b55b906c">XNandPsu_Write()</a>.</p>
 
 </div>
 </div>

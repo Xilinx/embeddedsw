@@ -54,6 +54,6 @@
 <codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
 <codeline lineno="46"><highlight class="stringliteral">endforeach()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

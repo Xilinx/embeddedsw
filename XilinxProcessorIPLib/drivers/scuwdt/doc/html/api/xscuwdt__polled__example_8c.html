@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xscuwdt__polled__example_8c.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,15 +100,16 @@ $(document).ready(function(){initNavTree('xscuwdt__polled__example_8c.html','');
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xscuwdt_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Xilinx SCU Private Watchdog Timer driver (<a class="el" href="struct_x_scu_wdt.html" title="The XScuWdt driver instance data. ">XScuWdt</a>) and hardware device in watchdog mode. </p>
-<p>This test illustrates how to initialize the watchdog device and restart it periodially to avoid the assertion of the WDRESETREQ pin.</p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a> driver in watchdog mode. </p>
+<p>This file contains a design example using the Xilinx SCU Private Watchdog Timer driver (<a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a>) and hardware device in watchdog mode. This test illustrates how to initialize the watchdog device and restart it periodically to avoid the assertion of the WDRESETREQ pin.</p>
 <p>MODIFICATION HISTORY:</p>
 <pre>
   Ver   Who  Date     Changes
@@ -120,20 +121,73 @@ $(document).ready(function(){initNavTree('xscuwdt__polled__example_8c.html','');
                       Interrupt wrapper support has also been added.
   2.5   dp   09/08/23 Update example to stop wdt at end of the test
   2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
+  2.8   vn   09/30/26 Align Doxygen comments with AMD standards
 *</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xscuwdt_8h.html">xscuwdt.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a5d0b56de3e0bb5a8e26adcf6c9780eab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscuwdt__polled__example_8c.html#a5d0b56de3e0bb5a8e26adcf6c9780eab">WDT_LOAD_VALUE</a>&#160;&#160;&#160;0xFFFF0000</td></tr>
+<tr class="memdesc:a5d0b56de3e0bb5a8e26adcf6c9780eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchdog load value.  <a href="#a5d0b56de3e0bb5a8e26adcf6c9780eab">More...</a><br/></td></tr>
+<tr class="separator:a5d0b56de3e0bb5a8e26adcf6c9780eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the XPAR parameters created in the xparameters.h file.</p>
+<p>They are defined here so that you can change all the needed parameters in one place. </p>
+</div></td></tr>
+<tr class="memitem:a1296c5ae63899613bbf20a668a95634a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscuwdt__polled__example_8c.html#a1296c5ae63899613bbf20a668a95634a">SCUWDT_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XSCUWDT_0_BASEADDR</td></tr>
+<tr class="memdesc:a1296c5ae63899613bbf20a668a95634a"><td class="mdescLeft">&#160;</td><td class="mdescRight">WDT base address.  <a href="#a1296c5ae63899613bbf20a668a95634a">More...</a><br/></td></tr>
+<tr class="separator:a1296c5ae63899613bbf20a668a95634a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a33e89f9e41ed0c166b878661da7f07f6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscuwdt__polled__example_8c.html#a33e89f9e41ed0c166b878661da7f07f6">ScuWdtPolledExample</a> (<a class="el" href="struct_x_scu_wdt.html">XScuWdt</a> *WdtInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a33e89f9e41ed0c166b878661da7f07f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the watchdog timer device and driver.  <a href="#a33e89f9e41ed0c166b878661da7f07f6">More...</a><br/></td></tr>
+<tr class="memdesc:a33e89f9e41ed0c166b878661da7f07f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a minimal test on the watchdog timer device and driver.  <a href="#a33e89f9e41ed0c166b878661da7f07f6">More...</a><br/></td></tr>
 <tr class="separator:a33e89f9e41ed0c166b878661da7f07f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscuwdt__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Scu Priver Wdt polled mode example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the Scu Private Wdt polled mode example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a818b7b3c2fa04c2cf0f8e462119174b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_scu_wdt.html">XScuWdt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscuwdt__polled__example_8c.html#a818b7b3c2fa04c2cf0f8e462119174b1">Watchdog</a></td></tr>
+<tr class="memdesc:a818b7b3c2fa04c2cf0f8e462119174b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cortex SCU Private WatchDog Timer Instance.  <a href="#a818b7b3c2fa04c2cf0f8e462119174b1">More...</a><br/></td></tr>
+<tr class="separator:a818b7b3c2fa04c2cf0f8e462119174b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a1296c5ae63899613bbf20a668a95634a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCUWDT_BASEADDRESS&#160;&#160;&#160;XPAR_XSCUWDT_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>WDT base address. </p>
+
+<p>Referenced by <a class="el" href="xscuwdt__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d0b56de3e0bb5a8e26adcf6c9780eab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WDT_LOAD_VALUE&#160;&#160;&#160;0xFFFF0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Watchdog load value. </p>
+
+<p>Referenced by <a class="el" href="xscuwdt__polled__example_8c.html#a33e89f9e41ed0c166b878661da7f07f6">ScuWdtPolledExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -149,11 +203,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the Scu Priver Wdt polled mode example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Calls the Scu Private Wdt polled mode example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
-<p>References <a class="el" href="xscuwdt__polled__example_8c.html#a33e89f9e41ed0c166b878661da7f07f6">ScuWdtPolledExample()</a>.</p>
+<p>References <a class="el" href="xscuwdt__polled__example_8c.html#a1296c5ae63899613bbf20a668a95634a">SCUWDT_BASEADDRESS</a>, and <a class="el" href="xscuwdt__polled__example_8c.html#a33e89f9e41ed0c166b878661da7f07f6">ScuWdtPolledExample()</a>.</p>
 
 </div>
 </div>
@@ -181,21 +234,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the watchdog timer device and driver. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_scu_wdt.html" title="The XScuWdt driver instance data. ">XScuWdt</a> driver.</p>
+<p>Runs a minimal test on the watchdog timer device and driver. </p>
+<p>This function illustrates how to use the <a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a> driver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">WdtInstancePtr</td><td>is a pointer to the instance of <a class="el" href="struct_x_scu_wdt.html" title="The XScuWdt driver instance data. ">XScuWdt</a> driver. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">WdtInstancePtr</td><td>Pointer to the instance of <a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a> driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="struct_x_scu_wdt___config.html#ade7297db74ccde96bfc2e94f451b5a56">XScuWdt_Config::BaseAddr</a>, <a class="el" href="group___overview.html#ga1fee56fc3ec3c8b003e6ae0528703b1c">XScuWdt_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga7dca99f7a6158d27399eb355f40e3367">XScuWdt_LoadWdt</a>, <a class="el" href="group___overview.html#ga24bed0bb643b657bbd3f26ab2921246e">XScuWdt_LookupConfig()</a>, <a class="el" href="group___overview.html#ga9487e2c385d8dc9cf5f1f27539ca079f">XScuWdt_RestartWdt</a>, <a class="el" href="group___overview.html#ga8813e9f9df643de43359defc1a7a48bc">XScuWdt_SetWdMode</a>, <a class="el" href="group___overview.html#ga87a7a8230fc5fa80f64cb66210e596b8">XScuWdt_Start()</a>, and <a class="el" href="group___overview.html#gae1493503cc6e52afa681f23329e9abef">XScuWdt_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_scu_wdt___config.html#ade7297db74ccde96bfc2e94f451b5a56">XScuWdt_Config::BaseAddr</a>, <a class="el" href="xscuwdt__polled__example_8c.html#a5d0b56de3e0bb5a8e26adcf6c9780eab">WDT_LOAD_VALUE</a>, <a class="el" href="group___overview.html#ga1fee56fc3ec3c8b003e6ae0528703b1c">XScuWdt_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga7dca99f7a6158d27399eb355f40e3367">XScuWdt_LoadWdt</a>, <a class="el" href="group___overview.html#ga24bed0bb643b657bbd3f26ab2921246e">XScuWdt_LookupConfig()</a>, <a class="el" href="group___overview.html#ga9487e2c385d8dc9cf5f1f27539ca079f">XScuWdt_RestartWdt</a>, <a class="el" href="group___overview.html#ga8813e9f9df643de43359defc1a7a48bc">XScuWdt_SetWdMode</a>, <a class="el" href="group___overview.html#ga87a7a8230fc5fa80f64cb66210e596b8">XScuWdt_Start()</a>, and <a class="el" href="group___overview.html#gae1493503cc6e52afa681f23329e9abef">XScuWdt_Stop()</a>.</p>
 
 <p>Referenced by <a class="el" href="xscuwdt__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a818b7b3c2fa04c2cf0f8e462119174b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_scu_wdt.html">XScuWdt</a> Watchdog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cortex SCU Private WatchDog Timer Instance. </p>
 
 </div>
 </div>

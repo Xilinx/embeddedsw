@@ -18,12 +18,21 @@
       <node id="574">
         <label>xil_cache.h</label>
       </node>
+      <node id="566">
+        <label>xusb_ch9.h</label>
+        <link refid="xusb__ch9_8h"/>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+      </node>
       <node id="570">
         <label>xusbpsu_hw.h</label>
         <link refid="xusbpsu__hw_8h"/>
-      </node>
-      <node id="573">
-        <label>xil_util.h</label>
       </node>
       <node id="563">
         <label>xusb_freertos_ch9_storage.h</label>
@@ -34,6 +43,15 @@
         </childnode>
         <childnode refid="566" relation="include">
         </childnode>
+      </node>
+      <node id="573">
+        <label>xil_util.h</label>
+      </node>
+      <node id="565">
+        <label>xstatus.h</label>
+      </node>
+      <node id="564">
+        <label>xil_types.h</label>
       </node>
       <node id="568">
         <label>xusbpsu.h</label>
@@ -55,30 +73,12 @@
         <childnode refid="574" relation="include">
         </childnode>
       </node>
-      <node id="565">
-        <label>xstatus.h</label>
-      </node>
-      <node id="564">
-        <label>xil_types.h</label>
-      </node>
-      <node id="566">
-        <label>xusb_ch9.h</label>
-        <link refid="xusb__ch9_8h"/>
-        <childnode refid="567" relation="include">
-        </childnode>
-        <childnode refid="564" relation="include">
-        </childnode>
-        <childnode refid="565" relation="include">
-        </childnode>
-        <childnode refid="575" relation="include">
-        </childnode>
-      </node>
-      <node id="575">
-        <label>xil_printf.h</label>
-      </node>
       <node id="571">
         <label>xusbpsu_endpoint.h</label>
         <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+      <node id="575">
+        <label>xil_printf.h</label>
       </node>
       <node id="567">
         <label>xusb_wrapper.h</label>
@@ -88,12 +88,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="578">
-        <label>xusb_freertos_class_storage.c</label>
-      </node>
-      <node id="579">
-        <label>xusb_freertos_massstorage_example.c</label>
-      </node>
       <node id="577">
         <label>xusb_freertos_ch9_storage.c</label>
         <link refid="xusb__freertos__ch9__storage_8c"/>
@@ -108,6 +102,14 @@
         <childnode refid="579" relation="include">
         </childnode>
       </node>
+      <node id="578">
+        <label>xusb_freertos_class_storage.c</label>
+        <link refid="xusb__freertos__class__storage_8c"/>
+      </node>
+      <node id="579">
+        <label>xusb_freertos_massstorage_example.c</label>
+        <link refid="xusb__freertos__massstorage__example_8c"/>
+      </node>
     </invincdepgraph>
     <innerclass refid="struct_u_s_b___c_o_n_f_i_g" prot="public">USB_CONFIG</innerclass>
     <innerclass refid="struct_u_s_b30___c_o_n_f_i_g" prot="public">USB30_CONFIG</innerclass>
@@ -117,24 +119,24 @@
         <param><defname>val</defname></param>
         <initializer>(u32)(val)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Be2le(val). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__ch9__storage_8h_1adef8521a1dcd1b2e4eaa90c52f502d3c" prot="public" static="no">
         <name>be2les</name>
         <param><defname>x</defname></param>
         <initializer>(u16) (x)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Be2les(x). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__ch9__storage_8h_1a8135b2c24ee2a9f4bce9c36060c76d16" prot="public" static="no">
         <name>htonl</name>
@@ -144,46 +146,46 @@
 			 (((u32)(val) &amp; 0x00FF0000)&gt;&gt;8)  |	\
 			 (((u32)(val) &amp; 0xFF000000)&gt;&gt;24))</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Swap byte order from host to network (32-bit). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__ch9__storage_8h_1a51799f5ebb4c7228ef7e95c247030f42" prot="public" static="no">
         <name>htons</name>
         <param><defname>x</defname></param>
         <initializer>(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Swap byte order from host to network (16-bit). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__ch9__storage_8h_1a41b7f88468f54732c211703caa14d9cf" prot="public" static="no">
         <name>MSG_CONFIG</name>
         <initializer>(1 &lt;&lt; 0)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Msg Config. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__ch9__storage_8h_1acc3fef788029e0b25ef36311173bcd7c" prot="public" static="no">
         <name>MSG_UNCONFIG</name>
         <initializer>(1 &lt;&lt; 1)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Msg Unconfig. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -205,14 +207,14 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BufPtr</parametername>
+<parametername direction="out">BufPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufLen</parametername>
+<parametername direction="in">BufLen</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the size of the provided buffer.</para></parameterdescription>
@@ -222,7 +224,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1242" bodyend="1302"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1243" bodyend="1303"/>
+        <references refid="xusb__wrapper_8h_1ab3bf2e9ae047392a3ca87d803d585a17" compoundref="xusb__wrapper_8h" startline="114">USB_LPM_MODE</references>
+        <references refid="xusb__ch9_8h_1a6c73097a46352acad1f2c123b5ed5ff4" compoundref="xusb__ch9_8h" startline="244">USB_TYPE_BOS_DESC</references>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -246,21 +250,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufPtr</parametername>
+<parametername direction="out">BufPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufLen</parametername>
+<parametername direction="in">BufLen</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the size of the provided buffer.</para></parameterdescription>
@@ -270,8 +274,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1055" bodyend="1081"/>
-        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="265" endline="268">IsSuperSpeed</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1056" bodyend="1082"/>
+        <references refid="xusb__ch9__audio__dfu_8c_1a804f2b8d24af70d2d64e9403aa7c6d53" compoundref="xusb__ch9__audio__dfu_8c" startline="52">deviceDesc</references>
+        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="479" endline="482">IsSuperSpeed</references>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -295,21 +300,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufPtr</parametername>
+<parametername direction="out">BufPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufLen</parametername>
+<parametername direction="in">BufLen</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the size of the provided buffer.</para></parameterdescription>
@@ -319,9 +324,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1097" bodyend="1139"/>
-        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="265" endline="268">IsSuperSpeed</references>
-        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="482">Usb_DevData::PrivateData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1098" bodyend="1140"/>
+        <references refid="xusb__freertos__dfu__example_8c_1a4502457caf193a71c80baed790f38599" compoundref="xusb__freertos__dfu__example_8c" startline="62">DFU</references>
+        <references refid="structaudio__dfu__if_1afa4a535dbf74e53f4a42020f87b669d6" compoundref="xusb__class__audio__dfu_8h" startline="157">audio_dfu_if::f_dfu</references>
+        <references refid="structcomposite__dev_1adb46edd6b13a33320ef6097473aa3048" compoundref="xusb__class__composite_8h" startline="354">composite_dev::f_dfu</references>
+        <references refid="xusb__wrapper_8c_1ad850f272d507d36f74a55bb96211b85b" compoundref="xusb__wrapper_8c" startline="195" endline="198">Get_DrvData</references>
+        <references refid="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" compoundref="xusb__class__audio__dfu_8h" startline="137">dfu_if::is_dfu</references>
+        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="479" endline="482">IsSuperSpeed</references>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -349,28 +359,28 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufPtr</parametername>
+<parametername direction="out">BufPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BufLen</parametername>
+<parametername direction="in">BufLen</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the size of the provided buffer. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Index</parametername>
+<parametername direction="in">Index</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the index of the string for which the descriptor is requested.</para></parameterdescription>
@@ -380,9 +390,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1157" bodyend="1226"/>
-        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="265" endline="268">IsSuperSpeed</references>
-        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="482">Usb_DevData::PrivateData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1158" bodyend="1227"/>
+        <references refid="xusb__freertos__dfu__example_8c_1a4502457caf193a71c80baed790f38599" compoundref="xusb__freertos__dfu__example_8c" startline="62">DFU</references>
+        <references refid="structaudio__dfu__if_1afa4a535dbf74e53f4a42020f87b669d6" compoundref="xusb__class__audio__dfu_8h" startline="157">audio_dfu_if::f_dfu</references>
+        <references refid="structcomposite__dev_1adb46edd6b13a33320ef6097473aa3048" compoundref="xusb__class__composite_8h" startline="354">composite_dev::f_dfu</references>
+        <references refid="xusb__wrapper_8c_1ad850f272d507d36f74a55bb96211b85b" compoundref="xusb__wrapper_8c" startline="195" endline="198">Get_DrvData</references>
+        <references refid="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" compoundref="xusb__class__audio__dfu_8h" startline="137">dfu_if::is_dfu</references>
+        <references refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="479" endline="482">IsSuperSpeed</references>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -402,45 +417,30 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Ctrl</parametername>
+<parametername direction="in">Ctrl</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the Setup packet data.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE</para></simplesect>
-<simplesect kind="note"><para>None.</para></simplesect>
-<parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>InstancePtr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Ctrl</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is a pointer to the Setup packet data.</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE if device is not in address state</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1317" bodyend="1346"/>
-        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="482">Usb_DevData::PrivateData</references>
-        <references refid="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" compoundref="xusb__wrapper_8c" startline="282" endline="285">SetConfigDone</references>
-        <references refid="struct_usb___dev_data_1ae6b25681fad0c3686de251a7e611f00f" compoundref="xusbpsu_8h" startline="480">Usb_DevData::State</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1316" bodyend="1345"/>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
+        <references refid="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" compoundref="xusb__wrapper_8c" startline="492" endline="495">SetConfigDone</references>
+        <references refid="struct_usb___dev_data_1ae6b25681fad0c3686de251a7e611f00f" compoundref="xusbpsu_8h" startline="479">Usb_DevData::State</references>
+        <references refid="xusb__wrapper_8h_1a4af0ac695f410a6e4d4ea71df55d36d6" compoundref="xusb__wrapper_8h" startline="82">USB_STATE_ADDRESS</references>
+        <references refid="xusb__wrapper_8h_1a6a3f44fe842ff1655596eba1321d0b80" compoundref="xusb__wrapper_8h" startline="83">USB_STATE_CONFIGURED</references>
+        <references refid="xusb__wrapper_8h_1ae07e1b6cee441e8eb185c8d654a3f48e" compoundref="xusb__wrapper_8h" startline="81">USB_STATE_DEFAULT</references>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -457,36 +457,18 @@
           <defname>SetupData</defname>
         </param>
         <briefdescription>
-<para>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </para>        </briefdescription>
+<para>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>SetupData</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the setup packet received from Host.</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>- XST_SUCCESS if successful,<itemizedlist>
-<listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
-</para></simplesect>
-<parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>InstancePtr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>SetupData</parametername>
+<parametername direction="in">SetupData</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the setup packet received from Host.</para></parameterdescription>
@@ -499,11 +481,33 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1360" bodyend="1384"/>
-        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="482">Usb_DevData::PrivateData</references>
-        <references refid="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" compoundref="xusb__wrapper_8c" startline="282" endline="285">SetConfigDone</references>
-        <references refid="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" compoundref="xusbpsu_8h" startline="479">Usb_DevData::Speed</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_audio_dfu.c" bodystart="1365" bodyend="1389"/>
+        <references refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48">CBW</references>
+        <references refid="xusb__wrapper_8c_1ab01491c228aee667027315c8d539d8c5" compoundref="xusb__wrapper_8c" startline="268" endline="273">EpBufferRecv</references>
+        <references refid="xusb__wrapper_8c_1a89213a25f15867eff5fa1c41b0a1a5bf" compoundref="xusb__wrapper_8c" startline="429" endline="432">EpDisable</references>
+        <references refid="xusb__wrapper_8c_1aaad9964d36a8a66a5bdbaefcd7bd5522" compoundref="xusb__wrapper_8c" startline="414" endline="418">EpEnable</references>
+        <references refid="structcomposite__dev_1acd5b162f721a0d7f41184a72e14b7a91" compoundref="xusb__class__composite_8h" startline="355">composite_dev::f_storage</references>
+        <references refid="xusb__wrapper_8c_1ad850f272d507d36f74a55bb96211b85b" compoundref="xusb__wrapper_8c" startline="195" endline="198">Get_DrvData</references>
+        <references refid="xusb__class__audio__dfu_8h_1aab8f5bc9518d1611092d31d8212bc06b" compoundref="xusb__class__audio__dfu_8h" startline="97">ISO_EP</references>
+        <references refid="xusb__freertos__ch9__composite_8h_1a85a9a44864695bc6b36a042a00fdfd8a" compoundref="xusb__freertos__ch9__composite_8h" startline="125">KEYBOARD_CONFIG</references>
+        <references refid="xusb__class__composite_8h_1a611e1198c0727b99ccbc4ee1fba8323f" compoundref="xusb__class__composite_8h" startline="101">KEYBOARD_EP</references>
+        <references refid="xusb__freertos__ch9__composite_8h_1aa0ceaa9d2eec6f1f20f67af7a4066245" compoundref="xusb__freertos__ch9__composite_8h" startline="127">KEYBOARD_UNCONFIG</references>
+        <references refid="xusb__freertos__ch9__composite_8h_1a41b7f88468f54732c211703caa14d9cf" compoundref="xusb__freertos__ch9__composite_8h" startline="129">MSG_CONFIG</references>
+        <references refid="xusb__freertos__ch9__composite_8h_1acc3fef788029e0b25ef36311173bcd7c" compoundref="xusb__freertos__ch9__composite_8h" startline="131">MSG_UNCONFIG</references>
+        <references refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" compoundref="xusb__freertos__keyboard__example_8c" startline="74">Phase</references>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
+        <references refid="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" compoundref="xusb__wrapper_8c" startline="492" endline="495">SetConfigDone</references>
+        <references refid="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" compoundref="xusbpsu_8h" startline="478">Usb_DevData::Speed</references>
+        <references refid="xusb__class__composite_8h_1ae96580781c25b231abf66dd6ecbff045" compoundref="xusb__class__composite_8h" startline="100">STORAGE_EP</references>
+        <references refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" compoundref="xusb__wrapper_8h" startline="45">USB_EP_DIR_IN</references>
+        <references refid="xusb__wrapper_8h_1a0510b0a04d9cef144e4d9793310abccf" compoundref="xusb__wrapper_8h" startline="46">USB_EP_DIR_OUT</references>
+        <references refid="xusb__class__composite_8h_1abcbcd024a52f656cbba34106b10a01ce" compoundref="xusb__class__composite_8h" startline="146">USB_EP_STATE_COMMAND</references>
+        <references refid="xusb__wrapper_8h_1a89eb27133e7e106c3637039f6f49d187" compoundref="xusb__wrapper_8h" startline="69">USB_EP_TYPE_BULK</references>
+        <references refid="xusb__wrapper_8h_1a904b4eef8e7bcab363757e19832617ee" compoundref="xusb__wrapper_8h" startline="70">USB_EP_TYPE_INTERRUPT</references>
+        <references refid="xusb__wrapper_8h_1a739b4b7fda07588dd9eebe02f2994273" compoundref="xusb__wrapper_8h" startline="96">USB_SPEED_SUPER</references>
         <references refid="struct_setup_packet_1a2d0d690e5847745025e5655c533338fa" compoundref="xusbpsu_8h" startline="372">SetupPacket::wValue</references>
+        <references refid="xusb__freertos__class__keyboard_8c_1a71de5b59ddda7908bc86a51ab97948b6" compoundref="xusb__freertos__class__keyboard_8c" startline="45">xMainTask</references>
+        <references refid="structcomposite__dev_1ab9a225c9af02119b78f43aa28a0233dc" compoundref="xusb__freertos__class__composite_8h" startline="374">composite_dev::xMainTask</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -517,7 +521,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -571,34 +575,37 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Check<sp/>where<sp/>these<sp/>defines<sp/>need<sp/>to<sp/>go<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>be2le(val)<sp/><sp/><sp/><sp/><sp/><sp/>(u32)(val)</highlight></codeline>
-<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>be2les(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>(x)</highlight></codeline>
-<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>htonl(val)<sp/><sp/><sp/><sp/><sp/><sp/>((((u32)(val)<sp/>&amp;<sp/>0x000000FF)&lt;&lt;24)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="79"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x0000FF00)&lt;&lt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x00FF0000)&gt;&gt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="81"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0xFF000000)&gt;&gt;24))</highlight></codeline>
-<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>htons(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>((((u16)(x))&lt;&lt;8)<sp/>|<sp/>(((u16)(x))&gt;&gt;8))</highlight></codeline>
-<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSG_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
-<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MSG_UNCONFIG<sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
-<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>(u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
-<codeline lineno="93"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen,<sp/>u8<sp/>Index);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal">s32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*Ctrl);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal">s32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" kindref="member">Usb_SetConfigurationApp</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*Ctrl);</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSB_CH9_STORAGE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Check<sp/>where<sp/>these<sp/>defines<sp/>need<sp/>to<sp/>go<sp/><sp/>*/</highlight></codeline>
+<codeline lineno="77" refid="xusb__freertos__ch9__storage_8h_1ae4ad75a7f1933dd84023d554f49267d2" refkind="member"><highlight class="preprocessor">#define<sp/>be2le(val)<sp/><sp/><sp/><sp/><sp/><sp/>(u32)(val)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="xusb__freertos__ch9__storage_8h_1adef8521a1dcd1b2e4eaa90c52f502d3c" refkind="member"><highlight class="preprocessor">#define<sp/>be2les(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>(x)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="xusb__freertos__ch9__storage_8h_1a8135b2c24ee2a9f4bce9c36060c76d16" refkind="member"><highlight class="preprocessor">#define<sp/>htonl(val)<sp/><sp/><sp/><sp/><sp/><sp/>((((u32)(val)<sp/>&amp;<sp/>0x000000FF)&lt;&lt;24)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x0000FF00)&lt;&lt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x00FF0000)&gt;&gt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0xFF000000)&gt;&gt;24))</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="xusb__freertos__ch9__storage_8h_1a51799f5ebb4c7228ef7e95c247030f42" refkind="member"><highlight class="preprocessor">#define<sp/>htons(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>((((u16)(x))&lt;&lt;8)<sp/>|<sp/>(((u16)(x))&gt;&gt;8))</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="xusb__freertos__ch9__storage_8h_1a41b7f88468f54732c211703caa14d9cf" refkind="member"><highlight class="preprocessor">#define<sp/>MSG_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="xusb__freertos__ch9__storage_8h_1acc3fef788029e0b25ef36311173bcd7c" refkind="member"><highlight class="preprocessor">#define<sp/>MSG_UNCONFIG<sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>(u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">u32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen,<sp/>u8<sp/>Index);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">s32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*Ctrl);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">s32<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" kindref="member">Usb_SetConfigurationApp</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*Ctrl);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSB_CH9_STORAGE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_ch9_storage.h"/>
   </compounddef>
 </doxygen>

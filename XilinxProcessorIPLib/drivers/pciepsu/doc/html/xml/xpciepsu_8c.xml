@@ -22,6 +22,18 @@
       <node id="13">
         <label>stdlib.h</label>
       </node>
+      <node id="10">
+        <label>xpciepsu_common.h</label>
+        <link refid="xpciepsu__common_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
       <node id="4">
         <label>xpciepsu.c</label>
         <link refid="xpciepsu.c"/>
@@ -44,18 +56,6 @@
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>xstatus.h</label>
-      </node>
-      <node id="6">
-        <label>xil_types.h</label>
-      </node>
-      <node id="10">
-        <label>xpciepsu_common.h</label>
-        <link refid="xpciepsu__common_8h"/>
-        <childnode refid="11" relation="include">
         </childnode>
       </node>
       <node id="11">
@@ -99,7 +99,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="54" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="54" bodyend="56"/>
         <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
         <referencedby refid="xpciepsu__ep_8h_1a6486e8d86d93762e998010aa29efd100" compoundref="xpciepsu__ep_8c" startline="116" endline="171">XPciePsu_Egress_EP_BridgeInitialize</referencedby>
         <referencedby refid="xpciepsu__ep_8h_1a99474c575ca291a93548797b66df45b8" compoundref="xpciepsu__ep_8c" startline="61" endline="107">XPciePsu_EP_BridgeInitialize</referencedby>
@@ -158,7 +158,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="69" bodyend="71"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="69" bodyend="71"/>
         <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
         <referencedby refid="xpciepsu__ep_8h_1a6486e8d86d93762e998010aa29efd100" compoundref="xpciepsu__ep_8c" startline="116" endline="171">XPciePsu_Egress_EP_BridgeInitialize</referencedby>
         <referencedby refid="xpciepsu__ep_8h_1a99474c575ca291a93548797b66df45b8" compoundref="xpciepsu__ep_8c" startline="61" endline="107">XPciePsu_EP_BridgeInitialize</referencedby>
@@ -215,7 +215,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="99" bodyend="102"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="99" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a8cd320a7b4f12a5c398ae3abfc752ddd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -241,7 +241,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="114" bodyend="124"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="114" bodyend="124"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1ad1d157b4d0e095c6598f6075f1494ec0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -267,7 +267,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="136" bodyend="147"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="136" bodyend="147"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a98d72f6ebeee8003b559ad84fb364fd3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -293,7 +293,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="160" bodyend="178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="160" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a7ca8fdef20ba0a425a5d220179caa8f4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -319,7 +319,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="191" bodyend="315"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="191" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -378,7 +378,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="329" bodyend="349"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="329" bodyend="349"/>
         <references refid="xpciepsu__hw_8h_1a20a45b167585637a9c235ff5b012ca09" compoundref="xpciepsu__hw_8h" startline="152">XPCIEPSU_ECAM_BUS_MASK</references>
         <references refid="xpciepsu__hw_8h_1a43e34c012ad52ea9f676bc0be12b7755" compoundref="xpciepsu__hw_8h" startline="157">XPCIEPSU_ECAM_BUS_SHIFT</references>
         <references refid="xpciepsu__hw_8h_1a025cd22e68482e510c64559acafb2b7a" compoundref="xpciepsu__hw_8h" startline="153">XPCIEPSU_ECAM_DEV_MASK</references>
@@ -470,7 +470,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="366" bodyend="395"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="366" bodyend="395"/>
         <references refid="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" compoundref="xpciepsu_8c" startline="329" endline="349">XPciePsu_ComposeExternalConfigAddress</references>
         <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
         <referencedby refid="xpciepsu__caps_8c_1a1cf81ffb26c43a972d2b92278b20cf7c" compoundref="xpciepsu__caps_8c" startline="95" endline="118">XPciePsu_HasCapability</referencedby>
@@ -555,7 +555,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="412" bodyend="454"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="412" bodyend="454"/>
         <references refid="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" compoundref="xpciepsu_8c" startline="329" endline="349">XPciePsu_ComposeExternalConfigAddress</references>
         <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
         <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
@@ -607,7 +607,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="473" bodyend="486"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="473" bodyend="486"/>
         <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
         <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
       </memberdef>
@@ -658,7 +658,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="505" bodyend="517"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="505" bodyend="517"/>
         <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
         <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
       </memberdef>
@@ -677,7 +677,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="519" bodyend="532"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="519" bodyend="532"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1aa8d5a9745236b9a3d21d4ff6d01f0fff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -721,7 +721,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="576" bodyend="587"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="576" bodyend="587"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a415e854d3ec3600b6f14150b68b332b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -758,7 +758,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="600" bodyend="606"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="600" bodyend="606"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1acdec4955668c8f9f990b9eb32579130b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -806,7 +806,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="620" bodyend="637"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="620" bodyend="637"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1ac37187a4408cabc294f4f3a7dba9c6cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -920,7 +920,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="656" bodyend="834"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="656" bodyend="834"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a7d28ab94282b2f74793895408a6f8685" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -990,7 +990,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="849" bodyend="981"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="849" bodyend="981"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a6450b2ec66b3408bda0e516874b5b013" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1015,19 +1015,19 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="991" bodyend="996"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="991" bodyend="996"/>
       </memberdef>
-      <memberdef kind="function" id="xpciepsu_8c_1a84ffec9bd6f7e1d79d0f719792b033fd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="xpciepsu_8c_1ab5c1ef97b4b07538e9f2f98f54a09190" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>static void XPciePsu_FetchDevicesInBus</definition>
-        <argsstring>(XPciePsu *InstancePtr, u8 BusNum)</argsstring>
+        <argsstring>(XPciePsu *InstancePtr, u32 BusNum)</argsstring>
         <name>XPciePsu_FetchDevicesInBus</name>
         <param>
           <type>XPciePsu *</type>
           <declname>InstancePtr</declname>
         </param>
         <param>
-          <type>u8</type>
+          <type>u32</type>
           <declname>BusNum</declname>
         </param>
         <briefdescription>
@@ -1052,7 +1052,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1029" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1029" bodyend="1334"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1029" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1029" bodyend="1334"/>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a862b72cd0796d429f122b5b83603f1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1078,7 +1078,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1346" bodyend="1352"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1346" bodyend="1352"/>
         <referencedby refid="xpciepsu__rc__enumerate__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xpciepsu__rc__enumerate__example_8c" startline="82" endline="104">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="xpciepsu_8c_1a3d54a4fe188343ce59d689901c2b88c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1127,7 +1127,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1366" bodyend="1394"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="1366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1366" bodyend="1394"/>
         <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
       </memberdef>
       </sectiondef>
@@ -1921,10 +1921,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1013"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="1014"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1015"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="1029"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPciePsu_FetchDevicesInBus(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>BusNum)</highlight></codeline>
+<codeline lineno="1029"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPciePsu_FetchDevicesInBus(XPciePsu<sp/>*InstancePtr,<sp/>u32<sp/>BusNum)</highlight></codeline>
 <codeline lineno="1030"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1031"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigData<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="1032"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>LastBusNum;</highlight></codeline>
+<codeline lineno="1032"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>LastBusNum;</highlight></codeline>
 <codeline lineno="1033"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1034"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>PCIeVendorID;</highlight></codeline>
 <codeline lineno="1035"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>PCIeDeviceID;</highlight></codeline>
@@ -2268,6 +2268,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)Status;</highlight></codeline>
 <codeline lineno="1394"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c"/>
   </compounddef>
 </doxygen>

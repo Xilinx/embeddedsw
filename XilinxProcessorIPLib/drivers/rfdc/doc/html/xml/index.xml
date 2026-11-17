@@ -366,6 +366,7 @@
     <member refid="group___overview_1gab215dceebd2ff12a1286d8a2cc658597" kind="define"><name>XRFDC_PLATFORM_DEVICE_DIR</name></member>
     <member refid="group___overview_1gad29ceeaefed8044013562cc1b57c0679" kind="define"><name>XRFDC_BUS_NAME</name></member>
     <member refid="group___overview_1ga673f6d83a7d35fac6b8a2736f5790a2b" kind="define"><name>XRFDC_SIGNATURE</name></member>
+    <member refid="group___overview_1ga6989597f5ef88f9d9a2bd499f472b72c" kind="define"><name>XRFDC_SIGNATURE_SDT</name></member>
     <member refid="group___overview_1gaa0e27e137e136cca7202324704c39ae0" kind="define"><name>XRFDC_CONFIG_DATA_PROPERTY</name></member>
     <member refid="group___overview_1ga17d9b470b9d621925eddc229bc9260d6" kind="define"><name>XRFDC_COMPATIBLE_PROPERTY</name></member>
     <member refid="group___overview_1ga9768365bfb2c666548aa3601d237d2fd" kind="define"><name>XRFDC_NUM_INSTANCES_PROPERTY</name></member>
@@ -1875,8 +1876,7 @@
     <member refid="xrfdc__intr__example_8c_1aee50d7576721770212791bad8fc56834" kind="variable"><name>device_cap</name></member>
     <member refid="xrfdc__intr__example_8c_1a89017a8e0a58d5713f9953766bca0367" kind="variable"><name>io_cap</name></member>
     <member refid="xrfdc__intr__example_8c_1a66ac76b0e719c56b172dd41147fbd392" kind="function"><name>RFdcFabricRateExample</name></member>
-    <member refid="xrfdc__intr__example_8c_1af61e955a90aa339f1fa2d6a6f30431ec" kind="function"><name>CompareFabricRate</name></member>
-    <member refid="xrfdc__intr__example_8c_1aa08c892a33b0d97d8101ca34daa5eaa1" kind="function"><name>sys_init</name></member>
+    <member refid="xrfdc__intr__example_8c_1a203f8cd3daa286f1f1f7b6129fedd8d9" kind="function"><name>CompareFabricRate</name></member>
     <member refid="xrfdc__intr__example_8c_1ab5c0a56431afac742306e5d9deda46d4" kind="function"><name>RFdcHandler</name></member>
     <member refid="xrfdc__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
@@ -1986,7 +1986,6 @@
   </compound>
   <compound refid="xrfdc__sinit_8c" kind="file"><name>xrfdc_sinit.c</name>
     <member refid="group___overview_1gaac0f660bc41ccecb9c32be3cac3f63fc" kind="variable"><name>XRFdc_ConfigTablePtr</name></member>
-    <member refid="group___overview_1gaabe8f7827c52e2f013b408c82a0d3ced" kind="function"><name>metal_linux_get_device_property</name></member>
     <member refid="group___overview_1ga03b31244731f40d8f26fb13c9e4f9f5b" kind="function"><name>XRFdc_Strrncmp</name></member>
     <member refid="group___overview_1ga3b6aecbcc131129fb569f90b76afa28c" kind="function"><name>XRFdc_GetDeviceNameByDeviceId</name></member>
     <member refid="group___overview_1gaef734b9d6e7cb7cb2bbacfd74ed51dd1" kind="function"><name>XRFdc_LookupConfig</name></member>
@@ -2678,6 +2677,98 @@
     <member refid="group___overview_1gabc849ea943b6f593e3cd20a86c427a79" kind="define"><name>XRFDC_ADC_FIFO_DELAY_SHIFT</name></member>
     <member refid="group___overview_1gad810f517dc30f2c632ad8ba4066780e5" kind="define"><name>XRFDC_DATA_SCALER_MASK</name></member>
     <member refid="group___overview_1ga6a63306f7e07c4f088eccfe0c83f5caf" kind="define"><name>XRFDC_CAL_DIV_BYP_MASK</name></member>
+    <member refid="group___overview_1ga454d18384c579d7b9439e43bf2ad6a5f" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_MASK</name></member>
+    <member refid="group___overview_1ga2019349b5af2ca26182d27b0ce66ce41" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_MASK</name></member>
+    <member refid="group___overview_1ga009f551505b215aaa22ed870acac5f43" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_MASK</name></member>
+    <member refid="group___overview_1ga93077e4f71a7a72b288007a5fa83b0bf" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OBS_MASK</name></member>
+    <member refid="group___overview_1gacbb1e702b308d5ec0395c6c4ed776f39" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OF_MASK</name></member>
+    <member refid="group___overview_1ga983160115e4eeb83b135b7c657505775" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_UF_MASK</name></member>
+    <member refid="group___overview_1gacb15ebf61bd898a99277f1c6fef8e4e5" kind="define"><name>XRFDC_IXR_FIFOMRGNIND_OF_MASK</name></member>
+    <member refid="group___overview_1gac29cb0ec2f3134be0080d86ea98a68cc" kind="define"><name>XRFDC_IXR_FIFOMRGNIND_UF_MASK</name></member>
+    <member refid="group___overview_1ga2654ded1ac394b705ec9bfd4efd75ddf" kind="define"><name>XRFDC_DAC_IXR_FIFOACTIND_OF_MASK</name></member>
+    <member refid="group___overview_1gafbbcd0945cb794aa1995b706ae9511c8" kind="define"><name>XRFDC_DAC_IXR_FIFOACTIND_UF_MASK</name></member>
+    <member refid="group___overview_1ga1f655d1060d0043832bccc20e48e11e0" kind="define"><name>XRFDC_ADC_IXR_DATAPATH_MASK</name></member>
+    <member refid="group___overview_1ga394a04597e118e30bc9f471a4fab4dcb" kind="define"><name>XRFDC_ADC_IXR_DMON_STG_MASK</name></member>
+    <member refid="group___overview_1ga3994b33dd70a6908c21197fc197d4dea" kind="define"><name>XRFDC_DAC_IXR_DATAPATH_MASK</name></member>
+    <member refid="group___overview_1gac4491b2c8c3cbbb2c57a535a14a2b907" kind="define"><name>XRFDC_DAC_IXR_INTP_STG_MASK</name></member>
+    <member refid="group___overview_1gaa10ec959d9c92f467d2bc6d3f1dc46fe" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG0_MASK</name></member>
+    <member refid="group___overview_1ga57b981bb8a788f12ac4da7e4af96fb67" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG1_MASK</name></member>
+    <member refid="group___overview_1ga3aa5fd3c280ea0640cf6c9ffabf0bacb" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG2_MASK</name></member>
+    <member refid="group___overview_1ga814e46c38932d53dfc92194f4ae59606" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG0_MASK</name></member>
+    <member refid="group___overview_1ga242444bdcd98fac1fe86d57d164003fb" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG1_MASK</name></member>
+    <member refid="group___overview_1ga072d50fdb7b3aa87af40703412ffafce" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG2_MASK</name></member>
+    <member refid="group___overview_1gaaee06a1bd36d34470ce98381f5fcf464" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG0_MASK</name></member>
+    <member refid="group___overview_1gac613059778694dacd9f0664e3071886e" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG1_MASK</name></member>
+    <member refid="group___overview_1gaf2c01c29a603a64c04435ee992670311" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG2_MASK</name></member>
+    <member refid="group___overview_1ga469aba5a6960179a9e0fa615672c637e" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG0_MASK</name></member>
+    <member refid="group___overview_1gaf9c2178707267049c4ab9d59bf32dcd6" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG1_MASK</name></member>
+    <member refid="group___overview_1ga2c755cabe79015c67ca900965b594c69" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG2_MASK</name></member>
+    <member refid="group___overview_1gacd6a4c20937ca8633c302312b8e74a33" kind="define"><name>XRFDC_IXR_QMC_GAIN_PHASE_MASK</name></member>
+    <member refid="group___overview_1ga8dbd774365fa6c4e33c8c75aeee30198" kind="define"><name>XRFDC_IXR_QMC_OFFST_MASK</name></member>
+    <member refid="group___overview_1ga842e52d5c250a3bc0a7e6e1efb4098b9" kind="define"><name>XRFDC_DAC_IXR_INVSNC_OF_MASK</name></member>
+    <member refid="group___overview_1gaea424880b2efe47d554c5a2e3bdc8bdb" kind="define"><name>XRFDC_DAC_IXR_MXR_HLF_I_MASK</name></member>
+    <member refid="group___overview_1gab0ff1b467fffecff865c6460d72891d2" kind="define"><name>XRFDC_DAC_IXR_MXR_HLF_Q_MASK</name></member>
+    <member refid="group___overview_1ga6527a60e192325de76aca424130cdc5e" kind="define"><name>XRFDC_DAC_IXR_DP_SCALE_MASK</name></member>
+    <member refid="group___overview_1gacf82b9638a2aafaaa28a426893bff35a" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG3_MASK</name></member>
+    <member refid="group___overview_1gab242d1a7bd6376b79727ac7fa8d948e3" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG3_MASK</name></member>
+    <member refid="group___overview_1gaaed0a87616e838313e7ec147d9211169" kind="define"><name>XRFDC_DAC_IXR_IMR_OV_MASK</name></member>
+    <member refid="group___overview_1ga6b12ea2d5dd43cd3703e551a6cfc29a8" kind="define"><name>XRFDC_DAC_IXR_INV_SINC_EVEN_NYQ_MASK</name></member>
+    <member refid="group___overview_1ga270df2ea1824421510386bde62146e82" kind="define"><name>XRFDC_SUBADC_IXR_DCDR_MASK</name></member>
+    <member refid="group___overview_1gae70f090ffdcf396a4e6864eb58c4f3dc" kind="define"><name>XRFDC_SUBADC0_IXR_DCDR_OF_MASK</name></member>
+    <member refid="group___overview_1gacb70dcbc448a156f958dd83a31bfe76d" kind="define"><name>XRFDC_SUBADC0_IXR_DCDR_UF_MASK</name></member>
+    <member refid="group___overview_1gaacfe2b1f72ce5e78bae8ba4f053cf0ce" kind="define"><name>XRFDC_SUBADC1_IXR_DCDR_OF_MASK</name></member>
+    <member refid="group___overview_1ga794fe3024b172eb95fd4fc6f80150486" kind="define"><name>XRFDC_SUBADC1_IXR_DCDR_UF_MASK</name></member>
+    <member refid="group___overview_1ga9d52ed40d1f8b70d642cf2eb282a2df2" kind="define"><name>XRFDC_SUBADC2_IXR_DCDR_OF_MASK</name></member>
+    <member refid="group___overview_1gaa49d8cfc648676e5a4691bf5432e7278" kind="define"><name>XRFDC_SUBADC2_IXR_DCDR_UF_MASK</name></member>
+    <member refid="group___overview_1ga04e07eedb983b5a0c59c2489525cee9c" kind="define"><name>XRFDC_SUBADC3_IXR_DCDR_OF_MASK</name></member>
+    <member refid="group___overview_1ga41e810e0b4c8d7c4b70f417f3ea3e9f6" kind="define"><name>XRFDC_SUBADC3_IXR_DCDR_UF_MASK</name></member>
+    <member refid="group___overview_1ga0190e1099d9798f9ae568c03d7728009" kind="define"><name>XRFDC_ADC_OVR_VOLTAGE_MASK</name></member>
+    <member refid="group___overview_1ga4edd4aca3ec388cb0f6fe45affc7bba9" kind="define"><name>XRFDC_COMMON_MASK</name></member>
+    <member refid="group___overview_1ga76b99900416b9b2d2752acc97aa84fda" kind="define"><name>XRFDC_ADC_OVR_RANGE_MASK</name></member>
+    <member refid="group___overview_1ga3850000df33439c27f8c49a02f667962" kind="define"><name>XRFDC_ADC_CMODE_OVR_MASK</name></member>
+    <member refid="group___overview_1ga450746b0a82edf84ff2f05e228b48957" kind="define"><name>XRFDC_ADC_CMODE_UNDR_MASK</name></member>
+    <member refid="group___overview_1ga3781f5decec0a9e3128799e26e72f658" kind="define"><name>XRFDC_ADC_DAT_OVR_MASK</name></member>
+    <member refid="group___overview_1gaa638ae91b5075fea02b47efea5ff7777" kind="define"><name>XRFDC_DAT_OVR_MASK</name></member>
+    <member refid="group___overview_1ga20983c0889dd1ee10ba3d1bcaa3d2f5f" kind="define"><name>XRFDC_ADC_FIFO_OVR_MASK</name></member>
+    <member refid="group___overview_1ga5518511e629852df67b8e244451da5b9" kind="define"><name>XRFDC_FIFO_OVR_MASK</name></member>
+    <member refid="group___overview_1gab5a776549fe8ae19078ecf436b255fd7" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_MASK</name></member>
+    <member refid="group___overview_1ga83d00b53dd9c1386dbbc8a5099cda253" kind="define"><name>XRFDC_DAC_MC_CFG2_BLDGAIN_MASK</name></member>
+    <member refid="group___overview_1ga3cb95a5b40238d1076f5a4c3cd798e30" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_MASK</name></member>
+    <member refid="group___overview_1ga3285a5468350745dd0aafff4518eb46f" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_20MA</name></member>
+    <member refid="group___overview_1ga3398833ea673716878f00f2418d66677" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_20MA</name></member>
+    <member refid="group___overview_1ga0bcfd6eba9983d5ac3a5eeb4b1b44bf1" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_32MA</name></member>
+    <member refid="group___overview_1gaea3a05131b3b35bc208da4eb025de6d0" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_32MA</name></member>
+    <member refid="group___overview_1gaad8f5ce1a5ce3c5cf9fca61b46d95f05" kind="define"><name>XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK</name></member>
+    <member refid="group___overview_1gabc8b0f646417c40097145ba3b0236f2b" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_LUT_MASK</name></member>
+    <member refid="group___overview_1ga60e9415d37e957c4f45bb2cf7d01b0aa" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_MASK</name></member>
+    <member refid="group___overview_1ga36ae9c7bc56eabe14bc7581451e868b3" kind="define"><name>XRFDC_DAC_MC_CFG3_UPDATE_MASK</name></member>
+    <member refid="group___overview_1ga3d410480818511e04c123070312b3886" kind="define"><name>XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK</name></member>
+    <member refid="group___overview_1ga96879754205bac93862f9e8aa6285405" kind="define"><name>XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK</name></member>
+    <member refid="group___overview_1gaea908eacfee96cdc4667280e960359fb" kind="define"><name>XRFDC_ADC_DSA_RTS_PIN_MASK</name></member>
+    <member refid="group___overview_1ga3ac5900a40bc74384300e40d73a4c076" kind="define"><name>XRFDC_ADC_DSA_CODE_MASK</name></member>
+    <member refid="group___overview_1gadaab703dffb04a49f95f825341314dad" kind="define"><name>XRFDC_ADC_DSA_UPDT_MASK</name></member>
+    <member refid="group___overview_1ga26ccc8e688fecd14d9cba83255416ac4" kind="define"><name>XRFDC_DAC_MC_CFG2_BLDGAIN_SHIFT</name></member>
+    <member refid="group___overview_1gaa7d327bad9c1c18104ad484dff85bb93" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT</name></member>
+    <member refid="group___overview_1gad9cabb9a02bd58a65b2907ae02ccf014" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT</name></member>
+    <member refid="group___overview_1ga271c4b89126285192a141e6b1db9c25e" kind="define"><name>XRFDC_ADC_OVR_VOL_RANGE_SHIFT</name></member>
+    <member refid="group___overview_1gaca2f5ea986c370dfb49a044e17ce2338" kind="define"><name>XRFDC_ADC_DAT_FIFO_OVR_SHIFT</name></member>
+    <member refid="group___overview_1ga6cc293e2c6dab5a714f7860cdfd2088f" kind="define"><name>XRFDC_DAT_FIFO_OVR_SHIFT</name></member>
+    <member refid="group___overview_1gaea44f0830945ad7f2c4bf096861ac067" kind="define"><name>XRFDC_ADC_SUBADC_DCDR_SHIFT</name></member>
+    <member refid="group___overview_1ga60b12154c195c2e80f04669ec2d609ef" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT</name></member>
+    <member refid="group___overview_1gae517bfbe30146be391b665c3a07edbd7" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_SHIFT</name></member>
+    <member refid="group___overview_1ga8157cea7ba84ab50a527c22cc20cf583" kind="define"><name>XRFDC_DATA_PATH_SHIFT</name></member>
+    <member refid="group___overview_1ga5931e96633b154150582fb400afa7847" kind="define"><name>XRFDC_ADC_CMODE_SHIFT</name></member>
+    <member refid="group___overview_1ga980e92ed419b07b2e66fd89bfde087ab" kind="define"><name>XRFDC_COMMON_SHIFT</name></member>
+    <member refid="group___overview_1ga55badc8e1e26509ca82de032b886d17d" kind="define"><name>XRFDC_DAC_MC_CFG2_GEN1_COMP_SHIFT</name></member>
+    <member refid="group___overview_1gab0a2ead521868f8c2ff10174442cacee" kind="define"><name>XRFDC_ADC_DSA_RTS_PIN_SHIFT</name></member>
+    <member refid="group___overview_1gacdbf374abf23834933c381b67859ba3e" kind="define"><name>XRFDC_DAC_TILE_DRP_ADDR</name></member>
+    <member refid="group___overview_1ga193016d98ccb6d5a5af140bbf604e173" kind="define"><name>XRFDC_DAC_TILE_CTRL_STATS_ADDR</name></member>
+    <member refid="group___overview_1gad8511a6bdc4cc7c7e68d82c87e3123d9" kind="define"><name>XRFDC_ADC_TILE_DRP_ADDR</name></member>
+    <member refid="group___overview_1gaef6634b5ad65318869c3beeb16a1607c" kind="define"><name>XRFDC_ADC_TILE_CTRL_STATS_ADDR</name></member>
+    <member refid="group___overview_1ga956a1385493fcf2c58da0e1b2e8b37cb" kind="define"><name>XRFDC_CTRL_STATS_OFFSET</name></member>
+    <member refid="group___overview_1gaf2e42c03421b4e6b396f5189d5a13242" kind="define"><name>XRFDC_HSCOM_ADDR</name></member>
+    <member refid="group___overview_1ga625d1781e274a174e27c9e14aff759ec" kind="define"><name>XRFDC_BLOCK_ADDR_OFFSET</name></member>
+    <member refid="group___overview_1gad9b6298e65def650688ce4c3b04c3e18" kind="define"><name>XRFDC_TILE_DRP_OFFSET</name></member>
     <member refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kind="typedef"><name>u32</name></member>
     <member refid="group___overview_1ga511bb645f13930f9dfb7378323c18d8c" kind="typedef"><name>u16</name></member>
     <member refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kind="typedef"><name>u8</name></member>
@@ -2870,7 +2961,6 @@
     <member refid="group___overview_1ga0109b3723339facf0bd184c3714484f1" kind="function"><name>XRFdc_MTS_Marker_Read</name></member>
     <member refid="group___overview_1ga2caa8527cd177c583c6d64db33e42722" kind="function"><name>XRFdc_MTS_Latency</name></member>
     <member refid="group___overview_1ga91fa7716f437e025841ba9b5368c1afd" kind="function"><name>XRFdc_MTS_Dtc_Scan_PLL</name></member>
-    <member refid="group___overview_1gaabe8f7827c52e2f013b408c82a0d3ced" kind="function"><name>metal_linux_get_device_property</name></member>
     <member refid="group___overview_1ga03b31244731f40d8f26fb13c9e4f9f5b" kind="function"><name>XRFdc_Strrncmp</name></member>
     <member refid="group___overview_1gaef734b9d6e7cb7cb2bbacfd74ed51dd1" kind="function"><name>XRFdc_LookupConfig</name></member>
     <member refid="group___overview_1ga4fc744d9d69cc88e2364772c14194aeb" kind="define"><name>XRFdc_IsADC4GSPS</name></member>
@@ -2890,6 +2980,7 @@
     <member refid="group___overview_1gab215dceebd2ff12a1286d8a2cc658597" kind="define"><name>XRFDC_PLATFORM_DEVICE_DIR</name></member>
     <member refid="group___overview_1gad29ceeaefed8044013562cc1b57c0679" kind="define"><name>XRFDC_BUS_NAME</name></member>
     <member refid="group___overview_1ga673f6d83a7d35fac6b8a2736f5790a2b" kind="define"><name>XRFDC_SIGNATURE</name></member>
+    <member refid="group___overview_1ga6989597f5ef88f9d9a2bd499f472b72c" kind="define"><name>XRFDC_SIGNATURE_SDT</name></member>
     <member refid="group___overview_1gaa0e27e137e136cca7202324704c39ae0" kind="define"><name>XRFDC_CONFIG_DATA_PROPERTY</name></member>
     <member refid="group___overview_1ga17d9b470b9d621925eddc229bc9260d6" kind="define"><name>XRFDC_COMPATIBLE_PROPERTY</name></member>
     <member refid="group___overview_1ga9768365bfb2c666548aa3601d237d2fd" kind="define"><name>XRFDC_NUM_INSTANCES_PROPERTY</name></member>
@@ -3322,98 +3413,6 @@
     <member refid="group___overview_1ga129894435c556214e2b01e96db50fd3c" kind="define"><name>XRFDC_MIN_DLY_INIT</name></member>
     <member refid="group___overview_1ga7ba34e7f87acae153f8e0124fef91bdf" kind="define"><name>XRFDC_DLY_UNIT</name></member>
     <member refid="group___overview_1ga6d7540441eb59c4fbfff7bd4497897d4" kind="define"><name>XRFDC_MAX_DISTRS</name></member>
-    <member refid="group___overview_1ga454d18384c579d7b9439e43bf2ad6a5f" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_MASK</name></member>
-    <member refid="group___overview_1ga2019349b5af2ca26182d27b0ce66ce41" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_MASK</name></member>
-    <member refid="group___overview_1ga009f551505b215aaa22ed870acac5f43" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_MASK</name></member>
-    <member refid="group___overview_1ga93077e4f71a7a72b288007a5fa83b0bf" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OBS_MASK</name></member>
-    <member refid="group___overview_1gacbb1e702b308d5ec0395c6c4ed776f39" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OF_MASK</name></member>
-    <member refid="group___overview_1ga983160115e4eeb83b135b7c657505775" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_UF_MASK</name></member>
-    <member refid="group___overview_1gacb15ebf61bd898a99277f1c6fef8e4e5" kind="define"><name>XRFDC_IXR_FIFOMRGNIND_OF_MASK</name></member>
-    <member refid="group___overview_1gac29cb0ec2f3134be0080d86ea98a68cc" kind="define"><name>XRFDC_IXR_FIFOMRGNIND_UF_MASK</name></member>
-    <member refid="group___overview_1ga2654ded1ac394b705ec9bfd4efd75ddf" kind="define"><name>XRFDC_DAC_IXR_FIFOACTIND_OF_MASK</name></member>
-    <member refid="group___overview_1gafbbcd0945cb794aa1995b706ae9511c8" kind="define"><name>XRFDC_DAC_IXR_FIFOACTIND_UF_MASK</name></member>
-    <member refid="group___overview_1ga1f655d1060d0043832bccc20e48e11e0" kind="define"><name>XRFDC_ADC_IXR_DATAPATH_MASK</name></member>
-    <member refid="group___overview_1ga394a04597e118e30bc9f471a4fab4dcb" kind="define"><name>XRFDC_ADC_IXR_DMON_STG_MASK</name></member>
-    <member refid="group___overview_1ga3994b33dd70a6908c21197fc197d4dea" kind="define"><name>XRFDC_DAC_IXR_DATAPATH_MASK</name></member>
-    <member refid="group___overview_1gac4491b2c8c3cbbb2c57a535a14a2b907" kind="define"><name>XRFDC_DAC_IXR_INTP_STG_MASK</name></member>
-    <member refid="group___overview_1gaa10ec959d9c92f467d2bc6d3f1dc46fe" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG0_MASK</name></member>
-    <member refid="group___overview_1ga57b981bb8a788f12ac4da7e4af96fb67" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG1_MASK</name></member>
-    <member refid="group___overview_1ga3aa5fd3c280ea0640cf6c9ffabf0bacb" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG2_MASK</name></member>
-    <member refid="group___overview_1ga814e46c38932d53dfc92194f4ae59606" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG0_MASK</name></member>
-    <member refid="group___overview_1ga242444bdcd98fac1fe86d57d164003fb" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG1_MASK</name></member>
-    <member refid="group___overview_1ga072d50fdb7b3aa87af40703412ffafce" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG2_MASK</name></member>
-    <member refid="group___overview_1gaaee06a1bd36d34470ce98381f5fcf464" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG0_MASK</name></member>
-    <member refid="group___overview_1gac613059778694dacd9f0664e3071886e" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG1_MASK</name></member>
-    <member refid="group___overview_1gaf2c01c29a603a64c04435ee992670311" kind="define"><name>XRFDC_ADC_IXR_DMON_I_STG2_MASK</name></member>
-    <member refid="group___overview_1ga469aba5a6960179a9e0fa615672c637e" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG0_MASK</name></member>
-    <member refid="group___overview_1gaf9c2178707267049c4ab9d59bf32dcd6" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG1_MASK</name></member>
-    <member refid="group___overview_1ga2c755cabe79015c67ca900965b594c69" kind="define"><name>XRFDC_ADC_IXR_DMON_Q_STG2_MASK</name></member>
-    <member refid="group___overview_1gacd6a4c20937ca8633c302312b8e74a33" kind="define"><name>XRFDC_IXR_QMC_GAIN_PHASE_MASK</name></member>
-    <member refid="group___overview_1ga8dbd774365fa6c4e33c8c75aeee30198" kind="define"><name>XRFDC_IXR_QMC_OFFST_MASK</name></member>
-    <member refid="group___overview_1ga842e52d5c250a3bc0a7e6e1efb4098b9" kind="define"><name>XRFDC_DAC_IXR_INVSNC_OF_MASK</name></member>
-    <member refid="group___overview_1gaea424880b2efe47d554c5a2e3bdc8bdb" kind="define"><name>XRFDC_DAC_IXR_MXR_HLF_I_MASK</name></member>
-    <member refid="group___overview_1gab0ff1b467fffecff865c6460d72891d2" kind="define"><name>XRFDC_DAC_IXR_MXR_HLF_Q_MASK</name></member>
-    <member refid="group___overview_1ga6527a60e192325de76aca424130cdc5e" kind="define"><name>XRFDC_DAC_IXR_DP_SCALE_MASK</name></member>
-    <member refid="group___overview_1gacf82b9638a2aafaaa28a426893bff35a" kind="define"><name>XRFDC_DAC_IXR_INTP_I_STG3_MASK</name></member>
-    <member refid="group___overview_1gab242d1a7bd6376b79727ac7fa8d948e3" kind="define"><name>XRFDC_DAC_IXR_INTP_Q_STG3_MASK</name></member>
-    <member refid="group___overview_1gaaed0a87616e838313e7ec147d9211169" kind="define"><name>XRFDC_DAC_IXR_IMR_OV_MASK</name></member>
-    <member refid="group___overview_1ga6b12ea2d5dd43cd3703e551a6cfc29a8" kind="define"><name>XRFDC_DAC_IXR_INV_SINC_EVEN_NYQ_MASK</name></member>
-    <member refid="group___overview_1ga270df2ea1824421510386bde62146e82" kind="define"><name>XRFDC_SUBADC_IXR_DCDR_MASK</name></member>
-    <member refid="group___overview_1gae70f090ffdcf396a4e6864eb58c4f3dc" kind="define"><name>XRFDC_SUBADC0_IXR_DCDR_OF_MASK</name></member>
-    <member refid="group___overview_1gacb70dcbc448a156f958dd83a31bfe76d" kind="define"><name>XRFDC_SUBADC0_IXR_DCDR_UF_MASK</name></member>
-    <member refid="group___overview_1gaacfe2b1f72ce5e78bae8ba4f053cf0ce" kind="define"><name>XRFDC_SUBADC1_IXR_DCDR_OF_MASK</name></member>
-    <member refid="group___overview_1ga794fe3024b172eb95fd4fc6f80150486" kind="define"><name>XRFDC_SUBADC1_IXR_DCDR_UF_MASK</name></member>
-    <member refid="group___overview_1ga9d52ed40d1f8b70d642cf2eb282a2df2" kind="define"><name>XRFDC_SUBADC2_IXR_DCDR_OF_MASK</name></member>
-    <member refid="group___overview_1gaa49d8cfc648676e5a4691bf5432e7278" kind="define"><name>XRFDC_SUBADC2_IXR_DCDR_UF_MASK</name></member>
-    <member refid="group___overview_1ga04e07eedb983b5a0c59c2489525cee9c" kind="define"><name>XRFDC_SUBADC3_IXR_DCDR_OF_MASK</name></member>
-    <member refid="group___overview_1ga41e810e0b4c8d7c4b70f417f3ea3e9f6" kind="define"><name>XRFDC_SUBADC3_IXR_DCDR_UF_MASK</name></member>
-    <member refid="group___overview_1ga0190e1099d9798f9ae568c03d7728009" kind="define"><name>XRFDC_ADC_OVR_VOLTAGE_MASK</name></member>
-    <member refid="group___overview_1ga4edd4aca3ec388cb0f6fe45affc7bba9" kind="define"><name>XRFDC_COMMON_MASK</name></member>
-    <member refid="group___overview_1ga76b99900416b9b2d2752acc97aa84fda" kind="define"><name>XRFDC_ADC_OVR_RANGE_MASK</name></member>
-    <member refid="group___overview_1ga3850000df33439c27f8c49a02f667962" kind="define"><name>XRFDC_ADC_CMODE_OVR_MASK</name></member>
-    <member refid="group___overview_1ga450746b0a82edf84ff2f05e228b48957" kind="define"><name>XRFDC_ADC_CMODE_UNDR_MASK</name></member>
-    <member refid="group___overview_1ga3781f5decec0a9e3128799e26e72f658" kind="define"><name>XRFDC_ADC_DAT_OVR_MASK</name></member>
-    <member refid="group___overview_1gaa638ae91b5075fea02b47efea5ff7777" kind="define"><name>XRFDC_DAT_OVR_MASK</name></member>
-    <member refid="group___overview_1ga20983c0889dd1ee10ba3d1bcaa3d2f5f" kind="define"><name>XRFDC_ADC_FIFO_OVR_MASK</name></member>
-    <member refid="group___overview_1ga5518511e629852df67b8e244451da5b9" kind="define"><name>XRFDC_FIFO_OVR_MASK</name></member>
-    <member refid="group___overview_1gab5a776549fe8ae19078ecf436b255fd7" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_MASK</name></member>
-    <member refid="group___overview_1ga83d00b53dd9c1386dbbc8a5099cda253" kind="define"><name>XRFDC_DAC_MC_CFG2_BLDGAIN_MASK</name></member>
-    <member refid="group___overview_1ga3cb95a5b40238d1076f5a4c3cd798e30" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_MASK</name></member>
-    <member refid="group___overview_1ga3285a5468350745dd0aafff4518eb46f" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_20MA</name></member>
-    <member refid="group___overview_1ga3398833ea673716878f00f2418d66677" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_20MA</name></member>
-    <member refid="group___overview_1ga0bcfd6eba9983d5ac3a5eeb4b1b44bf1" kind="define"><name>XRFDC_DAC_MC_CFG2_OPCSCAS_32MA</name></member>
-    <member refid="group___overview_1gaea3a05131b3b35bc208da4eb025de6d0" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_32MA</name></member>
-    <member refid="group___overview_1gaad8f5ce1a5ce3c5cf9fca61b46d95f05" kind="define"><name>XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK</name></member>
-    <member refid="group___overview_1gabc8b0f646417c40097145ba3b0236f2b" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_LUT_MASK</name></member>
-    <member refid="group___overview_1ga60e9415d37e957c4f45bb2cf7d01b0aa" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_MASK</name></member>
-    <member refid="group___overview_1ga36ae9c7bc56eabe14bc7581451e868b3" kind="define"><name>XRFDC_DAC_MC_CFG3_UPDATE_MASK</name></member>
-    <member refid="group___overview_1ga3d410480818511e04c123070312b3886" kind="define"><name>XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK</name></member>
-    <member refid="group___overview_1ga96879754205bac93862f9e8aa6285405" kind="define"><name>XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK</name></member>
-    <member refid="group___overview_1gaea908eacfee96cdc4667280e960359fb" kind="define"><name>XRFDC_ADC_DSA_RTS_PIN_MASK</name></member>
-    <member refid="group___overview_1ga3ac5900a40bc74384300e40d73a4c076" kind="define"><name>XRFDC_ADC_DSA_CODE_MASK</name></member>
-    <member refid="group___overview_1gadaab703dffb04a49f95f825341314dad" kind="define"><name>XRFDC_ADC_DSA_UPDT_MASK</name></member>
-    <member refid="group___overview_1ga26ccc8e688fecd14d9cba83255416ac4" kind="define"><name>XRFDC_DAC_MC_CFG2_BLDGAIN_SHIFT</name></member>
-    <member refid="group___overview_1gaa7d327bad9c1c18104ad484dff85bb93" kind="define"><name>XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT</name></member>
-    <member refid="group___overview_1gad9cabb9a02bd58a65b2907ae02ccf014" kind="define"><name>XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT</name></member>
-    <member refid="group___overview_1ga271c4b89126285192a141e6b1db9c25e" kind="define"><name>XRFDC_ADC_OVR_VOL_RANGE_SHIFT</name></member>
-    <member refid="group___overview_1gaca2f5ea986c370dfb49a044e17ce2338" kind="define"><name>XRFDC_ADC_DAT_FIFO_OVR_SHIFT</name></member>
-    <member refid="group___overview_1ga6cc293e2c6dab5a714f7860cdfd2088f" kind="define"><name>XRFDC_DAT_FIFO_OVR_SHIFT</name></member>
-    <member refid="group___overview_1gaea44f0830945ad7f2c4bf096861ac067" kind="define"><name>XRFDC_ADC_SUBADC_DCDR_SHIFT</name></member>
-    <member refid="group___overview_1ga60b12154c195c2e80f04669ec2d609ef" kind="define"><name>XRFDC_IXR_FIFOUSRDAT_OBS_SHIFT</name></member>
-    <member refid="group___overview_1gae517bfbe30146be391b665c3a07edbd7" kind="define"><name>XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_SHIFT</name></member>
-    <member refid="group___overview_1ga8157cea7ba84ab50a527c22cc20cf583" kind="define"><name>XRFDC_DATA_PATH_SHIFT</name></member>
-    <member refid="group___overview_1ga5931e96633b154150582fb400afa7847" kind="define"><name>XRFDC_ADC_CMODE_SHIFT</name></member>
-    <member refid="group___overview_1ga980e92ed419b07b2e66fd89bfde087ab" kind="define"><name>XRFDC_COMMON_SHIFT</name></member>
-    <member refid="group___overview_1ga55badc8e1e26509ca82de032b886d17d" kind="define"><name>XRFDC_DAC_MC_CFG2_GEN1_COMP_SHIFT</name></member>
-    <member refid="group___overview_1gab0a2ead521868f8c2ff10174442cacee" kind="define"><name>XRFDC_ADC_DSA_RTS_PIN_SHIFT</name></member>
-    <member refid="group___overview_1gacdbf374abf23834933c381b67859ba3e" kind="define"><name>XRFDC_DAC_TILE_DRP_ADDR</name></member>
-    <member refid="group___overview_1ga193016d98ccb6d5a5af140bbf604e173" kind="define"><name>XRFDC_DAC_TILE_CTRL_STATS_ADDR</name></member>
-    <member refid="group___overview_1gad8511a6bdc4cc7c7e68d82c87e3123d9" kind="define"><name>XRFDC_ADC_TILE_DRP_ADDR</name></member>
-    <member refid="group___overview_1gaef6634b5ad65318869c3beeb16a1607c" kind="define"><name>XRFDC_ADC_TILE_CTRL_STATS_ADDR</name></member>
-    <member refid="group___overview_1ga956a1385493fcf2c58da0e1b2e8b37cb" kind="define"><name>XRFDC_CTRL_STATS_OFFSET</name></member>
-    <member refid="group___overview_1gaf2e42c03421b4e6b396f5189d5a13242" kind="define"><name>XRFDC_HSCOM_ADDR</name></member>
-    <member refid="group___overview_1ga625d1781e274a174e27c9e14aff759ec" kind="define"><name>XRFDC_BLOCK_ADDR_OFFSET</name></member>
-    <member refid="group___overview_1gad9b6298e65def650688ce4c3b04c3e18" kind="define"><name>XRFDC_TILE_DRP_OFFSET</name></member>
     <member refid="group___overview_1ga263319662da10dbeabf77156ddea883b" kind="define"><name>XRFdc_In64</name></member>
     <member refid="group___overview_1ga09c8ed81ca50d2a495fa022008211d67" kind="define"><name>XRFdc_Out64</name></member>
     <member refid="group___overview_1ga2dba14c38e05c5d9536a808ffc21e027" kind="define"><name>XRFdc_In32</name></member>
@@ -3460,7 +3459,7 @@
     <member refid="group___overview_1gaaf87eb910ec446db143bd293995213b7" kind="define"><name>XRFDC_MTS_RMW</name></member>
     <member refid="group___overview_1gae3d918aaabd2e17bd63d66ccba8b0590" kind="define"><name>XRFDC_MTS_FIELD</name></member>
   </compound>
-  <compound refid="md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_2026_81_embeddeds1921dabe3f10ffdca90d50618bf371fc" kind="page"><name>md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_2026.1_embeddedsw_XilinxProcessorIPLib_drivers_rfdc_src_README</name>
+  <compound refid="md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_master_embeddedsw0f594f43f3aeb0df38b1d912b7d7f083" kind="page"><name>md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_master_embeddedsw_XilinxProcessorIPLib_drivers_rfdc_src_README</name>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

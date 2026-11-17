@@ -84,7 +84,7 @@
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Check<sp/>whether<sp/>the<sp/>Sink<sp/>able<sp/>to<sp/>support<sp/>HDMI<sp/>2.0<sp/>by<sp/>checking<sp/>the</highlight></codeline>
 <codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>maximum<sp/>supported<sp/>video<sp/>bandwidth*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CheckHdmi20Param-&gt;EdidCtrlParam.MaxTmdsMhz<sp/>&gt;=<sp/>340)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CheckHdmi20Param-&gt;EdidCtrlParam.MaxTmdsMhz<sp/>&gt;<sp/>340)<sp/>{</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Sink&apos;s<sp/>EDID<sp/>indicated<sp/>HDMI<sp/>2.0<sp/>Capable*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CheckHdmi20Param-&gt;IsHDMI20SinkCapable<sp/>=<sp/>(TRUE);</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
@@ -323,6 +323,6 @@
 <codeline lineno="363"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdmi_edid.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdmi_edid.c"/>
   </compounddef>
 </doxygen>

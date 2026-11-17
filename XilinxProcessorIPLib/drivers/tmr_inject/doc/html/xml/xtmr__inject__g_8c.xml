@@ -16,9 +16,6 @@
         <childnode refid="28" relation="include">
         </childnode>
       </node>
-      <node id="27">
-        <label>xstatus.h</label>
-      </node>
       <node id="24">
         <label>xtmr_inject.h</label>
         <link refid="xtmr__inject_8h"/>
@@ -28,6 +25,9 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
+      </node>
+      <node id="27">
+        <label>xstatus.h</label>
       </node>
       <node id="25">
         <label>xil_types.h</label>
@@ -57,7 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4f7e4a45f3942aa7527a1a86c3cad0ca" compoundref="xtmr__inject__sinit_8c" startline="91" endline="104">XTMR_Inject_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -102,6 +103,6 @@
 <codeline lineno="58"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c"/>
   </compounddef>
 </doxygen>

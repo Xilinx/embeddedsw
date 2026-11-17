@@ -10,22 +10,6 @@
       <node id="10">
         <label>xil_io.h</label>
       </node>
-      <node id="8">
-        <label>xstatus.h</label>
-      </node>
-      <node id="6">
-        <label>xil_types.h</label>
-      </node>
-      <node id="9">
-        <label>xadcps_hw.h</label>
-        <link refid="xadcps__hw_8h"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
       <node id="4">
         <label>xadcps.c</label>
         <link refid="xadcps.c"/>
@@ -42,6 +26,22 @@
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
+      <node id="9">
+        <label>xadcps_hw.h</label>
+        <link refid="xadcps__hw_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -93,7 +93,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Write the Data into the FIFO Register.</para><para>Read the Read FIFO after any write since for each write one location of Read FIFO gets updated</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1760" bodyend="1779"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1760" bodyend="1779"/>
         <references refid="group___overview_1gaaa7422365a1356d7b5cea7371aaaa218" compoundref="xadcps__hw_8h" startline="394">XADCPS_JTAG_ADDR_MASK</references>
         <references refid="group___overview_1ga6e14572547a0496bc085fb1bfb8db2d8" compoundref="xadcps__hw_8h" startline="395">XADCPS_JTAG_ADDR_SHIFT</references>
         <references refid="group___overview_1ga19aa9635a8e4bc5613b3316620779a6c" compoundref="xadcps__hw_8h" startline="397">XADCPS_JTAG_CMD_WRITE_MASK</references>
@@ -153,7 +153,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1796" bodyend="1818"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1796" bodyend="1818"/>
         <references refid="group___overview_1gaaa7422365a1356d7b5cea7371aaaa218" compoundref="xadcps__hw_8h" startline="394">XADCPS_JTAG_ADDR_MASK</references>
         <references refid="group___overview_1ga6e14572547a0496bc085fb1bfb8db2d8" compoundref="xadcps__hw_8h" startline="395">XADCPS_JTAG_ADDR_SHIFT</references>
         <references refid="group___overview_1ga47e8183154dd76cba3f4de48e84119a2" compoundref="xadcps__hw_8h" startline="398">XADCPS_JTAG_CMD_READ_MASK</references>
@@ -234,7 +234,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="86" bodyend="133"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="86" bodyend="133"/>
         <references refid="struct_x_adc_ps___config_1a972132ac319cf4b4ba44c471e6764c32" compoundref="xadcps_8h" startline="312">XAdcPs_Config::BaseAddress</references>
         <references refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" compoundref="xadcps_8h" startline="322">XAdcPs::Config</references>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
@@ -285,7 +285,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="149" bodyend="160"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="149" bodyend="160"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga68faeb1e24c6199c1b5225e8262bbc80" compoundref="xadcps__hw_8h" startline="62">XADCPS_CFG_OFFSET</references>
         <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
@@ -315,7 +315,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="177" bodyend="190"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="177" bodyend="190"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga68faeb1e24c6199c1b5225e8262bbc80" compoundref="xadcps__hw_8h" startline="62">XADCPS_CFG_OFFSET</references>
         <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
@@ -345,7 +345,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="207" bodyend="220"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="207" bodyend="220"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gac9c6382372822d080b51307a220a5aa7" compoundref="xadcps__hw_8h" startline="65">XADCPS_MSTS_OFFSET</references>
         <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
@@ -386,7 +386,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="236" bodyend="249"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="236" bodyend="249"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga99b8d82247db725bfd0fb17a6c50cf6f" compoundref="xadcps__hw_8h" startline="68">XADCPS_MCTL_OFFSET</references>
         <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
@@ -416,7 +416,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="266" bodyend="279"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="266" bodyend="279"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga99b8d82247db725bfd0fb17a6c50cf6f" compoundref="xadcps__hw_8h" startline="68">XADCPS_MCTL_OFFSET</references>
         <references refid="group___overview_1ga2bb7416cfd483de37442d6c4db638cf6" compoundref="xadcps__hw_8h" startline="431">XAdcPs_ReadReg</references>
@@ -446,7 +446,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="294" bodyend="310"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="294" bodyend="310"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga99b8d82247db725bfd0fb17a6c50cf6f" compoundref="xadcps__hw_8h" startline="68">XADCPS_MCTL_OFFSET</references>
         <references refid="group___overview_1ga48770272099dfc236414809f6ac0f911" compoundref="xadcps__hw_8h" startline="451">XAdcPs_WriteReg</references>
@@ -490,7 +490,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="334" bodyend="351"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="334" bodyend="351"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga908ab70d7b6ba30490aadc6a39609515" compoundref="xadcps_8h" startline="203">XADCPS_CH_AUX_MAX</references>
         <references refid="group___overview_1ga660629e3cbd893d9d2bf12fa1c7767bd" compoundref="xadcps_8h" startline="195">XADCPS_CH_VBRAM</references>
@@ -535,7 +535,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="372" bodyend="390"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="372" bodyend="390"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gae3aa072368343a7e669cffa799f3f733" compoundref="xadcps__hw_8h" startline="152">XADCPS_ADC_A_SUPPLY_CALIB_OFFSET</references>
         <references refid="group___overview_1ga018dd22f5fabb275d543ca2d8ce60e43" compoundref="xadcps_8h" startline="214">XADCPS_CALIB_GAIN_ERROR_COEFF</references>
@@ -577,7 +577,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="415" bodyend="434"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="415" bodyend="434"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga276410bfb2dbea221f51c3c2c637925d" compoundref="xadcps__hw_8h" startline="183">XADCPS_MAX_TEMP_OFFSET</references>
         <references refid="group___overview_1ga73ea1353b5dc0cb7db31b4fcce40a427" compoundref="xadcps_8h" startline="232">XADCPS_MAX_VCCPDRO</references>
@@ -623,7 +623,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="457" bodyend="479"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="457" bodyend="479"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga7b0e47dffe8eb913e5c47ee5d436a6d8" compoundref="xadcps_8h" startline="271">XADCPS_AVG_256_SAMPLES</references>
         <references refid="group___overview_1gacd971534cb59694d4ac02e2578f198c2" compoundref="xadcps__hw_8h" startline="257">XADCPS_CFR0_AVG_SHIFT</references>
@@ -659,7 +659,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="500" bodyend="518"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="500" bodyend="518"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gacd971534cb59694d4ac02e2578f198c2" compoundref="xadcps__hw_8h" startline="257">XADCPS_CFR0_AVG_SHIFT</references>
         <references refid="group___overview_1gaab16350a3df5796ab016bae6d876c50b" compoundref="xadcps__hw_8h" startline="252">XADCPS_CFR0_AVG_VALID_MASK</references>
@@ -739,7 +739,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="560" bodyend="642"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="560" bodyend="642"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaad9dc69ceb63d4485f3fde0d952b06bb" compoundref="xadcps__hw_8h" startline="265">XADCPS_CFR0_ACQ_MASK</references>
         <references refid="group___overview_1gaab16350a3df5796ab016bae6d876c50b" compoundref="xadcps__hw_8h" startline="252">XADCPS_CFR0_AVG_VALID_MASK</references>
@@ -794,7 +794,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="667" bodyend="689"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="667" bodyend="689"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gab96f4d0ec69b055d8f77c94237684152" compoundref="xadcps__hw_8h" startline="302">XADCPS_CFR1_ALM_ALL_MASK</references>
         <references refid="group___overview_1ga51e3109e270a76fd9ae6856a526eff23" compoundref="xadcps__hw_8h" startline="204">XADCPS_CFR1_OFFSET</references>
@@ -827,7 +827,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="715" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="715" bodyend="732"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="715" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="715" bodyend="732"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gab96f4d0ec69b055d8f77c94237684152" compoundref="xadcps__hw_8h" startline="302">XADCPS_CFR1_ALM_ALL_MASK</references>
         <references refid="group___overview_1ga51e3109e270a76fd9ae6856a526eff23" compoundref="xadcps__hw_8h" startline="204">XADCPS_CFR1_OFFSET</references>
@@ -871,7 +871,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="762" bodyend="786"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="762" bodyend="786"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gabb64dcbe2f7d274b5890724bf07b6af0" compoundref="xadcps__hw_8h" startline="298">XADCPS_CFR1_CAL_ADC_OFFSET_MASK</references>
         <references refid="group___overview_1gaeeb591f85377d33483c464e57ea833bb" compoundref="xadcps__hw_8h" startline="301">XADCPS_CFR1_CAL_DISABLE_MASK</references>
@@ -907,7 +907,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="810" bodyend="824"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="810" bodyend="824"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga988b4d734b081bee5cc8668f278f94ef" compoundref="xadcps__hw_8h" startline="286">XADCPS_CFR1_CAL_VALID_MASK</references>
         <references refid="group___overview_1ga51e3109e270a76fd9ae6856a526eff23" compoundref="xadcps__hw_8h" startline="204">XADCPS_CFR1_OFFSET</references>
@@ -955,7 +955,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="849" bodyend="872"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="849" bodyend="872"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga51e3109e270a76fd9ae6856a526eff23" compoundref="xadcps__hw_8h" startline="204">XADCPS_CFR1_OFFSET</references>
         <references refid="group___overview_1ga35d9b1c23c2fb49112236f49bd301b72" compoundref="xadcps__hw_8h" startline="281">XADCPS_CFR1_SEQ_SHIFT</references>
@@ -993,7 +993,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="894" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="894" bodyend="909"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="894" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="894" bodyend="909"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga51e3109e270a76fd9ae6856a526eff23" compoundref="xadcps__hw_8h" startline="204">XADCPS_CFR1_OFFSET</references>
         <references refid="group___overview_1ga35d9b1c23c2fb49112236f49bd301b72" compoundref="xadcps__hw_8h" startline="281">XADCPS_CFR1_SEQ_SHIFT</references>
@@ -1045,7 +1045,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="931" bodyend="945"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="931" bodyend="945"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaf25fddb95811a016a9e50d1e081355e4" compoundref="xadcps__hw_8h" startline="315">XADCPS_CFR2_CD_SHIFT</references>
         <references refid="group___overview_1ga480941fa571069ef1b39273216c8dba4" compoundref="xadcps__hw_8h" startline="205">XADCPS_CFR2_OFFSET</references>
@@ -1076,7 +1076,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="961" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="961" bodyend="978"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="961" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="961" bodyend="978"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaf25fddb95811a016a9e50d1e081355e4" compoundref="xadcps__hw_8h" startline="315">XADCPS_CFR2_CD_SHIFT</references>
         <references refid="group___overview_1ga480941fa571069ef1b39273216c8dba4" compoundref="xadcps__hw_8h" startline="205">XADCPS_CFR2_OFFSET</references>
@@ -1120,7 +1120,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1003" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1003" bodyend="1033"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1003" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1003" bodyend="1033"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gadebc7c47c2bd2b8dbede2ba65224c395" compoundref="xadcps_8c" startline="894" endline="909">XAdcPs_GetSequencerMode</references>
         <references refid="group___overview_1gaba7a2814b6310385ac1a8bbd0aac365f" compoundref="xadcps__hw_8h" startline="358">XADCPS_SEQ00_CH_VALID_MASK</references>
@@ -1156,7 +1156,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1053" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1053" bodyend="1077"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1053" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1053" bodyend="1077"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga900ea66de82858d239a5936ead385ad6" compoundref="xadcps_8c" startline="1796" endline="1818">XAdcPs_ReadInternalReg</references>
         <references refid="group___overview_1gaba7a2814b6310385ac1a8bbd0aac365f" compoundref="xadcps__hw_8h" startline="358">XADCPS_SEQ00_CH_VALID_MASK</references>
@@ -1203,7 +1203,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1102" bodyend="1132"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1102" bodyend="1132"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gadebc7c47c2bd2b8dbede2ba65224c395" compoundref="xadcps_8c" startline="894" endline="909">XAdcPs_GetSequencerMode</references>
         <references refid="group___overview_1gafca2ffee771035bb8e7ee56a479c871a" compoundref="xadcps__hw_8h" startline="361">XADCPS_SEQ02_CH_VALID_MASK</references>
@@ -1239,7 +1239,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1151" bodyend="1172"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1151" bodyend="1172"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga900ea66de82858d239a5936ead385ad6" compoundref="xadcps_8c" startline="1796" endline="1818">XAdcPs_ReadInternalReg</references>
         <references refid="group___overview_1gafca2ffee771035bb8e7ee56a479c871a" compoundref="xadcps__hw_8h" startline="361">XADCPS_SEQ02_CH_VALID_MASK</references>
@@ -1286,7 +1286,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1198" bodyend="1228"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1198" bodyend="1228"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gadebc7c47c2bd2b8dbede2ba65224c395" compoundref="xadcps_8c" startline="894" endline="909">XAdcPs_GetSequencerMode</references>
         <references refid="group___overview_1gaf5f20b25b2f69684d1182d497002e667" compoundref="xadcps__hw_8h" startline="364">XADCPS_SEQ04_CH_VALID_MASK</references>
@@ -1322,7 +1322,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1247" bodyend="1270"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1247" bodyend="1270"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga900ea66de82858d239a5936ead385ad6" compoundref="xadcps_8c" startline="1796" endline="1818">XAdcPs_ReadInternalReg</references>
         <references refid="group___overview_1gaf5f20b25b2f69684d1182d497002e667" compoundref="xadcps__hw_8h" startline="364">XADCPS_SEQ04_CH_VALID_MASK</references>
@@ -1369,7 +1369,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1297" bodyend="1328"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1297" bodyend="1328"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gadebc7c47c2bd2b8dbede2ba65224c395" compoundref="xadcps_8c" startline="894" endline="909">XAdcPs_GetSequencerMode</references>
         <references refid="group___overview_1ga8553753a5c70e8d00161ae1688449015" compoundref="xadcps__hw_8h" startline="367">XADCPS_SEQ06_CH_VALID_MASK</references>
@@ -1405,7 +1405,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1347" bodyend="1370"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1347" bodyend="1370"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga900ea66de82858d239a5936ead385ad6" compoundref="xadcps_8c" startline="1796" endline="1818">XAdcPs_ReadInternalReg</references>
         <references refid="group___overview_1ga8553753a5c70e8d00161ae1688449015" compoundref="xadcps__hw_8h" startline="367">XADCPS_SEQ06_CH_VALID_MASK</references>
@@ -1461,7 +1461,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1389" bodyend="1405"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1389" bodyend="1405"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaf474b4c65c53c117fb44c3831bcaef07" compoundref="xadcps__hw_8h" startline="224">XADCPS_ATR_TEMP_UPPER_OFFSET</references>
         <references refid="group___overview_1gae7bfca4338f79433f1a9a585614a643c" compoundref="xadcps_8h" startline="259">XADCPS_ATR_VCCPDRO_LOWER</references>
@@ -1505,7 +1505,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1423" bodyend="1442"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1423" bodyend="1442"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaf474b4c65c53c117fb44c3831bcaef07" compoundref="xadcps__hw_8h" startline="224">XADCPS_ATR_TEMP_UPPER_OFFSET</references>
         <references refid="group___overview_1gae7bfca4338f79433f1a9a585614a643c" compoundref="xadcps_8h" startline="259">XADCPS_ATR_VCCPDRO_LOWER</references>
@@ -1537,7 +1537,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1458" bodyend="1482"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1458" bodyend="1482"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga96219db592fd9666efcaa621c6271391" compoundref="xadcps__hw_8h" startline="380">XADCPS_ATR_OT_UPPER_ENB_MASK</references>
         <references refid="group___overview_1gaae9e0bdc942e2132e429f4ba031beaf0" compoundref="xadcps__hw_8h" startline="383">XADCPS_ATR_OT_UPPER_ENB_VAL</references>
@@ -1570,7 +1570,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1498" bodyend="1517"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1498" bodyend="1517"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga96219db592fd9666efcaa621c6271391" compoundref="xadcps__hw_8h" startline="380">XADCPS_ATR_OT_UPPER_ENB_MASK</references>
         <references refid="group___overview_1gad8067965d143744eb266d45f697ea47f" compoundref="xadcps__hw_8h" startline="227">XADCPS_ATR_OT_UPPER_OFFSET</references>
@@ -1613,7 +1613,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1535" bodyend="1564"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1535" bodyend="1564"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaa13adc8f0ff2b34ec5aaa8fb9332c364" compoundref="xadcps__hw_8h" startline="260">XADCPS_CFR0_EC_MASK</references>
         <references refid="group___overview_1ga0465989cda869dc6bbc0d69d1c5a53c0" compoundref="xadcps__hw_8h" startline="203">XADCPS_CFR0_OFFSET</references>
@@ -1647,7 +1647,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1581" bodyend="1603"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1581" bodyend="1603"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1gaa13adc8f0ff2b34ec5aaa8fb9332c364" compoundref="xadcps__hw_8h" startline="260">XADCPS_CFR0_EC_MASK</references>
         <references refid="group___overview_1ga0465989cda869dc6bbc0d69d1c5a53c0" compoundref="xadcps__hw_8h" startline="203">XADCPS_CFR0_OFFSET</references>
@@ -1702,7 +1702,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1626" bodyend="1657"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1626" bodyend="1657"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga9c69b95fd51ff52988c20a110ab25c35" compoundref="xadcps__hw_8h" startline="266">XADCPS_CFR0_CHANNEL_MASK</references>
         <references refid="group___overview_1ga2eff6b4692be3abac3c6d75bb5b42cb6" compoundref="xadcps__hw_8h" startline="258">XADCPS_CFR0_MUX_MASK</references>
@@ -1748,7 +1748,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1678" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1678" bodyend="1703"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1678" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1678" bodyend="1703"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga480941fa571069ef1b39273216c8dba4" compoundref="xadcps__hw_8h" startline="205">XADCPS_CFR2_OFFSET</references>
         <references refid="group___overview_1ga34454f7662ba42d01b784055f31b02de" compoundref="xadcps__hw_8h" startline="320">XADCPS_CFR2_PD_MASK</references>
@@ -1784,7 +1784,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1722" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1722" bodyend="1743"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" line="1722" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c" bodystart="1722" bodyend="1743"/>
         <references refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" compoundref="xadcps_8h" startline="323">XAdcPs::IsReady</references>
         <references refid="group___overview_1ga480941fa571069ef1b39273216c8dba4" compoundref="xadcps__hw_8h" startline="205">XADCPS_CFR2_OFFSET</references>
         <references refid="group___overview_1ga34454f7662ba42d01b784055f31b02de" compoundref="xadcps__hw_8h" startline="320">XADCPS_CFR2_PD_MASK</references>
@@ -2856,6 +2856,6 @@
 <codeline lineno="1817"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1818"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.c"/>
   </compounddef>
 </doxygen>

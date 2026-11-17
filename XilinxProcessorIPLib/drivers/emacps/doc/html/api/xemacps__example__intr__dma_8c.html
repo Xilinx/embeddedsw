@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xemacps__example__intr__dma_8c.html','
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,274 +100,145 @@ $(document).ready(function(){initNavTree('xemacps__example__intr__dma_8c.html','
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xemacps_example_intr_dma.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Implements examples that utilize the EmacPs's interrupt driven DMA packet transfer mode to send and receive frames. </p>
-<p>These examples demonstrate:</p>
-<ul>
-<li>How to perform simple send and receive.</li>
-<li>Interrupt</li>
-<li>Error handling</li>
-<li>Device reset</li>
-</ul>
-<p>Functional guide to example:</p>
-<ul>
-<li>EmacPsDmaSingleFrameIntrExample demonstrates the simplest way to send and receive frames in in interrupt driven DMA mode.</li>
-<li>EmacPsErrorHandler() demonstrates how to manage asynchronous errors.</li>
-<li>EmacPsResetDevice() demonstrates how to reset the driver/HW without losing all configuration settings.</li>
-</ul>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-1.00a wsy  01/10/10 First release
-1.00a asa  11/25/11 The cache disable routines are removed. So now both
-              I-cache and D-cache are enabled. The array RxBuffer is
-              removed to avoid an extra copy from RxBuffer to RxFrame.
-              Now the address of RxFrame is submitted to the Rx BD
-              instead of the address of RxBuffer.
-              In function EmacPsDmaSingleFrameIntrExample, BdRxPtr
-              is made as a pointer instead of array of pointers. This
-              is done since on the Rx path we now submit a single BD
-              instead of all 32 BDs. Because of this change, relevant
-              changes are made throughout the function
-              EmacPsDmaSingleFrameIntrExample.
-              Cache invalidation is now being done for the RxFrame
-              buffer.
-              The unnecessary cache flush (Xil_DCacheFlushRange) is
-              removed. This was being done towards the end of the
-              example which was unnecessary.
-1.00a asa 01/24/12  Support for Zynq board is added. The SLCR divisors are
-                      different for Zynq. Changes are made for the same.
-                      Presently the SLCR GEM clock divisors are hard-coded
-              assuming that IO PLL output frequency is 1000 MHz.
-                      The BDs are allocated at the address 0xFF00000 and the
-                      1 MB address range starting from this address is made
-                      uncached. This is because, for GEM the BDs need to be
-                      placed in uncached memory. The RX BDs are allocated at
-                      address 0xFF00000 and TX BDs are allocated at address
-                      0xFF10000.
-                      The MDIO divisor used of 224 is used for Zynq board.
-1.01a asa 02/27/12  The hardcoded SLCR divisors for Zynq are removed. The
-              divisors are obtained from xparameters.h.c. The sleep
-              values are reduced for Zynq. One sleep is added after
-              MDIO divisor is set. Some of the prints are removed.
-1.01a asa 03/14/12  The SLCR divisor support for ENET1 is added.
-1.01a asa 04/15/12  The function calls to Xil_DisableMMU and Xil_EnableMMU
-              are removed for setting the translation table
-              attributes for the BD memory region.
-1.05a asa 09/22/13 Cache handling is changed to fix an issue (CR#663885).
-                  The cache invalidation of the Rx frame is now moved to
-                  XEmacPsRecvHandler so that invalidation happens after the
-                  received data is available in the memory. The variable
-                  TxFrameLength is now made global.
-2.1     srt 07/11/14 Implemented 64-bit changes and modified as per
-              Zynq Ultrascale Mp GEM specification
-3.0  kpc  01/23/14 Removed PEEP board related code
-3.0  hk   03/18/15 Added support for jumbo frames.
-                   Add cache flush after BD terminate entries.
-3.2  hk   10/15/15 Added clock control using CRL_APB_GEM_REF_CTRL register.
-                   Enabled 1G speed for ZynqMP GEM.
-                   Select GEM interrupt based on instance present.
-                   Manage differences between emulation platform and silicon.
-3.2  mus  20/02/16.Added support for INTC interrupt controller.
-                   Added support to access zynq emacps interrupt from
-                   microblaze.
-3.3 kpc   12/09/16 Fixed issue when -O2 is enabled
-3.4 ms    01/23/17 Modified xil_printf statement in main function to
-                  ensure that "Successfully ran" and "Failed" strings
-                  are available in all examples. This is a fix for
-                  CR-965028.
-3.5 hk    08/14/17 Don't perform data cache operations when CCI is enabled
-                   on ZynqMP.
-3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
-3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
-          03/06/19 Fix BD space assignment and its memory attributes.
-          03/20/19 Fix alignment pragmas for IAR compiler.
-3.10 hk   05/17/19 Use correct platform register for Versal.
-          08/12/19 Add clock setup support for Versal.
-          14/08/19 Move definition of Platform to _util file for common use.
-          08/24/19 Add support for clock configuration in EL1 Non Secure for
-                   Versal.
-3.14 sk   12/23/20 Remove documentation for None param in main function to fix
-                     the doxygen warning.</pre><pre></pre> </div><div class="textblock"><code>#include &lt;assert.h&gt;</code><br/>
+<div class="textblock"><code>#include &lt;assert.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="xemacps__example_8h.html">xemacps_example.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
 <code>#include &quot;xil_mmu.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga342e225e414132234b233024d68b12f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga342e225e414132234b233024d68b12f8">EMACPS_BASEADDR</a>&#160;&#160;&#160;XPAR_XEMACPS_0_BASEADDR</td></tr>
+<tr class="memdesc:ga342e225e414132234b233024d68b12f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of EmacPs instance 0.  <a href="group__emacps.html#ga342e225e414132234b233024d68b12f8">More...</a><br/></td></tr>
+<tr class="separator:ga342e225e414132234b233024d68b12f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab40d052a8db6784023755ec4a640aa2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gab40d052a8db6784023755ec4a640aa2b">ZYNQ_EMACPS_0_BASEADDR</a>&#160;&#160;&#160;0xE000B000</td></tr>
+<tr class="memdesc:gab40d052a8db6784023755ec4a640aa2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zynq EmacPs 0 base address.  <a href="group__emacps.html#gab40d052a8db6784023755ec4a640aa2b">More...</a><br/></td></tr>
+<tr class="separator:gab40d052a8db6784023755ec4a640aa2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79e32c4a67191a27d4cf8415c3a5a5cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga79e32c4a67191a27d4cf8415c3a5a5cd">ZYNQ_EMACPS_1_BASEADDR</a>&#160;&#160;&#160;0xE000C000</td></tr>
+<tr class="memdesc:ga79e32c4a67191a27d4cf8415c3a5a5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zynq EmacPs 1 base address.  <a href="group__emacps.html#ga79e32c4a67191a27d4cf8415c3a5a5cd">More...</a><br/></td></tr>
+<tr class="separator:ga79e32c4a67191a27d4cf8415c3a5a5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b839e4ea431e06de2c141fe6b3a1711"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga9b839e4ea431e06de2c141fe6b3a1711">ZYNQMP_EMACPS_0_BASEADDR</a>&#160;&#160;&#160;0xFF0B0000</td></tr>
+<tr class="memdesc:ga9b839e4ea431e06de2c141fe6b3a1711"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZynqMP EmacPs 0 base address.  <a href="group__emacps.html#ga9b839e4ea431e06de2c141fe6b3a1711">More...</a><br/></td></tr>
+<tr class="separator:ga9b839e4ea431e06de2c141fe6b3a1711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafeb57e46da6ea9ed396f7d9abe1ca828"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gafeb57e46da6ea9ed396f7d9abe1ca828">ZYNQMP_EMACPS_1_BASEADDR</a>&#160;&#160;&#160;0xFF0C0000</td></tr>
+<tr class="memdesc:gafeb57e46da6ea9ed396f7d9abe1ca828"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZynqMP EmacPs 1 base address.  <a href="group__emacps.html#gafeb57e46da6ea9ed396f7d9abe1ca828">More...</a><br/></td></tr>
+<tr class="separator:gafeb57e46da6ea9ed396f7d9abe1ca828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51d729932150332a64773b7b668d8780"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga51d729932150332a64773b7b668d8780">ZYNQMP_EMACPS_2_BASEADDR</a>&#160;&#160;&#160;0xFF0D0000</td></tr>
+<tr class="memdesc:ga51d729932150332a64773b7b668d8780"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZynqMP EmacPs 2 base address.  <a href="group__emacps.html#ga51d729932150332a64773b7b668d8780">More...</a><br/></td></tr>
+<tr class="separator:ga51d729932150332a64773b7b668d8780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga312c9e3980626ec0b4750c5850df085d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga312c9e3980626ec0b4750c5850df085d">ZYNQMP_EMACPS_3_BASEADDR</a>&#160;&#160;&#160;0xFF0E0000</td></tr>
+<tr class="memdesc:ga312c9e3980626ec0b4750c5850df085d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ZynqMP EmacPs 3 base address.  <a href="group__emacps.html#ga312c9e3980626ec0b4750c5850df085d">More...</a><br/></td></tr>
+<tr class="separator:ga312c9e3980626ec0b4750c5850df085d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga903cf6de187439ce8b54b84c5bc2925e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga903cf6de187439ce8b54b84c5bc2925e">VERSAL_EMACPS_0_BASEADDR</a>&#160;&#160;&#160;0xFF0C0000</td></tr>
+<tr class="memdesc:ga903cf6de187439ce8b54b84c5bc2925e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versal EmacPs 0 base address.  <a href="group__emacps.html#ga903cf6de187439ce8b54b84c5bc2925e">More...</a><br/></td></tr>
+<tr class="separator:ga903cf6de187439ce8b54b84c5bc2925e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6105ce371e17743c8778c38386e9381"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gad6105ce371e17743c8778c38386e9381">VERSAL_EMACPS_1_BASEADDR</a>&#160;&#160;&#160;0xFF0D0000</td></tr>
+<tr class="memdesc:gad6105ce371e17743c8778c38386e9381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versal EmacPs 1 base address.  <a href="group__emacps.html#gad6105ce371e17743c8778c38386e9381">More...</a><br/></td></tr>
+<tr class="separator:gad6105ce371e17743c8778c38386e9381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b1da455b0a89b59768a02566170488f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga3b1da455b0a89b59768a02566170488f">VERSAL_NET_EMACPS_0_BASEADDR</a>&#160;&#160;&#160;0xF19E0000</td></tr>
+<tr class="memdesc:ga3b1da455b0a89b59768a02566170488f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versal Net EmacPs 0 base address.  <a href="group__emacps.html#ga3b1da455b0a89b59768a02566170488f">More...</a><br/></td></tr>
+<tr class="separator:ga3b1da455b0a89b59768a02566170488f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga713c8db7c5acb3ef405b7e73cc151863"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga713c8db7c5acb3ef405b7e73cc151863">VERSAL_NET_EMACPS_1_BASEADDR</a>&#160;&#160;&#160;0xF19F0000</td></tr>
+<tr class="memdesc:ga713c8db7c5acb3ef405b7e73cc151863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Versal Net EmacPs 1 base address.  <a href="group__emacps.html#ga713c8db7c5acb3ef405b7e73cc151863">More...</a><br/></td></tr>
+<tr class="separator:ga713c8db7c5acb3ef405b7e73cc151863"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga0004d764dd3a78de535ddb8a400d97d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of RxBDs to use.  <a href="group__emacps.html#ga0004d764dd3a78de535ddb8a400d97d9">More...</a><br/></td></tr>
+<tr class="separator:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b8777c106b3892e84513c5584f09ce3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga7b8777c106b3892e84513c5584f09ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of TxBDs to use.  <a href="group__emacps.html#ga7b8777c106b3892e84513c5584f09ce3">More...</a><br/></td></tr>
+<tr class="separator:ga7b8777c106b3892e84513c5584f09ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6f67fc0e23e30f9883030463b146a43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gad6f67fc0e23e30f9883030463b146a43">NUM_PACKETS</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:gad6f67fc0e23e30f9883030463b146a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of packets to transmit.  <a href="group__emacps.html#gad6f67fc0e23e30f9883030463b146a43">More...</a><br/></td></tr>
+<tr class="separator:gad6f67fc0e23e30f9883030463b146a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga41098fc206f5865de95cdc71d146eca5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga41098fc206f5865de95cdc71d146eca5">SLCR_LOCK_ADDR</a>&#160;&#160;&#160;(XPS_SYS_CTRL_BASEADDR + 0x4)</td></tr>
+<tr class="memdesc:ga41098fc206f5865de95cdc71d146eca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR lock register address.  <a href="group__emacps.html#ga41098fc206f5865de95cdc71d146eca5">More...</a><br/></td></tr>
+<tr class="separator:ga41098fc206f5865de95cdc71d146eca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga633bc4393a35d72ae355f920b8918b3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga633bc4393a35d72ae355f920b8918b3e">SLCR_UNLOCK_ADDR</a>&#160;&#160;&#160;(XPS_SYS_CTRL_BASEADDR + 0x8)</td></tr>
+<tr class="memdesc:ga633bc4393a35d72ae355f920b8918b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR unlock register address.  <a href="group__emacps.html#ga633bc4393a35d72ae355f920b8918b3e">More...</a><br/></td></tr>
+<tr class="separator:ga633bc4393a35d72ae355f920b8918b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa119dac6f7a29740bbb8e27ba3752473"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaa119dac6f7a29740bbb8e27ba3752473">SLCR_GEM0_CLK_CTRL_ADDR</a>&#160;&#160;&#160;(XPS_SYS_CTRL_BASEADDR + 0x140)</td></tr>
+<tr class="memdesc:gaa119dac6f7a29740bbb8e27ba3752473"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR GEM0 clock control address.  <a href="group__emacps.html#gaa119dac6f7a29740bbb8e27ba3752473">More...</a><br/></td></tr>
+<tr class="separator:gaa119dac6f7a29740bbb8e27ba3752473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga935deb2c8b9916cc5ef971d0f00dd784"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga935deb2c8b9916cc5ef971d0f00dd784">SLCR_GEM1_CLK_CTRL_ADDR</a>&#160;&#160;&#160;(XPS_SYS_CTRL_BASEADDR + 0x144)</td></tr>
+<tr class="memdesc:ga935deb2c8b9916cc5ef971d0f00dd784"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR GEM1 clock control address.  <a href="group__emacps.html#ga935deb2c8b9916cc5ef971d0f00dd784">More...</a><br/></td></tr>
+<tr class="separator:ga935deb2c8b9916cc5ef971d0f00dd784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50890127ec1342baa4e7cd36210131b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga50890127ec1342baa4e7cd36210131b6">SLCR_LOCK_KEY_VALUE</a>&#160;&#160;&#160;0x767B</td></tr>
+<tr class="memdesc:ga50890127ec1342baa4e7cd36210131b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key value written to lock the SLCR.  <a href="group__emacps.html#ga50890127ec1342baa4e7cd36210131b6">More...</a><br/></td></tr>
+<tr class="separator:ga50890127ec1342baa4e7cd36210131b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8105401f81eed6b326569f58431e1e7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga8105401f81eed6b326569f58431e1e7a">SLCR_UNLOCK_KEY_VALUE</a>&#160;&#160;&#160;0xDF0D</td></tr>
+<tr class="memdesc:ga8105401f81eed6b326569f58431e1e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key value written to unlock the SLCR.  <a href="group__emacps.html#ga8105401f81eed6b326569f58431e1e7a">More...</a><br/></td></tr>
+<tr class="separator:ga8105401f81eed6b326569f58431e1e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabc9e62e4fdf10c1153dbce65fdbabac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaabc9e62e4fdf10c1153dbce65fdbabac">SLCR_ADDR_GEM_RST_CTRL</a>&#160;&#160;&#160;(XPS_SYS_CTRL_BASEADDR + 0x214)</td></tr>
+<tr class="memdesc:gaabc9e62e4fdf10c1153dbce65fdbabac"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLCR GEM reset control address.  <a href="group__emacps.html#gaabc9e62e4fdf10c1153dbce65fdbabac">More...</a><br/></td></tr>
+<tr class="separator:gaabc9e62e4fdf10c1153dbce65fdbabac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade639923689caf2d8cd3b0f99d8f5f11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gade639923689caf2d8cd3b0f99d8f5f11">CRL_GEM_DIV_MASK</a>&#160;&#160;&#160;0x003F3F00</td></tr>
+<tr class="memdesc:gade639923689caf2d8cd3b0f99d8f5f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for CRL GEM clock divisors.  <a href="group__emacps.html#gade639923689caf2d8cd3b0f99d8f5f11">More...</a><br/></td></tr>
+<tr class="separator:gade639923689caf2d8cd3b0f99d8f5f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4adf46d49add87c713fe16c00924bff6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga4adf46d49add87c713fe16c00924bff6">CRL_GEM_DIV0_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga4adf46d49add87c713fe16c00924bff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for CRL GEM divisor 0.  <a href="group__emacps.html#ga4adf46d49add87c713fe16c00924bff6">More...</a><br/></td></tr>
+<tr class="separator:ga4adf46d49add87c713fe16c00924bff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05466cc076dbcb0544f18635497137c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga05466cc076dbcb0544f18635497137c1">CRL_GEM_DIV1_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga05466cc076dbcb0544f18635497137c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for CRL GEM divisor 1.  <a href="group__emacps.html#ga05466cc076dbcb0544f18635497137c1">More...</a><br/></td></tr>
+<tr class="separator:ga05466cc076dbcb0544f18635497137c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga484d4fe48c0ca3f4abf9f4fb865e84d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga484d4fe48c0ca3f4abf9f4fb865e84d1">CRL_GEM_DIV_VERSAL_MASK</a>&#160;&#160;&#160;0x0003FF00</td></tr>
+<tr class="memdesc:ga484d4fe48c0ca3f4abf9f4fb865e84d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Versal CRL GEM clock divisor.  <a href="group__emacps.html#ga484d4fe48c0ca3f4abf9f4fb865e84d1">More...</a><br/></td></tr>
+<tr class="separator:ga484d4fe48c0ca3f4abf9f4fb865e84d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0789cea3dcb4615643a95b3827a5c361"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga0789cea3dcb4615643a95b3827a5c361">CRL_GEM_DIV_VERSAL_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga0789cea3dcb4615643a95b3827a5c361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for Versal CRL GEM divisor.  <a href="group__emacps.html#ga0789cea3dcb4615643a95b3827a5c361">More...</a><br/></td></tr>
+<tr class="separator:ga0789cea3dcb4615643a95b3827a5c361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c850380aead07a12a1d1015143e3483"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga9c850380aead07a12a1d1015143e3483">JUMBO_FRAME_SIZE</a>&#160;&#160;&#160;10240</td></tr>
+<tr class="memdesc:ga9c850380aead07a12a1d1015143e3483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumbo frame size in bytes.  <a href="group__emacps.html#ga9c850380aead07a12a1d1015143e3483">More...</a><br/></td></tr>
+<tr class="separator:ga9c850380aead07a12a1d1015143e3483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada75f93b9b0b46bd397de42aafed1209"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gada75f93b9b0b46bd397de42aafed1209">FRAME_HDR_SIZE</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:gada75f93b9b0b46bd397de42aafed1209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet frame header size in bytes.  <a href="group__emacps.html#gada75f93b9b0b46bd397de42aafed1209">More...</a><br/></td></tr>
+<tr class="separator:gada75f93b9b0b46bd397de42aafed1209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf42e687ea4c2ed7ad9115929878e4a11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaf42e687ea4c2ed7ad9115929878e4a11">GEMVERSION_ZYNQMP</a>&#160;&#160;&#160;0x7</td></tr>
+<tr class="memdesc:gaf42e687ea4c2ed7ad9115929878e4a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">GEM version identifier for ZynqMP.  <a href="group__emacps.html#gaf42e687ea4c2ed7ad9115929878e4a11">More...</a><br/></td></tr>
+<tr class="separator:gaf42e687ea4c2ed7ad9115929878e4a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae665977ecfcab9fd8932e9e02f3e30ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gae665977ecfcab9fd8932e9e02f3e30ac">GEMVERSION_VERSAL</a>&#160;&#160;&#160;0x107</td></tr>
+<tr class="memdesc:gae665977ecfcab9fd8932e9e02f3e30ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">GEM version identifier for Versal.  <a href="group__emacps.html#gae665977ecfcab9fd8932e9e02f3e30ac">More...</a><br/></td></tr>
+<tr class="separator:gae665977ecfcab9fd8932e9e02f3e30ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70dc47b1e22656894fe3da838e3816ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga70dc47b1e22656894fe3da838e3816ad">GEMVERSION_VERSAL_2VE_2VM_10GBE</a>&#160;&#160;&#160;0xC</td></tr>
+<tr class="memdesc:ga70dc47b1e22656894fe3da838e3816ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">GEM version for Versal 2VE/2VM 10GbE.  <a href="group__emacps.html#ga70dc47b1e22656894fe3da838e3816ad">More...</a><br/></td></tr>
+<tr class="separator:ga70dc47b1e22656894fe3da838e3816ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga011f13d3fe4ffd9f7ede4711f720f813"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga011f13d3fe4ffd9f7ede4711f720f813">QUEUE_DISABLE</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:ga011f13d3fe4ffd9f7ede4711f720f813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value used to disable a GEM queue.  <a href="group__emacps.html#ga011f13d3fe4ffd9f7ede4711f720f813">More...</a><br/></td></tr>
+<tr class="separator:ga011f13d3fe4ffd9f7ede4711f720f813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga822c7cd26afe49b62c9125633b54eae0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga822c7cd26afe49b62c9125633b54eae0">RXBD_SPACE_BYTES</a>&#160;&#160;&#160;<a class="el" href="group__emacps.html#gaf5234fa28a21cd02e35fc3d49b73ff4d">XEmacPs_BdRingMemCalc</a>(<a class="el" href="group__emacps.html#ga35aefec3888018914e34175e0a24c5ed">XEMACPS_BD_ALIGNMENT</a>, <a class="el" href="group__emacps.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a>)</td></tr>
+<tr class="memdesc:ga822c7cd26afe49b62c9125633b54eae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes required for the Rx BD ring.  <a href="group__emacps.html#ga822c7cd26afe49b62c9125633b54eae0">More...</a><br/></td></tr>
+<tr class="separator:ga822c7cd26afe49b62c9125633b54eae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">TXBD_SPACE_BYTES</a>&#160;&#160;&#160;<a class="el" href="group__emacps.html#gaf5234fa28a21cd02e35fc3d49b73ff4d">XEmacPs_BdRingMemCalc</a>(<a class="el" href="group__emacps.html#ga35aefec3888018914e34175e0a24c5ed">XEMACPS_BD_ALIGNMENT</a>, <a class="el" href="group__emacps.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a>)</td></tr>
+<tr class="memdesc:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes required for the Tx BD ring.  <a href="group__emacps.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">More...</a><br/></td></tr>
+<tr class="separator:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga406904fd810243374e67675cc46af866"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga406904fd810243374e67675cc46af866">FIRST_FRAGMENT_SIZE</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:ga406904fd810243374e67675cc46af866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size in bytes of the first Tx fragment.  <a href="group__emacps.html#ga406904fd810243374e67675cc46af866">More...</a><br/></td></tr>
+<tr class="separator:ga406904fd810243374e67675cc46af866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa91855dbce2897b52a49dd1e100c4f38"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:aa91855dbce2897b52a49dd1e100c4f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the EmacPs driver by sending by sending and receiving frames in interrupt driven DMA mode.  <a href="#aa91855dbce2897b52a49dd1e100c4f38">More...</a><br/></td></tr>
-<tr class="separator:aa91855dbce2897b52a49dd1e100c4f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa31ff7ff7de0863dde3919fa1602671"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, u32 packet)</td></tr>
-<tr class="memdesc:afa31ff7ff7de0863dde3919fa1602671"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the EMACPS by sending and receiving a single frame in DMA interrupt mode.  <a href="#afa31ff7ff7de0863dde3919fa1602671">More...</a><br/></td></tr>
-<tr class="separator:afa31ff7ff7de0863dde3919fa1602671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a938f994841cac409516f536c1f5ab844"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example__intr__dma_8c.html#a938f994841cac409516f536c1f5ab844">XEmacPsClkSetup</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, u16 EmacPsIntrId)</td></tr>
-<tr class="memdesc:a938f994841cac409516f536c1f5ab844"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up the clock divisors for 1000Mbps.  <a href="#a938f994841cac409516f536c1f5ab844">More...</a><br/></td></tr>
-<tr class="separator:a938f994841cac409516f536c1f5ab844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5d0b4b9258cdead2c0875a0853c087b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">XEmacPs_SetMdioDivisor</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *InstancePtr, XEmacPs_MdcDiv Divisor)</td></tr>
-<tr class="memdesc:ga5d0b4b9258cdead2c0875a0853c087b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the MDIO clock divisor.  <a href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">More...</a><br/></td></tr>
+<tr class="memitem:gaa91855dbce2897b52a49dd1e100c4f38"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gaa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gaa91855dbce2897b52a49dd1e100c4f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the EmacPs driver by sending by.  <a href="group__emacps.html#gaa91855dbce2897b52a49dd1e100c4f38">More...</a><br/></td></tr>
+<tr class="separator:gaa91855dbce2897b52a49dd1e100c4f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa31ff7ff7de0863dde3919fa1602671"><td class="memItemLeft" align="right" valign="top">LONG&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#gafa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, u32 packet)</td></tr>
+<tr class="memdesc:gafa31ff7ff7de0863dde3919fa1602671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the EMACPS by sending and.  <a href="group__emacps.html#gafa31ff7ff7de0863dde3919fa1602671">More...</a><br/></td></tr>
+<tr class="separator:gafa31ff7ff7de0863dde3919fa1602671"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga938f994841cac409516f536c1f5ab844"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga938f994841cac409516f536c1f5ab844">XEmacPsClkSetup</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *EmacPsInstancePtr, u16 EmacPsIntrId)</td></tr>
+<tr class="memdesc:ga938f994841cac409516f536c1f5ab844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the clock divisors for 1000Mbps.  <a href="group__emacps.html#ga938f994841cac409516f536c1f5ab844">More...</a><br/></td></tr>
+<tr class="separator:ga938f994841cac409516f536c1f5ab844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5d0b4b9258cdead2c0875a0853c087b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">XEmacPs_SetMdioDivisor</a> (<a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *InstancePtr, <a class="el" href="group__emacps.html#gaa367ea42c2214b487cf74951453204ff">XEmacPs_MdcDiv</a> Divisor)</td></tr>
+<tr class="memdesc:ga5d0b4b9258cdead2c0875a0853c087b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the MDIO clock divisor.  <a href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">More...</a><br/></td></tr>
 <tr class="separator:ga5d0b4b9258cdead2c0875a0853c087b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemacps__example__intr__dma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the EmacPs example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emacps.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mains entry point of the EmacPs interrupt DMA example.  <a href="group__emacps.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aa91855dbce2897b52a49dd1e100c4f38"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">LONG EmacPsDmaIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *&#160;</td>
-          <td class="paramname"><em>EmacPsInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage of the EmacPs driver by sending by sending and receiving frames in interrupt driven DMA mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">EmacPsInstancePtr</td><td>is a pointer to the instance of the EmacPs driver. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_emac_ps___config.html#a96d8fef7452fcad2bb1831e39751bb96">XEmacPs_Config::BaseAddress</a>, <a class="el" href="xemacps__example_8h.html#a907ad3930dc1eefe5a53a0b82b715091">EmacpsDelay()</a>, <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">EmacPsDmaSingleFrameIntrExample()</a>, <a class="el" href="xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83">EmacPsUtilErrorTrap()</a>, <a class="el" href="struct_x_emac_ps___config.html#aa28d0460fb5df9f43d2d52a538f220e8">XEmacPs_Config::IntrId</a>, <a class="el" href="struct_x_emac_ps___config.html#afdec33987e2682b4bb23f5543be5dee0">XEmacPs_Config::IntrParent</a>, <a class="el" href="group__emacps.html#ga35aefec3888018914e34175e0a24c5ed">XEMACPS_BD_ALIGNMENT</a>, <a class="el" href="group__emacps.html#gaf95ab3f6c363667f67cfa83facb35f8f">XEmacPs_BdClear</a>, <a class="el" href="group__emacps.html#gac18e6a6caef3d31a7f8ff684657fc0df">XEmacPs_BdRingClone()</a>, <a class="el" href="group__emacps.html#ga8e84294f518be6f9089cbac00e924056">XEmacPs_BdRingCreate()</a>, <a class="el" href="group__emacps.html#ga95e9639f87d4d6e74ff5902771cc1c10">XEmacPs_BdSetStatus</a>, <a class="el" href="group__emacps.html#gaf9913952f91b64eb8d640bea7e203b67">XEmacPs_CfgInitialize()</a>, <a class="el" href="group__emacps.html#gaa0203004a3b96feae1af6239417db4c3">XEmacPs_GetRxRing</a>, <a class="el" href="group__emacps.html#gac64d6f46e958baa7230be816b98c2df9">XEmacPs_GetTxRing</a>, <a class="el" href="group__emacps.html#ga7fc1d16432c05d4e773bed878f528184">XEmacPs_IntrHandler()</a>, <a class="el" href="group__emacps.html#gaeb338ba25655183c84ca60ecc8ff08ea">XEmacPs_LookupConfig()</a>, <a class="el" href="group__emacps.html#ga70ef56eede3eee5f94fdfcc5e07daddc">XEMACPS_RECV</a>, <a class="el" href="group__emacps.html#ga3bfee75b86c3c4b3cde11d1156c3d9bc">XEMACPS_SEND</a>, <a class="el" href="group__emacps.html#gafb0f1c4bf64ca85dd4aa6ef83998e73f">XEmacPs_SetHandler()</a>, <a class="el" href="group__emacps.html#gaf096389aeabb511be2d9d3c5df0e4658">XEmacPs_SetMacAddress()</a>, <a class="el" href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">XEmacPs_SetMdioDivisor()</a>, <a class="el" href="group__emacps.html#gae1f519684cc62697fd17f49e2658abd6">XEmacPs_SetOperatingSpeed()</a>, <a class="el" href="group__emacps.html#ga1ceab9806b4a66e5d2b71daaf9abbf0c">XEmacPs_SetOptions()</a>, <a class="el" href="group__emacps.html#gaf27b057022a2e97201f6d55d61d4a3da">XEmacPs_Stop()</a>, <a class="el" href="group__emacps.html#ga75ad4f14dd0c935cd641c44bc5afef8a">XEMACPS_TXBUF_USED_MASK</a>, and <a class="el" href="xemacps__example__intr__dma_8c.html#a938f994841cac409516f536c1f5ab844">XEmacPsClkSetup()</a>.</p>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afa31ff7ff7de0863dde3919fa1602671"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">LONG EmacPsDmaSingleFrameIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *&#160;</td>
-          <td class="paramname"><em>EmacPsInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>packet</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage of the EMACPS by sending and receiving a single frame in DMA interrupt mode. </p>
-<p>The source packet will be described by two descriptors. It will be received into a buffer described by a single descriptor.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">EmacPsInstancePtr</td><td>is a pointer to the instance of the EmacPs driver. </td></tr>
-    <tr><td class="paramname">packet</td><td>is the count of current transmitted/received packet</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_emac_ps___config.html#a96d8fef7452fcad2bb1831e39751bb96">XEmacPs_Config::BaseAddress</a>, <a class="el" href="struct_x_emac_ps___bd_ring.html#afc610a19df5dcfeab1bbc1ed8d3d6b98">XEmacPs_BdRing::BaseBdAddr</a>, <a class="el" href="xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83">EmacPsUtilErrorTrap()</a>, <a class="el" href="xemacps__example_8h.html#a0bc7c575f2858a89f9496f83dc6052d4">EmacPsUtilFrameHdrFormatMAC()</a>, <a class="el" href="xemacps__example_8h.html#a6fddc02339ce2adea5260e2401572eb8">EmacPsUtilFrameHdrFormatType()</a>, <a class="el" href="xemacps__example_8h.html#af60ff561f93957fc82d6625103a3ec5c">EmacPsUtilFrameMemClear()</a>, <a class="el" href="xemacps__example_8h.html#a745c2dd310df9fc6a3067ec7c426d9b5">EmacPsUtilFrameSetPayloadData()</a>, <a class="el" href="xemacps__example_8h.html#a9bf345bfd8b6008fd32c436c1c8f049e">EmacPsUtilFrameVerify()</a>, <a class="el" href="struct_x_emac_ps___config.html#a790a88218e34631c9b3163179eb4f6cf">XEmacPs_Config::IsCacheCoherent</a>, <a class="el" href="group__emacps.html#gaf95ab3f6c363667f67cfa83facb35f8f">XEmacPs_BdClear</a>, <a class="el" href="group__emacps.html#gad7e175fa90e13d73738f0ef6c34055e0">XEmacPs_BdClearTxUsed</a>, <a class="el" href="group__emacps.html#ga570a2aadbbf827247324f041f928d41f">XEmacPs_BdGetLength</a>, <a class="el" href="group__emacps.html#gabadbd5215bb371a7f10f8bd1acc2db38">XEmacPs_BdRingAlloc()</a>, <a class="el" href="group__emacps.html#gafef8904055a06754515319a708fc8361">XEmacPs_BdRingFree()</a>, <a class="el" href="group__emacps.html#gae8a9b2d189549fd168b4a40c6967ac31">XEmacPs_BdRingFromHwRx()</a>, <a class="el" href="group__emacps.html#ga7deb944fa938960a3b45f0d8adf18108">XEmacPs_BdRingFromHwTx()</a>, <a class="el" href="group__emacps.html#gacbfaf8300ce76fa1853ee9b1a113fbd0">XEmacPs_BdRingToHw()</a>, <a class="el" href="group__emacps.html#ga18471d5e176b2435c17037876860c9aa">XEmacPs_BdSetAddressRx</a>, <a class="el" href="group__emacps.html#gab66b941886b7e22b032abfeead5421a6">XEmacPs_BdSetAddressTx</a>, <a class="el" href="group__emacps.html#ga6d15c187fa133cb4b74489d60ad08c39">XEmacPs_BdSetLast</a>, <a class="el" href="group__emacps.html#gada34a849a6d7387c1310a498e8a11857">XEmacPs_BdSetLength</a>, <a class="el" href="group__emacps.html#ga95e9639f87d4d6e74ff5902771cc1c10">XEmacPs_BdSetStatus</a>, <a class="el" href="group__emacps.html#ga3a9ca7f19435d3608d1877ea06e5f2f8">XEMACPS_CMPA_ENABLE_MASK</a>, <a class="el" href="group__emacps.html#ga9b765b658406c81b1c8bb96d5c171a1e">XEmacPs_GetRxFrameSize</a>, <a class="el" href="group__emacps.html#gaa0203004a3b96feae1af6239417db4c3">XEmacPs_GetRxRing</a>, <a class="el" href="group__emacps.html#gac64d6f46e958baa7230be816b98c2df9">XEmacPs_GetTxRing</a>, <a class="el" href="group__emacps.html#ga70ef56eede3eee5f94fdfcc5e07daddc">XEMACPS_RECV</a>, <a class="el" href="group__emacps.html#ga30530a26d3520ea536ea87d006b04967">XEMACPS_RXBUF_NEW_MASK</a>, <a class="el" href="group__emacps.html#gacf90466ed59c02e46fc2ff262707fac1">XEMACPS_RXBUF_WRAP_MASK</a>, <a class="el" href="group__emacps.html#ga3bfee75b86c3c4b3cde11d1156c3d9bc">XEMACPS_SEND</a>, <a class="el" href="group__emacps.html#ga41c143d1143d61bb5c198f0e35843d7c">XEmacPs_SetQueuePtr()</a>, <a class="el" href="group__emacps.html#gabe875d0d136e28a166363d66dd7b7f27">XEmacPs_Start()</a>, <a class="el" href="group__emacps.html#gaf27b057022a2e97201f6d55d61d4a3da">XEmacPs_Stop()</a>, <a class="el" href="group__emacps.html#gaea55959275d2be9d140c99364aee6795">XEmacPs_Transmit</a>, <a class="el" href="group__emacps.html#ga75ad4f14dd0c935cd641c44bc5afef8a">XEMACPS_TXBUF_USED_MASK</a>, <a class="el" href="group__emacps.html#gad331bc6634381e6f5e2e72a8fa7f8a2c">XEMACPS_TXBUF_WRAP_MASK</a>, and <a class="el" href="group__emacps.html#ga372948c9677f6859b62e87504fb2460e">XEmacPs_WriteReg</a>.</p>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is the main function for the EmacPs example. </p>
-<p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_emac_ps___config.html#a96d8fef7452fcad2bb1831e39751bb96">XEmacPs_Config::BaseAddress</a>, <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample()</a>, <a class="el" href="xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83">EmacPsUtilErrorTrap()</a>, <a class="el" href="group__emacps.html#ga81a4d6db864dea35b8ddd690f7615539">XEmacPs_ReadReg</a>, <a class="el" href="group__emacps.html#ga8d870f6e6c98d4167bbb62cc77d4bffc">XEMACPS_RXCNT_OFFSET</a>, and <a class="el" href="group__emacps.html#ga055a9950b73df4a273141825d37b7613">XEMACPS_TXCNT_OFFSET</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a938f994841cac409516f536c1f5ab844"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XEmacPsClkSetup </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__emacps.html#ga7510da8ed2cb292c5abdbcc18cc26c67">XEmacPs</a> *&#160;</td>
-          <td class="paramname"><em>EmacPsInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>EmacPsIntrId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sets up the clock divisors for 1000Mbps. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">EmacPsInstancePtr</td><td>is a pointer to the instance of the EmacPs driver. </td></tr>
-    <tr><td class="paramname">EmacPsIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;EMACPS_instance&gt;_INTR value from xparameters.h. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_emac_ps___config.html#a96d8fef7452fcad2bb1831e39751bb96">XEmacPs_Config::BaseAddress</a>, <a class="el" href="struct_x_emac_ps___config.html#aa7353981b162abb41659a99ddac917c0">XEmacPs_Config::S1GDiv0</a>, and <a class="el" href="struct_x_emac_ps___config.html#a7a8a5366314af6d68f2806823f156b28">XEmacPs_Config::S1GDiv1</a>.</p>
-
-<p>Referenced by <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">EmacPsDmaIntrExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

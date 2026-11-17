@@ -17,12 +17,14 @@
     <member refid="struct_x_csi2_tx_ss___config_1a39ee5c2c2b06e24f427cf41d4fc9de81" kind="variable"><name>LanesPresent</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1a339b1d280f88626ea2fd021a9895b4c3" kind="variable"><name>DataType</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1aa783a6306cb5026589bc4ea1b100367d" kind="variable"><name>PixelFormat</name></member>
+    <member refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" kind="variable"><name>NumVC</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1a941dcb9a60baa61a24bcb28260689183" kind="variable"><name>CsiBuffDepth</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1a8df2677fd796d73da2e0c226ef1d1ef8" kind="variable"><name>DphyLineRate</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" kind="variable"><name>IsDphyRegIntfcPresent</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" kind="variable"><name>FEGenEnabled</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kind="variable"><name>CsiInfo</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kind="variable"><name>DphyInfo</name></member>
+    <member refid="struct_x_csi2_tx_ss___config_1a3913f0a45b30f7856c7a19e162e191db" kind="variable"><name>MipiTxPhyInfo</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1afc1eafac9bf39140ffc38b5e4e9c0a81" kind="variable"><name>IntrId</name></member>
     <member refid="struct_x_csi2_tx_ss___config_1aa597a5975c0b640f59b6f8ef042200a0" kind="variable"><name>IntrParent</name></member>
   </compound>
@@ -34,10 +36,9 @@
   <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
   </compound>
   <compound refid="xcsi2txss_8c" kind="file"><name>xcsi2txss.c</name>
-    <member refid="group__csi2txss_1ga0a6b94b75ef141bbd5c00263a5bc2a33" kind="variable"><name>Csi2TxSsSubCores</name></member>
+    <member refid="group__csi2txss_1ga6678474df44ca687062b7b63cbc4db01" kind="variable"><name>Csi2TxSsSubCores</name></member>
     <member refid="group__csi2txss_1gae5c0290d5d523b452f968e95975ffcc7" kind="function"><name>Csi2TxSs_GetIncludedSubCores</name></member>
     <member refid="group__csi2txss_1gaca3e06ebaa43e3f839de620bf24ff1c5" kind="function"><name>Csi2TxSs_SubCoreInitCsi</name></member>
-    <member refid="group__csi2txss_1ga24360c041fd3f49f3e6bdb70bc566787" kind="function"><name>Csi2TxSs_ComputeSubCoreAbsAddr</name></member>
     <member refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" kind="function"><name>XCsi2TxSs_CfgInitialize</name></member>
     <member refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" kind="function"><name>XCsi2TxSs_Configure</name></member>
     <member refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" kind="function"><name>XCsi2TxSs_Activate</name></member>
@@ -68,6 +69,18 @@
     <member refid="group__csi2txss_1ga190abad2793270fd82fc1fa7fbcd5271" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC1</name></member>
     <member refid="group__csi2txss_1ga896017caa5868dbc4d9157d3f720b49d" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC2</name></member>
     <member refid="group__csi2txss_1ga5728a0b286be31d56815f3e45efecfff" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC3</name></member>
+    <member refid="group__csi2txss_1gae752b3b92c5b0a249b2b0d7a7732f38d" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC4</name></member>
+    <member refid="group__csi2txss_1ga4e1c44a9b18847b81018727589405a21" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC5</name></member>
+    <member refid="group__csi2txss_1ga99d9bde4c3c67a4c8f7282dcb1f599c0" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC6</name></member>
+    <member refid="group__csi2txss_1gaaade0fb1bc9b00e90822348b1871edd4" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC7</name></member>
+    <member refid="group__csi2txss_1gaac1784656e3437801f363e8856494541" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC8</name></member>
+    <member refid="group__csi2txss_1ga163ff112828e482b65ef8e060969c3ef" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC9</name></member>
+    <member refid="group__csi2txss_1gac87267baec2fd724790e8854ca09ebff" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC10</name></member>
+    <member refid="group__csi2txss_1ga40c862e25f7287b2c1c26fbceb3d72f0" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC11</name></member>
+    <member refid="group__csi2txss_1gacc8fc44f1b8be59695e0faf48ccd8c6e" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC12</name></member>
+    <member refid="group__csi2txss_1ga6268f9e8697db71eecb60dfc622b23f1" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC13</name></member>
+    <member refid="group__csi2txss_1ga3d6aa0af59a055f25863b14a59ef97e1" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC14</name></member>
+    <member refid="group__csi2txss_1ga519a81d7399b6e84dd9da21a66f53b67" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC15</name></member>
     <member refid="group__csi2txss_1ga0358e0b4a1ea75cf0460cd4653a9c76e" kind="define"><name>XCSI2TXSS_H_</name></member>
     <member refid="group__csi2txss_1ga0aa4e979c2884f13f6e14a7452cef0b4" kind="define"><name>XCSI2TXSS_MAX_VC</name></member>
     <member refid="group__csi2txss_1gac274c98cce4cb48b2d64aaa3934f206a" kind="enum"><name>XCsi2TxSS_LCStatus</name></member>
@@ -75,7 +88,7 @@
     <member refid="group__csi2txss_1ggac274c98cce4cb48b2d64aaa3934f206aa0dd15c2dbaf411e54f101efa0de9487e" kind="enumvalue"><name>XCSI2TXSS_LC_MORE_LINES</name></member>
     <member refid="group__csi2txss_1gab496daf9261251dce5a59215a4c8b77a" kind="typedef"><name>XCsi2TxSs_Callback</name></member>
     <member refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" kind="function"><name>XCsi2TxSs_LookupConfig</name></member>
-    <member refid="group__csi2txss_1ga27c89281844aeddd73fec0e30044013e" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
+    <member refid="group__csi2txss_1gae0ca4ef82a0c7ef7a575b30d34299069" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
     <member refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" kind="function"><name>XCsi2TxSs_CfgInitialize</name></member>
     <member refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" kind="function"><name>XCsi2TxSs_Configure</name></member>
     <member refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" kind="function"><name>XCsi2TxSs_Activate</name></member>
@@ -107,6 +120,11 @@
     <member refid="group__csi2txss_1gae2255b8a9b66fb2ffcd47a850fe86033" kind="define"><name>XCSI2TXSS_LCSTAT_VC1_IER_MASK</name></member>
     <member refid="group__csi2txss_1gaf36b9b055a516bad077aaee0a6a69de6" kind="define"><name>XCSI2TXSS_LCSTAT_VC2_IER_MASK</name></member>
     <member refid="group__csi2txss_1ga10c10663e214c399ac840273e05714a6" kind="define"><name>XCSI2TXSS_LCSTAT_VC3_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga8d56f353d397eb776e697d34c0209db4" kind="define"><name>XCSI2TXSS_LCSTAT_VC4_IER_MASK</name></member>
+    <member refid="group__csi2txss_1gad6b5aa57ab6a9214854039c327b63d32" kind="define"><name>XCSI2TXSS_LCSTAT_VC5_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga8b3b70040d35fb09e85a914363e1e8bd" kind="define"><name>XCSI2TXSS_LCSTAT_VC6_IER_MASK</name></member>
+    <member refid="group__csi2txss_1gaebf7af476419d3269aa2cb0d8ed3a5bf" kind="define"><name>XCSI2TXSS_LCSTAT_VC7_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga9225df3ea7d283068731243552589992" kind="define"><name>XCSI2TXSS_LCSTAT_VC4_7_IER_MASK</name></member>
     <member refid="group__csi2txss_1gaa32921b293f53976fcdf00c417d7376c" kind="function"><name>XCsi2TxSs_ReadReg</name></member>
     <member refid="group__csi2txss_1gad02a74fc64d39691117b3f2310788e4f" kind="function"><name>XCsi2TxSs_WriteReg</name></member>
   </compound>
@@ -148,7 +166,7 @@
   <compound refid="xcsi2txss__sinit_8c" kind="file"><name>xcsi2txss_sinit.c</name>
     <member refid="group__csi2txss_1ga61a912cfec8d51e97c134ef733d222f0" kind="variable"><name>XCsi2TxSs_ConfigTable</name></member>
     <member refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" kind="function"><name>XCsi2TxSs_LookupConfig</name></member>
-    <member refid="group__csi2txss_1ga27c89281844aeddd73fec0e30044013e" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
+    <member refid="group__csi2txss_1gae0ca4ef82a0c7ef7a575b30d34299069" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
   </compound>
   <compound refid="group__csi2txss" kind="group"><name>csi2txss</name>
     <member refid="group__csi2txss_1gad57b90667b7dffdf8110c6cc3a359ea6" kind="define"><name>XCSI2TXSS_CCM</name></member>
@@ -163,18 +181,29 @@
     <member refid="group__csi2txss_1ga190abad2793270fd82fc1fa7fbcd5271" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC1</name></member>
     <member refid="group__csi2txss_1ga896017caa5868dbc4d9157d3f720b49d" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC2</name></member>
     <member refid="group__csi2txss_1ga5728a0b286be31d56815f3e45efecfff" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC3</name></member>
+    <member refid="group__csi2txss_1gae752b3b92c5b0a249b2b0d7a7732f38d" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC4</name></member>
+    <member refid="group__csi2txss_1ga4e1c44a9b18847b81018727589405a21" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC5</name></member>
+    <member refid="group__csi2txss_1ga99d9bde4c3c67a4c8f7282dcb1f599c0" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC6</name></member>
+    <member refid="group__csi2txss_1gaaade0fb1bc9b00e90822348b1871edd4" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC7</name></member>
+    <member refid="group__csi2txss_1gaac1784656e3437801f363e8856494541" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC8</name></member>
+    <member refid="group__csi2txss_1ga163ff112828e482b65ef8e060969c3ef" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC9</name></member>
+    <member refid="group__csi2txss_1gac87267baec2fd724790e8854ca09ebff" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC10</name></member>
+    <member refid="group__csi2txss_1ga40c862e25f7287b2c1c26fbceb3d72f0" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC11</name></member>
+    <member refid="group__csi2txss_1gacc8fc44f1b8be59695e0faf48ccd8c6e" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC12</name></member>
+    <member refid="group__csi2txss_1ga6268f9e8697db71eecb60dfc622b23f1" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC13</name></member>
+    <member refid="group__csi2txss_1ga3d6aa0af59a055f25863b14a59ef97e1" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC14</name></member>
+    <member refid="group__csi2txss_1ga519a81d7399b6e84dd9da21a66f53b67" kind="define"><name>XCSI2TXSS_HANDLER_LCERRVC15</name></member>
     <member refid="group__csi2txss_1gac274c98cce4cb48b2d64aaa3934f206a" kind="enum"><name>XCsi2TxSS_LCStatus</name></member>
     <member refid="group__csi2txss_1ggac274c98cce4cb48b2d64aaa3934f206aaef3595258b04f88e499281d81b4cb26a" kind="enumvalue"><name>XCSI2TXSS_LC_LESS_LINES</name></member>
     <member refid="group__csi2txss_1ggac274c98cce4cb48b2d64aaa3934f206aa0dd15c2dbaf411e54f101efa0de9487e" kind="enumvalue"><name>XCSI2TXSS_LC_MORE_LINES</name></member>
     <member refid="group__csi2txss_1gab496daf9261251dce5a59215a4c8b77a" kind="typedef"><name>XCsi2TxSs_Callback</name></member>
-    <member refid="group__csi2txss_1ga0a6b94b75ef141bbd5c00263a5bc2a33" kind="variable"><name>Csi2TxSsSubCores</name></member>
+    <member refid="group__csi2txss_1ga6678474df44ca687062b7b63cbc4db01" kind="variable"><name>Csi2TxSsSubCores</name></member>
     <member refid="group__csi2txss_1ga61a912cfec8d51e97c134ef733d222f0" kind="variable"><name>XCsi2TxSs_ConfigTable</name></member>
     <member refid="group__csi2txss_1gad56ea00127fff1bba8faf14233c46dab" kind="variable"><name>Csi2TxSsInst</name></member>
     <member refid="group__csi2txss_1gaa16347b525ce013cc8fc9512f0432e7a" kind="variable"><name>interrupt_counts</name></member>
     <member refid="group__csi2txss_1gad56ea00127fff1bba8faf14233c46dab" kind="variable"><name>Csi2TxSsInst</name></member>
     <member refid="group__csi2txss_1gae5c0290d5d523b452f968e95975ffcc7" kind="function"><name>Csi2TxSs_GetIncludedSubCores</name></member>
     <member refid="group__csi2txss_1gaca3e06ebaa43e3f839de620bf24ff1c5" kind="function"><name>Csi2TxSs_SubCoreInitCsi</name></member>
-    <member refid="group__csi2txss_1ga24360c041fd3f49f3e6bdb70bc566787" kind="function"><name>Csi2TxSs_ComputeSubCoreAbsAddr</name></member>
     <member refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" kind="function"><name>XCsi2TxSs_CfgInitialize</name></member>
     <member refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" kind="function"><name>XCsi2TxSs_Configure</name></member>
     <member refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" kind="function"><name>XCsi2TxSs_Activate</name></member>
@@ -192,7 +221,7 @@
     <member refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" kind="function"><name>XCsi2TxSs_SetLineCountForVC</name></member>
     <member refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" kind="function"><name>XCsi2TxSs_GetLineCountForVC</name></member>
     <member refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" kind="function"><name>XCsi2TxSs_LookupConfig</name></member>
-    <member refid="group__csi2txss_1ga27c89281844aeddd73fec0e30044013e" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
+    <member refid="group__csi2txss_1gae0ca4ef82a0c7ef7a575b30d34299069" kind="function"><name>XCsi2TxSs_GetDrvIndex</name></member>
     <member refid="group__csi2txss_1ga55777b4afc7abf235debe2d797969577" kind="function"><name>XCsi2TxSs_SelfTest</name></member>
     <member refid="group__csi2txss_1ga8d8dd9ec87494c3d3b90dcafd05a6028" kind="function"><name>XCsi2TxSs_IntrHandler</name></member>
     <member refid="group__csi2txss_1ga05e607ece4b52c59fa349f5f2e42976f" kind="function"><name>XCsi2TxSs_IntrDisable</name></member>
@@ -219,6 +248,11 @@
     <member refid="group__csi2txss_1gae2255b8a9b66fb2ffcd47a850fe86033" kind="define"><name>XCSI2TXSS_LCSTAT_VC1_IER_MASK</name></member>
     <member refid="group__csi2txss_1gaf36b9b055a516bad077aaee0a6a69de6" kind="define"><name>XCSI2TXSS_LCSTAT_VC2_IER_MASK</name></member>
     <member refid="group__csi2txss_1ga10c10663e214c399ac840273e05714a6" kind="define"><name>XCSI2TXSS_LCSTAT_VC3_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga8d56f353d397eb776e697d34c0209db4" kind="define"><name>XCSI2TXSS_LCSTAT_VC4_IER_MASK</name></member>
+    <member refid="group__csi2txss_1gad6b5aa57ab6a9214854039c327b63d32" kind="define"><name>XCSI2TXSS_LCSTAT_VC5_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga8b3b70040d35fb09e85a914363e1e8bd" kind="define"><name>XCSI2TXSS_LCSTAT_VC6_IER_MASK</name></member>
+    <member refid="group__csi2txss_1gaebf7af476419d3269aa2cb0d8ed3a5bf" kind="define"><name>XCSI2TXSS_LCSTAT_VC7_IER_MASK</name></member>
+    <member refid="group__csi2txss_1ga9225df3ea7d283068731243552589992" kind="define"><name>XCSI2TXSS_LCSTAT_VC4_7_IER_MASK</name></member>
     <member refid="group__csi2txss_1ga16136319756e4257975f235e2d6ed24e" kind="define"><name>XINTC_DEVICE_ID</name></member>
     <member refid="group__csi2txss_1ga8a4d333ab2fdfc0b4e13e3ae9598bd06" kind="define"><name>XINTC_CSI2TXSS_CSI_INTERRUPT_ID</name></member>
     <member refid="group__csi2txss_1gab7c5e8a4e1c2ac814050c57d1d5c6f50" kind="define"><name>XINTC</name></member>

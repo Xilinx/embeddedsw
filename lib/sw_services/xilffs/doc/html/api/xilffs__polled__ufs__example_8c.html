@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('xilffs__polled__ufs__example_8c.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -98,37 +99,198 @@ $(document).ready(function(){initNavTree('xilffs__polled__ufs__example_8c.html',
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilffs_polled_ufs_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><dl class="section note"><dt>Note</dt><dd>This example uses file system with UFS to write to and read from an UFS device in polled mode. To test this example File System should not be in Read Only mode. To test this example USE_MKFS option should be true.</dd></dl>
-<p>This example was tested using UFS device.</p>
-<p>To test with different logical drives, drive number should be mentioned in both FileName and Path variables. By default, it will take drive 0 if drive number is not mentioned in the FileName variable. For example, to test logical drive 2 FileName = "2:/&lt;file_name&gt;" and Path = "2:/" Similarly to test logical drive N, FileName = "N:/&lt;file_name&gt;" and Path = "N:/"</p>
-<p>None.</p>
+<div class="textblock"><p>Writes to and reads from a UFS device through the file system. </p>
+<dl class="section note"><dt>Note</dt><dd>This example uses the file system with Universal Flash Storage (UFS) to write to and read from a UFS device in polled mode. To test this example, the file system must not be in read-only mode. To test this example, the USE_MKFS option must be true. <br/>
+<br/>
+ This example was tested using a UFS device. <br/>
+<br/>
+ To test with different logical drives, specify the drive number in both the FileName and Path variables. By default, the example uses drive 0 if the FileName variable does not specify a drive number. For example, to test logical drive 2, set FileName = "2:/&lt;file_name&gt;" and Path = "2:/". Similarly, to test logical drive N, set FileName = "N:/&lt;file_name&gt;" and Path = "N:/".</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who Date     Changes
 </p>
 <hr/>
 <p>
- 1.0   sk  07/11/24 First release</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+ 1.0   sk  07/11/24 First release
+ 5.7   vn  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;ff.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
 <code>#include &quot;xufspsxc.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a69a1ca3626fe5b2d526f271339527bb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a69a1ca3626fe5b2d526f271339527bb3">ENABLE_SWITCH_BLUN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a69a1ca3626fe5b2d526f271339527bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to nonzero to switch the boot LUN and repeat the test.  <a href="#a69a1ca3626fe5b2d526f271339527bb3">More...</a><br/></td></tr>
+<tr class="separator:a69a1ca3626fe5b2d526f271339527bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab946e2e7f7679350627acfded8e2658b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#ab946e2e7f7679350627acfded8e2658b">TEST</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ab946e2e7f7679350627acfded8e2658b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base value used to generate the test data.  <a href="#ab946e2e7f7679350627acfded8e2658b">More...</a><br/></td></tr>
+<tr class="separator:ab946e2e7f7679350627acfded8e2658b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Macros to get the logical drive numbers for SD/eMMC/UFS</div></td></tr>
+<tr class="memitem:a2ef8b333f9ff0f237706414f6815a0a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a2ef8b333f9ff0f237706414f6815a0a2">SD_DRV_NUM</a>(SDPdrv, Partition)&#160;&#160;&#160;(SDPdrv)</td></tr>
+<tr class="memdesc:a2ef8b333f9ff0f237706414f6815a0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logical drive number of an SD/eMMC device.  <a href="#a2ef8b333f9ff0f237706414f6815a0a2">More...</a><br/></td></tr>
+<tr class="separator:a2ef8b333f9ff0f237706414f6815a0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc98606ea62057f571db375be2501f7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#afc98606ea62057f571db375be2501f7f">UFS_DRV_NUM</a>(LUN, Partition)&#160;&#160;&#160;(LUN + 3)</td></tr>
+<tr class="memdesc:afc98606ea62057f571db375be2501f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logical drive number of a UFS LUN.  <a href="#afc98606ea62057f571db375be2501f7f">More...</a><br/></td></tr>
+<tr class="separator:afc98606ea62057f571db375be2501f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bd8b72ccad45f38f5b454ffbcd40179"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a9bd8b72ccad45f38f5b454ffbcd40179">UFS_BLUN_DRV_NUM</a>(Partition)&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a9bd8b72ccad45f38f5b454ffbcd40179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logical drive number of the UFS boot LUN.  <a href="#a9bd8b72ccad45f38f5b454ffbcd40179">More...</a><br/></td></tr>
+<tr class="separator:a9bd8b72ccad45f38f5b454ffbcd40179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a205ea75d4bbf0295d75ff8ad42683c4d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a205ea75d4bbf0295d75ff8ad42683c4d">FfsUfsPolledExample</a> (void)</td></tr>
-<tr class="memdesc:a205ea75d4bbf0295d75ff8ad42683c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">File system example using UFS driver to write to and read from an UFS card in polled mode.  <a href="#a205ea75d4bbf0295d75ff8ad42683c4d">More...</a><br/></td></tr>
+<tr class="memdesc:a205ea75d4bbf0295d75ff8ad42683c4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to and reads from a UFS device through the file system.  <a href="#a205ea75d4bbf0295d75ff8ad42683c4d">More...</a><br/></td></tr>
 <tr class="separator:a205ea75d4bbf0295d75ff8ad42683c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the UFS example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the UFS example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_m_k_f_s___p_a_r_m.html">MKFS_PARM</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__ufs__example_8c.html#a8215107e5aafac2ca35ca5c5d42ec0c3">mkfs_parm</a></td></tr>
+<tr class="memdesc:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format parameters passed to f_mkfs().  <a href="#a8215107e5aafac2ca35ca5c5d42ec0c3">More...</a><br/></td></tr>
+<tr class="separator:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a69a1ca3626fe5b2d526f271339527bb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENABLE_SWITCH_BLUN&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set to nonzero to switch the boot LUN and repeat the test. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2ef8b333f9ff0f237706414f6815a0a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_DRV_NUM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">SDPdrv, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Partition&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(SDPdrv)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the logical drive number of an SD/eMMC device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">SDPdrv</td><td>SD/eMMC physical drive number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Partition</td><td>Partition number. Not used when multi-partition support is disabled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Logical drive number.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: int <a class="el" href="xilffs__polled__ufs__example_8c.html#a2ef8b333f9ff0f237706414f6815a0a2" title="Returns the logical drive number of an SD/eMMC device. ">SD_DRV_NUM(int SDPdrv, int Partition)</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab946e2e7f7679350627acfded8e2658b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base value used to generate the test data. </p>
+
+<p>Referenced by <a class="el" href="xilffs__polled__ufs__example_8c.html#a205ea75d4bbf0295d75ff8ad42683c4d">FfsUfsPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9bd8b72ccad45f38f5b454ffbcd40179"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UFS_BLUN_DRV_NUM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Partition</td><td>)</td>
+          <td>&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the logical drive number of the UFS boot LUN. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Partition</td><td>Partition number. Not used when multi-partition support is disabled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Logical drive number for UFS boot LUN access.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: int <a class="el" href="xilffs__polled__ufs__example_8c.html#a9bd8b72ccad45f38f5b454ffbcd40179" title="Returns the logical drive number of the UFS boot LUN. ">UFS_BLUN_DRV_NUM(int Partition)</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afc98606ea62057f571db375be2501f7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UFS_DRV_NUM</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">LUN, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Partition&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(LUN + 3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the logical drive number of a UFS LUN. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">LUN</td><td>UFS logical unit number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Partition</td><td>Partition number. Not used when multi-partition support is disabled.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Logical drive number for UFS LUN access.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: int <a class="el" href="xilffs__polled__ufs__example_8c.html#afc98606ea62057f571db375be2501f7f" title="Returns the logical drive number of a UFS LUN. ">UFS_DRV_NUM(int LUN, int Partition)</a> </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a205ea75d4bbf0295d75ff8ad42683c4d"></a>
 <div class="memitem">
@@ -144,15 +306,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>File system example using UFS driver to write to and read from an UFS card in polled mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Writes to and reads from a UFS device through the file system. </p>
+<p>This file system example uses the UFS driver in polled mode.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
+
+<p>References <a class="el" href="xilffs__polled__example_8c.html#a8215107e5aafac2ca35ca5c5d42ec0c3">mkfs_parm</a>, and <a class="el" href="xilffs__polled__ufs__example_8c.html#ab946e2e7f7679350627acfded8e2658b">TEST</a>.</p>
 
 <p>Referenced by <a class="el" href="xilffs__polled__ufs__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -172,17 +330,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the UFS example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Calls the UFS example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
 <p>References <a class="el" href="xilffs__polled__ufs__example_8c.html#a205ea75d4bbf0295d75ff8ad42683c4d">FfsUfsPolledExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a8215107e5aafac2ca35ca5c5d42ec0c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_m_k_f_s___p_a_r_m.html">MKFS_PARM</a> mkfs_parm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format parameters passed to f_mkfs(). </p>
 
 </div>
 </div>

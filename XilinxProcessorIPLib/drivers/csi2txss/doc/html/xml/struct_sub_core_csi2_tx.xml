@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="197" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_sub_core_csi2_tx_1acaae9fd3ab15c0b099b352b20cd064d7" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -23,19 +23,19 @@
         <argsstring></argsstring>
         <name>AddrOffset</name>
         <briefdescription>
-        </briefdescription>
+<para>Address offset of the sub-core. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="203" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="217" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Sub-Core Configuration Table. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="196" bodyend="205"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="214" bodyend="218"/>
     <listofallmembers>
       <member refid="struct_sub_core_csi2_tx_1acaae9fd3ab15c0b099b352b20cd064d7" prot="public" virt="non-virtual"><scope>SubCoreCsi2Tx</scope><name>AddrOffset</name></member>
       <member refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" prot="public" virt="non-virtual"><scope>SubCoreCsi2Tx</scope><name>IsPresent</name></member>

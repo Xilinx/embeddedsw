@@ -4,9 +4,59 @@
     <compoundname>xasu_keymanager_common_apis</compoundname>
     <title>KeyManager Common APIs</title>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga3ff4072c61a5e6295995ec0ca6300a54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
-        <definition>s32 XAsu_KmValidateVaultParams</definition>
+        <definition>static s32 XAsu_KmGetSlhdsaKeyLengths</definition>
+        <argsstring>(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmGetSlhdsaKeyLengths</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resolves the SLH-DSA public and private key lengths of a parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para>Both follow the FIPS 205 security parameter n of the set, the public key being 2n bytes and the secret key 4n, so no single &quot;key length&quot; describes the pair and each length is returned separately. The two sets sharing a security strength differ only in their hash family, so they resolve to the same pair of lengths.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set (see <ref refid="xasu__slhdsainfo_8h" kindref="compound">xasu_slhdsainfo.h</ref>). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output public key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output private key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the parameter set is supported and both lengths are returned.</para></listitem><listitem><para>XST_FAILURE, if a pointer is NULL or the parameter set is unsupported. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="377" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga87bd9234243810cc6f13f8e759901170" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmValidateVaultParams</definition>
         <argsstring>(const XAsu_KeyManagerParams *KmParamsPtr)</argsstring>
         <name>XAsu_KmValidateVaultParams</name>
         <param>
@@ -14,14 +64,14 @@
           <declname>KmParamsPtr</declname>
         </param>
         <briefdescription>
-<para>This function validates input parameters for keymanager. </para>        </briefdescription>
+<para>Validate the output destination of a key generate request, and the key metadata when the generated key is stored in the vault. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>KmParamsPtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref> structure that holds the input parameters for Key manager</para></parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref> structure.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -29,18 +79,8 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validate at least one output destination is provided.</para><para>Validate key metadata. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="58" bodyend="83"/>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" compoundref="xasu__keymanagerinfo_8h" startline="173">XAsu_KeyManagerParams::KeyObjectAddr</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" compoundref="xasu__keymanager__common_8c" startline="96" endline="115">XAsu_KmValidateKeyMetadata</references>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+<para>Require exactly one destination; the export buffer length is checked by the caller.</para><para>Validate metadata when storing generated key into vault. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="67" bodyend="92"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -68,13 +108,106 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="96" bodyend="115"/>
-        <references refid="struct_x_asu___key_manager_key_metadata_1ab24bc266d1169f4e3362310f08bfe67c" compoundref="xasu__keymanagerinfo_8h" startline="159">XAsu_KeyManagerKeyMetadata::KeyUseCase</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a3e02463adde858b8f4d637a88e247e68" compoundref="xasu__keymanagerinfo_8h" startline="165">XAsu_KeyManagerKeyMetadata::UsageCount</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a0bb7e1beccfef6947420b1f0672e54ad" compoundref="xasu__keymanagerinfo_8h" startline="158">XAsu_KeyManagerKeyMetadata::VaultId</references>
-        <references refid="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" compoundref="xasu__keymanagerinfo_8h" startline="74">XASU_KM_MAX_VAULTS</references>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="105" bodyend="126"/>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a3063301d7a110770365f39d08f05f37b" compoundref="xasu__keymanagerinfo_8h" startline="286">XAsu_KeyManagerKeyMetadata::CompositeKeyId</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab24bc266d1169f4e3362310f08bfe67c" compoundref="xasu__keymanagerinfo_8h" startline="302">XAsu_KeyManagerKeyMetadata::KeyUseCase</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a3e02463adde858b8f4d637a88e247e68" compoundref="xasu__keymanagerinfo_8h" startline="313">XAsu_KeyManagerKeyMetadata::UsageCount</references>
+        <references refid="xasu__keymanagerinfo_8h_1acb7c635bf8df43b72fd35e1384f2f6b5" compoundref="xasu__keymanagerinfo_8h" startline="473">XASU_KM_GET_VAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" compoundref="xasu__keymanagerinfo_8h" startline="132">XASU_KM_MAX_VAULTS</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga22b61966ec11a3311f1a63a009c2a3fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateKeyAttributes</definition>
+        <argsstring>(u8 KeyType, u8 KeyAttributes)</argsstring>
+        <name>XAsu_KmValidateKeyAttributes</name>
+        <param>
+          <type>u8</type>
+          <declname>KeyType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>KeyAttributes</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the key type and its key attributes field. </para>        </briefdescription>
+        <detaileddescription>
+<para>It rejects a key type that has no storable sub-vault (invalid or unknown values) and then validates the key attributes against the key type.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key type identifier. May include the wrapped-key bit (XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before comparing against the sub-vault identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAttributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key attributes value from the key metadata.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the key attributes are valid for the given key type.</para></listitem><listitem><para>XST_FAILURE, if the key attributes are invalid or the key type has no storable sub-vault. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Reject a key type that does not map to a storable sub-vault. The sub-vault IDs run without gaps from XASU_AES_SUBVAULT_ID up to XASU_INVALID_SUBVAULT_ID, so a single range check covers every storable type. Invalid sub-vaults are excluded by design; no caller of this helper stores or generates them.</para><para>For an RSA private key, the key attributes encode the private key format (prime/totient presence) and must not exceed the maximum supported value.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="144" bodyend="172"/>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82" compoundref="xasu__keymanagerinfo_8h" startline="277">XASU_INVALID_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" compoundref="xasu__keymanagerinfo_8h" startline="129">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</references>
+        <references refid="group__xasu__common__defs_1ga5540f33752eb5f4c0014b1dde7e4dfdb" compoundref="xasu__keymanagerinfo_8h" startline="244">XASU_KM_RSA_PVT_ATTR_MAX</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="267">XASU_RSA_PVT_SUBVAULT_ID</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga832747a743a59c2bf317704126639f43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateAesKeySplitUseCase</definition>
+        <argsstring>(u8 KeyType, u8 KeyUseCase)</argsstring>
+        <name>XAsu_KmValidateAesKeySplitUseCase</name>
+        <param>
+          <type>u8</type>
+          <declname>KeyType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>KeyUseCase</declname>
+        </param>
+        <briefdescription>
+<para>This function validates that an AES key does not combine the key split use case with any other use case. </para>        </briefdescription>
+        <detaileddescription>
+<para>The key type is taken as a parameter rather than read from the key metadata, because the Generate Key APIs pass their own key type. For any other key type the function returns success, since the key split use case bit is reserved there.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key type identifier. May include the wrapped-key bit (XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before comparing against the sub-vault identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyUseCase</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key use case value from the key metadata.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the key use case is valid for the given key type.</para></listitem><listitem><para>XST_FAILURE, if the key use case is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>For an AES key the key split use case is exclusive. A key which also carries another AES use case is usable as a key in its own right, which defeats the purpose of splitting it.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="192" bodyend="210"/>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" compoundref="xasu__keymanagerinfo_8h" startline="264">XASU_AES_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga4a7fd078db77274c2c3c114c65fd7a38" compoundref="xasu__keymanagerinfo_8h" startline="161">XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE</references>
+        <references refid="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" compoundref="xasu__keymanagerinfo_8h" startline="129">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -104,7 +237,7 @@
 <parametername>KeyType</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of key to be validated (see XASU_KM_*_KEYTYPE).</para></parameterdescription>
+<para>Type of key to be validated.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -113,27 +246,320 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate key length is either 128-bit or 256-bit for AES.</para><para>Validate IV length is non-zero and does not exceed maximum size.</para><para>Validate key length is non-zero and does not exceed maximum size for KDF/HMAC.</para><para>Validate key length based on compile-time RSA key generation configuration. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="129" bodyend="178"/>
-        <references refid="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" compoundref="xasu__aesinfo_8h" startline="51">XASU_AES_IV_SIZE_128BIT_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1gacba8eb852f5f9a4f3353036821898d6d" compoundref="xasu__aesinfo_8h" startline="55">XASU_AES_KEY_SIZE_128BIT_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga4b958ef7daa82ef0c73b7b1ef657e8af" compoundref="xasu__aesinfo_8h" startline="56">XASU_AES_KEY_SIZE_256BIT_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1gad523f02a44991223ddca95d225aaaaa2" compoundref="xasu__keymanager__common_8h" startline="40">XASU_KM_AES_KEYTYPE</references>
-        <references refid="group__xasu__keymanager__common__apis_1gabe851c3e1fa77f7b77f0df95ef268b85" compoundref="xasu__keymanager__common_8h" startline="41">XASU_KM_IV_KEYTYPE</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga0ca9bd91b3d5b9bf359f90ec2e951655" compoundref="xasu__keymanager__common_8h" startline="42">XASU_KM_KDF_HMAC_KEYTYPE</references>
-        <references refid="group__xasu__common__defs_1ga3154a859fe1e5133d7c92cffe3fae2e7" compoundref="xasu__keymanagerinfo_8h" startline="76">XASU_KM_KDF_HMAC_MAX_KEY_LENGTH</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaf8dea45fa4715b4b58bca204ee48b309" compoundref="xasu__keymanager__common_8h" startline="43">XASU_KM_RSA_KEYTYPE</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="224" bodyend="273"/>
+        <references refid="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" compoundref="xasu__aesinfo_8h" startline="52">XASU_AES_IV_SIZE_128BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gacba8eb852f5f9a4f3353036821898d6d" compoundref="xasu__aesinfo_8h" startline="56">XASU_AES_KEY_SIZE_128BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga4b958ef7daa82ef0c73b7b1ef657e8af" compoundref="xasu__aesinfo_8h" startline="57">XASU_AES_KEY_SIZE_256BIT_IN_BYTES</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" compoundref="xasu__keymanagerinfo_8h" startline="264">XASU_AES_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75" compoundref="xasu__keymanagerinfo_8h" startline="265">XASU_IV_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa86a082fadbc14b7ca3ff0a3cf16fea59" compoundref="xasu__keymanagerinfo_8h" startline="266">XASU_KDF_HMAC_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga3154a859fe1e5133d7c92cffe3fae2e7" compoundref="xasu__keymanagerinfo_8h" startline="147">XASU_KM_KDF_HMAC_MAX_KEY_LENGTH</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="267">XASU_RSA_PVT_SUBVAULT_ID</references>
         <references refid="group__xasu__common__defs_1gaf03b8841773c39c464177cccbe4a8169" compoundref="xasu__rsainfo_8h" startline="79">XRSA_2048_KEY_SIZE</references>
         <references refid="group__xasu__common__defs_1ga97f2cf29f335afb53c49908a5af0eea4" compoundref="xasu__rsainfo_8h" startline="80">XRSA_3072_KEY_SIZE</references>
         <references refid="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" compoundref="xasu__rsainfo_8h" startline="81">XRSA_4096_KEY_SIZE</references>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
       </memberdef>
-      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGetMldsaKeyLengths</definition>
+        <argsstring>(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmGetMldsaKeyLengths</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resolves the ML-DSA public and private key lengths of a parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para>Unlike the other algorithms, an ML-DSA key pair has no single &quot;key length&quot;: the two halves differ in size and neither is derivable from the other, so both are returned from the parameter set carried in the key attributes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ML-DSA parameter set (see XAsu_MldsaParamSet). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output public key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output private key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the parameter set is supported and both lengths are returned.</para></listitem><listitem><para>XST_FAILURE, if a pointer is NULL or the parameter set is unsupported. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="291" bodyend="316"/>
+        <references refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a39c230d309ff7e93566994c9d7866631" compoundref="xasu__mldsainfo_8h" startline="98">XASU_MLDSA_44</references>
+        <references refid="group__xasu__common__defs_1ga58ff90cd15906de697f530cde302b848" compoundref="xasu__mldsainfo_8h" startline="79">XASU_MLDSA_44_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1gad5a4eaff25b799e3d4074ce00d7a965a" compoundref="xasu__mldsainfo_8h" startline="78">XASU_MLDSA_44_PUB_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a1e863db7c5c991fcc1dc6bfde5dd1212" compoundref="xasu__mldsainfo_8h" startline="99">XASU_MLDSA_65</references>
+        <references refid="group__xasu__common__defs_1gaf947e2b8054732273a96052501830254" compoundref="xasu__mldsainfo_8h" startline="83">XASU_MLDSA_65_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1ga4bd0ca108c420fa07b70837e9ba8a7f2" compoundref="xasu__mldsainfo_8h" startline="82">XASU_MLDSA_65_PUB_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7" compoundref="xasu__mldsainfo_8h" startline="100">XASU_MLDSA_87</references>
+        <references refid="group__xasu__common__defs_1gad676510a9cad34fb53246461ce349c96" compoundref="xasu__mldsainfo_8h" startline="87">XASU_MLDSA_87_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1gad2bb3a7e61b958872f561f2d46c5263f" compoundref="xasu__mldsainfo_8h" startline="86">XASU_MLDSA_87_PUB_KEY_LEN</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGetMlkemKeyLengths</definition>
+        <argsstring>(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmGetMlkemKeyLengths</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resolves the ML-KEM encapsulation (public) and decapsulation (private) key lengths of a parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para>See XAsu_KmGetMldsaKeyLengths for why both lengths are returned rather than a single key length.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ML-KEM parameter set (see XAsu_MlkemParamSet). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output encapsulation key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output decapsulation key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the parameter set is supported and both lengths are returned.</para></listitem><listitem><para>XST_FAILURE, if a pointer is NULL or the parameter set is unsupported. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="333" bodyend="358"/>
+        <references refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" compoundref="xasu__mlkeminfo_8h" startline="91">XASU_MLKEM_1024</references>
+        <references refid="group__xasu__common__defs_1ga0df320506be0454831176b1972f4b456" compoundref="xasu__mlkeminfo_8h" startline="78">XASU_MLKEM_1024_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1gaa72129ca722086b1defcf1e239a8bcb5" compoundref="xasu__mlkeminfo_8h" startline="77">XASU_MLKEM_1024_PUB_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a0ad5702ab7daeec153b6a06e3c3ff585" compoundref="xasu__mlkeminfo_8h" startline="89">XASU_MLKEM_512</references>
+        <references refid="group__xasu__common__defs_1ga9fbdbf59cbdc8003a090c25cdc50b8f3" compoundref="xasu__mlkeminfo_8h" startline="70">XASU_MLKEM_512_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1ga81f6b407fcdb5b6026791127fb0521d3" compoundref="xasu__mlkeminfo_8h" startline="69">XASU_MLKEM_512_PUB_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a7b108c35fdbef643fe0774aca297538a" compoundref="xasu__mlkeminfo_8h" startline="90">XASU_MLKEM_768</references>
+        <references refid="group__xasu__common__defs_1ga46f1ece9a25d196cdca4f0fc6ccc0bd2" compoundref="xasu__mlkeminfo_8h" startline="74">XASU_MLKEM_768_PRIV_KEY_LEN</references>
+        <references refid="group__xasu__common__defs_1ga402ab624798d7d1662ef71cbdf3195f3" compoundref="xasu__mlkeminfo_8h" startline="73">XASU_MLKEM_768_PUB_KEY_LEN</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateMldsaKeyGenParams</definition>
+        <argsstring>(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmValidateMldsaKeyGenParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> *</type>
+          <declname>PqcParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the ML-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PqcParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> structure that holds the key generation parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output public key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output private key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if input validation is successful.</para></listitem><listitem><para>XST_FAILURE, if input validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>An explicit seed must come with its exact length and a zero address with a zero length, so that a request cannot name a seed the core would then draw for itself.</para><para>Resolve both key lengths from the parameter set.</para><para>Confirm the declared length is the public key length of that set. Both halves of the pair are sized from the parameter set, so the declared length is a cross-check rather than an input.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="420" bodyend="460"/>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="303">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" compoundref="xasu__keymanagerinfo_8h" startline="355">XAsu_KeyManagerPqcKeyGenParams::KmParams</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1ad6b140e0e579eae0305dd8e6888eb1ae" compoundref="xasu__keymanagerinfo_8h" startline="356">XAsu_KeyManagerPqcKeyGenParams::SeedAddr</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a8adf68477cd03347f62a17fbd7b1f10b" compoundref="xasu__keymanagerinfo_8h" startline="359">XAsu_KeyManagerPqcKeyGenParams::SeedLen</references>
+        <references refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</references>
+        <references refid="group__xasu__common__defs_1ga346034ee448f0d34558d05569f07bef2" compoundref="xasu__mldsainfo_8h" startline="74">XASU_MLDSA_KEYGEN_SEED_LEN</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" compoundref="xasu__keymanager_8c" startline="551" endline="613">XAsu_KmGenerateMldsaKeyPair</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateMlkemKeyGenParams</definition>
+        <argsstring>(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmValidateMlkemKeyGenParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> *</type>
+          <declname>PqcParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the ML-KEM key pair generation parameters against the contract both the client and the server hold the request to. </para>        </briefdescription>
+        <detaileddescription>
+<para>See XAsu_KmValidateMldsaKeyGenParams for why the key lengths are returned as well.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PqcParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> structure that holds the key generation parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output encapsulation key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output decapsulation key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if input validation is successful.</para></listitem><listitem><para>XST_FAILURE, if input validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>An explicit seed must come with its exact length and a zero address with a zero length, so that a request cannot name a seed the core would then draw for itself.</para><para>Resolve both key lengths from the parameter set.</para><para>Confirm the declared length is the encapsulation key length of that set. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="478" bodyend="514"/>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="303">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" compoundref="xasu__keymanagerinfo_8h" startline="355">XAsu_KeyManagerPqcKeyGenParams::KmParams</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1ad6b140e0e579eae0305dd8e6888eb1ae" compoundref="xasu__keymanagerinfo_8h" startline="356">XAsu_KeyManagerPqcKeyGenParams::SeedAddr</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a8adf68477cd03347f62a17fbd7b1f10b" compoundref="xasu__keymanagerinfo_8h" startline="359">XAsu_KeyManagerPqcKeyGenParams::SeedLen</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</references>
+        <references refid="group__xasu__common__defs_1gaaa8947c2c5ee124579961461e18b162e" compoundref="xasu__mlkeminfo_8h" startline="65">XASU_MLKEM_KEYGEN_SEED_LEN</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" compoundref="xasu__keymanager_8c" startline="641" endline="704">XAsu_KmGenerateMlkemKeyPair</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateSlhdsaKeyGenParams</definition>
+        <argsstring>(const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</argsstring>
+        <name>XAsu_KmValidateSlhdsaKeyGenParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___slhdsa_key_gen_params" kindref="compound">XAsu_SlhdsaKeyGenParams</ref> *</type>
+          <declname>KeyGenParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PubKeyLenPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PrivKeyLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the SLH-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyGenParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___slhdsa_key_gen_params" kindref="compound">XAsu_SlhdsaKeyGenParams</ref> structure that holds the key generation parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output public key length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKeyLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output secret key length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if input validation is successful.</para></listitem><listitem><para>XST_FAILURE, if input validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Both output addresses are mandatory. A zero address is treated as invalid rather than as a request to skip an output, because key generation always produces both keys.</para><para>Resolve both key lengths from the parameter set, which also confirms the parameter set is one of the supported sets.</para><para>Both declared output lengths must equal the key sizes of the requested parameter set. A client declaring any other length has not sized its buffers to the keys ASUFW is about to write.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="533" bodyend="575"/>
+        <references refid="struct_x_asu___slhdsa_key_gen_params_1a0d596dd10659db0ab1d9529bcbc751d1" compoundref="xasu__keymanagerinfo_8h" startline="371">XAsu_SlhdsaKeyGenParams::ParamSet</references>
+        <references refid="struct_x_asu___slhdsa_key_gen_params_1afc96376a69bb871298f58a68a231ec3c" compoundref="xasu__keymanagerinfo_8h" startline="368">XAsu_SlhdsaKeyGenParams::PkOutAddr</references>
+        <references refid="struct_x_asu___slhdsa_key_gen_params_1a55628c0f8fba9327655cfb7bce2f9694" compoundref="xasu__keymanagerinfo_8h" startline="370">XAsu_SlhdsaKeyGenParams::PkOutLen</references>
+        <references refid="struct_x_asu___slhdsa_key_gen_params_1a579de6584fbde781e4b1354ac8c523d8" compoundref="xasu__keymanagerinfo_8h" startline="367">XAsu_SlhdsaKeyGenParams::SkOutAddr</references>
+        <references refid="struct_x_asu___slhdsa_key_gen_params_1a5f0414e586d3d61997a7983791c4de1b" compoundref="xasu__keymanagerinfo_8h" startline="369">XAsu_SlhdsaKeyGenParams::SkOutLen</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gafec06548cd5090f8235c96b54f062e9c" compoundref="xasu__keymanager_8c" startline="727" endline="773">XAsu_KmGenerateSlhdsaKeyPair</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
         <definition>s32 XAsu_KmValidateKeyAddrNdKeyId</definition>
-        <argsstring>(u64 KeyCompAddr, u32 KeyId)</argsstring>
+        <argsstring>(u64 KeyCompAddr, u32 KeyCompLen, u64 KeyId)</argsstring>
         <name>XAsu_KmValidateKeyAddrNdKeyId</name>
         <param>
           <type>u64</type>
@@ -141,40 +567,52 @@
         </param>
         <param>
           <type>u32</type>
+          <declname>KeyCompLen</declname>
+        </param>
+        <param>
+          <type>u64</type>
           <declname>KeyId</declname>
         </param>
         <briefdescription>
-<para>This function validates that exactly one of KeyCompAddr or KeyId is provided. </para>        </briefdescription>
+<para>This function validates that exactly one of KeyCompAddr or KeyId is provided, and that a vault sourced component carries no length. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>It applies to anything the key vault holds, a key or an IV. KeyId is u64 so the same helper can test either a composite vault KeyId or a full 64-bit KeyIdAddr without truncating high addresses.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>KeyCompAddr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Address of the key component structure. </para></parameterdescription>
+<para>Address of the key or IV component, 0 when it is taken from the key vault. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyCompLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the key or IV component buffer in bytes. A component whose length the caller does not supply passes 0. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>KeyId</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Composite key identifier for vault-based key retrieval.</para></parameterdescription>
+<para>Composite vault key/IV identifier, or a destination KeyIdAddr when used by generate-parameter validation.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero.</para></listitem><listitem><para>XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source). </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero and a vault sourced component carries a zero length.</para></listitem><listitem><para>XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source), or if a vault sourced component carries a non-zero length. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Reject if both are zero (no source) or both are non-zero (ambiguous source). </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="192" bodyend="206"/>
-        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+<para>Reject if both are zero (no source) or both are non-zero (ambiguous source).</para><para>A component held in the key vault is not passed by the caller and the firmware takes its length from the stored metadata, so the request must leave the length at zero. Reject a left over length here, where the caller learns it supplied an invalid parameter, rather than letting the server range check a buffer at address zero.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="598" bodyend="622"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
         <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</referencedby>
-        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="151">XAsu_LmsValidateParams</referencedby>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
         <referencedby refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -201,76 +639,229 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validate at least one sub-vault has non-zero capacity. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="220" bodyend="249"/>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a890638e3675989aec90bb0a508d01753" compoundref="xasu__keymanagerinfo_8h" startline="189">XAsu_KeyManagerSubVaultParams::AESKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1aee2730f3db896dbf5993564c7218091b" compoundref="xasu__keymanagerinfo_8h" startline="195">XAsu_KeyManagerSubVaultParams::ECCPubKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a3bc5c9ba701fc64b91608cc2df778830" compoundref="xasu__keymanagerinfo_8h" startline="194">XAsu_KeyManagerSubVaultParams::ECCPvtKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a58e8d1900ea2219edeef5a1a185072e3" compoundref="xasu__keymanagerinfo_8h" startline="190">XAsu_KeyManagerSubVaultParams::IVVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a2b1aeda09bf402a4d58ad0a304666f3d" compoundref="xasu__keymanagerinfo_8h" startline="191">XAsu_KeyManagerSubVaultParams::KDFHmacKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a3afa39d6b7d6d50754670c986381bbe9" compoundref="xasu__keymanagerinfo_8h" startline="196">XAsu_KeyManagerSubVaultParams::LMSKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a7777cfe773824e8655d84003e0838039" compoundref="xasu__keymanagerinfo_8h" startline="199">XAsu_KeyManagerSubVaultParams::Restrictions</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a55acb505fd424df28ce324595521b7ee" compoundref="xasu__keymanagerinfo_8h" startline="193">XAsu_KeyManagerSubVaultParams::RSAPubKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a7acc476cd8f8dafc737b98e24906ff44" compoundref="xasu__keymanagerinfo_8h" startline="192">XAsu_KeyManagerSubVaultParams::RSAPvtKeyVaultCapacity</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1afd2f1e5657b67701519472624242c60b" compoundref="xasu__keymanagerinfo_8h" startline="197">XAsu_KeyManagerSubVaultParams::X509KeyVaultCapacity</references>
-        <references refid="group__xasu__keymanager__common__apis_1gadfda1187495f8062039f30b17e7143b1" compoundref="xasu__keymanager__common_8h" startline="50">XASU_KEYMANAGER_EXPORTABLE_VAULT</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga7ff905b0fe2bc419cf87bff8d21a8c98" compoundref="xasu__keymanager__common_8h" startline="49">XASU_KEYMANAGER_NON_EXPORTABLE_VAULT</references>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+<para>Validate at least one sub-vault has non-zero capacity.</para><para>Reject the restriction values that are reserved.</para><para>Reject requested vault ID out of user range (0 = auto-assign). </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="636" bodyend="674"/>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a890638e3675989aec90bb0a508d01753" compoundref="xasu__keymanagerinfo_8h" startline="378">XAsu_KeyManagerSubVaultParams::AESKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1aee2730f3db896dbf5993564c7218091b" compoundref="xasu__keymanagerinfo_8h" startline="384">XAsu_KeyManagerSubVaultParams::ECCPubKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a3bc5c9ba701fc64b91608cc2df778830" compoundref="xasu__keymanagerinfo_8h" startline="383">XAsu_KeyManagerSubVaultParams::ECCPvtKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a58e8d1900ea2219edeef5a1a185072e3" compoundref="xasu__keymanagerinfo_8h" startline="379">XAsu_KeyManagerSubVaultParams::IVVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a2b1aeda09bf402a4d58ad0a304666f3d" compoundref="xasu__keymanagerinfo_8h" startline="380">XAsu_KeyManagerSubVaultParams::KDFHmacKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a3afa39d6b7d6d50754670c986381bbe9" compoundref="xasu__keymanagerinfo_8h" startline="385">XAsu_KeyManagerSubVaultParams::LMSKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a5de841abc45eafba1b7f854f47ee69d2" compoundref="xasu__keymanagerinfo_8h" startline="388">XAsu_KeyManagerSubVaultParams::MldsaPubKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a3c634ba04e449556cf8eec14f9ee7530" compoundref="xasu__keymanagerinfo_8h" startline="387">XAsu_KeyManagerSubVaultParams::MldsaPvtKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1abf18980336be657118eb264b00bd0dbe" compoundref="xasu__keymanagerinfo_8h" startline="390">XAsu_KeyManagerSubVaultParams::MlkemPubKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1abaa6fcee14471e5c55f1385cd3d6597f" compoundref="xasu__keymanagerinfo_8h" startline="389">XAsu_KeyManagerSubVaultParams::MlkemPvtKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a7777cfe773824e8655d84003e0838039" compoundref="xasu__keymanagerinfo_8h" startline="392">XAsu_KeyManagerSubVaultParams::Restrictions</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a55acb505fd424df28ce324595521b7ee" compoundref="xasu__keymanagerinfo_8h" startline="382">XAsu_KeyManagerSubVaultParams::RSAPubKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a7acc476cd8f8dafc737b98e24906ff44" compoundref="xasu__keymanagerinfo_8h" startline="381">XAsu_KeyManagerSubVaultParams::RSAPvtKeyVaultCapacity</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1af2a5639492e49e60e2ef876418c236e9" compoundref="xasu__keymanagerinfo_8h" startline="393">XAsu_KeyManagerSubVaultParams::VaultId</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1afd2f1e5657b67701519472624242c60b" compoundref="xasu__keymanagerinfo_8h" startline="386">XAsu_KeyManagerSubVaultParams::X509KeyVaultCapacity</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga0c900b9c830a20bdd0b99bebe08db247" compoundref="xasu__keymanager__common_8h" startline="51">XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX</references>
+        <references refid="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" compoundref="xasu__keymanagerinfo_8h" startline="132">XASU_KM_MAX_VAULTS</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="68" endline="122">XAsu_KmCreateKeyVault</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf923237ff8cde695d69997cef9e5e752" compoundref="xasu__provision__common_8c" startline="335" endline="350">XAsu_ProvisionValidateCreateKeyVaultParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateXorKeyParams</definition>
+        <argsstring>(const XAsu_KmXorKeyParams *ParamsPtr)</argsstring>
+        <name>XAsu_KmValidateXorKeyParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the input parameters for combining two AES key splits using XOR. </para>        </briefdescription>
+        <detaileddescription>
+<para>The key type of the input key splits and the length of the combined key are validated by the server against the stored key splits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the input parameters are valid.</para></listitem><listitem><para>XST_FAILURE, if any input parameter is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate that both input key IDs are provided.</para><para>The address for the output key ID is required when the destination slot is auto-assigned, and shall not be supplied when the caller selects the slot, since the composite key ID is then already known to the caller.</para><para>Reject identical input key IDs. A key XORed with itself yields an all zero key, so allowing this would let the caller install a known key of its choosing.</para><para>The combined key must not overwrite either input key split.</para><para>Key splitting is defined for AES keys only. The key slot may be zero, which requests an auto-assigned slot.</para><para>Validate the metadata of the combined key. This rejects a zero key use case, which is required here because the use case of the input key splits cannot be inherited.</para><para>Validate the key attributes of the combined key against its key type.</para><para>Validate the key use case of the combined key against its key type.</para><para>Validate the length of the combined key. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="689" bodyend="771"/>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a3063301d7a110770365f39d08f05f37b" compoundref="xasu__keymanagerinfo_8h" startline="286">XAsu_KeyManagerKeyMetadata::CompositeKeyId</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="303">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab24bc266d1169f4e3362310f08bfe67c" compoundref="xasu__keymanagerinfo_8h" startline="302">XAsu_KeyManagerKeyMetadata::KeyUseCase</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="struct_x_asu___km_xor_key_params_1ab283fac111073a97c76265dc5e3fc4bb" compoundref="xasu__keymanagerinfo_8h" startline="441">XAsu_KmXorKeyParams::OutKeyIdAddr</references>
+        <references refid="struct_x_asu___km_xor_key_params_1a14f3e6244876977d10259f5008ea261e" compoundref="xasu__keymanagerinfo_8h" startline="435">XAsu_KmXorKeyParams::OutKeyMetadata</references>
+        <references refid="struct_x_asu___km_xor_key_params_1a2f59f9df1fd7907842d6a3fd72de71bf" compoundref="xasu__keymanagerinfo_8h" startline="445">XAsu_KmXorKeyParams::SplitKeyId1</references>
+        <references refid="struct_x_asu___km_xor_key_params_1aead88aec4d7497026530ec5316cda4b9" compoundref="xasu__keymanagerinfo_8h" startline="446">XAsu_KmXorKeyParams::SplitKeyId2</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" compoundref="xasu__keymanagerinfo_8h" startline="264">XASU_AES_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1afa88378ffe079687309c1f86fa4c57a7" compoundref="xasu__keymanagerinfo_8h" startline="483">XASU_KM_GET_KEY_INDEX</references>
+        <references refid="xasu__keymanagerinfo_8h_1affd16fd3d9279dc50f4f4d1a3cbf6146" compoundref="xasu__keymanagerinfo_8h" startline="478">XASU_KM_GET_KEY_TYPE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga832747a743a59c2bf317704126639f43" compoundref="xasu__keymanager__common_8c" startline="192" endline="210">XAsu_KmValidateAesKeySplitUseCase</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga22b61966ec11a3311f1a63a009c2a3fc" compoundref="xasu__keymanager__common_8c" startline="144" endline="172">XAsu_KmValidateKeyAttributes</references>
+        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="224" endline="273">XAsu_KmValidateKeyLength</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" compoundref="xasu__keymanager__common_8c" startline="105" endline="126">XAsu_KmValidateKeyMetadata</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gacd1ebc0c0c12895775a2073502c71e6e" compoundref="xasu__keymanager_8c" startline="1108" endline="1161">XAsu_KmXorKeys</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmValidateParams</definition>
+        <argsstring>(const XAsu_KeyManagerParams *KmParamsPtr, u8 ValidationFlow, u8 KeyType, u32 MinimumKeyObjectLen)</argsstring>
+        <name>XAsu_KmValidateParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref> *</type>
+          <declname>KmParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ValidationFlow</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>KeyType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MinimumKeyObjectLen</declname>
+        </param>
+        <briefdescription>
+<para>Validate key manager Generate and Store requests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KmParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref> structure that holds the input parameters for Key manager APIs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValidationFlow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Validation flow selector (XASU_KM_VALIDATE_FLOW_INVALID is rejected):<itemizedlist>
+<listitem><para>XASU_KM_VALIDATE_FLOW_GENERATE: exactly one of KeyObjectAddr or KeyIdAddr is set; when exporting to client memory, KeyObjectLen must cover the larger of KeyMetadata.Length and MinimumKeyObjectLen; when storing in the vault, KeyMetadata is validated and the key type in CompositeKeyId must equal KeyType.</para></listitem><listitem><para>XASU_KM_VALIDATE_FLOW_STORE: KeyObjectAddr, KeyIdAddr, and KeyObjectLen are mandatory; KeyMetadata, key attributes, key type, and plain/wrapped length rules are checked. Both flows check that the key type is a valid sub-vault ID and apply the AES key split use-case rule. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Generate flow key type: the sub-vault ID for AES, IV and KDF/HMAC keys, or the private sub-vault ID for RSA, ECC, ML-DSA and ML-KEM key pairs. It must be a valid sub-vault ID without the wrapped-key bit. It selects the key length rule for AES, IV, KDF/HMAC and RSA, the RSA attribute rule, and the ECC curve check. ML-DSA and ML-KEM parameters are checked by their algorithm-specific validators. Ignored for the Store flow, where the key type is obtained from CompositeKeyId. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MinimumKeyObjectLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the complete exported object for the Generate flow. When the exported object is only the key bytes, pass KeyMetadata.Length; 0U has the same effect. Ignored when the generated key is stored in the vault and for the Store flow.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if input validation is successful.</para></listitem><listitem><para>XST_FAILURE, if input validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>A key stored in the vault must carry the API&apos;s key type in CompositeKeyId.</para><para>A Generate key type must not carry the wrapped-key bit, so it is not masked.</para><para>Store API requires both input key buffer and output key ID address.</para><para>Checks common to both flows.</para><para>Check the ECC curve and its private-key length in the shared generate path.</para><para>An export buffer must hold the larger of the key and the complete exported object. AES, IV and KDF/HMAC export only the key, so the key length is that size. A key pair passes the object size, which is already at least the key length.</para><para>Plain Store Key input size depends on key type (RSA/ECC public objects are larger than KeyMetadata.Length alone). Require KeyObjectLen to cover the bytes the store path will consume from KeyObjectAddr.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="809" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="809" bodyend="944"/>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a3063301d7a110770365f39d08f05f37b" compoundref="xasu__keymanagerinfo_8h" startline="286">XAsu_KeyManagerKeyMetadata::CompositeKeyId</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="303">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" compoundref="xasu__keymanagerinfo_8h" startline="321">XAsu_KeyManagerParams::KeyObjectAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1ab434c6fe4301663ed0221d47bb2cd0e7" compoundref="xasu__keymanagerinfo_8h" startline="332">XAsu_KeyManagerParams::KeyObjectLen</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1ab24bc266d1169f4e3362310f08bfe67c" compoundref="xasu__keymanagerinfo_8h" startline="302">XAsu_KeyManagerKeyMetadata::KeyUseCase</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="struct_x_asu___key_manager_params_1a9a45b82fce6b349db3f7efaaa74c4533" compoundref="xasu__keymanagerinfo_8h" startline="329">XAsu_KeyManagerParams::WrappedInputLen</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334" compoundref="xasu__keymanagerinfo_8h" startline="270">XASU_ECC_PUB_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4f33bfdc92dc53b6972090427fa74fa7" compoundref="xasu__keymanagerinfo_8h" startline="269">XASU_ECC_PVT_SUBVAULT_ID</references>
+        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="126" endline="175">XAsu_EccValidateCurveInfo</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82" compoundref="xasu__keymanagerinfo_8h" startline="277">XASU_INVALID_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1affd16fd3d9279dc50f4f4d1a3cbf6146" compoundref="xasu__keymanagerinfo_8h" startline="478">XASU_KM_GET_KEY_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" compoundref="xasu__keymanagerinfo_8h" startline="129">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</references>
+        <references refid="group__xasu__common__defs_1ga8dcfbbcb4d691065f5fd402b9a7f2603" compoundref="xasu__keymanagerinfo_8h" startline="245">XASU_KM_RSA_PVT_PRIME_NUM_PRESENT</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga53ec50681fa1e75ea0a0789ecb8e692d" compoundref="xasu__keymanager__common_8h" startline="63">XASU_KM_VALIDATE_FLOW_STORE</references>
+        <references refid="group__xasu__keymanager__common__apis_1gabeb2f384f0b190c21c431acb99653e1b" compoundref="xasu__keymanager__common_8c" startline="964" endline="1000">XAsu_KmGetStoreKeyObjectLen</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga832747a743a59c2bf317704126639f43" compoundref="xasu__keymanager__common_8c" startline="192" endline="210">XAsu_KmValidateAesKeySplitUseCase</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga22b61966ec11a3311f1a63a009c2a3fc" compoundref="xasu__keymanager__common_8c" startline="144" endline="172">XAsu_KmValidateKeyAttributes</references>
+        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="224" endline="273">XAsu_KmValidateKeyLength</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" compoundref="xasu__keymanager__common_8c" startline="105" endline="126">XAsu_KmValidateKeyMetadata</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53" compoundref="xasu__keymanagerinfo_8h" startline="268">XASU_RSA_PUB_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="267">XASU_RSA_PVT_SUBVAULT_ID</references>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="213" endline="267">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="141" endline="195">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="470" endline="525">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" compoundref="xasu__keymanager_8c" startline="551" endline="613">XAsu_KmGenerateMldsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" compoundref="xasu__keymanager_8c" startline="641" endline="704">XAsu_KmGenerateMlkemKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="851" endline="905">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="390" endline="451">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="792" endline="832">XAsu_KmStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__common__apis_1gabeb2f384f0b190c21c431acb99653e1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGetStoreKeyObjectLen</definition>
+        <argsstring>(u32 CompositeKeyId, u16 KeyLen, u32 *KeyObjectLenPtr)</argsstring>
+        <name>XAsu_KmGetStoreKeyObjectLen</name>
+        <param>
+          <type>u32</type>
+          <declname>CompositeKeyId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>KeyLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KeyObjectLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>Compute the minimum KeyObjectLen required for a plain Store Key request. </para>        </briefdescription>
+        <detaileddescription>
+<para>Matches the client-facing object sizes used by provisioning store serialization and by the Store Key DMA/repack path: RSA private and public use fixed object layouts, ECC public uses twice the curve length, and other types use KeyLen.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CompositeKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite key identifier that encodes the key type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>KeyMetadata.Length from the Store Key request. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyObjectLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output pointer for the required buffer length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the required length is returned.</para></listitem><listitem><para>XST_FAILURE, if KeyObjectLenPtr is NULL, KeyLen is zero, or ECC public KeyLen is unsupported. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" line="964" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.c" bodystart="964" bodyend="1000"/>
+        <references refid="group__xasu__common__defs_1ga8472a238724905399a7aa23e410523f7" compoundref="xasu__eccinfo_8h" startline="98">XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334" compoundref="xasu__keymanagerinfo_8h" startline="270">XASU_ECC_PUB_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1affd16fd3d9279dc50f4f4d1a3cbf6146" compoundref="xasu__keymanagerinfo_8h" startline="478">XASU_KM_GET_KEY_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" compoundref="xasu__keymanagerinfo_8h" startline="129">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53" compoundref="xasu__keymanagerinfo_8h" startline="268">XASU_RSA_PUB_SUBVAULT_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="267">XASU_RSA_PVT_SUBVAULT_ID</references>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
-      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gad523f02a44991223ddca95d225aaaaa2" prot="public" static="no">
-        <name>XASU_KM_AES_KEYTYPE</name>
-        <initializer>(0U)</initializer>
-        <briefdescription>
-<para>Key type identifier for AES key. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="40" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
-      </memberdef>
-      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gabe851c3e1fa77f7b77f0df95ef268b85" prot="public" static="no">
-        <name>XASU_KM_IV_KEYTYPE</name>
-        <initializer>(1U)</initializer>
-        <briefdescription>
-<para>Key type identifier for IV. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="41" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
-      </memberdef>
-      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga0ca9bd91b3d5b9bf359f90ec2e951655" prot="public" static="no">
-        <name>XASU_KM_KDF_HMAC_KEYTYPE</name>
-        <initializer>(2U)</initializer>
-        <briefdescription>
-<para>Key type identifier for KDF/HMAC key. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="42" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
-      </memberdef>
-      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gaf8dea45fa4715b4b58bca204ee48b309" prot="public" static="no">
-        <name>XASU_KM_RSA_KEYTYPE</name>
-        <initializer>(3U)</initializer>
-        <briefdescription>
-<para>Key type identifier for RSA key. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="43" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
-        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
-      </memberdef>
       <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga70a7974fef7970c490e7e9b8742c2e34" prot="public" static="no">
         <name>XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</name>
         <initializer>(0xFFU)</initializer>
@@ -280,7 +871,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gaff4b40fc044fab5da0d2ec8e32ff6b8b" prot="public" static="no">
         <name>XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</name>
@@ -291,31 +882,41 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga7ff905b0fe2bc419cf87bff8d21a8c98" prot="public" static="no">
         <name>XASU_KEYMANAGER_NON_EXPORTABLE_VAULT</name>
         <initializer>(0x00U)</initializer>
         <briefdescription>
-<para>Non-exportable vault value. </para>        </briefdescription>
+<para>Values the Restrictions field of a key vault takes. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Zero keeps the vault inside the device and every value from XASU_KEYMANAGER_EXPORTABLE_VAULT to XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX marks it exportable, so 0x01, 0x02 and 0x03 all grant export.Vault stays in the device </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="49" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gadfda1187495f8062039f30b17e7143b1" prot="public" static="no">
         <name>XASU_KEYMANAGER_EXPORTABLE_VAULT</name>
         <initializer>(0x01U)</initializer>
         <briefdescription>
-<para>Exportable vault value. </para>        </briefdescription>
+<para>Lowest exportable value. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="50" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga0c900b9c830a20bdd0b99bebe08db247" prot="public" static="no">
+        <name>XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX</name>
+        <initializer>(0x03U)</initializer>
+        <briefdescription>
+<para>Highest exportable value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="636" endline="674">XAsu_KmValidateVaultCreateParams</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xasu__keymanager__common__apis_1gac08647dd80c12c0c80be466cafad863f" prot="public" static="no">
         <name>XASU_IS_REDUNDANT_BYTE_VALID</name>
@@ -328,8 +929,66 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="54" bodyend="-1"/>
-        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="68" endline="122">XAsu_KmCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga4d2167055615e37be59b8956024023e7" prot="public" static="no">
+        <name>XASU_KM_VALIDATE_FLOW_INVALID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Invalid / unset validation flow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" prot="public" static="no">
+        <name>XASU_KM_VALIDATE_FLOW_GENERATE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Generate API validation flow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="213" endline="267">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="141" endline="195">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="470" endline="525">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" compoundref="xasu__keymanager_8c" startline="551" endline="613">XAsu_KmGenerateMldsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" compoundref="xasu__keymanager_8c" startline="641" endline="704">XAsu_KmGenerateMlkemKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="851" endline="905">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="390" endline="451">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga53ec50681fa1e75ea0a0789ecb8e692d" prot="public" static="no">
+        <name>XASU_KM_VALIDATE_FLOW_STORE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Store API validation flow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="792" endline="832">XAsu_KmStoreKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__common__apis_1ga1fb460be10706e2f2689c8f62a7e979d" prot="public" static="no">
+        <name>XASU_KM_RSA_EXPORT_LEN</name>
+        <param><defname>KeyLen</defname></param>
+        <initializer>((u32)sizeof(u32) + \
+		((((u32)sizeof(<ref refid="struct_x_asu___rsa_key_pair_object" kindref="compound">XAsu_RsaKeyPairObject</ref>) - (u32)sizeof(u32)) * (u32)(KeyLen)) / \
+		 <ref refid="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" kindref="member">XRSA_4096_KEY_SIZE</ref>))</initializer>
+        <briefdescription>
+<para>Bytes an RSA key-pair export writes for KeyLen. </para>        </briefdescription>
+        <detaileddescription>
+<para>The export is packed and every field except PubExp scales with the key length. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanager_common.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="390" endline="451">XAsu_KmGenerateRsaKeyPair</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

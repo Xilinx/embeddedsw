@@ -4,12 +4,6 @@
     <compoundname>xdsi2rxss_sinit.c</compoundname>
     <includes refid="xdsi2rxss_8h" local="yes">xdsi2rxss.h</includes>
     <incdepgraph>
-      <node id="56">
-        <label>xdsi2rxss_sinit.c</label>
-        <link refid="xdsi2rxss_sinit.c"/>
-        <childnode refid="57" relation="include">
-        </childnode>
-      </node>
       <node id="57">
         <label>xdsi2rxss.h</label>
         <link refid="xdsi2rxss_8h"/>
@@ -18,6 +12,12 @@
         <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xdsi2rxss_sinit.c</label>
+        <link refid="xdsi2rxss_sinit.c"/>
+        <childnode refid="57" relation="include">
         </childnode>
       </node>
       <node id="59">
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" bodystart="7" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" bodystart="7" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -56,7 +56,7 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+<para>This function looks for the device configuration based on the unique device base address. </para>        </briefdescription>
         <detaileddescription>
 <para>The table XDsi2RxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -66,23 +66,20 @@
 <para>is the unique address of the device being looked up</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found</para></simplesect>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found</para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" bodystart="62" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" bodystart="62" bodyend="76"/>
+        <references refid="struct_x_dsi2_rx_ss___config_1a3de6da00bf49f1f2bcc986d6593832c1" compoundref="xdsi2rxss_8h" startline="158">XDsi2RxSs_Config::Name</references>
         <referencedby refid="xdsi2rxss__selftest__example_8c_1aca3784ffa88ce005208db9acd21dc07c" compoundref="xdsi2rxss__selftest__example_8c" startline="112" endline="137">Dsi2RxSs_SelfTestExample</referencedby>
       </memberdef>
-      <memberdef kind="function" id="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>u32 XDsi2RxSs_GetDrvIndex</definition>
-        <argsstring>(XDsi2RxSs *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
         <name>XDsi2RxSs_GetDrvIndex</name>
-        <param>
-          <type><ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref> *</type>
-          <declname>InstancePtr</declname>
-        </param>
         <param>
           <type>UINTPTR</type>
           <declname>BaseAddress</declname>
@@ -92,24 +89,18 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>A</parametername>
+<parametername>BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pointer to the instance structure</para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Base</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>address of the instance</para></parameterdescription>
+<para>is the base address of the instance</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>Index number of the config table </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" bodystart="90" bodyend="100"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c" bodystart="88" bodyend="98"/>
+        <references refid="struct_x_dsi2_rx_ss___config_1a3de6da00bf49f1f2bcc986d6593832c1" compoundref="xdsi2rxss_8h" startline="158">XDsi2RxSs_Config::Name</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -118,7 +109,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
@@ -151,7 +142,7 @@
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi2_rx_ss___config" kindref="compound">XDsi2RxSs_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XDsi2RxSs_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XDsi2RxSs_ConfigTable[Index].<ref refid="struct_x_dsi2_rx_ss___config_1a3de6da00bf49f1f2bcc986d6593832c1" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XDsi2RxSs_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress)<sp/>||<sp/>!BaseAddress)<sp/>{</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XDsi2RxSs_ConfigTable[Index];</highlight></codeline>
@@ -162,18 +153,18 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CfgPtr);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="90" refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kindref="member">XDsi2RxSs_GetDrvIndex</ref>(<ref refid="struct_x_dsi2_rx_ss" kindref="compound">XDsi2RxSs</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>XDsi2RxSs_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XDsi2RxSs_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress))<sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/>}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
-<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88" refid="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" kindref="member">XDsi2RxSs_GetDrvIndex</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>XDsi2RxSs_ConfigTable[Index].<ref refid="struct_x_dsi2_rx_ss___config_1a3de6da00bf49f1f2bcc986d6593832c1" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XDsi2RxSs_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_sinit.c"/>
   </compounddef>
 </doxygen>

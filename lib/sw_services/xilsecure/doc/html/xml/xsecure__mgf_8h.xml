@@ -4,95 +4,102 @@
     <compoundname>xsecure_mgf.h</compoundname>
     <includes local="yes">xil_types.h</includes>
     <includes local="yes">xsecure_sha.h</includes>
-    <includedby refid="xsecure__plat__rsa_8h" local="yes">xsecure_plat_rsa.h</includedby>
     <includedby refid="xsecure__mgf_8c" local="yes">xsecure_mgf.c</includedby>
+    <includedby refid="xsecure__plat__rsa_8h" local="yes">xsecure_plat_rsa.h</includedby>
+    <includedby refid="xsecure__rsa__pss_8c" local="yes">xsecure_rsa_pss.c</includedby>
     <incdepgraph>
-      <node id="2153">
+      <node id="2238">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="2152">
+      <node id="2237">
         <label>xil_types.h</label>
       </node>
-      <node id="2151">
+      <node id="2236">
         <label>xsecure_mgf.h</label>
         <link refid="xsecure_mgf.h"/>
-        <childnode refid="2152" relation="include">
+        <childnode refid="2237" relation="include">
         </childnode>
-        <childnode refid="2153" relation="include">
+        <childnode refid="2238" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2157">
-        <label>xsecure_plat_rsa.c</label>
-        <link refid="xsecure__plat__rsa_8c"/>
-      </node>
-      <node id="2159">
-        <label>xsecure_kat_ipihandler.c</label>
-        <link refid="xsecure__kat__ipihandler_8c"/>
-      </node>
-      <node id="2155">
-        <label>xsecure_plat_rsa.h</label>
-        <link refid="xsecure__plat__rsa_8h"/>
-        <childnode refid="2156" relation="include">
-        </childnode>
-        <childnode refid="2157" relation="include">
-        </childnode>
-        <childnode refid="2158" relation="include">
-        </childnode>
-        <childnode refid="2164" relation="include">
-        </childnode>
-      </node>
-      <node id="2160">
-        <label>xsecure_ellipticplat.c</label>
-        <link refid="xsecure__ellipticplat_8c"/>
-      </node>
-      <node id="2156">
-        <label>xsecure_keyunwrap.c</label>
-        <link refid="xsecure__keyunwrap_8c"/>
-      </node>
-      <node id="2161">
-        <label>xsecure_plat.c</label>
-        <link refid="versal__net_2xsecure__plat_8c"/>
-      </node>
-      <node id="2163">
+      <node id="2249">
         <label>xsecure_plat_kat_ipihandler.c</label>
         <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
       </node>
-      <node id="2162">
+      <node id="2248">
         <label>xsecure_plat_kat.c</label>
         <link refid="net_2xsecure__plat__kat_8c"/>
       </node>
-      <node id="2158">
+      <node id="2244">
         <label>xsecure_plat_kat.h</label>
         <link refid="net_2xsecure__plat__kat_8h"/>
-        <childnode refid="2159" relation="include">
+        <childnode refid="2245" relation="include">
         </childnode>
-        <childnode refid="2160" relation="include">
+        <childnode refid="2246" relation="include">
         </childnode>
-        <childnode refid="2157" relation="include">
+        <childnode refid="2243" relation="include">
         </childnode>
-        <childnode refid="2161" relation="include">
+        <childnode refid="2247" relation="include">
         </childnode>
-        <childnode refid="2162" relation="include">
+        <childnode refid="2248" relation="include">
         </childnode>
-        <childnode refid="2163" relation="include">
+        <childnode refid="2249" relation="include">
         </childnode>
       </node>
-      <node id="2164">
+      <node id="2245">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="2242">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="2250">
         <label>xsecure_plat_ipihandler.c</label>
         <link refid="net_2xsecure__plat__ipihandler_8c"/>
       </node>
-      <node id="2165">
+      <node id="2246">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="2247">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="2251">
+        <label>xsecure_rsa_pss.c</label>
+        <link refid="xsecure__rsa__pss_8c"/>
+      </node>
+      <node id="2240">
         <label>xsecure_mgf.c</label>
         <link refid="xsecure__mgf_8c"/>
       </node>
-      <node id="2154">
+      <node id="2239">
         <label>xsecure_mgf.h</label>
         <link refid="xsecure_mgf.h"/>
-        <childnode refid="2155" relation="include">
+        <childnode refid="2240" relation="include">
         </childnode>
-        <childnode refid="2165" relation="include">
+        <childnode refid="2241" relation="include">
+        </childnode>
+        <childnode refid="2251" relation="include">
+        </childnode>
+      </node>
+      <node id="2243">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="2241">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="2242" relation="include">
+        </childnode>
+        <childnode refid="2243" relation="include">
+        </childnode>
+        <childnode refid="2244" relation="include">
+        </childnode>
+        <childnode refid="2250" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -108,8 +115,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="44" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="364" endline="415">XSecure_MaskGenFunc</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -131,49 +138,44 @@
           <declname>MgfInput</declname>
         </param>
         <briefdescription>
-<para>This function takes an input of variable length and a desired output length as input, and provides fixed output mask using cryptographic hash function. </para>        </briefdescription>
+<para>Generates a fixed-length mask from a variable-length seed using MGF1. </para>        </briefdescription>
         <detaileddescription>
-<para>Mask Generation function.</para><para>i.e. Mask Generation Function(MGF).</para><para><parameterlist kind="param"><parameteritem>
+<para>Mask Generation function.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>ShaType</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is of type XSecure_ShaMode. </para></parameterdescription>
+<para>SHA algorithm identifier. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to the sha instance. </para></parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>MgfInput</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to <ref refid="struct_x_secure___mgf_input" kindref="compound">XSecure_MgfInput</ref> instance.</para></parameterdescription>
+<para>Pointer to the MGF input and output parameters.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_INVALID_PARAM if any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="230" bodyend="301"/>
-        <references refid="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" compoundref="xsecure__mgf_8h" startline="51">XSecure_HashAlgInfo::HashLen</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.c" bodystart="364" bodyend="415"/>
         <references refid="struct_x_secure___mgf_input_1a3df7726c093f8481f8649de0fbbad69b" compoundref="xsecure__mgf_8h" startline="61">XSecure_MgfInput::Output</references>
         <references refid="struct_x_secure___mgf_input_1a7ef2ac3615a3516392e8f3e7af2301c2" compoundref="xsecure__mgf_8h" startline="63">XSecure_MgfInput::OutputLen</references>
         <references refid="struct_x_secure___mgf_input_1a75315a260d2fc303f4e09f6115da6ba8" compoundref="xsecure__mgf_8h" startline="60">XSecure_MgfInput::Seed</references>
         <references refid="struct_x_secure___mgf_input_1a4b5d243ace02a92433f2a3b7593480a3" compoundref="xsecure__mgf_8h" startline="62">XSecure_MgfInput::SeedLen</references>
-        <references refid="struct_x_secure___hash_alg_info_1a1252ac9d152a5cbb5731d66d19e6f634" compoundref="xsecure__mgf_8h" startline="54">XSecure_HashAlgInfo::ShaFinish</references>
-        <references refid="struct_x_secure___hash_alg_info_1a6c89a5bf973d16144020ebece7415504" compoundref="xsecure__mgf_8h" startline="52">XSecure_HashAlgInfo::ShaStart</references>
-        <references refid="struct_x_secure___hash_alg_info_1ae3302b269d249878b73bb94363200795" compoundref="xsecure__mgf_8h" startline="50">XSecure_HashAlgInfo::Shatype</references>
-        <references refid="struct_x_secure___hash_alg_info_1aaec31389331a3137f07364a5852286c0" compoundref="xsecure__mgf_8h" startline="53">XSecure_HashAlgInfo::ShaUpdate</references>
-        <references refid="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" compoundref="xsecure__mgf_8c" startline="203" endline="212">XSecure_GetHashInstance</references>
         <references refid="group__xsecure__mgf__server__apis_1ga40f95b0f59b06abf8ee6dda379447069" compoundref="xsecure__mgf_8h" startline="44">XSECURE_SHA3_HASH_LENGTH_IN_BYTES</references>
         <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref> *</type>
@@ -185,25 +187,23 @@
           <declname>Shatype</declname>
         </param>
         <briefdescription>
-<para>This function returns hash function list of user specified hash algorithm. </para>        </briefdescription>
+<para>Returns the hash algorithm table entry for the requested SHA mode. </para>        </briefdescription>
         <detaileddescription>
 <para>Get Hash Instance function.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>Shatype</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>holds the XSecure_ShaMode value of chosen sha algo.</para></parameterdescription>
+<para>SHA algorithm identifier.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>Pointer to <ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref> instance</para></listitem><listitem><para>NULL Otherwise </para></listitem></itemizedlist>
+<listitem><para>Pointer to an <ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref> instance on success.</para></listitem><listitem><para>NULL if the algorithm is not supported. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="203" bodyend="212"/>
-        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.c" bodystart="96" bodyend="106"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -269,6 +269,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_MGF_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h"/>
   </compounddef>
 </doxygen>

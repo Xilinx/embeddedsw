@@ -1,5 +1,8 @@
 var xmmidp__link_8c =
 [
+    [ "XMMIDP_LINK_XMIT_SETTLE_US", "xmmidp__link_8c.html#ga31e1ca6a15a46bd6a333d62a355fe3e7", null ],
+    [ "XMMIDP_LT_LOG", "xmmidp__link_8c.html#gae9a83ff4a3159348b8aa40e19bffdf3f", null ],
+    [ "XMMIDP_LT_VERBOSE", "xmmidp__link_8c.html#ga24a371742427a965f10b46ca6cd04862", null ],
     [ "XDpPSu14_DisableCctlEnhanceFraming", "xmmidp__link_8c.html#gae3fda64975462a763be884e7eec46eec", null ],
     [ "XDpPSu14_EnableCctlEnhanceFraming", "xmmidp__link_8c.html#ga3f8752364a4322d43123417c75c020ec", null ],
     [ "XMmiDp_AdjVswingPreemp", "xmmidp__link_8c.html#ga07465448ecdbef72c2072788ccdc5906", null ],
@@ -23,6 +26,7 @@ var xmmidp__link_8c =
     [ "XMmiDp_SetSinkDpcdLinkCfgField", "xmmidp__link_8c.html#gaa2be5c46b0fd535d97e25a149beaa37f", null ],
     [ "XMmiDp_SetTrainingPattern", "xmmidp__link_8c.html#gaba866a232fbcb901567ac120595ba267", null ],
     [ "XMmiDp_SetVswingPreemp", "xmmidp__link_8c.html#ga2dfe174d4a3d0a2fc812394b4953f9e2", null ],
+    [ "XMmiDp_StartFullLinkTrainingCapped", "xmmidp__link_8c.html#gad5774015fbf8628ffdbb3746da70b28b", null ],
     [ "XMmiDp_StartLinkXmit", "xmmidp__link_8c.html#ga53ae7c2346ac26c5e79580b2e5602771", null ],
     [ "XMmiDp_TrainingStateAdjustLaneCount", "xmmidp__link_8c.html#gaf008e2fc00f54e3e9f0d78c3481c002b", null ],
     [ "XMmiDp_TrainingStateAdjustLinkRate", "xmmidp__link_8c.html#gab080158ac3d4e3a3074414ce2b6737da", null ],

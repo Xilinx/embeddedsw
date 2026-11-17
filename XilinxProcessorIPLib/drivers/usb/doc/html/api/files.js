@@ -1,6 +1,6 @@
 var files =
 [
-    [ "data.h", "data_8h.html", null ],
+    [ "data.h", "data_8h.html", "data_8h" ],
     [ "xusb.c", "xusb_8c.html", "xusb_8c" ],
     [ "xusb.h", "xusb_8h.html", "xusb_8h" ],
     [ "xusb_cp9.c", "xusb__cp9_8c.html", "xusb__cp9_8c" ],
@@ -16,6 +16,8 @@ var files =
     [ "xusb_microphone.h", "xusb__microphone_8h.html", "xusb__microphone_8h" ],
     [ "xusb_mouse.c", "xusb__mouse_8c.html", "xusb__mouse_8c" ],
     [ "xusb_mouse.h", "xusb__mouse_8h.html", "xusb__mouse_8h" ],
+    [ "xusb_msc.c", "xusb__msc_8c.html", "xusb__msc_8c" ],
+    [ "xusb_msc.h", "xusb__msc_8h.html", "xusb__msc_8h" ],
     [ "xusb_phy_read_write.c", "xusb__phy__read__write_8c.html", "xusb__phy__read__write_8c" ],
     [ "xusb_sinit.c", "xusb__sinit_8c.html", "xusb__sinit_8c" ],
     [ "xusb_storage.c", "xusb__storage_8c.html", "xusb__storage_8c" ],

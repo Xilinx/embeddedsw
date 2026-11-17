@@ -1,5 +1,25 @@
 var searchData=
 [
+  ['address_5flsb_5foffset',['ADDRESS_LSB_OFFSET',['../group__xspi__eeprom__example.html#gabb162281f5a7d62f2acc8d091a97ba52',1,'xspi_eeprom_example.c']]],
+  ['address_5fmsb_5foffset',['ADDRESS_MSB_OFFSET',['../group__xspi__eeprom__example.html#ga47e17a2c44fb806fc1ff6d3e9397e253',1,'xspi_eeprom_example.c']]],
+  ['atmel_5faddress_5fbyte1_5foffset',['ATMEL_ADDRESS_BYTE1_OFFSET',['../group__xspi__atmel__flash__example.html#ga6565fa960aa4bdfcb0d2e98bdfdd45ea',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5faddress_5fbyte2_5foffset',['ATMEL_ADDRESS_BYTE2_OFFSET',['../group__xspi__atmel__flash__example.html#ga0bd6ac5277841822ec73b44c7ea259a3',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5faddress_5fbyte3_5foffset',['ATMEL_ADDRESS_BYTE3_OFFSET',['../group__xspi__atmel__flash__example.html#ga90c6eabb7a2210d28d888ea9b80668f1',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fcommand_5foffset',['ATMEL_COMMAND_OFFSET',['../group__xspi__atmel__flash__example.html#gad8e61b47ad415eae94ae86a2d257c0d2',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fcommand_5fpage_5ferase',['ATMEL_COMMAND_PAGE_ERASE',['../group__xspi__atmel__flash__example.html#ga90ae0144a80a9eff698d2d2a6251ca65',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fcommand_5fread',['ATMEL_COMMAND_READ',['../group__xspi__atmel__flash__example.html#ga69a86f156b111515cd4eb1c54848f0f7',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fcommand_5fstatusreg_5fread',['ATMEL_COMMAND_STATUSREG_READ',['../group__xspi__atmel__flash__example.html#gae8d67bc72fceae5bb05c39bba0caee32',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fcommand_5fwrite',['ATMEL_COMMAND_WRITE',['../group__xspi__atmel__flash__example.html#ga466663b25374faf5b12ec7b3910dbd76',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fdummybyte',['ATMEL_DUMMYBYTE',['../group__xspi__atmel__flash__example.html#ga283ce938e0a667bdef547da44a7fb1f7',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fflash_5fsr_5fis_5fready_5fmask',['ATMEL_FLASH_SR_IS_READY_MASK',['../group__xspi__atmel__flash__example.html#gaee02b4c06561c83dfe81fe4403f5d53d',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fflash_5ftest_5faddress',['ATMEL_FLASH_TEST_ADDRESS',['../group__xspi__atmel__flash__example.html#gad122d22d3db641005ad83614abfa9ab9',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5finitbyte',['ATMEL_INITBYTE',['../group__xspi__atmel__flash__example.html#gab88dd57c2614ec6d7270892069c2b1a7',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fpage_5ferase_5fbytes',['ATMEL_PAGE_ERASE_BYTES',['../group__xspi__atmel__flash__example.html#ga8319e1d98071bc17fc85281137d096ac',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fpage_5fsize',['ATMEL_PAGE_SIZE',['../group__xspi__atmel__flash__example.html#ga25653de58c42f49e39f315e144d94b05',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fread_5fwrite_5fextra_5fbytes',['ATMEL_READ_WRITE_EXTRA_BYTES',['../group__xspi__atmel__flash__example.html#ga1221caaeb4c0cdc0566b4269acd58fe3',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fspi_5fselect',['ATMEL_SPI_SELECT',['../group__xspi__atmel__flash__example.html#ga407cfb8affd67d327734ed544be78ea7',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5fstatus_5fread_5fbytes',['ATMEL_STATUS_READ_BYTES',['../group__xspi__atmel__flash__example.html#gad5a4fcacb90e2a4fbd2a701daa7e04d3',1,'xspi_atmel_flash_example.c']]],
+  ['atmel_5ftest_5fbyte',['ATMEL_TEST_BYTE',['../group__xspi__atmel__flash__example.html#ga3f2a86c8ea860d90b01d6ae55f2eb0d4',1,'xspi_atmel_flash_example.c']]],
   ['axifullbaseaddress',['AxiFullBaseAddress',['../struct_x_spi___config.html#a732f0c3380dfadf62ce079b65a9be852',1,'XSpi_Config']]],
   ['axiinterface',['AxiInterface',['../struct_x_spi___config.html#a06d3efabc06a2ba3cc66e7e99c0a6ee9',1,'XSpi_Config']]]
 ];

@@ -4,62 +4,40 @@
     <compoundname>xv_hdmitxss1_log.c</compoundname>
     <includes refid="xv__hdmitxss1_8h" local="yes">xv_hdmitxss1.h</includes>
     <incdepgraph>
-      <node id="734">
+      <node id="736">
         <label>xil_assert.h</label>
       </node>
-      <node id="727">
-        <label>xv_hdmic_vsif.h</label>
-      </node>
-      <node id="729">
-        <label>xvidc_edid_ext.h</label>
-      </node>
-      <node id="728">
-        <label>xvidc_edid.h</label>
-      </node>
-      <node id="730">
-        <label>xv_hdmitx1.h</label>
-      </node>
-      <node id="732">
+      <node id="734">
         <label>xv_hdmitxss1_frl.h</label>
         <link refid="xv__hdmitxss1__frl_8h"/>
-        <childnode refid="733" relation="include">
+        <childnode refid="735" relation="include">
         </childnode>
-        <childnode refid="734" relation="include">
+        <childnode refid="736" relation="include">
         </childnode>
-        <childnode refid="724" relation="include">
-        </childnode>
-      </node>
-      <node id="721">
-        <label>xv_hdmitxss1_log.c</label>
-        <link refid="xv_hdmitxss1_log.c"/>
-        <childnode refid="722" relation="include">
+        <childnode refid="726" relation="include">
         </childnode>
       </node>
-      <node id="724">
-        <label>xstatus.h</label>
-      </node>
-      <node id="725">
-        <label>xvidc.h</label>
-      </node>
-      <node id="733">
-        <label>xil_types.h</label>
-      </node>
-      <node id="726">
-        <label>xv_hdmic.h</label>
-      </node>
-      <node id="723">
-        <label>xparameters.h</label>
+      <node id="729">
+        <label>xv_hdmic_vsif.h</label>
       </node>
       <node id="731">
-        <label>xvtc.h</label>
+        <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="722">
-        <label>xv_hdmitxss1.h</label>
-        <link refid="xv__hdmitxss1_8h"/>
-        <childnode refid="723" relation="include">
-        </childnode>
+      <node id="730">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="723">
+        <label>xv_hdmitxss1_log.c</label>
+        <link refid="xv_hdmitxss1_log.c"/>
         <childnode refid="724" relation="include">
         </childnode>
+      </node>
+      <node id="732">
+        <label>xv_hdmitx1.h</label>
+      </node>
+      <node id="724">
+        <label>xv_hdmitxss1.h</label>
+        <link refid="xv__hdmitxss1_8h"/>
         <childnode refid="725" relation="include">
         </childnode>
         <childnode refid="726" relation="include">
@@ -76,6 +54,28 @@
         </childnode>
         <childnode refid="732" relation="include">
         </childnode>
+        <childnode refid="733" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+      </node>
+      <node id="726">
+        <label>xstatus.h</label>
+      </node>
+      <node id="727">
+        <label>xvidc.h</label>
+      </node>
+      <node id="735">
+        <label>xil_types.h</label>
+      </node>
+      <node id="728">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="725">
+        <label>xparameters.h</label>
+      </node>
+      <node id="733">
+        <label>xvtc.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -104,10 +104,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="45" bodyend="52"/>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="45" bodyend="52"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="393">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::TailIndex</references>
       </memberdef>
       <memberdef kind="function" id="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -156,25 +156,25 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="67" bodyend="106"/>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::DataBuffer</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="460">XV_HdmiTxSs1::LogWriteCallback</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1ae5499d63499710c85a1c2040ccb50435" compoundref="xv__hdmitxss1_8h" startline="461">XV_HdmiTxSs1::LogWriteRef</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="152">XV_HdmiTxSs1_Log::TimeRecord</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194af927e6926684df592bce30a715e59a22" compoundref="xv__hdmitxss1_8h" startline="144">XV_HDMITXSS1_LOG_EVT_DUMMY</references>
-        <referencedby refid="xv__hdmitxss1_8h_1ac57d46d00c0560d30074c0cddb499340" compoundref="xv__hdmitxss1_8c" startline="2419" endline="2434">XV_HdmiTxSs1_AudioMute</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1a793b1339e8400d44c8bed3a3a578728f" compoundref="xv__hdmitxss1_8c" startline="670" endline="691">XV_HdmiTxSs1_Reset</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1a6d8b0db4c832b47b4bd39d85d7b349e2" compoundref="xv__hdmitxss1_8c" startline="2393" endline="2404">XV_HdmiTxSs1_SetAudioChannels</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1ad4c9a6490f1c9497cb14ebf803e1b154" compoundref="xv__hdmitxss1_8c" startline="2525" endline="2570">XV_HdmiTxSs1_SetSampleFrequency</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1a706164018c12104b9b425ea36c7fb38f" compoundref="xv__hdmitxss1_8c" startline="2680" endline="2806">XV_HdmiTxSs1_SetStream</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1ab5fe79e1483f941b8310cc0ad340d780" compoundref="xv__hdmitxss1_8c" startline="621" endline="630">XV_HdmiTxSs1_Start</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1a8016b341785251b3d59949739f6813f1" compoundref="xv__hdmitxss1_8c" startline="642" endline="656">XV_HdmiTxSs1_Stop</referencedby>
-        <referencedby refid="xv__hdmitxss1_8h_1a414900ff658f64331801d78cb586e0d2" compoundref="xv__hdmitxss1_8c" startline="2197" endline="2230">XV_HdmiTxSs1_StreamStart</referencedby>
-        <referencedby refid="group__v__hdmitxss1_1gac555201d618cc9e05b73a417f77701b2" compoundref="xv__hdmitxss1__coreinit_8c" startline="55" endline="98">XV_HdmiTxSs1_SubcoreInitHdmiTx1</referencedby>
-        <referencedby refid="group__v__hdmitxss1_1ga64a794defc59694de323c4b239088906" compoundref="xv__hdmitxss1__coreinit_8c" startline="109" endline="145">XV_HdmiTxSs1_SubcoreInitVtc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="67" bodyend="106"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="149">XV_HdmiTxSs1_Log::DataBuffer</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="393">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="446">XV_HdmiTxSs1::LogWriteCallback</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1ae5499d63499710c85a1c2040ccb50435" compoundref="xv__hdmitxss1_8h" startline="447">XV_HdmiTxSs1::LogWriteRef</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::TailIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="150">XV_HdmiTxSs1_Log::TimeRecord</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194af927e6926684df592bce30a715e59a22" compoundref="xv__hdmitxss1_8h" startline="142">XV_HDMITXSS1_LOG_EVT_DUMMY</references>
+        <referencedby refid="xv__hdmitxss1_8h_1ac57d46d00c0560d30074c0cddb499340" compoundref="xv__hdmitxss1_8c" startline="2388" endline="2403">XV_HdmiTxSs1_AudioMute</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a793b1339e8400d44c8bed3a3a578728f" compoundref="xv__hdmitxss1_8c" startline="639" endline="660">XV_HdmiTxSs1_Reset</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a6d8b0db4c832b47b4bd39d85d7b349e2" compoundref="xv__hdmitxss1_8c" startline="2362" endline="2373">XV_HdmiTxSs1_SetAudioChannels</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1ad4c9a6490f1c9497cb14ebf803e1b154" compoundref="xv__hdmitxss1_8c" startline="2494" endline="2539">XV_HdmiTxSs1_SetSampleFrequency</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a706164018c12104b9b425ea36c7fb38f" compoundref="xv__hdmitxss1_8c" startline="2649" endline="2775">XV_HdmiTxSs1_SetStream</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1ab5fe79e1483f941b8310cc0ad340d780" compoundref="xv__hdmitxss1_8c" startline="590" endline="599">XV_HdmiTxSs1_Start</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a8016b341785251b3d59949739f6813f1" compoundref="xv__hdmitxss1_8c" startline="611" endline="625">XV_HdmiTxSs1_Stop</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a414900ff658f64331801d78cb586e0d2" compoundref="xv__hdmitxss1_8c" startline="2166" endline="2199">XV_HdmiTxSs1_StreamStart</referencedby>
+        <referencedby refid="group__v__hdmitxss1_1gac555201d618cc9e05b73a417f77701b2" compoundref="xv__hdmitxss1__coreinit_8c" startline="55" endline="92">XV_HdmiTxSs1_SubcoreInitHdmiTx1</referencedby>
+        <referencedby refid="group__v__hdmitxss1_1ga64a794defc59694de323c4b239088906" compoundref="xv__hdmitxss1__coreinit_8c" startline="103" endline="133">XV_HdmiTxSs1_SubcoreInitVtc</referencedby>
         <referencedby refid="xv__hdmitxss1__frl_8h_1af7e151cc4c1da01d3b581db188725f12" compoundref="xv__hdmitxss1__frl_8c" startline="237" endline="249">XV_HdmiTxSs1_TmdsConfigCallback</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -202,11 +202,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="119" bodyend="144"/>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::DataBuffer</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="119" bodyend="144"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="149">XV_HdmiTxSs1_Log::DataBuffer</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="393">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::TailIndex</references>
         <referencedby refid="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" compoundref="xv__hdmitxss1__log_8c" startline="157" endline="330">XV_HdmiTxSs1_LogDisplay</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -234,41 +234,41 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="157" bodyend="330"/>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="460">XV_HdmiTxSs1::LogWriteCallback</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="152">XV_HdmiTxSs1_Log::TimeRecord</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a528bac26f2b8c837408002ac0d8585ad" compoundref="xv__hdmitxss1_8h" startline="123">XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a234af83a647787d55f370e3a79a15813" compoundref="xv__hdmitxss1_8h" startline="121">XV_HDMITXSS1_LOG_EVT_AUDIOMUTE</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a354a534f998dd4363b911c957a0af56f" compoundref="xv__hdmitxss1_8h" startline="122">XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b93e92cded00d1b93fa61212cd2163a" compoundref="xv__hdmitxss1_8h" startline="132">XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a9a7ca5e6f48bbf35ce1cf5e6eb9f8343" compoundref="xv__hdmitxss1_8h" startline="133">XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ac930f1fc9257c1da958d67b03444c0d0" compoundref="xv__hdmitxss1_8h" startline="114">XV_HDMITXSS1_LOG_EVT_CONNECT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a053e688b709b25b89758bc93c9136a7f" compoundref="xv__hdmitxss1_8h" startline="116">XV_HDMITXSS1_LOG_EVT_DISCONNECT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194afc70a2fee8b8c6a16bd55a994ecdf9a2" compoundref="xv__hdmitxss1_8h" startline="136">XV_HDMITXSS1_LOG_EVT_FRL_CFG</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ab092edcc43dc4cfafe5fdeda63c6d419" compoundref="xv__hdmitxss1_8h" startline="135">XV_HDMITXSS1_LOG_EVT_FRL_LT_PASS</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ad9b5a045dc775b00f814c3bbd5b3d7ea" compoundref="xv__hdmitxss1_8h" startline="134">XV_HDMITXSS1_LOG_EVT_FRL_START</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ace22b4eab03167367ac29945fda4eae6" compoundref="xv__hdmitxss1_8h" startline="126">XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a7c8943a13a3c3d6312ed2a209053625e" compoundref="xv__hdmitxss1_8h" startline="107">XV_HDMITXSS1_LOG_EVT_HDCP14_INIT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae6028a0e316af27cf053cca09746ad5b" compoundref="xv__hdmitxss1_8h" startline="127">XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b64cc43e15154910bdbae8fe0996165" compoundref="xv__hdmitxss1_8h" startline="108">XV_HDMITXSS1_LOG_EVT_HDCP22_INIT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a887d1b62c780925e370aa7b9b9a6dc85" compoundref="xv__hdmitxss1_8h" startline="106">XV_HDMITXSS1_LOG_EVT_HDCPTIMER_INIT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" compoundref="xv__hdmitxss1_8h" startline="104">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a866496865355f8f425396ffcfed82013" compoundref="xv__hdmitxss1_8h" startline="103">XV_HDMITXSS1_LOG_EVT_NONE</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a1e3c8f08230dbabe9352b74ed1fe9b0b" compoundref="xv__hdmitxss1_8h" startline="128">XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa76ec71708386984f5f4fea5acc931cf" compoundref="xv__hdmitxss1_8h" startline="113">XV_HDMITXSS1_LOG_EVT_RESET</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2d48220e23a699da5867d80635d0bba4" compoundref="xv__hdmitxss1_8h" startline="120">XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a39d7665d5e5f22c57708000628278891" compoundref="xv__hdmitxss1_8h" startline="125">XV_HDMITXSS1_LOG_EVT_SETSTREAM</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa87456980697e1644c7bb078cdb8133d" compoundref="xv__hdmitxss1_8h" startline="111">XV_HDMITXSS1_LOG_EVT_START</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194acca316c46a14ae90bc9f061ad3237532" compoundref="xv__hdmitxss1_8h" startline="112">XV_HDMITXSS1_LOG_EVT_STOP</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa11ffa509dca45f524be5f1581fa9abe" compoundref="xv__hdmitxss1_8h" startline="118">XV_HDMITXSS1_LOG_EVT_STREAMDOWN</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abe1911338db298a23ec713716866e18b" compoundref="xv__hdmitxss1_8h" startline="119">XV_HDMITXSS1_LOG_EVT_STREAMSTART</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a4bcb4867aceecc187b9a5f6d47f53f24" compoundref="xv__hdmitxss1_8h" startline="117">XV_HDMITXSS1_LOG_EVT_STREAMUP</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" compoundref="xv__hdmitxss1_8h" startline="137">XV_HDMITXSS1_LOG_EVT_TMDS_START</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2f4d6c3af1944f8a49a8c07432d436ad" compoundref="xv__hdmitxss1_8h" startline="115">XV_HDMITXSS1_LOG_EVT_TOGGLE</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" compoundref="xv__hdmitxss1_8h" startline="105">XV_HDMITXSS1_LOG_EVT_VTC_INIT</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abcc147bc9e9f384ec1ca08fbac8b87e7" compoundref="xv__hdmitxss1_8h" startline="130">XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="157" bodyend="330"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="393">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="446">XV_HdmiTxSs1::LogWriteCallback</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::TailIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="150">XV_HdmiTxSs1_Log::TimeRecord</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a528bac26f2b8c837408002ac0d8585ad" compoundref="xv__hdmitxss1_8h" startline="121">XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a234af83a647787d55f370e3a79a15813" compoundref="xv__hdmitxss1_8h" startline="119">XV_HDMITXSS1_LOG_EVT_AUDIOMUTE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a354a534f998dd4363b911c957a0af56f" compoundref="xv__hdmitxss1_8h" startline="120">XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b93e92cded00d1b93fa61212cd2163a" compoundref="xv__hdmitxss1_8h" startline="130">XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a9a7ca5e6f48bbf35ce1cf5e6eb9f8343" compoundref="xv__hdmitxss1_8h" startline="131">XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ac930f1fc9257c1da958d67b03444c0d0" compoundref="xv__hdmitxss1_8h" startline="112">XV_HDMITXSS1_LOG_EVT_CONNECT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a053e688b709b25b89758bc93c9136a7f" compoundref="xv__hdmitxss1_8h" startline="114">XV_HDMITXSS1_LOG_EVT_DISCONNECT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194afc70a2fee8b8c6a16bd55a994ecdf9a2" compoundref="xv__hdmitxss1_8h" startline="134">XV_HDMITXSS1_LOG_EVT_FRL_CFG</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ab092edcc43dc4cfafe5fdeda63c6d419" compoundref="xv__hdmitxss1_8h" startline="133">XV_HDMITXSS1_LOG_EVT_FRL_LT_PASS</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ad9b5a045dc775b00f814c3bbd5b3d7ea" compoundref="xv__hdmitxss1_8h" startline="132">XV_HDMITXSS1_LOG_EVT_FRL_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ace22b4eab03167367ac29945fda4eae6" compoundref="xv__hdmitxss1_8h" startline="124">XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a7c8943a13a3c3d6312ed2a209053625e" compoundref="xv__hdmitxss1_8h" startline="105">XV_HDMITXSS1_LOG_EVT_HDCP14_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae6028a0e316af27cf053cca09746ad5b" compoundref="xv__hdmitxss1_8h" startline="125">XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b64cc43e15154910bdbae8fe0996165" compoundref="xv__hdmitxss1_8h" startline="106">XV_HDMITXSS1_LOG_EVT_HDCP22_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a887d1b62c780925e370aa7b9b9a6dc85" compoundref="xv__hdmitxss1_8h" startline="104">XV_HDMITXSS1_LOG_EVT_HDCPTIMER_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" compoundref="xv__hdmitxss1_8h" startline="102">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a866496865355f8f425396ffcfed82013" compoundref="xv__hdmitxss1_8h" startline="101">XV_HDMITXSS1_LOG_EVT_NONE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a1e3c8f08230dbabe9352b74ed1fe9b0b" compoundref="xv__hdmitxss1_8h" startline="126">XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa76ec71708386984f5f4fea5acc931cf" compoundref="xv__hdmitxss1_8h" startline="111">XV_HDMITXSS1_LOG_EVT_RESET</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2d48220e23a699da5867d80635d0bba4" compoundref="xv__hdmitxss1_8h" startline="118">XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a39d7665d5e5f22c57708000628278891" compoundref="xv__hdmitxss1_8h" startline="123">XV_HDMITXSS1_LOG_EVT_SETSTREAM</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa87456980697e1644c7bb078cdb8133d" compoundref="xv__hdmitxss1_8h" startline="109">XV_HDMITXSS1_LOG_EVT_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194acca316c46a14ae90bc9f061ad3237532" compoundref="xv__hdmitxss1_8h" startline="110">XV_HDMITXSS1_LOG_EVT_STOP</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa11ffa509dca45f524be5f1581fa9abe" compoundref="xv__hdmitxss1_8h" startline="116">XV_HDMITXSS1_LOG_EVT_STREAMDOWN</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abe1911338db298a23ec713716866e18b" compoundref="xv__hdmitxss1_8h" startline="117">XV_HDMITXSS1_LOG_EVT_STREAMSTART</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a4bcb4867aceecc187b9a5f6d47f53f24" compoundref="xv__hdmitxss1_8h" startline="115">XV_HDMITXSS1_LOG_EVT_STREAMUP</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" compoundref="xv__hdmitxss1_8h" startline="135">XV_HDMITXSS1_LOG_EVT_TMDS_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2f4d6c3af1944f8a49a8c07432d436ad" compoundref="xv__hdmitxss1_8h" startline="113">XV_HDMITXSS1_LOG_EVT_TOGGLE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" compoundref="xv__hdmitxss1_8h" startline="103">XV_HDMITXSS1_LOG_EVT_VTC_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abcc147bc9e9f384ec1ca08fbac8b87e7" compoundref="xv__hdmitxss1_8h" startline="128">XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR</references>
         <references refid="xv__hdmitxss1_8h_1ac884bd9e77df975e8e1a762081c13607" compoundref="xv__hdmitxss1__log_8c" startline="119" endline="144">XV_HdmiTxSs1_LogRead</references>
       </memberdef>
       </sectiondef>
@@ -555,6 +555,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c"/>
   </compounddef>
 </doxygen>

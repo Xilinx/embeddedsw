@@ -14,6 +14,14 @@
       <node id="130">
         <label>xil_cache.h</label>
       </node>
+      <node id="121">
+        <label>xaxipcie_sinit.c</label>
+        <link refid="xaxipcie_sinit.c"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+      </node>
       <node id="126">
         <label>xaxipcie_hw.h</label>
         <link refid="xaxipcie__hw_8h"/>
@@ -30,14 +38,6 @@
       </node>
       <node id="127">
         <label>xil_types.h</label>
-      </node>
-      <node id="121">
-        <label>xaxipcie_sinit.c</label>
-        <link refid="xaxipcie_sinit.c"/>
-        <childnode refid="122" relation="include">
-        </childnode>
-        <childnode refid="123" relation="include">
-        </childnode>
       </node>
       <node id="122">
         <label>xparameters.h</label>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_g.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_g.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -102,7 +102,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" bodystart="76" bodyend="90"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c" bodystart="76" bodyend="90"/>
         <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
         <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
       </memberdef>
@@ -195,6 +195,6 @@
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_sinit.c"/>
   </compounddef>
 </doxygen>

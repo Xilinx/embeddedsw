@@ -47,6 +47,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,7 +88,7 @@ $(document).ready(function(){initNavTree('xcert__genx509cert_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,6 +98,11 @@ $(document).ready(function(){initNavTree('xcert__genx509cert_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xcert_genx509cert.h File Reference</div>  </div>
 </div><!--header-->
@@ -117,8 +124,416 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
       kpt  11/19/2024 Add UTF8 encoding support for version field
 1.6   vm   12/18/2025 Add Error code for Insufficient Memory
       rmv  01/30/2026 Renamed OCP keymanagment macro
-      tbk  05/03/2026 Add validation for xcert remaining buffer before writing field</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
-</div></div><!-- contents -->
+      tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
+      sri  08/24/2026 Centralize XCERT_SHA_HASH_LEN and XCERT_SHA_KEY_ID_OFFSET
+</pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
+<code>#include &quot;xplmi_debug.h&quot;</code><br/>
+<code>#include &quot;xsecure_elliptic.h&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___sign_store.html">XCert_SignStore</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains information related to storing the signature of X.509 certificate.  <a href="struct_x_cert___sign_store.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___user_cfg.html">XCert_UserCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains information of the fields of X.509 certificate which is provided by user.  <a href="struct_x_cert___user_cfg.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___info_store.html">XCert_InfoStore</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains user configuration and information related to stored signature for given Subsystem ID.  <a href="struct_x_cert___info_store.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___dme_challenge.html">XCert_DmeChallenge</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the components of DME challenge.  <a href="struct_x_cert___dme_challenge.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___dme_response.html">XCert_DmeResponse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the components of DME response which is DME challenge and the signature generated using DME private key.  <a href="struct_x_cert___dme_response.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___app_cfg.html">XCert_AppCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the information required in the request to generate the X.509 certificate.  <a href="struct_x_cert___app_cfg.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_cert___config.html">XCert_Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the configuration for X.509 certificate for given Subsystem ID.  <a href="struct_x_cert___config.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a32dba6becd7c4af49f43752cc83a895e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a32dba6becd7c4af49f43752cc83a895e">XCERT_ISSUER_MAX_SIZE</a>&#160;&#160;&#160;(600U)</td></tr>
+<tr class="memdesc:a32dba6becd7c4af49f43752cc83a895e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of the DER encoded Issuer field received from CDO.  <a href="#a32dba6becd7c4af49f43752cc83a895e">More...</a><br/></td></tr>
+<tr class="separator:a32dba6becd7c4af49f43752cc83a895e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32d9358b7e2544605b1a3457dc2fa45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#aa32d9358b7e2544605b1a3457dc2fa45">XCERT_SUBJECT_MAX_SIZE</a>&#160;&#160;&#160;(600U)</td></tr>
+<tr class="memdesc:aa32d9358b7e2544605b1a3457dc2fa45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of the DER encoded Subject field received from CDO.  <a href="#aa32d9358b7e2544605b1a3457dc2fa45">More...</a><br/></td></tr>
+<tr class="separator:aa32d9358b7e2544605b1a3457dc2fa45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a940711b6ec8e6790c58151ce9d5790a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a940711b6ec8e6790c58151ce9d5790a6">XCERT_VALIDITY_MAX_SIZE</a>&#160;&#160;&#160;(40U)</td></tr>
+<tr class="memdesc:a940711b6ec8e6790c58151ce9d5790a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of the DER encoded Validity field received from CDO.  <a href="#a940711b6ec8e6790c58151ce9d5790a6">More...</a><br/></td></tr>
+<tr class="separator:a940711b6ec8e6790c58151ce9d5790a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae411514cb9d3a9d26140fcece4b2f4ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ae411514cb9d3a9d26140fcece4b2f4ed">XCERT_SUB_ALT_NAME_MAX_SIZE</a>&#160;&#160;&#160;(90U)</td></tr>
+<tr class="memdesc:ae411514cb9d3a9d26140fcece4b2f4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of the DER encoded Subject Alternative Name field received from CDO.  <a href="#ae411514cb9d3a9d26140fcece4b2f4ed">More...</a><br/></td></tr>
+<tr class="separator:ae411514cb9d3a9d26140fcece4b2f4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a2dd6b78d5c40d177a074620579942"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a95a2dd6b78d5c40d177a074620579942">XCERT_HASH_SIZE_IN_BYTES</a>&#160;&#160;&#160;(48U)</td></tr>
+<tr class="memdesc:a95a2dd6b78d5c40d177a074620579942"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of hash in bytes.  <a href="#a95a2dd6b78d5c40d177a074620579942">More...</a><br/></td></tr>
+<tr class="separator:a95a2dd6b78d5c40d177a074620579942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace951fc689878a52d025e3f9442d226a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ace951fc689878a52d025e3f9442d226a">XCERT_KEY_ID_VAL_LEN</a>&#160;&#160;&#160;(20U)</td></tr>
+<tr class="memdesc:ace951fc689878a52d025e3f9442d226a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of SKI/AKI key identifier in bytes.  <a href="#ace951fc689878a52d025e3f9442d226a">More...</a><br/></td></tr>
+<tr class="separator:ace951fc689878a52d025e3f9442d226a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0457e6629fc5a505cecceffd4d8c3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a0e0457e6629fc5a505cecceffd4d8c3c">XCERT_SHA_HASH_LEN</a>&#160;&#160;&#160;<a class="el" href="xcert__genx509cert_8h.html#a95a2dd6b78d5c40d177a074620579942">XCERT_HASH_SIZE_IN_BYTES</a></td></tr>
+<tr class="memdesc:a0e0457e6629fc5a505cecceffd4d8c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SKI/AKI digest buffer (Versal Net overrides to SHA-1)  <a href="#a0e0457e6629fc5a505cecceffd4d8c3c">More...</a><br/></td></tr>
+<tr class="separator:a0e0457e6629fc5a505cecceffd4d8c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a236565e962793c1d0c212b43fe5e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#af6a236565e962793c1d0c212b43fe5e7">XCERT_SHA_KEY_ID_OFFSET</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:af6a236565e962793c1d0c212b43fe5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SKI/AKI key id offset (platform may override)  <a href="#af6a236565e962793c1d0c212b43fe5e7">More...</a><br/></td></tr>
+<tr class="separator:af6a236565e962793c1d0c212b43fe5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75ece04b6d1a7b51bc124fa9cc023b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ae75ece04b6d1a7b51bc124fa9cc023b3">XCert_Printf</a>&#160;&#160;&#160;XPlmi_Printf</td></tr>
+<tr class="memdesc:ae75ece04b6d1a7b51bc124fa9cc023b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of XPlmi_Printf to be used in XilCert.  <a href="#ae75ece04b6d1a7b51bc124fa9cc023b3">More...</a><br/></td></tr>
+<tr class="separator:ae75ece04b6d1a7b51bc124fa9cc023b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af802db2c57e483d1f512cd499c67b120"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#af802db2c57e483d1f512cd499c67b120">XCERT_ECC_P384_PUBLIC_KEY_LEN</a>&#160;&#160;&#160;(96U)</td></tr>
+<tr class="memdesc:af802db2c57e483d1f512cd499c67b120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of ECC P-384 Public Key.  <a href="#af802db2c57e483d1f512cd499c67b120">More...</a><br/></td></tr>
+<tr class="separator:af802db2c57e483d1f512cd499c67b120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0866f80e9565a46e628a70f9cfa55c6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a0866f80e9565a46e628a70f9cfa55c6e">XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES</a>&#160;&#160;&#160;(48U)</td></tr>
+<tr class="memdesc:a0866f80e9565a46e628a70f9cfa55c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length og ECC P-384 Public Key in bytes.  <a href="#a0866f80e9565a46e628a70f9cfa55c6e">More...</a><br/></td></tr>
+<tr class="separator:a0866f80e9565a46e628a70f9cfa55c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a91b20bfe931aa1564d2ea0305d2a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ac5a91b20bfe931aa1564d2ea0305d2a4">XCERT_ECC_P384_SIZE_WORDS</a>&#160;&#160;&#160;(12U)</td></tr>
+<tr class="memdesc:ac5a91b20bfe931aa1564d2ea0305d2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of ECC P-384 Key in words.  <a href="#ac5a91b20bfe931aa1564d2ea0305d2a4">More...</a><br/></td></tr>
+<tr class="separator:ac5a91b20bfe931aa1564d2ea0305d2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae394766fa1653c473b5d72865ab90d35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ae394766fa1653c473b5d72865ab90d35">XCERT_DME_DEVICE_ID_SIZE_WORDS</a>&#160;&#160;&#160;(12U)</td></tr>
+<tr class="memdesc:ae394766fa1653c473b5d72865ab90d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of DME device id size in words.  <a href="#ae394766fa1653c473b5d72865ab90d35">More...</a><br/></td></tr>
+<tr class="separator:ae394766fa1653c473b5d72865ab90d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca1300079cb399039995d3749081eee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#aeca1300079cb399039995d3749081eee">XCERT_DME_NONCE_SIZE_WORDS</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memdesc:aeca1300079cb399039995d3749081eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of nonce in words.  <a href="#aeca1300079cb399039995d3749081eee">More...</a><br/></td></tr>
+<tr class="separator:aeca1300079cb399039995d3749081eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb0462094a53b16689c36c3b9f47329"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a8cb0462094a53b16689c36c3b9f47329">XCERT_DME_MEASURE_SIZE_WORDS</a>&#160;&#160;&#160;(12U)</td></tr>
+<tr class="memdesc:a8cb0462094a53b16689c36c3b9f47329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of DME measurement in words.  <a href="#a8cb0462094a53b16689c36c3b9f47329">More...</a><br/></td></tr>
+<tr class="separator:a8cb0462094a53b16689c36c3b9f47329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab77f95d2568bc13fae0a90d6df8a7af0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a> { <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0aa13c3930dee1880cd32cf5f88124cf4f">XCERT_ISSUER</a> = 0U,
+<a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0af840d5f02e05debea0e4b4226a329ac3">XCERT_SUBJECT</a>,
+<a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0a573927ac58a557db5d7ba3d60c425998">XCERT_VALIDITY</a>,
+<a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0a042a49e816abb84b8bf9429636a9fb6e">XCERT_SUBALTNAME</a>
+ }</td></tr>
+<tr class="memdesc:ab77f95d2568bc13fae0a90d6df8a7af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains enumeration of the fields of X.509 certificate which are configured by user.  <a href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">More...</a><br/></td></tr>
+<tr class="separator:ab77f95d2568bc13fae0a90d6df8a7af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947655916c12b9177335d80cfdfaee42"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42">XCert_ErrorStatus</a> { <br/>
+&#160;&#160;<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42addc04134a9c2f798076ff06252ffcd1b">XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD</a> = 0x40,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a8580363f8bb66d1a777d92a4ac902a85">XCERT_ERR_X509_GEN_TBSCERT_DIGEST</a>,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a6f5e40696d3967037ca682597bd8d998">XCERT_ERR_X509_CALC_SIGN</a>,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a10f9b61de43894721732214d6b279877">XCERT_ERR_X509_UPDATE_ENCODED_LEN</a>,
+<br/>
+&#160;&#160;<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a3df8a12d8a742cda76af0b15d6c2eeac">XCERT_ERR_X509_INVALID_USER_CFG</a>,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a086dc17e1e274ec138b4f6340229b6ff">XCERT_ERR_X509_USR_CFG_NOT_FOUND</a>,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a91a14853d1af93dd0b622f01cfdea881">XCERT_ERR_X509_GET_SIGN</a>,
+<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42ae63bdb4dd92d1e90f467ad52ee3548c8">XCERT_ERR_X509_KAT_FAILED</a>,
+<br/>
+&#160;&#160;<a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a17096c7777a5e6cbf59f342c5d4e3eae">XCERT_ERR_X509_INSUFFICIENT_MEMORY</a>
+<br/>
+ }</td></tr>
+<tr class="memdesc:a947655916c12b9177335d80cfdfaee42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error codes from request to generate X.509 certificate/ Certificate Signing Request.  <a href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42">More...</a><br/></td></tr>
+<tr class="separator:a947655916c12b9177335d80cfdfaee42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">XCert_GenerateX509Cert</a> (u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize, <a class="el" href="struct_x_cert___config.html">XCert_Config</a> *Cfg)</td></tr>
+<tr class="memdesc:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function creates the X.509 Certificate/Certificate Signing Request(CSR)  <a href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">More...</a><br/></td></tr>
+<tr class="separator:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput</a> (u32 SubSystemId, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a> FieldType, u8 *Val, u32 Len, u32 KeyIndex)</td></tr>
+<tr class="memdesc:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the user provided value for the user configurable fields in the certificate as per the provided FieldType.  <a href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">More...</a><br/></td></tr>
+<tr class="separator:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b45264c1bf4790b462655981d05289b"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga3b45264c1bf4790b462655981d05289b">XCert_GetSpkId</a> (void)</td></tr>
+<tr class="memdesc:ga3b45264c1bf4790b462655981d05289b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the pointer to the static variable SpkId.  <a href="group__xcert__apis.html#ga3b45264c1bf4790b462655981d05289b">More...</a><br/></td></tr>
+<tr class="separator:ga3b45264c1bf4790b462655981d05289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae394766fa1653c473b5d72865ab90d35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_DME_DEVICE_ID_SIZE_WORDS&#160;&#160;&#160;(12U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of DME device id size in words. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8cb0462094a53b16689c36c3b9f47329"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_DME_MEASURE_SIZE_WORDS&#160;&#160;&#160;(12U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of DME measurement in words. </p>
+
+</div>
+</div>
+<a class="anchor" id="aeca1300079cb399039995d3749081eee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_DME_NONCE_SIZE_WORDS&#160;&#160;&#160;(8U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of nonce in words. </p>
+
+</div>
+</div>
+<a class="anchor" id="af802db2c57e483d1f512cd499c67b120"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_ECC_P384_PUBLIC_KEY_LEN&#160;&#160;&#160;(96U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of ECC P-384 Public Key. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0866f80e9565a46e628a70f9cfa55c6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES&#160;&#160;&#160;(48U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length og ECC P-384 Public Key in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac5a91b20bfe931aa1564d2ea0305d2a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_ECC_P384_SIZE_WORDS&#160;&#160;&#160;(12U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of ECC P-384 Key in words. </p>
+
+</div>
+</div>
+<a class="anchor" id="a95a2dd6b78d5c40d177a074620579942"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_HASH_SIZE_IN_BYTES&#160;&#160;&#160;(48U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of hash in bytes. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">XCert_GenerateX509Cert()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a32dba6becd7c4af49f43752cc83a895e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_ISSUER_MAX_SIZE&#160;&#160;&#160;(600U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max length of the DER encoded Issuer field received from CDO. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ace951fc689878a52d025e3f9442d226a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_KEY_ID_VAL_LEN&#160;&#160;&#160;(20U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of SKI/AKI key identifier in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae75ece04b6d1a7b51bc124fa9cc023b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCert_Printf&#160;&#160;&#160;XPlmi_Printf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alias of XPlmi_Printf to be used in XilCert. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0e0457e6629fc5a505cecceffd4d8c3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SHA_HASH_LEN&#160;&#160;&#160;<a class="el" href="xcert__genx509cert_8h.html#a95a2dd6b78d5c40d177a074620579942">XCERT_HASH_SIZE_IN_BYTES</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SKI/AKI digest buffer (Versal Net overrides to SHA-1) </p>
+
+</div>
+</div>
+<a class="anchor" id="af6a236565e962793c1d0c212b43fe5e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SHA_KEY_ID_OFFSET&#160;&#160;&#160;(0U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SKI/AKI key id offset (platform may override) </p>
+
+</div>
+</div>
+<a class="anchor" id="ae411514cb9d3a9d26140fcece4b2f4ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SUB_ALT_NAME_MAX_SIZE&#160;&#160;&#160;(90U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max length of the DER encoded Subject Alternative Name field received from CDO. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa32d9358b7e2544605b1a3457dc2fa45"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SUBJECT_MAX_SIZE&#160;&#160;&#160;(600U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max length of the DER encoded Subject field received from CDO. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a940711b6ec8e6790c58151ce9d5790a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_VALIDITY_MAX_SIZE&#160;&#160;&#160;(40U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max length of the DER encoded Validity field received from CDO. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a947655916c12b9177335d80cfdfaee42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42">XCert_ErrorStatus</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error codes from request to generate X.509 certificate/ Certificate Signing Request. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42addc04134a9c2f798076ff06252ffcd1b"></a>XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD</em>&nbsp;</td><td class="fielddoc">
+<p>0x40 TBS certificate public key info field </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a8580363f8bb66d1a777d92a4ac902a85"></a>XCERT_ERR_X509_GEN_TBSCERT_DIGEST</em>&nbsp;</td><td class="fielddoc">
+<p>0x41 TBS certificate Digest </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a6f5e40696d3967037ca682597bd8d998"></a>XCERT_ERR_X509_CALC_SIGN</em>&nbsp;</td><td class="fielddoc">
+<p>0x42 Calculate sign </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a10f9b61de43894721732214d6b279877"></a>XCERT_ERR_X509_UPDATE_ENCODED_LEN</em>&nbsp;</td><td class="fielddoc">
+<p>0x43 Update encoded length </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a3df8a12d8a742cda76af0b15d6c2eeac"></a>XCERT_ERR_X509_INVALID_USER_CFG</em>&nbsp;</td><td class="fielddoc">
+<p>0x44 Stored user configuration is all zeroes </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a086dc17e1e274ec138b4f6340229b6ff"></a>XCERT_ERR_X509_USR_CFG_NOT_FOUND</em>&nbsp;</td><td class="fielddoc">
+<p>0x45 User configuration not found for provided Subsystem Id </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a91a14853d1af93dd0b622f01cfdea881"></a>XCERT_ERR_X509_GET_SIGN</em>&nbsp;</td><td class="fielddoc">
+<p>0x46 Failed to get the signature stored </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42ae63bdb4dd92d1e90f467ad52ee3548c8"></a>XCERT_ERR_X509_KAT_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x47 KAT failure error </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a947655916c12b9177335d80cfdfaee42a17096c7777a5e6cbf59f342c5d4e3eae"></a>XCERT_ERR_X509_INSUFFICIENT_MEMORY</em>&nbsp;</td><td class="fielddoc">
+<p>0x48 Insufficient input memory to store certificate </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ab77f95d2568bc13fae0a90d6df8a7af0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This typedef contains enumeration of the fields of X.509 certificate which are configured by user. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="ab77f95d2568bc13fae0a90d6df8a7af0aa13c3930dee1880cd32cf5f88124cf4f"></a>XCERT_ISSUER</em>&nbsp;</td><td class="fielddoc">
+<p>0 - Issuer </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab77f95d2568bc13fae0a90d6df8a7af0af840d5f02e05debea0e4b4226a329ac3"></a>XCERT_SUBJECT</em>&nbsp;</td><td class="fielddoc">
+<p>1 - Subject </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab77f95d2568bc13fae0a90d6df8a7af0a573927ac58a557db5d7ba3d60c425998"></a>XCERT_VALIDITY</em>&nbsp;</td><td class="fielddoc">
+<p>2 - Validity </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab77f95d2568bc13fae0a90d6df8a7af0a042a49e816abb84b8bf9429636a9fb6e"></a>XCERT_SUBALTNAME</em>&nbsp;</td><td class="fielddoc">
+<p>3 - Subject Alternative Name </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

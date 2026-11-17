@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0f096c05afe0eeb83e27ab5407030de8" kind="dir">
+    <compoundname>server</compoundname>
+    <innerdir refid="dir_4a42b036e51a7d54ff486e8d8e2cd0c9">efuse</innerdir>
+    <innerfile refid="xnvm__bbram__cdohandler_8c">xnvm_bbram_cdohandler.c</innerfile>
+    <innerfile refid="xnvm__bbram__cdohandler_8h">xnvm_bbram_cdohandler.h</innerfile>
+    <innerfile refid="next_2server_2xnvm__cmd_8c">next/server/xnvm_cmd.c</innerfile>
+    <innerfile refid="next_2server_2xnvm__cmd_8h">next/server/xnvm_cmd.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/"/>
+  </compounddef>
+</doxygen>

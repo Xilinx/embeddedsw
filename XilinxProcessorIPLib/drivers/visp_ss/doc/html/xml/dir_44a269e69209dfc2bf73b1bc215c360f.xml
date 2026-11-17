@@ -4,12 +4,17 @@
     <compoundname>src</compoundname>
     <innerfile refid="apu__to__rpu__ipi_8c">apu_to_rpu_ipi.c</innerfile>
     <innerfile refid="mbox__api_8c">mbox_api.c</innerfile>
+    <innerfile refid="mbox__checksum_8c">mbox_checksum.c</innerfile>
     <innerfile refid="mbox__cmd_8c">mbox_cmd.c</innerfile>
     <innerfile refid="mbox__fifo_8c">mbox_fifo.c</innerfile>
+    <innerfile refid="mbox__integrity_8c">mbox_integrity.c</innerfile>
+    <innerfile refid="mbox__interface_8c">mbox_interface.c</innerfile>
+    <innerfile refid="mbox__phy_8c">mbox_phy.c</innerfile>
+    <innerfile refid="mbox__seq_8c">mbox_seq.c</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/"/>
   </compounddef>
 </doxygen>

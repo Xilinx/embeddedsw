@@ -47,6 +47,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,7 +88,7 @@ $(document).ready(function(){initNavTree('group__xcert__apis.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,10 +98,190 @@ $(document).ready(function(){initNavTree('group__xcert__apis.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">XilCert APIs</div>  </div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga3b45264c1bf4790b462655981d05289b"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga3b45264c1bf4790b462655981d05289b">XCert_GetSpkId</a> (void)</td></tr>
+<tr class="memdesc:ga3b45264c1bf4790b462655981d05289b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the pointer to the static variable SpkId.  <a href="#ga3b45264c1bf4790b462655981d05289b">More...</a><br/></td></tr>
+<tr class="separator:ga3b45264c1bf4790b462655981d05289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">XCert_GenerateX509Cert</a> (u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize, <a class="el" href="struct_x_cert___config.html">XCert_Config</a> *Cfg)</td></tr>
+<tr class="memdesc:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function creates the X.509 Certificate/Certificate Signing Request(CSR)  <a href="#gafc17a8e6c3a9c36de72923ddf5ec9a84">More...</a><br/></td></tr>
+<tr class="separator:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput</a> (u32 SubSystemId, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a> FieldType, u8 *Val, u32 Len, u32 KeyIndex)</td></tr>
+<tr class="memdesc:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the user provided value for the user configurable fields in the certificate as per the provided FieldType.  <a href="#ga8b37477fe9d2496ae31617c733fe1f9d">More...</a><br/></td></tr>
+<tr class="separator:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gafc17a8e6c3a9c36de72923ddf5ec9a84"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XCert_GenerateX509Cert </td>
+          <td>(</td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>X509CertAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>MaxCertSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>X509CertSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_cert___config.html">XCert_Config</a> *&#160;</td>
+          <td class="paramname"><em>Cfg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function creates the X.509 Certificate/Certificate Signing Request(CSR) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">X509CertAddr</td><td>Address of the X.509 Certificate buffer </td></tr>
+    <tr><td class="paramname">MaxCertSize</td><td>Maximum size of the X.509 Certificate buffer </td></tr>
+    <tr><td class="paramname">X509CertSize</td><td>Size of X.509 Certificate in bytes </td></tr>
+    <tr><td class="paramname">Cfg</td><td>Pointer to structure which includes configuration for the X.509 Certificate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS Successfully generated X.509 certificate/CSR</li>
+<li>XST_INVALID_PARAM Invalid function arguments</li>
+<li>XCERT_ERR_X509_KAT_FAILED Failure of SHA384 KAT</li>
+<li>XCERT_ERR_X509_GEN_TBSCERT_DIGEST Failure in SHA 384 digest calculation for TBS certificate</li>
+<li>XCERT_ERR_X509_GET_SIGN Failure in getting stored signature</li>
+<li>XSECURE_KAT_MAJOR_ERROR Failure in Sign Generate KAT</li>
+<li>XCERT_ERR_X509_CALC_SIGN Failure in generating ephemeral key and signature</li>
+<li>XCERT_ERR_X509_UPDATE_ENCODED_LEN Failure in updating encoded length</li>
+<li>XCERT_ERR_X509_INSUFFICIENT_MEMORY Insufficient buffer provided for X.509 cert.</li>
+<li>XST_FAILURE In case of failure</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Certificate ::= SEQUENCE { tbsCertificate TBSCertificate, signatureAlgorithm AlgorithmIdentifier, signatureValue BIT STRING } </dd></dl>
+<p>SHA 384 is used to calculate hash for Serial field and to calculate hash for signature calculation. So run KAT for SHA384 before use</p>
+<p>Generate Sign Algorithm field</p>
+<p>Calculate SHA 384 Digest of the TBS certificate</p>
+<p>Get the TBS certificate signature stored in Cert DB</p>
+<p>If the Signature is available, compare the hash stored with the hash calculated to make sure nothing is changed. if hash matches, copy the stored signature else generate the signature again.</p>
+<p>If the Signature is not available or Hash comparison from above fails, regenerate the signature.</p>
+<p>Calculate signature of the TBS certificate using the private key</p>
+<p>Copy the generated signature and hash into SignStore</p>
+<p>Generate Signature field</p>
+<p>Update the encoded length in the X.509 certificate SEQUENCE</p>
+<p>Validate the certificate size and copy the certificate to user buffer</p>
+
+<p>References <a class="el" href="struct_x_cert___config.html#acd8d359b5c228905e28f209e7200f60d">XCert_Config::AppCfg</a>, <a class="el" href="struct_x_cert___x509_cert_info.html#a3bd7c31c7a0a51bf1cddc4c54199b9a3">XCert_X509CertInfo::Buff</a>, <a class="el" href="struct_x_cert___x509_cert_info.html#a8dad13d50b7fde8ce15cf7a01afa19b2">XCert_X509CertInfo::CurrOffset</a>, <a class="el" href="struct_x_cert___sign_store.html#a47a31a81b987739963261cb014990427">XCert_SignStore::Hash</a>, <a class="el" href="struct_x_cert___app_cfg.html#a00e802e538ea05f91fe41aa8e194717d">XCert_AppCfg::IsCsr</a>, <a class="el" href="struct_x_cert___sign_store.html#aa999f388f23022aa2c09354dd0f54aef">XCert_SignStore::IsSignAvailable</a>, <a class="el" href="struct_x_cert___app_cfg.html#a8b81f19353a0b2983622a03519c8ebba">XCert_AppCfg::IssuerPrvtKey</a>, <a class="el" href="struct_x_cert___x509_cert_info.html#a77c131b5e8540bbbed931137989863dc">XCert_X509CertInfo::RemainingBytes</a>, <a class="el" href="struct_x_cert___sign_store.html#a5aece10a2a02289ef5f13b16f1849311">XCert_SignStore::Sign</a>, <a class="el" href="struct_x_cert___config.html#a713b05bc774246e63056a1483235fc2f">XCert_Config::SubSystemId</a>, <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a6f5e40696d3967037ca682597bd8d998">XCERT_ERR_X509_CALC_SIGN</a>, <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a8580363f8bb66d1a777d92a4ac902a85">XCERT_ERR_X509_GEN_TBSCERT_DIGEST</a>, <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a91a14853d1af93dd0b622f01cfdea881">XCERT_ERR_X509_GET_SIGN</a>, <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a17096c7777a5e6cbf59f342c5d4e3eae">XCERT_ERR_X509_INSUFFICIENT_MEMORY</a>, <a class="el" href="xcert__genx509cert_8h.html#a947655916c12b9177335d80cfdfaee42a10f9b61de43894721732214d6b279877">XCERT_ERR_X509_UPDATE_ENCODED_LEN</a>, <a class="el" href="xcert__genx509cert_8h.html#a95a2dd6b78d5c40d177a074620579942">XCERT_HASH_SIZE_IN_BYTES</a>, <a class="el" href="xcert__createfield_8h.html#adb9d9dbb1d48e1caff55695be6c2a1e1">XCERT_LOWER_NIBBLE_MASK</a>, <a class="el" href="xcert__createfield_8h.html#a22e7e4649143ca93f86b83b7f492a72d">XCERT_PTR_DIFF_U32</a>, <a class="el" href="xcert__createfield_8h.html#a4b15482c731266d2ab079970e8fd5056">XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES</a>, and <a class="el" href="group__xil__certapis.html#ga757161cc6105137b1bbc3e183054b646">XOCP_SECURE_SHA_KAT_MASK</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga3b45264c1bf4790b462655981d05289b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32* XCert_GetSpkId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function provides the pointer to the static variable SpkId. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>Pointer to the static variable SPK ID. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga8b37477fe9d2496ae31617c733fe1f9d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XCert_StoreCertUserInput </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>SubSystemId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a>&#160;</td>
+          <td class="paramname"><em>FieldType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>Val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>KeyIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function stores the user provided value for the user configurable fields in the certificate as per the provided FieldType. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SubSystemId</td><td>Id of subsystem for which field data is provided </td></tr>
+    <tr><td class="paramname">FieldType</td><td>To identify the field for which input is provided </td></tr>
+    <tr><td class="paramname">Val</td><td>Value of the field provided by the user </td></tr>
+    <tr><td class="paramname">Len</td><td>Length of the value in bytes </td></tr>
+    <tr><td class="paramname">KeyIndex</td><td>Index of the key for given subsystem ID</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS If whole operation is success</li>
+<li>XST_INVALID_PARAM Failure due to invalid arguments</li>
+<li>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED Exceed maximum limit of user configuration</li>
+<li>XST_FAILURE Upon any failure </li>
+</ul>
+</dd></dl>
+<p>Look for the Subsystem Id. If it is there get the index and update the field of existing subsystem else increment index and add entry for new subsystem.</p>
+
+<p>References <a class="el" href="struct_x_cert___user_cfg.html#a41aa1a8786523bfde85de6b76f5933ac">XCert_UserCfg::IsSubAltNameAvailable</a>, <a class="el" href="struct_x_cert___user_cfg.html#a0b36a1d01dc73972bb62022f7c0bff23">XCert_UserCfg::Issuer</a>, <a class="el" href="struct_x_cert___user_cfg.html#abcb17ed731e58fe58f2b2e8d581e8fad">XCert_UserCfg::IssuerLen</a>, <a class="el" href="struct_x_cert___info_store.html#ad9de2a61a996f87369af2ec02653ebe9">XCert_InfoStore::KeyIndex</a>, <a class="el" href="struct_x_cert___user_cfg.html#a105d2b4bef6c3b421077c3aeed4cb18a">XCert_UserCfg::SubAltName</a>, <a class="el" href="struct_x_cert___user_cfg.html#a4b8ac56bf3cddfaf7cf7c1bbe80e8a1b">XCert_UserCfg::SubAltNameLen</a>, <a class="el" href="struct_x_cert___user_cfg.html#ac8ffae57ccdd2068711b6b28b6e89586">XCert_UserCfg::Subject</a>, <a class="el" href="struct_x_cert___user_cfg.html#abc4bba2fc3b24bb3d27fe94f5274bcde">XCert_UserCfg::SubjectLen</a>, <a class="el" href="struct_x_cert___info_store.html#ac3fe987c9d4a8cba908cc5a68032e5e5">XCert_InfoStore::SubsystemId</a>, <a class="el" href="struct_x_cert___info_store.html#a7f309cd92a24e82f2011c9c695cf6c28">XCert_InfoStore::UserCfg</a>, <a class="el" href="struct_x_cert___user_cfg.html#a4c317b7455edfa4282b7ce1bddce3666">XCert_UserCfg::Validity</a>, <a class="el" href="struct_x_cert___user_cfg.html#adbae73c7ed69762e6f8f849777305783">XCert_UserCfg::ValidityLen</a>, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0aa13c3930dee1880cd32cf5f88124cf4f">XCERT_ISSUER</a>, <a class="el" href="xcert__genx509cert_8h.html#a32dba6becd7c4af49f43752cc83a895e">XCERT_ISSUER_MAX_SIZE</a>, <a class="el" href="xcert__genx509cert_8h.html#ae411514cb9d3a9d26140fcece4b2f4ed">XCERT_SUB_ALT_NAME_MAX_SIZE</a>, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0a042a49e816abb84b8bf9429636a9fb6e">XCERT_SUBALTNAME</a>, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0af840d5f02e05debea0e4b4226a329ac3">XCERT_SUBJECT</a>, <a class="el" href="xcert__genx509cert_8h.html#aa32d9358b7e2544605b1a3457dc2fa45">XCERT_SUBJECT_MAX_SIZE</a>, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0a573927ac58a557db5d7ba3d60c425998">XCERT_VALIDITY</a>, and <a class="el" href="xcert__genx509cert_8h.html#a940711b6ec8e6790c58151ce9d5790a6">XCERT_VALIDITY_MAX_SIZE</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

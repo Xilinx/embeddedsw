@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="305" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="353" endline="555">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1ga4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="68" endline="121">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1ga7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="251" endline="297">XAvb_ReadAnnounceFrame</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___clock_quality_1ad4d7a7873966a1b940f6de4a7f3b5074" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -32,9 +32,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="306" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="353" endline="555">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="group__axiethernet_1ga7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="251" endline="297">XAvb_ReadAnnounceFrame</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___clock_quality_1a8034a2fc43c4dcaadca3577cc7e9a7be" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -47,16 +47,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="307" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="353" endline="555">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="group__axiethernet_1ga7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="251" endline="297">XAvb_ReadAnnounceFrame</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef defines the quality of a clock. </para>    </briefdescription>
+<para>Defines the quality of a clock. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="303" bodyend="308"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="304" bodyend="309"/>
     <listofallmembers>
       <member refid="struct_x_avb___clock_quality_1ad4d7a7873966a1b940f6de4a7f3b5074" prot="public" virt="non-virtual"><scope>XAvb_ClockQuality</scope><name>clockAccuracy</name></member>
       <member refid="struct_x_avb___clock_quality_1a4102e4f3919f5ed91b62d45c2545c793" prot="public" virt="non-virtual"><scope>XAvb_ClockQuality</scope><name>clockClass</name></member>

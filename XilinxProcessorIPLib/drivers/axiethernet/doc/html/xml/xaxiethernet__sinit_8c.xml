@@ -7,12 +7,6 @@
       <node id="340">
         <label>xil_assert.h</label>
       </node>
-      <node id="343">
-        <label>xil_io.h</label>
-      </node>
-      <node id="338">
-        <label>xenv.h</label>
-      </node>
       <node id="341">
         <label>xaxiethernet_hw.h</label>
         <link refid="xaxiethernet__hw_8h"/>
@@ -23,14 +17,14 @@
         <childnode refid="344" relation="include">
         </childnode>
       </node>
+      <node id="343">
+        <label>xil_io.h</label>
+      </node>
+      <node id="338">
+        <label>xenv.h</label>
+      </node>
       <node id="342">
         <label>xdebug.h</label>
-      </node>
-      <node id="339">
-        <label>xstatus.h</label>
-      </node>
-      <node id="344">
-        <label>xil_types.h</label>
       </node>
       <node id="337">
         <label>xaxiethernet.h</label>
@@ -50,6 +44,12 @@
         <childnode refid="337" relation="include">
         </childnode>
       </node>
+      <node id="339">
+        <label>xstatus.h</label>
+      </node>
+      <node id="344">
+        <label>xil_types.h</label>
+      </node>
     </incdepgraph>
       <sectiondef kind="func">
       <memberdef kind="function" id="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -62,31 +62,30 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+<para>Looks up device configuration by base address. </para>        </briefdescription>
         <detaileddescription>
-<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<para>Implementation of <ref refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" kindref="member">XAxiEthernet_LookupConfig()</ref>.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>contains the base address of the device</para></parameterdescription>
+<para>is the base address of the device to look up.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
-<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
-</para>        </detaileddescription>
+<simplesect kind="return"><para>The configuration structure for the device. If the device base address is not found, a NULL pointer is returned.</para></simplesect>
+See <ref refid="xaxiethernet_8h" kindref="compound">xaxiethernet.h</ref> for the API description. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="1523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_sinit.c" bodystart="81" bodyend="97"/>
-        <references refid="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" compoundref="xaxiethernet_8h" startline="752">XAxiEthernet_Config::Name</references>
-        <referencedby refid="xaxiethernet__example__extvlan_8c_1a97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="372" endline="618">AxiEthernetExtVlanExample</referencedby>
-        <referencedby refid="xaxiethernet__example__intr__fifo_8c_1a923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="339" endline="550">AxiEthernetFifoIntrExample</referencedby>
-        <referencedby refid="xaxiethernet__example__extmulticast_8c_1a674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="384" endline="627">AxiEthernetMcastExample</referencedby>
-        <referencedby refid="xaxiethernet__mcdma__ping__req__example_8c_1a5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="424" endline="626">AxiEthernetPingReqExample</referencedby>
-        <referencedby refid="xaxiethernet__example__polled_8c_1a827aa292a20f9a15e68bfe60e82cfc13" compoundref="xaxiethernet__example__polled_8c" startline="174" endline="283">AxiEthernetPolledExample</referencedby>
-        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
-        <referencedby refid="xaxiethernet__example__mcdma__poll_8c_1af23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="305" endline="514">AxiEthernetSgDmaPollExample</referencedby>
-        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="1456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_sinit.c" bodystart="77" bodyend="93"/>
+        <references refid="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" compoundref="xaxiethernet_8h" startline="647">XAxiEthernet_Config::Name</references>
+        <referencedby refid="group__axiethernet_1ga97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="368" endline="614">AxiEthernetExtVlanExample</referencedby>
+        <referencedby refid="group__axiethernet_1ga923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="361" endline="572">AxiEthernetFifoIntrExample</referencedby>
+        <referencedby refid="group__axiethernet_1ga674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="386" endline="629">AxiEthernetMcastExample</referencedby>
+        <referencedby refid="group__axiethernet_1ga5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="417" endline="619">AxiEthernetPingReqExample</referencedby>
+        <referencedby refid="group__axiethernet_1ga827aa292a20f9a15e68bfe60e82cfc13" compoundref="xaxiethernet__example__polled_8c" startline="170" endline="279">AxiEthernetPolledExample</referencedby>
+        <referencedby refid="group__axiethernet_1ga13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="358" endline="571">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="group__axiethernet_1gaf23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="255" endline="464">AxiEthernetSgDmaPollExample</referencedby>
+        <referencedby refid="group__axiethernet_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="161" endline="287">main</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -94,68 +93,72 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="1"><highlight class="comment">/*****************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxiethernet_8h" kindref="compound">xaxiethernet.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxiethernet_8h" kindref="compound">xaxiethernet.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="64"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*<ref refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" kindref="member">XAxiEthernet_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>XAxiEthernet_ConfigTable[];</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPAR_XAXIETHERNET_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAxiEthernet_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XAxiEthernet_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CfgPtr);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="81" refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*<ref refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" kindref="member">XAxiEthernet_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>XAxiEthernet_ConfigTable[];</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0x0;<sp/>XAxiEthernet_ConfigTable[Index].<ref refid="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XAxiEthernet_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XAxiEthernet_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CfgPtr);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*<ref refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" kindref="member">XAxiEthernet_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>XAxiEthernet_ConfigTable[];</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPAR_XAXIETHERNET_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAxiEthernet_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XAxiEthernet_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CfgPtr);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined(SDT)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77" refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" refkind="member"><highlight class="normal"><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*<ref refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" kindref="member">XAxiEthernet_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>XAxiEthernet_ConfigTable[];</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_ethernet___config" kindref="compound">XAxiEthernet_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0x0;<sp/>XAxiEthernet_ConfigTable[Index].<ref refid="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XAxiEthernet_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XAxiEthernet_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CfgPtr);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_sinit.c"/>
   </compounddef>
 </doxygen>

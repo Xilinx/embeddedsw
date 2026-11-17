@@ -102,7 +102,8 @@ $(document).ready(function(){initNavTree('group__trngpsx__api.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">TRNGPSX APIs</div>  </div>
 </div><!--header-->
@@ -345,34 +346,35 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:ga1a37c0faa6994f63b7c2c62ffe43562f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains trng driver state.  <a href="group__trngpsx__api.html#ga1a37c0faa6994f63b7c2c62ffe43562f">More...</a><br/></td></tr>
 <tr class="separator:ga1a37c0faa6994f63b7c2c62ffe43562f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d0ae14b9bbf4f302c87faaa43cb8a79"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__trngpsx__api.html#ga2d0ae14b9bbf4f302c87faaa43cb8a79">XTrngpsx_ErrorCodes</a> { <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13">XTRNGPSX_INVALID_PARAM</a> = 0x0,
-<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a">XTRNGPSX_INVALID_MODE</a>,
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a">XTRNGPSX_INVALID_MODE</a> = 0x1,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944">XTRNGPSX_INVALID_DF_LENGTH</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f">XTRNGPSX_INVALID_SEED_LIFE</a>,
+<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79aaf19eaa7b8db854d074a23c6722bc99d">XTRNGPSX_INVALID_SEED_VALUE</a>,
 <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79aaf19eaa7b8db854d074a23c6722bc99d">XTRNGPSX_INVALID_SEED_VALUE</a>,
-<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a95625aa33c96fc9e65543064eb4e973e">XTRNGPSX_INVALID_SEED_LENGTH</a>,
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a95625aa33c96fc9e65543064eb4e973e">XTRNGPSX_INVALID_SEED_LENGTH</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a21c4b76c9247554959c5f0ff66568ac0">XTRNGPSX_INVALID_STATE</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a892ff927b85e5aeb786102b701523766">XTRNGPSX_INVALID_ADAPTPROPTEST_CUTOFF_VALUE</a>,
+<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a4879ffc6bc8dbbef89413a41af0bef1f">XTRNGPSX_INVALID_REPCOUNTTEST_CUTOFF_VALUE</a>,
 <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a4879ffc6bc8dbbef89413a41af0bef1f">XTRNGPSX_INVALID_REPCOUNTTEST_CUTOFF_VALUE</a>,
-<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a12c6a942189e26d4ef054ec3b4e5a39f">XTRNGPSX_USER_CFG_COPY_ERROR</a>,
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a12c6a942189e26d4ef054ec3b4e5a39f">XTRNGPSX_USER_CFG_COPY_ERROR</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a750afc0bc2b7948b06e719628dce4ec4">XTRNGPSX_UNHEALTHY_STATE</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79ab478bf676839153009c7a5bc91005079">XTRNGPSX_INVALID_BUF_SIZE</a>,
+<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a45649834be62e2cac315b4ed8db133f9">XTRNGPSX_RESEED_REQUIRED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a45649834be62e2cac315b4ed8db133f9">XTRNGPSX_RESEED_REQUIRED_ERROR</a>,
-<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a026fb1ebe44fe8daa96bb6a7b27e98c9">XTRNG_PSX_INVALID_PREDRES_VALUE</a>,
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a026fb1ebe44fe8daa96bb6a7b27e98c9">XTRNG_PSX_INVALID_PREDRES_VALUE</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a1e193483a8faf3099ed9860439b6ee3d">XTRNGPSX_MEMSET_UNINSTANTIATE_ERROR</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a611d0be64ec9b573c0aa0ed99e0a5975">XTRNGPSX_TIMEOUT_ERROR</a>,
+<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a83efeb211988308d8f9b07bbbe8c23b3">XTRNGPSX_CATASTROPHIC_CTF_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a83efeb211988308d8f9b07bbbe8c23b3">XTRNGPSX_CATASTROPHIC_CTF_ERROR</a>,
-<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a2929b58685ab788ea0107d339657632d">XTRNGPSX_CATASTROPHIC_DTF_ERROR</a>,
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a2929b58685ab788ea0107d339657632d">XTRNGPSX_CATASTROPHIC_DTF_ERROR</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a">XTRNGPSX_KAT_FAILED_ERROR</a>,
 <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a8b29809ecc7cba250e0961eb2e8f4ce6">XTRNGPSX_WRITE_ERROR</a>,
+<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964">XTRNGPSX_INVALID_BLOCKING_MODE</a>,
 <br/>
-&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964">XTRNGPSX_INVALID_BLOCKING_MODE</a>
+&#160;&#160;<a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13">XTRNGPSX_INVALID_PARAM</a>
 <br/>
  }</td></tr>
+<tr class="memdesc:ga2d0ae14b9bbf4f302c87faaa43cb8a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains error codes related to TRNG.  <a href="group__trngpsx__api.html#ga2d0ae14b9bbf4f302c87faaa43cb8a79">More...</a><br/></td></tr>
 <tr class="separator:ga2d0ae14b9bbf4f302c87faaa43cb8a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -393,7 +395,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga15ee0bc83b064ce7910792c014c589b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function uninstantiates the TRNG instance.  <a href="#ga15ee0bc83b064ce7910792c014c589b1">More...</a><br/></td></tr>
 <tr class="separator:ga15ee0bc83b064ce7910792c014c589b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga585c8fe9159bad7d022d6ffe54743149"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_trngpsx___config.html">XTrngpsx_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__trngpsx__api.html#ga585c8fe9159bad7d022d6ffe54743149">XTrngpsx_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga585c8fe9159bad7d022d6ffe54743149"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to an <a class="el" href="struct_x_trngpsx___config.html" title="This typedef contains configuration information for the device. ">XTrngpsx_Config</a> structure based on the DeviceId.  <a href="#ga585c8fe9159bad7d022d6ffe54743149">More...</a><br/></td></tr>
+<tr class="memdesc:ga585c8fe9159bad7d022d6ffe54743149"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to an <a class="el" href="struct_x_trngpsx___config.html" title="This typedef contains configuration information for the device. ">XTrngpsx_Config</a> structure based on the BaseAddress.  <a href="#ga585c8fe9159bad7d022d6ffe54743149">More...</a><br/></td></tr>
 <tr class="separator:ga585c8fe9159bad7d022d6ffe54743149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga96822ba4d9b936cb95d8190ffd3095f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__trngpsx__api.html#ga96822ba4d9b936cb95d8190ffd3095f0">XTrngpsx_DRBGKat</a> (<a class="el" href="struct_x_trngpsx___instance.html">XTrngpsx_Instance</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga96822ba4d9b936cb95d8190ffd3095f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed, Reseed and Generate.  <a href="#ga96822ba4d9b936cb95d8190ffd3095f0">More...</a><br/></td></tr>
@@ -404,6 +406,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaecce7c23f64a684ac613d6c36ae708cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__trngpsx__api.html#gaecce7c23f64a684ac613d6c36ae708cb">XTrngpsx_PreOperationalSelfTests</a> (<a class="el" href="struct_x_trngpsx___instance.html">XTrngpsx_Instance</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gaecce7c23f64a684ac613d6c36ae708cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs preoperational self tests and updates TRNG error state.  <a href="#gaecce7c23f64a684ac613d6c36ae708cb">More...</a><br/></td></tr>
 <tr class="separator:gaecce7c23f64a684ac613d6c36ae708cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga8a9a86209f21795b5c59ea97229d04a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_trngpsx___config.html">XTrngpsx_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__trngpsx__api.html#ga8a9a86209f21795b5c59ea97229d04a3">XTrngpsx_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga8a9a86209f21795b5c59ea97229d04a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">TRNG configuration table.  <a href="#ga8a9a86209f21795b5c59ea97229d04a3">More...</a><br/></td></tr>
+<tr class="separator:ga8a9a86209f21795b5c59ea97229d04a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
@@ -1428,11 +1436,10 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This typedef contains error codes related to TRNG. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13"></a>XTRNGPSX_INVALID_PARAM</em>&nbsp;</td><td class="fielddoc">
-<p>0x0 - Invalid argument </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a"></a>XTRNGPSX_INVALID_MODE</em>&nbsp;</td><td class="fielddoc">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a"></a>XTRNGPSX_INVALID_MODE</em>&nbsp;</td><td class="fielddoc">
 <p>0x1 - Error when TRNG operation mode is invalid </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944"></a>XTRNGPSX_INVALID_DF_LENGTH</em>&nbsp;</td><td class="fielddoc">
@@ -1491,6 +1498,9 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964"></a>XTRNGPSX_INVALID_BLOCKING_MODE</em>&nbsp;</td><td class="fielddoc">
 <p>0x14 - Error occurred when invalid blocking mode is selected </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13"></a>XTRNGPSX_INVALID_PARAM</em>&nbsp;</td><td class="fielddoc">
+<p>0x15 - Invalid argument </p>
 </td></tr>
 </table>
 
@@ -1631,7 +1641,7 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
 <li>Populate Config parameters </li>
 </ul>
 
-<p>References <a class="el" href="struct_x_trngpsx___config.html#a620f1d30b205b73853ba2944daf3792d">XTrngpsx_Config::BaseAddress</a>, <a class="el" href="struct_x_trngpsx___instance.html#a2dbc9278a04d95a6ce941a671cd1e643">XTrngpsx_Instance::Config</a>, <a class="el" href="struct_x_trngpsx___instance.html#a09306785899052b04da48d650153eb65">XTrngpsx_Instance::ErrorState</a>, <a class="el" href="struct_x_trngpsx___instance.html#a78a6095bc46bd1501992906d51cb0826">XTrngpsx_Instance::State</a>, <a class="el" href="group__trngpsx__api.html#ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc">XTRNGPSX_ERROR</a>, <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13">XTRNGPSX_INVALID_PARAM</a>, and <a class="el" href="group__trngpsx__api.html#gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b">XTRNGPSX_UNINITIALIZED_STATE</a>.</p>
+<p>References <a class="el" href="struct_x_trngpsx___config.html#a620f1d30b205b73853ba2944daf3792d">XTrngpsx_Config::BaseAddress</a>, <a class="el" href="struct_x_trngpsx___instance.html#a2dbc9278a04d95a6ce941a671cd1e643">XTrngpsx_Instance::Config</a>, <a class="el" href="struct_x_trngpsx___instance.html#a09306785899052b04da48d650153eb65">XTrngpsx_Instance::ErrorState</a>, <a class="el" href="struct_x_trngpsx___config.html#a8bf1d2809ae940e23cb6b05596d9e85a">XTrngpsx_Config::Name</a>, <a class="el" href="struct_x_trngpsx___instance.html#a78a6095bc46bd1501992906d51cb0826">XTrngpsx_Instance::State</a>, <a class="el" href="group__trngpsx__api.html#ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc">XTRNGPSX_ERROR</a>, <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13">XTRNGPSX_INVALID_PARAM</a>, and <a class="el" href="group__trngpsx__api.html#gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b">XTRNGPSX_UNINITIALIZED_STATE</a>.</p>
 
 </div>
 </div>
@@ -1731,16 +1741,14 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Validate input arguments.</li>
+<li>HRNG automatic reseed must be performed BEFORE collecting random data so that prediction-resistant generates use a fresh seed (NIST SP 800-90A) and the call ends in GENERATE_STATE.</li>
 <li>Wait for reseed operation and check CTF flag</li>
 <li>Store prediction resistance setting for hardware configuration during data collection</li>
 <li>Enable ring oscillators for random seed source</li>
 <li>Configure TRNG control: enable TRSS, EU mode for PTRNG operation</li>
 <li>Trigger generate and collect random data</li>
-<li>State machine update: transition to generate state indicating successful operation</li>
-<li>Update seed life and handle HRNG automatic reseed logic</li>
-<li>HRNG automatic reseed logic: maintain fresh entropy based on configured seed life</li>
-<li>Auto reseed in HRNG mode</li>
-<li>Automatic reseed with internal entropy: maintain cryptographic strength</li>
+<li>Update elapsed seed life for the completed generate operation</li>
+<li>State machine update: transition to generate state last, indicating successful operation</li>
 <li>Update error state on failure (preserve catastrophic state) </li>
 </ul>
 
@@ -1888,21 +1896,23 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns a reference to an <a class="el" href="struct_x_trngpsx___config.html" title="This typedef contains configuration information for the device. ">XTrngpsx_Config</a> structure based on the DeviceId. </p>
+<p>This function returns a reference to an <a class="el" href="struct_x_trngpsx___config.html" title="This typedef contains configuration information for the device. ">XTrngpsx_Config</a> structure based on the BaseAddress. </p>
 <p>The return value will refer to an entry in the device configuration table defined in the xtrngpsx_g.c file.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being lookedup.</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device being lookedup.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XTrngpsx_LookupConfig returns a reference to a config record in the configuration table (in <a class="el" href="xtrngpsx_8c.html">xtrngpsx.c</a>) corresponding to DeviceId, or NULL if no match is found. </li>
+<li>XTrngpsx_LookupConfig returns a reference to a config record in the configuration table (in xtrngpsx_g.c) corresponding to BaseAddress, or NULL if no match is found. </li>
 </ul>
 </dd></dl>
 <ul>
 <li>Checks all the instances </li>
 </ul>
+
+<p>References <a class="el" href="struct_x_trngpsx___config.html#a8bf1d2809ae940e23cb6b05596d9e85a">XTrngpsx_Config::Name</a>, and <a class="el" href="group__trngpsx__api.html#ga8a9a86209f21795b5c59ea97229d04a3">XTrngpsx_ConfigTable</a>.</p>
 
 </div>
 </div>
@@ -2042,6 +2052,23 @@ Constant definitions for parameters used for Health and KAT tests</h2></td></tr>
 <p>References <a class="el" href="struct_x_trngpsx___config.html#a620f1d30b205b73853ba2944daf3792d">XTrngpsx_Config::BaseAddress</a>, <a class="el" href="struct_x_trngpsx___instance.html#a2dbc9278a04d95a6ce941a671cd1e643">XTrngpsx_Instance::Config</a>, <a class="el" href="struct_x_trngpsx___instance.html#a09306785899052b04da48d650153eb65">XTrngpsx_Instance::ErrorState</a>, <a class="el" href="struct_x_trngpsx___instance.html#a78a6095bc46bd1501992906d51cb0826">XTrngpsx_Instance::State</a>, <a class="el" href="group__trngpsx__api.html#ga67d733d1c108e408b09b96db25076861">TRNG_OSC_EN</a>, <a class="el" href="group__trngpsx__api.html#ga2da4f2d731a5c785ca07a0792b0414c1">TRNG_OSC_EN_VAL_DEFVAL</a>, <a class="el" href="group__trngpsx__api.html#ga90f3e727ddf1fbd4ec13779395f5e13f">TRNG_OSC_EN_VAL_MASK</a>, <a class="el" href="group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13">XTRNGPSX_INVALID_PARAM</a>, and <a class="el" href="group__trngpsx__api.html#gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b">XTRNGPSX_UNINITIALIZED_STATE</a>.</p>
 
 <p>Referenced by <a class="el" href="group__trngpsx__api.html#ga96822ba4d9b936cb95d8190ffd3095f0">XTrngpsx_DRBGKat()</a>, <a class="el" href="group__trngpsx__api.html#ga9b57a3574f76fbaf1edac0255b95373e">XTrngpsx_HealthTest()</a>, and <a class="el" href="group__trngpsx__api.html#gaecce7c23f64a684ac613d6c36ae708cb">XTrngpsx_PreOperationalSelfTests()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ga8a9a86209f21795b5c59ea97229d04a3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_trngpsx___config.html">XTrngpsx_Config</a> XTrngpsx_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TRNG configuration table. </p>
+
+<p>Referenced by <a class="el" href="group__trngpsx__api.html#ga585c8fe9159bad7d022d6ffe54743149">XTrngpsx_LookupConfig()</a>.</p>
 
 </div>
 </div>

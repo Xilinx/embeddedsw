@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="351" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1aaeafe1d72c4c3c25ef8d81f64cc19370" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="352" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1afa8974f0829f8e1f72b6df0ab31002d5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -43,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="353" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a3d91d5bd2b9cb468e2232dbf28339d7f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="354" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1ae721a5302b9ed20c4cd4eecd450cd612" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -71,8 +71,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="355" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a91b6593abad5f5eeb8e69030110381f4" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -85,8 +85,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="356" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a894c8610ffe5a988185cb7e3dbdd0cf9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -99,8 +99,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="357" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a08bf6a3876905cc8cd8fb858a29faea4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -113,15 +113,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="358" bodyend="-1"/>
-        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="79" endline="140">XNandPs_InitBbtDesc</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Bad block table descriptor. </para>    </briefdescription>
+<para>Describes the bad block table descriptor. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="350" bodyend="359"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="353" bodyend="362"/>
     <listofallmembers>
       <member refid="struct_x_nand_ps___bbt_desc_1ae721a5302b9ed20c4cd4eecd450cd612" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>MaxBlocks</name></member>
       <member refid="struct_x_nand_ps___bbt_desc_1a16893430fad70cd5b2121e5fb331bbbb" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>PageOffset</name></member>

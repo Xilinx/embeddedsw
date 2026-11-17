@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xemaclite__ping__reply__example_8c.htm
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,69 +100,163 @@ $(document).ready(function(){initNavTree('xemaclite__ping__reply__example_8c.htm
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xemaclite_ping_reply_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains an EmacLite ping reply example in polled mode. </p>
-<p>This example will generate a ping reply when it receives a ping request packet from the external world.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The local IP address is set to 172.16.63.121. User needs to update LocalIpAddr variable with a free IP address based on the network on which this example is to be run.</p>
-<p>The local MAC address is set to 0x000A35030201. User can update LocalMacAddr variable with a valid MAC address. The first three bytes contains the manufacture ID. 0x000A35 is XILINX manufacture ID.</p>
-<p>This program will respond continuously to a number of ping requests as defined by MAX_PING_REPLIES in this file.</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-1.00a ktn  20/08/08 First release
-3.00a ktn  10/22/09 Updated example to use the macros that have been changed
-              in the driver to remove _m from the name of the macro.
-3.01a ktn  08/06/10 Updated the example to support little endian MicroBlaze.
-4.3   ms   01/23/17 Added xil_printf statement in main function to
-                    ensure that "Successfully ran" and "Failed" strings
-                    are available in all examples. This is a fix for
-                    CR-965028.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xemaclite_8h.html">xemaclite.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga3527e1eb1fbda1b7c5df3c56ee238cc9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga3527e1eb1fbda1b7c5df3c56ee238cc9">EMACLITE_BASEADDR</a>&#160;&#160;&#160;XPAR_XEMACLITE_0_BASEADDR</td></tr>
+<tr class="memdesc:ga3527e1eb1fbda1b7c5df3c56ee238cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the EmacLite device.  <a href="group__emaclite.html#ga3527e1eb1fbda1b7c5df3c56ee238cc9">More...</a><br/></td></tr>
+<tr class="separator:ga3527e1eb1fbda1b7c5df3c56ee238cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70fa54ec0511235c462ee10d2986ea6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga70fa54ec0511235c462ee10d2986ea6b">MAX_PING_REPLIES</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga70fa54ec0511235c462ee10d2986ea6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of ping replies.  <a href="group__emaclite.html#ga70fa54ec0511235c462ee10d2986ea6b">More...</a><br/></td></tr>
+<tr class="separator:ga70fa54ec0511235c462ee10d2986ea6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09363044fa72a814e3dbd9fd2991dd26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga09363044fa72a814e3dbd9fd2991dd26">BROADCAST_PACKET</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga09363044fa72a814e3dbd9fd2991dd26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Broadcast packet indicator.  <a href="group__emaclite.html#ga09363044fa72a814e3dbd9fd2991dd26">More...</a><br/></td></tr>
+<tr class="separator:ga09363044fa72a814e3dbd9fd2991dd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad232f169656f5d633dffd99f9a64aa87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gad232f169656f5d633dffd99f9a64aa87">MAC_MATCHED_PACKET</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gad232f169656f5d633dffd99f9a64aa87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination MAC matched the local MAC.  <a href="group__emaclite.html#gad232f169656f5d633dffd99f9a64aa87">More...</a><br/></td></tr>
+<tr class="separator:gad232f169656f5d633dffd99f9a64aa87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac5af0538013580a8fc4107d7cf78a6fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gac5af0538013580a8fc4107d7cf78a6fd">IP_ADDR_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gac5af0538013580a8fc4107d7cf78a6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP address size in bytes.  <a href="group__emaclite.html#gac5af0538013580a8fc4107d7cf78a6fd">More...</a><br/></td></tr>
+<tr class="separator:gac5af0538013580a8fc4107d7cf78a6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a7c46ffaba30477b8c9e3e61bd2e106"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga7a7c46ffaba30477b8c9e3e61bd2e106">ARP_REQUEST</a>&#160;&#160;&#160;0x0001</td></tr>
+<tr class="memdesc:ga7a7c46ffaba30477b8c9e3e61bd2e106"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARP request opcode in a receive packet.  <a href="group__emaclite.html#ga7a7c46ffaba30477b8c9e3e61bd2e106">More...</a><br/></td></tr>
+<tr class="separator:ga7a7c46ffaba30477b8c9e3e61bd2e106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06ba7b414e718081998f2814090debf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga06ba7b414e718081998f2814090debf1">ARP_REPLY</a>&#160;&#160;&#160;0x0002</td></tr>
+<tr class="memdesc:ga06ba7b414e718081998f2814090debf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARP reply opcode.  <a href="group__emaclite.html#ga06ba7b414e718081998f2814090debf1">More...</a><br/></td></tr>
+<tr class="separator:ga06ba7b414e718081998f2814090debf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga466ef4f1f65ca55a9a7a41d2583be197"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga466ef4f1f65ca55a9a7a41d2583be197">ARP_PACKET_SIZE</a>&#160;&#160;&#160;0x3C</td></tr>
+<tr class="memdesc:ga466ef4f1f65ca55a9a7a41d2583be197"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARP packet length of 60 bytes.  <a href="group__emaclite.html#ga466ef4f1f65ca55a9a7a41d2583be197">More...</a><br/></td></tr>
+<tr class="separator:ga466ef4f1f65ca55a9a7a41d2583be197"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80fe47caa464e9770332b0dc8f1fa7d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga80fe47caa464e9770332b0dc8f1fa7d0">ICMP_PACKET_SIZE</a>&#160;&#160;&#160;0x62</td></tr>
+<tr class="memdesc:ga80fe47caa464e9770332b0dc8f1fa7d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICMP packet length of 98 bytes including MAC addresses.  <a href="group__emaclite.html#ga80fe47caa464e9770332b0dc8f1fa7d0">More...</a><br/></td></tr>
+<tr class="separator:ga80fe47caa464e9770332b0dc8f1fa7d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8450d5398907cd2b9ab0466daf027d73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga8450d5398907cd2b9ab0466daf027d73">BROADCAST_ADDR</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ga8450d5398907cd2b9ab0466daf027d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Broadcast address value.  <a href="group__emaclite.html#ga8450d5398907cd2b9ab0466daf027d73">More...</a><br/></td></tr>
+<tr class="separator:ga8450d5398907cd2b9ab0466daf027d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75a4d272378afed2d86012b7ac479937"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga75a4d272378afed2d86012b7ac479937">CORRECT_CKSUM_VALUE</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ga75a4d272378afed2d86012b7ac479937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected value for a correct checksum.  <a href="group__emaclite.html#ga75a4d272378afed2d86012b7ac479937">More...</a><br/></td></tr>
+<tr class="separator:ga75a4d272378afed2d86012b7ac479937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc8ec514370a3ec9a977741d41d19f60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gadc8ec514370a3ec9a977741d41d19f60">IDENT_FIELD_VALUE</a>&#160;&#160;&#160;0x9263</td></tr>
+<tr class="memdesc:gadc8ec514370a3ec9a977741d41d19f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identification field value (random number).  <a href="group__emaclite.html#gadc8ec514370a3ec9a977741d41d19f60">More...</a><br/></td></tr>
+<tr class="separator:gadc8ec514370a3ec9a977741d41d19f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9edbedd8168fe699294ad30a2b99d5e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga9edbedd8168fe699294ad30a2b99d5e4">ETHER_PROTO_TYPE_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga9edbedd8168fe699294ad30a2b99d5e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet protocol type field length.  <a href="group__emaclite.html#ga9edbedd8168fe699294ad30a2b99d5e4">More...</a><br/></td></tr>
+<tr class="separator:ga9edbedd8168fe699294ad30a2b99d5e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1dffa5b0c5a99e2c5db0ea2697e5a3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gae1dffa5b0c5a99e2c5db0ea2697e5a3f">SRC_MAC_ADDR_LOC</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:gae1dffa5b0c5a99e2c5db0ea2697e5a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source MAC address location.  <a href="group__emaclite.html#gae1dffa5b0c5a99e2c5db0ea2697e5a3f">More...</a><br/></td></tr>
+<tr class="separator:gae1dffa5b0c5a99e2c5db0ea2697e5a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60cf9af36f952be0feb59d1f49d5edff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga60cf9af36f952be0feb59d1f49d5edff">MAC_ADDR_LEN</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga60cf9af36f952be0feb59d1f49d5edff"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAC address length in half-words.  <a href="group__emaclite.html#ga60cf9af36f952be0feb59d1f49d5edff">More...</a><br/></td></tr>
+<tr class="separator:ga60cf9af36f952be0feb59d1f49d5edff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga735e5425d13cededc9c94bf0a7e76203"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga735e5425d13cededc9c94bf0a7e76203">ETHER_PROTO_TYPE_LOC</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga735e5425d13cededc9c94bf0a7e76203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet protocol type location.  <a href="group__emaclite.html#ga735e5425d13cededc9c94bf0a7e76203">More...</a><br/></td></tr>
+<tr class="separator:ga735e5425d13cededc9c94bf0a7e76203"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30a5876a63cd78b9f84bad09ace17d72"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga30a5876a63cd78b9f84bad09ace17d72">ARP_HW_TYPE_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga30a5876a63cd78b9f84bad09ace17d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware type field length.  <a href="group__emaclite.html#ga30a5876a63cd78b9f84bad09ace17d72">More...</a><br/></td></tr>
+<tr class="separator:ga30a5876a63cd78b9f84bad09ace17d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5df8beb730b494e65b891017d3215cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaf5df8beb730b494e65b891017d3215cd">ARP_PROTO_TYPE_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gaf5df8beb730b494e65b891017d3215cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol type field length.  <a href="group__emaclite.html#gaf5df8beb730b494e65b891017d3215cd">More...</a><br/></td></tr>
+<tr class="separator:gaf5df8beb730b494e65b891017d3215cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4aef8ca8b3435ae30b5cd2b8c836efab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga4aef8ca8b3435ae30b5cd2b8c836efab">ARP_HW_ADD_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga4aef8ca8b3435ae30b5cd2b8c836efab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware address length field size.  <a href="group__emaclite.html#ga4aef8ca8b3435ae30b5cd2b8c836efab">More...</a><br/></td></tr>
+<tr class="separator:ga4aef8ca8b3435ae30b5cd2b8c836efab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac20b3f7c5aaf1e62c2aebb23d262fe55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gac20b3f7c5aaf1e62c2aebb23d262fe55">ARP_PROTO_ADD_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gac20b3f7c5aaf1e62c2aebb23d262fe55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol address length field size.  <a href="group__emaclite.html#gac20b3f7c5aaf1e62c2aebb23d262fe55">More...</a><br/></td></tr>
+<tr class="separator:gac20b3f7c5aaf1e62c2aebb23d262fe55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c18baf228ac8dca06d9fbab924b9c35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga3c18baf228ac8dca06d9fbab924b9c35">ARP_ZEROS_LEN</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memdesc:ga3c18baf228ac8dca06d9fbab924b9c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length filled with zeros in an ARP packet.  <a href="group__emaclite.html#ga3c18baf228ac8dca06d9fbab924b9c35">More...</a><br/></td></tr>
+<tr class="separator:ga3c18baf228ac8dca06d9fbab924b9c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac083f1cbcd9eebe74544de3b2ebca082"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gac083f1cbcd9eebe74544de3b2ebca082">ARP_REQ_STATUS_LOC</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:gac083f1cbcd9eebe74544de3b2ebca082"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARP request opcode location.  <a href="group__emaclite.html#gac083f1cbcd9eebe74544de3b2ebca082">More...</a><br/></td></tr>
+<tr class="separator:gac083f1cbcd9eebe74544de3b2ebca082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba85732d271477ad72c0a96b484ab6b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaba85732d271477ad72c0a96b484ab6b6">ARP_REQ_SRC_IP_LOC</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:gaba85732d271477ad72c0a96b484ab6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source IP address location of an ARP request.  <a href="group__emaclite.html#gaba85732d271477ad72c0a96b484ab6b6">More...</a><br/></td></tr>
+<tr class="separator:gaba85732d271477ad72c0a96b484ab6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44f233de5188de7b6d7606d27749e021"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga44f233de5188de7b6d7606d27749e021">ARP_REQ_DEST_IP_LOC_1</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga44f233de5188de7b6d7606d27749e021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination IP first half-word location.  <a href="group__emaclite.html#ga44f233de5188de7b6d7606d27749e021">More...</a><br/></td></tr>
+<tr class="separator:ga44f233de5188de7b6d7606d27749e021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6e9b9531df561b3d63b657e65d7acb71"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga6e9b9531df561b3d63b657e65d7acb71">ARP_REQ_DEST_IP_LOC_2</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga6e9b9531df561b3d63b657e65d7acb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination IP second half-word location.  <a href="group__emaclite.html#ga6e9b9531df561b3d63b657e65d7acb71">More...</a><br/></td></tr>
+<tr class="separator:ga6e9b9531df561b3d63b657e65d7acb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40f1a16fd87017126a7d19d14fbdbd75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga40f1a16fd87017126a7d19d14fbdbd75">IP_VERSION_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga40f1a16fd87017126a7d19d14fbdbd75"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP version field length.  <a href="group__emaclite.html#ga40f1a16fd87017126a7d19d14fbdbd75">More...</a><br/></td></tr>
+<tr class="separator:ga40f1a16fd87017126a7d19d14fbdbd75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4620cf32a769943bbd23e4ee9ec22161"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga4620cf32a769943bbd23e4ee9ec22161">IP_PACKET_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga4620cf32a769943bbd23e4ee9ec22161"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP packet length field size.  <a href="group__emaclite.html#ga4620cf32a769943bbd23e4ee9ec22161">More...</a><br/></td></tr>
+<tr class="separator:ga4620cf32a769943bbd23e4ee9ec22161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a0eccb530e7ddea06c70538e27f4773"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga3a0eccb530e7ddea06c70538e27f4773">IP_FRAG_FIELD_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga3a0eccb530e7ddea06c70538e27f4773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fragment field length in an ICMP packet.  <a href="group__emaclite.html#ga3a0eccb530e7ddea06c70538e27f4773">More...</a><br/></td></tr>
+<tr class="separator:ga3a0eccb530e7ddea06c70538e27f4773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0919b3c9215b9a922c6789096cfa447f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga0919b3c9215b9a922c6789096cfa447f">IP_TTL_ICM_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga0919b3c9215b9a922c6789096cfa447f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time-to-live and ICM fields length.  <a href="group__emaclite.html#ga0919b3c9215b9a922c6789096cfa447f">More...</a><br/></td></tr>
+<tr class="separator:ga0919b3c9215b9a922c6789096cfa447f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec550a179f6cebe6d10b9cf600144012"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaec550a179f6cebe6d10b9cf600144012">IP_ADDR_LEN</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gaec550a179f6cebe6d10b9cf600144012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of an IP address in half-words.  <a href="group__emaclite.html#gaec550a179f6cebe6d10b9cf600144012">More...</a><br/></td></tr>
+<tr class="separator:gaec550a179f6cebe6d10b9cf600144012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf102f0a64167636a5c7f7d116c1e69da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaf102f0a64167636a5c7f7d116c1e69da">IP_CSUM_LOC_BACK</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gaf102f0a64167636a5c7f7d116c1e69da"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP checksum location from the end of the frame.  <a href="group__emaclite.html#gaf102f0a64167636a5c7f7d116c1e69da">More...</a><br/></td></tr>
+<tr class="separator:gaf102f0a64167636a5c7f7d116c1e69da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga576422c8c8d8d28b43512644dc3a6b3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga576422c8c8d8d28b43512644dc3a6b3e">IP_HDR_START_LOC</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ga576422c8c8d8d28b43512644dc3a6b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header start location.  <a href="group__emaclite.html#ga576422c8c8d8d28b43512644dc3a6b3e">More...</a><br/></td></tr>
+<tr class="separator:ga576422c8c8d8d28b43512644dc3a6b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97a39840e4cc41ddcb3cbbdbfa440f01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga97a39840e4cc41ddcb3cbbdbfa440f01">IP_HDR_LEN</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga97a39840e4cc41ddcb3cbbdbfa440f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header length in half-words.  <a href="group__emaclite.html#ga97a39840e4cc41ddcb3cbbdbfa440f01">More...</a><br/></td></tr>
+<tr class="separator:ga97a39840e4cc41ddcb3cbbdbfa440f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga452b5710d4e46a2548b029efedaa7805"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga452b5710d4e46a2548b029efedaa7805">IP_FRAG_FIELD_LOC</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga452b5710d4e46a2548b029efedaa7805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fragment field location.  <a href="group__emaclite.html#ga452b5710d4e46a2548b029efedaa7805">More...</a><br/></td></tr>
+<tr class="separator:ga452b5710d4e46a2548b029efedaa7805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a085fe9eae16a0ec5dd12aa74c87ec6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga1a085fe9eae16a0ec5dd12aa74c87ec6">ICMP_TYPE_LEN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga1a085fe9eae16a0ec5dd12aa74c87ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICMP type field length.  <a href="group__emaclite.html#ga1a085fe9eae16a0ec5dd12aa74c87ec6">More...</a><br/></td></tr>
+<tr class="separator:ga1a085fe9eae16a0ec5dd12aa74c87ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15fac30eea403e21c26043b6a28fca35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga15fac30eea403e21c26043b6a28fca35">ICMP_ECHO_FIELD_LEN</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga15fac30eea403e21c26043b6a28fca35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echo field length in half-words.  <a href="group__emaclite.html#ga15fac30eea403e21c26043b6a28fca35">More...</a><br/></td></tr>
+<tr class="separator:ga15fac30eea403e21c26043b6a28fca35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga415288868181ee2e129450d2fa4896a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga415288868181ee2e129450d2fa4896a2">ICMP_REQ_SRC_IP_LOC</a>&#160;&#160;&#160;13</td></tr>
+<tr class="memdesc:ga415288868181ee2e129450d2fa4896a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source IP address location of an ICMP request.  <a href="group__emaclite.html#ga415288868181ee2e129450d2fa4896a2">More...</a><br/></td></tr>
+<tr class="separator:ga415288868181ee2e129450d2fa4896a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga748c22755fc35e42945d001940806821"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga748c22755fc35e42945d001940806821">ICMP_ECHO_FIELD_LOC</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:ga748c22755fc35e42945d001940806821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echo field location.  <a href="group__emaclite.html#ga748c22755fc35e42945d001940806821">More...</a><br/></td></tr>
+<tr class="separator:ga748c22755fc35e42945d001940806821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55886d4abb68a71c6d604fc3f72eb701"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga55886d4abb68a71c6d604fc3f72eb701">ICMP_DATA_START_LOC</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:ga55886d4abb68a71c6d604fc3f72eb701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data field start location.  <a href="group__emaclite.html#ga55886d4abb68a71c6d604fc3f72eb701">More...</a><br/></td></tr>
+<tr class="separator:ga55886d4abb68a71c6d604fc3f72eb701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad690421997be51f9fb2fe58a3939e99a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gad690421997be51f9fb2fe58a3939e99a">ICMP_DATA_LEN</a>&#160;&#160;&#160;30</td></tr>
+<tr class="memdesc:gad690421997be51f9fb2fe58a3939e99a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICMP data length in half-words.  <a href="group__emaclite.html#gad690421997be51f9fb2fe58a3939e99a">More...</a><br/></td></tr>
+<tr class="separator:gad690421997be51f9fb2fe58a3939e99a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87390470268dd4e72e0f556336c8ad19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga87390470268dd4e72e0f556336c8ad19">ICMP_DATA_LOC</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga87390470268dd4e72e0f556336c8ad19"><td class="mdescLeft">&#160;</td><td class="mdescRight">ICMP data location including identifier and sequence.  <a href="group__emaclite.html#ga87390470268dd4e72e0f556336c8ad19">More...</a><br/></td></tr>
+<tr class="separator:ga87390470268dd4e72e0f556336c8ad19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaebd2c0a658dbea53bbbb996f21692178"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gaebd2c0a658dbea53bbbb996f21692178">ICMP_DATA_CSUM_LOC_BACK</a>&#160;&#160;&#160;31</td></tr>
+<tr class="memdesc:gaebd2c0a658dbea53bbbb996f21692178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data checksum location from the end of the frame.  <a href="group__emaclite.html#gaebd2c0a658dbea53bbbb996f21692178">More...</a><br/></td></tr>
+<tr class="separator:gaebd2c0a658dbea53bbbb996f21692178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga490b01aca14dbfc4a6db9dfb97de8536"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga490b01aca14dbfc4a6db9dfb97de8536">ICMP_DATA_FIELD_LEN</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga490b01aca14dbfc4a6db9dfb97de8536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data field length in half-words.  <a href="group__emaclite.html#ga490b01aca14dbfc4a6db9dfb97de8536">More...</a><br/></td></tr>
+<tr class="separator:ga490b01aca14dbfc4a6db9dfb97de8536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemaclite__ping__reply__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the Ping reply example in polled mode.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
-<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main entry point of the EmacLite example in interrupt mode.  <a href="group__emaclite.html#gae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
+<tr class="separator:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga966d4f84ca1a40825b7e84de59ad66f9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga966d4f84ca1a40825b7e84de59ad66f9">RecvFrameLength</a> = 0</td></tr>
+<tr class="memdesc:ga966d4f84ca1a40825b7e84de59ad66f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the received packet.  <a href="group__emaclite.html#ga966d4f84ca1a40825b7e84de59ad66f9">More...</a><br/></td></tr>
+<tr class="separator:ga966d4f84ca1a40825b7e84de59ad66f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the main function of the Ping reply example in polled mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_FAILURE to indicate failure, otherwise XST_SUCCESS is returned.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

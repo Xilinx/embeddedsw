@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xospipsv__xfer_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,22 +105,33 @@ $(document).ready(function(){initNavTree('xospipsv__xfer_8c.html','');});
 <div class="title">xospipsv_xfer.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the OSPIPSV driver data transfer functions. </p>
+<p>The file includes polled and interrupt-based send/receive operations. These functions are used internally by the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.13  sb  02/07/25 First release
+1.15  zm  08/07/26 Gate the STIG path on protocol and on transfer size.
+1.15  vn  09/03/26 Fix doxygen warnings.
+1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xospipsv__hw_8h.html">xospipsv_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga034a9ae49aa555c3c94396e5b821a4b1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga034a9ae49aa555c3c94396e5b821a4b1">XOspiPsv_PollRecvData</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga034a9ae49aa555c3c94396e5b821a4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a polled data receive operation.  <a href="group__ospipsv__api.html#ga034a9ae49aa555c3c94396e5b821a4b1">More...</a><br/></td></tr>
+<tr class="memdesc:ga034a9ae49aa555c3c94396e5b821a4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a polled data receive operation.  <a href="group__ospipsv__api.html#ga034a9ae49aa555c3c94396e5b821a4b1">More...</a><br/></td></tr>
 <tr class="separator:ga034a9ae49aa555c3c94396e5b821a4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b7b4e2f6b2fde2908649918699e86b0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga6b7b4e2f6b2fde2908649918699e86b0">XOspiPsv_PollSendData</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga6b7b4e2f6b2fde2908649918699e86b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a polled data send operation.  <a href="group__ospipsv__api.html#ga6b7b4e2f6b2fde2908649918699e86b0">More...</a><br/></td></tr>
+<tr class="memdesc:ga6b7b4e2f6b2fde2908649918699e86b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a polled data send operation.  <a href="group__ospipsv__api.html#ga6b7b4e2f6b2fde2908649918699e86b0">More...</a><br/></td></tr>
 <tr class="separator:ga6b7b4e2f6b2fde2908649918699e86b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga15aade843d6401d997e3d67afcd0a2cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga15aade843d6401d997e3d67afcd0a2cc">XOspiPsv_IntrRecvData</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga15aade843d6401d997e3d67afcd0a2cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs an interrupt-based data receive operation.  <a href="group__ospipsv__api.html#ga15aade843d6401d997e3d67afcd0a2cc">More...</a><br/></td></tr>
+<tr class="memdesc:ga15aade843d6401d997e3d67afcd0a2cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an interrupt-based data receive operation.  <a href="group__ospipsv__api.html#ga15aade843d6401d997e3d67afcd0a2cc">More...</a><br/></td></tr>
 <tr class="separator:ga15aade843d6401d997e3d67afcd0a2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga065d5ced624e31f2a9699482cc6aa743"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga065d5ced624e31f2a9699482cc6aa743">XOspiPsv_IntrSendData</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga065d5ced624e31f2a9699482cc6aa743"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs an interrupt-based data send operation.  <a href="group__ospipsv__api.html#ga065d5ced624e31f2a9699482cc6aa743">More...</a><br/></td></tr>
+<tr class="memdesc:ga065d5ced624e31f2a9699482cc6aa743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an interrupt-based data send operation.  <a href="group__ospipsv__api.html#ga065d5ced624e31f2a9699482cc6aa743">More...</a><br/></td></tr>
 <tr class="separator:ga065d5ced624e31f2a9699482cc6aa743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

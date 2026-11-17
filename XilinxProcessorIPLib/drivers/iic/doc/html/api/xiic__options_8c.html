@@ -100,24 +100,65 @@ $(document).ready(function(){initNavTree('xiic__options_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiic_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC option and GPO helpers. </p>
+<p>Contains options functions for the <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> component. This file is not required unless the functions in this file are called.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01b jhl 3/26/02 repartioned the driver
+1.01c ecm 12/05/02 new rev
+1.13a wgr 03/22/07 Converted to new coding style.
+2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
+                     Updated to use the HAL APIs/macros.
+3.15  vlt 12/04/25 Add XIic_SetClk API for dynamic clock configuration.
+3.16  vn  07/30/26 Fix Doxygen warnings
+3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__i_8h.html">xiic_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga9d5bbd0dd16931b8230a64b587d7be3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga9d5bbd0dd16931b8230a64b587d7be3d">XIIC_REG_VALUES_100KHZ</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga9d5bbd0dd16931b8230a64b587d7be3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing table index for 100 kHz.  <a href="group__iic__api.html#ga9d5bbd0dd16931b8230a64b587d7be3d">More...</a><br/></td></tr>
+<tr class="separator:ga9d5bbd0dd16931b8230a64b587d7be3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga253f6aec57547c72be13f5da515e4e65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga253f6aec57547c72be13f5da515e4e65">XIIC_REG_VALUES_400KHZ</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga253f6aec57547c72be13f5da515e4e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing table index for 400 kHz.  <a href="group__iic__api.html#ga253f6aec57547c72be13f5da515e4e65">More...</a><br/></td></tr>
+<tr class="separator:ga253f6aec57547c72be13f5da515e4e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e7603570933745fa2232a0c2a08db20"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga7e7603570933745fa2232a0c2a08db20">XIIC_REG_VALUES_1MHZ</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga7e7603570933745fa2232a0c2a08db20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing table index for 1 MHz.  <a href="group__iic__api.html#ga7e7603570933745fa2232a0c2a08db20">More...</a><br/></td></tr>
+<tr class="separator:ga7e7603570933745fa2232a0c2a08db20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8efe3f2caa0a1dfa44c4970ad399f3be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga8efe3f2caa0a1dfa44c4970ad399f3be">XIIC_STANDARD_MODE</a>&#160;&#160;&#160;100000U</td></tr>
+<tr class="memdesc:ga8efe3f2caa0a1dfa44c4970ad399f3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard mode SCL rate in Hz.  <a href="group__iic__api.html#ga8efe3f2caa0a1dfa44c4970ad399f3be">More...</a><br/></td></tr>
+<tr class="separator:ga8efe3f2caa0a1dfa44c4970ad399f3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf3cebd7267a2493f601cf58dcbcb652"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gabf3cebd7267a2493f601cf58dcbcb652">XIIC_FAST_MODE</a>&#160;&#160;&#160;400000U</td></tr>
+<tr class="memdesc:gabf3cebd7267a2493f601cf58dcbcb652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast mode SCL rate in Hz.  <a href="group__iic__api.html#gabf3cebd7267a2493f601cf58dcbcb652">More...</a><br/></td></tr>
+<tr class="separator:gabf3cebd7267a2493f601cf58dcbcb652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf784247a1d6a6159b8f1fd2104553ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gaaf784247a1d6a6159b8f1fd2104553ea">XIIC_FAST_MODE_PLUS</a>&#160;&#160;&#160;1000000U</td></tr>
+<tr class="memdesc:gaaf784247a1d6a6159b8f1fd2104553ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast mode plus SCL rate in Hz.  <a href="group__iic__api.html#gaaf784247a1d6a6159b8f1fd2104553ea">More...</a><br/></td></tr>
+<tr class="separator:gaaf784247a1d6a6159b8f1fd2104553ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc4f49866fedb0caea5dbaf1e317a557"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gacc4f49866fedb0caea5dbaf1e317a557">XIIC_NANOSEC_TO_SEC_DIVISOR</a>&#160;&#160;&#160;1000000000U</td></tr>
+<tr class="memdesc:gacc4f49866fedb0caea5dbaf1e317a557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of nanoseconds in one second.  <a href="group__iic__api.html#gacc4f49866fedb0caea5dbaf1e317a557">More...</a><br/></td></tr>
+<tr class="separator:gacc4f49866fedb0caea5dbaf1e317a557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga900a7ab49c2e13b0562ab629c088cf3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga900a7ab49c2e13b0562ab629c088cf3a">XIic_SetOptions</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u32 NewOptions)</td></tr>
-<tr class="memdesc:ga900a7ab49c2e13b0562ab629c088cf3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the options for the IIC device driver.  <a href="group___overview.html#ga900a7ab49c2e13b0562ab629c088cf3a">More...</a><br/></td></tr>
+<tr class="memitem:ga900a7ab49c2e13b0562ab629c088cf3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga900a7ab49c2e13b0562ab629c088cf3a">XIic_SetOptions</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u32 NewOptions)</td></tr>
+<tr class="memdesc:ga900a7ab49c2e13b0562ab629c088cf3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the IIC device driver.  <a href="group__iic__api.html#ga900a7ab49c2e13b0562ab629c088cf3a">More...</a><br/></td></tr>
 <tr class="separator:ga900a7ab49c2e13b0562ab629c088cf3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf15dd70c4f1bb34a9e35c1ca85cee841"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf15dd70c4f1bb34a9e35c1ca85cee841">XIic_GetOptions</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf15dd70c4f1bb34a9e35c1ca85cee841"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the current options for the IIC device.  <a href="group___overview.html#gaf15dd70c4f1bb34a9e35c1ca85cee841">More...</a><br/></td></tr>
+<tr class="memitem:gaf15dd70c4f1bb34a9e35c1ca85cee841"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gaf15dd70c4f1bb34a9e35c1ca85cee841">XIic_GetOptions</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaf15dd70c4f1bb34a9e35c1ca85cee841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current options for the IIC device.  <a href="group__iic__api.html#gaf15dd70c4f1bb34a9e35c1ca85cee841">More...</a><br/></td></tr>
 <tr class="separator:gaf15dd70c4f1bb34a9e35c1ca85cee841"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6e3b4f3e96cb3da5216030e32cbf8894"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6e3b4f3e96cb3da5216030e32cbf8894">XIic_SetClk</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u32 FsclHz)</td></tr>
-<tr class="memdesc:ga6e3b4f3e96cb3da5216030e32cbf8894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the serial clock rate for the IIC device.  <a href="group___overview.html#ga6e3b4f3e96cb3da5216030e32cbf8894">More...</a><br/></td></tr>
+<tr class="memitem:ga6e3b4f3e96cb3da5216030e32cbf8894"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga6e3b4f3e96cb3da5216030e32cbf8894">XIic_SetClk</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u32 FsclHz)</td></tr>
+<tr class="memdesc:ga6e3b4f3e96cb3da5216030e32cbf8894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the serial clock rate for the IIC device.  <a href="group__iic__api.html#ga6e3b4f3e96cb3da5216030e32cbf8894">More...</a><br/></td></tr>
 <tr class="separator:ga6e3b4f3e96cb3da5216030e32cbf8894"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

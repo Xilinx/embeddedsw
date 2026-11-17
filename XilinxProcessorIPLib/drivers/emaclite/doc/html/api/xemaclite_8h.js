@@ -1,9 +1,13 @@
 var xemaclite_8h =
 [
+    [ "XEL_DEVICE_DESC", "xemaclite_8h.html#ga21df4aef1415dfcfb1a6472a0aed56b2", null ],
+    [ "XEL_DEVICE_NAME", "xemaclite_8h.html#ga529b4a45111f7a6a68d4e6e2df08bbac", null ],
+    [ "XEMACLITE_H", "xemaclite_8h.html#a52d1a768dfa187c3ef41f05068a69738", null ],
     [ "XEmacLite_IsLoopbackConfigured", "xemaclite_8h.html#gab7c326fd248dbfd0e82513810febeee9", null ],
     [ "XEmacLite_IsMdioConfigured", "xemaclite_8h.html#gaabbc302961b99a3f92f553c08549a92b", null ],
     [ "XEmacLite_NextReceiveAddr", "xemaclite_8h.html#ga541b8f45d82969dc9b9116420bfdb1c3", null ],
     [ "XEmacLite_NextTransmitAddr", "xemaclite_8h.html#ga5a02b0090a1bab8c4151fb3154e9fa0f", null ],
+    [ "XEmacLite_Handler", "xemaclite_8h.html#gadfca662ba36ecd3fa7f5816d33e1235a", null ],
     [ "XEmacLite_CfgInitialize", "xemaclite_8h.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4", null ],
     [ "XEmacLite_DisableInterrupts", "xemaclite_8h.html#gacac27172503eee6a171afe1679c20f2c", null ],
     [ "XEmacLite_DisableLoopBack", "xemaclite_8h.html#ga55c4a0b58c4e35dbf81c4866946f368a", null ],

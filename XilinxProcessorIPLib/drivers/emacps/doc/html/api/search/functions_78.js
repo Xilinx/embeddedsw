@@ -32,7 +32,7 @@ var searchData=
   ['xemacps_5fsethandler',['XEmacPs_SetHandler',['../group__emacps.html#gafb0f1c4bf64ca85dd4aa6ef83998e73f',1,'xemacps_intr.c']]],
   ['xemacps_5fsethash',['XEmacPs_SetHash',['../group__emacps.html#gad7bc021ae0b0e7f2f64d2c2f02fdd4bd',1,'xemacps_control.c']]],
   ['xemacps_5fsetmacaddress',['XEmacPs_SetMacAddress',['../group__emacps.html#gaf096389aeabb511be2d9d3c5df0e4658',1,'xemacps_control.c']]],
-  ['xemacps_5fsetmdiodivisor',['XEmacPs_SetMdioDivisor',['../group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3',1,'XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor):&#160;xemacps_control.c'],['../group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3',1,'XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor):&#160;xemacps_control.c']]],
+  ['xemacps_5fsetmdiodivisor',['XEmacPs_SetMdioDivisor',['../group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3',1,'xemacps_control.c']]],
   ['xemacps_5fsetoperatingspeed',['XEmacPs_SetOperatingSpeed',['../group__emacps.html#gae1f519684cc62697fd17f49e2658abd6',1,'xemacps_control.c']]],
   ['xemacps_5fsetoptions',['XEmacPs_SetOptions',['../group__emacps.html#ga1ceab9806b4a66e5d2b71daaf9abbf0c',1,'xemacps_control.c']]],
   ['xemacps_5fsetqueueptr',['XEmacPs_SetQueuePtr',['../group__emacps.html#ga41c143d1143d61bb5c198f0e35843d7c',1,'xemacps.c']]],
@@ -42,5 +42,6 @@ var searchData=
   ['xemacps_5fstop',['XEmacPs_Stop',['../group__emacps.html#gaf27b057022a2e97201f6d55d61d4a3da',1,'xemacps.c']]],
   ['xemacps_5fstubhandler',['XEmacPs_StubHandler',['../group__emacps.html#gab819378f6d145a165472ca566825462f',1,'xemacps.c']]],
   ['xemacps_5fusxpcsgetstate',['XEmacPs_USXPCSGetState',['../group__emacps.html#gaa1f18f2a92625e6defa38cf285408231',1,'xemacps_pcs.c']]],
-  ['xemacpsclksetup',['XEmacPsClkSetup',['../xemacps__example__intr__dma_8c.html#a938f994841cac409516f536c1f5ab844',1,'xemacps_example_intr_dma.c']]]
+  ['xemacpsclksetup',['XEmacPsClkSetup',['../group__emacps.html#ga938f994841cac409516f536c1f5ab844',1,'xemacps_example_intr_dma.c']]],
+  ['xemacpsdetectphy',['XEmacPsDetectPHY',['../group__emacps.html#gac03d08fd4241bc26cc6b132df2bca9e2',1,'xemacps_example_util.c']]]
 ];

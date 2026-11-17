@@ -184,6 +184,12 @@ Enumerations</h2></td></tr>
 <tr class="memitem:ade7189ee3e9d6111088d07c0f133dbbb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbb">XDc_AudEn</a> </td></tr>
 <tr class="memdesc:ade7189ee3e9d6111088d07c0f133dbbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef enables audio.  <a href="xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbb">More...</a><br/></td></tr>
 <tr class="separator:ade7189ee3e9d6111088d07c0f133dbbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab8cd2096139e544a4bafdc31cbe01d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d">XDc_AudSampleFreq</a> </td></tr>
+<tr class="memdesc:acab8cd2096139e544a4bafdc31cbe01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef describes the supported audio sample frequencies.  <a href="xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d">More...</a><br/></td></tr>
+<tr class="separator:acab8cd2096139e544a4bafdc31cbe01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad062eb17bb23c4b9532a92c7f4b795a1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1">XDc_AudChannels</a> </td></tr>
+<tr class="memdesc:ad062eb17bb23c4b9532a92c7f4b795a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef describes the supported active audio channel counts.  <a href="xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1">More...</a><br/></td></tr>
+<tr class="separator:ad062eb17bb23c4b9532a92c7f4b795a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68ae1a808a67067c0419eea6418e577d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdc_8h.html#a68ae1a808a67067c0419eea6418e577d">XDc_PartialBlendEn</a> </td></tr>
 <tr class="memdesc:a68ae1a808a67067c0419eea6418e577d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef enables partial blend.  <a href="xdc_8h.html#a68ae1a808a67067c0419eea6418e577d">More...</a><br/></td></tr>
 <tr class="separator:a68ae1a808a67067c0419eea6418e577d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -331,6 +337,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa58756025137aade0084833366439af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#gaa58756025137aade0084833366439af5">XDc_SetAudioSegmentedMode</a> (XDc *InstancePtr)</td></tr>
 <tr class="memdesc:gaa58756025137aade0084833366439af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Audio Segmented Mode.  <a href="group__mmi__dc.html#gaa58756025137aade0084833366439af5">More...</a><br/></td></tr>
 <tr class="separator:gaa58756025137aade0084833366439af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#ga9913649f45ee47e25f096d57fe0ee5cc">XDc_SetAudioChannelStatus</a> (XDc *InstancePtr)</td></tr>
+<tr class="memdesc:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the IEC 60958 audio channel status words of every channel pair (CH01, CH23, CH45, CH67) from the sample frequency and the active channel count held in the instance.  <a href="group__mmi__dc.html#ga9913649f45ee47e25f096d57fe0ee5cc">More...</a><br/></td></tr>
+<tr class="separator:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga956fa9949bfaee2723c873ced27e8277"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#ga956fa9949bfaee2723c873ced27e8277">XDc_SetCursorSdpRdyInterval</a> (XDc *InstancePtr)</td></tr>
 <tr class="memdesc:ga956fa9949bfaee2723c873ced27e8277"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Cursor Sdp Ready Interval.  <a href="group__mmi__dc.html#ga956fa9949bfaee2723c873ced27e8277">More...</a><br/></td></tr>
 <tr class="separator:ga956fa9949bfaee2723c873ced27e8277"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -365,6 +374,20 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This typedef enables alpha blend. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad062eb17bb23c4b9532a92c7f4b795a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1">XDc_AudChannels</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This typedef describes the supported active audio channel counts. </p>
 
 </div>
 </div>
@@ -407,6 +430,20 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This typedef describes the audio source list. </p>
+
+</div>
+</div>
+<a class="anchor" id="acab8cd2096139e544a4bafdc31cbe01d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d">XDc_AudSampleFreq</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This typedef describes the supported audio sample frequencies. </p>
 
 </div>
 </div>

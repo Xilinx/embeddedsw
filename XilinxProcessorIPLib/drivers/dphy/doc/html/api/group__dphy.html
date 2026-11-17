@@ -141,7 +141,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaef0df18f2a9cdc07df62ba6d63347900"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used to do a soft reset of the DPhy IP instance.  <a href="#gaef0df18f2a9cdc07df62ba6d63347900">More...</a><br/></td></tr>
 <tr class="separator:gaef0df18f2a9cdc07df62ba6d63347900"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga202a4113c0ace62f6858b7f37dfd0f75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dphy.html#ga202a4113c0ace62f6858b7f37dfd0f75">XDphy_ClearDataLane</a> (<a class="el" href="struct_x_dphy.html">XDphy</a> *InstancePtr, u8 DataLane, u32 Mask)</td></tr>
-<tr class="memdesc:ga202a4113c0ace62f6858b7f37dfd0f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 3.  <a href="#ga202a4113c0ace62f6858b7f37dfd0f75">More...</a><br/></td></tr>
+<tr class="memdesc:ga202a4113c0ace62f6858b7f37dfd0f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 7.  <a href="#ga202a4113c0ace62f6858b7f37dfd0f75">More...</a><br/></td></tr>
 <tr class="separator:ga202a4113c0ace62f6858b7f37dfd0f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga455915ec07f1de9a2c68bae01e7bc6f8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dphy.html#ga455915ec07f1de9a2c68bae01e7bc6f8">XDphy_GetClkLaneStatus</a> (<a class="el" href="struct_x_dphy.html">XDphy</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga455915ec07f1de9a2c68bae01e7bc6f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is used to get information about Clock Lane status.  <a href="#ga455915ec07f1de9a2c68bae01e7bc6f8">More...</a><br/></td></tr>
@@ -974,7 +974,7 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 3. </p>
+<p>This is used to clear the Abort Error (Escape or High Speed) bits in the Data Lane 0 through 7. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the <a class="el" href="struct_x_dphy.html" title="The XDphy Controller driver instance data. ">XDphy</a> instance to operate on. </td></tr>
@@ -985,7 +985,7 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#ga0910333b8c2727d176c2e0246a33fdeb">XDPHY_DL0STATUS_REG_OFFSET</a>, <a class="el" href="group__xdphy.html#ga115ba74c0024df0afb08ac195b2516db">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</a>, and <a class="el" href="group__xdphy.html#ga6d0dfe6cdce39bb092251a352bbdd2c1">XDPHY_DLXSTATUS_REG_HSABRT_MASK</a>.</p>
+<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#ga115ba74c0024df0afb08ac195b2516db">XDPHY_DLXSTATUS_REG_ESCABRT_MASK</a>, and <a class="el" href="group__xdphy.html#ga6d0dfe6cdce39bb092251a352bbdd2c1">XDPHY_DLXSTATUS_REG_HSABRT_MASK</a>.</p>
 
 </div>
 </div>
@@ -1171,7 +1171,7 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Bitmask containing which of the events have occurred along with the mode of the Data Lane in DPhy</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, and <a class="el" href="group__xdphy.html#ga0910333b8c2727d176c2e0246a33fdeb">XDPHY_DL0STATUS_REG_OFFSET</a>.</p>
+<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, and <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>.</p>
 
 <p>Referenced by <a class="el" href="group__dphy.html#ga0a8e793032f9c635bcbf2abf6a1d9832">XDphy_GetDataLaneMode()</a>.</p>
 
@@ -1212,7 +1212,7 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - Calibration Complete, Calibration packet received XST_NO_DATA - Calibration Complete, Calibration packet is not received XST_FAILURE - Calibration failed</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="group__xdphy.html#ga4dab676485278ae963ba2a5c4e5d0063">DL_LANE_OFFSET</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#ga0910333b8c2727d176c2e0246a33fdeb">XDPHY_DL0STATUS_REG_OFFSET</a>, <a class="el" href="group__xdphy.html#ga836e2f220b7102ea3a9e6459a0d1e1dd">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</a>, and <a class="el" href="group__xdphy.html#ga0f336da68e6b0da446cd41cf9f2ef8d2">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</a>.</p>
+<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#ga836e2f220b7102ea3a9e6459a0d1e1dd">XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</a>, and <a class="el" href="group__xdphy.html#ga0f336da68e6b0da446cd41cf9f2ef8d2">XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK</a>.</p>
 
 </div>
 </div>
@@ -1292,7 +1292,7 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Bitmask containing mode in which the Data Lane in DPhy is in.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#ga0910333b8c2727d176c2e0246a33fdeb">XDPHY_DL0STATUS_REG_OFFSET</a>, <a class="el" href="group__xdphy.html#gad0aef49004b2cf549d98ad9f596db44c">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</a>, and <a class="el" href="group__xdphy.html#ga5e883a6b8e54d4a9399a9f66a2b69087">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</a>.</p>
+<p>References <a class="el" href="struct_x_dphy___config.html#a2494e733c95a9a99495333fd0679222c">XDphy_Config::BaseAddr</a>, <a class="el" href="struct_x_dphy.html#af74d9d469cc4c07e98bd47f77885dd87">XDphy::Config</a>, <a class="el" href="struct_x_dphy___config.html#a56ad1e1658db486364b0bfc8dd9d9117">XDphy_Config::IsRegisterPresent</a>, <a class="el" href="group__xdphy.html#gad0aef49004b2cf549d98ad9f596db44c">XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</a>, and <a class="el" href="group__xdphy.html#ga5e883a6b8e54d4a9399a9f66a2b69087">XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK</a>.</p>
 
 </div>
 </div>
@@ -1347,11 +1347,11 @@ DPHY Flags to Enable or Disable core</h2></td></tr>
 <p>Look up the hardware configuration for a device instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device to lookup for</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device to lookup for</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The reference to the configuration record in the configuration table (in xdphy_g.c) corresponding to the Device ID or if not found,a NULL pointer is returned.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The reference to the configuration record in the configuration table (in xdphy_g.c) corresponding to the Base Address or if not found,a NULL pointer is returned.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p>Referenced by <a class="el" href="xdphy__example__selftest_8c.html#a238975c776a9aeeea1049a2071f28b7b">DphySelfTestExample()</a>.</p>

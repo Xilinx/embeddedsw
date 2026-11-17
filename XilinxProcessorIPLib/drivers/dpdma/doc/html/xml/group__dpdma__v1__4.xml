@@ -29,8 +29,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" bodystart="67" bodyend="80"/>
-        <referencedby refid="xdpdma__video__example_8h_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="186" endline="261">InitDpDmaSubsystem</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" bodystart="48" bodyend="61"/>
+        <referencedby refid="xdpdma__video__example_8h_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="173" endline="236">InitDpDmaSubsystem</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

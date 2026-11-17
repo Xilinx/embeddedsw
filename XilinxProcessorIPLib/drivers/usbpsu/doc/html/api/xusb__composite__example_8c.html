@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xusb__composite__example_8c.html','');
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_composite_example.c File Reference</div>  </div>
 </div><!--header-->
@@ -121,12 +123,94 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xscugic.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3445b0b40dc70d381db2e9172a53601d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a3445b0b40dc70d381db2e9172a53601d">INTRNAME_DWC3USB3</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a3445b0b40dc70d381db2e9172a53601d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-name - USB.  <a href="#a3445b0b40dc70d381db2e9172a53601d">More...</a><br/></td></tr>
+<tr class="separator:a3445b0b40dc70d381db2e9172a53601d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f7fea513758ece756be6c3709eeb3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#ab4f7fea513758ece756be6c3709eeb3d">INTRNAME_HIBER</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ab4f7fea513758ece756be6c3709eeb3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-name - Hiber.  <a href="#ab4f7fea513758ece756be6c3709eeb3d">More...</a><br/></td></tr>
+<tr class="separator:ab4f7fea513758ece756be6c3709eeb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ef3c909b33b067ace362d5504552ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a04ef3c909b33b067ace362d5504552ab">XUSBPSU_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XUSBPSU_0_BASEADDR</td></tr>
+<tr class="memdesc:a04ef3c909b33b067ace362d5504552ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB base address.  <a href="#a04ef3c909b33b067ace362d5504552ab">More...</a><br/></td></tr>
+<tr class="separator:a04ef3c909b33b067ace362d5504552ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the AUDI-DFU composite example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a35b6a61151282f1695a33ba48778b541"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a></td></tr>
+<tr class="memdesc:a35b6a61151282f1695a33ba48778b541"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device data instance.  <a href="#a35b6a61151282f1695a33ba48778b541">More...</a><br/></td></tr>
+<tr class="separator:a35b6a61151282f1695a33ba48778b541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f23879122d36c5659b812974d2831a"><td class="memItemLeft" align="right" valign="top">XScuGic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a50f23879122d36c5659b812974d2831a">InterruptController</a></td></tr>
+<tr class="memdesc:a50f23879122d36c5659b812974d2831a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Controller.  <a href="#a50f23879122d36c5659b812974d2831a">More...</a><br/></td></tr>
+<tr class="separator:a50f23879122d36c5659b812974d2831a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe3f0567479eb989b186057417c8e46c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#abe3f0567479eb989b186057417c8e46c">audio_freq</a> [<a class="el" href="xusb__freertos__class__composite_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7">MAX_AUDIO_FREQ</a>][3]</td></tr>
+<tr class="memdesc:abe3f0567479eb989b186057417c8e46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio_freq.  <a href="#abe3f0567479eb989b186057417c8e46c">More...</a><br/></td></tr>
+<tr class="separator:abe3f0567479eb989b186057417c8e46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f946c7d2b74571706ecb53626f2fa19"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a1f946c7d2b74571706ecb53626f2fa19">BufferPtrTemp</a> [1024]</td></tr>
+<tr class="memdesc:a1f946c7d2b74571706ecb53626f2fa19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer Ptr Temp.  <a href="#a1f946c7d2b74571706ecb53626f2fa19">More...</a><br/></td></tr>
+<tr class="separator:a1f946c7d2b74571706ecb53626f2fa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac35a402cf5e0b0dc73807cece3276720"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#ac35a402cf5e0b0dc73807cece3276720">StorageDisk</a> [0x6400000]</td></tr>
+<tr class="memdesc:ac35a402cf5e0b0dc73807cece3276720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage Disk.  <a href="#ac35a402cf5e0b0dc73807cece3276720">More...</a><br/></td></tr>
+<tr class="separator:ac35a402cf5e0b0dc73807cece3276720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70e139cf3b442e936c8997fc48941e9c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a70e139cf3b442e936c8997fc48941e9c">AudioDisk</a> [0x3200000]</td></tr>
+<tr class="memdesc:a70e139cf3b442e936c8997fc48941e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Disk.  <a href="#a70e139cf3b442e936c8997fc48941e9c">More...</a><br/></td></tr>
+<tr class="separator:a70e139cf3b442e936c8997fc48941e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972c9c74fc73604abbd95eb2f8d99ca9"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a972c9c74fc73604abbd95eb2f8d99ca9">DfuDisk</a> [0x3200000]</td></tr>
+<tr class="memdesc:a972c9c74fc73604abbd95eb2f8d99ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">DFU disk buffer.  <a href="#a972c9c74fc73604abbd95eb2f8d99ca9">More...</a><br/></td></tr>
+<tr class="separator:a972c9c74fc73604abbd95eb2f8d99ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a128a9ff13506db323f2bc1d064b798d9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structcomposite__dev.html">composite_dev</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__composite__example_8c.html#a128a9ff13506db323f2bc1d064b798d9">comp_dev</a></td></tr>
+<tr class="memdesc:a128a9ff13506db323f2bc1d064b798d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite device instance.  <a href="#a128a9ff13506db323f2bc1d064b798d9">More...</a><br/></td></tr>
+<tr class="separator:a128a9ff13506db323f2bc1d064b798d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3445b0b40dc70d381db2e9172a53601d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTRNAME_DWC3USB3&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt-name - USB. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab4f7fea513758ece756be6c3709eeb3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTRNAME_HIBER&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt-name - Hiber. </p>
+
+</div>
+</div>
+<a class="anchor" id="a04ef3c909b33b067ace362d5504552ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPSU_BASEADDRESS&#160;&#160;&#160;XPAR_XUSBPSU_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB base address. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -143,17 +227,143 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the main function of the AUDI-DFU composite example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if successful,<ul>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xusb__audio__dfu__example_8c.html#a50f23879122d36c5659b812974d2831a">InterruptController</a>, <a class="el" href="xusb__wrapper_8h.html#aa12c76241fcad981769d65754a5f5591">USB_DEVICE_ID</a>, and <a class="el" href="xusb__audio__dfu__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="abe3f0567479eb989b186057417c8e46c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 audio_freq[<a class="el" href="xusb__freertos__class__composite_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7">MAX_AUDIO_FREQ</a>][3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        { 0x40, 0x1F, 0x00 },   </div>
+<div class="line">        { 0x44, 0xAC, 0x00 },   </div>
+<div class="line">        { 0x80, 0xBB, 0x00 },   </div>
+<div class="line">        { 0x00, 0x77, 0x01,},   </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Audio_freq. </p>
+
+</div>
+</div>
+<a class="anchor" id="a70e139cf3b442e936c8997fc48941e9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 AudioDisk[0x3200000]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Disk. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1f946c7d2b74571706ecb53626f2fa19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 BufferPtrTemp[1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer Ptr Temp. </p>
+
+</div>
+</div>
+<a class="anchor" id="a128a9ff13506db323f2bc1d064b798d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcomposite__dev.html">composite_dev</a> comp_dev</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        .f_dfu.disk = <a class="code" href="xusb__composite__example_8c.html#a972c9c74fc73604abbd95eb2f8d99ca9">DfuDisk</a>,</div>
+<div class="line">        .f_dfu.disksize = <span class="keyword">sizeof</span>(<a class="code" href="xusb__composite__example_8c.html#a972c9c74fc73604abbd95eb2f8d99ca9">DfuDisk</a>),</div>
+<div class="line">        .f_audio.disk = <a class="code" href="xusb__composite__example_8c.html#a70e139cf3b442e936c8997fc48941e9c">AudioDisk</a>,</div>
+<div class="line">        .f_audio.disksize = <span class="keyword">sizeof</span>(<a class="code" href="xusb__composite__example_8c.html#a70e139cf3b442e936c8997fc48941e9c">AudioDisk</a>),</div>
+<div class="line">        .f_storage.disk = <a class="code" href="xusb__composite__example_8c.html#ac35a402cf5e0b0dc73807cece3276720">StorageDisk</a>,</div>
+<div class="line">        .f_storage.disksize = <span class="keyword">sizeof</span>(<a class="code" href="xusb__composite__example_8c.html#ac35a402cf5e0b0dc73807cece3276720">StorageDisk</a>),</div>
+<div class="line">}</div>
+<div class="ttc" id="xusb__composite__example_8c_html_a972c9c74fc73604abbd95eb2f8d99ca9"><div class="ttname"><a href="xusb__composite__example_8c.html#a972c9c74fc73604abbd95eb2f8d99ca9">DfuDisk</a></div><div class="ttdeci">u8 DfuDisk[0x3200000]</div><div class="ttdoc">DFU disk buffer. </div><div class="ttdef"><b>Definition:</b> xusb_composite_example.c:72</div></div>
+<div class="ttc" id="xusb__composite__example_8c_html_a70e139cf3b442e936c8997fc48941e9c"><div class="ttname"><a href="xusb__composite__example_8c.html#a70e139cf3b442e936c8997fc48941e9c">AudioDisk</a></div><div class="ttdeci">u8 AudioDisk[0x3200000]</div><div class="ttdoc">Audio Disk. </div><div class="ttdef"><b>Definition:</b> xusb_composite_example.c:71</div></div>
+<div class="ttc" id="xusb__composite__example_8c_html_ac35a402cf5e0b0dc73807cece3276720"><div class="ttname"><a href="xusb__composite__example_8c.html#ac35a402cf5e0b0dc73807cece3276720">StorageDisk</a></div><div class="ttdeci">u8 StorageDisk[0x6400000]</div><div class="ttdoc">Storage Disk. </div><div class="ttdef"><b>Definition:</b> xusb_composite_example.c:70</div></div>
+</div><!-- fragment -->
+<p>Composite device instance. </p>
+
+</div>
+</div>
+<a class="anchor" id="a972c9c74fc73604abbd95eb2f8d99ca9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 DfuDisk[0x3200000]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DFU disk buffer. </p>
+
+</div>
+</div>
+<a class="anchor" id="a50f23879122d36c5659b812974d2831a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XScuGic InterruptController</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt Controller. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac35a402cf5e0b0dc73807cece3276720"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 StorageDisk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage Disk. </p>
+<p>Storage disk buffer.</p>
+
+</div>
+</div>
+<a class="anchor" id="a35b6a61151282f1695a33ba48778b541"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> UsbInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device data instance. </p>
 
 </div>
 </div>

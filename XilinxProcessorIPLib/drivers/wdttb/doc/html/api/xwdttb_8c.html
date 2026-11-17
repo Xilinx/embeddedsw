@@ -105,7 +105,73 @@ $(document).ready(function(){initNavTree('xwdttb_8c.html','');});
 <div class="title">xwdttb.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the required functions of the <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> driver. </p>
+<p>This section contains the required functions of the <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> driver. See <a class="el" href="xwdttb_8h.html">xwdttb.h</a> for a description of the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a ecm  08/16/01 First release
+1.00b jhl  02/21/02 Repartitioned the driver for smaller files
+1.00b rpm  04/26/02 Made LookupConfig public
+1.10b mta  03/23/07 Updated to new coding style
+2.00a ktn  10/22/09 Updated to use the HAL processor APIs/macros.
+4.0   sha  12/17/15 Added Window WDT feature with basic mode.
+                    Moved XWdtTb_LookupConfig definition to <a class="el" href="xwdttb__sinit_8c.html" title="Implements the static initialization method of the XWdtTb driver. ">xwdttb_sinit.c</a>.
+                    Adherence to coding and Doxygen guidelines.
+                    Removed included xil_io, xil_types, xparameters and
+                    xil_assert header files.
+                    Moved XWdtTb_GetTbValue to <a class="el" href="xwdttb_8h.html">xwdttb.h</a> file.
+                    Adherence to MISRA-C guidelines.
+4.0   sha  01/29/16 Added functions for Window WDT feature:
+                    XWdtTb_AlwaysEnable, XWdtTb_ClearLastEvent,
+                    XWdtTb_ClearResetPending, XWdtTb_IntrClear,
+                    XWdtTb_SetByteCount, XWdtTb_GetByteCount,
+                    XWdtTb_SetByteSegment, XWdtTb_GetByteSegment,
+                    XWdtTb_EnableSst, XWdtTb_DisableSst, XWdtTb_EnablePsm,
+                    XWdtTb_DisablePsm, XWdtTb_EnableFailCounter,
+                    XWdtTb_DisableFailCounter, XWdtTb_EnableExtraProtection,
+                    XWdtTb_DisableExtraProtection, XWdtTb_SetWindowCount,
+                    XWdtTb_EnableWinWdt, XWdtTb_DisableWinWdt,
+                    XWdtTb_CfgInitialize.</pre><pre>                    Updated functions with Window WDT feature:
+                    XWdtTb_Start, XWdtTb_Stop, XWdtTb_IsWdtExpired,
+                    XWdtTb_RestartWdt.</pre><pre>                    Modified lines with exceeding maximum 80 chars.
+                    Changed multi line comments to single line comments
+                    wherever required.
+4.3   srm  01/27/18 Added XWdtTb_ProgramWDTWidth which can program the
+                                  width of WDT
+           01/30/18 Added doxygen tags
+4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
+                    in <a class="el" href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc" title="Programs the width of Watchdog Timer. ">XWdtTb_ProgramWDTWidth()</a>.
+4.4   sne  02/28/19 Added Static functions for Window WDT feature:
+                    XWdtTb_EnableTiWdt,XWdtTb_DisableTiWdt.
+4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+                    modified the code for below violations,
+                    No brackets to then/else,
+                    Literal value requires a U suffix,Function return
+                    type inconsistent,Logical conjunctions need brackets,
+                    Declared the pointer param as Pointer to const,
+                    Procedure has more than one exit point.
+4.4   sne  03/04/19 Added support for Versal( Generic Watchdog and
+                    Window Watchdog Timer). Added below functions:
+                    XWdtTb_EnableGenericWdt,XWdtTb_DisableGenericWdt,
+                    XWdtTb_EnableTimebaseWdt,XWdtTb_DisableTimebaseWdt,
+                    XWdtTb_IsGenericWdtFWExpired,XWdtTb_SetGenericWdtWindow.
+4.5  sne  06/25/19 Fixed Coverity warning in driver file.
+4.5  sne   09/27/19 Added common driver support for Window watchdog Timer
+              and AXI Timebase watchdog timer.
+5.0  sne   01/31/20 Removed compare value registers write in
+              XWdtTb_SetGenericWdtWindow function.
+5.0  sne   02/27/20 Reorganize the driver source and Fixed doxygen warnings.
+5.0  sne   03/09/20 Fixed MISRA-C violations.
+5.7  sb    07/12/23 Added support for system device-tree flow.
+5.7  sb    09/13/23 Fix MISRA-C violation 12.1.
+5.9  ht    05/15/23 Port <a class="el" href="group__wdttb__api.html#gac527fa5e22004cbd388574538d306a4d" title="Initializes a specific legacy/window watchdog timer/timebase instance. ">XWdtTb_Initialize()</a> to SDT flow
+5.12 vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+5.13 vn    08/26/26 Fix Doxygen warnings
+5.13 vn    09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xwdttb__config_8h.html">xwdttb_config.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -114,7 +180,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gadf3c428b985d77e28b5df5cd5d82dff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the AXI timebase Watchdog Timer core.  <a href="group__wdttb__api.html#gadf3c428b985d77e28b5df5cd5d82dff3">More...</a><br/></td></tr>
 <tr class="separator:gadf3c428b985d77e28b5df5cd5d82dff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac527fa5e22004cbd388574538d306a4d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gac527fa5e22004cbd388574538d306a4d">XWdtTb_Initialize</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gac527fa5e22004cbd388574538d306a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific legacy/window watchdog timer/timebase instance/driver.  <a href="group__wdttb__api.html#gac527fa5e22004cbd388574538d306a4d">More...</a><br/></td></tr>
+<tr class="memdesc:gac527fa5e22004cbd388574538d306a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific legacy/window watchdog timer/timebase instance.  <a href="group__wdttb__api.html#gac527fa5e22004cbd388574538d306a4d">More...</a><br/></td></tr>
 <tr class="separator:gac527fa5e22004cbd388574538d306a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab195e280eca1e2985509d954c2e4e52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaab195e280eca1e2985509d954c2e4e52">XWdtTb_Start</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gaab195e280eca1e2985509d954c2e4e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the legacy or window watchdog timer.  <a href="group__wdttb__api.html#gaab195e280eca1e2985509d954c2e4e52">More...</a><br/></td></tr>
@@ -123,19 +189,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:gacd5617bce061deaa57743ea46008daf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the legacy or window watchdog timer.  <a href="group__wdttb__api.html#gacd5617bce061deaa57743ea46008daf8">More...</a><br/></td></tr>
 <tr class="separator:gacd5617bce061deaa57743ea46008daf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1ec9f43580e5497f47960d47a231cb1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">XWdtTb_IsWdtExpired</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaa1ec9f43580e5497f47960d47a231cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the legacy watchdog timer has expired or window watchdog timer either in second window or not in second window.  <a href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">More...</a><br/></td></tr>
+<tr class="memdesc:gaa1ec9f43580e5497f47960d47a231cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the watchdog timer has expired or is in window two.  <a href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">More...</a><br/></td></tr>
 <tr class="separator:gaa1ec9f43580e5497f47960d47a231cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga24e80e9f7fb7d427513e7fe03833dc1e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">XWdtTb_IsGenericWdtFWExpired</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga24e80e9f7fb7d427513e7fe03833dc1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the generic watchdog timer has first window expired or not.  <a href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">More...</a><br/></td></tr>
+<tr class="memdesc:ga24e80e9f7fb7d427513e7fe03833dc1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the generic watchdog timer first window has expired.  <a href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">More...</a><br/></td></tr>
 <tr class="separator:ga24e80e9f7fb7d427513e7fe03833dc1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf1baa5a1d69ac6c61ecc62d5df1a0c01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">XWdtTb_RestartWdt</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gaf1baa5a1d69ac6c61ecc62d5df1a0c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts the legacy or window watchdog timer.  <a href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">More...</a><br/></td></tr>
 <tr class="separator:gaf1baa5a1d69ac6c61ecc62d5df1a0c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b3e984acc19cf7d0f45eaa09298e0a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga9b3e984acc19cf7d0f45eaa09298e0a7">XWdtTb_AlwaysEnable</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga9b3e984acc19cf7d0f45eaa09298e0a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function keeps window Watchdog Timer always enabled.  <a href="group__wdttb__api.html#ga9b3e984acc19cf7d0f45eaa09298e0a7">More...</a><br/></td></tr>
+<tr class="memdesc:ga9b3e984acc19cf7d0f45eaa09298e0a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keeps the window Watchdog Timer always enabled.  <a href="group__wdttb__api.html#ga9b3e984acc19cf7d0f45eaa09298e0a7">More...</a><br/></td></tr>
 <tr class="separator:ga9b3e984acc19cf7d0f45eaa09298e0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga043f754323225b43513c2f7a2f71aedb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">XWdtTb_ClearLastEvent</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga043f754323225b43513c2f7a2f71aedb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears event(s) that present after system reset.  <a href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">More...</a><br/></td></tr>
+<tr class="memdesc:ga043f754323225b43513c2f7a2f71aedb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the events that are present after system reset.  <a href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">More...</a><br/></td></tr>
 <tr class="separator:ga043f754323225b43513c2f7a2f71aedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafbd0c485e4a716fd1c6dc5cea084f759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gafbd0c485e4a716fd1c6dc5cea084f759">XWdtTb_ClearResetPending</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gafbd0c485e4a716fd1c6dc5cea084f759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the window watchdog reset pending.  <a href="group__wdttb__api.html#gafbd0c485e4a716fd1c6dc5cea084f759">More...</a><br/></td></tr>
@@ -144,31 +210,31 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaf2b1b1175aac0974fa1c9c1c7c50550c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears window watchdog timer interrupt (WINT) bit.  <a href="group__wdttb__api.html#gaf2b1b1175aac0974fa1c9c1c7c50550c">More...</a><br/></td></tr>
 <tr class="separator:gaf2b1b1175aac0974fa1c9c1c7c50550c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1e121c7e6b69d7b10fedf92d91b5396"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaa1e121c7e6b69d7b10fedf92d91b5396">XWdtTb_SetByteCount</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, u32 ByteCount)</td></tr>
-<tr class="memdesc:gaa1e121c7e6b69d7b10fedf92d91b5396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets byte count to determine the interrupt assertion point in the second window configuration.  <a href="group__wdttb__api.html#gaa1e121c7e6b69d7b10fedf92d91b5396">More...</a><br/></td></tr>
+<tr class="memdesc:gaa1e121c7e6b69d7b10fedf92d91b5396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the byte count for the second window interrupt point.  <a href="group__wdttb__api.html#gaa1e121c7e6b69d7b10fedf92d91b5396">More...</a><br/></td></tr>
 <tr class="separator:gaa1e121c7e6b69d7b10fedf92d91b5396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e3a836964ef56168668f3d26307dfc7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga8e3a836964ef56168668f3d26307dfc7">XWdtTb_GetByteCount</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga8e3a836964ef56168668f3d26307dfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides byte count value of the selected byte count in the second window configuration.  <a href="group__wdttb__api.html#ga8e3a836964ef56168668f3d26307dfc7">More...</a><br/></td></tr>
+<tr class="memdesc:ga8e3a836964ef56168668f3d26307dfc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the selected byte count in the second window configuration.  <a href="group__wdttb__api.html#ga8e3a836964ef56168668f3d26307dfc7">More...</a><br/></td></tr>
 <tr class="separator:ga8e3a836964ef56168668f3d26307dfc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga26519cefd97128dca8d1f147f5364945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">XWdtTb_SetByteSegment</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, u32 ByteSegment)</td></tr>
-<tr class="memdesc:ga26519cefd97128dca8d1f147f5364945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets byte segment selection to determine the interrupt assertion point in the second window configuration.  <a href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">More...</a><br/></td></tr>
+<tr class="memdesc:ga26519cefd97128dca8d1f147f5364945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the byte segment for the second window interrupt point.  <a href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">More...</a><br/></td></tr>
 <tr class="separator:ga26519cefd97128dca8d1f147f5364945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2e1e6ee60443c503144572bd00fc8589"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga2e1e6ee60443c503144572bd00fc8589">XWdtTb_GetByteSegment</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2e1e6ee60443c503144572bd00fc8589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides byte segment selection in the second window configuration.  <a href="group__wdttb__api.html#ga2e1e6ee60443c503144572bd00fc8589">More...</a><br/></td></tr>
+<tr class="memdesc:ga2e1e6ee60443c503144572bd00fc8589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns byte segment selection in the second window configuration.  <a href="group__wdttb__api.html#ga2e1e6ee60443c503144572bd00fc8589">More...</a><br/></td></tr>
 <tr class="separator:ga2e1e6ee60443c503144572bd00fc8589"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4c9f9d6df6c3c96c579ab7c2f1c350ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga4c9f9d6df6c3c96c579ab7c2f1c350ec">XWdtTb_EnableSst</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga4c9f9d6df6c3c96c579ab7c2f1c350ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Second Sequence Timer(SST) function.  <a href="group__wdttb__api.html#ga4c9f9d6df6c3c96c579ab7c2f1c350ec">More...</a><br/></td></tr>
+<tr class="memdesc:ga4c9f9d6df6c3c96c579ab7c2f1c350ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Second Sequence Timer (SST) function.  <a href="group__wdttb__api.html#ga4c9f9d6df6c3c96c579ab7c2f1c350ec">More...</a><br/></td></tr>
 <tr class="separator:ga4c9f9d6df6c3c96c579ab7c2f1c350ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3fbc0d643f910953abf6e476cf13c5e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga3fbc0d643f910953abf6e476cf13c5e8">XWdtTb_DisableSst</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga3fbc0d643f910953abf6e476cf13c5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Second Sequence Timer(SST) function.  <a href="group__wdttb__api.html#ga3fbc0d643f910953abf6e476cf13c5e8">More...</a><br/></td></tr>
+<tr class="memdesc:ga3fbc0d643f910953abf6e476cf13c5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Second Sequence Timer (SST) function.  <a href="group__wdttb__api.html#ga3fbc0d643f910953abf6e476cf13c5e8">More...</a><br/></td></tr>
 <tr class="separator:ga3fbc0d643f910953abf6e476cf13c5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga29cdd15b771748985524abd19a1aead0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga29cdd15b771748985524abd19a1aead0">XWdtTb_EnablePsm</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga29cdd15b771748985524abd19a1aead0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Program Sequence Monitor(PSM) function.  <a href="group__wdttb__api.html#ga29cdd15b771748985524abd19a1aead0">More...</a><br/></td></tr>
+<tr class="memdesc:ga29cdd15b771748985524abd19a1aead0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Program Sequence Monitor (PSM) function.  <a href="group__wdttb__api.html#ga29cdd15b771748985524abd19a1aead0">More...</a><br/></td></tr>
 <tr class="separator:ga29cdd15b771748985524abd19a1aead0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga12faff17b943f0cbf70a6d639280a630"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga12faff17b943f0cbf70a6d639280a630">XWdtTb_DisablePsm</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga12faff17b943f0cbf70a6d639280a630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Program Sequence Monitor (PSM) function.  <a href="group__wdttb__api.html#ga12faff17b943f0cbf70a6d639280a630">More...</a><br/></td></tr>
 <tr class="separator:ga12faff17b943f0cbf70a6d639280a630"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga595c530371577b29e0a5e090d9967205"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga595c530371577b29e0a5e090d9967205">XWdtTb_EnableFailCounter</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga595c530371577b29e0a5e090d9967205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Fail Counter(FC) function.  <a href="group__wdttb__api.html#ga595c530371577b29e0a5e090d9967205">More...</a><br/></td></tr>
+<tr class="memdesc:ga595c530371577b29e0a5e090d9967205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Fail Counter (FC) function.  <a href="group__wdttb__api.html#ga595c530371577b29e0a5e090d9967205">More...</a><br/></td></tr>
 <tr class="separator:ga595c530371577b29e0a5e090d9967205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3ec7a898566961227074db888ab4e222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga3ec7a898566961227074db888ab4e222">XWdtTb_DisableFailCounter</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga3ec7a898566961227074db888ab4e222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables Fail Counter (FC) function.  <a href="group__wdttb__api.html#ga3ec7a898566961227074db888ab4e222">More...</a><br/></td></tr>
@@ -183,16 +249,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga924185ce28862e06ea62fa4f51bfed8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the count value for the first and second window.  <a href="group__wdttb__api.html#ga924185ce28862e06ea62fa4f51bfed8d">More...</a><br/></td></tr>
 <tr class="separator:ga924185ce28862e06ea62fa4f51bfed8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga160723502d4b5b8797e358f96cc902c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">XWdtTb_SetGenericWdtWindow</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, u32 GWOR_config)</td></tr>
-<tr class="memdesc:ga160723502d4b5b8797e358f96cc902c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the count value for the GWDT_Compare_value_reg0 ,GWDT_Compare_value_reg1 &amp; GWDT_Offset_regs .  <a href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">More...</a><br/></td></tr>
+<tr class="memdesc:ga160723502d4b5b8797e358f96cc902c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the GWDT compare and offset register count values.  <a href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">More...</a><br/></td></tr>
 <tr class="separator:ga160723502d4b5b8797e358f96cc902c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf297a0071482bd7a767360d6bd265cd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">XWdtTb_SetGenericWdtWindowTimeOut</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, u32 MilliSeconds)</td></tr>
-<tr class="memdesc:gaf297a0071482bd7a767360d6bd265cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the count value for the GWDT_Offset_regs .  <a href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">More...</a><br/></td></tr>
+<tr class="memdesc:gaf297a0071482bd7a767360d6bd265cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the count value for the GWDT_Offset_regs.  <a href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">More...</a><br/></td></tr>
 <tr class="separator:gaf297a0071482bd7a767360d6bd265cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga86133d7e1b0053409d5c743746a129fc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc">XWdtTb_ProgramWDTWidth</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr, u32 width)</td></tr>
 <tr class="memdesc:ga86133d7e1b0053409d5c743746a129fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs the width of Watchdog Timer.  <a href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc">More...</a><br/></td></tr>
 <tr class="separator:ga86133d7e1b0053409d5c743746a129fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf06401c68588281006be77362aa8dbf4"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaf06401c68588281006be77362aa8dbf4">XWdtTb_GenAnswer</a> (u8 TokenVal, u8 AnsByteCnt, u8 TokenFdbk)</td></tr>
-<tr class="memdesc:gaf06401c68588281006be77362aa8dbf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine generates responses based on input token in QA mode.  <a href="group__wdttb__api.html#gaf06401c68588281006be77362aa8dbf4">More...</a><br/></td></tr>
+<tr class="memdesc:gaf06401c68588281006be77362aa8dbf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates responses based on input token in QA mode.  <a href="group__wdttb__api.html#gaf06401c68588281006be77362aa8dbf4">More...</a><br/></td></tr>
 <tr class="separator:gaf06401c68588281006be77362aa8dbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

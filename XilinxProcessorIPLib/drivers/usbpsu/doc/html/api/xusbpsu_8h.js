@@ -8,7 +8,6 @@ var xusbpsu_8h =
     [ "XUSBPSU_ENDPOINT_XFERTYPE_MASK", "xusbpsu_8h.html#gab099fe68c248d13c86d5c9ff3eb6cc90", null ],
     [ "XUSBPSU_EP_DIR_IN", "xusbpsu_8h.html#ga3126435e75abbfbfdcf3bfdf9d1175a0", null ],
     [ "XUSBPSU_EP_DIR_OUT", "xusbpsu_8h.html#ga512f27591b21fe69754687c156ad0c01", null ],
-    [ "XUSBPSU_H", "xusbpsu_8h.html#ga957c4c1e84bc2b5c56296ae5a5cb1c26", null ],
     [ "XUSBPSU_SPEED_FULL", "xusbpsu_8h.html#ga59f79176f4a1991bf8b9bb1e5b178dc3", null ],
     [ "XUSBPSU_SPEED_HIGH", "xusbpsu_8h.html#gad1505139cec9bf7dda6deb3cb292a835", null ],
     [ "XUSBPSU_SPEED_LOW", "xusbpsu_8h.html#gacffd9c26017dc32043d88f8a7b85bc19", null ],

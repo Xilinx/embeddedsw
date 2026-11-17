@@ -140,11 +140,11 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>struct <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> - USB Standard Control Request </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bRequestType,:</td><td>Characteristics of request </td></tr>
-    <tr><td class="paramname">bRequest,:</td><td>Type of request </td></tr>
-    <tr><td class="paramname">wValue,:</td><td>Word-sized field that varies according to request </td></tr>
-    <tr><td class="paramname">wIndex,:</td><td>Used to pass an index or offset </td></tr>
-    <tr><td class="paramname">wLength,:</td><td>Number of bytes to transfer if there is a Data stage </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bRequestType,:</td><td>Characteristics of request </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bRequest,:</td><td>Type of request </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wValue,:</td><td>Word-sized field that varies according to request </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wIndex,:</td><td>Used to pass an index or offset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wLength,:</td><td>Number of bytes to transfer if there is a Data stage </td></tr>
   </table>
   </dd>
 </dl>
@@ -161,7 +161,7 @@ Data Fields</h2></td></tr>
 
 <p>Type of request. </p>
 
-<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
 
 </div>
 </div>
@@ -177,7 +177,7 @@ Data Fields</h2></td></tr>
 
 <p>Characteristics of request. </p>
 
-<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8c.html#a043075687afdf64ad9382236bd155e60">Usb_GetDescReply()</a>, and <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8c.html#a043075687afdf64ad9382236bd155e60">Usb_GetDescReply()</a>, and <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>.</p>
 
 </div>
 </div>
@@ -209,7 +209,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of bytes to transfer. </p>
 
-<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>.</p>
 
 </div>
 </div>
@@ -225,7 +225,7 @@ Data Fields</h2></td></tr>
 
 <p>Word-sized that varies according to request. </p>
 
-<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae423c2f49364dc3cd9e2cddf6b62541b">Usb_DfuSetIntf()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>, <a class="el" href="xusb__freertos__ch9__audio_8h.html#a98999124de04efd07c811680f1052471">Usb_SetInterfaceHandler()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae423c2f49364dc3cd9e2cddf6b62541b">Usb_DfuSetIntf()</a>, <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>, <a class="el" href="xusb__freertos__ch9__audio_8h.html#a98999124de04efd07c811680f1052471">Usb_SetInterfaceHandler()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
 
 </div>
 </div>

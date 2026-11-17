@@ -100,15 +100,16 @@ $(document).ready(function(){initNavTree('xwdttb__gwdt__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xwdttb_gwdt_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a example for using the Generic Watchdog Timer hardware and driver. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
+<div class="textblock"><p>Demonstrates the Generic Watchdog Timer in polled mode. </p>
+<p>This file contains an example for using the Generic Watchdog Timer hardware and driver.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -121,15 +122,48 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.9     ht    07/22/24 Add support for peripheral tests in SDT flow.
 5.10  ht    10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 5.11  bkv   07/08/25 Fixed GCC Warnings.
-5.12  vlt 12/18/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+5.12  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+5.13  vn  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a6c8cb9cb2bb201e51c802085d647e227"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__gwdt__example_8c.html#a6c8cb9cb2bb201e51c802085d647e227">WDTPSV_GWOR_COUNT</a>&#160;&#160;&#160;0x00110000U</td></tr>
+<tr class="memdesc:a6c8cb9cb2bb201e51c802085d647e227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic Watchdog offset value.  <a href="#a6c8cb9cb2bb201e51c802085d647e227">More...</a><br/></td></tr>
+<tr class="separator:a6c8cb9cb2bb201e51c802085d647e227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae46c5a8ca3ff40cfd7ae9004c68032c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__gwdt__example_8c.html#ae46c5a8ca3ff40cfd7ae9004c68032c7">GWdtTbExample</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *WdtTbInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ae46c5a8ca3ff40cfd7ae9004c68032c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function tests the functioning of the Generic watch dog Timer Feature in Polled mode In this function polls up to First window completion, once we reached to generic_wdt_interrupt point it will Refresh.  <a href="#ae46c5a8ca3ff40cfd7ae9004c68032c7">More...</a><br/></td></tr>
+<tr class="memdesc:ae46c5a8ca3ff40cfd7ae9004c68032c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the Generic Watchdog Timer feature in polled mode.  <a href="#ae46c5a8ca3ff40cfd7ae9004c68032c7">More...</a><br/></td></tr>
 <tr class="separator:ae46c5a8ca3ff40cfd7ae9004c68032c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__gwdt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the Generic Watchdog Timer example from the main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4a12f5ad6b4a01428caf8a1acce43f8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_wdt_tb.html">XWdtTb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__gwdt__example_8c.html#a4a12f5ad6b4a01428caf8a1acce43f8f">GWatchdog</a></td></tr>
+<tr class="memdesc:a4a12f5ad6b4a01428caf8a1acce43f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the WatchDog Time Base.  <a href="#a4a12f5ad6b4a01428caf8a1acce43f8f">More...</a><br/></td></tr>
+<tr class="separator:a4a12f5ad6b4a01428caf8a1acce43f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a6c8cb9cb2bb201e51c802085d647e227"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WDTPSV_GWOR_COUNT&#160;&#160;&#160;0x00110000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic Watchdog offset value. </p>
+
+<p>Referenced by <a class="el" href="xwdttb__gwdt__example_8c.html#ae46c5a8ca3ff40cfd7ae9004c68032c7">GWdtTbExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae46c5a8ca3ff40cfd7ae9004c68032c7"></a>
 <div class="memitem">
@@ -155,12 +189,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function tests the functioning of the Generic watch dog Timer Feature in Polled mode In this function polls up to First window completion, once we reached to generic_wdt_interrupt point it will Refresh. </p>
-<p>In this function once we reach to Second window time out point It means generating generic_wdt_reset ,We are going to Refresh.</p>
+<p>Tests the Generic Watchdog Timer feature in polled mode. </p>
+<p>The function polls until the first window completes, and refreshes the timer at the generic_wdt_interrupt point. It also refreshes the timer at the second window timeout point, where generic_wdt_reset is generated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">WdtTbInstancePtr</td><td>is a pointer to the instance of <a class="el" href="struct_x_wdt_tb.html" title="The XWdtTb driver instance data. ">XWdtTb</a> driver. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">WdtTbInstancePtr</td><td>Pointer to the instance of <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -169,9 +203,52 @@ Functions</h2></td></tr>
 <li>XST_FAILURE, otherwise.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, the example uses DeviceId to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_wdt_tb___config.html#a3867e6f3038fe367e0072a85125f5391">XWdtTb_Config::BaseAddr</a>, <a class="el" href="group__wdttb__api.html#gadf3c428b985d77e28b5df5cd5d82dff3">XWdtTb_CfgInitialize()</a>, <a class="el" href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">XWdtTb_IsGenericWdtFWExpired()</a>, <a class="el" href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">XWdtTb_IsWdtExpired()</a>, <a class="el" href="group__wdttb__api.html#gad27ab5404921a0500231b02220f0dee4">XWdtTb_LookupConfig()</a>, <a class="el" href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">XWdtTb_RestartWdt()</a>, <a class="el" href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">XWdtTb_SelfTest()</a>, <a class="el" href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">XWdtTb_SetGenericWdtWindow()</a>, <a class="el" href="group__wdttb__api.html#gaab195e280eca1e2985509d954c2e4e52">XWdtTb_Start()</a>, and <a class="el" href="group__wdttb__api.html#gacd5617bce061deaa57743ea46008daf8">XWdtTb_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_wdt_tb___config.html#a3867e6f3038fe367e0072a85125f5391">XWdtTb_Config::BaseAddr</a>, <a class="el" href="xwdttb__gwdt__example_8c.html#a6c8cb9cb2bb201e51c802085d647e227">WDTPSV_GWOR_COUNT</a>, <a class="el" href="group__wdttb__api.html#gadf3c428b985d77e28b5df5cd5d82dff3">XWdtTb_CfgInitialize()</a>, <a class="el" href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">XWdtTb_IsGenericWdtFWExpired()</a>, <a class="el" href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">XWdtTb_IsWdtExpired()</a>, <a class="el" href="group__wdttb__api.html#gad27ab5404921a0500231b02220f0dee4">XWdtTb_LookupConfig()</a>, <a class="el" href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">XWdtTb_RestartWdt()</a>, <a class="el" href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">XWdtTb_SelfTest()</a>, <a class="el" href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">XWdtTb_SetGenericWdtWindow()</a>, <a class="el" href="group__wdttb__api.html#gaab195e280eca1e2985509d954c2e4e52">XWdtTb_Start()</a>, and <a class="el" href="group__wdttb__api.html#gacd5617bce061deaa57743ea46008daf8">XWdtTb_Stop()</a>.</p>
+
+<p>Referenced by <a class="el" href="xwdttb__gwdt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calls the Generic Watchdog Timer example from the main function. </p>
+<p>This function is not included if the example is generated from the TestAppGen test tool.</p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="xwdttb__gwdt__example_8c.html#ae46c5a8ca3ff40cfd7ae9004c68032c7">GWdtTbExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a4a12f5ad6b4a01428caf8a1acce43f8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> GWatchdog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the WatchDog Time Base. </p>
 
 </div>
 </div>

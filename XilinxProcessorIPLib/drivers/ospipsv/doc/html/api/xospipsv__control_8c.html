@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xospipsv__control_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,13 +106,32 @@ $(document).ready(function(){initNavTree('xospipsv__control_8c.html','');});
 <div class="title">xospipsv_control.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the low level functions of the OSPIPSV driver. </p>
+<p>These functions are used by the functions in <a class="el" href="xospipsv_8c.html" title="Implements the functions to perform transfers on the OSPIPSV hardware. ">xospipsv.c</a> and <a class="el" href="xospipsv__options_8c.html" title="Implements the functions to configure the OSPIPSV component. ">xospipsv_options.c</a> files.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.2   sk  02/20/20 First release
+1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+1.4   sk   02/18/21 Added support for Dual byte opcode.
+      sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
+1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
+1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
+1.13  sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+1.15  zm   08/07/26 Added <a class="el" href="group__ospipsv__api.html#ga8efded744e18270f71f42fb123f3c607" title="Checks whether a write message can be issued on the STIG path. ">XOspiPsv_CheckStigWriteMsg()</a> for the STIG write path.
+1.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+1.15  zm   09/01/26 Check DAC transfer offset and length against 512MB window.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga02055aef4b0f9a801005ebdc7b556157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga02055aef4b0f9a801005ebdc7b556157">MAX_DELAY_CNT</a>&#160;&#160;&#160;10000U</td></tr>
-<tr class="memdesc:ga02055aef4b0f9a801005ebdc7b556157"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Maximum delay count  <a href="group__ospipsv__api.html#ga02055aef4b0f9a801005ebdc7b556157">More...</a><br/></td></tr>
+<tr class="memdesc:ga02055aef4b0f9a801005ebdc7b556157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum delay count.  <a href="group__ospipsv__api.html#ga02055aef4b0f9a801005ebdc7b556157">More...</a><br/></td></tr>
 <tr class="separator:ga02055aef4b0f9a801005ebdc7b556157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2837097f3f203eeff26f5cfc61947bcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga2837097f3f203eeff26f5cfc61947bcf">MAX_IDAC_DELAY_CNT</a>&#160;&#160;&#160;10000000U</td></tr>
 <tr class="memdesc:ga2837097f3f203eeff26f5cfc61947bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max INDAC delay count.  <a href="group__ospipsv__api.html#ga2837097f3f203eeff26f5cfc61947bcf">More...</a><br/></td></tr>
@@ -121,10 +140,13 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga6af9f098248cd39891e92d9caa1d75c8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga6af9f098248cd39891e92d9caa1d75c8">XOspiPsv_Stig_Read</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga6af9f098248cd39891e92d9caa1d75c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash command based data reading using flash command control registers.  <a href="group__ospipsv__api.html#ga6af9f098248cd39891e92d9caa1d75c8">More...</a><br/></td></tr>
+<tr class="memdesc:ga6af9f098248cd39891e92d9caa1d75c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data using the flash command control registers.  <a href="group__ospipsv__api.html#ga6af9f098248cd39891e92d9caa1d75c8">More...</a><br/></td></tr>
 <tr class="separator:ga6af9f098248cd39891e92d9caa1d75c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8efded744e18270f71f42fb123f3c607"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga8efded744e18270f71f42fb123f3c607">XOspiPsv_CheckStigWriteMsg</a> (const <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
+<tr class="memdesc:ga8efded744e18270f71f42fb123f3c607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a write message can be issued on the STIG path.  <a href="group__ospipsv__api.html#ga8efded744e18270f71f42fb123f3c607">More...</a><br/></td></tr>
+<tr class="separator:ga8efded744e18270f71f42fb123f3c607"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1b1a6b7fd20d9183ad58f84d3303eeec"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga1b1a6b7fd20d9183ad58f84d3303eeec">XOspiPsv_Stig_Write</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga1b1a6b7fd20d9183ad58f84d3303eeec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash command based data write using flash command control registers.  <a href="group__ospipsv__api.html#ga1b1a6b7fd20d9183ad58f84d3303eeec">More...</a><br/></td></tr>
+<tr class="memdesc:ga1b1a6b7fd20d9183ad58f84d3303eeec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data using the flash command control registers.  <a href="group__ospipsv__api.html#ga1b1a6b7fd20d9183ad58f84d3303eeec">More...</a><br/></td></tr>
 <tr class="separator:ga1b1a6b7fd20d9183ad58f84d3303eeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab882c01ec4fd29b29a58e0a07075414d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gab882c01ec4fd29b29a58e0a07075414d">XOspiPsv_Dma_Read</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
 <tr class="memdesc:gab882c01ec4fd29b29a58e0a07075414d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the data using DMA.  <a href="group__ospipsv__api.html#gab882c01ec4fd29b29a58e0a07075414d">More...</a><br/></td></tr>
@@ -133,7 +155,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9f70d70b4dcd8a325a7dacc3aa31a5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the data using Linear controller.  <a href="group__ospipsv__api.html#ga9f70d70b4dcd8a325a7dacc3aa31a5ef">More...</a><br/></td></tr>
 <tr class="separator:ga9f70d70b4dcd8a325a7dacc3aa31a5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadb1ae4f737c07e890039cdaf3a006b26"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gadb1ae4f737c07e890039cdaf3a006b26">XOspiPsv_Dac_Write</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, const <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:gadb1ae4f737c07e890039cdaf3a006b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data Using Linear controller.  <a href="group__ospipsv__api.html#gadb1ae4f737c07e890039cdaf3a006b26">More...</a><br/></td></tr>
+<tr class="memdesc:gadb1ae4f737c07e890039cdaf3a006b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data using Linear controller.  <a href="group__ospipsv__api.html#gadb1ae4f737c07e890039cdaf3a006b26">More...</a><br/></td></tr>
 <tr class="separator:gadb1ae4f737c07e890039cdaf3a006b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3ac73304cb055f7184181eb4b176637e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga3ac73304cb055f7184181eb4b176637e">XOspiPsv_ExecuteRxTuning</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *FlashMsg, u32 TXTap)</td></tr>
 <tr class="memdesc:ga3ac73304cb055f7184181eb4b176637e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs RX Tuning for SDR/DDR mode to calculate RX DLL Delay.  <a href="group__ospipsv__api.html#ga3ac73304cb055f7184181eb4b176637e">More...</a><br/></td></tr>

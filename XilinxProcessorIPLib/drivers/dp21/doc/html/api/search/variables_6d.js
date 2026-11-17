@@ -5,6 +5,7 @@ var searchData=
   ['maxlinkrate',['MaxLinkRate',['../struct_x_dp___config.html#a365f2d8d2631612e1946901662a64b0b',1,'XDp_Config::MaxLinkRate()'],['../struct_x_dp___tx_link_config.html#a1cb767e2205df48354b391fbf205fe40',1,'XDp_TxLinkConfig::MaxLinkRate()']]],
   ['maxlinkrate_5f128b',['MaxLinkRate_128B',['../struct_x_dp___tx_lttpr_config.html#a5367e83b654edc363106c115f4252a4e',1,'XDp_TxLttprConfig']]],
   ['maxlinkrate_5f8b',['MaxLinkRate_8B',['../struct_x_dp___tx_lttpr_config.html#a29afaf412503a782204faf39a58522a0',1,'XDp_TxLttprConfig']]],
+  ['minratecrretry',['MinRateCrRetry',['../struct_x_dp___tx_link_config.html#a4306b54f8c025335b759c2089491fe8f',1,'XDp_TxLinkConfig']]],
   ['misc0',['Misc0',['../struct_x_dp___main_stream_attributes.html#af64840fb7208def07d2610f84654b673',1,'XDp_MainStreamAttributes']]],
   ['misc1',['Misc1',['../struct_x_dp___main_stream_attributes.html#a054077e7afd00b9ab8734aafb08474f1',1,'XDp_MainStreamAttributes']]],
   ['msaconfig',['MsaConfig',['../struct_x_dp___tx.html#aeae01016eebcbaaca5e9afef55f0edcd',1,'XDp_Tx::MsaConfig()'],['../struct_x_dp___rx.html#ad7eeb5ff058fbfec8fcaef17abb8c634',1,'XDp_Rx::MsaConfig()']]],

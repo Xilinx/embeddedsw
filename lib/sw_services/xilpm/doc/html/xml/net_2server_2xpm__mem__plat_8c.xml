@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__mem__plat_8c" kind="file">
+    <compoundname>net/server/xpm_mem_plat.c</compoundname>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="net_2server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includes>
+    <includes refid="xpm__mem_8h" local="yes">xpm_mem.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes refid="xpm__rpucore_8h" local="yes">xpm_rpucore.h</includes>
+    <incdepgraph>
+      <node id="4469">
+        <label>xpm_mem.h</label>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4470" relation="include">
+        </childnode>
+        <childnode refid="4471" relation="include">
+        </childnode>
+        <childnode refid="4473" relation="include">
+        </childnode>
+      </node>
+      <node id="4474">
+        <label>xpm_debug.h</label>
+        <childnode refid="4447" relation="include">
+        </childnode>
+      </node>
+      <node id="4457">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="4472">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="4448">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4459">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4460" relation="include">
+        </childnode>
+        <childnode refid="4441" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4463" relation="include">
+        </childnode>
+      </node>
+      <node id="4468">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="4443">
+        <label>xpm_node.h</label>
+        <childnode refid="4444" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4446" relation="include">
+        </childnode>
+        <childnode refid="4447" relation="include">
+        </childnode>
+      </node>
+      <node id="4450">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4456">
+        <label>xpm_clock.h</label>
+        <childnode refid="4447" relation="include">
+        </childnode>
+        <childnode refid="4457" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4453" relation="include">
+        </childnode>
+      </node>
+      <node id="4479">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="4449">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4451">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4478">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="4444" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4479" relation="include">
+        </childnode>
+      </node>
+      <node id="4454">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="4441">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4463">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="4480">
+        <label>xpm_rpucore_plat.h</label>
+      </node>
+      <node id="4465">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="4464">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="4477">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="4470">
+        <label>xpm_mem_plat.h</label>
+      </node>
+      <node id="4445">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4471">
+        <label>xpm_requirement.h</label>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4459" relation="include">
+        </childnode>
+        <childnode refid="4472" relation="include">
+        </childnode>
+      </node>
+      <node id="4440">
+        <label>xpm_mem_plat.c</label>
+        <link refid="net/server/xpm_mem_plat.c"/>
+        <childnode refid="4441" relation="include">
+        </childnode>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4466" relation="include">
+        </childnode>
+        <childnode refid="4469" relation="include">
+        </childnode>
+        <childnode refid="4474" relation="include">
+        </childnode>
+        <childnode refid="4475" relation="include">
+        </childnode>
+      </node>
+      <node id="4442">
+        <label>xpm_device.h</label>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4453" relation="include">
+        </childnode>
+        <childnode refid="4456" relation="include">
+        </childnode>
+        <childnode refid="4458" relation="include">
+        </childnode>
+        <childnode refid="4465" relation="include">
+        </childnode>
+      </node>
+      <node id="4446">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4466">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="4453" relation="include">
+        </childnode>
+        <childnode refid="4467" relation="include">
+        </childnode>
+      </node>
+      <node id="4473">
+        <label>cfu_apb.h</label>
+      </node>
+      <node id="4461">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="4476">
+        <label>xpm_core.h</label>
+        <childnode refid="4477" relation="include">
+        </childnode>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4478" relation="include">
+        </childnode>
+      </node>
+      <node id="4444">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4452">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="4447">
+        <label>xpm_common.h</label>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4448" relation="include">
+        </childnode>
+        <childnode refid="4449" relation="include">
+        </childnode>
+        <childnode refid="4450" relation="include">
+        </childnode>
+        <childnode refid="4451" relation="include">
+        </childnode>
+        <childnode refid="4452" relation="include">
+        </childnode>
+      </node>
+      <node id="4460">
+        <label>xpm_api.h</label>
+        <childnode refid="4444" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4441" relation="include">
+        </childnode>
+        <childnode refid="4450" relation="include">
+        </childnode>
+        <childnode refid="4461" relation="include">
+        </childnode>
+        <childnode refid="4462" relation="include">
+        </childnode>
+      </node>
+      <node id="4453">
+        <label>xpm_power.h</label>
+        <childnode refid="4441" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4454" relation="include">
+        </childnode>
+        <childnode refid="4455" relation="include">
+        </childnode>
+      </node>
+      <node id="4455">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="4462">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="4475">
+        <label>xpm_rpucore.h</label>
+        <childnode refid="4476" relation="include">
+        </childnode>
+        <childnode refid="4480" relation="include">
+        </childnode>
+      </node>
+      <node id="4467">
+        <label>xpm_rail.h</label>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4468" relation="include">
+        </childnode>
+      </node>
+      <node id="4458">
+        <label>xpm_reset.h</label>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4447" relation="include">
+        </childnode>
+        <childnode refid="4459" relation="include">
+        </childnode>
+        <childnode refid="4464" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__mem__plat_8c_1a3b578f481fbac43bf891960aa422a101" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus HaltRpuCore</definition>
+        <argsstring>(const XPm_Device *Rpu0, const XPm_Device *Rpu1, const u32 Id, u32 *RpuMode)</argsstring>
+        <name>HaltRpuCore</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Rpu0</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Rpu1</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RpuMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" bodystart="14" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__mem__plat_8c_1aefe728f420d76411f81c77d05228941b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetRpuDevice</definition>
+        <argsstring>(const XPm_Device **Rpu0Device, const XPm_Device **Rpu1Device, const u32 Id)</argsstring>
+        <name>XPm_GetRpuDevice</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> **</type>
+          <declname>Rpu0Device</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> **</type>
+          <declname>Rpu1Device</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" bodystart="57" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__mem__plat_8c_1aaffb8b1efb517967429f87dcb9e88cb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPm_CombTcm</definition>
+        <argsstring>(const u32 Id, const u32 Mode)</argsstring>
+        <name>XPm_CombTcm</name>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c" bodystart="85" bodyend="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_powerdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_mem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_rpucore.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">XStatus<sp/>HaltRpuCore(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Rpu0,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Rpu1,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id,<sp/>u32<sp/>*RpuMode)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mode;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RpuGetOperMode(Rpu0-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>,<sp/>&amp;Mode);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPM_RPU_MODE_SPLIT<sp/>==<sp/>Mode)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((PM_DEV_TCM_A_0A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_A_0C<sp/>&gt;=<sp/>Id))<sp/>||</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PM_DEV_TCM_B_0A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_B_0C<sp/>&gt;=<sp/>Id)))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)XPM_DEVSTATE_RUNNING<sp/>!=<sp/>Rpu0-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.State))<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRpuCore_Halt(Rpu0);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((PM_DEV_TCM_A_1A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_A_1C<sp/>&gt;=<sp/>Id))<sp/>||</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PM_DEV_TCM_B_1A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_B_1C<sp/>&gt;=<sp/>Id))<sp/>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)XPM_DEVSTATE_RUNNING<sp/>!=<sp/><sp/>Rpu1-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.State))<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRpuCore_Halt(Rpu1);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xpm__versal__apis_1gab1274471a09dc2bce3ac8a5372057e94" kindref="member">XPM_RPU_MODE_LOCKSTEP</ref><sp/>==<sp/>Mode)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((PM_DEV_TCM_A_0A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_B_1C<sp/>&gt;=<sp/>Id))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)XPM_DEVSTATE_RUNNING<sp/>!=<sp/>Rpu0-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.State))<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRpuCore_Halt(Rpu0);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RpuMode<sp/>=<sp/>Mode;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">XStatus<sp/>XPm_GetRpuDevice(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>**Rpu0Device,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>**Rpu1Device,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id){</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*RpuA0Device<sp/>=<sp/>XPmDevice_GetById(PM_DEV_RPU_A_0);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*RpuA1Device<sp/>=<sp/>XPmDevice_GetById(PM_DEV_RPU_A_1);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*RpuB0Device<sp/>=<sp/>XPmDevice_GetById(PM_DEV_RPU_B_0);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*RpuB1Device<sp/>=<sp/>XPmDevice_GetById(PM_DEV_RPU_B_1);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*warning<sp/>fix*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Rpu0Device;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Rpu1Device;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_TCM_A_0A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_A_1C<sp/>&gt;=<sp/>Id)){</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Rpu0Device<sp/>=<sp/>RpuA0Device;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Rpu1Device<sp/>=<sp/>RpuA1Device;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_TCM_B_0A<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_TCM_B_1C<sp/>&gt;=<sp/>Id))<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Rpu0Device<sp/>=<sp/>RpuB0Device;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Rpu1Device<sp/>=<sp/>RpuB1Device;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">u32<sp/>XPm_CombTcm(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Mode)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*warning<sp/>fix*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Id;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Mode;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_mem_plat.c"/>
+  </compounddef>
+</doxygen>

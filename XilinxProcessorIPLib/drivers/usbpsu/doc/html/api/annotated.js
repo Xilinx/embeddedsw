@@ -1,6 +1,15 @@
 var annotated =
 [
+    [ "audio_dev", "structaudio__dev.html", "structaudio__dev" ],
+    [ "audio_dfu_if", "structaudio__dfu__if.html", "structaudio__dfu__if" ],
+    [ "audio_if", "structaudio__if.html", "structaudio__if" ],
+    [ "composite_dev", "structcomposite__dev.html", "structcomposite__dev" ],
+    [ "dfu_if", "structdfu__if.html", "structdfu__if" ],
+    [ "keyboard_if", "structkeyboard__if.html", "structkeyboard__if" ],
     [ "SetupPacket", "struct_setup_packet.html", "struct_setup_packet" ],
+    [ "storage_dev", "structstorage__dev.html", "structstorage__dev" ],
+    [ "storage_if", "structstorage__if.html", "structstorage__if" ],
+    [ "transfer", "structtransfer.html", "structtransfer" ],
     [ "Usb_DevData", "struct_usb___dev_data.html", "struct_usb___dev_data" ],
     [ "XUsbPsu", "struct_x_usb_psu.html", "struct_x_usb_psu" ],
     [ "XUsbPsu_Config", "struct_x_usb_psu___config.html", "struct_x_usb_psu___config" ],

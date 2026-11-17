@@ -4,6 +4,7 @@ var searchData=
   ['xrfdc_2eh',['xrfdc.h',['../xrfdc_8h.html',1,'']]],
   ['xrfdc_5fap_2ec',['xrfdc_ap.c',['../xrfdc__ap_8c.html',1,'']]],
   ['xrfdc_5fclk_2ec',['xrfdc_clk.c',['../xrfdc__clk_8c.html',1,'']]],
+  ['xrfdc_5fclk_2eh',['xrfdc_clk.h',['../xrfdc__clk_8h.html',1,'']]],
   ['xrfdc_5fclock_2ec',['xrfdc_clock.c',['../xrfdc__clock_8c.html',1,'']]],
   ['xrfdc_5fdp_2ec',['xrfdc_dp.c',['../xrfdc__dp_8c.html',1,'']]],
   ['xrfdc_5fg_2ec',['xrfdc_g.c',['../xrfdc__g_8c.html',1,'']]],

@@ -156,15 +156,13 @@ Functions</h2></td></tr>
 <p>This function handles a Setup Data packet from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the structure containing the setup request.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the structure containing the setup request. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__ch9_8h.html#acd9c941e7cfb86f5b0daf5c8eaee257a">USB_CMD_CLASSREQ</a>, <a class="el" href="xusb__ch9_8h.html#a64404ce1fb01607a70f4dbf09b5c9ed8">USB_CMD_STDREQ</a>, <a class="el" href="xusb__ch9_8h.html#a5bca8c6c246291af78ec61f05a4684d5">USB_CMD_VENDREQ</a>, and <a class="el" href="xusb__ch9_8h.html#a8be8332e2da1e54c74c5f2a2230b0a28">USB_REQ_TYPE_MASK</a>.</p>
+<p>References <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="xusb__wrapper_8c.html#a71d38238db02e22f8cae78864066c940">EpSetStall()</a>, <a class="el" href="xusb__wrapper_8c.html#ad850f272d507d36f74a55bb96211b85b">Get_DrvData()</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__ch9_8h.html#acd9c941e7cfb86f5b0daf5c8eaee257a">USB_CMD_CLASSREQ</a>, <a class="el" href="xusb__ch9_8h.html#a64404ce1fb01607a70f4dbf09b5c9ed8">USB_CMD_STDREQ</a>, <a class="el" href="xusb__ch9_8h.html#a5bca8c6c246291af78ec61f05a4684d5">USB_CMD_VENDREQ</a>, <a class="el" href="xusb__wrapper_8h.html#a0510b0a04d9cef144e4d9793310abccf">USB_EP_DIR_OUT</a>, and <a class="el" href="xusb__ch9_8h.html#a8be8332e2da1e54c74c5f2a2230b0a28">USB_REQ_TYPE_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

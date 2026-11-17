@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_op_hw_err_sts" kind="struct" prot="public">
+    <compoundname>XPm_AieOpHwErrSts</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_op_hw_err_sts_1a9859286ebc0158f21d76acf34f78827a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpHwErrSts::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_hw_err_sts_1a40467432f51c8aae710db746ab52dbe1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpHwErrSts::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_hw_err_sts_1adac7ffa2492a519edde2cdef99f3ef20" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpHwErrSts::Val</definition>
+        <argsstring></argsstring>
+        <name>Val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="43" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_op_hw_err_sts_1a40467432f51c8aae710db746ab52dbe1" prot="public" virt="non-virtual"><scope>XPm_AieOpHwErrSts</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_op_hw_err_sts_1a9859286ebc0158f21d76acf34f78827a" prot="public" virt="non-virtual"><scope>XPm_AieOpHwErrSts</scope><name>Type</name></member>
+      <member refid="struct_x_pm___aie_op_hw_err_sts_1adac7ffa2492a519edde2cdef99f3ef20" prot="public" virt="non-virtual"><scope>XPm_AieOpHwErrSts</scope><name>Val</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -106,18 +106,34 @@ $(document).ready(function(){initNavTree('xresetps__sinit_8c.html','');});
 <div class="title">xresetps_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xresetps_8h.html">xresetps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static (compile-time) initialization of the driver. </p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  cjp    09/05/17 First release
+1.1   Nava   04/20/18 Fixed compilation warnings.
+1.2   cjp    04/27/18 Updated for clockps interdependency
+1.5   sd     07/07/23 Added SDT support.
+1.8   vlt    12/16/25 Update Doxygen comments to include SDT flow details.
+1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+1.9   vn     09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xresetps_8h.html">xresetps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga05e84b1c4dcc3e8df420fd6ea2813bd6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_reset_ps___config.html">XResetPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#ga05e84b1c4dcc3e8df420fd6ea2813bd6">XResetPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga05e84b1c4dcc3e8df420fd6ea2813bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__resetps.html#ga05e84b1c4dcc3e8df420fd6ea2813bd6">More...</a><br/></td></tr>
+<tr class="memdesc:ga05e84b1c4dcc3e8df420fd6ea2813bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by unique device ID or base address.  <a href="group__resetps.html#ga05e84b1c4dcc3e8df420fd6ea2813bd6">More...</a><br/></td></tr>
 <tr class="separator:ga05e84b1c4dcc3e8df420fd6ea2813bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:gac24da806a8c74548206e4113cb942376"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_reset_ps___config.html">XResetPs_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gac24da806a8c74548206e4113cb942376">XResetPs_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gac24da806a8c74548206e4113cb942376"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each reset controller device in the system.  <a href="group__resetps.html#gac24da806a8c74548206e4113cb942376">More...</a><br/></td></tr>
+<tr class="memdesc:gac24da806a8c74548206e4113cb942376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each reset instance.  <a href="group__resetps.html#gac24da806a8c74548206e4113cb942376">More...</a><br/></td></tr>
 <tr class="separator:gac24da806a8c74548206e4113cb942376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

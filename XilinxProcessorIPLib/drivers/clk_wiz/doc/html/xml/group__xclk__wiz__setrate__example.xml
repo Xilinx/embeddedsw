@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xclk__wiz__setrate__example" kind="group">
+    <compoundname>xclk_wiz_setrate_example</compoundname>
+    <title>Xclk_wiz_setrate_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xclk__wiz__setrate__example_1gafe1f538083ba57672c15775f0d15739d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref></type>
+        <definition>XClk_Wiz ClkWiz_Dynamic</definition>
+        <argsstring></argsstring>
+        <name>ClkWiz_Dynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xclk__wiz__setrate__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Runs the CLK_WIZ example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the main function for <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> rate example. If the ClkWiz_Example function which sets up the system succeeds, this function sets the desired rate.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if ClkWiz_Example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" bodystart="102" bodyend="123"/>
+        <references refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="150" endline="203">ClkWiz_Example</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xclk__wiz__setrate__example_1ga96da05289491c986b063eb877870d701" prot="public" static="no">
+        <name>XCLK_US_WIZ_RECONFIG_OFFSET</name>
+        <initializer>0x0000025C</initializer>
+        <briefdescription>
+<para>Reconfig Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="150" endline="203">ClkWiz_Example</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__setrate__example_1ga17e93c0269bc770ec81c1553ff5602f3" prot="public" static="no">
+        <name>CLK_LOCK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Clock-lock status bit value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="150" endline="203">ClkWiz_Example</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

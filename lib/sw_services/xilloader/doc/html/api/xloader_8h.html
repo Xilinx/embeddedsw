@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('xloader_8h.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xloader.h File Reference</div>  </div>
@@ -231,6 +232,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  03/12/2026 Added macro needed to validate PCR number
       sk   04/16/2026 Added function declaration for store image info
       vm   03/30/2026 Moved PDI source mask from <a class="el" href="xloader__cmd_8c.html" title="This file contains the xloader commands implementation. ">xloader_cmd.c</a>
+      ng   07/09/2026 Added <a class="el" href="struct_x_loader___ddr_pdi_info.html" title="Structure to hold DDR PDI address information. ">XLoader_DdrPdiInfo</a>, XLoader_DdrPdiAddrStatus and
+                      XLoader_SetDdrPdiAddr for set DDR address for restart image
+      pre  08/19/2026 Added XLOADER_DDRMC_n index macros, DDRMC calib
+                      size/offset/mask/record macros and XLOADER_INVALID_ADDR
+      ng   09/09/2026 Added XLoader_TlbinInfo, XLoader_TlbinAddrStatus and
+                      XLoader_GetTlbinLoadAddr for versal_2ve_2vm
+      aa   09/15/2026 Added XLoader_SetIdCodeBypassFlag and
+                      XLoader_ClearIdCodeBypassFlag prototypes
+      pre  10/22/2026 DDR MC index and calibration data macros are under
+                      PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 </pre> </div><div class="textblock"><code>#include &quot;xilpdi.h&quot;</code><br/>
 <code>#include &quot;xplmi_status.h&quot;</code><br/>
 <code>#include &quot;xplmi_debug.h&quot;</code><br/>
@@ -274,6 +285,9 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___image_measure_info.html">XLoader_ImageMeasureInfo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold Image Measurement information.  <a href="struct_x_loader___image_measure_info.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___ddr_pdi_info.html">XLoader_DdrPdiInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold DDR PDI address information.  <a href="struct_x_loader___ddr_pdi_info.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -332,9 +346,15 @@ Macros</h2></td></tr>
 <tr class="memitem:abd92637607e4c3b9763909501b74e53d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#abd92637607e4c3b9763909501b74e53d">XLOADER_IMG_STORE_INVALID_ADDR</a>&#160;&#160;&#160;(0xFFFFFFFFFFFFFFFFUL)</td></tr>
 <tr class="memdesc:abd92637607e4c3b9763909501b74e53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid address in Image Store.  <a href="#abd92637607e4c3b9763909501b74e53d">More...</a><br/></td></tr>
 <tr class="separator:abd92637607e4c3b9763909501b74e53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5fa23b8b411ef7f9efdffc3636b1338"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#aa5fa23b8b411ef7f9efdffc3636b1338">XLOADER_INVALID_ADDR</a>&#160;&#160;&#160;(0xFFFFFFFFU)</td></tr>
+<tr class="memdesc:aa5fa23b8b411ef7f9efdffc3636b1338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid address.  <a href="#aa5fa23b8b411ef7f9efdffc3636b1338">More...</a><br/></td></tr>
+<tr class="separator:aa5fa23b8b411ef7f9efdffc3636b1338"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbc3b9297a363fb6e4d32eae5981995e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#adbc3b9297a363fb6e4d32eae5981995e">XLOADER_IMG_STORE_INVALID_SIZE</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:adbc3b9297a363fb6e4d32eae5981995e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid size in Image Store.  <a href="#adbc3b9297a363fb6e4d32eae5981995e">More...</a><br/></td></tr>
 <tr class="separator:adbc3b9297a363fb6e4d32eae5981995e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab86d389b5a897c804bec2ca1876b9d50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#ab86d389b5a897c804bec2ca1876b9d50">XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK</a>&#160;&#160;&#160;(0xFFFF0000U)</td></tr>
+<tr class="memdesc:ab86d389b5a897c804bec2ca1876b9d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved Image Store PDI ID mask.  <a href="#ab86d389b5a897c804bec2ca1876b9d50">More...</a><br/></td></tr>
+<tr class="separator:ab86d389b5a897c804bec2ca1876b9d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b158ce0f453a76bb3cf394a719e1828"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#a1b158ce0f453a76bb3cf394a719e1828">PdiSrc_t</a>&#160;&#160;&#160;u32</td></tr>
 <tr class="memdesc:a1b158ce0f453a76bb3cf394a719e1828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for u32.  <a href="#a1b158ce0f453a76bb3cf394a719e1828">More...</a><br/></td></tr>
 <tr class="separator:a1b158ce0f453a76bb3cf394a719e1828"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -466,6 +486,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XLOADER_EMMC_BP2_RAW_VAL</b>&#160;&#160;&#160;(0x20000000U)</td></tr>
 <tr class="separator:ae594f2680f612b145b931eee0ecf036a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a770177a68e0763f8f38ead2d6e2a7916"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader_8h.html#a770177a68e0763f8f38ead2d6e2a7916">XLoader_DdrPdiAddrStatus</a> { <a class="el" href="xloader_8h.html#a770177a68e0763f8f38ead2d6e2a7916acac96b124ee171109d13439a73cf81d7">XLOADER_DDR_PDI_ADDR_INVALID</a> = 0,
+<a class="el" href="xloader_8h.html#a770177a68e0763f8f38ead2d6e2a7916aa5ce9a297003f68091b3f7b4882daa9a">XLOADER_DDR_PDI_ADDR_VALID</a> = 1
+ }</td></tr>
+<tr class="memdesc:a770177a68e0763f8f38ead2d6e2a7916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum to indicate validity of DDR PDI address.  <a href="xloader_8h.html#a770177a68e0763f8f38ead2d6e2a7916">More...</a><br/></td></tr>
+<tr class="separator:a770177a68e0763f8f38ead2d6e2a7916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gacb10f2e97fecfb15aae4fed081b02502"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gacb10f2e97fecfb15aae4fed081b02502">XLoader_Init</a> (void)</td></tr>
@@ -550,8 +578,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Before boot starts. </p>
-
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#gacb10f2e97fecfb15aae4fed081b02502">XLoader_Init()</a>.</p>
 
 </div>
 </div>
@@ -683,7 +709,7 @@ Functions</h2></td></tr>
 
 <p>Invalid address in Image Store. </p>
 
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#gafa91a58dad6f9d08c018cbf914f7202c">XLoader_ReadImageStoreCfg()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__server__apis.html#gafa91a58dad6f9d08c018cbf914f7202c">XLoader_ReadImageStoreCfg()</a>, and <a class="el" href="group__xloader__server__apis.html#ga3dbbecc3b2545a3e076d421f086715e6">XLoader_RestartImage()</a>.</p>
 
 </div>
 </div>
@@ -700,6 +726,37 @@ Functions</h2></td></tr>
 <p>Invalid size in Image Store. </p>
 
 <p>Referenced by <a class="el" href="group__xloader__server__apis.html#gafa91a58dad6f9d08c018cbf914f7202c">XLoader_ReadImageStoreCfg()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab86d389b5a897c804bec2ca1876b9d50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK&#160;&#160;&#160;(0xFFFF0000U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reserved Image Store PDI ID mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa5fa23b8b411ef7f9efdffc3636b1338"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_INVALID_ADDR&#160;&#160;&#160;(0xFFFFFFFFU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invalid address. </p>
+<p>Invalid address or filename pointer </p>
+
+<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga9870c3bf75d6cfbd669c535dd7f7a589">XLoader_CalibDataRestore()</a>.</p>
 
 </div>
 </div>
@@ -839,7 +896,7 @@ Functions</h2></td></tr>
 
 <p>&lt; Different PDI types </p>
 
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga443aaeef586ee9cefe8509092d99ca17">XLoader_LoadImage()</a>, <a class="el" href="group__xloader__server__apis.html#gaadc121bcc59feb4ece3c40802d81987b">XLoader_PdiInit()</a>, <a class="el" href="group__xloader__server__apis.html#ga3dbbecc3b2545a3e076d421f086715e6">XLoader_RestartImage()</a>, and <a class="el" href="group__xloader__client__apis.html#gaaff698654e9776729055a8cdd661afa9">XLoader_ValidatePdiAuth()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga9870c3bf75d6cfbd669c535dd7f7a589">XLoader_CalibDataRestore()</a>, <a class="el" href="group__xloader__server__apis.html#ga443aaeef586ee9cefe8509092d99ca17">XLoader_LoadImage()</a>, <a class="el" href="group__xloader__server__apis.html#gaadc121bcc59feb4ece3c40802d81987b">XLoader_PdiInit()</a>, <a class="el" href="group__xloader__server__apis.html#ga3dbbecc3b2545a3e076d421f086715e6">XLoader_RestartImage()</a>, and <a class="el" href="group__xloader__client__apis.html#gaaff698654e9776729055a8cdd661afa9">XLoader_ValidatePdiAuth()</a>.</p>
 
 </div>
 </div>
@@ -1016,6 +1073,29 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Maximum limit of boot files in UFS filesystem. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a770177a68e0763f8f38ead2d6e2a7916"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xloader_8h.html#a770177a68e0763f8f38ead2d6e2a7916">XLoader_DdrPdiAddrStatus</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enum to indicate validity of DDR PDI address. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a770177a68e0763f8f38ead2d6e2a7916acac96b124ee171109d13439a73cf81d7"></a>XLOADER_DDR_PDI_ADDR_INVALID</em>&nbsp;</td><td class="fielddoc">
+<p>Invalid DDR PDI address. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a770177a68e0763f8f38ead2d6e2a7916aa5ce9a297003f68091b3f7b4882daa9a"></a>XLOADER_DDR_PDI_ADDR_VALID</em>&nbsp;</td><td class="fielddoc">
+<p>Valid DDR PDI address. </p>
+</td></tr>
+</table>
 
 </div>
 </div>

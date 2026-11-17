@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group__scutimer.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -180,6 +180,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga6f29815a4f21529bfc3d009932d3c2fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>(BaseAddr, RegOffset, Data)&#160;&#160;&#160;Xil_Out32((BaseAddr) + (RegOffset), (Data))</td></tr>
 <tr class="memdesc:ga6f29815a4f21529bfc3d009932d3c2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the given Timer register.  <a href="#ga6f29815a4f21529bfc3d009932d3c2fe">More...</a><br/></td></tr>
 <tr class="separator:ga6f29815a4f21529bfc3d009932d3c2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2795253b5bea39b3ca8e8bf96bec03f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scutimer.html#ga2795253b5bea39b3ca8e8bf96bec03f5">XSCUTIMER_SELFTEST_VALUE</a>&#160;&#160;&#160;0xA55AF00FU</td></tr>
+<tr class="memdesc:ga2795253b5bea39b3ca8e8bf96bec03f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test value written to load register during self-test.  <a href="#ga2795253b5bea39b3ca8e8bf96bec03f5">More...</a><br/></td></tr>
+<tr class="separator:ga2795253b5bea39b3ca8e8bf96bec03f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -238,8 +241,8 @@ Timer Control register</h2></td></tr>
 <tr class="memitem:ga867b2da6f5e9b1d921c34a925d4b498a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">XSCUTIMER_CONTROL_PRESCALER_MASK</a>&#160;&#160;&#160;0x0000FF00U</td></tr>
 <tr class="memdesc:ga867b2da6f5e9b1d921c34a925d4b498a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prescaler.  <a href="#ga867b2da6f5e9b1d921c34a925d4b498a">More...</a><br/></td></tr>
 <tr class="separator:ga867b2da6f5e9b1d921c34a925d4b498a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga31316fbcb2292f6d29c39a025bbd9821"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga31316fbcb2292f6d29c39a025bbd9821"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSCUTIMER_CONTROL_PRESCALER_SHIFT</b>&#160;&#160;&#160;8U</td></tr>
+<tr class="memitem:ga31316fbcb2292f6d29c39a025bbd9821"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scutimer.html#ga31316fbcb2292f6d29c39a025bbd9821">XSCUTIMER_CONTROL_PRESCALER_SHIFT</a>&#160;&#160;&#160;8U</td></tr>
+<tr class="memdesc:ga31316fbcb2292f6d29c39a025bbd9821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for the prescaler field in the timer control register.  <a href="#ga31316fbcb2292f6d29c39a025bbd9821">More...</a><br/></td></tr>
 <tr class="separator:ga31316fbcb2292f6d29c39a025bbd9821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga62c9d23e23b5329976291d26cc36c6a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a>&#160;&#160;&#160;0x00000004U</td></tr>
 <tr class="memdesc:ga62c9d23e23b5329976291d26cc36c6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intr enable.  <a href="#ga62c9d23e23b5329976291d26cc36c6a6">More...</a><br/></td></tr>
@@ -275,18 +278,17 @@ Interrupt Status register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddr,              \</div>
 <div class="line">                           <a class="code" href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a>, <a class="code" href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a>)</div>
-<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
-<div class="ttc" id="group__scutimer_html_gafa21717c99e101943a7075d4e2e30ca1"><div class="ttname"><a href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a></div><div class="ttdeci">#define XSCUTIMER_ISR_EVENT_FLAG_MASK</div><div class="ttdoc">Event flag. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:76</div></div>
+<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:54</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
+<div class="ttc" id="group__scutimer_html_gafa21717c99e101943a7075d4e2e30ca1"><div class="ttname"><a href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a></div><div class="ttdeci">#define XSCUTIMER_ISR_EVENT_FLAG_MASK</div><div class="ttdoc">Event flag. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:78</div></div>
 </div><!-- fragment -->
 <p>This function clears the interrupt status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gadc11e29fe8f755683fbc6edc883e0a4d" title="This function clears the interrupt status. ">XScuTimer_ClearInterruptStatus(XScuTimer *InstancePtr)</a> </dd></dl>
 
 </div>
@@ -367,6 +369,22 @@ Interrupt Status register</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga31316fbcb2292f6d29c39a025bbd9821"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSCUTIMER_CONTROL_PRESCALER_SHIFT&#160;&#160;&#160;8U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit shift for the prescaler field in the timer control register. </p>
+
+<p>Referenced by <a class="el" href="group__scutimer.html#ga56d8c36e4aa28168de3ba5d7f87feb2d">XScuTimer_GetPrescaler()</a>, and <a class="el" href="group__scutimer.html#gac6cd65141b00c0d1940d0b8f2a081faf">XScuTimer_SetPrescaler()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="gaa96f9778b3fb95bb968793b504bee53e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -399,19 +417,18 @@ Interrupt Status register</h2></td></tr>
 <div class="line">                           (<a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr, \</div>
 <div class="line">                                              <a class="code" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>) &amp;               \</div>
 <div class="line">                            ~(<a class="code" href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a>)))</div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
-<div class="ttc" id="group__scutimer_html_gaeaf7add0552b3b0c5ab78b6668a88d6a"><div class="ttname"><a href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</div><div class="ttdoc">Auto-reload. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:67</div></div>
-<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:52</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
+<div class="ttc" id="group__scutimer_html_gaeaf7add0552b3b0c5ab78b6668a88d6a"><div class="ttname"><a href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</div><div class="ttdoc">Auto-reload. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:69</div></div>
+<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
 </div><!-- fragment -->
 <p>Disable auto-reload mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga29b90dcea87e70190d47c53e89977c8a" title="Disable auto-reload mode. ">XScuTimer_DisableAutoReload(XScuTimer *InstancePtr)</a> </dd></dl>
 
 </div>
@@ -434,19 +451,18 @@ Interrupt Status register</h2></td></tr>
 <div class="line">                           (<a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr, \</div>
 <div class="line">                                              <a class="code" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>) &amp;               \</div>
 <div class="line">                            ~(<a class="code" href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a>)))</div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
-<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:52</div></div>
-<div class="ttc" id="group__scutimer_html_ga62c9d23e23b5329976291d26cc36c6a6"><div class="ttname"><a href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</div><div class="ttdoc">Intr enable. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:66</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
+<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
+<div class="ttc" id="group__scutimer_html_ga62c9d23e23b5329976291d26cc36c6a6"><div class="ttname"><a href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</div><div class="ttdoc">Intr enable. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:68</div></div>
 </div><!-- fragment -->
 <p>Disable the Timer interrupt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gac3ea67683ec802381c4aef819d04768b" title="Disable the Timer interrupt. ">XScuTimer_DisableInterrupt(XScuTimer *InstancePtr)</a> </dd></dl>
 
 </div>
@@ -469,19 +485,18 @@ Interrupt Status register</h2></td></tr>
 <div class="line">                           (<a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr, \</div>
 <div class="line">                                              <a class="code" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>) |                \</div>
 <div class="line">                            <a class="code" href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a>))</div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
-<div class="ttc" id="group__scutimer_html_gaeaf7add0552b3b0c5ab78b6668a88d6a"><div class="ttname"><a href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</div><div class="ttdoc">Auto-reload. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:67</div></div>
-<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:52</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
+<div class="ttc" id="group__scutimer_html_gaeaf7add0552b3b0c5ab78b6668a88d6a"><div class="ttname"><a href="group__scutimer.html#gaeaf7add0552b3b0c5ab78b6668a88d6a">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</div><div class="ttdoc">Auto-reload. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:69</div></div>
+<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
 </div><!-- fragment -->
 <p>Enable auto-reload mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga54fc490ff5bdcfa76eddddf5fc5dc5bf" title="Enable auto-reload mode. ">XScuTimer_EnableAutoReload(XScuTimer *InstancePtr)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="xscutimer__intr__example_8c.html#a2dcd3e996abdecd4e3f09b92f23c061b">ScuTimerIntrExample()</a>.</p>
@@ -506,19 +521,18 @@ Interrupt Status register</h2></td></tr>
 <div class="line">                           (<a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr, \</div>
 <div class="line">                                              <a class="code" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>) |       \</div>
 <div class="line">                            <a class="code" href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a>))</div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
-<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:52</div></div>
-<div class="ttc" id="group__scutimer_html_ga62c9d23e23b5329976291d26cc36c6a6"><div class="ttname"><a href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</div><div class="ttdoc">Intr enable. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:66</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
+<div class="ttc" id="group__scutimer_html_ga8f0a12cb3bfff490af76bc9a3ffca4be"><div class="ttname"><a href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_OFFSET</div><div class="ttdoc">Timer Control Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
+<div class="ttc" id="group__scutimer_html_ga62c9d23e23b5329976291d26cc36c6a6"><div class="ttname"><a href="group__scutimer.html#ga62c9d23e23b5329976291d26cc36c6a6">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</a></div><div class="ttdeci">#define XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</div><div class="ttdoc">Intr enable. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:68</div></div>
 </div><!-- fragment -->
 <p>Enable the Timer interrupt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga41e184373a4d02ce8a9aec1601a52c04" title="Enable the Timer interrupt. ">XScuTimer_EnableInterrupt(XScuTimer *InstancePtr)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="xscutimer__intr__example_8c.html#a2dcd3e996abdecd4e3f09b92f23c061b">ScuTimerIntrExample()</a>.</p>
@@ -542,7 +556,7 @@ Interrupt Status register</h2></td></tr>
 <p>Returns the current timer load register value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -568,7 +582,7 @@ Interrupt Status register</h2></td></tr>
 <p>Returns the current timer counter register value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -592,14 +606,14 @@ Interrupt Status register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr,               \</div>
 <div class="line">                          <a class="code" href="group__scutimer.html#gaa96f9778b3fb95bb968793b504bee53e">XSCUTIMER_COUNTER_OFFSET</a>)</div>
-<div class="ttc" id="group__scutimer_html_gaa96f9778b3fb95bb968793b504bee53e"><div class="ttname"><a href="group__scutimer.html#gaa96f9778b3fb95bb968793b504bee53e">XSCUTIMER_COUNTER_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_COUNTER_OFFSET</div><div class="ttdoc">Timer Counter Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:51</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
+<div class="ttc" id="group__scutimer_html_gaa96f9778b3fb95bb968793b504bee53e"><div class="ttname"><a href="group__scutimer.html#gaa96f9778b3fb95bb968793b504bee53e">XSCUTIMER_COUNTER_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_COUNTER_OFFSET</div><div class="ttdoc">Timer Counter Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:52</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
 </div><!-- fragment -->
 <p>Returns the current timer counter register value. </p>
 <p>It can be called at any time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
@@ -625,18 +639,18 @@ Interrupt Status register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr,               \</div>
 <div class="line">                          <a class="code" href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a>)</div>
-<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
+<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:54</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
 </div><!-- fragment -->
 <p>This function reads the interrupt status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gab653a0c97cfb913f3cabeaa3a9167586" title="This function reads the interrupt status. ">XScuTimer_GetInterruptStatus(XScuTimer *InstancePtr)</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Contents of the timer interrupt status register.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__scutimer.html#gab653a0c97cfb913f3cabeaa3a9167586" title="This function reads the interrupt status. ">XScuTimer_GetInterruptStatus(XScuTimer *InstancePtr)</a> </dd></dl>
 
 </div>
 </div>
@@ -657,7 +671,7 @@ Interrupt Status register</h2></td></tr>
 <p>Returns the current timer counter register value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -683,7 +697,7 @@ Interrupt Status register</h2></td></tr>
 <p>Returns the current timer load register value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -709,14 +723,14 @@ Interrupt Status register</h2></td></tr>
 <div class="line">                            <a class="code" href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a>) &amp; <a class="code" href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">\</a></div>
 <div class="line"><a class="code" href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">	  XSCUTIMER_ISR_EVENT_FLAG_MASK</a>) == \</div>
 <div class="line">         <a class="code" href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a>)</div>
-<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:53</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
-<div class="ttc" id="group__scutimer_html_gafa21717c99e101943a7075d4e2e30ca1"><div class="ttname"><a href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a></div><div class="ttdeci">#define XSCUTIMER_ISR_EVENT_FLAG_MASK</div><div class="ttdoc">Event flag. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:76</div></div>
+<div class="ttc" id="group__scutimer_html_ga79f4aab3a1968e66ae1fadb846e7b8c8"><div class="ttname"><a href="group__scutimer.html#ga79f4aab3a1968e66ae1fadb846e7b8c8">XSCUTIMER_ISR_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_ISR_OFFSET</div><div class="ttdoc">Timer Interrupt Status Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:54</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
+<div class="ttc" id="group__scutimer_html_gafa21717c99e101943a7075d4e2e30ca1"><div class="ttname"><a href="group__scutimer.html#gafa21717c99e101943a7075d4e2e30ca1">XSCUTIMER_ISR_EVENT_FLAG_MASK</a></div><div class="ttdeci">#define XSCUTIMER_ISR_EVENT_FLAG_MASK</div><div class="ttdoc">Event flag. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:78</div></div>
 </div><!-- fragment -->
 <p>Check if the timer has expired. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
@@ -798,19 +812,18 @@ Interrupt Status register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddr,              \</div>
 <div class="line">                           <a class="code" href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a>, (Value))</div>
-<div class="ttc" id="group__scutimer_html_gae86109b8ee86ede103995c458720c743"><div class="ttname"><a href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_LOAD_OFFSET</div><div class="ttdoc">Timer Load Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:50</div></div>
-<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:251</div></div>
+<div class="ttc" id="group__scutimer_html_gae86109b8ee86ede103995c458720c743"><div class="ttname"><a href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_LOAD_OFFSET</div><div class="ttdoc">Timer Load Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:51</div></div>
+<div class="ttc" id="group__scutimer_html_ga6f29815a4f21529bfc3d009932d3c2fe"><div class="ttname"><a href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a></div><div class="ttdeci">#define XScuTimer_WriteReg(BaseAddr, RegOffset, Data)</div><div class="ttdoc">Write to the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:243</div></div>
 </div><!-- fragment -->
 <p>Write to the timer load register. </p>
 <p>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
-    <tr><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78" title="Write to the timer load register. ">XScuTimer_LoadTimer(XScuTimer *InstancePtr, u32 Value)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="xscutimer__intr__example_8c.html#a2dcd3e996abdecd4e3f09b92f23c061b">ScuTimerIntrExample()</a>, <a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample()</a>, and <a class="el" href="group__scutimer.html#gac3036b3f9f6e7735d3e6a6eb74a28e95">XScuTimer_SelfTest()</a>.</p>
@@ -844,8 +857,8 @@ Interrupt Status register</h2></td></tr>
 <p>Read from the given Timer register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset to be read</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>is the register offset to be read</td></tr>
   </table>
   </dd>
 </dl>
@@ -872,20 +885,35 @@ Interrupt Status register</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a>((InstancePtr),                              \</div>
 <div class="line">                            <a class="code" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddr, \</div>
 <div class="line">                                              <a class="code" href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a>))</div>
-<div class="ttc" id="group__scutimer_html_ga94fbce5d53f983ec5cf675cfc97f4f78"><div class="ttname"><a href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a></div><div class="ttdeci">#define XScuTimer_LoadTimer(InstancePtr, Value)</div><div class="ttdoc">Write to the timer load register. </div><div class="ttdef"><b>Definition:</b> xscutimer.h:193</div></div>
-<div class="ttc" id="group__scutimer_html_gae86109b8ee86ede103995c458720c743"><div class="ttname"><a href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_LOAD_OFFSET</div><div class="ttdoc">Timer Load Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:50</div></div>
-<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:233</div></div>
+<div class="ttc" id="group__scutimer_html_ga94fbce5d53f983ec5cf675cfc97f4f78"><div class="ttname"><a href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a></div><div class="ttdeci">#define XScuTimer_LoadTimer(InstancePtr, Value)</div><div class="ttdoc">Write to the timer load register. </div><div class="ttdef"><b>Definition:</b> xscutimer.h:190</div></div>
+<div class="ttc" id="group__scutimer_html_gae86109b8ee86ede103995c458720c743"><div class="ttname"><a href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a></div><div class="ttdeci">#define XSCUTIMER_LOAD_OFFSET</div><div class="ttdoc">Timer Load Register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:51</div></div>
+<div class="ttc" id="group__scutimer_html_gae4c784baaac425e11d6a1184ae44b349"><div class="ttname"><a href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a></div><div class="ttdeci">#define XScuTimer_ReadReg(BaseAddr, RegOffset)</div><div class="ttdoc">Read from the given Timer register. </div><div class="ttdef"><b>Definition:</b> xscutimer_hw.h:227</div></div>
 </div><!-- fragment -->
 <p>Re-start the timer. </p>
 <p>This macro will read the timer load register and writes the same value to load register to update the counter register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gaf1976650946668999ca5107fef691e53" title="Re-start the timer. ">XScuTimer_RestartTimer(XScuTimer *InstancePtr)</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga2795253b5bea39b3ca8e8bf96bec03f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSCUTIMER_SELFTEST_VALUE&#160;&#160;&#160;0xA55AF00FU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test value written to load register during self-test. </p>
+
+<p>Referenced by <a class="el" href="group__scutimer.html#gac3036b3f9f6e7735d3e6a6eb74a28e95">XScuTimer_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -917,12 +945,11 @@ Interrupt Status register</h2></td></tr>
 <p>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
-    <tr><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gae0b71c6aa97a846b93c4a5fa2092be9e" title="Write to the timer load register. ">XScuTimer_SetControlReg(u32 BaseAddr, u32 Value)</a> </dd></dl>
 
 </div>
@@ -954,12 +981,11 @@ Interrupt Status register</h2></td></tr>
 <p>Write to the timer counter register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
-    <tr><td class="paramname">Value</td><td>is the count to be loaded in to the counter register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>is the count to be loaded in to the counter register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga162738ee853ef5fc9c4fa35bf9c2bb8d" title="Write to the timer counter register. ">XScuTimer_SetCounterReg(u32 BaseAddr, u32 Value)</a> </dd></dl>
 
 </div>
@@ -991,12 +1017,11 @@ Interrupt Status register</h2></td></tr>
 <p>Write to the timer counter register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
-    <tr><td class="paramname">Value</td><td>is the count to be loaded in to the counter register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>is the count to be loaded in to the counter register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gaffc9febb953169fb57818c4c58fd68fc" title="Write to the timer counter register. ">XScuTimer_SetIntrReg(u32 BaseAddr, u32 Value)</a> </dd></dl>
 
 </div>
@@ -1029,12 +1054,11 @@ Interrupt Status register</h2></td></tr>
 <p>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
-    <tr><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the scu timer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Value</td><td>is the count to be loaded in to the load register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#gae3cd5f68d2ce17dd72a4abaf4afe06a6" title="Write to the timer load register. ">XScuTimer_SetLoadReg(u32 BaseAddr, u32 Value)</a> </dd></dl>
 
 </div>
@@ -1072,13 +1096,12 @@ Interrupt Status register</h2></td></tr>
 <p>Write to the given Timer register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset to be written </td></tr>
-    <tr><td class="paramname">Data</td><td>is the 32-bit value to write to the register</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>is the register offset to be written </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>is the 32-bit value to write to the register</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe" title="Write to the given Timer register. ">XScuTimer_WriteReg(u32 BaseAddr, u32 RegOffset, u32 Data)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__scutimer.html#gac3036b3f9f6e7735d3e6a6eb74a28e95">XScuTimer_SelfTest()</a>, <a class="el" href="group__scutimer.html#gac6cd65141b00c0d1940d0b8f2a081faf">XScuTimer_SetPrescaler()</a>, <a class="el" href="group__scutimer.html#gabf24fad576d3adab4b53eebdef424bde">XScuTimer_Start()</a>, and <a class="el" href="group__scutimer.html#gaac0376fbfeb5c29bb44403d6fefd0843">XScuTimer_Stop()</a>.</p>
@@ -1120,18 +1143,17 @@ Interrupt Status register</h2></td></tr>
 <p>This function must be called before other functions of the driver are called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
-    <tr><td class="paramname">ConfigPtr</td><td>points to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> configuration structure. </td></tr>
-    <tr><td class="paramname">EffectiveAddress</td><td>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigPtr</td><td>points to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> configuration structure. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddress</td><td>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if initialization was successful.</li>
-<li>XST_DEVICE_IS_STARTED if the device has already been started.</li>
+<li>XST_DEVICE_IS_STARTED if the device has already been started. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, and <a class="el" href="struct_x_scu_timer.html#aa0f089c744abd0bbd2e9b86e494241a5">XScuTimer::IsStarted</a>.</p>
 
@@ -1154,16 +1176,16 @@ Interrupt Status register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function returns the current prescaler value. </p>
+<p>end of protection macro</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The prescaler value.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The prescaler value. </dd></dl>
 
-<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">XSCUTIMER_CONTROL_PRESCALER_MASK</a>, and <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>.</p>
+<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">XSCUTIMER_CONTROL_PRESCALER_MASK</a>, <a class="el" href="group__scutimer.html#ga31316fbcb2292f6d29c39a025bbd9821">XSCUTIMER_CONTROL_PRESCALER_SHIFT</a>, and <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>.</p>
 
 </div>
 </div>
@@ -1185,12 +1207,14 @@ Interrupt Status register</h2></td></tr>
 <p>The table contains the configuration info for each device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>contains the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+
+<p>References <a class="el" href="struct_x_scu_timer___config.html#aa1ec79c2029eb32a06f0da70ba116e84">XScuTimer_Config::Name</a>.</p>
 
 <p>Referenced by <a class="el" href="xscutimer__intr__example_8c.html#a2dcd3e996abdecd4e3f09b92f23c061b">ScuTimerIntrExample()</a>, and <a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample()</a>.</p>
 
@@ -1214,18 +1238,17 @@ Interrupt Status register</h2></td></tr>
 <p>This test clears the timer enable bit in the control register, writes to the timer load register and verifies the value read back matches the value written and restores the control register and the timer load register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if self-test was successful.</li>
-<li>XST_FAILURE if self test was not successful.</li>
+<li>XST_FAILURE if self test was not successful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga242deea9cc62049619bdfd97e7a731f4">XSCUTIMER_CONTROL_ENABLE_MASK</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a>, <a class="el" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga242deea9cc62049619bdfd97e7a731f4">XSCUTIMER_CONTROL_ENABLE_MASK</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#gae86109b8ee86ede103995c458720c743">XSCUTIMER_LOAD_OFFSET</a>, <a class="el" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, <a class="el" href="group__scutimer.html#ga2795253b5bea39b3ca8e8bf96bec03f5">XSCUTIMER_SELFTEST_VALUE</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xscutimer__intr__example_8c.html#a2dcd3e996abdecd4e3f09b92f23c061b">ScuTimerIntrExample()</a>.</p>
 
@@ -1258,15 +1281,13 @@ Interrupt Status register</h2></td></tr>
 <p>This function sets the prescaler bits in the timer control register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
-    <tr><td class="paramname">PrescalerValue</td><td>is a 8 bit value that sets the prescaler to use.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PrescalerValue</td><td>is a 8 bit value that sets the prescaler to use. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">XSCUTIMER_CONTROL_PRESCALER_MASK</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">XSCUTIMER_CONTROL_PRESCALER_MASK</a>, <a class="el" href="group__scutimer.html#ga31316fbcb2292f6d29c39a025bbd9821">XSCUTIMER_CONTROL_PRESCALER_SHIFT</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1287,12 +1308,10 @@ Interrupt Status register</h2></td></tr>
 <p>Start the timer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="struct_x_scu_timer.html#aa0f089c744abd0bbd2e9b86e494241a5">XScuTimer::IsStarted</a>, <a class="el" href="group__scutimer.html#ga242deea9cc62049619bdfd97e7a731f4">XSCUTIMER_CONTROL_ENABLE_MASK</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
 
@@ -1317,12 +1336,10 @@ Interrupt Status register</h2></td></tr>
 <p>Stop the timer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="struct_x_scu_timer.html#a6dfa00cf1df32f581332123902bd2e0e">XScuTimer::Config</a>, <a class="el" href="struct_x_scu_timer.html#a348e1922cf71c91c233629655acaef32">XScuTimer::IsReady</a>, <a class="el" href="struct_x_scu_timer.html#aa0f089c744abd0bbd2e9b86e494241a5">XScuTimer::IsStarted</a>, <a class="el" href="group__scutimer.html#ga242deea9cc62049619bdfd97e7a731f4">XSCUTIMER_CONTROL_ENABLE_MASK</a>, <a class="el" href="group__scutimer.html#ga8f0a12cb3bfff490af76bc9a3ffca4be">XSCUTIMER_CONTROL_OFFSET</a>, <a class="el" href="group__scutimer.html#gae4c784baaac425e11d6a1184ae44b349">XScuTimer_ReadReg</a>, and <a class="el" href="group__scutimer.html#ga6f29815a4f21529bfc3d009932d3c2fe">XScuTimer_WriteReg</a>.</p>
 

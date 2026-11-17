@@ -79,6 +79,7 @@
  6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  6.10 Arvd  02/20/26  Add support to set config regs and
                       read frame data via PMUFW
- </preformatted> </para>    </detaileddescription>
+ 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

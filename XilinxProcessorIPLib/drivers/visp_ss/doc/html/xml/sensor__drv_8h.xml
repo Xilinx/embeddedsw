@@ -7,123 +7,123 @@
     <includedby refid="sensor__drv_8c" local="yes">sensor_drv.c</includedby>
     <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
     <incdepgraph>
-      <node id="7664">
-        <label>isi_iss.h</label>
-        <link refid="isi__iss_8h"/>
-        <childnode refid="7665" relation="include">
-        </childnode>
-        <childnode refid="7671" relation="include">
-        </childnode>
-        <childnode refid="7672" relation="include">
+      <node id="8095">
+        <label>sensor_drv.h</label>
+        <link refid="sensor_drv.h"/>
+        <childnode refid="8096" relation="include">
         </childnode>
       </node>
-      <node id="7671">
+      <node id="8100">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8096">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="8097" relation="include">
+        </childnode>
+        <childnode refid="8103" relation="include">
+        </childnode>
+        <childnode refid="8104" relation="include">
+        </childnode>
+      </node>
+      <node id="8097">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8098" relation="include">
+        </childnode>
+        <childnode refid="8101" relation="include">
+        </childnode>
+        <childnode refid="8102" relation="include">
+        </childnode>
+      </node>
+      <node id="8102">
+        <label>stddef.h</label>
+      </node>
+      <node id="8101">
+        <label>limits.h</label>
+      </node>
+      <node id="8103">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="7668">
-        <label>stdlib.h</label>
-      </node>
-      <node id="7670">
-        <label>stddef.h</label>
-      </node>
-      <node id="7669">
-        <label>limits.h</label>
-      </node>
-      <node id="7673">
-        <label>buf_defs.h</label>
-        <childnode refid="7665" relation="include">
+      <node id="8109">
+        <label>isi_metadata.h</label>
+        <childnode refid="8097" relation="include">
+        </childnode>
+        <childnode refid="8106" relation="include">
         </childnode>
       </node>
-      <node id="7674">
+      <node id="8098">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8099" relation="include">
+        </childnode>
+        <childnode refid="8100" relation="include">
+        </childnode>
+      </node>
+      <node id="8106">
         <label>isi_vvsensor.h</label>
         <link refid="isi__vvsensor_8h"/>
-        <childnode refid="7675" relation="include">
+        <childnode refid="8107" relation="include">
         </childnode>
       </node>
-      <node id="7672">
-        <label>isi.h</label>
-        <link refid="isi_8h"/>
-        <childnode refid="7665" relation="include">
-        </childnode>
-        <childnode refid="7671" relation="include">
-        </childnode>
-        <childnode refid="7673" relation="include">
-        </childnode>
-        <childnode refid="7674" relation="include">
-        </childnode>
-        <childnode refid="7676" relation="include">
-        </childnode>
-        <childnode refid="7677" relation="include">
-        </childnode>
-      </node>
-      <node id="7677">
-        <label>isi_metadata.h</label>
-        <childnode refid="7665" relation="include">
-        </childnode>
-        <childnode refid="7674" relation="include">
-        </childnode>
-      </node>
-      <node id="7676">
-        <label>isi_otp.h</label>
-        <childnode refid="7665" relation="include">
-        </childnode>
-        <childnode refid="7675" relation="include">
-        </childnode>
-      </node>
-      <node id="7675">
+      <node id="8107">
         <label>isi_common.h</label>
         <link refid="isi__common_8h"/>
       </node>
-      <node id="7663">
-        <label>sensor_drv.h</label>
-        <link refid="sensor_drv.h"/>
-        <childnode refid="7664" relation="include">
+      <node id="8108">
+        <label>isi_otp.h</label>
+        <childnode refid="8097" relation="include">
+        </childnode>
+        <childnode refid="8107" relation="include">
         </childnode>
       </node>
-      <node id="7665">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="7666" relation="include">
+      <node id="8104">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="8097" relation="include">
         </childnode>
-        <childnode refid="7669" relation="include">
+        <childnode refid="8103" relation="include">
         </childnode>
-        <childnode refid="7670" relation="include">
+        <childnode refid="8105" relation="include">
+        </childnode>
+        <childnode refid="8106" relation="include">
+        </childnode>
+        <childnode refid="8108" relation="include">
+        </childnode>
+        <childnode refid="8109" relation="include">
         </childnode>
       </node>
-      <node id="7667">
+      <node id="8105">
+        <label>buf_defs.h</label>
+        <childnode refid="8097" relation="include">
+        </childnode>
+      </node>
+      <node id="8099">
         <label>stdio.h</label>
-      </node>
-      <node id="7666">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="7667" relation="include">
-        </childnode>
-        <childnode refid="7668" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="7681">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="7680">
-        <label>sensor_drv.c</label>
-        <link refid="sensor__drv_8c"/>
-      </node>
-      <node id="7679">
+      <node id="8111">
         <label>isi_control.c</label>
         <link refid="isi__control_8c"/>
       </node>
-      <node id="7678">
+      <node id="8112">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="8110">
         <label>sensor_drv.h</label>
         <link refid="sensor_drv.h"/>
-        <childnode refid="7679" relation="include">
+        <childnode refid="8111" relation="include">
         </childnode>
-        <childnode refid="7680" relation="include">
+        <childnode refid="8112" relation="include">
         </childnode>
-        <childnode refid="7681" relation="include">
+        <childnode refid="8113" relation="include">
         </childnode>
+      </node>
+      <node id="8113">
+        <label>vvdevice.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_sensor_drv_config__s" prot="public">SensorDrvConfig_s</innerclass>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="sensor__drv_8h_1a002b0844653e6dc1d01b3a56ff4da2d0" prot="public" static="no">
         <name>SENSOR_MODULE_NAME</name>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="71" bodyend="77"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="71" bodyend="77"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -217,7 +217,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a1b482a8ec88c6a3c19783bce594c3905" prot="public" static="no">
         <type>struct SensorDrvConfig_s</type>
@@ -230,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="47" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="47" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a0b19e2246d308886f9cb5cc1d54b8bac" prot="public" static="no">
         <type>struct SensorDrvList_s</type>
@@ -243,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="53" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="53" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a42524de8cce011196a1c302114bc11ac" prot="public" static="no">
         <type>struct sensorPortInfo_s</type>
@@ -256,7 +256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="59" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="59" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a82c91b2512f0dd21d0f68879d68bfb89" prot="public" static="no">
         <type>struct SensorDrvConfigList_s</type>
@@ -269,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="69" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="69" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a1057e24b7be52afe7c9bfb6e5eb85af4" prot="public" static="no">
         <type>enum SensorDrvId_e</type>
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="77" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="77" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a9ece78c9faecadb7d3c3708c6afec467" prot="public" static="no">
         <type>struct CamDeviceSensorModuleMapCfg_s</type>
@@ -295,7 +295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="82" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="82" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a9c1ecc60ae5912f31742fcbe52c548a0" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_s</ref></type>
@@ -308,7 +308,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="103" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="103" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1a79fe842f503b298b6082a5474b3bddd0" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_s</ref></type>
@@ -321,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="114" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="114" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="sensor__drv_8h_1ac1287c01764a4bb7a715ddd3e389451d" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_s</ref></type>
@@ -334,7 +334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="124" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="124" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -395,7 +395,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="142" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="142" column="1"/>
       </memberdef>
       <memberdef kind="function" id="sensor__drv_8h_1af1024b1f477eb572990fb0fd2d6432ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -428,7 +428,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="43" bodyend="77"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="43" bodyend="77"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
         <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
@@ -476,7 +476,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="80" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="80" bodyend="117"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
         <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
@@ -524,7 +524,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="189" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="120" bodyend="155"/>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
       </memberdef>
       <memberdef kind="function" id="sensor__drv_8h_1ab4e700ca39795736266f00e055261fc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -610,7 +614,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="158" bodyend="217"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="158" bodyend="217"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
         <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
@@ -759,7 +763,7 @@
 <codeline lineno="176"><highlight class="normal">);</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"></highlight></codeline>
 <codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="189"><highlight class="normal">RESULT<sp/>VsiCamDeviceSensorGetConnectPortInfo</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1ace57887c24f6bf4d5db0ccb97014e2cc" kindref="member">VsiCamDeviceSensorGetConnectPortInfo</ref></highlight></codeline>
 <codeline lineno="190"><highlight class="normal">(</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>SensorDrvId_t<sp/><sp/>sensorDrvId,</highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref><sp/>*pPortInfo</highlight></codeline>
@@ -778,6 +782,6 @@
 <codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/>//<sp/>__SENSOR_DRV_H__</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h"/>
   </compounddef>
 </doxygen>

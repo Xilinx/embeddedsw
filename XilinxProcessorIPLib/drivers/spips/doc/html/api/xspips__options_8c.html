@@ -100,32 +100,59 @@ $(document).ready(function(){initNavTree('xspips__options_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xspips_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xspips_8h.html">xspips.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the functions for the configuration of the <a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  drg/jz 01/25/10 First release
+1.00    sdm    10/25/11 Removed the Divide by 2 in the SPI Clock Prescaler
+                options as this is not supported in the device
+1.04a   sg     01/30/13 Added XSPIPS_MANUAL_START_OPTION. SetDelays and
+                GetDelays API's include DelayNss parameter.
+1.05a hk           26/04/13 Added disable and enable in XSpiPs_SetOptions when
+                        CPOL/CPHA bits are set/reset. Fix for CR#707669.
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
+                      in safety mode and done changes such as
+                      Declared the pointer param as Pointer to const
+3.15  vn     08/26/26 Fix Doxygen warnings.
+3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xspips_8h.html">xspips.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga7c4848f8ba03351f004a99021099759d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga7c4848f8ba03351f004a99021099759d">XSPIPS_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(OptionsMap))</td></tr>
+<tr class="memdesc:ga7c4848f8ba03351f004a99021099759d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the options table.  <a href="group__spips__api.html#ga7c4848f8ba03351f004a99021099759d">More...</a><br/></td></tr>
+<tr class="separator:ga7c4848f8ba03351f004a99021099759d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga4f14bfc3ddd296adb08843dbbe30a306"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u32 Options)</td></tr>
-<tr class="memdesc:ga4f14bfc3ddd296adb08843dbbe30a306"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the options for the SPI device driver.  <a href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">More...</a><br/></td></tr>
+<tr class="memitem:ga4f14bfc3ddd296adb08843dbbe30a306"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u32 Options)</td></tr>
+<tr class="memdesc:ga4f14bfc3ddd296adb08843dbbe30a306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the SPI device driver.  <a href="group__spips__api.html#ga4f14bfc3ddd296adb08843dbbe30a306">More...</a><br/></td></tr>
 <tr class="separator:ga4f14bfc3ddd296adb08843dbbe30a306"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga95e9f2a440a68b4e55694bd593d6c810"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga95e9f2a440a68b4e55694bd593d6c810"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the options for the SPI device.  <a href="group__spips.html#ga95e9f2a440a68b4e55694bd593d6c810">More...</a><br/></td></tr>
+<tr class="memitem:ga95e9f2a440a68b4e55694bd593d6c810"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga95e9f2a440a68b4e55694bd593d6c810">XSpiPs_GetOptions</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga95e9f2a440a68b4e55694bd593d6c810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the options for the SPI device.  <a href="group__spips__api.html#ga95e9f2a440a68b4e55694bd593d6c810">More...</a><br/></td></tr>
 <tr class="separator:ga95e9f2a440a68b4e55694bd593d6c810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga146ed84d7a6ab3b3f8961697bd78da60"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 Prescaler)</td></tr>
-<tr class="memdesc:ga146ed84d7a6ab3b3f8961697bd78da60"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the clock prescaler for an SPI device.  <a href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">More...</a><br/></td></tr>
+<tr class="memitem:ga146ed84d7a6ab3b3f8961697bd78da60"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 Prescaler)</td></tr>
+<tr class="memdesc:ga146ed84d7a6ab3b3f8961697bd78da60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the clock prescaler for an SPI device.  <a href="group__spips__api.html#ga146ed84d7a6ab3b3f8961697bd78da60">More...</a><br/></td></tr>
 <tr class="separator:ga146ed84d7a6ab3b3f8961697bd78da60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga98c42c293d0278c31dd74cbcbec9451c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga98c42c293d0278c31dd74cbcbec9451c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the clock prescaler of an SPI device.  <a href="group__spips.html#ga98c42c293d0278c31dd74cbcbec9451c">More...</a><br/></td></tr>
+<tr class="memitem:ga98c42c293d0278c31dd74cbcbec9451c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga98c42c293d0278c31dd74cbcbec9451c">XSpiPs_GetClkPrescaler</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga98c42c293d0278c31dd74cbcbec9451c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the clock prescaler of an SPI device.  <a href="group__spips__api.html#ga98c42c293d0278c31dd74cbcbec9451c">More...</a><br/></td></tr>
 <tr class="separator:ga98c42c293d0278c31dd74cbcbec9451c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga18d5dbc4eeeac171a1c2795f898b8a83"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 DelayNss, u8 DelayBtwn, u8 DelayAfter, u8 DelayInit)</td></tr>
-<tr class="memdesc:ga18d5dbc4eeeac171a1c2795f898b8a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the delay register for the SPI device driver.  <a href="group__spips.html#ga18d5dbc4eeeac171a1c2795f898b8a83">More...</a><br/></td></tr>
+<tr class="memitem:ga18d5dbc4eeeac171a1c2795f898b8a83"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga18d5dbc4eeeac171a1c2795f898b8a83">XSpiPs_SetDelays</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 DelayNss, u8 DelayBtwn, u8 DelayAfter, u8 DelayInit)</td></tr>
+<tr class="memdesc:ga18d5dbc4eeeac171a1c2795f898b8a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the delay register for the SPI device driver.  <a href="group__spips__api.html#ga18d5dbc4eeeac171a1c2795f898b8a83">More...</a><br/></td></tr>
 <tr class="separator:ga18d5dbc4eeeac171a1c2795f898b8a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga06003e6ce763f2e61922a985e40abb2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 *DelayNss, u8 *DelayBtwn, u8 *DelayAfter, u8 *DelayInit)</td></tr>
-<tr class="memdesc:ga06003e6ce763f2e61922a985e40abb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the delay settings for an SPI device.  <a href="group__spips.html#ga06003e6ce763f2e61922a985e40abb2d">More...</a><br/></td></tr>
+<tr class="memitem:ga06003e6ce763f2e61922a985e40abb2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#ga06003e6ce763f2e61922a985e40abb2d">XSpiPs_GetDelays</a> (const <a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *InstancePtr, u8 *DelayNss, u8 *DelayBtwn, u8 *DelayAfter, u8 *DelayInit)</td></tr>
+<tr class="memdesc:ga06003e6ce763f2e61922a985e40abb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the delay settings for an SPI device.  <a href="group__spips__api.html#ga06003e6ce763f2e61922a985e40abb2d">More...</a><br/></td></tr>
 <tr class="separator:ga06003e6ce763f2e61922a985e40abb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

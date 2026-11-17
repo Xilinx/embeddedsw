@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a398e4695a0d164b4e5c0922b80ba8aa3" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa28bc3bafbeb688bf4152fc9e76f8db0" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1ae63cf767549ac6fe76baf372b9f09f63" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a150007ee2c25e17e06320ee567ec3e1a" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a64baeeeae40deefe1d29c5f3640e045e" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a0348695bff1b95fdd4f2ad99703d7ffb" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a5021fad86aebd236752bbffc057a9811" prot="public" static="no" mutable="no">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG236 and PG230 SYSTEM ILLUSTRATION A system illustration is shown as below SOURCE RX TX SINK PROFESSIONAL REPEATER REQUIRED UPDATES In order to build the system the user is required to do a few extra updates to the drivers in order to support the HDCP Professional requirements in the low level drivers and to import the example design in SDK Updated Required to hdcp1x drivers Please make the following updates in the hdcp1x driver In file xhdcp1x In the structure add the following variable and it s description u8</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a772f2f435d839db1cdf5cc7860e3665a" prot="public" static="no" mutable="no">
         <type>In file xhdcp1x_port_hdmi_rx</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a4e13321d8977aa99e7b7f2046745e525" prot="public" static="no" mutable="no">
         <type>In file xhdcp1x_port_hdmi_rx In the definition of the</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a4d92ad8d0b0d5ac7bbe8451e3b46beba" prot="public" static="no" mutable="no">
         <type>In file xhdcp1x_port_hdmi_rx In the definition of the static int</type>
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a0544c3fe466e421738dae463968b70ba" prot="public" static="no" mutable="no">
         <type></type>
@@ -161,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1af1e3ef26d2c0aaa6561cc6c9ed5fd131" prot="public" static="no" mutable="no">
         <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h</type>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1ab94fbec1ab08639cacaf6d92ee570677" prot="public" static="no" mutable="no">
         <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following</type>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a9aa8c7975a4c8d4a4275095eee63cf14" prot="public" static="no" mutable="no">
         <type>Updated Required to v_hdmirxss drivers In the xv_hdmirxss h In the structure XV_HdmiRxSs add the following u8</type>
@@ -200,7 +200,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa2a92d6716f1d75940de21b48cf14dde" prot="public" static="no" mutable="no">
         <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in</type>
@@ -213,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1aa5683199664f28769265b3eca1b35925" prot="public" static="no" mutable="no">
         <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it</type>
@@ -226,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_readme___repeater_professional___a53_8txt_1a19c6982530c4b0ed2f825934176a9e8f" prot="public" static="no" mutable="no">
         <type>BUILDING THE EXAMPLE DESIGN Before you can import this application as an example design in you need to create a placeholder pointer text file for it To do this go to the following directory&lt; path_to_drivers &gt; v_hdmitxss examples xhdmi_example dummy Here create a new RepeaterPro_A53 txt and copy the contents of this file into it in order to import the example design in please open the following file in a text editor&lt; path_to_drivers &gt; v_hdmitxss data dependencies props Next append the following line to the end of the file xhdmi_example dummy RepeaterPro_A53</type>
@@ -240,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="222" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="222" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -259,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="31" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="31" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1abf159411bebfb5b6183ae4986426dd3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user</type>
@@ -276,7 +276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="32" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="32" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a212322a4c4adce56018450af1fb2eb0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>HDCP REPEATER PROFESSIONAL EXAMPLE DESIGN README CONTENTS OF THIS FILE *Introduction *Features *System illustration *Required updates *Building the example design INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDCP Professinal Repeater running on the same hardware with HDCP configured as a Repeater For see xhdmi_example c and xhdcp c FEATURES *This application implements the HDCP Revision specification *The application implements the HDCP Professional Repeater built on a HDCP Repeater In this by HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when HDCP Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the</type>
@@ -297,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="37" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="37" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a15c517a3de0d59671b209e495a4e37a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Add the declaration of the following function int</type>
@@ -335,7 +335,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="115" bodyend="128"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="115" bodyend="128"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1aa55fca0a531bf762e8aea4b61b8d161c" prot="public" static="yes" const="no" explicit="no" inline="no" new="yes" virt="non-virtual">
         <type>In file xhdcp1x_port_hdmi_rx In the definition of the static int</type>
@@ -352,7 +352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="75" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="75" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a586c10deec35af4df77723aa81f29752" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -372,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="82" bodyend="85"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="82" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1ac456384c578e0461d3e377da56d0866b" prot="public" static="yes" const="no" explicit="no" inline="no" new="yes" virt="non-virtual">
         <type>In the file xhdcp1x_rx In the definition of the static void</type>
@@ -393,7 +393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="88" bodyend="95"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="88" bodyend="95"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1adee8f27af94e7ff03ce0cec613957de8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Add the declaration of the function int</type>
@@ -431,7 +431,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="183" bodyend="205"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="183" bodyend="205"/>
       </memberdef>
       <memberdef kind="function" id="_readme___repeater_professional___a53_8txt_1a4822f20bf9508e86f3f00a7af1a0f0d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Add the declaration of the function int</type>
@@ -458,7 +458,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="157" bodyend="163"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt" bodystart="157" bodyend="163"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -696,6 +696,6 @@
 <codeline lineno="228"><highlight class="stringliteral">You<sp/>should<sp/>now<sp/>see<sp/>the<sp/>option<sp/>to<sp/>build<sp/>the<sp/>RepeaterPro_A53<sp/>example<sp/>design<sp/>in</highlight></codeline>
 <codeline lineno="229"><highlight class="stringliteral">the<sp/>selection<sp/>box<sp/>that<sp/>appears.</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/RepeaterProfessional/Readme_RepeaterProfessional_A53.txt"/>
   </compounddef>
 </doxygen>

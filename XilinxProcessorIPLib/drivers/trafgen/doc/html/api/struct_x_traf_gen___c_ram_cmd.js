@@ -7,6 +7,7 @@ var struct_x_traf_gen___c_ram_cmd =
     [ "Id", "struct_x_traf_gen___c_ram_cmd.html#a83ef855c076e95da9b8cffd52edc930b", null ],
     [ "LastAddress", "struct_x_traf_gen___c_ram_cmd.html#a06ba1ead42b36ffa6ebe6fc633eae174", null ],
     [ "Length", "struct_x_traf_gen___c_ram_cmd.html#a06f887cc537f2323df21f09da24cf279", null ],
+    [ "Lock", "struct_x_traf_gen___c_ram_cmd.html#acbc42510a78b72e89c1eded94b99add8", null ],
     [ "MasterRamIndex", "struct_x_traf_gen___c_ram_cmd.html#a1597162b77eff37a19cf257102acaba4", null ],
     [ "MyDepend", "struct_x_traf_gen___c_ram_cmd.html#a5c786c1362dc5fd6319567d4ec86d19e", null ],
     [ "OtherDepend", "struct_x_traf_gen___c_ram_cmd.html#a044d212e3fbbfa62d31d66f0ca7b616c", null ],

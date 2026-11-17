@@ -5,18 +5,18 @@
     <includes local="no">stdio.h</includes>
     <includes local="no">string.h</includes>
     <incdepgraph>
-      <node id="70">
+      <node id="72">
         <label>string.h</label>
       </node>
-      <node id="68">
+      <node id="70">
         <label>xsem_decode_ebdcfi.c</label>
         <link refid="xsem_decode_ebdcfi.c"/>
-        <childnode refid="69" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
-        <childnode refid="70" relation="include">
+        <childnode refid="72" relation="include">
         </childnode>
       </node>
-      <node id="69">
+      <node id="71">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="24" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xsem__decode__ebdcfi_8c_1a631ad16163b9c7c88e787c243cecf87b" prot="public" static="yes" mutable="no">
         <type>unsigned int</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="26" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -73,8 +73,8 @@
         </detaileddescription>
         <inbodydescription>
 <para>Below 2-d array is initialized with last frame address in each row of a block Here we have initialised for vc1902. The last frame address may vary from device to device.</para><para>Open the existing file mypdi.ebc_cfi using fopen() in read mode using &quot;r&quot; attribute</para><para><verbatim>Check if this InputFilePtr/OutputFilePtr is null
-</verbatim> which maybe if the file does not exist</para><para>Create seperate structure for each row of a block type and initiailise with essentail bit data of all frames in that row by reading from *.ebd_cfi</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="33" bodyend="146"/>
+</verbatim> which maybe if the file does not exist</para><para>Create separate structure for each row of a block type and initiailise with essential bit data of all frames in that row by reading from *.ebd_cfi</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c" bodystart="33" bodyend="146"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -89,7 +89,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date 
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
 <codeline lineno="21"><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
@@ -197,6 +197,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date 
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
 <codeline lineno="146"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_decode_ebdcfi.c"/>
   </compounddef>
 </doxygen>

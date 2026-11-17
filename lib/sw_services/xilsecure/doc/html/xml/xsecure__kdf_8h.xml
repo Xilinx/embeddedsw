@@ -5,25 +5,25 @@
     <includes local="yes">xil_types.h</includes>
     <includedby refid="xsecure__kdf_8c" local="yes">xsecure_kdf.c</includedby>
     <incdepgraph>
-      <node id="1885">
+      <node id="1938">
         <label>xsecure_kdf.h</label>
         <link refid="xsecure_kdf.h"/>
-        <childnode refid="1886" relation="include">
+        <childnode refid="1939" relation="include">
         </childnode>
       </node>
-      <node id="1886">
+      <node id="1939">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1888">
+      <node id="1941">
         <label>xsecure_kdf.c</label>
         <link refid="xsecure__kdf_8c"/>
       </node>
-      <node id="1887">
+      <node id="1940">
         <label>xsecure_kdf.h</label>
         <link refid="xsecure_kdf.h"/>
-        <childnode refid="1888" relation="include">
+        <childnode refid="1941" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -38,7 +38,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="38" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__kdf__server__apis_1ga15237f8d6eba1d098909fdb0b783d72b" prot="public" static="no">
         <name>XSECURE_HKDF_MAX_ITERATIONS</name>
@@ -49,8 +50,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="39" bodyend="-1"/>
-        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__kdf__server__apis_1ga020b57c7fea18820e9caa9a3ba5ad1cb" prot="public" static="no">
         <name>XSECURE_HKDF_BLOCK_INDEX_LENGTH</name>
@@ -61,8 +62,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="40" bodyend="-1"/>
-        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -118,16 +119,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Validate input parameters.</para></listitem><listitem><para>Calculate number of iterations based on HKDF output key length and SHA hash length.</para></listitem><listitem><para>Calculate HMAC and form KdfInput</para></listitem><listitem><para>Update block index of 1 byte to HMAC.</para></listitem><listitem><para>Update Context</para></listitem><listitem><para>Get final HMAC</para></listitem><listitem><para>HMAC output size is the SHA algorithm hash length. HKDF key output can be any length.</para></listitem><listitem><para>In the last iteration, data to be copied to the destination can be less than or equal to SHA algorithm hash length which varies based on the requested key output length.</para></listitem><listitem><para>Copy the final HMAC of each iteration to the destination key output buffer.</para></listitem><listitem><para>Verify loop index is within expected bounds </para></listitem></itemizedlist>
+<listitem><para>Validate input parameters.</para></listitem><listitem><para>Validate the context, as it is updated to HMAC on every iteration.</para></listitem><listitem><para>Calculate number of iterations based on HKDF output key length and SHA hash length.</para></listitem><listitem><para>Calculate HMAC and form KdfInput</para></listitem><listitem><para>Update block index of 1 byte to HMAC.</para></listitem><listitem><para>Update Context</para></listitem><listitem><para>Get final HMAC</para></listitem><listitem><para>HMAC output size is the SHA algorithm hash length. HKDF key output can be any length.</para></listitem><listitem><para>In the last iteration, data to be copied to the destination can be less than or equal to SHA algorithm hash length which varies based on the requested key output length.</para></listitem><listitem><para>Copy the final HMAC of each iteration to the destination key output buffer.</para></listitem><listitem><para>Verify loop index is within expected bounds</para></listitem><listitem><para>Zeroize the key derived pads present in the local HMAC instance.</para></listitem><listitem><para>Zeroize the derived key present in the local HMAC result buffer. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" bodystart="59" bodyend="161"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" bodystart="60" bodyend="193"/>
         <references refid="struct_x_secure___kdf_params_1a0ff6b6d4c1005ca38fccbe178c91e191" compoundref="xsecure__kdf_8h" startline="46">XSecure_KdfParams::Context</references>
         <references refid="struct_x_secure___kdf_params_1ad38bce1bc74ef8860f762791cfb2c17b" compoundref="xsecure__kdf_8h" startline="47">XSecure_KdfParams::ContextLen</references>
         <references refid="struct_x_secure___kdf_params_1a9ca8f93ad9bce513d1e8fdfc4940ec06" compoundref="xsecure__kdf_8h" startline="48">XSecure_KdfParams::Key</references>
         <references refid="struct_x_secure___kdf_params_1a3fe9e4b9b80c44784c02548f2e384fca" compoundref="xsecure__kdf_8h" startline="49">XSecure_KdfParams::KeyLen</references>
         <references refid="versal__2vp_2xsecure__error_8h_1a385c44f6fb256e5716a2302a5b940388a9b599f0a2489846588637ca0b4b997a2" compoundref="versal__2vp_2xsecure__error_8h" startline="179">XSECURE_ERR_HKDF_INVALID_PARAM</references>
-        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="193" endline="196">XSecure_GetSha3Instance</references>
         <references refid="group__xsecure__kdf__server__apis_1ga020b57c7fea18820e9caa9a3ba5ad1cb" compoundref="xsecure__kdf_8h" startline="40">XSECURE_HKDF_BLOCK_INDEX_LENGTH</references>
+        <references refid="group__xsecure__kdf__server__apis_1gad08b62a3393772d42f729e390c57fe36" compoundref="xsecure__kdf_8h" startline="38">XSECURE_HKDF_MAX_CONTEXT_LEN</references>
         <references refid="group__xsecure__kdf__server__apis_1ga15237f8d6eba1d098909fdb0b783d72b" compoundref="xsecure__kdf_8h" startline="39">XSECURE_HKDF_MAX_ITERATIONS</references>
         <references refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</references>
         <references refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</references>
@@ -179,6 +181,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_KDF_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h"/>
   </compounddef>
 </doxygen>

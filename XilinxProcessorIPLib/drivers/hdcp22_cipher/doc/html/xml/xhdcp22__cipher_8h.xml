@@ -42,9 +42,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="19">
-        <label>xhdcp22_cipher_g.c</label>
-      </node>
       <node id="18">
         <label>xhdcp22_cipher.c</label>
         <link refid="xhdcp22__cipher_8c"/>
@@ -65,6 +62,9 @@
         <label>xhdcp22_cipher_selftest.c</label>
         <link refid="xhdcp22__cipher__selftest_8c"/>
       </node>
+      <node id="19">
+        <label>xhdcp22_cipher_g.c</label>
+      </node>
       <node id="21">
         <label>xhdcp22_cipher_sinit.c</label>
         <link refid="xhdcp22__cipher__sinit_8c"/>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga2d37e8f2f1115eea4e9e56c38e94d9fb" prot="public" static="no">
         <name>XHdcp22Cipher_Enable</name>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga8134a3feb6f323789973f8e51e0183b8" prot="public" static="no">
         <name>XHdcp22Cipher_Disable</name>
@@ -127,7 +127,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga5bafb9e80383da4a6cdcda4d71a0db44" prot="public" static="no">
         <name>XHdcp22Cipher_IsEnabled</name>
@@ -150,7 +150,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="147" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga0f017a5eb8e9dd5061518ff474d988fe" prot="public" static="no">
         <name>XHdcp22Cipher_SetTxMode</name>
@@ -173,7 +173,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="165" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1gae971431dbdca802c188be9bf06fdca4b" prot="public" static="no">
         <name>XHdcp22Cipher_SetRxMode</name>
@@ -196,7 +196,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="182" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="178" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1gabc6d67332a849a29345818994d6a8171" prot="public" static="no">
         <name>XHdcp22Cipher_EnableTxEncryption</name>
@@ -219,7 +219,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="199" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga05e1069639112217737b1bcce4460727" prot="public" static="no">
         <name>XHdcp22Cipher_DisableTxEncryption</name>
@@ -242,7 +242,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1gae922aaba40dcc0a56f00bcef5975d9d7" prot="public" static="no">
         <name>XHdcp22Cipher_IsTxEncryptionEnabled</name>
@@ -265,7 +265,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="234" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="230" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga825bc03f2601c7060f57d93fba764ed8" prot="public" static="no">
         <name>XHdcp22Cipher_IsEncrypted</name>
@@ -288,7 +288,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="251" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga9e97d67c809f3e88dd385025303b64b2" prot="public" static="no">
         <name>XHdcp22Cipher_Noise</name>
@@ -325,7 +325,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="270" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="266" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga3052ca952630146a2e957159c6285b1a" prot="public" static="no">
         <name>XHdcp22Cipher_Blank</name>
@@ -362,7 +362,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="295" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="291" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__cipher_1ga1904cbda2ea9d4533cf694940fdcfd82" prot="public" static="no">
         <name>XHdcp22Cipher_GetVersion</name>
@@ -384,7 +384,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="319" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" bodystart="315" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -413,7 +413,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_sinit.c" bodystart="88" bodyend="107"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_sinit.c" bodystart="65" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__cipher_1ga5efdef3153d7c5b9953ee764d69a30b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -464,10 +464,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="70" bodyend="97"/>
-        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="85">XHdcp22_Cipher_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="93">XHdcp22_Cipher::Config</references>
-        <references refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" compoundref="xhdcp22__cipher_8h" startline="94">XHdcp22_Cipher::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="70" bodyend="97"/>
+        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="81">XHdcp22_Cipher_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="89">XHdcp22_Cipher::Config</references>
+        <references refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" compoundref="xhdcp22__cipher_8h" startline="90">XHdcp22_Cipher::IsReady</references>
         <references refid="group__hdcp22__cipher_1gacce7070e4d4e8c1dc04c517862c7417b" compoundref="xhdcp22__cipher__hw_8h" startline="107">XHDCP22_CIPHER_MASK_16</references>
         <references refid="group__hdcp22__cipher_1ga386adc1b38325505ded478f4d40fa692" compoundref="xhdcp22__cipher__hw_8h" startline="106">XHDCP22_CIPHER_SHIFT_16</references>
         <references refid="group__hdcp22__cipher_1ga6bae35ace045d9b076fa767511f7d5b9" compoundref="xhdcp22__cipher__hw_8h" startline="108">XHDCP22_CIPHER_VER_ID</references>
@@ -520,9 +520,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="110" bodyend="135"/>
-        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="85">XHdcp22_Cipher_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="93">XHdcp22_Cipher::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="110" bodyend="135"/>
+        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="81">XHdcp22_Cipher_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="89">XHdcp22_Cipher::Config</references>
         <references refid="group__hdcp22__cipher_1ga27757ac7f66c20e9ea89e7c8ef36ae0c" compoundref="xhdcp22__cipher__hw_8h" startline="59">XHDCP22_CIPHER_REG_KS_1_OFFSET</references>
         <references refid="group__hdcp22__cipher_1ga0d49e32876b9d4cf2413a3dc2bafafba" compoundref="xhdcp22__cipher__hw_8h" startline="161">XHdcp22Cipher_WriteReg</references>
       </memberdef>
@@ -572,9 +572,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="148" bodyend="172"/>
-        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="85">XHdcp22_Cipher_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="93">XHdcp22_Cipher::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="148" bodyend="172"/>
+        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="81">XHdcp22_Cipher_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="89">XHdcp22_Cipher::Config</references>
         <references refid="group__hdcp22__cipher_1ga59cd2434ec0f2a563c9a9cdd67e76ade" compoundref="xhdcp22__cipher__hw_8h" startline="67">XHDCP22_CIPHER_REG_LC128_1_OFFSET</references>
         <references refid="group__hdcp22__cipher_1ga0d49e32876b9d4cf2413a3dc2bafafba" compoundref="xhdcp22__cipher__hw_8h" startline="161">XHdcp22Cipher_WriteReg</references>
       </memberdef>
@@ -624,9 +624,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="185" bodyend="210"/>
-        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="85">XHdcp22_Cipher_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="93">XHdcp22_Cipher::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.c" bodystart="185" bodyend="210"/>
+        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="81">XHdcp22_Cipher_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="89">XHdcp22_Cipher::Config</references>
         <references refid="group__hdcp22__cipher_1gae69fc8ee52b8176eb0811ba7abddcef1" compoundref="xhdcp22__cipher__hw_8h" startline="75">XHDCP22_CIPHER_REG_RIV_1_OFFSET</references>
         <references refid="group__hdcp22__cipher_1ga0d49e32876b9d4cf2413a3dc2bafafba" compoundref="xhdcp22__cipher__hw_8h" startline="161">XHdcp22Cipher_WriteReg</references>
       </memberdef>
@@ -661,115 +661,107 @@
 <codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79" refid="struct_x_hdcp22___cipher___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="82"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="85" refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" kindref="member">BaseAddress</ref>;<sp/><sp/></highlight></codeline>
-<codeline lineno="86"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref>;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92" refid="struct_x_hdcp22___cipher" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="93" refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/><ref refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" kindref="member">Config</ref>;<sp/></highlight></codeline>
-<codeline lineno="94" refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="95"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref>;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="112" refid="group__hdcp22__cipher_1ga2d37e8f2f1115eea4e9e56c38e94d9fb" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Enable(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),(XHDCP22_CIPHER_REG_CTRL_RUN_MASK))</highlight></codeline>
-<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="129" refid="group__hdcp22__cipher_1ga8134a3feb6f323789973f8e51e0183b8" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Disable(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="131"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_RUN_MASK))</highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="147" refid="group__hdcp22__cipher_1ga5bafb9e80383da4a6cdcda4d71a0db44" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsEnabled(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="148"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
-<codeline lineno="149"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_CTRL_RUN_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_CTRL_RUN_MASK)</highlight></codeline>
-<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="165" refid="group__hdcp22__cipher_1ga0f017a5eb8e9dd5061518ff474d988fe" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_SetTxMode(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="166"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="167"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_MODE_MASK))</highlight></codeline>
-<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="182" refid="group__hdcp22__cipher_1gae971431dbdca802c188be9bf06fdca4b" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_SetRxMode(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_MODE_MASK))</highlight></codeline>
-<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="199" refid="group__hdcp22__cipher_1gabc6d67332a849a29345818994d6a8171" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_EnableTxEncryption(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="200"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK))</highlight></codeline>
-<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="216" refid="group__hdcp22__cipher_1ga05e1069639112217737b1bcce4460727" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_DisableTxEncryption(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="217"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK))</highlight></codeline>
-<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="234" refid="group__hdcp22__cipher_1gae922aaba40dcc0a56f00bcef5975d9d7" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsTxEncryptionEnabled(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="235"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
-<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK)</highlight></codeline>
-<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="251" refid="group__hdcp22__cipher_1ga825bc03f2601c7060f57d93fba764ed8" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsEncrypted(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="252"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetStatusReg((InstancePtr)-&gt;Config.BaseAddress)<sp/>\</highlight></codeline>
-<codeline lineno="253"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK)</highlight></codeline>
-<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="270" refid="group__hdcp22__cipher_1ga9e97d67c809f3e88dd385025303b64b2" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Noise(InstancePtr,<sp/>Set)<sp/>\</highlight></codeline>
-<codeline lineno="271"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
-<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(Set)<sp/>{<sp/>\</highlight></codeline>
-<codeline lineno="273"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_NOISE_MASK));<sp/>\</highlight></codeline>
-<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
-<codeline lineno="275"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else<sp/>{<sp/>\</highlight></codeline>
-<codeline lineno="276"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_NOISE_MASK));<sp/>\</highlight></codeline>
-<codeline lineno="277"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
-<codeline lineno="278"><highlight class="preprocessor">}</highlight></codeline>
-<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="295" refid="group__hdcp22__cipher_1ga3052ca952630146a2e957159c6285b1a" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Blank(InstancePtr,<sp/>Set)<sp/>\</highlight></codeline>
-<codeline lineno="296"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
-<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(Set)<sp/>{<sp/>\</highlight></codeline>
-<codeline lineno="298"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_BLANK_MASK));<sp/>\</highlight></codeline>
-<codeline lineno="299"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
-<codeline lineno="300"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else<sp/>{<sp/>\</highlight></codeline>
-<codeline lineno="301"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_BLANK_MASK));<sp/>\</highlight></codeline>
-<codeline lineno="302"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
-<codeline lineno="303"><highlight class="preprocessor">}</highlight></codeline>
-<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="319" refid="group__hdcp22__cipher_1ga1904cbda2ea9d4533cf694940fdcfd82" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_GetVersion(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="320"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>XHDCP22_CIPHER_VER_VERSION_OFFSET)</highlight></codeline>
-<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xhdcp22_cipher_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/>*<ref refid="group__hdcp22__cipher_1ga9d79f79b5c2db18700fb9a46caf9801b" kindref="member">XHdcp22Cipher_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/>*<ref refid="group__hdcp22__cipher_1ga9d79f79b5c2db18700fb9a46caf9801b" kindref="member">XHdcp22Cipher_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xhdcp22_cipher.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="330"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga5efdef3153d7c5b9953ee764d69a30b0" kindref="member">XHdcp22Cipher_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="331"><highlight class="normal"></highlight></codeline>
-<codeline lineno="332"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga416c55928fae40ecadc891c4c33445fa" kindref="member">XHdcp22Cipher_SetKs</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*KsPtr,<sp/>u16<sp/>Length);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga847b7f42086ee357022e35311f1d4317" kindref="member">XHdcp22Cipher_SetLc128</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Lc128Ptr,<sp/><sp/>u16<sp/>Length);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga9c34621ad21b25631a15efc6525ab49d" kindref="member">XHdcp22Cipher_SetRiv</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RivPtr,<sp/><sp/>u16<sp/>Length);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"></highlight></codeline>
-<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="337"><highlight class="normal"></highlight></codeline>
-<codeline lineno="338"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="342"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP2_CIPHER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="343"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="81" refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" kindref="member">BaseAddress</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="struct_x_hdcp22___cipher" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89" refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/><ref refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" kindref="member">Config</ref>;<sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___cipher_1a8d86af96b8ffa11a980998f31e4f703a" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="group__hdcp22__cipher_1ga2d37e8f2f1115eea4e9e56c38e94d9fb" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Enable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),(XHDCP22_CIPHER_REG_CTRL_RUN_MASK))</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="125" refid="group__hdcp22__cipher_1ga8134a3feb6f323789973f8e51e0183b8" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Disable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_RUN_MASK))</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__hdcp22__cipher_1ga5bafb9e80383da4a6cdcda4d71a0db44" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsEnabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_CTRL_RUN_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_CTRL_RUN_MASK)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group__hdcp22__cipher_1ga0f017a5eb8e9dd5061518ff474d988fe" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_SetTxMode(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_MODE_MASK))</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="178" refid="group__hdcp22__cipher_1gae971431dbdca802c188be9bf06fdca4b" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_SetRxMode(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_MODE_MASK))</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="195" refid="group__hdcp22__cipher_1gabc6d67332a849a29345818994d6a8171" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_EnableTxEncryption(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK))</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="212" refid="group__hdcp22__cipher_1ga05e1069639112217737b1bcce4460727" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_DisableTxEncryption(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK))</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="230" refid="group__hdcp22__cipher_1gae922aaba40dcc0a56f00bcef5975d9d7" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsTxEncryptionEnabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK)</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="247" refid="group__hdcp22__cipher_1ga825bc03f2601c7060f57d93fba764ed8" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_IsEncrypted(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Cipher_GetStatusReg((InstancePtr)-&gt;Config.BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK)<sp/>==<sp/><sp/>XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK)</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="266" refid="group__hdcp22__cipher_1ga9e97d67c809f3e88dd385025303b64b2" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Noise(InstancePtr,<sp/>Set)<sp/>\</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(Set)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_NOISE_MASK));<sp/>\</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_NOISE_MASK));<sp/>\</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="291" refid="group__hdcp22__cipher_1ga3052ca952630146a2e957159c6285b1a" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_Blank(InstancePtr,<sp/>Set)<sp/>\</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(Set)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_BLANK_MASK));<sp/>\</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_CIPHER_REG_CTRL_BLANK_MASK));<sp/>\</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="315" refid="group__hdcp22__cipher_1ga1904cbda2ea9d4533cf694940fdcfd82" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Cipher_GetVersion(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cipher_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>XHDCP22_CIPHER_VER_VERSION_OFFSET)</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xhdcp22_cipher_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/>*<ref refid="group__hdcp22__cipher_1ga9d79f79b5c2db18700fb9a46caf9801b" kindref="member">XHdcp22Cipher_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xhdcp22_cipher.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga5efdef3153d7c5b9953ee764d69a30b0" kindref="member">XHdcp22Cipher_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___cipher___config" kindref="compound">XHdcp22_Cipher_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga416c55928fae40ecadc891c4c33445fa" kindref="member">XHdcp22Cipher_SetKs</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*KsPtr,<sp/>u16<sp/>Length);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga847b7f42086ee357022e35311f1d4317" kindref="member">XHdcp22Cipher_SetLc128</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Lc128Ptr,<sp/><sp/>u16<sp/>Length);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__cipher_1ga9c34621ad21b25631a15efc6525ab49d" kindref="member">XHdcp22Cipher_SetRiv</ref>(<ref refid="struct_x_hdcp22___cipher" kindref="compound">XHdcp22_Cipher</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RivPtr,<sp/><sp/>u16<sp/>Length);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP2_CIPHER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher.h"/>
   </compounddef>
 </doxygen>

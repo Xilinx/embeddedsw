@@ -10,12 +10,26 @@
     <member refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" kind="variable"><name>IsDphy</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" kind="variable"><name>IsRegisterPresent</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" kind="variable"><name>MaxLanesPresent</name></member>
+    <member refid="struct_x_mipi___tx___phy___config_1a31bfb6dff5f914a09f7c6307a704f063" kind="variable"><name>IsDynamicLineRate</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" kind="variable"><name>EscClkPeriod</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" kind="variable"><name>EscTimeout</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" kind="variable"><name>HSLineRate</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" kind="variable"><name>HSTimeOut</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" kind="variable"><name>LPXPeriod</name></member>
     <member refid="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" kind="variable"><name>StableClkPeriod</name></member>
+  </compound>
+  <compound refid="struct_x_mipi___tx___phy___dynamic___line_rate" kind="struct"><name>XMipi_Tx_Phy_Dynamic_LineRate</name>
+    <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1a706b8879d4c9c23002bd8343a2879692" kind="variable"><name>LineRateLb</name></member>
+    <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1a7ca1e07b79a96ef4b8561f84cddd8cac" kind="variable"><name>LineRateUb</name></member>
+    <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1ad81d20ec3bd0a63159072f9c7795a3b5" kind="variable"><name>PllVals</name></member>
+  </compound>
+  <compound refid="struct_x_mipi___tx___phy___mmcm_result" kind="struct"><name>XMipi_Tx_Phy_MmcmResult</name>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1ad64ce7a887f81e280b7e7efc56a3f89d" kind="variable"><name>Valid</name></member>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1adac2cd974ff0f130cfda36ede197e0c8" kind="variable"><name>KFactor</name></member>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1af4803b4468b06d29743afdfde3f3cd0e" kind="variable"><name>InputDivider</name></member>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1a803efdc71d5aebd3a540b6b3c92ec8cf" kind="variable"><name>OutputDivider</name></member>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1a945c2b4edd74cd67e7c5c3c109d16322" kind="variable"><name>MultiplierInt</name></member>
+    <member refid="struct_x_mipi___tx___phy___mmcm_result_1a76fe45e3255cd09f6dff6798a435c40e" kind="variable"><name>MultiplierFrac</name></member>
   </compound>
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
@@ -42,6 +56,7 @@
     <member refid="group__mipi__tx__phy_1gae03f90199460c27b38aca1a9eecd973c" kind="function"><name>XMipi_Tx_Phy_GetPacketCount</name></member>
     <member refid="group__mipi__tx__phy_1ga35253890ab16b4233209c20890d18ecb" kind="function"><name>XMipi_Tx_Phy_GetVersionReg</name></member>
     <member refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" kind="function"><name>XMipi_Tx_Phy_Activate</name></member>
+    <member refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" kind="function"><name>XMipi_Tx_Phy_DynamicLineRateConfig</name></member>
   </compound>
   <compound refid="xmipi__tx__phy_8h" kind="file"><name>xmipi_tx_phy.h</name>
     <member refid="group__mipi__tx__phy_1ga684f9034514d9b4d41fd459c14b7bc7d" kind="define"><name>XMIPI_TX_PHY_MODE_MIN</name></member>
@@ -63,6 +78,8 @@
     <member refid="group__mipi__tx__phy_1gaaf2e6f503d4b86cf6d1c9833fcaea04b" kind="define"><name>XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE</name></member>
     <member refid="group__mipi__tx__phy_1ga9f5d073f4808e8cba74268dd3c07e994" kind="define"><name>XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE</name></member>
     <member refid="group__mipi__tx__phy_1gaf5b568320116f8e0335eaa22f7faeb0b" kind="define"><name>XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE</name></member>
+    <member refid="group__mipi__tx__phy_1gae47e34ba6c6adfbfaa89323b2bce4967" kind="define"><name>XMIPI_TX_PHY_LINERATE_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1gaf2146f81e04c1e0de13c6a962d02f75c" kind="define"><name>XMIPI_TX_PHY_LINERATE_MAX</name></member>
     <member refid="group__mipi__tx__phy_1gaafd73ecc355cb1283c3feaad86e6e66b" kind="define"><name>XMIPI_TX_PHY_ENABLE_FLAG</name></member>
     <member refid="group__mipi__tx__phy_1ga81f9f63f8833a3f98ffac4354b419046" kind="define"><name>XMIPI_TX_PHY_DISABLE_FLAG</name></member>
     <member refid="group__mipi__tx__phy_1gafab4174d7ffe2e9118d2f388914f26e3" kind="define"><name>XMIPI_TX_PHY_H_</name></member>
@@ -99,6 +116,9 @@
     <member refid="group__mipi__tx__phy_1ga921e82addba856d2b57c15ac8ace54eb" kind="function"><name>XMipi_Tx_Phy_GetDataLaneMode</name></member>
     <member refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" kind="function"><name>XMipi_Tx_Phy_Activate</name></member>
     <member refid="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" kind="function"><name>XMipi_Tx_Phy_GetRegIntfcPresent</name></member>
+    <member refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" kind="function"><name>XMipi_Tx_Phy_DynamicLineRateConfig</name></member>
+    <member refid="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" kind="function"><name>XMipi_Tx_Phy_XPllConfig</name></member>
+    <member refid="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" kind="function"><name>XMipi_Tx_Phy_MmcmConfig</name></member>
     <member refid="group__mipi__tx__phy_1gaec98ba503ea55bbc246f55633031cce5" kind="function"><name>XMipi_Tx_Phy_Prog_Seq_Data</name></member>
     <member refid="group__mipi__tx__phy_1ga83eeee796bbf6191c38c715f586fe653" kind="function"><name>XMipi_Tx_Phy_Get_Seq_Data</name></member>
     <member refid="group__mipi__tx__phy_1ga5c275c8e3a30477d7ff543a063e51092" kind="function"><name>XMipi_Tx_Phy_En_Prog_Seq_Ctrl</name></member>
@@ -126,9 +146,15 @@
     <member refid="group__mipi__tx__phy_1ga16d4d03a4897453d51733d12036c3b02" kind="define"><name>XMIPI_TX_PHY_DL1STATUS_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1gaf23b1a894f2241c14d64c555f90a7447" kind="define"><name>XMIPI_TX_PHY_DL2STATUS_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga79aad6bfa8e6ae4383887cb10eeb7ef8" kind="define"><name>XMIPI_TX_PHY_DL3STATUS_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gad5eedd71b982923d006faa75b79b5c28" kind="define"><name>XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga595261095922dacb175e9b163bd5f31b" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_CTRL_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1gab4e89fb7aee1d0061973313026d5e6cd" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga7de26ed0365215b08af78324dfb3550b" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gab47cf7c5330d87457f5bdd9b2744316d" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gafb1fb3c506093641e206cfc94996b7fe" kind="define"><name>XMIPI_TX_PHY_MMCM_FRACT_MULT_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga7c64778bc0b41e5b82844099c27f1525" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga4cf79d5fc3a7156c242806a92e3b9429" kind="define"><name>XMIPI_TX_PHY_MMCM_O_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gac5a04f6416c43b8b2de1818e63c5fad1" kind="define"><name>XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gaff7758fee41117064aa8d27b5ee69de7" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gae8340e846c67ddfc75a11bbd4ac5269d" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_PHYEN_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gaab53fbae94c162e2810f2e8bc4d19130" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_OFFSET</name></member>
@@ -177,11 +203,92 @@
     <member refid="group__mipi__tx__phy_1gab5a430cb8c920184422c4f46a24cc58b" kind="function"><name>XMipi_Tx_Phy_ReadReg</name></member>
     <member refid="group__mipi__tx__phy_1gacd03651efa1584c1aa38787324e3f922" kind="function"><name>XMipi_Tx_Phy_WriteReg</name></member>
   </compound>
+  <compound refid="xmipi__tx__phy__mmcm_8c" kind="file"><name>xmipi_tx_phy_mmcm.c</name>
+    <member refid="group__mipi__tx__phy_1ga223ed50240d58c95e97489530bc81f62" kind="define"><name>XMIPI_TX_PHY_MMCM_FIN_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga2af257f515ecf40ae720311d37a84503" kind="define"><name>XMIPI_TX_PHY_MMCM_D_FIXED</name></member>
+    <member refid="group__mipi__tx__phy_1ga7bd4f003235ba8744ee7f124accfb0e3" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MIN_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga09310248ee32128cd0bbfc8fe263959a" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MAX_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga4aaa75b5921e6a5bde651d6bcf790532" kind="define"><name>XMIPI_TX_PHY_MMCM_O_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0fc3e018bb24b0db4d3331d6dcaea4f2" kind="define"><name>XMIPI_TX_PHY_MMCM_O_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga83a9b550447d699753f7eec4bac0d634" kind="define"><name>XMIPI_TX_PHY_MMCM_M_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga032321d506d927a29120e5b49922eb89" kind="define"><name>XMIPI_TX_PHY_MMCM_M_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga022c9b522576b40d77c4582237835044" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_RESOLUTION</name></member>
+    <member refid="group__mipi__tx__phy_1gaa0b602c8416f69cca28194a6dce740e6" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MID_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga328fefb71eb3820e8781891c8c7bada2" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE1_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1gac83bf258afa4710f0dad4f84fd969692" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE1_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1gabaca9d75dbb93f9c3910059517e854c3" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE2_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0f52404c2b34b8f7e1f66a8d2843ab63" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE2_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1gabca401c0cea468e080b4ee5daf7d7349" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE3_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga09fa56f9c44d95bce8969ec473a49397" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE3_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga07d978e5ae1ef281576a6cd98de51052" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE4_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0ad1949b42a4a30a094657be78824e6e" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE4_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga325097721c06d5d08e322adc71d8c57c" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE5_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga1b5ba48e280c47419ac75c84f7545cc7" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE5_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga3d46fa99685d9846020f0438fe7f47c3" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE1</name></member>
+    <member refid="group__mipi__tx__phy_1ga1ff84b162c394c372f09baa1fc8d6813" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE2</name></member>
+    <member refid="group__mipi__tx__phy_1gae569c2d3cf03a2486e249f366d5a0ec4" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE3</name></member>
+    <member refid="group__mipi__tx__phy_1ga80343ad8b795ee48f0d1401f6e518df5" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE4</name></member>
+    <member refid="group__mipi__tx__phy_1ga3e22631bee5a8ba4fb4a77a0799b75cf" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE5</name></member>
+    <member refid="group__mipi__tx__phy_1gac111676be9a74995b6e1af66eaced811" kind="define"><name>XMIPI_TX_PHY_CLKOUT_EVEN_NO_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gacd92e75fe5bc6261d001db091051b496" kind="define"><name>XMIPI_TX_PHY_CLKOUT_EVEN_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1ga945d420f22b489d9995063898cbc3c87" kind="define"><name>XMIPI_TX_PHY_CLKOUT_ODD_NO_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gae70e5fa1655361d61f0978c020484b9d" kind="define"><name>XMIPI_TX_PHY_CLKOUT_ODD_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gae86a39f66b657183464b8b6996552fca" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_ODD_FLAG</name></member>
+    <member refid="group__mipi__tx__phy_1gaca54808f2a79be209119bc0c47d843ba" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_EVEN_FLAG</name></member>
+    <member refid="group__mipi__tx__phy_1ga0902a989e23f35ae462be10595d123ea" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_ENABLE</name></member>
+    <member refid="group__mipi__tx__phy_1gaed8f42031b0ec7e0bb869cb1c5f7e290" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_MASK</name></member>
+    <member refid="group__mipi__tx__phy_1gac6fd07d0c46dedde58c2343fc13805c1" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_D5_REG1</name></member>
+    <member refid="group__mipi__tx__phy_1ga718ca550890c66b3cd2eab301d483759" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_D5_HTLT_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga1124fd435a33a58a7e000c8a34f21472" kind="define"><name>XMIPI_TX_PHY_HTLT_HIGH_SHIFT</name></member>
+    <member refid="group__mipi__tx__phy_1gab305228e277c40bf469b2fe4b8cdbd2b" kind="define"><name>XMIPI_TX_PHY_HTLT_BYTE_MASK</name></member>
+    <member refid="group__mipi__tx__phy_1ga9adc1bcd2a3aa19f31ea093b1f0c7056" kind="define"><name>XMIPI_TX_PHY_SCORE_PPM_WEIGHT</name></member>
+    <member refid="group__mipi__tx__phy_1gaaaff51f4107cbd2bf2ac99e8740a017c" kind="define"><name>XMIPI_TX_PHY_SCORE_O_WEIGHT</name></member>
+    <member refid="group__mipi__tx__phy_1ga7b3c2751a914d9874f8d6454f5d6512a" kind="define"><name>XMIPI_TX_PHY_SCORE_FRAC_PENALTY</name></member>
+    <member refid="group__mipi__tx__phy_1ga7258d14d318b76de323f0c4abde04448" kind="define"><name>XMIPI_TX_PHY_PPM_SCALE</name></member>
+    <member refid="group__mipi__tx__phy_1ga7198a7b858be10e943a9942bb0e854d4" kind="define"><name>XMIPI_TX_PHY_SCORE_INIT</name></member>
+    <member refid="group__mipi__tx__phy_1gafa698d1267ae591633fef92fd6865fdb" kind="define"><name>XMIPI_TX_PHY_ABS</name></member>
+    <member refid="group__mipi__tx__phy_1ga6494109d1f399779a1a38b0b6e46fc7d" kind="define"><name>XMIPI_TX_PHY_ROUND_S32</name></member>
+    <member refid="group__mipi__tx__phy_1ga3b2f19d117f2381461f36ec91dc789b5" kind="define"><name>XMIPI_TX_PHY_ROUND_DBL</name></member>
+    <member refid="group__mipi__tx__phy_1ga72fd2cad4587114274cbd19ad922e523" kind="define"><name>XMIPI_TX_PHY_FLOOR</name></member>
+    <member refid="group__mipi__tx__phy_1ga5cb20451dc884f45697f02590b331121" kind="function"><name>XMipi_Tx_Phy_MmcmDeriveK</name></member>
+    <member refid="group__mipi__tx__phy_1gaa72f0ac824c0b694b392d1efd949f84c" kind="function"><name>XMipi_Tx_Phy_MmcmPackHtLt</name></member>
+    <member refid="group__mipi__tx__phy_1gac1c1a758c78de1dd3c915d22f04f8c5b" kind="function"><name>XMipi_Tx_Phy_MmcmClkout0Regs</name></member>
+    <member refid="group__mipi__tx__phy_1gae8dc1fc03b35acb4b544bffebd825064" kind="function"><name>XMipi_Tx_Phy_MmcmCompute</name></member>
+    <member refid="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" kind="function"><name>XMipi_Tx_Phy_MmcmConfig</name></member>
+  </compound>
   <compound refid="xmipi__tx__phy__selftest_8c" kind="file"><name>xmipi_tx_phy_selftest.c</name>
     <member refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" kind="function"><name>XMipi_Tx_Phy_SelfTest</name></member>
   </compound>
   <compound refid="xmipi__tx__phy__sinit_8c" kind="file"><name>xmipi_tx_phy_sinit.c</name>
     <member refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" kind="function"><name>XMipi_Tx_Phy_LookupConfig</name></member>
+  </compound>
+  <compound refid="xmipi__tx__phy__xpll_8c" kind="file"><name>xmipi_tx_phy_xpll.c</name>
+    <member refid="group__mipi__tx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kind="define"><name>XPLL_REG_PCSR_MASK_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kind="define"><name>XPLL_REG_PCSR_CONTROL_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga963def7629c8b345499aa2081ef2f53c" kind="define"><name>XPLL_REG_PCSR_LOCK_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" kind="define"><name>XPLL_REG_2_M_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" kind="define"><name>XPLL_REG_3_M_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" kind="define"><name>XPLL_REG_4_O1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" kind="define"><name>XPLL_REG_5_O1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga95e2964158a7b7a84841a45338f37431" kind="define"><name>XPLL_REG_6_O0_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" kind="define"><name>XPLL_REG_7_O0_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" kind="define"><name>XPLL_REG_22_D_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" kind="define"><name>XPLL_REG_23_D_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga6247ab80f4b5f0d229b89f7c3f3b4c6e" kind="define"><name>XMIPI_TX_PHY_PLL_UNLOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga897a61049d16acd6df9324fa1b479d96" kind="define"><name>XMIPI_TX_PHY_PLL_LOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga6ef29e94aca3bff8e49cf72973aafb5a" kind="define"><name>XMIPI_TX_PHY_PLL_MASK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga35a5705d7e4a8f0f9dfde8b499c12d7d" kind="define"><name>XMIPI_TX_PHY_PLL_CONTROL_CONFIG_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gac859f6d6d5eb630ca86fe2dade33da55" kind="define"><name>XMIPI_TX_PHY_PLL_CONTROL_LOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gabeb899c5353171dc297bfe9d6d75ad24" kind="define"><name>XMIPI_TX_PHY_PLL_EN_ODISABLE_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga422731e1812abc6482d04e3dc18b18ff" kind="define"><name>XMIPI_TX_PHY_PLL_DIS_ODISABLE</name></member>
+    <member refid="group__mipi__tx__phy_1ga53f3b499e14eafdfbafac7419cb4d3b3" kind="define"><name>XMIPI_TX_PHY_PLL_EN_INITSTATE_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gaaa4f553931490eca9edb9b7580fc93b8" kind="define"><name>XMIPI_TX_PHY_PLL_DIS_INITSTATE</name></member>
+    <member refid="group__mipi__tx__phy_1ga48581287db9a112150de85f1de688842" kind="define"><name>XMIPI_TX_PHY_LINERATE_NUM_BUCKETS</name></member>
+    <member refid="group__mipi__tx__phy_1gab85fe65f18747e302c42287a7880793d" kind="define"><name>XMIPI_TX_PHY_PLL_NUM_REGS</name></member>
+    <member refid="group__mipi__tx__phy_1gad8aa1663727d7e54ccf04b5278677a10" kind="variable"><name>XMipi_Tx_Phy_PllRegOffsets</name></member>
+    <member refid="group__mipi__tx__phy_1gae41af24c62e4f302bfbae3117383c2e3" kind="variable"><name>XMipi_Tx_Phy_Dynamic_LineRateCfg</name></member>
+    <member refid="group__mipi__tx__phy_1ga1573668b346ec490a904007eb4a6d6ec" kind="function"><name>XPll_WriteReg</name></member>
+    <member refid="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" kind="function"><name>XMipi_Tx_Phy_XPllConfig</name></member>
   </compound>
   <compound refid="group__mipi__tx__phy" kind="group"><name>mipi_tx_phy</name>
     <member refid="group__mipi__tx__phy_1ga684f9034514d9b4d41fd459c14b7bc7d" kind="define"><name>XMIPI_TX_PHY_MODE_MIN</name></member>
@@ -203,6 +310,8 @@
     <member refid="group__mipi__tx__phy_1gaaf2e6f503d4b86cf6d1c9833fcaea04b" kind="define"><name>XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE</name></member>
     <member refid="group__mipi__tx__phy_1ga9f5d073f4808e8cba74268dd3c07e994" kind="define"><name>XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE</name></member>
     <member refid="group__mipi__tx__phy_1gaf5b568320116f8e0335eaa22f7faeb0b" kind="define"><name>XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE</name></member>
+    <member refid="group__mipi__tx__phy_1gae47e34ba6c6adfbfaa89323b2bce4967" kind="define"><name>XMIPI_TX_PHY_LINERATE_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1gaf2146f81e04c1e0de13c6a962d02f75c" kind="define"><name>XMIPI_TX_PHY_LINERATE_MAX</name></member>
     <member refid="group__mipi__tx__phy_1gaafd73ecc355cb1283c3feaad86e6e66b" kind="define"><name>XMIPI_TX_PHY_ENABLE_FLAG</name></member>
     <member refid="group__mipi__tx__phy_1ga81f9f63f8833a3f98ffac4354b419046" kind="define"><name>XMIPI_TX_PHY_DISABLE_FLAG</name></member>
     <member refid="group__mipi__tx__phy_1gabbf8c59ccf6c1abcef8dd1c7cb06473c" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_OFFSET</name></member>
@@ -215,9 +324,15 @@
     <member refid="group__mipi__tx__phy_1ga16d4d03a4897453d51733d12036c3b02" kind="define"><name>XMIPI_TX_PHY_DL1STATUS_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1gaf23b1a894f2241c14d64c555f90a7447" kind="define"><name>XMIPI_TX_PHY_DL2STATUS_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga79aad6bfa8e6ae4383887cb10eeb7ef8" kind="define"><name>XMIPI_TX_PHY_DL3STATUS_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gad5eedd71b982923d006faa75b79b5c28" kind="define"><name>XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga595261095922dacb175e9b163bd5f31b" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_CTRL_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1gab4e89fb7aee1d0061973313026d5e6cd" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1ga7de26ed0365215b08af78324dfb3550b" kind="define"><name>XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gab47cf7c5330d87457f5bdd9b2744316d" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gafb1fb3c506093641e206cfc94996b7fe" kind="define"><name>XMIPI_TX_PHY_MMCM_FRACT_MULT_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga7c64778bc0b41e5b82844099c27f1525" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga4cf79d5fc3a7156c242806a92e3b9429" kind="define"><name>XMIPI_TX_PHY_MMCM_O_REG_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gac5a04f6416c43b8b2de1818e63c5fad1" kind="define"><name>XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gaff7758fee41117064aa8d27b5ee69de7" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gae8340e846c67ddfc75a11bbd4ac5269d" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_PHYEN_MASK</name></member>
     <member refid="group__mipi__tx__phy_1gaab53fbae94c162e2810f2e8bc4d19130" kind="define"><name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_OFFSET</name></member>
@@ -261,6 +376,73 @@
     <member refid="group__mipi__tx__phy_1ga4d4bf96f1ff599cf39682ae6f7733369" kind="define"><name>XMIPI_TX_PHY_DLXSTATUS_REG_MODE_OFFSET</name></member>
     <member refid="group__mipi__tx__phy_1gadd2ac13ad244c63767708f50754e91eb" kind="define"><name>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_MASK</name></member>
     <member refid="group__mipi__tx__phy_1ga288b6d3f90fa63aa3d6ea45d19e12746" kind="define"><name>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga223ed50240d58c95e97489530bc81f62" kind="define"><name>XMIPI_TX_PHY_MMCM_FIN_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga2af257f515ecf40ae720311d37a84503" kind="define"><name>XMIPI_TX_PHY_MMCM_D_FIXED</name></member>
+    <member refid="group__mipi__tx__phy_1ga7bd4f003235ba8744ee7f124accfb0e3" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MIN_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga09310248ee32128cd0bbfc8fe263959a" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MAX_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga4aaa75b5921e6a5bde651d6bcf790532" kind="define"><name>XMIPI_TX_PHY_MMCM_O_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0fc3e018bb24b0db4d3331d6dcaea4f2" kind="define"><name>XMIPI_TX_PHY_MMCM_O_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga83a9b550447d699753f7eec4bac0d634" kind="define"><name>XMIPI_TX_PHY_MMCM_M_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga032321d506d927a29120e5b49922eb89" kind="define"><name>XMIPI_TX_PHY_MMCM_M_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga022c9b522576b40d77c4582237835044" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_RESOLUTION</name></member>
+    <member refid="group__mipi__tx__phy_1gaa0b602c8416f69cca28194a6dce740e6" kind="define"><name>XMIPI_TX_PHY_MMCM_VCO_MID_MHZ</name></member>
+    <member refid="group__mipi__tx__phy_1ga328fefb71eb3820e8781891c8c7bada2" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE1_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1gac83bf258afa4710f0dad4f84fd969692" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE1_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1gabaca9d75dbb93f9c3910059517e854c3" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE2_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0f52404c2b34b8f7e1f66a8d2843ab63" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE2_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1gabca401c0cea468e080b4ee5daf7d7349" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE3_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga09fa56f9c44d95bce8969ec473a49397" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE3_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga07d978e5ae1ef281576a6cd98de51052" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE4_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga0ad1949b42a4a30a094657be78824e6e" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE4_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga325097721c06d5d08e322adc71d8c57c" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE5_MIN</name></member>
+    <member refid="group__mipi__tx__phy_1ga1b5ba48e280c47419ac75c84f7545cc7" kind="define"><name>XMIPI_TX_PHY_LINERATE_RANGE5_MAX</name></member>
+    <member refid="group__mipi__tx__phy_1ga3d46fa99685d9846020f0438fe7f47c3" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE1</name></member>
+    <member refid="group__mipi__tx__phy_1ga1ff84b162c394c372f09baa1fc8d6813" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE2</name></member>
+    <member refid="group__mipi__tx__phy_1gae569c2d3cf03a2486e249f366d5a0ec4" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE3</name></member>
+    <member refid="group__mipi__tx__phy_1ga80343ad8b795ee48f0d1401f6e518df5" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE4</name></member>
+    <member refid="group__mipi__tx__phy_1ga3e22631bee5a8ba4fb4a77a0799b75cf" kind="define"><name>XMIPI_TX_PHY_K_FACTOR_RANGE5</name></member>
+    <member refid="group__mipi__tx__phy_1gac111676be9a74995b6e1af66eaced811" kind="define"><name>XMIPI_TX_PHY_CLKOUT_EVEN_NO_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gacd92e75fe5bc6261d001db091051b496" kind="define"><name>XMIPI_TX_PHY_CLKOUT_EVEN_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1ga945d420f22b489d9995063898cbc3c87" kind="define"><name>XMIPI_TX_PHY_CLKOUT_ODD_NO_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gae70e5fa1655361d61f0978c020484b9d" kind="define"><name>XMIPI_TX_PHY_CLKOUT_ODD_EDGE</name></member>
+    <member refid="group__mipi__tx__phy_1gae86a39f66b657183464b8b6996552fca" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_ODD_FLAG</name></member>
+    <member refid="group__mipi__tx__phy_1gaca54808f2a79be209119bc0c47d843ba" kind="define"><name>XMIPI_TX_PHY_MMCM_MULT_EVEN_FLAG</name></member>
+    <member refid="group__mipi__tx__phy_1ga0902a989e23f35ae462be10595d123ea" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_ENABLE</name></member>
+    <member refid="group__mipi__tx__phy_1gaed8f42031b0ec7e0bb869cb1c5f7e290" kind="define"><name>XMIPI_TX_PHY_MMCM_FRAC_MASK</name></member>
+    <member refid="group__mipi__tx__phy_1gac6fd07d0c46dedde58c2343fc13805c1" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_D5_REG1</name></member>
+    <member refid="group__mipi__tx__phy_1ga718ca550890c66b3cd2eab301d483759" kind="define"><name>XMIPI_TX_PHY_MMCM_DIV_D5_HTLT_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga1124fd435a33a58a7e000c8a34f21472" kind="define"><name>XMIPI_TX_PHY_HTLT_HIGH_SHIFT</name></member>
+    <member refid="group__mipi__tx__phy_1gab305228e277c40bf469b2fe4b8cdbd2b" kind="define"><name>XMIPI_TX_PHY_HTLT_BYTE_MASK</name></member>
+    <member refid="group__mipi__tx__phy_1ga9adc1bcd2a3aa19f31ea093b1f0c7056" kind="define"><name>XMIPI_TX_PHY_SCORE_PPM_WEIGHT</name></member>
+    <member refid="group__mipi__tx__phy_1gaaaff51f4107cbd2bf2ac99e8740a017c" kind="define"><name>XMIPI_TX_PHY_SCORE_O_WEIGHT</name></member>
+    <member refid="group__mipi__tx__phy_1ga7b3c2751a914d9874f8d6454f5d6512a" kind="define"><name>XMIPI_TX_PHY_SCORE_FRAC_PENALTY</name></member>
+    <member refid="group__mipi__tx__phy_1ga7258d14d318b76de323f0c4abde04448" kind="define"><name>XMIPI_TX_PHY_PPM_SCALE</name></member>
+    <member refid="group__mipi__tx__phy_1ga7198a7b858be10e943a9942bb0e854d4" kind="define"><name>XMIPI_TX_PHY_SCORE_INIT</name></member>
+    <member refid="group__mipi__tx__phy_1gafa698d1267ae591633fef92fd6865fdb" kind="define"><name>XMIPI_TX_PHY_ABS</name></member>
+    <member refid="group__mipi__tx__phy_1ga6494109d1f399779a1a38b0b6e46fc7d" kind="define"><name>XMIPI_TX_PHY_ROUND_S32</name></member>
+    <member refid="group__mipi__tx__phy_1ga3b2f19d117f2381461f36ec91dc789b5" kind="define"><name>XMIPI_TX_PHY_ROUND_DBL</name></member>
+    <member refid="group__mipi__tx__phy_1ga72fd2cad4587114274cbd19ad922e523" kind="define"><name>XMIPI_TX_PHY_FLOOR</name></member>
+    <member refid="group__mipi__tx__phy_1ga4fc64fd0ca8c74a49dbf950a26312074" kind="define"><name>XPLL_REG_PCSR_MASK_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gaa8399ea046b36a74c0b8e88ecd412ec3" kind="define"><name>XPLL_REG_PCSR_CONTROL_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga963def7629c8b345499aa2081ef2f53c" kind="define"><name>XPLL_REG_PCSR_LOCK_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga0d3eea386fc44ec21a263cde6fd7146b" kind="define"><name>XPLL_REG_2_M_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga0cd3501d0203d1b78b72b8acf9c01e6a" kind="define"><name>XPLL_REG_3_M_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga2c95b5085b30c5424c3feb0df90d1989" kind="define"><name>XPLL_REG_4_O1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga5fbc15a8b64113c0f1b8aca4be361c03" kind="define"><name>XPLL_REG_5_O1_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga95e2964158a7b7a84841a45338f37431" kind="define"><name>XPLL_REG_6_O0_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga1ca1a29980cdd24fbc33b4d24e4946a0" kind="define"><name>XPLL_REG_7_O0_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga3197cfc2d67e17d439eee2d7d5cf4ad8" kind="define"><name>XPLL_REG_22_D_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga28ba966ad821f6d1c02d75b71f460a41" kind="define"><name>XPLL_REG_23_D_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1ga6247ab80f4b5f0d229b89f7c3f3b4c6e" kind="define"><name>XMIPI_TX_PHY_PLL_UNLOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga897a61049d16acd6df9324fa1b479d96" kind="define"><name>XMIPI_TX_PHY_PLL_LOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga6ef29e94aca3bff8e49cf72973aafb5a" kind="define"><name>XMIPI_TX_PHY_PLL_MASK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga35a5705d7e4a8f0f9dfde8b499c12d7d" kind="define"><name>XMIPI_TX_PHY_PLL_CONTROL_CONFIG_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gac859f6d6d5eb630ca86fe2dade33da55" kind="define"><name>XMIPI_TX_PHY_PLL_CONTROL_LOCK_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gabeb899c5353171dc297bfe9d6d75ad24" kind="define"><name>XMIPI_TX_PHY_PLL_EN_ODISABLE_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1ga422731e1812abc6482d04e3dc18b18ff" kind="define"><name>XMIPI_TX_PHY_PLL_DIS_ODISABLE</name></member>
+    <member refid="group__mipi__tx__phy_1ga53f3b499e14eafdfbafac7419cb4d3b3" kind="define"><name>XMIPI_TX_PHY_PLL_EN_INITSTATE_VAL</name></member>
+    <member refid="group__mipi__tx__phy_1gaaa4f553931490eca9edb9b7580fc93b8" kind="define"><name>XMIPI_TX_PHY_PLL_DIS_INITSTATE</name></member>
+    <member refid="group__mipi__tx__phy_1ga48581287db9a112150de85f1de688842" kind="define"><name>XMIPI_TX_PHY_LINERATE_NUM_BUCKETS</name></member>
     <member refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kind="enum"><name>XMipi_Tx_Phy_ProgSeq</name></member>
     <member refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a5d9ec5475f6e44c8cc428945c4f16005" kind="enumvalue"><name>PRG_SEQ_SYM_0</name></member>
     <member refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885ac6c42dde5152a00b2bd2391061556b58" kind="enumvalue"><name>PRG_SEQ_SYM_1</name></member>
@@ -276,6 +458,8 @@
     <member refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a667dd59f166addae5c20b4827e0b3488" kind="enumvalue"><name>PRG_SEQ_SYM_11</name></member>
     <member refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a38de520f925fa02971e85fe60486abef" kind="enumvalue"><name>PRG_SEQ_SYM_12</name></member>
     <member refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a0d88e58ad0aaa3fd68743389cd773e97" kind="enumvalue"><name>PRG_SEQ_SYM_13</name></member>
+    <member refid="group__mipi__tx__phy_1gad8aa1663727d7e54ccf04b5278677a10" kind="variable"><name>XMipi_Tx_Phy_PllRegOffsets</name></member>
+    <member refid="group__mipi__tx__phy_1gae41af24c62e4f302bfbae3117383c2e3" kind="variable"><name>XMipi_Tx_Phy_Dynamic_LineRateCfg</name></member>
     <member refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" kind="function"><name>XMipi_Tx_Phy_CfgInitialize</name></member>
     <member refid="group__mipi__tx__phy_1ga0edf3de0af6e081ab9ec6ba03bcb029d" kind="function"><name>XMipi_Tx_Phy_Configure</name></member>
     <member refid="group__mipi__tx__phy_1gaec98ba503ea55bbc246f55633031cce5" kind="function"><name>XMipi_Tx_Phy_Prog_Seq_Data</name></member>
@@ -295,18 +479,27 @@
     <member refid="group__mipi__tx__phy_1gae03f90199460c27b38aca1a9eecd973c" kind="function"><name>XMipi_Tx_Phy_GetPacketCount</name></member>
     <member refid="group__mipi__tx__phy_1ga35253890ab16b4233209c20890d18ecb" kind="function"><name>XMipi_Tx_Phy_GetVersionReg</name></member>
     <member refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" kind="function"><name>XMipi_Tx_Phy_Activate</name></member>
+    <member refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" kind="function"><name>XMipi_Tx_Phy_DynamicLineRateConfig</name></member>
     <member refid="group__mipi__tx__phy_1ga6ab906154dd6bd4e685d387f77a35883" kind="function"><name>XMipi_Tx_Phy_BitSet</name></member>
     <member refid="group__mipi__tx__phy_1ga1e7707ea4ce5e3f8a89a97bcc3044189" kind="function"><name>XMipi_Tx_Phy_BitReset</name></member>
     <member refid="group__mipi__tx__phy_1ga9c2d5d55bb137067bb5385656c488735" kind="function"><name>XMipi_Tx_Phy_GetBitField</name></member>
     <member refid="group__mipi__tx__phy_1ga74d852ff5e7b5057719b226964ddd01f" kind="function"><name>XMipi_Tx_Phy_SetBitField</name></member>
     <member refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" kind="function"><name>XMipi_Tx_Phy_LookupConfig</name></member>
+    <member refid="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" kind="function"><name>XMipi_Tx_Phy_XPllConfig</name></member>
+    <member refid="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" kind="function"><name>XMipi_Tx_Phy_MmcmConfig</name></member>
     <member refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" kind="function"><name>XMipi_Tx_Phy_SelfTest</name></member>
     <member refid="group__mipi__tx__phy_1gab5a430cb8c920184422c4f46a24cc58b" kind="function"><name>XMipi_Tx_Phy_ReadReg</name></member>
     <member refid="group__mipi__tx__phy_1gacd03651efa1584c1aa38787324e3f922" kind="function"><name>XMipi_Tx_Phy_WriteReg</name></member>
+    <member refid="group__mipi__tx__phy_1ga5cb20451dc884f45697f02590b331121" kind="function"><name>XMipi_Tx_Phy_MmcmDeriveK</name></member>
+    <member refid="group__mipi__tx__phy_1gaa72f0ac824c0b694b392d1efd949f84c" kind="function"><name>XMipi_Tx_Phy_MmcmPackHtLt</name></member>
+    <member refid="group__mipi__tx__phy_1gac1c1a758c78de1dd3c915d22f04f8c5b" kind="function"><name>XMipi_Tx_Phy_MmcmClkout0Regs</name></member>
+    <member refid="group__mipi__tx__phy_1gae8dc1fc03b35acb4b544bffebd825064" kind="function"><name>XMipi_Tx_Phy_MmcmCompute</name></member>
+    <member refid="group__mipi__tx__phy_1ga1573668b346ec490a904007eb4a6d6ec" kind="function"><name>XPll_WriteReg</name></member>
     <member refid="group__mipi__tx__phy_1gab7d66168adfafd0b5462bdc492c20e34" kind="define"><name>XMIPI_TX_PHY_SOFTRESET_TIMEOUT</name></member>
     <member refid="group__mipi__tx__phy_1gafab4174d7ffe2e9118d2f388914f26e3" kind="define"><name>XMIPI_TX_PHY_H_</name></member>
     <member refid="group__mipi__tx__phy_1ga6bd9c3f2f20cf79b7bd8a52a67b36467" kind="define"><name>XMIPI_TX_PHY_HW_H_</name></member>
     <member refid="group__mipi__tx__phy_1ga4dab676485278ae963ba2a5c4e5d0063" kind="define"><name>DL_LANE_OFFSET</name></member>
+    <member refid="group__mipi__tx__phy_1gab85fe65f18747e302c42287a7880793d" kind="define"><name>XMIPI_TX_PHY_PLL_NUM_REGS</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

@@ -107,10 +107,10 @@ $(document).ready(function(){initNavTree('group__coresightps__dcc.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga8a5824ce159a24ea536a04cb80087249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__coresightps__dcc.html#ga8a5824ce159a24ea536a04cb80087249">XCoresightPs_DccSendByte</a> (u32 BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga8a5824ce159a24ea536a04cb80087249"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sends a single byte using the DCC.  <a href="#ga8a5824ce159a24ea536a04cb80087249">More...</a><br/></td></tr>
+<tr class="memdesc:ga8a5824ce159a24ea536a04cb80087249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a single byte using the DCC.  <a href="#ga8a5824ce159a24ea536a04cb80087249">More...</a><br/></td></tr>
 <tr class="separator:ga8a5824ce159a24ea536a04cb80087249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b2db90006be1a49e9e8428e91c6a655"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__coresightps__dcc.html#ga9b2db90006be1a49e9e8428e91c6a655">XCoresightPs_DccRecvByte</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga9b2db90006be1a49e9e8428e91c6a655"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions receives a single byte using the DCC.  <a href="#ga9b2db90006be1a49e9e8428e91c6a655">More...</a><br/></td></tr>
+<tr class="memdesc:ga9b2db90006be1a49e9e8428e91c6a655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a single byte using the DCC.  <a href="#ga9b2db90006be1a49e9e8428e91c6a655">More...</a><br/></td></tr>
 <tr class="separator:ga9b2db90006be1a49e9e8428e91c6a655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -128,16 +128,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions receives a single byte using the DCC. </p>
-<p>It is blocking in that it waits for the receiver to become non-empty before it reads from the receive register.</p>
+<p>Receives a single byte using the DCC. </p>
+<p>This function is blocking. It waits until the receiver is not empty, then reads the byte from the receive register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is a dummy parameter to match the function proto of functions for other stdio devices.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Dummy parameter to match other stdio device function prototypes.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The byte of data received.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The byte of data received. </dd></dl>
+
+<p>References <a class="el" href="group__coresightps__dcc__api.html#ga2ee8d807420c735c1ba17a26fc4491b0">XCORESIGHTPS_DCC_STATUS_RX</a>.</p>
 
 </div>
 </div>
@@ -165,17 +166,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sends a single byte using the DCC. </p>
-<p>It is blocking in that it waits for the transmitter to become non-full before it writes the byte to the transmit register.</p>
+<p>Sends a single byte using the DCC. </p>
+<p>This function is blocking. It waits until the transmitter is not full, then writes the byte to the transmit register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is a dummy parameter to match the function proto of functions for other stdio devices. </td></tr>
-    <tr><td class="paramname">Data</td><td>is the byte of data to send</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Dummy parameter to match other stdio device function prototypes. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Byte of data to send. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="group__coresightps__dcc__api.html#gade67de45c061af33652b3b410ee8b915">XCORESIGHTPS_DCC_STATUS_TX</a>.</p>
 
 </div>
 </div>

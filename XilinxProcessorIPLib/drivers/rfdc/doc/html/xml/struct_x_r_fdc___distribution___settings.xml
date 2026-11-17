@@ -2,58 +2,67 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_r_fdc___distribution___settings" kind="struct" prot="public">
     <compoundname>XRFdc_Distribution_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a66e98fec9df0fcef0caf6ce0cb81d7b6" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::SourceType</definition>
         <argsstring></argsstring>
         <name>SourceType</name>
         <briefdescription>
-        </briefdescription>
+<para>Clock source type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="403" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a11ae4b175b7210e188a47b54dff11d87" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::SourceTileId</definition>
         <argsstring></argsstring>
         <name>SourceTileId</name>
         <briefdescription>
-        </briefdescription>
+<para>Source tile that provides the clock. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="404" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a99388dba1296d40fdb5544cc4bfbaebd" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::EdgeTileIds[2]</definition>
         <argsstring>[2]</argsstring>
         <name>EdgeTileIds</name>
         <briefdescription>
-        </briefdescription>
+<para>Edge tile identifiers of the distribution. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="405" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1aa854a161f65e9d7058d566f265a17116" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::EdgeTypes[2]</definition>
         <argsstring>[2]</argsstring>
         <name>EdgeTypes</name>
         <briefdescription>
-        </briefdescription>
+<para>Edge types of the distribution. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="406" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1ac55c061f8b9e522068bf2555f3485d63" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -61,25 +70,29 @@
         <argsstring></argsstring>
         <name>DistRefClkFreq</name>
         <briefdescription>
-        </briefdescription>
+<para>Distribution reference clock frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="407" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a632a7989ff4c18b3f5c9510aa939cca7" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::DistributedClock</definition>
         <argsstring></argsstring>
         <name>DistributedClock</name>
         <briefdescription>
-        </briefdescription>
+<para>Distributed clock configuration. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="408" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1ac0745e48c1e57085779021388a57c568" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -87,25 +100,28 @@
         <argsstring>[2][4]</argsstring>
         <name>SampleRates</name>
         <briefdescription>
-        </briefdescription>
+<para>[Type][Tile], for example SampleRates[XRFDC_ADC_TILE][1] for ADC1. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="409" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a382b8a1a5c8e5f71b67b9f04ff87e63f" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_Distribution_Settings::ShutdownMode</definition>
         <argsstring></argsstring>
         <name>ShutdownMode</name>
         <briefdescription>
-        </briefdescription>
+<para>Shutdown mode of the distribution. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="410" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___distribution___settings_1a9d084056f366774d42000ffafdcec11c" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_r_fdc___distribution___info" kindref="compound">XRFdc_Distribution_Info</ref></type>
@@ -113,16 +129,19 @@
         <argsstring></argsstring>
         <name>Info</name>
         <briefdescription>
-        </briefdescription>
+<para><verbatim>                            Resulting distribution
+</verbatim> information. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="411" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Clock distribution configuration. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
@@ -139,12 +158,13 @@
       </node>
       <node id="88">
         <label>XRFdc_Distribution_Settings</label>
+        <link refid="struct_x_r_fdc___distribution___settings"/>
         <childnode refid="89" relation="usage">
           <edgelabel>Info</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="402" bodyend="412"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="444" bodyend="456"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___distribution___settings_1ac55c061f8b9e522068bf2555f3485d63" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Settings</scope><name>DistRefClkFreq</name></member>
       <member refid="struct_x_r_fdc___distribution___settings_1a632a7989ff4c18b3f5c9510aa939cca7" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Settings</scope><name>DistributedClock</name></member>

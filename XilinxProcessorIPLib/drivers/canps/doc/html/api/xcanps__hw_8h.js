@@ -49,7 +49,6 @@ var xcanps__hw_8h =
     [ "XCANPS_ESR_FMER_MASK", "xcanps__hw_8h.html#ga9f8e78fa8cf400ca661beb1a23feb95e", null ],
     [ "XCANPS_ESR_OFFSET", "xcanps__hw_8h.html#ga9fcd5569b88b35770450468eb08ba7ea", null ],
     [ "XCANPS_ESR_STER_MASK", "xcanps__hw_8h.html#gabf556c44e2049c14c39d735be4b6e810", null ],
-    [ "XCANPS_HW_H", "xcanps__hw_8h.html#gaca9eb3a2aa07e9efd31ac8c83a05b57a", null ],
     [ "XCANPS_ICR_OFFSET", "xcanps__hw_8h.html#gad00a5deeda33258d922282e6fa62e876", null ],
     [ "XCANPS_IDR_ID1_MASK", "xcanps__hw_8h.html#ga03c570854310ffd7198a240aa3e5b450", null ],
     [ "XCANPS_IDR_ID1_SHIFT", "xcanps__hw_8h.html#ga4941ee8f7d5736d356d6ab633a0ddcbb", null ],

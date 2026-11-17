@@ -11,9 +11,6 @@
       <node id="640">
         <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="639">
-        <label>xparameters.h</label>
-      </node>
       <node id="638">
         <label>xhdmi_edid.h</label>
         <link refid="PassThrough/xhdmi_edid.h"/>
@@ -22,8 +19,14 @@
         <childnode refid="640" relation="include">
         </childnode>
       </node>
+      <node id="639">
+        <label>xparameters.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="643">
+        <label>xhdcp.c</label>
+      </node>
       <node id="645">
         <label>xhdmi_example.c</label>
       </node>
@@ -61,9 +64,6 @@
         <childnode refid="647" relation="include">
         </childnode>
       </node>
-      <node id="643">
-        <label>xhdcp.c</label>
-      </node>
     </invincdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="_pass_through_2xhdmi__edid_8h_1a89011d5a06daa5f37bfee23cce604b1e" prot="public" static="no">
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -218,6 +218,6 @@
 <codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EDID_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdmi_edid.h"/>
   </compounddef>
 </doxygen>

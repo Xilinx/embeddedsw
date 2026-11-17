@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="dir_f1c06c4141019da0806792b07ad9c952" kind="dir">
     <compoundname>xmipi_scu200_xp5io_example</compoundname>
+    <innerfile refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c">xmipi_scu200_xp5io_example/dsi_txss_display.c</innerfile>
+    <innerfile refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h">xmipi_scu200_xp5io_example/dsi_txss_display.h</innerfile>
     <innerfile refid="xmipi__scu200__xp5io__example_2idt__8t49n24x_8c">xmipi_scu200_xp5io_example/idt_8t49n24x.c</innerfile>
     <innerfile refid="xmipi__scu200__xp5io__example_2idt__8t49n24x_8h">xmipi_scu200_xp5io_example/idt_8t49n24x.h</innerfile>
     <innerfile refid="xmipi__scu200__xp5io__example_2mipi__cfg_8c">xmipi_scu200_xp5io_example/mipi_cfg.c</innerfile>
@@ -37,6 +39,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/"/>
   </compounddef>
 </doxygen>

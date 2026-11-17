@@ -1,5 +1,8 @@
 var xspips_8c =
 [
+    [ "XSPIPS_POLL_TIMEOUT_US", "xspips_8c.html#gac859d02a56eeb162666ae11b0daabbf2", null ],
+    [ "XSpiPs_RecvByte", "xspips_8c.html#gaa16f1269388412a12617f154b7d8b47a", null ],
+    [ "XSpiPs_SendByte", "xspips_8c.html#ga213e0ea6c896e8d8351bfc3a9499345a", null ],
     [ "XSpiPs_Abort", "xspips_8c.html#ga1f40732e67f63579b811af115f2c575c", null ],
     [ "XSpiPs_CfgInitialize", "xspips_8c.html#gabfabf86279474d10c04bfe97f3386a64", null ],
     [ "XSpiPs_GetSlaveSelect", "xspips_8c.html#ga1876554128f1d1a8654d72a619fe491d", null ],

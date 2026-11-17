@@ -73,7 +73,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
@@ -104,7 +107,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -118,52 +121,53 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 <h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
 <li>EmacpsDelay()
-: <a class="el" href="xemacps__example_8h.html#a907ad3930dc1eefe5a53a0b82b715091">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#a907ad3930dc1eefe5a53a0b82b715091">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#ga907ad3930dc1eefe5a53a0b82b715091">xemacps_example.h</a>
 </li>
 <li>EmacPsDmaIntrExample()
-: <a class="el" href="xemacps__example__intr__dma_8c.html#aa91855dbce2897b52a49dd1e100c4f38">xemacps_example_intr_dma.c</a>
+: <a class="el" href="group__emacps.html#gaa91855dbce2897b52a49dd1e100c4f38">xemacps_example_intr_dma.c</a>
 </li>
 <li>EmacPsDmaSingleFrameIntrExample()
-: <a class="el" href="xemacps__example__intr__dma_8c.html#afa31ff7ff7de0863dde3919fa1602671">xemacps_example_intr_dma.c</a>
+: <a class="el" href="group__emacps.html#gafa31ff7ff7de0863dde3919fa1602671">xemacps_example_intr_dma.c</a>
 </li>
 <li>EmacPsUtilEnterLocalLoopback()
-: <a class="el" href="xemacps__example__util_8c.html#aca39e6c6bf9a344d743f808eab6031e1">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#gaca39e6c6bf9a344d743f808eab6031e1">xemacps_example_util.c</a>
+</li>
+<li>EmacPsUtilEnterLoopback()
+: <a class="el" href="group__emacps.html#ga020c45ff35b8a458e6e90e7b85c6b2f1">xemacps_example_util.c</a>
 </li>
 <li>EmacPsUtilErrorTrap()
-: <a class="el" href="xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#a776b1bc0336021ef0b3542c13ba81e83">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#ga776b1bc0336021ef0b3542c13ba81e83">xemacps_example.h</a>
 </li>
 <li>EmacPsUtilFrameHdrFormatMAC()
-: <a class="el" href="xemacps__example_8h.html#a0bc7c575f2858a89f9496f83dc6052d4">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#a0bc7c575f2858a89f9496f83dc6052d4">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#ga0bc7c575f2858a89f9496f83dc6052d4">xemacps_example.h</a>
 </li>
 <li>EmacPsUtilFrameHdrFormatType()
-: <a class="el" href="xemacps__example_8h.html#a6fddc02339ce2adea5260e2401572eb8">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#a6fddc02339ce2adea5260e2401572eb8">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#ga6fddc02339ce2adea5260e2401572eb8">xemacps_example.h</a>
 </li>
 <li>EmacPsUtilFrameMemClear()
-: <a class="el" href="xemacps__example_8h.html#af60ff561f93957fc82d6625103a3ec5c">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#af60ff561f93957fc82d6625103a3ec5c">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#gaf60ff561f93957fc82d6625103a3ec5c">xemacps_example.h</a>
 </li>
 <li>EmacPsUtilFrameSetPayloadData()
-: <a class="el" href="xemacps__example_8h.html#a745c2dd310df9fc6a3067ec7c426d9b5">xemacps_example.h</a>
-, <a class="el" href="xemacps__example__util_8c.html#a745c2dd310df9fc6a3067ec7c426d9b5">xemacps_example_util.c</a>
+: <a class="el" href="group__emacps.html#ga745c2dd310df9fc6a3067ec7c426d9b5">xemacps_example.h</a>
 </li>
 <li>EmacPsUtilFrameVerify()
-: <a class="el" href="xemacps__example__util_8c.html#a9bf345bfd8b6008fd32c436c1c8f049e">xemacps_example_util.c</a>
-, <a class="el" href="xemacps__example_8h.html#a9bf345bfd8b6008fd32c436c1c8f049e">xemacps_example.h</a>
+: <a class="el" href="group__emacps.html#ga9bf345bfd8b6008fd32c436c1c8f049e">xemacps_example.h</a>
+</li>
+<li>EmacPsUtilMarvellPhyLoopback()
+: <a class="el" href="group__emacps.html#gaee6047d1726e5ff1f3d9b15aa25d901d">xemacps_example_util.c</a>
 </li>
 <li>EmacPsUtilstrncpy()
-: <a class="el" href="xemacps__example__util_8c.html#a115c0926c08893ef3e71c68f7622576a">xemacps_example_util.c</a>
-, <a class="el" href="xemacps__example_8h.html#a115c0926c08893ef3e71c68f7622576a">xemacps_example.h</a>
+: <a class="el" href="group__emacps.html#ga115c0926c08893ef3e71c68f7622576a">xemacps_example.h</a>
+</li>
+<li>EmacPsUtilTiPhyLoopback()
+: <a class="el" href="group__emacps.html#ga677b6cab1f729cab9536fe4ca5c79f3f">xemacps_example_util.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
-: <a class="el" href="xemacps__example__intr__dma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xemacps_example_intr_dma.c</a>
+: <a class="el" href="group__emacps.html#ga840291bc02cba5474a4cb46a9b9566fe">xemacps_example_intr_dma.c</a>
 </li>
 </ul>
 
@@ -267,7 +271,6 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XEmacPs_SetMdioDivisor()
 : <a class="el" href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">xemacps.h</a>
-, <a class="el" href="group__emacps.html#ga5d0b4b9258cdead2c0875a0853c087b3">xemacps_example_intr_dma.c</a>
 </li>
 <li>XEmacPs_SetOperatingSpeed()
 : <a class="el" href="group__emacps.html#gae1f519684cc62697fd17f49e2658abd6">xemacps.h</a>
@@ -297,7 +300,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="group__emacps.html#gaa1f18f2a92625e6defa38cf285408231">xemacps_pcs.c</a>
 </li>
 <li>XEmacPsClkSetup()
-: <a class="el" href="xemacps__example__intr__dma_8c.html#a938f994841cac409516f536c1f5ab844">xemacps_example_intr_dma.c</a>
+: <a class="el" href="group__emacps.html#ga938f994841cac409516f536c1f5ab844">xemacps_example_intr_dma.c</a>
+</li>
+<li>XEmacPsDetectPHY()
+: <a class="el" href="group__emacps.html#gac03d08fd4241bc26cc6b132df2bca9e2">xemacps_example_util.c</a>
 </li>
 </ul>
 </div><!-- contents -->

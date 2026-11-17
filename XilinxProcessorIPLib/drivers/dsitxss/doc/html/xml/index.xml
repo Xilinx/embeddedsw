@@ -23,6 +23,7 @@
     <member refid="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" kind="variable"><name>DsiByteFifo</name></member>
     <member refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" kind="variable"><name>CrcGen</name></member>
     <member refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" kind="variable"><name>DsiPixel</name></member>
+    <member refid="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" kind="variable"><name>EnEscMode</name></member>
     <member refid="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" kind="variable"><name>DphyLinerate</name></member>
     <member refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" kind="variable"><name>IsDphyRegIntfcPresent</name></member>
     <member refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" kind="variable"><name>DphyInfo</name></member>
@@ -39,7 +40,7 @@
   </compound>
   <compound refid="xdsitxss_8c" kind="file"><name>xdsitxss.c</name>
     <member refid="group__dsitxss_1gac6fbd81acb511e3559569ca1f2c0052e" kind="variable"><name>DsiTxSsSubCores</name></member>
-    <member refid="group__dsitxss_1ga60ff7771caa1bb82261e7da0a119ff70" kind="function"><name>XDsiTxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsitxss_1gaa9d0850f02194857e6fa861c060b7961" kind="function"><name>XDsiTxSs_GetIncludedSubCores</name></member>
     <member refid="group__dsitxss_1gac7c24abcf16e0bd0bc9d5e34bd22c47e" kind="function"><name>XDsiTxSs_SubCoreInitDsi</name></member>
     <member refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" kind="function"><name>XDsiTxSs_CfgInitialize</name></member>
     <member refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" kind="function"><name>XDsiTxSs_DefaultConfigure</name></member>
@@ -48,6 +49,11 @@
     <member refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" kind="function"><name>XDsiTxSs_ReportCoreInfo</name></member>
     <member refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" kind="function"><name>XDsiTxSs_SetDSIMode</name></member>
     <member refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" kind="function"><name>XDsiTxSs_SendCmdModePacket</name></member>
+    <member refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" kind="function"><name>XDsiTxSs_IsEscModeEnabled</name></member>
+    <member refid="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" kind="function"><name>XDsiTxSs_SetLpdtMode</name></member>
+    <member refid="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" kind="function"><name>XDsiTxSs_SendLpdtPacket</name></member>
+    <member refid="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" kind="function"><name>XDsiTxSs_SetUlpsMode</name></member>
+    <member refid="group__dsitxss_1gac32b7e8b09624965b57d6b7aa4ed4d6a" kind="function"><name>XDsiTxSs_IsUlps</name></member>
     <member refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" kind="function"><name>XDsiTxSs_SendShortPacket</name></member>
     <member refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" kind="function"><name>XDsiTxSs_GetConfigParams</name></member>
     <member refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" kind="function"><name>XDsiTxSs_IsControllerReady</name></member>
@@ -65,7 +71,7 @@
     <member refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" kind="enumvalue"><name>XDSITXSS_PHY</name></member>
     <member refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kind="typedef"><name>XDsiTxSs_Callback</name></member>
     <member refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kind="function"><name>XDsiTxSs_LookupConfig</name></member>
-    <member refid="group__dsitxss_1ga9761cc5f1111900fc4a6667526529004" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
+    <member refid="group__dsitxss_1ga1455252e790ed3a2b2a63e93cc9a4e34" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
     <member refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" kind="function"><name>XDsiTxSs_CfgInitialize</name></member>
     <member refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" kind="function"><name>XDsiTxSs_DefaultConfigure</name></member>
     <member refid="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" kind="function"><name>XDsiTxSs_Activate</name></member>
@@ -75,6 +81,11 @@
     <member refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" kind="function"><name>XDsiTxSs_SendShortPacket</name></member>
     <member refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" kind="function"><name>XDsiTxSs_SetDSIMode</name></member>
     <member refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" kind="function"><name>XDsiTxSs_SendCmdModePacket</name></member>
+    <member refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" kind="function"><name>XDsiTxSs_IsEscModeEnabled</name></member>
+    <member refid="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" kind="function"><name>XDsiTxSs_SetLpdtMode</name></member>
+    <member refid="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" kind="function"><name>XDsiTxSs_SendLpdtPacket</name></member>
+    <member refid="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" kind="function"><name>XDsiTxSs_SetUlpsMode</name></member>
+    <member refid="group__dsitxss_1gac32b7e8b09624965b57d6b7aa4ed4d6a" kind="function"><name>XDsiTxSs_IsUlps</name></member>
     <member refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" kind="function"><name>XDsiTxSs_GetConfigParams</name></member>
     <member refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" kind="function"><name>XDsiTxSs_IsControllerReady</name></member>
     <member refid="group__dsitxss_1ga6d071b004409f448e6fb61a523063084" kind="function"><name>XDsiTxSs_GetPixelFormat</name></member>
@@ -144,7 +155,7 @@
   <compound refid="xdsitxss__sinit_8c" kind="file"><name>xdsitxss_sinit.c</name>
     <member refid="group__dsitxss_1ga4c62892950863a6d34ee839552530cb4" kind="variable"><name>XDsiTxSs_ConfigTable</name></member>
     <member refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kind="function"><name>XDsiTxSs_LookupConfig</name></member>
-    <member refid="group__dsitxss_1ga9761cc5f1111900fc4a6667526529004" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
+    <member refid="group__dsitxss_1ga1455252e790ed3a2b2a63e93cc9a4e34" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
   </compound>
   <compound refid="xdsitxss__video__test__example_8c" kind="file"><name>xdsitxss_video_test_example.c</name>
     <member refid="xdsitxss__video__test__example_8c_1a929b9a7ca02bfa37fcdd2e83b59020e5" kind="define"><name>XDSITXSS_DEVICE_ID</name></member>
@@ -224,7 +235,7 @@
     <member refid="group__dsitxss_1ga5f2c2cd6085cf17a12e719a9744ce222" kind="variable"><name>DsiInst</name></member>
     <member refid="group__dsitxss_1gac6fbd81acb511e3559569ca1f2c0052e" kind="variable"><name>DsiTxSsSubCores</name></member>
     <member refid="group__dsitxss_1ga4c62892950863a6d34ee839552530cb4" kind="variable"><name>XDsiTxSs_ConfigTable</name></member>
-    <member refid="group__dsitxss_1ga60ff7771caa1bb82261e7da0a119ff70" kind="function"><name>XDsiTxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsitxss_1gaa9d0850f02194857e6fa861c060b7961" kind="function"><name>XDsiTxSs_GetIncludedSubCores</name></member>
     <member refid="group__dsitxss_1gac7c24abcf16e0bd0bc9d5e34bd22c47e" kind="function"><name>XDsiTxSs_SubCoreInitDsi</name></member>
     <member refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" kind="function"><name>XDsiTxSs_CfgInitialize</name></member>
     <member refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" kind="function"><name>XDsiTxSs_DefaultConfigure</name></member>
@@ -233,6 +244,11 @@
     <member refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" kind="function"><name>XDsiTxSs_ReportCoreInfo</name></member>
     <member refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" kind="function"><name>XDsiTxSs_SetDSIMode</name></member>
     <member refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" kind="function"><name>XDsiTxSs_SendCmdModePacket</name></member>
+    <member refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" kind="function"><name>XDsiTxSs_IsEscModeEnabled</name></member>
+    <member refid="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" kind="function"><name>XDsiTxSs_SetLpdtMode</name></member>
+    <member refid="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" kind="function"><name>XDsiTxSs_SendLpdtPacket</name></member>
+    <member refid="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" kind="function"><name>XDsiTxSs_SetUlpsMode</name></member>
+    <member refid="group__dsitxss_1gac32b7e8b09624965b57d6b7aa4ed4d6a" kind="function"><name>XDsiTxSs_IsUlps</name></member>
     <member refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" kind="function"><name>XDsiTxSs_SendShortPacket</name></member>
     <member refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" kind="function"><name>XDsiTxSs_GetConfigParams</name></member>
     <member refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" kind="function"><name>XDsiTxSs_IsControllerReady</name></member>
@@ -241,7 +257,7 @@
     <member refid="group__dsitxss_1gab4c4ef25cc3f604f21ce98446cdfe482" kind="function"><name>XDsiTxSs_SetVideoInterfaceTiming</name></member>
     <member refid="group__dsitxss_1ga1b9246c8e349c6dac5aa6c7f40a69bf8" kind="function"><name>XDsiTxSs_SetCustomVideoInterfaceTiming</name></member>
     <member refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kind="function"><name>XDsiTxSs_LookupConfig</name></member>
-    <member refid="group__dsitxss_1ga9761cc5f1111900fc4a6667526529004" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
+    <member refid="group__dsitxss_1ga1455252e790ed3a2b2a63e93cc9a4e34" kind="function"><name>XDsiTxSs_GetDrvIndex</name></member>
     <member refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" kind="function"><name>XDsiTxSs_SelfTest</name></member>
     <member refid="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" kind="function"><name>XDsiTxSs_SetCallback</name></member>
     <member refid="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" kind="function"><name>XDsiTxSs_IntrHandler</name></member>

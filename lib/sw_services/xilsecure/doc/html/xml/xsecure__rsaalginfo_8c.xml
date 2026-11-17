@@ -6,42 +6,42 @@
     <includes refid="xsecure__alghelper_8h" local="yes">xsecure_alghelper.h</includes>
     <includes local="yes">xsecure_plat_defs.h</includes>
     <incdepgraph>
-      <node id="3630">
+      <node id="3829">
         <label>xil_sutil.h</label>
       </node>
-      <node id="3627">
-        <label>xsecure_rsaalginfo.c</label>
-        <link refid="xsecure_rsaalginfo.c"/>
-        <childnode refid="3628" relation="include">
-        </childnode>
-        <childnode refid="3631" relation="include">
-        </childnode>
-        <childnode refid="3633" relation="include">
-        </childnode>
-      </node>
-      <node id="3628">
-        <label>xsecure_rsaalginfo.h</label>
-        <link refid="client_2core_2rsa_2xsecure__rsaalginfo_8h"/>
-        <childnode refid="3629" relation="include">
-        </childnode>
-        <childnode refid="3630" relation="include">
-        </childnode>
-      </node>
-      <node id="3633">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="3629">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="3632">
-        <label>xil_types.h</label>
-      </node>
-      <node id="3631">
+      <node id="3830">
         <label>xsecure_alghelper.h</label>
         <link refid="xsecure__alghelper_8h"/>
-        <childnode refid="3629" relation="include">
+        <childnode refid="3828" relation="include">
         </childnode>
-        <childnode refid="3632" relation="include">
+        <childnode refid="3831" relation="include">
+        </childnode>
+      </node>
+      <node id="3832">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3828">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="3831">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3826">
+        <label>xsecure_rsaalginfo.c</label>
+        <link refid="xsecure_rsaalginfo.c"/>
+        <childnode refid="3827" relation="include">
+        </childnode>
+        <childnode refid="3830" relation="include">
+        </childnode>
+        <childnode refid="3832" relation="include">
+        </childnode>
+      </node>
+      <node id="3827">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="client_2core_2rsa_2xsecure__rsaalginfo_8h"/>
+        <childnode refid="3828" relation="include">
+        </childnode>
+        <childnode refid="3829" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -63,16 +63,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" bodystart="53" bodyend="56"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" bodystart="51" bodyend="54"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -107,12 +106,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
-<codeline lineno="53" refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" kindref="member">XSecure_RsaGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
-<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" kindref="member">XSecure_RsaGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c"/>
   </compounddef>
 </doxygen>

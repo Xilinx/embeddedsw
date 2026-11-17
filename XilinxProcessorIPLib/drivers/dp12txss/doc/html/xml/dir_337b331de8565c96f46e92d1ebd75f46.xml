@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_337b331de8565c96f46e92d1ebd75f46" kind="dir">
+    <compoundname>vtc</compoundname>
+    <innerfile refid="xdptxss__vtc_8c">xdptxss_vtc.c</innerfile>
+    <innerfile refid="xdptxss__vtc_8h">xdptxss_vtc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/"/>
+  </compounddef>
+</doxygen>

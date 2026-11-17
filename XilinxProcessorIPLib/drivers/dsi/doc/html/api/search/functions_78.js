@@ -15,9 +15,12 @@ var searchData=
   ['xdsi_5fselftest',['XDsi_SelfTest',['../group__dsi.html#ga58a27f9f1a507863325082e43595b4b9',1,'xdsi_selftest.c']]],
   ['xdsi_5fsendcmdmodepkt',['XDsi_SendCmdModePkt',['../group__dsi.html#ga7e20d1d932530d9be8987b78136b7864',1,'xdsi.c']]],
   ['xdsi_5fsendlongpacket',['XDsi_SendLongPacket',['../group__dsi.html#gad642065adf499f3953713cc5b94a456a',1,'xdsi.c']]],
+  ['xdsi_5fsendlpdtpacket',['XDsi_SendLpdtPacket',['../group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71',1,'xdsi.c']]],
   ['xdsi_5fsendshortpacket',['XDsi_SendShortPacket',['../group__dsi.html#gab2cf4f33eff4d4e77d083335025c08f9',1,'xdsi.c']]],
   ['xdsi_5fsetcallback',['XDsi_SetCallback',['../group__dsi.html#ga6e0292fd10d992deb9922469707d8ee7',1,'xdsi_intr.c']]],
   ['xdsi_5fsetcustomvideointerfacetiming',['XDsi_SetCustomVideoInterfaceTiming',['../group__dsi.html#gab9519a80289d049534bfbafefdc41c4e',1,'xdsi.c']]],
+  ['xdsi_5fsetlpdtmode',['XDsi_SetLpdtMode',['../group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7',1,'xdsi.c']]],
   ['xdsi_5fsetmode',['XDsi_SetMode',['../group__dsi.html#ga445dc0c1ca405f81b367d7e556e83f8c',1,'xdsi.c']]],
+  ['xdsi_5fsetulpsmode',['XDsi_SetUlpsMode',['../group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9',1,'xdsi.c']]],
   ['xdsi_5fsetvideointerfacetiming',['XDsi_SetVideoInterfaceTiming',['../group__dsi.html#gad26d8689133a90687735f528ff96b97d',1,'xdsi.c']]]
 ];

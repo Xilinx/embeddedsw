@@ -2,6 +2,7 @@ var struct_x_dp___config =
 [
     [ "BaseAddr", "struct_x_dp___config.html#a26db9b137de6560d3b2690f0d4acaed0", null ],
     [ "DpProtocol", "struct_x_dp___config.html#a1632df176c6aa05831f6456bc8c0ea6e", null ],
+    [ "DscEn", "struct_x_dp___config.html#ae022940b28789e7260b1fd852f0c29fb", null ],
     [ "DualPixelEn", "struct_x_dp___config.html#a8bd1f6452601ab45a534e5e567cef1e6", null ],
     [ "IsRx", "struct_x_dp___config.html#a69d4f2f8c4557a548f9a0d32fe39ef18", null ],
     [ "MaxBitsPerColor", "struct_x_dp___config.html#a1848e773ea65e28aa85440c72c4bc9bd", null ],

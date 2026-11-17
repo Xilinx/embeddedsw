@@ -107,11 +107,63 @@ $(document).ready(function(){initNavTree('xilskey__utils_8c.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>MODIFICATION HISTORY:</p>
-<p>Ver Who Date Changes </p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
+</p>
 <hr/>
-<p> 1.00a rpoolla 04/26/13 First release 2.00 hk 22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX. CR#768077 2.1 kvn 04/01/15 Fixed warnings. CR#716453. 3.00 vns 31/07/15 Added efuse functionality for Ultrascale. 4.0 vns 10/01/15 Modified conditional compilation to support ZynqMp platform also. Added new API Xsk_Ceil Modified Xilskey_CrcCalculation() API for providing support for efuse ZynqMp also. 6.0 vns 07/07/16 Modified XilSKey_Timer_Intialise API to initialize TimerTicks to 10us. As Hardware module only takes care of programming time(5us), through software we only need to control hardware module. Modified sysmon read to 16 bit resolution as sysmon driver has modified conversion formulae to 16 bit resolution. vns 07/18/16 Initialized sysmonpsu driver and added XilSKey_ZynqMP_EfusePs_ReadSysmonVol and XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions 6.6 vns 06/06/18 Added doxygen tags 6.7 arc 01/05/19 Fixed MISRA-C violations. vns 02/09/19 Fixed buffer overflow access in <a class="el" href="xilskey__utils_8c.html#a65f56a1dfb7f9691f8e5d917057e500d" title="Converts the string into the equivalent Hex buffer. ">XilSKey_Efuse_ConvertStringToHexLE()</a> arc 25/02/19 Added asserts for pointer parameter for NULL verification Fixed Length parameter as length in bits for XilSKey_Efuse_ConvertStringToHexBE and added length validations arc 03/13/19 Added assert to validate lengths in <a class="el" href="xilskey__utils_8c.html#a82b698427d44bba130cd7c115384434f" title="Validate the key for proper characters &amp; proper length. ">XilSKey_Efuse_ValidateKey()</a> arc 03/15/19 Modified initial default status value as XST_FAILURE 6.7 psl 03/21/19 Fixed MISRA-C violation. vns 03/23/19 Fixed CRC calculation for Ultra plus arc 04/04/19 Fixed CPP warnings. 6.8 psl 06/07/19 Added doxygen tags. psl 06/25/19 Fixed Coverity warnings. psl 06/28/19 Added doxygen tags. psl 07/29/19 Fixed MISRA-C violation. vns 08/29/19 Initialized Status variables mmd 07/31/19 Avoided reconfiguration of sysmon, if it is in use 6.9 kpt 02/16/20 Fixed coverity warnings 02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID vns 03/18/20 Fixed Armcc compilation errors 7.0 am 10/04/20 Resolved MISRA C violations 7.1 am 11/26/20 Resolved Coverity warnings kpt 03/17/21 Corrected error code when VCCINT levels are out of range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks 7.2 am 07/13/21 Fixed doxygen warnings 7.5 ng 07/13/23 added SDT support</p>
-</div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+<p>
+1.00a rpoolla 04/26/13 First release
+2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
+                       CR#768077
+2.1   kvn     04/01/15 Fixed warnings. CR#716453.
+3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+4.0   vns     10/01/15 Modified conditional compilation
+                       to support ZynqMp platform also.
+                       Added new API Xsk_Ceil
+                       Modified Xilskey_CrcCalculation() API for providing
+                       support for efuse ZynqMp also.
+6.0   vns     07/07/16 Modified XilSKey_Timer_Intialise API to initialize
+                       TimerTicks to 10us. As Hardware module only takes
+                       care of programming time(5us), through software we
+                       only need to control hardware module.
+                       Modified sysmon read to 16 bit resolution as
+                       sysmon driver has modified conversion formulae
+                       to 16 bit resolution.
+      vns     07/18/16 Initialized sysmonpsu driver and added
+                       XilSKey_ZynqMP_EfusePs_ReadSysmonVol and
+                       XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
+6.6   vns     06/06/18 Added doxygen tags
+6.7   arc     01/05/19 Fixed MISRA-C violations.
+      vns     02/09/19 Fixed buffer overflow access in
+                       <a class="el" href="xilskey__utils_8c.html#a65f56a1dfb7f9691f8e5d917057e500d" title="Converts the string into the equivalent Hex buffer. ">XilSKey_Efuse_ConvertStringToHexLE()</a>
+      arc     25/02/19 Added asserts for pointer parameter for NULL
+                       verification
+                       Fixed Length parameter as length in bits for
+                       XilSKey_Efuse_ConvertStringToHexBE and added length
+                       validations
+      arc     03/13/19 Added assert to validate lengths in
+                       <a class="el" href="xilskey__utils_8c.html#a82b698427d44bba130cd7c115384434f" title="Validate the key for proper characters &amp; proper length. ">XilSKey_Efuse_ValidateKey()</a>
+      arc     03/15/19 Modified initial default status value as XST_FAILURE
+6.7   psl     03/21/19 Fixed MISRA-C violation.
+      vns     03/23/19 Fixed CRC calculation for Ultra plus
+      arc     04/04/19 Fixed CPP warnings.
+6.8   psl     06/07/19 Added doxygen tags.
+      psl     06/25/19 Fixed Coverity warnings.
+      psl     06/28/19 Added doxygen tags.
+      psl     07/29/19 Fixed MISRA-C violation.
+      vns     08/29/19 Initialized Status variables
+      mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
+6.9   kpt     02/16/20 Fixed coverity warnings
+              02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
+      vns     03/18/20 Fixed Armcc compilation errors
+7.0     am      10/04/20 Resolved MISRA C violations
+7.1   am      11/26/20 Resolved Coverity warnings
+      kpt     03/17/21 Corrected error code when VCCINT levels are out of
+                       range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks
+7.2   am      07/13/21 Fixed doxygen warnings
+7.5   ng      07/13/23 added SDT support
+8.0   rpu     09/22/26 Fixed MISRA-C violation.
+</pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xilskey__utils_8h.html">xilskey_utils.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -121,7 +173,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac23b7512fa6d7680514d181ef2a51963"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to initialize the XADC driver.  <a href="#ac23b7512fa6d7680514d181ef2a51963">More...</a><br/></td></tr>
 <tr class="separator:ac23b7512fa6d7680514d181ef2a51963"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff812a4c70a44e09397fbf6bad6f0536"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#aff812a4c70a44e09397fbf6bad6f0536">XilSKey_EfusePs_XAdcReadTemperatureAndVoltage</a> (XSKEfusePs_XAdc *XAdcInstancePtr)</td></tr>
-<tr class="memdesc:aff812a4c70a44e09397fbf6bad6f0536"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads current value of the temperature from sysmon.  <a href="#aff812a4c70a44e09397fbf6bad6f0536">More...</a><br/></td></tr>
+<tr class="memdesc:aff812a4c70a44e09397fbf6bad6f0536"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to copy the min, max and current value of the temperature and voltage which are read from XADC.  <a href="#aff812a4c70a44e09397fbf6bad6f0536">More...</a><br/></td></tr>
 <tr class="separator:aff812a4c70a44e09397fbf6bad6f0536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa67d1e0eca8dccc57c20e7d69b496366"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__utils_8c.html#aa67d1e0eca8dccc57c20e7d69b496366">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</a> (void)</td></tr>
 <tr class="memdesc:aa67d1e0eca8dccc57c20e7d69b496366"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks temperature and voltage ranges of ZynqMP to access PS eFUSE.  <a href="#aa67d1e0eca8dccc57c20e7d69b496366">More...</a><br/></td></tr>
@@ -215,13 +267,13 @@ Variables</h2></td></tr>
 <p>Convert the Bits to Bytes in Little Endian format Ex: 0x5C -&gt; {0, 0, 1, 1, 1, 0, 1, 0}. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Bits</td><td>Input Buffer. </td></tr>
-    <tr><td class="paramname">Bytes</td><td>is Output buffer. </td></tr>
-    <tr><td class="paramname">Len</td><td>of the input buffer in bits </td></tr>
+    <tr><td class="paramname">Bits</td><td>Input buffer. </td></tr>
+    <tr><td class="paramname">Bytes</td><td>Output buffer. </td></tr>
+    <tr><td class="paramname">Len</td><td>Length of the input buffer in bits.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None Test Cases: Input with All Zeroes Input with All Ones Input Little Endian (General Cases ) Input Check Big Endian - False case Check for Len not a multiple of 8 Check for Len 0 Memory Bounds of buffer checking </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Test cases: Input with All Zeroes Input with All Ones Input Little Endian (General Cases ) Input Check Big Endian - False case Check for Len not a multiple of 8 Check for Len 0 Memory Bounds of buffer checking </dd></dl>
 <p>Make sure the bytes array is 0'ed first.</p>
 <p>Convert 8 Bit One Byte to 1 Bit 8 Bytes</p>
 <p>Convert from LSB -&gt; MSB - Little Endian</p>
@@ -280,7 +332,7 @@ Variables</h2></td></tr>
 <li>XST_FAILURE an error when input parameters are not valid</li>
 <li>an error when input buffer has invalid values</li>
 </ul>
-<p>TDD Test Cases: &mdash;Initialization&mdash; Len is odd Len is zero Str is NULL Buf is NULL &mdash;Functionality&mdash; Str input with only numbers Str input with All values in A-F Str input with All values in a-f Str input with values in a-f, 0-9, A-F Str input with values in a-z, 0-9, A-Z Boundary Cases Memory Bounds of buffer checking </p>
+<dl class="section note"><dt>Note</dt><dd>TDD test cases: &mdash;Initialization&mdash; Len is odd Len is zero Str is NULL Buf is NULL &mdash;Functionality&mdash; Str input with only numbers Str input with All values in A-F Str input with All values in a-f Str input with values in a-f, 0-9, A-F Str input with values in a-z, 0-9, A-Z Boundary Cases Memory Bounds of buffer checking </dd></dl>
 <p>Check the parameters</p>
 <p>Len has to be multiple of 2</p>
 <p>Convert char to nibble</p>
@@ -345,7 +397,7 @@ Variables</h2></td></tr>
 <li>XST_FAILURE an error when input parameters are not valid</li>
 <li>an error when input buffer has invalid values</li>
 </ul>
-<p>TDD Test Cases: &mdash;Initialization&mdash; Len is odd Len is zero Str is NULL Buf is NULL &mdash;Functionality&mdash; Str input with only numbers Str input with All values in A-F Str input with All values in a-f Str input with values in a-f, 0-9, A-F Str input with values in a-z, 0-9, A-Z Boundary Cases Memory Bounds of buffer checking </p>
+<dl class="section note"><dt>Note</dt><dd>TDD test cases: &mdash;Initialization&mdash; Len is odd Len is zero Str is NULL Buf is NULL &mdash;Functionality&mdash; Str input with only numbers Str input with All values in A-F Str input with All values in a-f Str input with values in a-f, 0-9, A-F Str input with values in a-z, 0-9, A-Z Boundary Cases Memory Bounds of buffer checking </dd></dl>
 <p>Check the parameters</p>
 <p>Len has to be multiple of 2</p>
 <p>Convert char to nibble</p>
@@ -357,7 +409,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aaeb512d36c05b4bcf70bef084dad4f157">XSK_EFUSEPS_ERROR_INVALID_PARAM</a>, <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa14eb0608d56293234ccabb2175f25685">XSK_EFUSEPS_ERROR_PARAMETER_NULL</a>, and <a class="el" href="group__xilskey__psefuse__error__codes.html#gga35d67e0a9db73e1fa64262f5eb8f9d6aa5a5231e00dec43e9a65815750d918240">XSK_EFUSEPS_ERROR_STRING_INVALID</a>.</p>
 
-<p>Referenced by <a class="el" href="xilskey__bbram__ultrascale__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="xilskey__efuse__example_8c.html#a862b8c5897a66fabd7bc5bb3c9b4723c">XilSKey_EfusePl_InitData()</a>.</p>
+<p>Referenced by <a class="el" href="xilskey__bbram__ultrascale__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xilskey__efuse__example_8c.html#a862b8c5897a66fabd7bc5bb3c9b4723c">XilSKey_EfusePl_InitData()</a>.</p>
 
 </div>
 </div>
@@ -502,7 +554,6 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>us: time to wait in microseconds. Convert to clock ticks and add to current time.</p>
 
@@ -528,8 +579,6 @@ Variables</h2></td></tr>
 
 <p>Initializes the global timer &amp; starts it. </p>
 <p>Calculates the timer ticks for 1us.</p>
-<dl class="section return"><dt>Returns</dt><dd><pre class="fragment">  None
-</pre></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xilskey__jscmd_8c.html#ad71fe773dff0bd882d39c2936e319c63">JtagWrite_Ultrascale()</a>, and <a class="el" href="group__xilskey__zynq__efuse.html#ga63c6c25524196e392935e0c9c9e34825">XilSKey_EfusePs_Write()</a>.</p>
@@ -614,12 +663,10 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">Be</td><td>Big endian data </td></tr>
     <tr><td class="paramname">Le</td><td>Little endian data </td></tr>
-    <tr><td class="paramname">Len</td><td>Length of data to be converted and it should be in number of words (multiple of 4 bytes) </td></tr>
+    <tr><td class="paramname">Len</td><td>Length of data to be converted in words (multiple of 4 bytes) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<p>TDD Test Cases: </p>
 
 <p>Referenced by <a class="el" href="group__xilskey__zynqmp__efuse.html#ga56fb70c1fe6c73dc49f0a4366b891efe">XilSKey_ZynqMp_EfusePs_ReadPpk0Hash()</a>, <a class="el" href="group__xilskey__zynqmp__efuse.html#ga2d6c621edaf9dc92652e650a6faceaf9">XilSKey_ZynqMp_EfusePs_ReadPpk1Hash()</a>, and <a class="el" href="group__xilskey__zynqmp__efuse.html#ga5b46f3a03d5163f08b7782f669a78748">XilSKey_ZynqMp_EfusePs_Write()</a>.</p>
 
@@ -658,13 +705,13 @@ Variables</h2></td></tr>
 <p>Convert the Bytes to Bits in little endian format 0th byte is LSB, 7th byte is MSB Ex: {0, 0, 1, 1, 1, 0, 1, 0} -&gt; 0x5C. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Bytes</td><td>Input Buffer. </td></tr>
-    <tr><td class="paramname">Bits</td><td>is Output buffer. </td></tr>
-    <tr><td class="paramname">Len</td><td>of the input buffer. </td></tr>
+    <tr><td class="paramname">Bytes</td><td>Input buffer. </td></tr>
+    <tr><td class="paramname">Bits</td><td>Output buffer. </td></tr>
+    <tr><td class="paramname">Len</td><td>Length of the input buffer in bits.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None Test Cases: Input with All Zeroes Input with All Ones Input Little Endian (General Cases ) Input Check Big Endian - False case Check for Len not a multiple of 8 Check for Len 0 Memory Bounds of buffer checking </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Test cases: Input with All Zeroes Input with All Ones Input Little Endian (General Cases ) Input Check Big Endian - False case Check for Len not a multiple of 8 Check for Len 0 Memory Bounds of buffer checking </dd></dl>
 <p>Make sure the bits array is 0 first.</p>
 <p>Convert 1 Bit 8 Bytes to 8 Bit 1 Byte</p>
 <p>Store from LSB -&gt; MSB - Little Endian</p>
@@ -716,32 +763,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function reads current value of the temperature from sysmon. </p>
+<p>This function is used to copy the min, max and current value of the temperature and voltage which are read from XADC. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">XAdcInstancePtr</td><td>Pointer to the XSKEfusePs_XAdc.</td></tr>
+    <tr><td class="paramname">XAdcInstancePtr</td><td>Pointer to the XSKEfusePs_XAdc structure.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Read temperature will be stored in XSKEfusePS_XAdc pointer's temperature This function is used to copy the min, max and current value of the temperature and voltage which are read from XADC.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">XAdcInstancePtr</td><td>Pointer to the XSKEfusePs_XAdc. User has to fill the VType to specify the type of voltage. Valid values for VType are<ul>
-<li>XSK_EFUSEPS_VPINT</li>
-<li>XSK_EFUSEPS_VPDRO</li>
-<li>XSK_EFUSEPS_VPAUX</li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<ul>
-<li>XSK_EFUSEPS_VINT</li>
-<li>XSK_EFUSEPS_VAUX</li>
-</ul>
-<dl class="section return"><dt>Returns</dt><dd>none</dd></dl>
-<p>TDD Cases: </p>
+<dl class="section note"><dt>Note</dt><dd>User must set VType before reading voltage. Valid VType values are XSK_EFUSEPS_VPINT, XSK_EFUSEPS_VPDRO, XSK_EFUSEPS_VPAUX, XSK_EFUSEPS_VINT, and XSK_EFUSEPS_VAUX. </dd></dl>
 
 <p>References <a class="el" href="xilskey__jscmd_8c.html#a65f94f046816b7e5dddb8e06dcfa0db0">Jtag_Read_Sysmon()</a>.</p>
 

@@ -6,30 +6,35 @@
     <includes refid="keymgmt__debug_8h" local="yes">keymgmt_debug.h</includes>
     <includes refid="keymgmt__device_8h" local="yes">keymgmt_device.h</includes>
     <includes refid="keymgmt__loader_8h" local="yes">keymgmt_loader.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
     <includes refid="eeprom_8h" local="yes">eeprom.h</includes>
     <incdepgraph>
-      <node id="246">
-        <label>keymgmt_debug.h</label>
-        <link refid="keymgmt__debug_8h"/>
-        <childnode refid="247" relation="include">
-        </childnode>
-        <childnode refid="248" relation="include">
-        </childnode>
-      </node>
-      <node id="249">
+      <node id="248">
         <label>keymgmt_device.h</label>
         <link refid="keymgmt__device_8h"/>
-        <childnode refid="242" relation="include">
+        <childnode refid="241" relation="include">
         </childnode>
-        <childnode refid="243" relation="include">
+        <childnode refid="242" relation="include">
         </childnode>
       </node>
-      <node id="241">
+      <node id="242">
+        <label>stdint.h</label>
+      </node>
+      <node id="250">
+        <label>stdlib.h</label>
+      </node>
+      <node id="254">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="240">
         <label>keymgmt.c</label>
         <link refid="keymgmt.c"/>
-        <childnode refid="242" relation="include">
+        <childnode refid="241" relation="include">
         </childnode>
-        <childnode refid="246" relation="include">
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
         </childnode>
         <childnode refid="249" relation="include">
         </childnode>
@@ -37,62 +42,69 @@
         </childnode>
         <childnode refid="251" relation="include">
         </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
       </node>
-      <node id="242">
+      <node id="241">
         <label>keymgmt.h</label>
         <link refid="keymgmt_8h"/>
-        <childnode refid="243" relation="include">
-        </childnode>
-        <childnode refid="244" relation="include">
-        </childnode>
-        <childnode refid="245" relation="include">
-        </childnode>
-      </node>
-      <node id="243">
-        <label>stdint.h</label>
-      </node>
-      <node id="253">
-        <label>xiic_l.h</label>
-      </node>
-      <node id="245">
-        <label>xstatus.h</label>
-      </node>
-      <node id="254">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="250">
-        <label>keymgmt_loader.h</label>
-        <link refid="keymgmt__loader_8h"/>
         <childnode refid="242" relation="include">
         </childnode>
         <childnode refid="243" relation="include">
         </childnode>
-      </node>
-      <node id="244">
-        <label>xil_types.h</label>
-      </node>
-      <node id="247">
-        <label>xparameters.h</label>
-      </node>
-      <node id="248">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="251">
-        <label>eeprom.h</label>
         <childnode refid="244" relation="include">
         </childnode>
-        <childnode refid="247" relation="include">
+      </node>
+      <node id="252">
+        <label>eeprom.h</label>
+        <childnode refid="243" relation="include">
         </childnode>
-        <childnode refid="252" relation="include">
+        <childnode refid="246" relation="include">
         </childnode>
         <childnode refid="253" relation="include">
         </childnode>
         <childnode refid="254" relation="include">
         </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>string.h</label>
+      </node>
+      <node id="244">
+        <label>xstatus.h</label>
+      </node>
+      <node id="255">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="243">
+        <label>xil_types.h</label>
+      </node>
+      <node id="246">
+        <label>xparameters.h</label>
+      </node>
+      <node id="249">
+        <label>keymgmt_loader.h</label>
+        <link refid="keymgmt__loader_8h"/>
+        <childnode refid="241" relation="include">
+        </childnode>
         <childnode refid="242" relation="include">
         </childnode>
       </node>
-      <node id="252">
+      <node id="245">
+        <label>keymgmt_debug.h</label>
+        <link refid="keymgmt__debug_8h"/>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="247">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="253">
         <label>xiic.h</label>
       </node>
     </incdepgraph>
@@ -109,23 +121,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="27" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="28" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="keymgmt_8c_1a178f6cd4a20d49159eb68e86416a5767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>XStatus</type>
-        <definition>XStatus Init_IIC</definition>
-        <argsstring>()</argsstring>
-        <name>Init_IIC</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="63" bodyend="93"/>
-      </memberdef>
       <memberdef kind="function" id="keymgmt_8c_1aeccd65b8f83557db781505f8ed86f31b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>KEYMGMT_tError</type>
         <definition>KEYMGMT_tError KEYMGMT_Init</definition>
@@ -142,9 +141,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="43" bodyend="94"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="43" bodyend="94"/>
         <references refid="keymgmt__device_8c_1a65aabf9435fe3aada84d8ce374a6d3ef" compoundref="keymgmt__device_8c" startline="601" endline="654">KEYMGMTDEV_Init</references>
-        <references refid="keymgmt__loader_8c_1a789911b3e5d1c945c63aada5622b56b7" compoundref="keymgmt__loader_8c" startline="241" endline="290">KEYMGMTLDR_Init</references>
+        <references refid="keymgmt__loader_8c_1a789911b3e5d1c945c63aada5622b56b7" compoundref="keymgmt__loader_8c" startline="242" endline="291">KEYMGMTLDR_Init</references>
       </memberdef>
       <memberdef kind="function" id="keymgmt_8c_1af0ef671a754d0cc159ed5aa96f318c4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -171,8 +170,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="112" bodyend="121"/>
-        <references refid="keymgmt__loader_8c_1a09e35cf611284401fdb00770c33b3f9c" compoundref="keymgmt__loader_8c" startline="308" endline="315">KEYMGMTLDR_Poll</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="112" bodyend="121"/>
+        <references refid="keymgmt__loader_8c_1a09e35cf611284401fdb00770c33b3f9c" compoundref="keymgmt__loader_8c" startline="309" endline="317">KEYMGMTLDR_Poll</references>
       </memberdef>
       <memberdef kind="function" id="keymgmt_8c_1ae2a7a08adbaa7a25305a1bf0937f0bd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -211,7 +210,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="140" bodyend="179"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c" bodystart="140" bodyend="179"/>
         <references refid="keymgmt__device_8c_1aeeb0257d3e8f3a17ee979cd07ec96add" compoundref="keymgmt__device_8c" startline="1454" endline="1500">KEYMGMTDEV_Debug</references>
       </memberdef>
       </sectiondef>
@@ -222,24 +221,24 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
-<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="16"><highlight class="comment">/*<sp/>Include<sp/>Files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt_8h" kindref="compound">keymgmt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__debug_8h" kindref="compound">keymgmt_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__device_8h" kindref="compound">keymgmt_device.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__loader_8h" kindref="compound">keymgmt_loader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;eeprom.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Local<sp/>Globals<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>gIsInitialized<sp/>=<sp/>FALSE;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal">XStatus<sp/>Init_IIC();</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">/*<sp/>Include<sp/>Files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt_8h" kindref="compound">keymgmt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__debug_8h" kindref="compound">keymgmt_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__device_8h" kindref="compound">keymgmt_device.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt__loader_8h" kindref="compound">keymgmt_loader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;eeprom.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Local<sp/>Globals<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>gIsInitialized<sp/>=<sp/>FALSE;</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="42"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
@@ -354,6 +353,6 @@
 <codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(0);</highlight></codeline>
 <codeline lineno="179"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/keymgmt.c"/>
   </compounddef>
 </doxygen>

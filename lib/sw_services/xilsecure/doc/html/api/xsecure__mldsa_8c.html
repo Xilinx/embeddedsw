@@ -113,7 +113,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <p>
 5.7   tvp  02/19/26 Initial release
       tvp  03/09/26 Added <a class="el" href="group__xsecure__mldsa__server__apis.html#ga46920ff3a1a857a905036689c2bfc115" title="This function generates MLDSA signature for the given data using the provided secret key...">XSecure_MldsaSignGenerate()</a> for signature generation
-      tvp  03/09/26 Update last word transfer logic during signature verification</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__mldsa__hw_8h.html">xsecure_mldsa_hw.h</a>&quot;</code><br/>
+      tvp  03/09/26 Update last word transfer logic during signature verification
+      vns  07/29/26 Replaced XPlmi_MemCpy64 with CPU register access for PK/SK/signature
+5.8   ks   08/31/26 Used a local snapshot of the signature CT for hardware and comparison
+      har  09/08/26 Added END_RST label to skip control register access when the
+                    core is still in reset</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__mldsa__hw_8h.html">xsecure_mldsa_hw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__mldsa_8h.html">xsecure_mldsa.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_error.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>

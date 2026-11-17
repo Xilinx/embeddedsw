@@ -308,6 +308,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function regenerates PUF data using helper data stored in eFUSE or external memory. </p>
+<p>This function regenerates PUF data using helper data from external memory or a PUF helper-data PDI.</p>
 <pre class="fragment">    For VERSAL_2VP_P, no AUX data or Global Variation Filter.
 </pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -427,6 +428,9 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Helper data will be available in PufData-&gt;SyndromeData, PufData-&gt;Chash, PufData-&gt;Aux. PUF is only supported when using a nominal VCC_PMC of 0.70V and IRO frequency of 320 MHz </dd></dl>
 <p>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</p>
+<ul>
+<li>Validate the requested PUF operation is PUF registration.</li>
+</ul>
 <p>When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz.</p>
 <p>Validate if secure control bits for each PUF operations are set or not.</p>
 <p>Update shutter value for PUF enrollment.</p>
@@ -436,7 +440,9 @@ Functions</h2></td></tr>
 <p>Once complete Syndrome data is captured and PUF operation is done, read CHash and PUF ID. For VERSAL_2VP_P, no AUX data is read.</p>
 <p>If IRO frequency is updated to 320MHz then set frequency back to 400MHz.</p>
 <ul>
+<li>Redundancy guard: on success, confirm the full syndrome capture completed.</li>
 <li>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</li>
+<li>Validate the requested PUF operation is PUF registration.</li>
 <li>Check that MSB of PUF shutter value is in sync with Global variation filter option. In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH.</li>
 <li>When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of 320 MHz for -LP devices and 400 MHz for -MP,-HP devices. If the IRO frequency at boot does not match the IRO frequency during registration, there is a potential of reduced stability which can impact the PUFs ability to regenerate properly.</li>
 <li>Validate if secure control bits for each PUF operations are set or not.</li>
@@ -448,9 +454,10 @@ Functions</h2></td></tr>
 <li>PUF helper data includes Syndrome data, CHash and Auxiliary data. Capturing Syndrome data word by word.</li>
 <li>Once complete Syndrome data is captured and PUF operation is done, read CHash, Auxiliary data and PUF ID.</li>
 <li>If IRO frequency is updated to 320MHz then set frequency back to 400MHz and if the frequency is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH. else, return Status.</li>
+<li>Redundancy guard: on success, confirm the full syndrome capture completed. </li>
 </ul>
 
-<p>References <a class="el" href="xpuf__defs_8h.html#a9cfb7987663200093ac2af0dcf78a85d">XPUF_4K_PUF_SYN_LEN_IN_WORDS</a>, <a class="el" href="group__xpuf__apis.html#ga4d7d5a3b73fb92f6f65e2a2205b74195">XPUF_AUX_MASK_VALUE</a>, <a class="el" href="group__xpuf__server__apis.html#ga4ab1beae9987b6ab994e4cf06c77dc1a">XPUF_AUX_SHIFT_VALUE</a>, <a class="el" href="group__xpuf__apis.html#ga5a9afe10c38f97cc7f9793a02463c131">XPUF_OV_MASK_VALUE</a>, <a class="el" href="group__xpuf__apis.html#gad16dd5805786cdbf430a04e61c961185">XPUF_PMC_GLOBAL_PUF_ID_CAPTURE</a>, and <a class="el" href="group__xpuf__apis.html#ga195a89fe38d4e810f356aeb626bfb964">XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE</a>.</p>
+<p>References <a class="el" href="xpuf__defs_8h.html#a9cfb7987663200093ac2af0dcf78a85d">XPUF_4K_PUF_SYN_LEN_IN_WORDS</a>, <a class="el" href="group__xpuf__apis.html#ga4d7d5a3b73fb92f6f65e2a2205b74195">XPUF_AUX_MASK_VALUE</a>, <a class="el" href="group__xpuf__server__apis.html#ga4ab1beae9987b6ab994e4cf06c77dc1a">XPUF_AUX_SHIFT_VALUE</a>, <a class="el" href="group__xpuf__apis.html#ga5a9afe10c38f97cc7f9793a02463c131">XPUF_OV_MASK_VALUE</a>, <a class="el" href="group__xpuf__apis.html#gad16dd5805786cdbf430a04e61c961185">XPUF_PMC_GLOBAL_PUF_ID_CAPTURE</a>, <a class="el" href="group__xpuf__apis.html#ga195a89fe38d4e810f356aeb626bfb964">XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE</a>, and <a class="el" href="xpuf__defs_8h.html#aed547acdacee538b3d5edb8effdabd33">XPUF_REGISTRATION</a>.</p>
 
 </div>
 </div>

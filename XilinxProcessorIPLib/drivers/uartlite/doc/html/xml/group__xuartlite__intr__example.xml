@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xuartlite__intr__example" kind="group">
+    <compoundname>xuartlite_intr_example</compoundname>
+    <title>Xuartlite_intr_example</title>
+      <sectiondef kind="user-defined">
+      <header>Device parameters</header>
+      <description><para>The following constants map to the XPAR parameters created in the xparameters.h file.</para><para>They are defined here so that all needed parameters can be changed in one place. </para></description>
+      <memberdef kind="define" id="group__xuartlite__intr__example_1ga8057ce36f09ce80a6f8121ebc556e43b" prot="public" static="no">
+        <name>XUARTLITE_BASEADDRESS</name>
+        <initializer>XPAR_XUARTLITE_0_BASEADDR</initializer>
+        <briefdescription>
+<para>UartLite base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartlite__intr__example_8c" startline="163" endline="185">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Buffer size</header>
+      <memberdef kind="define" id="group__xuartlite__intr__example_1ga0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
+        <name>TEST_BUFFER_SIZE</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Length of the send and receive buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Shared example variables</header>
+      <description><para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global.</para><para>The counters are used to determine when the entire buffer has been sent and received. </para></description>
+      <memberdef kind="variable" id="group__xuartlite__intr__example_1ga21a34b7f8d09398f53237562bd1f579b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SendBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Buffer for transmitting data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
+        <referencedby refid="xuartlite__low__level__example_8c_1ac1dca50db3a0c3d10cc190006574097a" compoundref="xuartlite__low__level__example_8c" startline="147" endline="188">UartLiteLowLevelExample</referencedby>
+        <referencedby refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" compoundref="xuartlite__polled__example_8c" startline="158" endline="231">UartLitePolledExample</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartlite__intr__example_1gafbd019bfda4e60925a20aa5762688cca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReceiveBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>ReceiveBuffer</name>
+        <briefdescription>
+<para>Buffer for receiving data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartlite__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalReceivedCount</definition>
+        <argsstring></argsstring>
+        <name>TotalReceivedCount</name>
+        <briefdescription>
+<para>Count of total bytes received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartlite__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalSentCount</definition>
+        <argsstring></argsstring>
+        <name>TotalSentCount</name>
+        <briefdescription>
+<para>Counter for total bytes sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xuartlite__intr__example_1ga8a361ca5f679fc82d19e996a3edaf929" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref></type>
+        <definition>XUartLite UartLite</definition>
+        <argsstring></argsstring>
+        <name>UartLite</name>
+        <briefdescription>
+<para>The instance of the UartLite Device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xuartlite__intr__example_1ga60e3b0776621ce45f55d94b0fb959ff1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SendHandler</definition>
+        <argsstring>(void *CallBackRef, unsigned int EventData)</argsstring>
+        <name>SendHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles the send complete interrupt event. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called from an interrupt context such that the amount of processing performed should be minimized. It is called when the transmit FIFO of the UartLite is empty and more data can be sent through the UartLite.</para><para>This handler provides an example of how to handle data for the UartLite, but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver. In this case it is the instance pointer for the UartLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="350" bodyend="354"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartlite__intr__example_1ga964ea960d8251912f79e5a9fa9600f3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void RecvHandler</definition>
+        <argsstring>(void *CallBackRef, unsigned int EventData)</argsstring>
+        <name>RecvHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles the receive data interrupt event. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called from an interrupt context such that the amount of processing performed should be minimized. It is called when data is present in the receive FIFO of the UartLite such that the data can be retrieved from the UartLite. The size of the data present in the FIFO is not known when this function is called.</para><para>This handler provides an example of how to handle data for the UartLite, but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver, in this case it is the instance pointer for the UartLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="376" bodyend="380"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartlite__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the UartLite interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_example.c" bodystart="163" bodyend="185"/>
+        <references refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</references>
+        <references refid="group__xuartlite__intr__example_1ga8057ce36f09ce80a6f8121ebc556e43b" compoundref="xuartlite__intr__example_8c" startline="86">XUARTLITE_BASEADDRESS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

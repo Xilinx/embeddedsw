@@ -112,7 +112,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 2.3   tvp  07/07/25 Initial release
       sk   09/13/25 Updated IOModule IRQ Address
 2.4   sk   01/18/2026 Added define for Domain Init Status Register
-      pre  05/30/2026 Added PS I2C instances check for I2C handshake feature</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="2vp_2server_2xplmi__config_8h.html">xplmi_config.h</a>&quot;</code><br/>
+      pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
+      ng   08/23/2026 Added register definitions for slave error handlers
+      pre  08/25/2026 Added DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
+                      and DDRMC_PCSR_STATUS_CALERROR_MASK macros
+      pre  10/22/2026 Made DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
+                      and DDRMC_PCSR_STATUS_CALERROR_MASK macros conditional on
+                      PLM_ENABLE_DDR_CALIB_RESTORE
+      pre  10/23/2026 Define the I2C instance present for each DDRMC5 I2C master and remove the unused XLOADER_IIC macro</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="2vp_2server_2xplmi__config_8h.html">xplmi_config.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xil_hw.h&quot;</code><br/>

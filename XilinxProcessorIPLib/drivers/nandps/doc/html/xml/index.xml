@@ -171,7 +171,6 @@
     <member refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" kind="function"><name>XNandPs_EraseBlock</name></member>
   </compound>
   <compound refid="xnandps_8h" kind="file"><name>xnandps.h</name>
-    <member refid="group__nandps_1gac86c459e098f8ede0cdab61f468e47fc" kind="define"><name>XNANDPS_H</name></member>
     <member refid="group__nandps_1ga9318e127efeabeb03b6c66cd5e49584c" kind="define"><name>XNANDPS_MAX_TARGETS</name></member>
     <member refid="group__nandps_1gaeac7c4a5846cd8f24d4a64ee522c34f3" kind="define"><name>XNANDPS_MAX_BLOCKS</name></member>
     <member refid="group__nandps_1ga786386f3e559ae718dd2705232659f42" kind="define"><name>XNANDPS_MAX_PAGE_SIZE</name></member>
@@ -249,7 +248,6 @@
     <member refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" kind="function"><name>XNandPs_MarkBlockBad</name></member>
   </compound>
   <compound refid="xnandps__bbm_8h" kind="file"><name>xnandps_bbm.h</name>
-    <member refid="group__nandps_1ga6ed742001748dc3dce1411716660b1e3" kind="define"><name>BBM_H</name></member>
     <member refid="group__nandps_1ga8ffc4c5be52b4ca7d07c2b5a159bec99" kind="define"><name>XNANDPS_BLOCK_GOOD</name></member>
     <member refid="group__nandps_1ga52a13ba6c5dc5ae22cad93b73ec66503" kind="define"><name>XNANDPS_BLOCK_BAD</name></member>
     <member refid="group__nandps_1gaa6ac6d803ac18454c61045a7aef97920" kind="define"><name>XNANDPS_BLOCK_RESERVED</name></member>
@@ -285,8 +283,8 @@
     <member refid="xnandps__cache__example_8c_1a2776ea286ffa275fdeb3139d0d61731a" kind="variable"><name>NandInstPtr</name></member>
     <member refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kind="variable"><name>ReadBuffer</name></member>
     <member refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" kind="variable"><name>WriteBuffer</name></member>
-    <member refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kind="function"><name>NandReadWriteCacheExample</name></member>
     <member refid="xnandps__cache__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kind="function"><name>NandReadWriteCacheExample</name></member>
   </compound>
   <compound refid="xnandps__example_8c" kind="file"><name>xnandps_example.c</name>
     <member refid="xnandps__example_8c_1a7db05d815b66eacb631170259b85d4e0" kind="define"><name>NAND_TEST_START_BLOCK</name></member>
@@ -296,13 +294,56 @@
     <member refid="xnandps__example_8c_1a2776ea286ffa275fdeb3139d0d61731a" kind="variable"><name>NandInstPtr</name></member>
     <member refid="xnandps__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kind="variable"><name>ReadBuffer</name></member>
     <member refid="xnandps__example_8c_1a61d7712760b0620e08f131bb16df45cd" kind="variable"><name>WriteBuffer</name></member>
-    <member refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" kind="function"><name>NandReadWriteExample</name></member>
     <member refid="xnandps__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" kind="function"><name>NandReadWriteExample</name></member>
   </compound>
   <compound refid="xnandps__g_8c" kind="file"><name>xnandps_g.c</name>
     <member refid="group__nandps_1gad3748e2cdbea09cf0311970db4fbf81c" kind="variable"><name>XNandPs_ConfigTable</name></member>
   </compound>
   <compound refid="xnandps__hw_8h" kind="file"><name>xnandps_hw.h</name>
+    <member refid="group__nandps_1gaf2f6aaad3157aafeda5749737e4d7d84" kind="define"><name>XNANDPS_MEMC_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1ga4f1aeb2b315fdf74b1f6fcd4a5ba7273" kind="define"><name>XNANDPS_MEMC_IF_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gaf90040ca8e85052266c805a409d4d128" kind="define"><name>XNANDPS_MEMC_SET_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gaaaaf55b8085d1dcfcde3756a36c7ff41" kind="define"><name>XNANDPS_MEMC_CLR_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga80f534d4fe9ecc15457724440f014358" kind="define"><name>XNANDPS_DIRECT_CMD_OFFSET</name></member>
+    <member refid="group__nandps_1gab5b751d38c7c8021092b14e6e85779d0" kind="define"><name>XNANDPS_SET_CYCLES_OFFSET</name></member>
+    <member refid="group__nandps_1gaf26e745fd5b4f88aaa218e7cd8891041" kind="define"><name>XNANDPS_SET_OPMODE_OFFSET</name></member>
+    <member refid="group__nandps_1gae47923a76310444937b2b3aa4a11e399" kind="define"><name>XNANDPS_REFRESH_PERIOD_0_OFFSET</name></member>
+    <member refid="group__nandps_1ga26d576acc9b981f1cfb8b40d94cf97c0" kind="define"><name>XNANDPS_REFRESH_PERIOD_1_OFFSET</name></member>
+    <member refid="group__nandps_1gae800cae34e2924cc96d9a39dfec52c5e" kind="define"><name>XNANDPS_IF0_CHIP_0_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga9b5790760ef234b80563ff98be33b639" kind="define"><name>XNANDPS_IF0_CHIP_1_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gadca811b60bbf42b5e7c68df5f63b6b0b" kind="define"><name>XNANDPS_IF0_CHIP_2_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga5a0d06b416b45bb4aee25db7136a00c2" kind="define"><name>XNANDPS_IF0_CHIP_3_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gae6eb4e6a228f126d327fbd05c0f014a8" kind="define"><name>XNANDPS_IF1_CHIP_0_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gab2b15dbd88316137e9704ab6a80c648f" kind="define"><name>XNANDPS_IF1_CHIP_1_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga0e9ddb24fb93c05cdf1bb345735d033c" kind="define"><name>XNANDPS_IF1_CHIP_2_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gabf861776417813a0b65b13e7d4dae0cf" kind="define"><name>XNANDPS_IF1_CHIP_3_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga2913944cdf752a52c62581f2b6b92344" kind="define"><name>XNANDPS_FLASH_CYCLES</name></member>
+    <member refid="group__nandps_1ga9637bd6e50d1a65940625af864b6ee00" kind="define"><name>XNANDPS_OPMODE</name></member>
+    <member refid="group__nandps_1ga0e452979ec8c59e23b705f0e3da33eb6" kind="define"><name>XNANDPS_USER_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1gaf5e5c3cde493a3e91a3e98e5ff993a9e" kind="define"><name>XNANDPS_USER_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga18178d8d0a8106de6362d8930a460b7b" kind="define"><name>XNANDPS_IF0_ECC_OFFSET</name></member>
+    <member refid="group__nandps_1ga2c8cfb872b36a91ddd9780829e9065b6" kind="define"><name>XNANDPS_IF1_ECC_OFFSET</name></member>
+    <member refid="group__nandps_1gae4b738ea5a0e4c9cdbfd4952351747d1" kind="define"><name>XNANDPS_ECC_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1ga4e2e4acbbc22410dd5e6465065fb3c11" kind="define"><name>XNANDPS_ECC_MEMCFG_OFFSET</name></member>
+    <member refid="group__nandps_1ga944a21dbf63f711c25e354be563fa302" kind="define"><name>XNANDPS_ECC_MEMCMD1_OFFSET</name></member>
+    <member refid="group__nandps_1ga2522d63c69de4aecc698d90c19e70521" kind="define"><name>XNANDPS_ECC_MEMCMD2_OFFSET</name></member>
+    <member refid="group__nandps_1ga362aa8cde381fb04a9e93a47d13939a4" kind="define"><name>XNANDPS_ECC_ADDR0_OFFSET</name></member>
+    <member refid="group__nandps_1ga26401132963b086ae9a07280afd84636" kind="define"><name>XNANDPS_ECC_ADDR1_OFFSET</name></member>
+    <member refid="group__nandps_1ga7ed2fdfd7c0644b3b2f8ef41fb54afe3" kind="define"><name>XNANDPS_ECC_VALUE0_OFFSET</name></member>
+    <member refid="group__nandps_1ga32b23441f9771e755873f130b6b60585" kind="define"><name>XNANDPS_ECC_VALUE1_OFFSET</name></member>
+    <member refid="group__nandps_1ga824dbea2781ca306c1b7e5d4368151f4" kind="define"><name>XNANDPS_ECC_VALUE2_OFFSET</name></member>
+    <member refid="group__nandps_1ga9452f9d35434dbf8da90939624bfd1ee" kind="define"><name>XNANDPS_ECC_VALUE3_OFFSET</name></member>
+    <member refid="group__nandps_1gafce755c5c24ab284c1a6ac1365933a87" kind="define"><name>XNANDPS_ECC_VALUE4_OFFSET</name></member>
+    <member refid="group__nandps_1ga4c5b3e833662553de1c24f553b367624" kind="define"><name>XNANDPS_INTGTEST_OFFSET</name></member>
+    <member refid="group__nandps_1ga72bb3810df32f6b28f48c25ff98843c5" kind="define"><name>XNANDPS_PERIPH_ID0_OFFSET</name></member>
+    <member refid="group__nandps_1gac770d392ac287ea3385cd79aeb6f976e" kind="define"><name>XNANDPS_PERIPH_ID1_OFFSET</name></member>
+    <member refid="group__nandps_1ga8b0719eb74f224d3a0b9644ab413d6c0" kind="define"><name>XNANDPS_PERIPH_ID2_OFFSET</name></member>
+    <member refid="group__nandps_1ga7cd6dde2cd6f64e7c316d5401c8a63f4" kind="define"><name>XNANDPS_PERIPH_ID3_OFFSET</name></member>
+    <member refid="group__nandps_1ga993171014887eebcf39861f9502645fb" kind="define"><name>XNANDPS_PCELL_ID0_OFFSET</name></member>
+    <member refid="group__nandps_1ga3fdee65c36e6f735ec675870e643e12a" kind="define"><name>XNANDPS_PCELL_ID1_OFFSET</name></member>
+    <member refid="group__nandps_1gae5d1c3ff379ebe21f078020df844d957" kind="define"><name>XNANDPS_PCELL_ID2_OFFSET</name></member>
+    <member refid="group__nandps_1gafe10153d3fb48e1a0445e0b5c822eca7" kind="define"><name>XNANDPS_PCELL_ID3_OFFSET</name></member>
     <member refid="group__nandps_1ga29483de4ec80b0072f9a83152551bd60" kind="define"><name>XNANDPS_MEMC_STATUS_STATE_MASK</name></member>
     <member refid="group__nandps_1ga6f0072315e38b85a92b15334524ede70" kind="define"><name>XNANDPS_MEMC_STATUS_INT_EN0_MASK</name></member>
     <member refid="group__nandps_1gaf30fae0b6374003158bb30ab205e5066" kind="define"><name>XNANDPS_MEMC_STATUS_INT_EN1_MASK</name></member>
@@ -414,79 +455,35 @@
     <member refid="group__nandps_1ga5d6d2d29177affe9bdc2a66308b02341" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_512</name></member>
     <member refid="group__nandps_1ga36f170edfdc0206eb7a33071f9f4cf9d" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_1024</name></member>
     <member refid="group__nandps_1ga7d9edc9df98df1d1616cbb62bb8741fe" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_2048</name></member>
-    <member refid="xnandps__hw_8h_1ad0f1d158ff4c217d7a28a9c577df4cdb" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a428d8145336e48df7157267d674734ad" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a61b7f37efec7bf8fe2281a9f14380764" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a03fd8c5deeae17b62baa533120b96527" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a91a88936d7883eb8a46d2ae5e0b38543" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a6c3123982a9b5da195d9530d541cd06f" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a3d48d8af5b0f09ee1105069caf32c920" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a8cb896a4cbb6e8b643bcab62b36daff8" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a0bcbf0cc78a3e55dae33392332bc944b" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_MASK</name></member>
-    <member refid="xnandps__hw_8h_1aa5a0051020589e08af6ff6657b400d25" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a247ad27dc8366a9c9d4b758d9d216ce3" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a9058790608f7c5486ea59bea4985aca0" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a0370d409026629c9c67c6a09356168b7" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a2268559b8b7eda4b64e06be46c1ae163" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a1ac7be4acb6465855e90c59a917ea460" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1a9affb1a5cbc15106387b90f11585d316" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT</name></member>
-    <member refid="xnandps__hw_8h_1abd321ba9d00a905039b840f384953fe0" kind="define"><name>XNANDPS_ECC_VALUE_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a99dba6f69078ff5cb8ab74caef49e58e" kind="define"><name>XNANDPS_ECC_VALUE_CORRECT_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a8b01a9e54854f1a4500fdaa17d9ac3f7" kind="define"><name>XNANDPS_ECC_VALUE_FAIL_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a979da85b08795805ac5f983d7ff9c966" kind="define"><name>XNANDPS_ECC_VALUE_READ_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a210a51bf0a539aa77d6bd462277dc6a5" kind="define"><name>XNANDPS_ECC_VALUE_VALID_MASK</name></member>
-    <member refid="xnandps__hw_8h_1abf89911aba671967dca41b8cbb4388c2" kind="define"><name>XNANDPS_ECC_VALUE_INT_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a603f4aba36490d2ef26cbbf21b6cc661" kind="define"><name>XNANDPS_PERIPH_ID_PART_NUM_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a77e665a6416e29cf5142ef012c95df79" kind="define"><name>XNANDPS_PERIPH_ID_DESIGNER_ID_MASK</name></member>
-    <member refid="xnandps__hw_8h_1ae1e0ae792930c07ff33930814b9699f8" kind="define"><name>XNANDPS_PERIPH_ID_REVISION_MASK</name></member>
-    <member refid="xnandps__hw_8h_1abc9a59890b46122178dbd56ce3dd0f63" kind="define"><name>XNANDPS_PERIPH_ID_INTG_CFG_MASK</name></member>
-    <member refid="xnandps__hw_8h_1a95afea81f67fc8928dba1a8b108d58cf" kind="define"><name>XNANDPS_PCELL_ID_MASK</name></member>
-    <member refid="group__nandps_1ga5143e585219b96c513d61d7cac06e13e" kind="define"><name>XNANDPS_HW_H</name></member>
-    <member refid="group__nandps_1gaf2f6aaad3157aafeda5749737e4d7d84" kind="define"><name>XNANDPS_MEMC_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1ga4f1aeb2b315fdf74b1f6fcd4a5ba7273" kind="define"><name>XNANDPS_MEMC_IF_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gaf90040ca8e85052266c805a409d4d128" kind="define"><name>XNANDPS_MEMC_SET_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gaaaaf55b8085d1dcfcde3756a36c7ff41" kind="define"><name>XNANDPS_MEMC_CLR_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga80f534d4fe9ecc15457724440f014358" kind="define"><name>XNANDPS_DIRECT_CMD_OFFSET</name></member>
-    <member refid="group__nandps_1gab5b751d38c7c8021092b14e6e85779d0" kind="define"><name>XNANDPS_SET_CYCLES_OFFSET</name></member>
-    <member refid="group__nandps_1gaf26e745fd5b4f88aaa218e7cd8891041" kind="define"><name>XNANDPS_SET_OPMODE_OFFSET</name></member>
-    <member refid="group__nandps_1gae47923a76310444937b2b3aa4a11e399" kind="define"><name>XNANDPS_REFRESH_PERIOD_0_OFFSET</name></member>
-    <member refid="group__nandps_1ga26d576acc9b981f1cfb8b40d94cf97c0" kind="define"><name>XNANDPS_REFRESH_PERIOD_1_OFFSET</name></member>
-    <member refid="group__nandps_1gae800cae34e2924cc96d9a39dfec52c5e" kind="define"><name>XNANDPS_IF0_CHIP_0_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga9b5790760ef234b80563ff98be33b639" kind="define"><name>XNANDPS_IF0_CHIP_1_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gadca811b60bbf42b5e7c68df5f63b6b0b" kind="define"><name>XNANDPS_IF0_CHIP_2_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga5a0d06b416b45bb4aee25db7136a00c2" kind="define"><name>XNANDPS_IF0_CHIP_3_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gae6eb4e6a228f126d327fbd05c0f014a8" kind="define"><name>XNANDPS_IF1_CHIP_0_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gab2b15dbd88316137e9704ab6a80c648f" kind="define"><name>XNANDPS_IF1_CHIP_1_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga0e9ddb24fb93c05cdf1bb345735d033c" kind="define"><name>XNANDPS_IF1_CHIP_2_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gabf861776417813a0b65b13e7d4dae0cf" kind="define"><name>XNANDPS_IF1_CHIP_3_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga2913944cdf752a52c62581f2b6b92344" kind="define"><name>XNANDPS_FLASH_CYCLES</name></member>
-    <member refid="group__nandps_1ga9637bd6e50d1a65940625af864b6ee00" kind="define"><name>XNANDPS_OPMODE</name></member>
-    <member refid="group__nandps_1ga0e452979ec8c59e23b705f0e3da33eb6" kind="define"><name>XNANDPS_USER_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1gaf5e5c3cde493a3e91a3e98e5ff993a9e" kind="define"><name>XNANDPS_USER_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga18178d8d0a8106de6362d8930a460b7b" kind="define"><name>XNANDPS_IF0_ECC_OFFSET</name></member>
-    <member refid="group__nandps_1ga2c8cfb872b36a91ddd9780829e9065b6" kind="define"><name>XNANDPS_IF1_ECC_OFFSET</name></member>
-    <member refid="group__nandps_1gae4b738ea5a0e4c9cdbfd4952351747d1" kind="define"><name>XNANDPS_ECC_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1ga4e2e4acbbc22410dd5e6465065fb3c11" kind="define"><name>XNANDPS_ECC_MEMCFG_OFFSET</name></member>
-    <member refid="group__nandps_1ga944a21dbf63f711c25e354be563fa302" kind="define"><name>XNANDPS_ECC_MEMCMD1_OFFSET</name></member>
-    <member refid="group__nandps_1ga2522d63c69de4aecc698d90c19e70521" kind="define"><name>XNANDPS_ECC_MEMCMD2_OFFSET</name></member>
-    <member refid="group__nandps_1ga362aa8cde381fb04a9e93a47d13939a4" kind="define"><name>XNANDPS_ECC_ADDR0_OFFSET</name></member>
-    <member refid="group__nandps_1ga26401132963b086ae9a07280afd84636" kind="define"><name>XNANDPS_ECC_ADDR1_OFFSET</name></member>
-    <member refid="group__nandps_1ga7ed2fdfd7c0644b3b2f8ef41fb54afe3" kind="define"><name>XNANDPS_ECC_VALUE0_OFFSET</name></member>
-    <member refid="group__nandps_1ga32b23441f9771e755873f130b6b60585" kind="define"><name>XNANDPS_ECC_VALUE1_OFFSET</name></member>
-    <member refid="group__nandps_1ga824dbea2781ca306c1b7e5d4368151f4" kind="define"><name>XNANDPS_ECC_VALUE2_OFFSET</name></member>
-    <member refid="group__nandps_1ga9452f9d35434dbf8da90939624bfd1ee" kind="define"><name>XNANDPS_ECC_VALUE3_OFFSET</name></member>
-    <member refid="group__nandps_1gafce755c5c24ab284c1a6ac1365933a87" kind="define"><name>XNANDPS_ECC_VALUE4_OFFSET</name></member>
-    <member refid="group__nandps_1ga4c5b3e833662553de1c24f553b367624" kind="define"><name>XNANDPS_INTGTEST_OFFSET</name></member>
-    <member refid="group__nandps_1ga72bb3810df32f6b28f48c25ff98843c5" kind="define"><name>XNANDPS_PERIPH_ID0_OFFSET</name></member>
-    <member refid="group__nandps_1gac770d392ac287ea3385cd79aeb6f976e" kind="define"><name>XNANDPS_PERIPH_ID1_OFFSET</name></member>
-    <member refid="group__nandps_1ga8b0719eb74f224d3a0b9644ab413d6c0" kind="define"><name>XNANDPS_PERIPH_ID2_OFFSET</name></member>
-    <member refid="group__nandps_1ga7cd6dde2cd6f64e7c316d5401c8a63f4" kind="define"><name>XNANDPS_PERIPH_ID3_OFFSET</name></member>
-    <member refid="group__nandps_1ga993171014887eebcf39861f9502645fb" kind="define"><name>XNANDPS_PCELL_ID0_OFFSET</name></member>
-    <member refid="group__nandps_1ga3fdee65c36e6f735ec675870e643e12a" kind="define"><name>XNANDPS_PCELL_ID1_OFFSET</name></member>
-    <member refid="group__nandps_1gae5d1c3ff379ebe21f078020df844d957" kind="define"><name>XNANDPS_PCELL_ID2_OFFSET</name></member>
-    <member refid="group__nandps_1gafe10153d3fb48e1a0445e0b5c822eca7" kind="define"><name>XNANDPS_PCELL_ID3_OFFSET</name></member>
-    <member refid="xnandps__hw_8h_1ab1c9ec799c4b10aba366c1333b36d98b" kind="define"><name>XNandPs_ReadReg</name></member>
-    <member refid="xnandps__hw_8h_1ac87bcc9e0fec61b2b02b9a434962e576" kind="define"><name>XNandPs_WriteReg</name></member>
+    <member refid="group__nandps_1gad0f1d158ff4c217d7a28a9c577df4cdb" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_MASK</name></member>
+    <member refid="group__nandps_1ga428d8145336e48df7157267d674734ad" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_MASK</name></member>
+    <member refid="group__nandps_1ga61b7f37efec7bf8fe2281a9f14380764" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_MASK</name></member>
+    <member refid="group__nandps_1ga03fd8c5deeae17b62baa533120b96527" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_MASK</name></member>
+    <member refid="group__nandps_1ga91a88936d7883eb8a46d2ae5e0b38543" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT</name></member>
+    <member refid="group__nandps_1ga6c3123982a9b5da195d9530d541cd06f" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT</name></member>
+    <member refid="group__nandps_1ga3d48d8af5b0f09ee1105069caf32c920" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT</name></member>
+    <member refid="group__nandps_1ga8cb896a4cbb6e8b643bcab62b36daff8" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT</name></member>
+    <member refid="group__nandps_1ga0bcbf0cc78a3e55dae33392332bc944b" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_MASK</name></member>
+    <member refid="group__nandps_1gaa5a0051020589e08af6ff6657b400d25" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_MASK</name></member>
+    <member refid="group__nandps_1ga247ad27dc8366a9c9d4b758d9d216ce3" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_MASK</name></member>
+    <member refid="group__nandps_1ga9058790608f7c5486ea59bea4985aca0" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_MASK</name></member>
+    <member refid="group__nandps_1ga0370d409026629c9c67c6a09356168b7" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT</name></member>
+    <member refid="group__nandps_1ga2268559b8b7eda4b64e06be46c1ae163" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT</name></member>
+    <member refid="group__nandps_1ga1ac7be4acb6465855e90c59a917ea460" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT</name></member>
+    <member refid="group__nandps_1ga9affb1a5cbc15106387b90f11585d316" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT</name></member>
+    <member refid="group__nandps_1gabd321ba9d00a905039b840f384953fe0" kind="define"><name>XNANDPS_ECC_VALUE_MASK</name></member>
+    <member refid="group__nandps_1ga99dba6f69078ff5cb8ab74caef49e58e" kind="define"><name>XNANDPS_ECC_VALUE_CORRECT_MASK</name></member>
+    <member refid="group__nandps_1ga8b01a9e54854f1a4500fdaa17d9ac3f7" kind="define"><name>XNANDPS_ECC_VALUE_FAIL_MASK</name></member>
+    <member refid="group__nandps_1ga979da85b08795805ac5f983d7ff9c966" kind="define"><name>XNANDPS_ECC_VALUE_READ_MASK</name></member>
+    <member refid="group__nandps_1ga210a51bf0a539aa77d6bd462277dc6a5" kind="define"><name>XNANDPS_ECC_VALUE_VALID_MASK</name></member>
+    <member refid="group__nandps_1gabf89911aba671967dca41b8cbb4388c2" kind="define"><name>XNANDPS_ECC_VALUE_INT_MASK</name></member>
+    <member refid="group__nandps_1ga603f4aba36490d2ef26cbbf21b6cc661" kind="define"><name>XNANDPS_PERIPH_ID_PART_NUM_MASK</name></member>
+    <member refid="group__nandps_1ga77e665a6416e29cf5142ef012c95df79" kind="define"><name>XNANDPS_PERIPH_ID_DESIGNER_ID_MASK</name></member>
+    <member refid="group__nandps_1gae1e0ae792930c07ff33930814b9699f8" kind="define"><name>XNANDPS_PERIPH_ID_REVISION_MASK</name></member>
+    <member refid="group__nandps_1gabc9a59890b46122178dbd56ce3dd0f63" kind="define"><name>XNANDPS_PERIPH_ID_INTG_CFG_MASK</name></member>
+    <member refid="group__nandps_1ga95afea81f67fc8928dba1a8b108d58cf" kind="define"><name>XNANDPS_PCELL_ID_MASK</name></member>
+    <member refid="group__nandps_1gab1c9ec799c4b10aba366c1333b36d98b" kind="define"><name>XNandPs_ReadReg</name></member>
+    <member refid="group__nandps_1gac87bcc9e0fec61b2b02b9a434962e576" kind="define"><name>XNandPs_WriteReg</name></member>
   </compound>
   <compound refid="xnandps__onfi_8c" kind="file"><name>xnandps_onfi.c</name>
     <member refid="group__nandps_1ga6256f01deb0ca40af90a3b6ceb0aef94" kind="variable"><name>OnfiCommands</name></member>
@@ -504,7 +501,6 @@
     <member refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" kind="function"><name>Onfi_NandInit</name></member>
   </compound>
   <compound refid="xnandps__onfi_8h" kind="file"><name>xnandps_onfi.h</name>
-    <member refid="group__nandps_1ga8be4d072376f082bf5ae08776da5b773" kind="define"><name>ONFI_H</name></member>
     <member refid="group__nandps_1ga58126625dc0ff8e6d1866433ab9342d1" kind="define"><name>ONFI_CMD_READ1</name></member>
     <member refid="group__nandps_1gab53c251758d5fd3705eee1a9337abef8" kind="define"><name>ONFI_CMD_READ2</name></member>
     <member refid="group__nandps_1ga2ed529448055585d56229d1371be0c0c" kind="define"><name>ONFI_CMD_CHANGE_READ_COLUMN1</name></member>
@@ -574,14 +570,57 @@
     <member refid="xnandps__skip__example_8c_1a2776ea286ffa275fdeb3139d0d61731a" kind="variable"><name>NandInstPtr</name></member>
     <member refid="xnandps__skip__example_8c_1a08c67b78f23dab4b1a97b28cc6bdcc12" kind="variable"><name>ReadBuffer</name></member>
     <member refid="xnandps__skip__example_8c_1ac27adc59bd5bfa0b37dec37d1e766e58" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="xnandps__skip__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
     <member refid="xnandps__skip__example_8c_1a6158814e804a85a1feb289f118cee23f" kind="function"><name>NandSkipBlockExample</name></member>
+    <member refid="xnandps__skip__example_8c_1a007e1cf863dd10df6ba60491d5a65d91" kind="function"><name>XNandPs_CalculateLength</name></member>
     <member refid="xnandps__skip__example_8c_1aec7794d74a6cc5fc91517214704f0e1d" kind="function"><name>XNandPs_SkipRead</name></member>
     <member refid="xnandps__skip__example_8c_1a8fc271bb953ab1f471ed1c9c577c45cf" kind="function"><name>XNandPs_SkipWrite</name></member>
     <member refid="xnandps__skip__example_8c_1a306e1266e543ed16dd48ace99decf338" kind="function"><name>XNandPs_SkipErase</name></member>
-    <member refid="xnandps__skip__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
-    <member refid="xnandps__skip__example_8c_1a007e1cf863dd10df6ba60491d5a65d91" kind="function"><name>XNandPs_CalculateLength</name></member>
   </compound>
   <compound refid="group__nandps" kind="group"><name>nandps</name>
+    <member refid="group__nandps_1gaf2f6aaad3157aafeda5749737e4d7d84" kind="define"><name>XNANDPS_MEMC_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1ga4f1aeb2b315fdf74b1f6fcd4a5ba7273" kind="define"><name>XNANDPS_MEMC_IF_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gaf90040ca8e85052266c805a409d4d128" kind="define"><name>XNANDPS_MEMC_SET_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gaaaaf55b8085d1dcfcde3756a36c7ff41" kind="define"><name>XNANDPS_MEMC_CLR_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga80f534d4fe9ecc15457724440f014358" kind="define"><name>XNANDPS_DIRECT_CMD_OFFSET</name></member>
+    <member refid="group__nandps_1gab5b751d38c7c8021092b14e6e85779d0" kind="define"><name>XNANDPS_SET_CYCLES_OFFSET</name></member>
+    <member refid="group__nandps_1gaf26e745fd5b4f88aaa218e7cd8891041" kind="define"><name>XNANDPS_SET_OPMODE_OFFSET</name></member>
+    <member refid="group__nandps_1gae47923a76310444937b2b3aa4a11e399" kind="define"><name>XNANDPS_REFRESH_PERIOD_0_OFFSET</name></member>
+    <member refid="group__nandps_1ga26d576acc9b981f1cfb8b40d94cf97c0" kind="define"><name>XNANDPS_REFRESH_PERIOD_1_OFFSET</name></member>
+    <member refid="group__nandps_1gae800cae34e2924cc96d9a39dfec52c5e" kind="define"><name>XNANDPS_IF0_CHIP_0_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga9b5790760ef234b80563ff98be33b639" kind="define"><name>XNANDPS_IF0_CHIP_1_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gadca811b60bbf42b5e7c68df5f63b6b0b" kind="define"><name>XNANDPS_IF0_CHIP_2_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga5a0d06b416b45bb4aee25db7136a00c2" kind="define"><name>XNANDPS_IF0_CHIP_3_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gae6eb4e6a228f126d327fbd05c0f014a8" kind="define"><name>XNANDPS_IF1_CHIP_0_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gab2b15dbd88316137e9704ab6a80c648f" kind="define"><name>XNANDPS_IF1_CHIP_1_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga0e9ddb24fb93c05cdf1bb345735d033c" kind="define"><name>XNANDPS_IF1_CHIP_2_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1gabf861776417813a0b65b13e7d4dae0cf" kind="define"><name>XNANDPS_IF1_CHIP_3_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga2913944cdf752a52c62581f2b6b92344" kind="define"><name>XNANDPS_FLASH_CYCLES</name></member>
+    <member refid="group__nandps_1ga9637bd6e50d1a65940625af864b6ee00" kind="define"><name>XNANDPS_OPMODE</name></member>
+    <member refid="group__nandps_1ga0e452979ec8c59e23b705f0e3da33eb6" kind="define"><name>XNANDPS_USER_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1gaf5e5c3cde493a3e91a3e98e5ff993a9e" kind="define"><name>XNANDPS_USER_CONFIG_OFFSET</name></member>
+    <member refid="group__nandps_1ga18178d8d0a8106de6362d8930a460b7b" kind="define"><name>XNANDPS_IF0_ECC_OFFSET</name></member>
+    <member refid="group__nandps_1ga2c8cfb872b36a91ddd9780829e9065b6" kind="define"><name>XNANDPS_IF1_ECC_OFFSET</name></member>
+    <member refid="group__nandps_1gae4b738ea5a0e4c9cdbfd4952351747d1" kind="define"><name>XNANDPS_ECC_STATUS_OFFSET</name></member>
+    <member refid="group__nandps_1ga4e2e4acbbc22410dd5e6465065fb3c11" kind="define"><name>XNANDPS_ECC_MEMCFG_OFFSET</name></member>
+    <member refid="group__nandps_1ga944a21dbf63f711c25e354be563fa302" kind="define"><name>XNANDPS_ECC_MEMCMD1_OFFSET</name></member>
+    <member refid="group__nandps_1ga2522d63c69de4aecc698d90c19e70521" kind="define"><name>XNANDPS_ECC_MEMCMD2_OFFSET</name></member>
+    <member refid="group__nandps_1ga362aa8cde381fb04a9e93a47d13939a4" kind="define"><name>XNANDPS_ECC_ADDR0_OFFSET</name></member>
+    <member refid="group__nandps_1ga26401132963b086ae9a07280afd84636" kind="define"><name>XNANDPS_ECC_ADDR1_OFFSET</name></member>
+    <member refid="group__nandps_1ga7ed2fdfd7c0644b3b2f8ef41fb54afe3" kind="define"><name>XNANDPS_ECC_VALUE0_OFFSET</name></member>
+    <member refid="group__nandps_1ga32b23441f9771e755873f130b6b60585" kind="define"><name>XNANDPS_ECC_VALUE1_OFFSET</name></member>
+    <member refid="group__nandps_1ga824dbea2781ca306c1b7e5d4368151f4" kind="define"><name>XNANDPS_ECC_VALUE2_OFFSET</name></member>
+    <member refid="group__nandps_1ga9452f9d35434dbf8da90939624bfd1ee" kind="define"><name>XNANDPS_ECC_VALUE3_OFFSET</name></member>
+    <member refid="group__nandps_1gafce755c5c24ab284c1a6ac1365933a87" kind="define"><name>XNANDPS_ECC_VALUE4_OFFSET</name></member>
+    <member refid="group__nandps_1ga4c5b3e833662553de1c24f553b367624" kind="define"><name>XNANDPS_INTGTEST_OFFSET</name></member>
+    <member refid="group__nandps_1ga72bb3810df32f6b28f48c25ff98843c5" kind="define"><name>XNANDPS_PERIPH_ID0_OFFSET</name></member>
+    <member refid="group__nandps_1gac770d392ac287ea3385cd79aeb6f976e" kind="define"><name>XNANDPS_PERIPH_ID1_OFFSET</name></member>
+    <member refid="group__nandps_1ga8b0719eb74f224d3a0b9644ab413d6c0" kind="define"><name>XNANDPS_PERIPH_ID2_OFFSET</name></member>
+    <member refid="group__nandps_1ga7cd6dde2cd6f64e7c316d5401c8a63f4" kind="define"><name>XNANDPS_PERIPH_ID3_OFFSET</name></member>
+    <member refid="group__nandps_1ga993171014887eebcf39861f9502645fb" kind="define"><name>XNANDPS_PCELL_ID0_OFFSET</name></member>
+    <member refid="group__nandps_1ga3fdee65c36e6f735ec675870e643e12a" kind="define"><name>XNANDPS_PCELL_ID1_OFFSET</name></member>
+    <member refid="group__nandps_1gae5d1c3ff379ebe21f078020df844d957" kind="define"><name>XNANDPS_PCELL_ID2_OFFSET</name></member>
+    <member refid="group__nandps_1gafe10153d3fb48e1a0445e0b5c822eca7" kind="define"><name>XNANDPS_PCELL_ID3_OFFSET</name></member>
     <member refid="group__nandps_1ga29483de4ec80b0072f9a83152551bd60" kind="define"><name>XNANDPS_MEMC_STATUS_STATE_MASK</name></member>
     <member refid="group__nandps_1ga6f0072315e38b85a92b15334524ede70" kind="define"><name>XNANDPS_MEMC_STATUS_INT_EN0_MASK</name></member>
     <member refid="group__nandps_1gaf30fae0b6374003158bb30ab205e5066" kind="define"><name>XNANDPS_MEMC_STATUS_INT_EN1_MASK</name></member>
@@ -693,6 +732,33 @@
     <member refid="group__nandps_1ga5d6d2d29177affe9bdc2a66308b02341" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_512</name></member>
     <member refid="group__nandps_1ga36f170edfdc0206eb7a33071f9f4cf9d" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_1024</name></member>
     <member refid="group__nandps_1ga7d9edc9df98df1d1616cbb62bb8741fe" kind="define"><name>XNANDPS_ECC_MEMCFG_PAGE_SIZE_2048</name></member>
+    <member refid="group__nandps_1gad0f1d158ff4c217d7a28a9c577df4cdb" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_MASK</name></member>
+    <member refid="group__nandps_1ga428d8145336e48df7157267d674734ad" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_MASK</name></member>
+    <member refid="group__nandps_1ga61b7f37efec7bf8fe2281a9f14380764" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_MASK</name></member>
+    <member refid="group__nandps_1ga03fd8c5deeae17b62baa533120b96527" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_MASK</name></member>
+    <member refid="group__nandps_1ga91a88936d7883eb8a46d2ae5e0b38543" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT</name></member>
+    <member refid="group__nandps_1ga6c3123982a9b5da195d9530d541cd06f" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT</name></member>
+    <member refid="group__nandps_1ga3d48d8af5b0f09ee1105069caf32c920" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT</name></member>
+    <member refid="group__nandps_1ga8cb896a4cbb6e8b643bcab62b36daff8" kind="define"><name>XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT</name></member>
+    <member refid="group__nandps_1ga0bcbf0cc78a3e55dae33392332bc944b" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_MASK</name></member>
+    <member refid="group__nandps_1gaa5a0051020589e08af6ff6657b400d25" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_MASK</name></member>
+    <member refid="group__nandps_1ga247ad27dc8366a9c9d4b758d9d216ce3" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_MASK</name></member>
+    <member refid="group__nandps_1ga9058790608f7c5486ea59bea4985aca0" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_MASK</name></member>
+    <member refid="group__nandps_1ga0370d409026629c9c67c6a09356168b7" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT</name></member>
+    <member refid="group__nandps_1ga2268559b8b7eda4b64e06be46c1ae163" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT</name></member>
+    <member refid="group__nandps_1ga1ac7be4acb6465855e90c59a917ea460" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT</name></member>
+    <member refid="group__nandps_1ga9affb1a5cbc15106387b90f11585d316" kind="define"><name>XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT</name></member>
+    <member refid="group__nandps_1gabd321ba9d00a905039b840f384953fe0" kind="define"><name>XNANDPS_ECC_VALUE_MASK</name></member>
+    <member refid="group__nandps_1ga99dba6f69078ff5cb8ab74caef49e58e" kind="define"><name>XNANDPS_ECC_VALUE_CORRECT_MASK</name></member>
+    <member refid="group__nandps_1ga8b01a9e54854f1a4500fdaa17d9ac3f7" kind="define"><name>XNANDPS_ECC_VALUE_FAIL_MASK</name></member>
+    <member refid="group__nandps_1ga979da85b08795805ac5f983d7ff9c966" kind="define"><name>XNANDPS_ECC_VALUE_READ_MASK</name></member>
+    <member refid="group__nandps_1ga210a51bf0a539aa77d6bd462277dc6a5" kind="define"><name>XNANDPS_ECC_VALUE_VALID_MASK</name></member>
+    <member refid="group__nandps_1gabf89911aba671967dca41b8cbb4388c2" kind="define"><name>XNANDPS_ECC_VALUE_INT_MASK</name></member>
+    <member refid="group__nandps_1ga603f4aba36490d2ef26cbbf21b6cc661" kind="define"><name>XNANDPS_PERIPH_ID_PART_NUM_MASK</name></member>
+    <member refid="group__nandps_1ga77e665a6416e29cf5142ef012c95df79" kind="define"><name>XNANDPS_PERIPH_ID_DESIGNER_ID_MASK</name></member>
+    <member refid="group__nandps_1gae1e0ae792930c07ff33930814b9699f8" kind="define"><name>XNANDPS_PERIPH_ID_REVISION_MASK</name></member>
+    <member refid="group__nandps_1gabc9a59890b46122178dbd56ce3dd0f63" kind="define"><name>XNANDPS_PERIPH_ID_INTG_CFG_MASK</name></member>
+    <member refid="group__nandps_1ga95afea81f67fc8928dba1a8b108d58cf" kind="define"><name>XNANDPS_PCELL_ID_MASK</name></member>
     <member refid="group__nandps_1ga2318d7b320b74ae18f3b2b34beddd39e" kind="enum"><name>XNandPs_EccMode</name></member>
     <member refid="group__nandps_1gga2318d7b320b74ae18f3b2b34beddd39ea764dc0f2ad5c36c3c0bfe8be83352c58" kind="enumvalue"><name>XNANDPS_ECC_NONE</name></member>
     <member refid="group__nandps_1gga2318d7b320b74ae18f3b2b34beddd39ea1d1c061e9b23ef2b650fb39cebafef24" kind="enumvalue"><name>XNANDPS_ECC_SW</name></member>
@@ -768,7 +834,6 @@
     <member refid="group__nandps_1gab2250528f39aedf92963e55c298fc088" kind="function"><name>Onfi_WriteData</name></member>
     <member refid="group__nandps_1ga2b91a8299844421579ff4c6272c9085a" kind="function"><name>Onfi_GetFeature</name></member>
     <member refid="group__nandps_1ga4f5b3d4574ec5c4efa6ee5bb8aeee0d3" kind="function"><name>Onfi_SetFeature</name></member>
-    <member refid="group__nandps_1gac86c459e098f8ede0cdab61f468e47fc" kind="define"><name>XNANDPS_H</name></member>
     <member refid="group__nandps_1ga9318e127efeabeb03b6c66cd5e49584c" kind="define"><name>XNANDPS_MAX_TARGETS</name></member>
     <member refid="group__nandps_1gaeac7c4a5846cd8f24d4a64ee522c34f3" kind="define"><name>XNANDPS_MAX_BLOCKS</name></member>
     <member refid="group__nandps_1ga786386f3e559ae718dd2705232659f42" kind="define"><name>XNANDPS_MAX_PAGE_SIZE</name></member>
@@ -815,7 +880,6 @@
     <member refid="group__nandps_1gae8e59d6704246c9a18cbc9ddf8990105" kind="define"><name>XNANDPS_CLR_CS</name></member>
     <member refid="group__nandps_1ga24aa6c637ca56a0d8357e4184c8ec746" kind="define"><name>XNANDPS_ECC_LAST</name></member>
     <member refid="group__nandps_1ga34f4ef3f29daef5f33c6fef869b44e20" kind="define"><name>OneHot</name></member>
-    <member refid="group__nandps_1ga6ed742001748dc3dce1411716660b1e3" kind="define"><name>BBM_H</name></member>
     <member refid="group__nandps_1ga8ffc4c5be52b4ca7d07c2b5a159bec99" kind="define"><name>XNANDPS_BLOCK_GOOD</name></member>
     <member refid="group__nandps_1ga52a13ba6c5dc5ae22cad93b73ec66503" kind="define"><name>XNANDPS_BLOCK_BAD</name></member>
     <member refid="group__nandps_1gaa6ac6d803ac18454c61045a7aef97920" kind="define"><name>XNANDPS_BLOCK_RESERVED</name></member>
@@ -840,51 +904,8 @@
     <member refid="group__nandps_1gac547ca7c91b79d5437cf58f29c0fda1e" kind="define"><name>XNANDPS_BLOCK_TYPE_MASK</name></member>
     <member refid="group__nandps_1gaf7c432bad01dd727f91f1f0435f92cac" kind="define"><name>XNANDPS_BLOCK_SHIFT_MASK</name></member>
     <member refid="group__nandps_1ga820a56f0443165ef4e45daafb8bfb604" kind="define"><name>XNandPs_BbtBlockShift</name></member>
-    <member refid="group__nandps_1ga5143e585219b96c513d61d7cac06e13e" kind="define"><name>XNANDPS_HW_H</name></member>
-    <member refid="group__nandps_1gaf2f6aaad3157aafeda5749737e4d7d84" kind="define"><name>XNANDPS_MEMC_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1ga4f1aeb2b315fdf74b1f6fcd4a5ba7273" kind="define"><name>XNANDPS_MEMC_IF_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gaf90040ca8e85052266c805a409d4d128" kind="define"><name>XNANDPS_MEMC_SET_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gaaaaf55b8085d1dcfcde3756a36c7ff41" kind="define"><name>XNANDPS_MEMC_CLR_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga80f534d4fe9ecc15457724440f014358" kind="define"><name>XNANDPS_DIRECT_CMD_OFFSET</name></member>
-    <member refid="group__nandps_1gab5b751d38c7c8021092b14e6e85779d0" kind="define"><name>XNANDPS_SET_CYCLES_OFFSET</name></member>
-    <member refid="group__nandps_1gaf26e745fd5b4f88aaa218e7cd8891041" kind="define"><name>XNANDPS_SET_OPMODE_OFFSET</name></member>
-    <member refid="group__nandps_1gae47923a76310444937b2b3aa4a11e399" kind="define"><name>XNANDPS_REFRESH_PERIOD_0_OFFSET</name></member>
-    <member refid="group__nandps_1ga26d576acc9b981f1cfb8b40d94cf97c0" kind="define"><name>XNANDPS_REFRESH_PERIOD_1_OFFSET</name></member>
-    <member refid="group__nandps_1gae800cae34e2924cc96d9a39dfec52c5e" kind="define"><name>XNANDPS_IF0_CHIP_0_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga9b5790760ef234b80563ff98be33b639" kind="define"><name>XNANDPS_IF0_CHIP_1_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gadca811b60bbf42b5e7c68df5f63b6b0b" kind="define"><name>XNANDPS_IF0_CHIP_2_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga5a0d06b416b45bb4aee25db7136a00c2" kind="define"><name>XNANDPS_IF0_CHIP_3_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gae6eb4e6a228f126d327fbd05c0f014a8" kind="define"><name>XNANDPS_IF1_CHIP_0_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gab2b15dbd88316137e9704ab6a80c648f" kind="define"><name>XNANDPS_IF1_CHIP_1_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga0e9ddb24fb93c05cdf1bb345735d033c" kind="define"><name>XNANDPS_IF1_CHIP_2_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1gabf861776417813a0b65b13e7d4dae0cf" kind="define"><name>XNANDPS_IF1_CHIP_3_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga2913944cdf752a52c62581f2b6b92344" kind="define"><name>XNANDPS_FLASH_CYCLES</name></member>
-    <member refid="group__nandps_1ga9637bd6e50d1a65940625af864b6ee00" kind="define"><name>XNANDPS_OPMODE</name></member>
-    <member refid="group__nandps_1ga0e452979ec8c59e23b705f0e3da33eb6" kind="define"><name>XNANDPS_USER_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1gaf5e5c3cde493a3e91a3e98e5ff993a9e" kind="define"><name>XNANDPS_USER_CONFIG_OFFSET</name></member>
-    <member refid="group__nandps_1ga18178d8d0a8106de6362d8930a460b7b" kind="define"><name>XNANDPS_IF0_ECC_OFFSET</name></member>
-    <member refid="group__nandps_1ga2c8cfb872b36a91ddd9780829e9065b6" kind="define"><name>XNANDPS_IF1_ECC_OFFSET</name></member>
-    <member refid="group__nandps_1gae4b738ea5a0e4c9cdbfd4952351747d1" kind="define"><name>XNANDPS_ECC_STATUS_OFFSET</name></member>
-    <member refid="group__nandps_1ga4e2e4acbbc22410dd5e6465065fb3c11" kind="define"><name>XNANDPS_ECC_MEMCFG_OFFSET</name></member>
-    <member refid="group__nandps_1ga944a21dbf63f711c25e354be563fa302" kind="define"><name>XNANDPS_ECC_MEMCMD1_OFFSET</name></member>
-    <member refid="group__nandps_1ga2522d63c69de4aecc698d90c19e70521" kind="define"><name>XNANDPS_ECC_MEMCMD2_OFFSET</name></member>
-    <member refid="group__nandps_1ga362aa8cde381fb04a9e93a47d13939a4" kind="define"><name>XNANDPS_ECC_ADDR0_OFFSET</name></member>
-    <member refid="group__nandps_1ga26401132963b086ae9a07280afd84636" kind="define"><name>XNANDPS_ECC_ADDR1_OFFSET</name></member>
-    <member refid="group__nandps_1ga7ed2fdfd7c0644b3b2f8ef41fb54afe3" kind="define"><name>XNANDPS_ECC_VALUE0_OFFSET</name></member>
-    <member refid="group__nandps_1ga32b23441f9771e755873f130b6b60585" kind="define"><name>XNANDPS_ECC_VALUE1_OFFSET</name></member>
-    <member refid="group__nandps_1ga824dbea2781ca306c1b7e5d4368151f4" kind="define"><name>XNANDPS_ECC_VALUE2_OFFSET</name></member>
-    <member refid="group__nandps_1ga9452f9d35434dbf8da90939624bfd1ee" kind="define"><name>XNANDPS_ECC_VALUE3_OFFSET</name></member>
-    <member refid="group__nandps_1gafce755c5c24ab284c1a6ac1365933a87" kind="define"><name>XNANDPS_ECC_VALUE4_OFFSET</name></member>
-    <member refid="group__nandps_1ga4c5b3e833662553de1c24f553b367624" kind="define"><name>XNANDPS_INTGTEST_OFFSET</name></member>
-    <member refid="group__nandps_1ga72bb3810df32f6b28f48c25ff98843c5" kind="define"><name>XNANDPS_PERIPH_ID0_OFFSET</name></member>
-    <member refid="group__nandps_1gac770d392ac287ea3385cd79aeb6f976e" kind="define"><name>XNANDPS_PERIPH_ID1_OFFSET</name></member>
-    <member refid="group__nandps_1ga8b0719eb74f224d3a0b9644ab413d6c0" kind="define"><name>XNANDPS_PERIPH_ID2_OFFSET</name></member>
-    <member refid="group__nandps_1ga7cd6dde2cd6f64e7c316d5401c8a63f4" kind="define"><name>XNANDPS_PERIPH_ID3_OFFSET</name></member>
-    <member refid="group__nandps_1ga993171014887eebcf39861f9502645fb" kind="define"><name>XNANDPS_PCELL_ID0_OFFSET</name></member>
-    <member refid="group__nandps_1ga3fdee65c36e6f735ec675870e643e12a" kind="define"><name>XNANDPS_PCELL_ID1_OFFSET</name></member>
-    <member refid="group__nandps_1gae5d1c3ff379ebe21f078020df844d957" kind="define"><name>XNANDPS_PCELL_ID2_OFFSET</name></member>
-    <member refid="group__nandps_1gafe10153d3fb48e1a0445e0b5c822eca7" kind="define"><name>XNANDPS_PCELL_ID3_OFFSET</name></member>
-    <member refid="group__nandps_1ga8be4d072376f082bf5ae08776da5b773" kind="define"><name>ONFI_H</name></member>
+    <member refid="group__nandps_1gab1c9ec799c4b10aba366c1333b36d98b" kind="define"><name>XNandPs_ReadReg</name></member>
+    <member refid="group__nandps_1gac87bcc9e0fec61b2b02b9a434962e576" kind="define"><name>XNandPs_WriteReg</name></member>
     <member refid="group__nandps_1ga58126625dc0ff8e6d1866433ab9342d1" kind="define"><name>ONFI_CMD_READ1</name></member>
     <member refid="group__nandps_1gab53c251758d5fd3705eee1a9337abef8" kind="define"><name>ONFI_CMD_READ2</name></member>
     <member refid="group__nandps_1ga2ed529448055585d56229d1371be0c0c" kind="define"><name>ONFI_CMD_CHANGE_READ_COLUMN1</name></member>
@@ -935,7 +956,5 @@
   <compound refid="dir_4dffd5c339932dc7dbf713545351dac3" kind="dir"><name>nandps</name>
   </compound>
   <compound refid="dir_96f0e9712a2681e157efae55108893c1" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

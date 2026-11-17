@@ -11,23 +11,6 @@
     <includedby refid="xilffs__polled__example_8c" local="yes">xilffs_polled_example.c</includedby>
     <includedby refid="xilffs__polled__ufs__example_8c" local="yes">xilffs_polled_ufs_example.c</includedby>
     <incdepgraph>
-      <node id="39">
-        <label>xil_io.h</label>
-      </node>
-      <node id="38">
-        <label>xil_util.h</label>
-      </node>
-      <node id="36">
-        <label>xilffs_config.h</label>
-      </node>
-      <node id="35">
-        <label>ffconf.h</label>
-        <childnode refid="36" relation="include">
-        </childnode>
-      </node>
-      <node id="40">
-        <label>xil_types.h</label>
-      </node>
       <node id="37">
         <label>xilffs.h</label>
         <link refid="xilffs_8h"/>
@@ -38,6 +21,15 @@
         <childnode refid="40" relation="include">
         </childnode>
       </node>
+      <node id="39">
+        <label>xil_io.h</label>
+      </node>
+      <node id="38">
+        <label>xil_util.h</label>
+      </node>
+      <node id="36">
+        <label>xilffs_config.h</label>
+      </node>
       <node id="34">
         <label>ff.h</label>
         <link refid="ff.h"/>
@@ -46,15 +38,16 @@
         <childnode refid="37" relation="include">
         </childnode>
       </node>
+      <node id="40">
+        <label>xil_types.h</label>
+      </node>
+      <node id="35">
+        <label>ffconf.h</label>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="46">
-        <label>xilffs_polled_example.c</label>
-        <link refid="xilffs__polled__example_8c"/>
-      </node>
-      <node id="44">
-        <label>ffunicode.c</label>
-      </node>
       <node id="42">
         <label>diskio.c</label>
         <link refid="diskio_8c"/>
@@ -71,6 +64,9 @@
       <node id="43">
         <label>ffsystem.c</label>
       </node>
+      <node id="44">
+        <label>ffunicode.c</label>
+      </node>
       <node id="41">
         <label>ff.h</label>
         <link refid="ff.h"/>
@@ -86,6 +82,10 @@
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
+      </node>
+      <node id="46">
+        <label>xilffs_polled_example.c</label>
+        <link refid="xilffs__polled__example_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_f_a_t_f_s" prot="public">FATFS</innerclass>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="23" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a3eb7cbd9d1d0548d54856f1cc8a2021f" prot="public" static="no">
         <name>FF_INTDEF</name>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1ae936e4c15227768f7da4e0951def89c8" prot="public" static="no">
         <name>_T</name>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a3232964568d17bb4a1af30f9db826ce2" prot="public" static="no">
         <name>_TEXT</name>
@@ -139,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="110" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a970cdd8970a3a94967ad64cfc5d4c161" prot="public" static="no">
         <name>f_eof</name>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="383" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="383" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a25cbdabeed318802cf0e9db6671a33b7" prot="public" static="no">
         <name>f_error</name>
@@ -163,7 +163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="384" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="384" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a5e1daca7ce13cdc277e42185f7f9124f" prot="public" static="no">
         <name>f_tell</name>
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="385" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="385" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a26f33722c5bf1aa3cd6f0290a83eb2bc" prot="public" static="no">
         <name>f_size</name>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="386" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="386" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1ae4caf47dd5cbc123b61d35542481b1be" prot="public" static="no">
         <name>f_rewind</name>
@@ -199,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="387" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="387" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a3f92b6c0c1648de678283ab6f1610161" prot="public" static="no">
         <name>f_rewinddir</name>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="388" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="388" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a58df56d084ad3dd9f8cd49b245a7a7ca" prot="public" static="no">
         <name>f_rmdir</name>
@@ -223,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="389" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1aa22c4b32404b35d0a0bd138fa63f2e75" prot="public" static="no">
         <name>f_unmount</name>
@@ -235,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="390" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="390" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="390" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a1f4f3530ff03abbd979b072536e72290" prot="public" static="no">
         <name>FA_READ</name>
@@ -246,7 +246,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="435" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="435" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="435" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="435" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1afa366963220c89b882c0361794020c14" prot="public" static="no">
         <name>FA_WRITE</name>
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="436" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="436" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="436" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="436" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a0c5dd686b10f84c2a2b3954957a5979a" prot="public" static="no">
         <name>FA_OPEN_EXISTING</name>
@@ -268,7 +268,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="437" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="437" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="437" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="437" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a417bb1babd1785fd181a806b5613eba3" prot="public" static="no">
         <name>FA_CREATE_NEW</name>
@@ -279,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="438" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="438" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="438" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="438" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1afba4546b131dea4b24727fa20a80e29f" prot="public" static="no">
         <name>FA_CREATE_ALWAYS</name>
@@ -290,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="439" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="439" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="439" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="439" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a17b01553029920ac0468912b4bcb16c7" prot="public" static="no">
         <name>FA_OPEN_ALWAYS</name>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="440" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="440" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="440" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="440" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a90f135b2ae90fba5080f6bd2b6c57b8a" prot="public" static="no">
         <name>FA_OPEN_APPEND</name>
@@ -312,7 +312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="441" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="441" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="441" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="441" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1aee297a9011164cf485a4df2a72758b08" prot="public" static="no">
         <name>CREATE_LINKMAP</name>
@@ -323,7 +323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="444" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="444" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="444" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="444" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a8bd205b7d09147e55169d3713f46e9ea" prot="public" static="no">
         <name>FM_FAT</name>
@@ -334,7 +334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="447" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="447" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="447" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="447" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1aff61d3ed8f8c6ea5c25c3cb366320e08" prot="public" static="no">
         <name>FM_FAT32</name>
@@ -345,7 +345,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="448" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="448" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="448" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="448" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a9348c28116bc29e88195b23f6945f81d" prot="public" static="no">
         <name>FM_EXFAT</name>
@@ -356,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="449" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="449" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="449" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="449" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a701ab2eee8c2d9b5b445aadc8f14df4d" prot="public" static="no">
         <name>FM_ANY</name>
@@ -367,7 +367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="450" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="450" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="450" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="450" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a3b3d16ac135fe57669fc8a93dfa0c0a5" prot="public" static="no">
         <name>FM_SFD</name>
@@ -378,7 +378,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="451" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="451" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="451" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="451" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1aab755aa1b4f81f4aabee4a5d4738cfb0" prot="public" static="no">
         <name>FS_FAT12</name>
@@ -389,7 +389,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="454" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="454" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="454" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="454" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a7ef90a36d99edfc0138a2155a17a79b9" prot="public" static="no">
         <name>FS_FAT16</name>
@@ -400,7 +400,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="455" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="455" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="455" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="455" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1ac63e0796095a789cefdbc3c3c676c9ce" prot="public" static="no">
         <name>FS_FAT32</name>
@@ -411,7 +411,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="456" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="456" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="456" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="456" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a50bfa912e87473bc54333523983f39f6" prot="public" static="no">
         <name>FS_EXFAT</name>
@@ -422,7 +422,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="457" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="457" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="457" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="457" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1add6d85d1e7a02b4f6188783ef91a5f1e" prot="public" static="no">
         <name>AM_RDO</name>
@@ -433,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="460" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="460" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1aa90c4c921c1955fd407d8bbf17f1674e" prot="public" static="no">
         <name>AM_HID</name>
@@ -444,7 +444,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="461" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="461" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a1f25d5c17b5a3a6397b3398add8cdc15" prot="public" static="no">
         <name>AM_SYS</name>
@@ -455,7 +455,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="462" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="462" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="462" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="462" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1a3a9db44e978ed6c13b641e092d4cd7d3" prot="public" static="no">
         <name>AM_DIR</name>
@@ -466,7 +466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="463" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="463" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="463" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="463" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="ff_8h_1ae8174d00798e34e7c9e95898cb9e1a09" prot="public" static="no">
         <name>AM_ARC</name>
@@ -477,7 +477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="464" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="464" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="464" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="464" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -630,7 +630,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="313" bodyend="334"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="313" bodyend="334"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -645,7 +645,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a4ae1dab0fb4b072a66584546209e7d58" prot="public" static="no">
         <type>unsigned char</type>
@@ -658,7 +658,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a197942eefa7db30960ae396d68339b97" prot="public" static="no">
         <type>unsigned short</type>
@@ -671,7 +671,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1ad342ac907eb044443153a22f964bf0af" prot="public" static="no">
         <type>unsigned long</type>
@@ -684,7 +684,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a0bb095da65fbe52192dd9e3e643c7568" prot="public" static="no">
         <type>WORD</type>
@@ -697,7 +697,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a3fc0992ad7436250b6b1a0592214b7f2" prot="public" static="no">
         <type>DWORD</type>
@@ -710,7 +710,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a1f3c30a83148a28340f009d4e583f087" prot="public" static="no">
         <type>DWORD</type>
@@ -723,7 +723,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="ff_8h_1a03bdb8ce5895c7e261aadc2529637546" prot="public" static="no">
         <type>char</type>
@@ -736,7 +736,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="108" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -746,7 +746,7 @@
         <argsstring>(FIL *fp, const TCHAR *path, BYTE mode)</argsstring>
         <name>f_open</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -763,7 +763,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="343" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="343" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a53882db20ef4323dcfd1874d7733ffc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -771,7 +771,7 @@
         <argsstring>(FIL *fp)</argsstring>
         <name>f_close</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <briefdescription>
@@ -780,7 +780,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="344" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="344" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ac4c3dcb6869ca252888eebabe39727b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -788,7 +788,7 @@
         <argsstring>(FIL *fp, void *buff, UINT btr, UINT *br)</argsstring>
         <name>f_read</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -809,7 +809,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="345" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="345" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ae6a4dfae8a9e308bdb2283a37ef680f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -817,7 +817,7 @@
         <argsstring>(FIL *fp, const void *buff, UINT btw, UINT *bw)</argsstring>
         <name>f_write</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -838,7 +838,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="346" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="346" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a7c4bcf81d9122f0b5376852ec6a8c3eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -846,7 +846,7 @@
         <argsstring>(FIL *fp, FSIZE_t ofs)</argsstring>
         <name>f_lseek</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -859,7 +859,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="347" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="347" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a691a27b40c348f7c84b42e911636f38a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -867,7 +867,7 @@
         <argsstring>(FIL *fp)</argsstring>
         <name>f_truncate</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <briefdescription>
@@ -876,7 +876,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="348" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="348" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ad69c7246b122ba56a134939ee0eaf847" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -884,7 +884,7 @@
         <argsstring>(FIL *fp)</argsstring>
         <name>f_sync</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <briefdescription>
@@ -893,7 +893,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="349" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="349" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ab63b213c75f7335fbb63a1f3f70e5fc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -901,7 +901,7 @@
         <argsstring>(DIR *dp, const TCHAR *path)</argsstring>
         <name>f_opendir</name>
         <param>
-          <type>DIR *</type>
+          <type><ref refid="struct_d_i_r" kindref="compound">DIR</ref> *</type>
           <declname>dp</declname>
         </param>
         <param>
@@ -914,7 +914,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="350" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="350" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ab5f7376b6f3e3bcc7f5ff5497c8b7364" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -922,7 +922,7 @@
         <argsstring>(DIR *dp)</argsstring>
         <name>f_closedir</name>
         <param>
-          <type>DIR *</type>
+          <type><ref refid="struct_d_i_r" kindref="compound">DIR</ref> *</type>
           <declname>dp</declname>
         </param>
         <briefdescription>
@@ -931,7 +931,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="351" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="351" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ab39e82a110695de45f416f3149358012" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -939,11 +939,11 @@
         <argsstring>(DIR *dp, FILINFO *fno)</argsstring>
         <name>f_readdir</name>
         <param>
-          <type>DIR *</type>
+          <type><ref refid="struct_d_i_r" kindref="compound">DIR</ref> *</type>
           <declname>dp</declname>
         </param>
         <param>
-          <type>FILINFO *</type>
+          <type><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref> *</type>
           <declname>fno</declname>
         </param>
         <briefdescription>
@@ -952,7 +952,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="352" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="352" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a6db7bc3d037b51a9f205eacda6177a5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -960,11 +960,11 @@
         <argsstring>(DIR *dp, FILINFO *fno, const TCHAR *path, const TCHAR *pattern)</argsstring>
         <name>f_findfirst</name>
         <param>
-          <type>DIR *</type>
+          <type><ref refid="struct_d_i_r" kindref="compound">DIR</ref> *</type>
           <declname>dp</declname>
         </param>
         <param>
-          <type>FILINFO *</type>
+          <type><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref> *</type>
           <declname>fno</declname>
         </param>
         <param>
@@ -981,7 +981,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="353" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="353" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a013999e446481a607316b916441f8673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -989,11 +989,11 @@
         <argsstring>(DIR *dp, FILINFO *fno)</argsstring>
         <name>f_findnext</name>
         <param>
-          <type>DIR *</type>
+          <type><ref refid="struct_d_i_r" kindref="compound">DIR</ref> *</type>
           <declname>dp</declname>
         </param>
         <param>
-          <type>FILINFO *</type>
+          <type><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref> *</type>
           <declname>fno</declname>
         </param>
         <briefdescription>
@@ -1002,7 +1002,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="354" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="354" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a4b4d38db58e89c526cfcf53200d719d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1019,7 +1019,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="355" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="355" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a2858167fcd0bced48e9be434b3895efe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1036,7 +1036,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="356" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="356" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1aa775b9b024acfeb3a66523cab497d142" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1057,7 +1057,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="357" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="357" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1abe1f60daab5c7d11170c334fb832c798" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1069,7 +1069,7 @@
           <declname>path</declname>
         </param>
         <param>
-          <type>FILINFO *</type>
+          <type><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref> *</type>
           <declname>fno</declname>
         </param>
         <briefdescription>
@@ -1078,7 +1078,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="358" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="358" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a9ee7e560eec8d82755c636ae41e702cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1103,7 +1103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="359" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="359" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1aafaa718d1a487e12a8f0087173dba0b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1115,7 +1115,7 @@
           <declname>path</declname>
         </param>
         <param>
-          <type>const FILINFO *</type>
+          <type>const <ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref> *</type>
           <declname>fno</declname>
         </param>
         <briefdescription>
@@ -1124,7 +1124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="360" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="360" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a53c7e9a7fb3c279254cd2d0445667e2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1141,7 +1141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="361" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="361" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a13e5933f851b436890361189f64261cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1158,7 +1158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="362" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="362" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1acb865a03dbac0031ac5cb8a031f7b71c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1179,7 +1179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="363" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="363" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a0ff39f75a87cbda9cd6ea65d83f16cec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1195,7 +1195,7 @@
           <declname>nclst</declname>
         </param>
         <param>
-          <type>FATFS **</type>
+          <type><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref> **</type>
           <declname>fatfs</declname>
         </param>
         <briefdescription>
@@ -1204,7 +1204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="364" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="364" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ac4ff40a674bcbfe40d81b1e8e54befc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1229,7 +1229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="365" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="365" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1aa82bca64e28bc0d656a7999dd0eadec7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1246,7 +1246,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="366" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="366" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a6c0c4cd695704aa6d952c90be81d9849" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1254,7 +1254,7 @@
         <argsstring>(FIL *fp, UINT(*func)(const BYTE *, UINT), UINT btf, UINT *bf)</argsstring>
         <name>f_forward</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -1275,7 +1275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="367" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="367" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a35ff90f5219df5cdb6c8f408b1b9e1a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1283,7 +1283,7 @@
         <argsstring>(FIL *fp, FSIZE_t fsz, BYTE opt)</argsstring>
         <name>f_expand</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -1300,7 +1300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="368" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="368" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a16a934c2bbfa2160295810adc49d5509" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1308,7 +1308,7 @@
         <argsstring>(FATFS *fs, const TCHAR *path, BYTE opt)</argsstring>
         <name>f_mount</name>
         <param>
-          <type>FATFS *</type>
+          <type><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref> *</type>
           <declname>fs</declname>
         </param>
         <param>
@@ -1325,7 +1325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="369" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="369" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a983f0614033bd7cf587eb56d3054a91c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1337,7 +1337,7 @@
           <declname>path</declname>
         </param>
         <param>
-          <type>const MKFS_PARM *</type>
+          <type>const <ref refid="struct_m_k_f_s___p_a_r_m" kindref="compound">MKFS_PARM</ref> *</type>
           <declname>opt</declname>
         </param>
         <param>
@@ -1354,7 +1354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="370" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="370" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a70461190a46edc96bb7baef1ab4dbd4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1380,7 +1380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="371" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="371" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a529e8f17cae495f6536ff405622c996c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FRESULT</type>
@@ -1397,7 +1397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="372" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="372" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1ad1d73b8d01c2ef89eddf920b7fcc6beb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1409,7 +1409,7 @@
           <declname>c</declname>
         </param>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <briefdescription>
@@ -1418,7 +1418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="373" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="373" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a699fc03ffa785ceab8812a7f204421f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1430,7 +1430,7 @@
           <declname>str</declname>
         </param>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>cp</declname>
         </param>
         <briefdescription>
@@ -1439,7 +1439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="374" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="374" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a4ce26253177c167df849e76f69b5c66c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1447,7 +1447,7 @@
         <argsstring>(FIL *fp, const TCHAR *str,...)</argsstring>
         <name>f_printf</name>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <param>
@@ -1463,7 +1463,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="375" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="375" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1a0fa54bd310785ecdaed19dda8f60dac5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>TCHAR *</type>
@@ -1479,7 +1479,7 @@
           <declname>len</declname>
         </param>
         <param>
-          <type>FIL *</type>
+          <type><ref refid="struct_f_i_l" kindref="compound">FIL</ref> *</type>
           <declname>fp</declname>
         </param>
         <briefdescription>
@@ -1488,7 +1488,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="376" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="376" column="1"/>
       </memberdef>
       <memberdef kind="function" id="ff_8h_1af58b536abfd30f77213f4ecaf2ac52f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>DWORD</type>
@@ -1499,14 +1499,13 @@
           <type>void</type>
         </param>
         <briefdescription>
-<para>This function is User Provided Timer Function for FatFs module. </para>        </briefdescription>
+<para>Implements the timer function that the application provides to FatFs. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>DWORD</para></simplesect>
-<simplesect kind="note"><para>None </para></simplesect>
+<para><simplesect kind="return"><para>Timestamp packed into a DWORD value. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="701" bodyend="709"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="734" bodyend="742"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1665,7 +1664,7 @@
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>structure<sp/>(FATFS)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152" refid="struct_f_a_t_f_s" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>fs_type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>type<sp/>(0:not<sp/>mounted)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>pdrv;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Physical<sp/>drive<sp/>that<sp/>holds<sp/>this<sp/>volume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>ldrv;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Logical<sp/>drive<sp/>number<sp/>(used<sp/>only<sp/>when<sp/>FF_FS_REENTRANT)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1713,14 +1712,14 @@
 <codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>win[FF_MAX_SS]<sp/>__attribute__<sp/>((aligned(32)));<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disk<sp/>access<sp/>window<sp/>for<sp/>directory,<sp/>FAT<sp/>(and<sp/>file<sp/>data<sp/>in<sp/>tiny<sp/>cfg)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>FATFS;</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref>;</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"></highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight></codeline>
 <codeline lineno="203"><highlight class="normal"></highlight></codeline>
 <codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Object<sp/>ID<sp/>and<sp/>allocation<sp/>information<sp/>(FFOBJID)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS*<sp/><sp/>fs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>volume<sp/>holding<sp/>this<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="struct_f_f_o_b_j_i_d" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref>*<sp/><sp/>fs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>volume<sp/>holding<sp/>this<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/><sp/><sp/><sp/>id;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Volume<sp/>mount<sp/>ID<sp/>when<sp/>this<sp/>object<sp/>was<sp/>opened<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>attr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>attribute<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>stat;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>chain<sp/>status<sp/>(exFAT:<sp/>b1-0:<sp/>=0:not<sp/>contiguous,<sp/>=2:contiguous,<sp/>=3:fragmented<sp/>in<sp/>this<sp/>session,<sp/>b2:sub-directory<sp/>stretched)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1736,14 +1735,14 @@
 <codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>FF_FS_LOCK</highlight></codeline>
 <codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/><sp/><sp/><sp/>lockid;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>lock<sp/>ID<sp/>origin<sp/>from<sp/>1<sp/>(index<sp/>of<sp/>file<sp/>semaphore<sp/>table<sp/>Files[])<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="222"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>FFOBJID;</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref>;</highlight></codeline>
 <codeline lineno="224"><highlight class="normal"></highlight></codeline>
 <codeline lineno="225"><highlight class="normal"></highlight></codeline>
 <codeline lineno="226"><highlight class="normal"></highlight></codeline>
 <codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>File<sp/>object<sp/>structure<sp/>(FIL)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="228"><highlight class="normal"></highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>obj;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>identifier<sp/>(must<sp/>be<sp/>the<sp/>1st<sp/>member<sp/>to<sp/>detect<sp/>invalid<sp/>object<sp/>pointer)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="struct_f_i_l" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>obj;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>identifier<sp/>(must<sp/>be<sp/>the<sp/>1st<sp/>member<sp/>to<sp/>detect<sp/>invalid<sp/>object<sp/>pointer)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>flag;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>status<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/><sp/><sp/><sp/>err;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Abort<sp/>flag<sp/>(error<sp/>code)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>fptr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>read/write<sp/>pointer<sp/>(0<sp/>on<sp/>open)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1768,14 +1767,14 @@
 <codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>FIL;</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref>;</highlight></codeline>
 <codeline lineno="256"><highlight class="normal"></highlight></codeline>
 <codeline lineno="257"><highlight class="normal"></highlight></codeline>
 <codeline lineno="258"><highlight class="normal"></highlight></codeline>
 <codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>structure<sp/>(DIR)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="260"><highlight class="normal"></highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>obj;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>identifier<sp/>(must<sp/>be<sp/>the<sp/>1st<sp/>member<sp/>to<sp/>detect<sp/>invalid<sp/>object<sp/>pointer)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261" refid="struct_d_i_r" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>obj;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>identifier<sp/>(must<sp/>be<sp/>the<sp/>1st<sp/>member<sp/>to<sp/>detect<sp/>invalid<sp/>object<sp/>pointer)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/><sp/><sp/>dptr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>read/write<sp/>offset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/><sp/><sp/>clust;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>cluster<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/><sp/><sp/>sect;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>sector<sp/>(0:no<sp/>more<sp/>item<sp/>to<sp/>read)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1787,13 +1786,13 @@
 <codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_FIND</highlight></codeline>
 <codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*pat;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>name<sp/>matching<sp/>pattern<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>DIR;</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref>;</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight></codeline>
 <codeline lineno="276"><highlight class="normal"></highlight></codeline>
 <codeline lineno="277"><highlight class="normal"></highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>File/directory<sp/>information<sp/>structure<sp/>(FILINFO)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="280" refid="struct_f_i_l_i_n_f_o" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>fsize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>size<sp/>(invalid<sp/>for<sp/>directory)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/><sp/><sp/><sp/>fdate;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Date<sp/>of<sp/>file<sp/>modification<sp/>or<sp/>directory<sp/>creation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/><sp/><sp/><sp/>ftime;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Time<sp/>of<sp/>file<sp/>modification<sp/>or<sp/>directory<sp/>creation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1808,19 +1807,19 @@
 <codeline lineno="292"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="293"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCHAR<sp/><sp/><sp/>fname[12<sp/>+<sp/>1];<sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>FILINFO;</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>;</highlight></codeline>
 <codeline lineno="296"><highlight class="normal"></highlight></codeline>
 <codeline lineno="297"><highlight class="normal"></highlight></codeline>
 <codeline lineno="298"><highlight class="normal"></highlight></codeline>
 <codeline lineno="299"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Format<sp/>parameter<sp/>structure<sp/>(MKFS_PARM)<sp/>used<sp/>for<sp/>f_mkfs()<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="300"><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="301" refid="struct_m_k_f_s___p_a_r_m" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>fmt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Format<sp/>option<sp/>(FM_FAT,<sp/>FM_FAT32,<sp/>FM_EXFAT<sp/>and<sp/>FM_SFD)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>n_fat;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>FATs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>align;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>area<sp/>alignment<sp/>(sector)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>n_root;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>root<sp/>directory<sp/>entries<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>au_size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>size<sp/>(byte)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal">}<sp/>MKFS_PARM;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">}<sp/><ref refid="struct_m_k_f_s___p_a_r_m" kindref="compound">MKFS_PARM</ref>;</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
 <codeline lineno="309"><highlight class="normal"></highlight></codeline>
 <codeline lineno="310"><highlight class="normal"></highlight></codeline>
@@ -1856,40 +1855,40 @@
 <codeline lineno="340"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FatFs<sp/>Module<sp/>Application<sp/>Interface<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/*--------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="342"><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal">FRESULT<sp/>f_open<sp/>(FIL*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>BYTE<sp/>mode);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>or<sp/>create<sp/>a<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="344"><highlight class="normal">FRESULT<sp/>f_close<sp/>(FIL*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>an<sp/>open<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="345"><highlight class="normal">FRESULT<sp/>f_read<sp/>(FIL*<sp/>fp,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buff,<sp/>UINT<sp/>btr,<sp/>UINT*<sp/>br);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>data<sp/>from<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="346"><highlight class="normal">FRESULT<sp/>f_write<sp/>(FIL*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buff,<sp/>UINT<sp/>btw,<sp/>UINT*<sp/>bw);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>data<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal">FRESULT<sp/>f_lseek<sp/>(FIL*<sp/>fp,<sp/>FSIZE_t<sp/>ofs);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Move<sp/>file<sp/>pointer<sp/>of<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="348"><highlight class="normal">FRESULT<sp/>f_truncate<sp/>(FIL*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Truncate<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="349"><highlight class="normal">FRESULT<sp/>f_sync<sp/>(FIL*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flush<sp/>cached<sp/>data<sp/>of<sp/>the<sp/>writing<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="350"><highlight class="normal">FRESULT<sp/>f_opendir<sp/>(DIR*<sp/>dp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>a<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="351"><highlight class="normal">FRESULT<sp/>f_closedir<sp/>(DIR*<sp/>dp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>an<sp/>open<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="352"><highlight class="normal">FRESULT<sp/>f_readdir<sp/>(DIR*<sp/>dp,<sp/>FILINFO*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>a<sp/>directory<sp/>item<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="353"><highlight class="normal">FRESULT<sp/>f_findfirst<sp/>(DIR*<sp/>dp,<sp/>FILINFO*<sp/>fno,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>pattern);<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Find<sp/>first<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="354"><highlight class="normal">FRESULT<sp/>f_findnext<sp/>(DIR*<sp/>dp,<sp/>FILINFO*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Find<sp/>next<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal">FRESULT<sp/>f_open<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>BYTE<sp/>mode);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>or<sp/>create<sp/>a<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal">FRESULT<sp/>f_close<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>an<sp/>open<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal">FRESULT<sp/>f_read<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buff,<sp/>UINT<sp/>btr,<sp/>UINT*<sp/>br);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>data<sp/>from<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal">FRESULT<sp/>f_write<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buff,<sp/>UINT<sp/>btw,<sp/>UINT*<sp/>bw);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>data<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal">FRESULT<sp/>f_lseek<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/>FSIZE_t<sp/>ofs);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Move<sp/>file<sp/>pointer<sp/>of<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal">FRESULT<sp/>f_truncate<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Truncate<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal">FRESULT<sp/>f_sync<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flush<sp/>cached<sp/>data<sp/>of<sp/>the<sp/>writing<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal">FRESULT<sp/>f_opendir<sp/>(<ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>dp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>a<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal">FRESULT<sp/>f_closedir<sp/>(<ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>dp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>an<sp/>open<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal">FRESULT<sp/>f_readdir<sp/>(<ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>dp,<sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>a<sp/>directory<sp/>item<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal">FRESULT<sp/>f_findfirst<sp/>(<ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>dp,<sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>pattern);<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Find<sp/>first<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal">FRESULT<sp/>f_findnext<sp/>(<ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>dp,<sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Find<sp/>next<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="355"><highlight class="normal">FRESULT<sp/>f_mkdir<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>sub<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="356"><highlight class="normal">FRESULT<sp/>f_unlink<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Delete<sp/>an<sp/>existing<sp/>file<sp/>or<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="357"><highlight class="normal">FRESULT<sp/>f_rename<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path_old,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path_new);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rename/Move<sp/>a<sp/>file<sp/>or<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="358"><highlight class="normal">FRESULT<sp/>f_stat<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>FILINFO*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>file<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal">FRESULT<sp/>f_stat<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>file<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="359"><highlight class="normal">FRESULT<sp/>f_chmod<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>BYTE<sp/>attr,<sp/>BYTE<sp/>mask);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>attribute<sp/>of<sp/>a<sp/>file/dir<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="360"><highlight class="normal">FRESULT<sp/>f_utime<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FILINFO*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>timestamp<sp/>of<sp/>a<sp/>file/dir<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal">FRESULT<sp/>f_utime<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>timestamp<sp/>of<sp/>a<sp/>file/dir<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="361"><highlight class="normal">FRESULT<sp/>f_chdir<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>current<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="362"><highlight class="normal">FRESULT<sp/>f_chdrive<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>current<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="363"><highlight class="normal">FRESULT<sp/>f_getcwd<sp/>(TCHAR*<sp/>buff,<sp/>UINT<sp/>len);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>current<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="364"><highlight class="normal">FRESULT<sp/>f_getfree<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>DWORD*<sp/>nclst,<sp/>FATFS**<sp/>fatfs);<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>number<sp/>of<sp/>free<sp/>clusters<sp/>on<sp/>the<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal">FRESULT<sp/>f_getfree<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>DWORD*<sp/>nclst,<sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref>**<sp/>fatfs);<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>number<sp/>of<sp/>free<sp/>clusters<sp/>on<sp/>the<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="365"><highlight class="normal">FRESULT<sp/>f_getlabel<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>TCHAR*<sp/>label,<sp/>DWORD*<sp/>vsn);<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>volume<sp/>label<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="366"><highlight class="normal">FRESULT<sp/>f_setlabel<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>label);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>volume<sp/>label<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="367"><highlight class="normal">FRESULT<sp/>f_forward<sp/>(FIL*<sp/>fp,<sp/>UINT(*func)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE*,UINT),<sp/>UINT<sp/>btf,<sp/>UINT*<sp/>bf);<sp/></highlight><highlight class="comment">/*<sp/>Forward<sp/>data<sp/>to<sp/>the<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="368"><highlight class="normal">FRESULT<sp/>f_expand<sp/>(FIL*<sp/>fp,<sp/>FSIZE_t<sp/>fsz,<sp/>BYTE<sp/>opt);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Allocate<sp/>a<sp/>contiguous<sp/>block<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="369"><highlight class="normal">FRESULT<sp/>f_mount<sp/>(FATFS*<sp/>fs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>BYTE<sp/>opt);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mount/Unmount<sp/>a<sp/>logical<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="370"><highlight class="normal">FRESULT<sp/>f_mkfs<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MKFS_PARM*<sp/>opt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>work,<sp/>UINT<sp/>len);<sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>FAT<sp/>volume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal">FRESULT<sp/>f_forward<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/>UINT(*func)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE*,UINT),<sp/>UINT<sp/>btf,<sp/>UINT*<sp/>bf);<sp/></highlight><highlight class="comment">/*<sp/>Forward<sp/>data<sp/>to<sp/>the<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal">FRESULT<sp/>f_expand<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/>FSIZE_t<sp/>fsz,<sp/>BYTE<sp/>opt);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Allocate<sp/>a<sp/>contiguous<sp/>block<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal">FRESULT<sp/>f_mount<sp/>(<ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref>*<sp/>fs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/>BYTE<sp/>opt);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mount/Unmount<sp/>a<sp/>logical<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal">FRESULT<sp/>f_mkfs<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_m_k_f_s___p_a_r_m" kindref="compound">MKFS_PARM</ref>*<sp/>opt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>work,<sp/>UINT<sp/>len);<sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>FAT<sp/>volume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="371"><highlight class="normal">FRESULT<sp/>f_fdisk<sp/>(BYTE<sp/>pdrv,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LBA_t<sp/>ptbl[],<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>work);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Divide<sp/>a<sp/>physical<sp/>drive<sp/>into<sp/>some<sp/>partitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="372"><highlight class="normal">FRESULT<sp/>f_setcp<sp/>(WORD<sp/>cp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>current<sp/>code<sp/>page<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="373"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_putc<sp/>(TCHAR<sp/>c,<sp/>FIL*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>character<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="374"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_puts<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>str,<sp/>FIL*<sp/>cp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>string<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_printf<sp/>(FIL*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>str,<sp/>...);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>formatted<sp/>string<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="376"><highlight class="normal">TCHAR*<sp/>f_gets<sp/>(TCHAR*<sp/>buff,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/>FIL*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>a<sp/>string<sp/>from<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_putc<sp/>(TCHAR<sp/>c,<sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>character<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_puts<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>str,<sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>cp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>string<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_printf<sp/>(<ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR*<sp/>str,<sp/>...);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Put<sp/>a<sp/>formatted<sp/>string<sp/>to<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal">TCHAR*<sp/>f_gets<sp/>(TCHAR*<sp/>buff,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref>*<sp/>fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>a<sp/>string<sp/>from<sp/>the<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="377"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XUFSPSXC_NUM_INSTANCES</highlight></codeline>
 <codeline lineno="378"><highlight class="preprocessor"></highlight><highlight class="normal">FRESULT<sp/>f_ioctl<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/>BYTE<sp/>Cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*buff);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Perform<sp/>device<sp/>specific<sp/>operations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="379"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
@@ -1991,6 +1990,6 @@
 <codeline lineno="475"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="476"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>FF_DEFINED<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/include/ff.h"/>
   </compounddef>
 </doxygen>

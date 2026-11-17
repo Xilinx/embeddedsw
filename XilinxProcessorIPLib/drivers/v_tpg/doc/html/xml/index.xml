@@ -47,11 +47,6 @@
     <member refid="main_8c_1a1404ec37649e5775142431036025c57a" kind="function"><name>resetIp</name></member>
     <member refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
-  <compound refid="vtpg__example__kc705_8tcl" kind="file"><name>vtpg_example_kc705.tcl</name>
-    <member refid="vtpg__example__kc705_8tcl_1a5b115548c3897cf30461d888f5ed83b3" kind="function"><name>vtpg_example</name></member>
-  </compound>
   <compound refid="xv__tpg_8c" kind="file"><name>xv_tpg.c</name>
     <member refid="xv__tpg_8c_1af42029c0f17098968f38dbd9c6156606" kind="function"><name>XV_tpg_CfgInitialize</name></member>
     <member refid="xv__tpg_8c_1a98832a9d13c63339d9c6ea040e27ea23" kind="function"><name>XV_tpg_Start</name></member>
@@ -307,8 +302,6 @@
   <compound refid="group__v__tpg" kind="group"><name>v_tpg</name>
     <member refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" kind="function"><name>XVTpg_SetCallback</name></member>
     <member refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" kind="function"><name>XVTpg_InterruptHandler</name></member>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_2608c6da0ad7b1674cf899a21f4e1162" kind="dir"><name>examples</name>
   </compound>

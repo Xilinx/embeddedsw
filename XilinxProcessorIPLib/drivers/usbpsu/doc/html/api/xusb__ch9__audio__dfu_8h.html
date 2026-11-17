@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xusb__ch9__audio__dfu_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_ch9_audio_dfu.h File Reference</div>  </div>
@@ -116,6 +117,126 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusb__ch9_8h.html">xusb_ch9.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a17b88ec5acbe5c6ca45a3f8afd8ff50d">DFU_MAX_TRANSFER</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum DFU block transfer size in bytes.  <a href="#a17b88ec5acbe5c6ca45a3f8afd8ff50d">More...</a><br/></td></tr>
+<tr class="separator:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd8c428aa0aca973ec78dd2f34c84cf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1">USB_TYPE_CLASS</a>&#160;&#160;&#160;(0x01 &lt;&lt; 5)</td></tr>
+<tr class="memdesc:acd8c428aa0aca973ec78dd2f34c84cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB request type: Class.  <a href="#acd8c428aa0aca973ec78dd2f34c84cf1">More...</a><br/></td></tr>
+<tr class="separator:acd8c428aa0aca973ec78dd2f34c84cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79bd164810a1af8ab1067c9b6443f702"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a79bd164810a1af8ab1067c9b6443f702">USB_DT_CS_INTERFACE</a>&#160;&#160;&#160;(<a class="el" href="xusb__freertos__ch9__composite_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1">USB_TYPE_CLASS</a> | <a class="el" href="xusb__ch9_8h.html#a83f8f52050312826f98a75457787f8a6">USB_TYPE_INTERFACE_DESC</a>)</td></tr>
+<tr class="memdesc:a79bd164810a1af8ab1067c9b6443f702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class-specific interface descriptor type.  <a href="#a79bd164810a1af8ab1067c9b6443f702">More...</a><br/></td></tr>
+<tr class="separator:a79bd164810a1af8ab1067c9b6443f702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7f2a0848e642b1cadaa6ddd6b6b16dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#aa7f2a0848e642b1cadaa6ddd6b6b16dc">USB_DT_CS_ENDPOINT</a>&#160;&#160;&#160;(<a class="el" href="xusb__freertos__ch9__composite_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1">USB_TYPE_CLASS</a> | <a class="el" href="xusb__ch9_8h.html#a065ef0ece8a164478d33b8c588d4b338">USB_TYPE_ENDPOINT_CFG_DESC</a>)</td></tr>
+<tr class="memdesc:aa7f2a0848e642b1cadaa6ddd6b6b16dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class-specific endpoint descriptor type.  <a href="#aa7f2a0848e642b1cadaa6ddd6b6b16dc">More...</a><br/></td></tr>
+<tr class="separator:aa7f2a0848e642b1cadaa6ddd6b6b16dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35d6dde4eb5eda025e87261f27fd3be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#aa35d6dde4eb5eda025e87261f27fd3be">USB_SUBCLASS_AUDIOCONTROL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:aa35d6dde4eb5eda025e87261f27fd3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Audio Control subclass code.  <a href="#aa35d6dde4eb5eda025e87261f27fd3be">More...</a><br/></td></tr>
+<tr class="separator:aa35d6dde4eb5eda025e87261f27fd3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33dd30f824d8c15a2b4a649a95d22cbd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a33dd30f824d8c15a2b4a649a95d22cbd">USB_SUBCLASS_AUDIOSTREAMING</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a33dd30f824d8c15a2b4a649a95d22cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Audio Streaming subclass code.  <a href="#a33dd30f824d8c15a2b4a649a95d22cbd">More...</a><br/></td></tr>
+<tr class="separator:a33dd30f824d8c15a2b4a649a95d22cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe028d460954741a73a62d9e4a1a60da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#abe028d460954741a73a62d9e4a1a60da">UAC_INPUT_TERMINAL</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:abe028d460954741a73a62d9e4a1a60da"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC Input Terminal descriptor subtype.  <a href="#abe028d460954741a73a62d9e4a1a60da">More...</a><br/></td></tr>
+<tr class="separator:abe028d460954741a73a62d9e4a1a60da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac5b8cea39835535d048e8fc5ac06770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#aac5b8cea39835535d048e8fc5ac06770">UAC_OUTPUT_TERMINAL</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:aac5b8cea39835535d048e8fc5ac06770"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC Output Terminal descriptor subtype.  <a href="#aac5b8cea39835535d048e8fc5ac06770">More...</a><br/></td></tr>
+<tr class="separator:aac5b8cea39835535d048e8fc5ac06770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa00669ab6835bfe8c5a3c7d834723b06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#aa00669ab6835bfe8c5a3c7d834723b06">UAC_FEATURE_UNIT</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:aa00669ab6835bfe8c5a3c7d834723b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC Feature Unit descriptor subtype.  <a href="#aa00669ab6835bfe8c5a3c7d834723b06">More...</a><br/></td></tr>
+<tr class="separator:aa00669ab6835bfe8c5a3c7d834723b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76e226d2445b6075518d1a4f46d5e1c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a76e226d2445b6075518d1a4f46d5e1c9">UAC_FORMAT_TYPE_I</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:a76e226d2445b6075518d1a4f46d5e1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC format type I subtype.  <a href="#a76e226d2445b6075518d1a4f46d5e1c9">More...</a><br/></td></tr>
+<tr class="separator:a76e226d2445b6075518d1a4f46d5e1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaf0dc75902471edbb5aaf804c743169"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#adaf0dc75902471edbb5aaf804c743169">UAC_FORMAT_TYPE_SUBTYPE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:adaf0dc75902471edbb5aaf804c743169"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC format type subtype identifier.  <a href="#adaf0dc75902471edbb5aaf804c743169">More...</a><br/></td></tr>
+<tr class="separator:adaf0dc75902471edbb5aaf804c743169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81e67d649378e737e28ef388fc13f395"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a81e67d649378e737e28ef388fc13f395">UAC_AS_GENERAL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a81e67d649378e737e28ef388fc13f395"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC AudioStreaming General subtype.  <a href="#a81e67d649378e737e28ef388fc13f395">More...</a><br/></td></tr>
+<tr class="separator:a81e67d649378e737e28ef388fc13f395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab21a5fdbdfaf061b28d46c2da5d3151e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ab21a5fdbdfaf061b28d46c2da5d3151e">UAC_EP_GENERAL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ab21a5fdbdfaf061b28d46c2da5d3151e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC endpoint general subtype.  <a href="#ab21a5fdbdfaf061b28d46c2da5d3151e">More...</a><br/></td></tr>
+<tr class="separator:ab21a5fdbdfaf061b28d46c2da5d3151e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a20b85df56c410a24cdc66bfdebdb7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a9a20b85df56c410a24cdc66bfdebdb7a">UAC_VERSION</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:a9a20b85df56c410a24cdc66bfdebdb7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAC version identifier.  <a href="#a9a20b85df56c410a24cdc66bfdebdb7a">More...</a><br/></td></tr>
+<tr class="separator:a9a20b85df56c410a24cdc66bfdebdb7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14eda366fbfc63142620259d5cd9c25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#af14eda366fbfc63142620259d5cd9c25">USB_OUT_IT_ID</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:af14eda366fbfc63142620259d5cd9c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB output input terminal ID.  <a href="#af14eda366fbfc63142620259d5cd9c25">More...</a><br/></td></tr>
+<tr class="separator:af14eda366fbfc63142620259d5cd9c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5eba04431833b3197c3af2d77299fd1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#af5eba04431833b3197c3af2d77299fd1">USB_OUT_OT_ID</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:af5eba04431833b3197c3af2d77299fd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB output terminal ID.  <a href="#af5eba04431833b3197c3af2d77299fd1">More...</a><br/></td></tr>
+<tr class="separator:af5eba04431833b3197c3af2d77299fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a865c8abbba880292b5fef3c4eaed93c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a865c8abbba880292b5fef3c4eaed93c8">USB_IN_IT_ID</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a865c8abbba880292b5fef3c4eaed93c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB input input terminal ID.  <a href="#a865c8abbba880292b5fef3c4eaed93c8">More...</a><br/></td></tr>
+<tr class="separator:a865c8abbba880292b5fef3c4eaed93c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59334fe54658f649477891d96683d626"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a59334fe54658f649477891d96683d626">USB_IN_OT_ID</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a59334fe54658f649477891d96683d626"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB input output terminal ID.  <a href="#a59334fe54658f649477891d96683d626">More...</a><br/></td></tr>
+<tr class="separator:a59334fe54658f649477891d96683d626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12173ef808bebfeedcd678cdc68a66a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a12173ef808bebfeedcd678cdc68a66a1">NUM_CLK_SRC</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a12173ef808bebfeedcd678cdc68a66a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of clock sources.  <a href="#a12173ef808bebfeedcd678cdc68a66a1">More...</a><br/></td></tr>
+<tr class="separator:a12173ef808bebfeedcd678cdc68a66a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3565ac0bf66b9bb36aa98228a352763"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ad3565ac0bf66b9bb36aa98228a352763">USB_CLK_SRC_ID</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:ad3565ac0bf66b9bb36aa98228a352763"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB clock source ID.  <a href="#ad3565ac0bf66b9bb36aa98228a352763">More...</a><br/></td></tr>
+<tr class="separator:ad3565ac0bf66b9bb36aa98228a352763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78aea6b6f3f42b0bb041e221cbb8a9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ac78aea6b6f3f42b0bb041e221cbb8a9a">USB_CLK_SEL_ID</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ac78aea6b6f3f42b0bb041e221cbb8a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Clk Sel Id.  <a href="#ac78aea6b6f3f42b0bb041e221cbb8a9a">More...</a><br/></td></tr>
+<tr class="separator:ac78aea6b6f3f42b0bb041e221cbb8a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ade7ed0c333be2421f1c46843b241fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a7ade7ed0c333be2421f1c46843b241fc">OUT_FETR_UNT_ID</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:a7ade7ed0c333be2421f1c46843b241fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Out Fetr Unt Id.  <a href="#a7ade7ed0c333be2421f1c46843b241fc">More...</a><br/></td></tr>
+<tr class="separator:a7ade7ed0c333be2421f1c46843b241fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ba6dfa3c683533649a4fa0d59819f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#aa1ba6dfa3c683533649a4fa0d59819f3">IN_FETR_UNT_ID</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:aa1ba6dfa3c683533649a4fa0d59819f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">In Fetr Unt Id.  <a href="#aa1ba6dfa3c683533649a4fa0d59819f3">More...</a><br/></td></tr>
+<tr class="separator:aa1ba6dfa3c683533649a4fa0d59819f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a244c96ba30105a9373caf5d2649d3f2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a244c96ba30105a9373caf5d2649d3f2b">CONTROL_RDONLY</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a244c96ba30105a9373caf5d2649d3f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Rdonly.  <a href="#a244c96ba30105a9373caf5d2649d3f2b">More...</a><br/></td></tr>
+<tr class="separator:a244c96ba30105a9373caf5d2649d3f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae064cff24f260cf4197acd04238cb391"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ae064cff24f260cf4197acd04238cb391">CONTROL_RDWR</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ae064cff24f260cf4197acd04238cb391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Rdwr.  <a href="#ae064cff24f260cf4197acd04238cb391">More...</a><br/></td></tr>
+<tr class="separator:ae064cff24f260cf4197acd04238cb391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a827faa9e618e80a1e522ed9a6ed3a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a7a827faa9e618e80a1e522ed9a6ed3a8">CLK_FREQ_CTRL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a7a827faa9e618e80a1e522ed9a6ed3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clk Freq Ctrl.  <a href="#a7a827faa9e618e80a1e522ed9a6ed3a8">More...</a><br/></td></tr>
+<tr class="separator:a7a827faa9e618e80a1e522ed9a6ed3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0192bb335e8b6cd2d4a9623cf5660137"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a0192bb335e8b6cd2d4a9623cf5660137">COPY_CTRL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a0192bb335e8b6cd2d4a9623cf5660137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy Ctrl.  <a href="#a0192bb335e8b6cd2d4a9623cf5660137">More...</a><br/></td></tr>
+<tr class="separator:a0192bb335e8b6cd2d4a9623cf5660137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21157d455a32b1c580e64d1721fca58b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a21157d455a32b1c580e64d1721fca58b">UAC2_FUNCTION_SUBCLASS_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a21157d455a32b1c580e64d1721fca58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Function Subclass Undefined.  <a href="#a21157d455a32b1c580e64d1721fca58b">More...</a><br/></td></tr>
+<tr class="separator:a21157d455a32b1c580e64d1721fca58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb2538b799a93e5e0831724d938d69fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#afb2538b799a93e5e0831724d938d69fb">UAC2_FUNCTION_IO_BOX</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:afb2538b799a93e5e0831724d938d69fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Function Io Box.  <a href="#afb2538b799a93e5e0831724d938d69fb">More...</a><br/></td></tr>
+<tr class="separator:afb2538b799a93e5e0831724d938d69fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b64bafc8aa00fd27553ffc2f8ad681d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a0b64bafc8aa00fd27553ffc2f8ad681d">UAC2_CLOCK_SOURCE</a>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memdesc:a0b64bafc8aa00fd27553ffc2f8ad681d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Clock Source.  <a href="#a0b64bafc8aa00fd27553ffc2f8ad681d">More...</a><br/></td></tr>
+<tr class="separator:a0b64bafc8aa00fd27553ffc2f8ad681d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46bd48334eca2b04fa019db296aef32f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a46bd48334eca2b04fa019db296aef32f">UAC2_CLOCK_SELECTOR</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:a46bd48334eca2b04fa019db296aef32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Clock Selector.  <a href="#a46bd48334eca2b04fa019db296aef32f">More...</a><br/></td></tr>
+<tr class="separator:a46bd48334eca2b04fa019db296aef32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaaddb0f9ed075752dec156699286bb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#adaaddb0f9ed075752dec156699286bb1">UAC2_CLOCK_SOURCE_TYPE_INT_FIXED</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:adaaddb0f9ed075752dec156699286bb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Clock Source Type Int Fixed.  <a href="#adaaddb0f9ed075752dec156699286bb1">More...</a><br/></td></tr>
+<tr class="separator:adaaddb0f9ed075752dec156699286bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acafcefaea68dd16021f0919852570664"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#acafcefaea68dd16021f0919852570664">UAC2_FORMAT_TYPE_I_PCM</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:acafcefaea68dd16021f0919852570664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Format Type I Pcm.  <a href="#acafcefaea68dd16021f0919852570664">More...</a><br/></td></tr>
+<tr class="separator:acafcefaea68dd16021f0919852570664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e6310e994b386686e13ea46dfdd8dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ae3e6310e994b386686e13ea46dfdd8dc">USB_ENDPOINT_SYNC_ASYNC</a>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
+<tr class="memdesc:ae3e6310e994b386686e13ea46dfdd8dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Endpoint Sync Async.  <a href="#ae3e6310e994b386686e13ea46dfdd8dc">More...</a><br/></td></tr>
+<tr class="separator:ae3e6310e994b386686e13ea46dfdd8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe5c23ed8fe5b769f9d00ec0165cb8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#abbe5c23ed8fe5b769f9d00ec0165cb8d">AUDIO_CHANNEL_NUM</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:abbe5c23ed8fe5b769f9d00ec0165cb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Channel Num.  <a href="#abbe5c23ed8fe5b769f9d00ec0165cb8d">More...</a><br/></td></tr>
+<tr class="separator:abbe5c23ed8fe5b769f9d00ec0165cb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ad75a7f1933dd84023d554f49267d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#ae4ad75a7f1933dd84023d554f49267d2">be2le</a>(val)&#160;&#160;&#160;(u32)(val)</td></tr>
+<tr class="memdesc:ae4ad75a7f1933dd84023d554f49267d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Be2le(val).  <a href="#ae4ad75a7f1933dd84023d554f49267d2">More...</a><br/></td></tr>
+<tr class="separator:ae4ad75a7f1933dd84023d554f49267d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>(x)&#160;&#160;&#160;(u16) (x)</td></tr>
+<tr class="memdesc:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Be2les(x).  <a href="#adef8521a1dcd1b2e4eaa90c52f502d3c">More...</a><br/></td></tr>
+<tr class="separator:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16">htonl</a>(val)</td></tr>
+<tr class="memdesc:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap byte order from host to network (32-bit).  <a href="#a8135b2c24ee2a9f4bce9c36060c76d16">More...</a><br/></td></tr>
+<tr class="separator:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51799f5ebb4c7228ef7e95c247030f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a51799f5ebb4c7228ef7e95c247030f42">htons</a>(x)&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td></tr>
+<tr class="memdesc:a51799f5ebb4c7228ef7e95c247030f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap byte order from host to network (16-bit).  <a href="#a51799f5ebb4c7228ef7e95c247030f42">More...</a><br/></td></tr>
+<tr class="separator:a51799f5ebb4c7228ef7e95c247030f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6b9c8f0b5b4de1072d44ca05f15d3601"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601">Usb_Ch9SetupBosDescReply</a> (u8 *BufPtr, u32 BufLen)</td></tr>
@@ -134,9 +255,588 @@ Functions</h2></td></tr>
 <tr class="memdesc:af99800b04544fe0bfa385de154d79087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes State of Core to USB configured State.  <a href="#af99800b04544fe0bfa385de154d79087">More...</a><br/></td></tr>
 <tr class="separator:af99800b04544fe0bfa385de154d79087"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__audio__dfu_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *Ctrl)</td></tr>
-<tr class="memdesc:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host.  <a href="#a4e6a99c41d5f094f189a0d4c0ad8b58b">More...</a><br/></td></tr>
+<tr class="memdesc:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.  <a href="#a4e6a99c41d5f094f189a0d4c0ad8b58b">More...</a><br/></td></tr>
 <tr class="separator:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="abbe5c23ed8fe5b769f9d00ec0165cb8d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_CHANNEL_NUM&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Channel Num. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae4ad75a7f1933dd84023d554f49267d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2le</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td>&#160;&#160;&#160;(u32)(val)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Be2le(val). </p>
+
+</div>
+</div>
+<a class="anchor" id="adef8521a1dcd1b2e4eaa90c52f502d3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2les</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) (x)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Be2les(x). </p>
+
+</div>
+</div>
+<a class="anchor" id="a7a827faa9e618e80a1e522ed9a6ed3a8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLK_FREQ_CTRL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clk Freq Ctrl. </p>
+
+</div>
+</div>
+<a class="anchor" id="a244c96ba30105a9373caf5d2649d3f2b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONTROL_RDONLY&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control Rdonly. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae064cff24f260cf4197acd04238cb391"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONTROL_RDWR&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control Rdwr. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0192bb335e8b6cd2d4a9623cf5660137"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COPY_CTRL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy Ctrl. </p>
+
+</div>
+</div>
+<a class="anchor" id="a17b88ec5acbe5c6ca45a3f8afd8ff50d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_MAX_TRANSFER&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum DFU block transfer size in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8135b2c24ee2a9f4bce9c36060c76d16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htonl</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((((u32)(val) &amp; 0x000000FF)&lt;&lt;24) |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x0000FF00)&lt;&lt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x00FF0000)&gt;&gt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0xFF000000)&gt;&gt;24))</div>
+</div><!-- fragment -->
+<p>Swap byte order from host to network (32-bit). </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51799f5ebb4c7228ef7e95c247030f42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htons</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Swap byte order from host to network (16-bit). </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa1ba6dfa3c683533649a4fa0d59819f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IN_FETR_UNT_ID&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>In Fetr Unt Id. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12173ef808bebfeedcd678cdc68a66a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_CLK_SRC&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of clock sources. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7ade7ed0c333be2421f1c46843b241fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OUT_FETR_UNT_ID&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Out Fetr Unt Id. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a46bd48334eca2b04fa019db296aef32f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CLOCK_SELECTOR&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Clock Selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0b64bafc8aa00fd27553ffc2f8ad681d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CLOCK_SOURCE&#160;&#160;&#160;0x0a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Clock Source. </p>
+
+</div>
+</div>
+<a class="anchor" id="adaaddb0f9ed075752dec156699286bb1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CLOCK_SOURCE_TYPE_INT_FIXED&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Clock Source Type Int Fixed. </p>
+
+</div>
+</div>
+<a class="anchor" id="acafcefaea68dd16021f0919852570664"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FORMAT_TYPE_I_PCM&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Format Type I Pcm. </p>
+
+</div>
+</div>
+<a class="anchor" id="afb2538b799a93e5e0831724d938d69fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FUNCTION_IO_BOX&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Function Io Box. </p>
+
+</div>
+</div>
+<a class="anchor" id="a21157d455a32b1c580e64d1721fca58b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FUNCTION_SUBCLASS_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Function Subclass Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a81e67d649378e737e28ef388fc13f395"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_AS_GENERAL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC AudioStreaming General subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab21a5fdbdfaf061b28d46c2da5d3151e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_EP_GENERAL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC endpoint general subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa00669ab6835bfe8c5a3c7d834723b06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_FEATURE_UNIT&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC Feature Unit descriptor subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="a76e226d2445b6075518d1a4f46d5e1c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_FORMAT_TYPE_I&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC format type I subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="adaf0dc75902471edbb5aaf804c743169"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_FORMAT_TYPE_SUBTYPE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC format type subtype identifier. </p>
+
+</div>
+</div>
+<a class="anchor" id="abe028d460954741a73a62d9e4a1a60da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_INPUT_TERMINAL&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC Input Terminal descriptor subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="aac5b8cea39835535d048e8fc5ac06770"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_OUTPUT_TERMINAL&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC Output Terminal descriptor subtype. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a20b85df56c410a24cdc66bfdebdb7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC_VERSION&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UAC version identifier. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac78aea6b6f3f42b0bb041e221cbb8a9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLK_SEL_ID&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Clk Sel Id. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad3565ac0bf66b9bb36aa98228a352763"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLK_SRC_ID&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB clock source ID. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa7f2a0848e642b1cadaa6ddd6b6b16dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DT_CS_ENDPOINT&#160;&#160;&#160;(<a class="el" href="xusb__freertos__ch9__composite_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1">USB_TYPE_CLASS</a> | <a class="el" href="xusb__ch9_8h.html#a065ef0ece8a164478d33b8c588d4b338">USB_TYPE_ENDPOINT_CFG_DESC</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Class-specific endpoint descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a79bd164810a1af8ab1067c9b6443f702"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DT_CS_INTERFACE&#160;&#160;&#160;(<a class="el" href="xusb__freertos__ch9__composite_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1">USB_TYPE_CLASS</a> | <a class="el" href="xusb__ch9_8h.html#a83f8f52050312826f98a75457787f8a6">USB_TYPE_INTERFACE_DESC</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Class-specific interface descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae3e6310e994b386686e13ea46dfdd8dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_SYNC_ASYNC&#160;&#160;&#160;(1 &lt;&lt; 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Endpoint Sync Async. </p>
+
+</div>
+</div>
+<a class="anchor" id="a865c8abbba880292b5fef3c4eaed93c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_IN_IT_ID&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB input input terminal ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a59334fe54658f649477891d96683d626"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_IN_OT_ID&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB input output terminal ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="af14eda366fbfc63142620259d5cd9c25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_OUT_IT_ID&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB output input terminal ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="af5eba04431833b3197c3af2d77299fd1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_OUT_OT_ID&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB output terminal ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa35d6dde4eb5eda025e87261f27fd3be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SUBCLASS_AUDIOCONTROL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Audio Control subclass code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a33dd30f824d8c15a2b4a649a95d22cbd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SUBCLASS_AUDIOSTREAMING&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Audio Streaming subclass code. </p>
+
+</div>
+</div>
+<a class="anchor" id="acd8c428aa0aca973ec78dd2f34c84cf1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_CLASS&#160;&#160;&#160;(0x01 &lt;&lt; 5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB request type: Class. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6b9c8f0b5b4de1072d44ca05f15d3601"></a>
 <div class="memitem">
@@ -165,8 +865,8 @@ Functions</h2></td></tr>
 <p>This function returns the BOS descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -207,9 +907,9 @@ Functions</h2></td></tr>
 <p>This function returns the configuration descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -250,9 +950,9 @@ Functions</h2></td></tr>
 <p>This function returns the device descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -299,10 +999,10 @@ Functions</h2></td></tr>
 <p>This function returns a string descriptor for the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
-    <tr><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
   </table>
   </dd>
 </dl>
@@ -337,22 +1037,12 @@ Functions</h2></td></tr>
 <p>Changes State of Core to USB configured State. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE if device is not in address state</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE </dd></dl>
 
 </div>
 </div>
@@ -380,22 +1070,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </p>
+<p>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. </p>
+<p>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if successful,<ul>
-<li>XST_FAILURE if unsuccessful.</li>
-</ul>
-</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>

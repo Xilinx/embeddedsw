@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('xilffs__polled__example_8c.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -98,16 +99,20 @@ $(document).ready(function(){initNavTree('xilffs__polled__example_8c.html','');}
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilffs_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><dl class="section note"><dt>Note</dt><dd>This example uses file system with SD to write to and read from an SD card using ADMA2 in polled mode. To test this example File System should not be in Read Only mode. To test this example USE_MKFS option should be true.</dd></dl>
-<p>This example was tested using SD2.0 card and eMMC (using eMMC to SD adaptor).</p>
-<p>To test with different logical drives, drive number should be mentioned in both FileName and Path variables. By default, it will take drive 0 if drive number is not mentioned in the FileName variable. For example, to test logical drive 1 FileName = "1:/&lt;file_name&gt;" and Path = "1:/" Similarly to test logical drive N, FileName = "N:/&lt;file_name&gt;" and Path = "N:/"</p>
-<p>None.</p>
+<div class="textblock"><p>Writes to and reads from an SD card through the file system. </p>
+<dl class="section note"><dt>Note</dt><dd>This example uses the file system with SD to write to and read from an SD card using Advanced DMA version 2 (ADMA2) in polled mode. To test this example, the file system must not be in read-only mode. To test this example, the USE_MKFS option must be true. <br/>
+<br/>
+ This example was tested using an SD2.0 card and eMMC (using an eMMC to SD adapter). <br/>
+<br/>
+ To test with different logical drives, specify the drive number in both the FileName and Path variables. By default, the example uses drive 0 if the FileName variable does not specify a drive number. For example, to test logical drive 1, set FileName = "1:/&lt;file_name&gt;" and Path = "1:/". Similarly, to test logical drive N, set FileName = "N:/&lt;file_name&gt;" and Path = "N:/".</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who Date     Changes
 </p>
@@ -117,22 +122,52 @@ $(document).ready(function(){initNavTree('xilffs__polled__example_8c.html','');}
  2.2   hk  07/28/14 Make changes to enable use of data cache.
  2.5   sk  07/15/15 Used File size as 8KB to test on emulation platform.
  2.9   sk  06/09/16 Added support for mkfs.
- 3.10  mn  08/18/18 Change file size to 8MB from 8KB for ZynqMP platform</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+ 3.10  mn  08/18/18 Change file size to 8MB from 8KB for ZynqMP platform
+ 5.7   vn  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xsdps.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;ff.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab946e2e7f7679350627acfded8e2658b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__example_8c.html#ab946e2e7f7679350627acfded8e2658b">TEST</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ab946e2e7f7679350627acfded8e2658b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base value used to generate the test data.  <a href="#ab946e2e7f7679350627acfded8e2658b">More...</a><br/></td></tr>
+<tr class="separator:ab946e2e7f7679350627acfded8e2658b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab4afdccb37f4e35ed20d61a4a244fd5c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__example_8c.html#ab4afdccb37f4e35ed20d61a4a244fd5c">FfsSdPolledExample</a> (void)</td></tr>
-<tr class="memdesc:ab4afdccb37f4e35ed20d61a4a244fd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">File system example using SD driver to write to and read from an SD card in polled mode.  <a href="#ab4afdccb37f4e35ed20d61a4a244fd5c">More...</a><br/></td></tr>
+<tr class="memdesc:ab4afdccb37f4e35ed20d61a4a244fd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to and reads from an SD card using the SD driver in polled mode.  <a href="#ab4afdccb37f4e35ed20d61a4a244fd5c">More...</a><br/></td></tr>
 <tr class="separator:ab4afdccb37f4e35ed20d61a4a244fd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the SD example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the SD example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_m_k_f_s___p_a_r_m.html">MKFS_PARM</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilffs__polled__example_8c.html#a8215107e5aafac2ca35ca5c5d42ec0c3">mkfs_parm</a></td></tr>
+<tr class="memdesc:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format parameters passed to f_mkfs().  <a href="#a8215107e5aafac2ca35ca5c5d42ec0c3">More...</a><br/></td></tr>
+<tr class="separator:a8215107e5aafac2ca35ca5c5d42ec0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab946e2e7f7679350627acfded8e2658b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base value used to generate the test data. </p>
+
+<p>Referenced by <a class="el" href="xilffs__polled__example_8c.html#ab4afdccb37f4e35ed20d61a4a244fd5c">FfsSdPolledExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ab4afdccb37f4e35ed20d61a4a244fd5c"></a>
 <div class="memitem">
@@ -148,16 +183,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>File system example using SD driver to write to and read from an SD card in polled mode. </p>
-<p>This example creates a new file on an SD card (which is previously formatted with FATFS), write data to the file and reads the same data back to verify.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Writes to and reads from an SD card using the SD driver in polled mode. </p>
+<p>This file system example creates a new file on an SD card that is already formatted with <a class="el" href="struct_f_a_t_f_s.html">FATFS</a>. It writes data to the file and reads the same data back to verify it.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
+
+<p>References <a class="el" href="xilffs__polled__example_8c.html#a8215107e5aafac2ca35ca5c5d42ec0c3">mkfs_parm</a>, and <a class="el" href="xilffs__polled__example_8c.html#ab946e2e7f7679350627acfded8e2658b">TEST</a>.</p>
 
 <p>Referenced by <a class="el" href="xilffs__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -177,17 +207,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the SD example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Calls the SD example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
 <p>References <a class="el" href="xilffs__polled__example_8c.html#ab4afdccb37f4e35ed20d61a4a244fd5c">FfsSdPolledExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a8215107e5aafac2ca35ca5c5d42ec0c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_m_k_f_s___p_a_r_m.html">MKFS_PARM</a> mkfs_parm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format parameters passed to f_mkfs(). </p>
+
+<p>Referenced by <a class="el" href="xilffs__polled__example_8c.html#ab4afdccb37f4e35ed20d61a4a244fd5c">FfsSdPolledExample()</a>, and <a class="el" href="xilffs__polled__ufs__example_8c.html#a205ea75d4bbf0295d75ff8ad42683c4d">FfsUfsPolledExample()</a>.</p>
 
 </div>
 </div>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcan__intr__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,17 +100,18 @@ $(document).ready(function(){initNavTree('xcan__intr__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xcan_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Contains an example of how to use the <a class="el" href="struct_x_can.html" title="The XCan driver instance data. ">XCan</a> driver directly. </p>
-<p>The example here shows using the driver/device in interrupt mode.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This code assumes that Xilinx interrupt controller (XIntc) is used in the system to forward the CAN device interrupt output to the processor and no operating system is being used.</p>
-<p>The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are setup such that CAN baud rate equals 40Kbps, assuming that the the CAN clock is 24MHz. The user needs to modify these values based on the desired baud rate and the CAN clock frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_can.html" title="CAN driver instance data structure. ">XCan</a> driver in interrupt mode. </p>
+<p>Contains an example of how to use the <a class="el" href="struct_x_can.html" title="CAN driver instance data structure. ">XCan</a> driver directly. The example here shows using the driver/device in interrupt mode.</p>
+<dl class="section note"><dt>Note</dt><dd>This code assumes that the Xilinx interrupt controller (XIntc) forwards the CAN device interrupt output to the processor. It also assumes that no operating system is used. <br/>
+<br/>
+ The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock of 24MHz. Modify these values based on the desired baud rate and the CAN clock frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
 </p>
@@ -131,18 +132,177 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
 3.7   ht   07/04/23 Added support for system device-tree flow.
 3.8   ht   12/13/23 Added support for ECC.
 3.11  sp   21/07/25 Fix GCC Warnings.
+3.13  vn   07/30/26 Fix Doxygen warnings
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcan_8h.html">xcan.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aaa965b01a6ce77f27ed848bcd393450b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#aaa965b01a6ce77f27ed848bcd393450b">XCAN_MAX_FRAME_SIZE_IN_WORDS</a>&#160;&#160;&#160;(<a class="el" href="group__can.html#ga0d49049d96621520fa9afe22db2a8a34">XCAN_MAX_FRAME_SIZE</a> / sizeof(u32))</td></tr>
+<tr class="memdesc:aaa965b01a6ce77f27ed848bcd393450b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum CAN frame length in word.  <a href="#aaa965b01a6ce77f27ed848bcd393450b">More...</a><br/></td></tr>
+<tr class="separator:aaa965b01a6ce77f27ed848bcd393450b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3317b62fb7f445865d6d8288847a6dac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a3317b62fb7f445865d6d8288847a6dac">FRAME_DATA_LENGTH</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a3317b62fb7f445865d6d8288847a6dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Data field length.  <a href="#a3317b62fb7f445865d6d8288847a6dac">More...</a><br/></td></tr>
+<tr class="separator:a3317b62fb7f445865d6d8288847a6dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8402ffb273c0d8a8e72f2a845d96b269"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a8402ffb273c0d8a8e72f2a845d96b269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message Id Constant.  <a href="#a8402ffb273c0d8a8e72f2a845d96b269">More...</a><br/></td></tr>
+<tr class="separator:a8402ffb273c0d8a8e72f2a845d96b269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">XPAR parameter mappings</div></td></tr>
+<tr class="memitem:af846c356b4c52e30457c153e257a8ef1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#af846c356b4c52e30457c153e257a8ef1">XCAN_BASEADDRESS</a>&#160;&#160;&#160;XPAR_CAN_0_BASEADDR</td></tr>
+<tr class="memdesc:af846c356b4c52e30457c153e257a8ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">CAN base address.  <a href="#af846c356b4c52e30457c153e257a8ef1">More...</a><br/></td></tr>
+<tr class="separator:af846c356b4c52e30457c153e257a8ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Baud Rate Prescaler and Bit Timing Register values</div></td></tr>
+<tr class="memitem:a40b93f102dc8a0ae0f87092bc96087f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>&#160;&#160;&#160;29</td></tr>
+<tr class="memdesc:a40b93f102dc8a0ae0f87092bc96087f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud Rate Prescaler Register (BRPR) value.  <a href="#a40b93f102dc8a0ae0f87092bc96087f1">More...</a><br/></td></tr>
+<tr class="separator:a40b93f102dc8a0ae0f87092bc96087f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">TEST_BTR_SYNCJUMPWIDTH</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) synchronization jump width.  <a href="#aa2f0504cb1cf0584ff8d7532b91d17f3">More...</a><br/></td></tr>
+<tr class="separator:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963822e22ff13542adf1ca249fb11e1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">TEST_BTR_SECOND_TIMESEGMENT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a963822e22ff13542adf1ca249fb11e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) second time segment.  <a href="#a963822e22ff13542adf1ca249fb11e1e">More...</a><br/></td></tr>
+<tr class="separator:a963822e22ff13542adf1ca249fb11e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413d190032b595cee3eaad35f5ff0f95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:a413d190032b595cee3eaad35f5ff0f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) first time segment.  <a href="#a413d190032b595cee3eaad35f5ff0f95">More...</a><br/></td></tr>
+<tr class="separator:a413d190032b595cee3eaad35f5ff0f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the Can interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the CAN interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3317b62fb7f445865d6d8288847a6dac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FRAME_DATA_LENGTH&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frame Data field length. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40b93f102dc8a0ae0f87092bc96087f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BRPR_BAUD_PRESCALAR&#160;&#160;&#160;29</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Baud Rate Prescaler Register (BRPR) value. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a413d190032b595cee3eaad35f5ff0f95"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_FIRST_TIMESEGMENT&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) first time segment. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a963822e22ff13542adf1ca249fb11e1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_SECOND_TIMESEGMENT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) second time segment. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa2f0504cb1cf0584ff8d7532b91d17f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_SYNCJUMPWIDTH&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) synchronization jump width. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8402ffb273c0d8a8e72f2a845d96b269"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_MESSAGE_ID&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Message Id Constant. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af846c356b4c52e30457c153e257a8ef1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCAN_BASEADDRESS&#160;&#160;&#160;XPAR_CAN_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CAN base address. </p>
+
+<p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaa965b01a6ce77f27ed848bcd393450b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCAN_MAX_FRAME_SIZE_IN_WORDS&#160;&#160;&#160;(<a class="el" href="group__can.html#ga0d49049d96621520fa9afe22db2a8a34">XCAN_MAX_FRAME_SIZE</a> / sizeof(u32))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum CAN frame length in word. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -158,15 +318,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the main function of the Can interrupt example. </p>
+<p>Runs the CAN interrupt example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_can.html#ad1b7e8246d4595ef6bde028a562c08fa">XCan::EnableECC</a>, <a class="el" href="struct_x_can___config.html#ad700376ee419521e3a8523503ee8f3f3">XCan_Config::IntrId</a>, <a class="el" href="struct_x_can___config.html#a3869e2fd7408be788becffea3d79bd69">XCan_Config::IntrParent</a>, <a class="el" href="group__can.html#ga8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>, <a class="el" href="group__can.html#ga2389175edaafb057e5a5cf089f6cdec1">XCan_CreateDlcValue</a>, <a class="el" href="group__can.html#ga874d1b170d939f5ab18bf88fbad00b43">XCan_CreateIdValue</a>, <a class="el" href="group__can.html#ga994a0b0bd9c938e99de9d7ffceb10ef3">XCan_EnterMode()</a>, <a class="el" href="group__can.html#gaba97ed0970710fa7b2da922f836fdea7">XCAN_ESR_ACKER_MASK</a>, <a class="el" href="group__can.html#gaa82168a0c9d1ce36e4ec4310fdf2fcfd">XCAN_ESR_BERR_MASK</a>, <a class="el" href="group__can.html#ga630be69fc280301a8856ed8ccb1c5866">XCAN_ESR_CRCER_MASK</a>, <a class="el" href="group__can.html#ga71466ab85c99729cb8c88657fedcdfd3">XCAN_ESR_FMER_MASK</a>, <a class="el" href="group__can.html#ga118328341a73c8b0d602c3f38b9eb587">XCAN_ESR_STER_MASK</a>, <a class="el" href="group__can.html#ga6b437133a6a2f40f56cf3c80102f5b0d">XCan_GetMode()</a>, <a class="el" href="group__can.html#ga95c42c89b517eab2aa63b584178e19d7">XCAN_HANDLER_ERROR</a>, <a class="el" href="group__can.html#ga2b8a36e69531ded498ee4aae48144703">XCAN_HANDLER_EVENT</a>, <a class="el" href="group__can.html#gac3819485b065f3726f30fab00768891a">XCAN_HANDLER_RECV</a>, <a class="el" href="group__can.html#ga0951d27e2a23e485fb9d04019714ff19">XCAN_HANDLER_SEND</a>, <a class="el" href="group__can.html#gaf070d43e1240f9396a9b6f325bcf5fcb">XCan_Initialize()</a>, <a class="el" href="group__can.html#ga1abd3a018094fd4d586599d708c33e4f">XCan_InterruptEnable()</a>, <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, <a class="el" href="group__can.html#ga16bf9b91c18418196abe8271eed806ce">XCan_IsTxFifoFull</a>, <a class="el" href="group__can.html#ga553b29006c0052225803342e61f63918">XCAN_IXR_ALL</a>, <a class="el" href="group__can.html#ga519a0e1365d4237932311c794a9f3286">XCAN_IXR_ARBLST_MASK</a>, <a class="el" href="group__can.html#ga43b89eddb5c487830ab99f876eaf5a34">XCAN_IXR_BSOFF_MASK</a>, <a class="el" href="group__can.html#gab3ff6f454fae07e0b637ad85e2564b72">XCAN_IXR_ECC_MASK</a>, <a class="el" href="group__can.html#ga269318cb287c11f639cf185dce640191">XCAN_IXR_RXOFLW_MASK</a>, <a class="el" href="group__can.html#ga054d2d002f9141d9d937d262f5b637de">XCAN_IXR_RXUFLW_MASK</a>, <a class="el" href="group__can.html#ga5fce703c1f3a145620255809ecf422bb">XCAN_IXR_SLP_MASK</a>, <a class="el" href="group__can.html#gaccb86502df2129af8cbddd4da45db912">XCAN_IXR_TXBFLL_MASK</a>, <a class="el" href="group__can.html#ga3436502be0f71ac99a60299c73b86f1f">XCAN_IXR_TXFLL_MASK</a>, <a class="el" href="group__can.html#gaea1b2f81446269b8b30267bf840b3c31">XCAN_IXR_WKUP_MASK</a>, <a class="el" href="group__can.html#gaf6d18b900bb0896517949dbde898524b">XCan_LookupConfig()</a>, <a class="el" href="group__can.html#gac2ff2f17841fcf789f5e214205aa844a">XCAN_MODE_CONFIG</a>, <a class="el" href="group__can.html#gad11c39965154f3eeb280a07fdfcc38bc">XCAN_MODE_LOOPBACK</a>, <a class="el" href="group__can.html#ga1d8ac17789423c440872ffd4585b8c3c">XCan_Recv()</a>, <a class="el" href="group__can.html#ga6c52fb4d4b12d62e3e713ad182f00d8b">XCan_Reset()</a>, <a class="el" href="group__can.html#gaa18e848a6ffc670e024972ffc71b2ba8">XCan_SelfTest()</a>, <a class="el" href="group__can.html#gad4717011f46b8e9d5e15c0bfb04c33c8">XCan_Send()</a>, <a class="el" href="group__can.html#ga75aabbb82d96151cadfd3c26a2a285e9">XCan_SetBaudRatePrescaler()</a>, <a class="el" href="group__can.html#gaf60120410396727f6e9304ce9ba65980">XCan_SetBitTiming()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
+<p>References <a class="el" href="struct_x_can.html#ad1b7e8246d4595ef6bde028a562c08fa">XCan::EnableECC</a>, <a class="el" href="xcan__intr__example_8c.html#a3317b62fb7f445865d6d8288847a6dac">FRAME_DATA_LENGTH</a>, <a class="el" href="struct_x_can___config.html#ad700376ee419521e3a8523503ee8f3f3">XCan_Config::IntrId</a>, <a class="el" href="struct_x_can___config.html#a3869e2fd7408be788becffea3d79bd69">XCan_Config::IntrParent</a>, <a class="el" href="xcan__intr__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>, <a class="el" href="xcan__intr__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>, <a class="el" href="xcan__intr__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">TEST_BTR_SECOND_TIMESEGMENT</a>, <a class="el" href="xcan__intr__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">TEST_BTR_SYNCJUMPWIDTH</a>, <a class="el" href="xcan__intr__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>, <a class="el" href="xcan__intr__example_8c.html#af846c356b4c52e30457c153e257a8ef1">XCAN_BASEADDRESS</a>, <a class="el" href="group__can.html#ga2389175edaafb057e5a5cf089f6cdec1">XCan_CreateDlcValue</a>, <a class="el" href="group__can.html#ga874d1b170d939f5ab18bf88fbad00b43">XCan_CreateIdValue</a>, <a class="el" href="group__can.html#ga994a0b0bd9c938e99de9d7ffceb10ef3">XCan_EnterMode()</a>, <a class="el" href="group__can.html#gaba97ed0970710fa7b2da922f836fdea7">XCAN_ESR_ACKER_MASK</a>, <a class="el" href="group__can.html#gaa82168a0c9d1ce36e4ec4310fdf2fcfd">XCAN_ESR_BERR_MASK</a>, <a class="el" href="group__can.html#ga630be69fc280301a8856ed8ccb1c5866">XCAN_ESR_CRCER_MASK</a>, <a class="el" href="group__can.html#ga71466ab85c99729cb8c88657fedcdfd3">XCAN_ESR_FMER_MASK</a>, <a class="el" href="group__can.html#ga118328341a73c8b0d602c3f38b9eb587">XCAN_ESR_STER_MASK</a>, <a class="el" href="group__can.html#ga6b437133a6a2f40f56cf3c80102f5b0d">XCan_GetMode()</a>, <a class="el" href="group__can.html#ga95c42c89b517eab2aa63b584178e19d7">XCAN_HANDLER_ERROR</a>, <a class="el" href="group__can.html#ga2b8a36e69531ded498ee4aae48144703">XCAN_HANDLER_EVENT</a>, <a class="el" href="group__can.html#gac3819485b065f3726f30fab00768891a">XCAN_HANDLER_RECV</a>, <a class="el" href="group__can.html#ga0951d27e2a23e485fb9d04019714ff19">XCAN_HANDLER_SEND</a>, <a class="el" href="group__can.html#gaf070d43e1240f9396a9b6f325bcf5fcb">XCan_Initialize()</a>, <a class="el" href="group__can.html#ga1abd3a018094fd4d586599d708c33e4f">XCan_InterruptEnable()</a>, <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, <a class="el" href="group__can.html#ga16bf9b91c18418196abe8271eed806ce">XCan_IsTxFifoFull</a>, <a class="el" href="group__can.html#ga553b29006c0052225803342e61f63918">XCAN_IXR_ALL</a>, <a class="el" href="group__can.html#ga519a0e1365d4237932311c794a9f3286">XCAN_IXR_ARBLST_MASK</a>, <a class="el" href="group__can.html#ga43b89eddb5c487830ab99f876eaf5a34">XCAN_IXR_BSOFF_MASK</a>, <a class="el" href="group__can.html#gab3ff6f454fae07e0b637ad85e2564b72">XCAN_IXR_ECC_MASK</a>, <a class="el" href="group__can.html#ga269318cb287c11f639cf185dce640191">XCAN_IXR_RXOFLW_MASK</a>, <a class="el" href="group__can.html#ga054d2d002f9141d9d937d262f5b637de">XCAN_IXR_RXUFLW_MASK</a>, <a class="el" href="group__can.html#ga5fce703c1f3a145620255809ecf422bb">XCAN_IXR_SLP_MASK</a>, <a class="el" href="group__can.html#gaccb86502df2129af8cbddd4da45db912">XCAN_IXR_TXBFLL_MASK</a>, <a class="el" href="group__can.html#ga3436502be0f71ac99a60299c73b86f1f">XCAN_IXR_TXFLL_MASK</a>, <a class="el" href="group__can.html#gaea1b2f81446269b8b30267bf840b3c31">XCAN_IXR_WKUP_MASK</a>, <a class="el" href="group__can.html#gaf6d18b900bb0896517949dbde898524b">XCan_LookupConfig()</a>, <a class="el" href="group__can.html#gac2ff2f17841fcf789f5e214205aa844a">XCAN_MODE_CONFIG</a>, <a class="el" href="group__can.html#gad11c39965154f3eeb280a07fdfcc38bc">XCAN_MODE_LOOPBACK</a>, <a class="el" href="group__can.html#ga1d8ac17789423c440872ffd4585b8c3c">XCan_Recv()</a>, <a class="el" href="group__can.html#ga6c52fb4d4b12d62e3e713ad182f00d8b">XCan_Reset()</a>, <a class="el" href="group__can.html#gaa18e848a6ffc670e024972ffc71b2ba8">XCan_SelfTest()</a>, <a class="el" href="group__can.html#gad4717011f46b8e9d5e15c0bfb04c33c8">XCan_Send()</a>, <a class="el" href="group__can.html#ga75aabbb82d96151cadfd3c26a2a285e9">XCan_SetBaudRatePrescaler()</a>, <a class="el" href="group__can.html#gaf60120410396727f6e9304ce9ba65980">XCan_SetBitTiming()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
 </div>
 </div>

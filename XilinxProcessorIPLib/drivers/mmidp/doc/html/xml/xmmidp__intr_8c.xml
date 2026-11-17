@@ -7,50 +7,50 @@
     <includes local="no">sleep.h</includes>
     <includes refid="xmmidp_8h" local="yes">xmmidp.h</includes>
     <incdepgraph>
-      <node id="27">
-        <label>xil_io.h</label>
-      </node>
-      <node id="24">
-        <label>sleep.h</label>
-      </node>
-      <node id="22">
-        <label>stdlib.h</label>
-      </node>
-      <node id="21">
-        <label>xmmidp_intr.c</label>
-        <link refid="xmmidp_intr.c"/>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-      </node>
-      <node id="26">
+      <node id="37">
         <label>xmmidp_hw.h</label>
         <link refid="xmmidp__hw_8h"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
       </node>
-      <node id="23">
-        <label>xstatus.h</label>
+      <node id="38">
+        <label>xil_io.h</label>
       </node>
-      <node id="25">
+      <node id="35">
+        <label>sleep.h</label>
+      </node>
+      <node id="33">
+        <label>stdlib.h</label>
+      </node>
+      <node id="32">
+        <label>xmmidp_intr.c</label>
+        <link refid="xmmidp_intr.c"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
         <label>xmmidp.h</label>
         <link refid="xmmidp_8h"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="34">
+        <label>xstatus.h</label>
+      </node>
+      <node id="40">
         <label>xvidc.h</label>
       </node>
-      <node id="28">
+      <node id="39">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
@@ -80,10 +80,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="42" bodyend="53"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="42" bodyend="53"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
         <references refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" compoundref="xmmidp__hw_8h" startline="529">XMMIDP_GEN_INT0</references>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -121,10 +122,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="66" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="66" bodyend="76"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
         <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -162,9 +164,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="90" bodyend="100"/>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="90" bodyend="100"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga5dab35dcbbeb3de888b5eb30208af90c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -202,10 +205,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="114" bodyend="124"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="114" bodyend="124"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
         <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga7cfd65b23a054d8824a30bf6dbb6d180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -243,9 +247,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="138" bodyend="148"/>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="138" bodyend="148"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1gafacb1150b31fe739bafb1a9700fcf364" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -294,7 +299,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="165" bodyend="177"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="165" bodyend="177"/>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga452745fcf9e70884ef210a221f6f4e62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -343,7 +348,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="194" bodyend="206"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="194" bodyend="206"/>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga65d2fe57b1ad90fa623a777d8dfa33e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -392,7 +397,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="223" bodyend="235"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="223" bodyend="235"/>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -419,9 +424,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="251" bodyend="310"/>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="251" bodyend="310"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
         <referencedby refid="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" compoundref="xmmidp__intr_8c" startline="325" endline="390">XMmiDp_GeneralInterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -449,12 +455,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="325" bodyend="390"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="325" bodyend="390"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
         <references refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" compoundref="xmmidp__hw_8h" startline="529">XMMIDP_GEN_INT0</references>
         <references refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" compoundref="xmmidp__hw_8h" startline="620">XMMIDP_GEN_INT_ENABLE0</references>
         <references refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" compoundref="xmmidp__intr_8c" startline="251" endline="310">XMmiDp_HpdInterruptHandler</references>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -492,9 +499,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="404" bodyend="414"/>
-        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="1976">XMmiDp_ReadReg</references>
-        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="1993">XMmiDp_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c" bodystart="404" bodyend="414"/>
+        <references refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" compoundref="xmmidp_8h" startline="43">XMmiDp_Config::BaseAddr</references>
+        <references refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" compoundref="xmmidp__hw_8h" startline="2007">XMmiDp_ReadReg</references>
+        <references refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" compoundref="xmmidp__hw_8h" startline="2024">XMmiDp_WriteReg</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -520,12 +528,12 @@
 <codeline lineno="43"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>);</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XMMIDP_GEN_INT0_HPD_EVENT_MASK;</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="53"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
@@ -533,11 +541,11 @@
 <codeline lineno="67"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
@@ -546,11 +554,11 @@
 <codeline lineno="91"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
@@ -559,11 +567,11 @@
 <codeline lineno="115"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="124"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"></highlight></codeline>
@@ -572,11 +580,11 @@
 <codeline lineno="139"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="148"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
@@ -633,9 +641,9 @@
 <codeline lineno="255"><highlight class="normal"></highlight></codeline>
 <codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0);</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdIen<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdIen<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE);</highlight></codeline>
 <codeline lineno="262"><highlight class="normal"></highlight></codeline>
 <codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[HPD-ISR]<sp/>HPD_STATUS0=0x%08X&quot;</highlight><highlight class="normal">,<sp/>IntrStatus);</highlight></codeline>
@@ -652,7 +660,7 @@
 <codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0_STATE_SHIFT);</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight></codeline>
 <codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write-1-to-clear<sp/>the<sp/>HPD<sp/>status<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_STATUS0,<sp/>IntrStatus);</highlight></codeline>
 <codeline lineno="279"><highlight class="normal"></highlight></codeline>
 <codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatus<sp/>&amp;<sp/>XMMIDP_HPD_STATUS0_HPD_IRQ_MASK)<sp/>&amp;&amp;</highlight></codeline>
@@ -682,7 +690,7 @@
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_PLUG_EN_MASK<sp/>|</highlight></codeline>
 <codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_UNPLUG_EN_MASK;</highlight></codeline>
 <codeline lineno="306"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_INTERRUPT_ENABLE,<sp/>HpdIen);</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"></highlight></codeline>
 <codeline lineno="310"><highlight class="normal">}</highlight></codeline>
@@ -696,9 +704,9 @@
 <codeline lineno="330"><highlight class="normal"></highlight></codeline>
 <codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="332"><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrStatus<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrEnable<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GenIntrEnable<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a791d91833b14090f6d757bd1d1260590" kindref="member">XMMIDP_GEN_INT_ENABLE0</ref>);</highlight></codeline>
 <codeline lineno="337"><highlight class="normal"></highlight></codeline>
 <codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveEvents<sp/>=<sp/>GenIntrStatus<sp/>&amp;<sp/>GenIntrEnable;</highlight></codeline>
@@ -706,7 +714,7 @@
 <codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="341"><highlight class="normal"></highlight></codeline>
 <codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write-1-to-clear<sp/>all<sp/>active<sp/>event<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1ac791e9180f79c5c5948a4e0d7f1ee365" kindref="member">XMMIDP_GEN_INT0</ref>,<sp/>ActiveEvents);</highlight></codeline>
 <codeline lineno="345"><highlight class="normal"></highlight></codeline>
 <codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveEvents<sp/>&amp;<sp/>XMMIDP_GEN_INT0_HPD_EVENT_MASK)</highlight></codeline>
@@ -760,14 +768,14 @@
 <codeline lineno="405"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
 <codeline lineno="407"><highlight class="normal"></highlight></codeline>
-<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="xmmidp__hw_8h_1a16f691f61c7261a5bd549161e56b6dd6" kindref="member">XMmiDp_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_SDP_STATUS_EN);</highlight></codeline>
 <codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>Mask;</highlight></codeline>
 <codeline lineno="411"><highlight class="normal"></highlight></codeline>
-<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmmidp__hw_8h_1a62cbf3cd69b9c70a14a1943ad14e6312" kindref="member">XMmiDp_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kindref="member">BaseAddr</ref>,</highlight></codeline>
 <codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_SDP_STATUS_EN,<sp/>RegVal);</highlight></codeline>
 <codeline lineno="414"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_intr.c"/>
   </compounddef>
 </doxygen>

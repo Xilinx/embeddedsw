@@ -38,6 +38,8 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
                   XDpRxss_GetDynamicRange
 8.0  jb  01/12/22 Added clk_wizard configuration for rx_dec_clk which is
                   required for 8b10b logic.
+     dnk 09/16/26 Program the decode Clocking Wizard from the driver on
+                  link-rate change using clk_wiz APIs.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

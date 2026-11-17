@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vscaler__l2_1aab065785626c7abc5fb500661506dab3" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vscaler__l2_1a9bf144e69f07ecebc3618425202c416d" prot="public" static="no" mutable="no">
         <type>short</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -68,7 +68,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="122" bodyend="127"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="122" bodyend="127"/>
     <listofallmembers>
       <member refid="struct_x_v___vscaler__l2_1a9bf144e69f07ecebc3618425202c416d" prot="public" virt="non-virtual"><scope>XV_Vscaler_l2</scope><name>coeff</name></member>
       <member refid="struct_x_v___vscaler__l2_1aab065785626c7abc5fb500661506dab3" prot="public" virt="non-virtual"><scope>XV_Vscaler_l2</scope><name>UseExtCoeff</name></member>

@@ -17,7 +17,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="218" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="218" bodyend="-1"/>
         <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
       </memberdef>
@@ -34,7 +34,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="222" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="222" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
         <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
@@ -54,7 +54,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="238" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="238" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
         <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
@@ -73,7 +73,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="250" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="250" bodyend="-1"/>
         <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
       </memberdef>
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="253" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="253" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
         <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
@@ -100,7 +100,7 @@
 <para>Trigger configuration. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="217" bodyend="255"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="217" bodyend="255"/>
     <listofallmembers>
       <member refid="struct_x_dfe_mix___trigger_1a9abab2731f4977a10ab9c9c5ed6df74c" prot="public" virt="non-virtual"><scope>XDfeMix_Trigger</scope><name>Mode</name></member>
       <member refid="struct_x_dfe_mix___trigger_1ace6decffeaedce99afe3f3e840570b35" prot="public" virt="non-virtual"><scope>XDfeMix_Trigger</scope><name>StateOutput</name></member>

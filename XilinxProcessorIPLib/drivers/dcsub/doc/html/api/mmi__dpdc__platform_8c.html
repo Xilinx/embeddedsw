@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('mmi__dpdc__platform_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mmi_dpdc_platform.c File Reference</div>  </div>
@@ -114,6 +115,7 @@ $(document).ready(function(){initNavTree('mmi__dpdc__platform_8c.html','');});
 <code>#include &lt;xil_cache.h&gt;</code><br/>
 <code>#include &lt;xil_types.h&gt;</code><br/>
 <code>#include &lt;sleep.h&gt;</code><br/>
+<code>#include &lt;xparameters.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="mmi__dpdc__platform_8h.html">mmi_dpdc_platform.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mmi__dp__init_8h.html">mmi_dp_init.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mmi__dp__intr_8h.html">mmi_dp_intr.h</a>&quot;</code><br/>
@@ -121,11 +123,26 @@ $(document).ready(function(){initNavTree('mmi__dpdc__platform_8c.html','');});
 <code>#include &quot;<a class="el" href="mmi__dc__sdp_8h.html">mmi_dc_sdp.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="mmi__dc__setup__frames_8h.html">mmi_dc_setup_frames.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:afdaa64a483b68d2009ebe4ee84e4047b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#afdaa64a483b68d2009ebe4ee84e4047b">XDPDC_DC_RST_RETRIES</a>&#160;&#160;&#160;5U</td></tr>
+<tr class="memdesc:afdaa64a483b68d2009ebe4ee84e4047b"><td class="mdescLeft">&#160;</td><td class="mdescRight">RST_DC write attempts before giving up.  <a href="#afdaa64a483b68d2009ebe4ee84e4047b">More...</a><br/></td></tr>
+<tr class="separator:afdaa64a483b68d2009ebe4ee84e4047b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c94d7d14e1772fdcec9c05ab5481a52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#a2c94d7d14e1772fdcec9c05ab5481a52">XDPDC_DC_RST_DELAY_US</a>&#160;&#160;&#160;10U</td></tr>
+<tr class="memdesc:a2c94d7d14e1772fdcec9c05ab5481a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait after each RST_DC write, in microseconds.  <a href="#a2c94d7d14e1772fdcec9c05ab5481a52">More...</a><br/></td></tr>
+<tr class="separator:a2c94d7d14e1772fdcec9c05ab5481a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8b8cd17d4698a62cb90da0e9d0f97b4f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#a8b8cd17d4698a62cb90da0e9d0f97b4f">XClk_WaitForLock</a> (XClk_Wiz_Config *CfgPtr)</td></tr>
-<tr class="memdesc:a8b8cd17d4698a62cb90da0e9d0f97b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function waits for the clock wizard to lock.  <a href="#a8b8cd17d4698a62cb90da0e9d0f97b4f">More...</a><br/></td></tr>
-<tr class="separator:a8b8cd17d4698a62cb90da0e9d0f97b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcc3e8fdc0d1268cbb6a554a09552fbd"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#afcc3e8fdc0d1268cbb6a554a09552fbd">XDpDc_AssertDcReset</a> (void)</td></tr>
+<tr class="memdesc:afcc3e8fdc0d1268cbb6a554a09552fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function asserts the DC block reset and releases SS_CFG_POR in MMI_CRX.RST_DC, whatever state the boot CDO left them in.  <a href="#afcc3e8fdc0d1268cbb6a554a09552fbd">More...</a><br/></td></tr>
+<tr class="separator:afcc3e8fdc0d1268cbb6a554a09552fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fb2a5e892b789c1464853bd6f33a7d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#a12fb2a5e892b789c1464853bd6f33a7d">XDpDc_ReleaseDcReset</a> (void)</td></tr>
+<tr class="memdesc:a12fb2a5e892b789c1464853bd6f33a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function releases the DC block reset in MMI_CRX.RST_DC.  <a href="#a12fb2a5e892b789c1464853bd6f33a7d">More...</a><br/></td></tr>
+<tr class="separator:a12fb2a5e892b789c1464853bd6f33a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8293f8e57de723eb0dac9e9a0ae37d7"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#ab8293f8e57de723eb0dac9e9a0ae37d7">XDpDc_GetVidClkBootHz</a> (void)</td></tr>
+<tr class="memdesc:ab8293f8e57de723eb0dac9e9a0ae37d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the video clock rate the XSA programs at boot, which is the rate the PL video pipeline is timed for.  <a href="#ab8293f8e57de723eb0dac9e9a0ae37d7">More...</a><br/></td></tr>
+<tr class="separator:ab8293f8e57de723eb0dac9e9a0ae37d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1acaf857e04799cc985d19389fe5ea3f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__platform_8c.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz</a> (<a class="el" href="struct_run_config.html">RunConfig</a> *RunCfgPtr)</td></tr>
 <tr class="memdesc:a1acaf857e04799cc985d19389fe5ea3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the Clock Wizard IP for video and audio clocks.  <a href="#a1acaf857e04799cc985d19389fe5ea3f">More...</a><br/></td></tr>
 <tr class="separator:a1acaf857e04799cc985d19389fe5ea3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,32 +156,80 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6c8520e6ad77827c7068054bf7ef0a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes all platform blocks (clocks, DC, DP, interrupts)  <a href="#a6c8520e6ad77827c7068054bf7ef0a0c">More...</a><br/></td></tr>
 <tr class="separator:a6c8520e6ad77827c7068054bf7ef0a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a8b8cd17d4698a62cb90da0e9d0f97b4f"></a>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a2c94d7d14e1772fdcec9c05ab5481a52"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XClk_WaitForLock </td>
+          <td class="memname">#define XDPDC_DC_RST_DELAY_US&#160;&#160;&#160;10U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait after each RST_DC write, in microseconds. </p>
+
+</div>
+</div>
+<a class="anchor" id="afdaa64a483b68d2009ebe4ee84e4047b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDPDC_DC_RST_RETRIES&#160;&#160;&#160;5U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RST_DC write attempts before giving up. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="afcc3e8fdc0d1268cbb6a554a09552fbd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDpDc_AssertDcReset </td>
           <td>(</td>
-          <td class="paramtype">XClk_Wiz_Config *&#160;</td>
-          <td class="paramname"><em>CfgPtr</em></td><td>)</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function waits for the clock wizard to lock. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CfgPtr</td><td>is a pointer to the clock wizard configuration</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if locked, else XST_FAILURE</dd></dl>
+<p>This function asserts the DC block reset and releases SS_CFG_POR in MMI_CRX.RST_DC, whatever state the boot CDO left them in. </p>
+<p>The DC is then configured in reset. <a class="el" href="mmi__dpdc__platform_8c.html#a12fb2a5e892b789c1464853bd6f33a7d" title="This function releases the DC block reset in MMI_CRX.RST_DC. ">XDpDc_ReleaseDcReset()</a> takes it out of reset after DP link training.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if RST_DC reads back as requested, else XST_FAILURE</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="mmi__dpdc__platform_8h.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>.</p>
+<p>References <a class="el" href="mmi__dpdc__platform_8h.html#a9da7511ae54b1a1e3c0b1b1b5c36b32c">XMMI_CRX_RST_DC_BLK_MASK</a>.</p>
+
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8293f8e57de723eb0dac9e9a0ae37d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u64 XDpDc_GetVidClkBootHz </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the video clock rate the XSA programs at boot, which is the rate the PL video pipeline is timed for. </p>
+<p>The rate is read on the first call and cached, so the first call must come before <a class="el" href="mmi__dpdc__platform_8c.html#a1acaf857e04799cc985d19389fe5ea3f" title="This function initializes the Clock Wizard IP for video and audio clocks. ">XDpDc_InitClkWiz()</a> reprograms the clock.</p>
+<dl class="section return"><dt>Returns</dt><dd>Boot rate in Hz, or 0 if it cannot be read, the clock may already have been reprogrammed or the design has no clock wizard. </dd></dl>
+
+<p>References <a class="el" href="mmi__dc__nonlive__test_8h.html#aa01bf8f08a073e0134bf577c645959db">CLK_WIZ_BASEADDR</a>.</p>
 
 </div>
 </div>
@@ -190,9 +255,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Returns XST_FAILURE if the BSP has no clock wizard driver. </dd></dl>
 
-<p>References <a class="el" href="struct_run_config.html#a0919eff7fd55f675afb7235c6c9936c0">RunConfig::AudioEnable</a>, <a class="el" href="struct_run_config.html#a6dd3cf00b1ae6c5771e848baa6d63380">RunConfig::PixelClkHz</a>, and <a class="el" href="mmi__dpdc__platform_8c.html#a8b8cd17d4698a62cb90da0e9d0f97b4f">XClk_WaitForLock()</a>.</p>
+<p>References <a class="el" href="struct_run_config.html#a0919eff7fd55f675afb7235c6c9936c0">RunConfig::AudioEnable</a>, <a class="el" href="struct_run_config.html#a66e7936e11ecf14e5de99f12629caec4">RunConfig::AudioFrequency</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#a070e483b9d83f8d8be4a1a02dbcafdda">CLK_WIZ_AUD_BASEADDR</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#aa01bf8f08a073e0134bf577c645959db">CLK_WIZ_BASEADDR</a>, <a class="el" href="struct_run_config.html#a6dd3cf00b1ae6c5771e848baa6d63380">RunConfig::PixelClkHz</a>, and <a class="el" href="mmi__dpdc__example_8c.html#a5615c1a208b9f4897040f89bcf5b4f6c">XDpDc_GetAudSampleRateHz()</a>.</p>
 
 <p>Referenced by <a class="el" href="mmi__dpdc__platform_8h.html#a6c8520e6ad77827c7068054bf7ef0a0c">XDpDc_InitPlatform()</a>.</p>
 
@@ -255,6 +320,31 @@ Functions</h2></td></tr>
 <p>References <a class="el" href="mmi__dpdc__platform_8c.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>, <a class="el" href="mmi__dpdc__platform_8c.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8c.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, and <a class="el" href="mmi__dpdc__platform_8c.html#a2efea0d32fd034fe7ec8bd0710d0d8c3">XDpDc_SetupInterrupts()</a>.</p>
 
 <p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#ae7a8c9dec1b6a873dd5871d40440ff8b">XDpDc_MmiDcNonliveTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12fb2a5e892b789c1464853bd6f33a7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDpDc_ReleaseDcReset </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function releases the DC block reset in MMI_CRX.RST_DC. </p>
+<p>Call it after DP link training and before the DP video stream is configured. The DP video stream registers do not latch while the DC block reset is asserted.</p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if RST_DC reads back released, else XST_FAILURE</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="mmi__dpdc__platform_8h.html#a0c3cd079ed93ed7a00fdf8b180d59c46">XMMI_CRX_RST_DC_RELEASE</a>.</p>
+
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#a2366205c7a4ee18ac1833bc71e721ad7">XDpDc_RunConnectSequence()</a>.</p>
 
 </div>
 </div>

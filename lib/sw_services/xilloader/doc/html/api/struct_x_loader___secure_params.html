@@ -185,7 +185,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a816e82135f057fe0013c584186e825f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xloader__auth__enc_8h.html#a6ea3e9ddf2374bbb9397b7e7c844fa32">XLoader_AuthType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___secure_params.html#a816e82135f057fe0013c584186e825f0">SigType</a></td></tr>
 <tr class="memdesc:a816e82135f057fe0013c584186e825f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature type.  <a href="#a816e82135f057fe0013c584186e825f0">More...</a><br/></td></tr>
 <tr class="separator:a816e82135f057fe0013c584186e825f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0dfc922987bb3eff336ce50996027b4"><td class="memItemLeft" align="right" valign="top">XLoader_AuthCertificate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___secure_params.html#ac0dfc922987bb3eff336ce50996027b4">AcPtr</a></td></tr>
+<tr class="memitem:ac0dfc922987bb3eff336ce50996027b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_loader___auth_certificate.html">XLoader_AuthCertificate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___secure_params.html#ac0dfc922987bb3eff336ce50996027b4">AcPtr</a></td></tr>
 <tr class="memdesc:ac0dfc922987bb3eff336ce50996027b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authentication certificate pointer.  <a href="#ac0dfc922987bb3eff336ce50996027b4">More...</a><br/></td></tr>
 <tr class="separator:ac0dfc922987bb3eff336ce50996027b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74d4252aad479886e11b3d2f3e4b210d"><td class="memItemLeft" align="right" valign="top">XSecure_Aes *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___secure_params.html#a74d4252aad479886e11b3d2f3e4b210d">AesInstPtr</a></td></tr>
@@ -215,12 +215,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XLoader_AuthCertificate* XLoader_SecureParams::AcPtr</td>
+          <td class="memname"><a class="el" href="struct_x_loader___auth_certificate.html">XLoader_AuthCertificate</a>* XLoader_SecureParams::AcPtr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Authentication certificate pointer. </p>
+
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, and <a class="el" href="group__xloader__server__apis.html#ga41c7e98dc575b59226d0bb8cb6344787">XLoader_PpkVerify()</a>.</p>
 
 </div>
 </div>
@@ -252,7 +254,7 @@ Data Fields</h2></td></tr>
 
 <p>Auth JTAG message pointer. </p>
 
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, and <a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, <a class="el" href="group__xloader__server__apis.html#ga41c7e98dc575b59226d0bb8cb6344787">XLoader_PpkVerify()</a>, and <a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature()</a>.</p>
 
 </div>
 </div>
@@ -454,7 +456,7 @@ Data Fields</h2></td></tr>
 
 <p>PDI pointer. </p>
 
-<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest()</a>, <a class="el" href="group__xloader__server__apis.html#ga5054d79a7dcc052ae83d997f183c8779">XLoader_SecureChunkCopy()</a>, <a class="el" href="group__xloader__server__apis.html#ga9410756c2dbe4b6bd6cdfce81a5bd7fa">XLoader_SecureInit()</a>, and <a class="el" href="group__xloader__server__apis.html#ga88fdae4e3fe98e871dd93c7cb31ce387">XLoader_VerifyHashNUpdateNext()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest()</a>, <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, <a class="el" href="group__xloader__server__apis.html#ga5054d79a7dcc052ae83d997f183c8779">XLoader_SecureChunkCopy()</a>, <a class="el" href="group__xloader__server__apis.html#ga9410756c2dbe4b6bd6cdfce81a5bd7fa">XLoader_SecureInit()</a>, and <a class="el" href="group__xloader__server__apis.html#ga88fdae4e3fe98e871dd93c7cb31ce387">XLoader_VerifyHashNUpdateNext()</a>.</p>
 
 </div>
 </div>

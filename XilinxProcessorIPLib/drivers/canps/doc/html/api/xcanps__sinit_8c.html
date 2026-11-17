@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanps__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,12 +105,27 @@ $(document).ready(function(){initNavTree('xcanps__sinit_8c.html','');});
 <div class="title">xcanps_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xcanps_8h.html">xcanps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements static initialization for the <a class="el" href="struct_x_can_ps.html" title="Stores the XCanPs driver instance data. ">XCanPs</a> CAN driver. </p>
+<p>This file contains the implementation of the <a class="el" href="struct_x_can_ps.html" title="Stores the XCanPs driver instance data. ">XCanPs</a> driver's static initialization functionality.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00a xd/sv  01/12/10 First release
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.5     sne    07/01/20 Fixed MISRAC warnings.
+3.7     ht     06/28/23 Added support for system device-tree flow.
+3.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+3.12  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR to
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+                        support 64-bit addressing.</pre><pre>3.13  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcanps_8h.html">xcanps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga9883d8be70b9697a32bbe2e38d722cb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_can_ps___config.html">XCanPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga9883d8be70b9697a32bbe2e38d722cb1">XCanPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga9883d8be70b9697a32bbe2e38d722cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__canps.html#ga9883d8be70b9697a32bbe2e38d722cb1">More...</a><br/></td></tr>
+<tr class="memdesc:ga9883d8be70b9697a32bbe2e38d722cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides static initialization functions from <a class="el" href="xcanps__sinit_8c.html" title="Implements static initialization for the XCanPs CAN driver. ">xcanps_sinit.c</a>.  <a href="group__canps.html#ga9883d8be70b9697a32bbe2e38d722cb1">More...</a><br/></td></tr>
 <tr class="separator:ga9883d8be70b9697a32bbe2e38d722cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

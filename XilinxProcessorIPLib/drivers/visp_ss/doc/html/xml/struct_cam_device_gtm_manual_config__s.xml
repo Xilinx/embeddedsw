@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="189" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="189" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__gtm_1ga58f6b592bd0e7cb071072ba6c918e547" kindref="member">CamDeviceGtmBlackWhiteCorrectionConfig_t</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_gtm_manual_config__s_1ae345b6d1c7b36247e1c6bfef78305a4c" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__gtm_1ga02b73b28514819d177bf6d4e1f5979a4" kindref="member">CamDeviceGtmCurveConfig_t</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -49,33 +49,33 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="427">
+      <node id="429">
         <label>CamDeviceGtmCurveConfig_s</label>
         <link refid="struct_cam_device_gtm_curve_config__s"/>
       </node>
-      <node id="425">
+      <node id="427">
         <label>CamDeviceGtmManualConfig_s</label>
         <link refid="struct_cam_device_gtm_manual_config__s"/>
-        <childnode refid="426" relation="usage">
+        <childnode refid="428" relation="usage">
           <edgelabel>blackWhiteCorrectionCfg</edgelabel>
         </childnode>
-        <childnode refid="427" relation="usage">
+        <childnode refid="429" relation="usage">
           <edgelabel>curveCfg</edgelabel>
         </childnode>
-        <childnode refid="428" relation="usage">
+        <childnode refid="430" relation="usage">
           <edgelabel>colorWeightCfg</edgelabel>
         </childnode>
       </node>
-      <node id="428">
+      <node id="430">
         <label>CamDeviceGtmColorWeightConfig_s</label>
         <link refid="struct_cam_device_gtm_color_weight_config__s"/>
       </node>
-      <node id="426">
+      <node id="428">
         <label>CamDeviceGtmBlackWhiteCorrectionConfig_s</label>
         <link refid="struct_cam_device_gtm_black_white_correction_config__s"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="187" bodyend="192"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="187" bodyend="192"/>
     <listofallmembers>
       <member refid="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" prot="public" virt="non-virtual"><scope>CamDeviceGtmManualConfig_s</scope><name>blackWhiteCorrectionCfg</name></member>
       <member refid="struct_cam_device_gtm_manual_config__s_1a6ba63f55c95d12e3716bcae2a49ed7d3" prot="public" virt="non-virtual"><scope>CamDeviceGtmManualConfig_s</scope><name>colorWeightCfg</name></member>

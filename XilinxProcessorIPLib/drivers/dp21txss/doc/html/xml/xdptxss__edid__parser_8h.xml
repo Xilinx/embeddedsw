@@ -7,107 +7,114 @@
     <includes local="yes">xvidc_edid_ext.h</includes>
     <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
     <includedby refid="xdptxss__edid__parser_8c" local="yes">xdptxss_edid_parser.c</includedby>
+    <includedby refid="xdptxss__dp21__tx_8c" local="yes">xdptxss_dp21_tx.c</includedby>
     <incdepgraph>
-      <node id="334">
+      <node id="382">
         <label>xil_assert.h</label>
       </node>
-      <node id="331">
-        <label>xdptxss.h</label>
-        <link refid="xdptxss_8h"/>
-        <childnode refid="332" relation="include">
-        </childnode>
-        <childnode refid="334" relation="include">
-        </childnode>
-        <childnode refid="329" relation="include">
-        </childnode>
-        <childnode refid="335" relation="include">
-        </childnode>
-        <childnode refid="336" relation="include">
-        </childnode>
-        <childnode refid="337" relation="include">
-        </childnode>
-        <childnode refid="339" relation="include">
-        </childnode>
-        <childnode refid="341" relation="include">
-        </childnode>
-      </node>
-      <node id="333">
+      <node id="381">
         <label>xil_io.h</label>
       </node>
-      <node id="339">
-        <label>xdptxss_dualsplitter.h</label>
-        <link refid="xdptxss__dualsplitter_8h"/>
-        <childnode refid="340" relation="include">
-        </childnode>
-        <childnode refid="338" relation="include">
-        </childnode>
-      </node>
-      <node id="330">
+      <node id="378">
         <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="336">
+      <node id="384">
         <label>xdebug.h</label>
       </node>
-      <node id="338">
-        <label>xdp.h</label>
-      </node>
-      <node id="341">
-        <label>xdptxss_vtc.h</label>
-        <link refid="xdptxss__vtc_8h"/>
-        <childnode refid="342" relation="include">
-        </childnode>
-        <childnode refid="338" relation="include">
-        </childnode>
-      </node>
-      <node id="329">
-        <label>xstatus.h</label>
-      </node>
-      <node id="337">
-        <label>xdptxss_dptx.h</label>
-        <link refid="xdptxss__dptx_8h"/>
-        <childnode refid="338" relation="include">
-        </childnode>
-      </node>
-      <node id="335">
-        <label>xvidc.h</label>
-      </node>
-      <node id="332">
+      <node id="380">
         <label>xdptxss_hw.h</label>
         <link refid="xdptxss__hw_8h"/>
-        <childnode refid="333" relation="include">
+        <childnode refid="381" relation="include">
         </childnode>
       </node>
-      <node id="328">
+      <node id="386">
+        <label>xdp.h</label>
+      </node>
+      <node id="379">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+        <childnode refid="385" relation="include">
+        </childnode>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="389" relation="include">
+        </childnode>
+      </node>
+      <node id="377">
+        <label>xstatus.h</label>
+      </node>
+      <node id="383">
+        <label>xvidc.h</label>
+      </node>
+      <node id="376">
         <label>xil_types.h</label>
       </node>
-      <node id="340">
-        <label>xparameters.h</label>
+      <node id="387">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="388" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
       </node>
-      <node id="327">
+      <node id="375">
         <label>xdptxss_edid_parser.h</label>
         <link refid="xdptxss_edid_parser.h"/>
-        <childnode refid="328" relation="include">
+        <childnode refid="376" relation="include">
         </childnode>
-        <childnode refid="329" relation="include">
+        <childnode refid="377" relation="include">
         </childnode>
-        <childnode refid="330" relation="include">
+        <childnode refid="378" relation="include">
         </childnode>
-        <childnode refid="331" relation="include">
+        <childnode refid="379" relation="include">
         </childnode>
       </node>
-      <node id="342">
+      <node id="388">
+        <label>xparameters.h</label>
+      </node>
+      <node id="389">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
+      </node>
+      <node id="385">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="386" relation="include">
+        </childnode>
+      </node>
+      <node id="390">
         <label>xvtc.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="344">
+      <node id="393">
+        <label>xdptxss_dp21_tx.c</label>
+        <link refid="xdptxss__dp21__tx_8c"/>
+      </node>
+      <node id="392">
         <label>xdptxss_edid_parser.c</label>
         <link refid="xdptxss__edid__parser_8c"/>
       </node>
-      <node id="343">
+      <node id="391">
         <label>xdptxss_edid_parser.h</label>
         <link refid="xdptxss_edid_parser.h"/>
-        <childnode refid="344" relation="include">
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="393" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -126,8 +133,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="44" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="xdptxss__dp21__tx_8h_1afcf3afc3c0aed9f17e481c43374dbcf1" compoundref="xdptxss__dp21__tx_8c" startline="1559" endline="1817">DpTxSs_HpdCon</referencedby>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="751" endline="912">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga0c49cc1387e9c05da42c8521de4581d4" prot="public" static="no">
         <name>EDID_DTD_SIZE</name>
@@ -138,8 +146,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="48" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="751" endline="912">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" prot="public" static="no">
         <name>MAX_EXTENSIONS_SUPPORTED</name>
@@ -150,8 +158,8 @@
 <para>Maximum EDID extension blocks to process </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="51" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" compoundref="xdptxss__edid__parser_8c" startline="66" endline="134">XDpTxSs_get_full_edid</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" compoundref="xdptxss__edid__parser_8c" startline="66" endline="137">XDpTxSs_get_full_edid</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga6f75d22a7ac6bd350068350ab51eb8c5" prot="public" static="no">
         <name>MAX_SAD_COUNT</name>
@@ -162,8 +170,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="52" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga16e83e35d00d58ea6f8335806cb13d58" prot="public" static="no">
         <name>CTA861_EXTENSION_TAG</name>
@@ -174,8 +182,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="56" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1gad6c9c0a89d5691088c47dbbe9f0aa561" prot="public" static="no">
         <name>DISPLAYID_2_0_EXTENSION_TAG</name>
@@ -186,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1gaa383dda6cb3d8ef71c418d157b963aa7" prot="public" static="no">
         <name>DISPLAYID_TYPE_VII_TAG</name>
@@ -197,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga21ee658908549ea5a7e7f3c1d5b57180" prot="public" static="no">
         <name>CTA861_AUDIO_DATA_BLOCK</name>
@@ -208,8 +216,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="65" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga3c8845cf65db519a7d48e4884bbb63a4" prot="public" static="no">
         <name>CTA861_SPKR_ALLOC_DATA_BLOCK</name>
@@ -220,8 +228,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="68" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga3dc2efd5d35cfcc1ba696927a2a55e80" prot="public" static="no">
         <name>TIMING_SOURCE_DTD</name>
@@ -232,7 +240,7 @@
 <para>Detailed Timing Descriptor </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga28a79447d7074f151f908e14c1019e68" prot="public" static="no">
         <name>TIMING_SOURCE_STANDARD</name>
@@ -243,7 +251,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga6d826b13d26dca8e19d019955b445da1" prot="public" static="no">
         <name>TIMING_SOURCE_ESTABLISHED</name>
@@ -254,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1gae375dc29ddbd4c453185b404acb49cfc" prot="public" static="no">
         <name>SAD_AUDIO_FORMAT_SHIFT</name>
@@ -265,8 +273,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="78" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga38dc29a964c2e3d3b51698b55f0a8a85" prot="public" static="no">
         <name>SAD_AUDIO_FORMAT_MASK</name>
@@ -277,8 +285,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="81" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1gabc637d196af2d63181d4dc7ada3a1407" prot="public" static="no">
         <name>SAD_MAX_CHANNELS_MASK</name>
@@ -289,8 +297,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="84" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga5fc739ba90f348c4193387481281e399" prot="public" static="no">
         <name>SAD_SAMPLING_FREQ_MASK</name>
@@ -301,8 +309,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="87" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1gab46abe8d2373e122c17f083ab5283a0a" prot="public" static="no">
         <name>SAD_BIT_DEPTH_MASK</name>
@@ -313,8 +321,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="90" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dptxss_1ga6bbfce706a4a049df6492da6605a0c21" prot="public" static="no">
         <name>SAD_MAX_BITRATE_MASK</name>
@@ -325,8 +333,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="93" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -362,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="99" bodyend="103"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="99" bodyend="103"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -393,7 +401,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="723" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="723" bodyend="883"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="751" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="751" bodyend="912"/>
         <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ade9766e34ef5169a705a6398c7be4903" compoundref="xdptxss__edid__parser_8h" startline="101">DISPLAYID_TYPE7_NATIVE</references>
         <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3a2ed6268c0227c0591424407e47552fad" compoundref="xdptxss__edid__parser_8h" startline="100">DISPLAYID_TYPE7_PREFERRED</references>
         <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ada88e84a307dbb9f86419ab16e6d3156" compoundref="xdptxss__edid__parser_8h" startline="102">DISPLAYID_TYPE7_REMAINING</references>
@@ -404,7 +412,7 @@
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" compoundref="xdptxss__edid__parser_8h" startline="197">XDpTxSs_Sink_AV_Capabilities::TimingCount</references>
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a5b6cd37c1a24b9a5d51ec8955844d127" compoundref="xdptxss__edid__parser_8h" startline="196">XDpTxSs_Sink_AV_Capabilities::TimingList</references>
         <references refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" compoundref="xdptxss__edid__parser_8h" startline="112">XDpTxSs_ParseResult::TotalBlockCount</references>
-        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="167" endline="395">XDpTxSs_get_sink_AV_Capabilities</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -442,12 +450,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="66" bodyend="134"/>
-        <references refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" compoundref="xdptxss_8h" startline="402">XDpTxSs::DpPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="66" bodyend="137"/>
+        <references refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" compoundref="xdptxss_8h" startline="425">XDpTxSs::DpPtr</references>
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" compoundref="xdptxss__edid__parser_8h" startline="199">XDpTxSs_Sink_AV_Capabilities::EdidBuffer</references>
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" compoundref="xdptxss__edid__parser_8h" startline="200">XDpTxSs_Sink_AV_Capabilities::extensions_count</references>
         <references refid="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" compoundref="xdptxss__edid__parser_8h" startline="51">MAX_EXTENSIONS_SUPPORTED</references>
-        <references refid="group__dptxss_1ga84de784579ceabd123fdf1136dde0c7d" compoundref="xdptxss_8c" startline="1488" endline="1499">XDpTxSs_IsConnected</references>
+        <references refid="group__dptxss_1ga84de784579ceabd123fdf1136dde0c7d" compoundref="xdptxss_8c" startline="1670" endline="1681">XDpTxSs_IsConnected</references>
       </memberdef>
       <memberdef kind="function" id="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -474,7 +482,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="164" bodyend="367"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="167" bodyend="395"/>
         <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" compoundref="xdptxss__edid__parser_8h" startline="150">XDpTxSs_AudioSAD::AudioFormatCode</references>
         <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" compoundref="xdptxss__edid__parser_8h" startline="166">XDpTxSs_AudioSAD::BitDepthFlags</references>
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" compoundref="xdptxss__edid__parser_8h" startline="201">XDpTxSs_Sink_AV_Capabilities::checksum_failures</references>
@@ -503,7 +511,7 @@
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" compoundref="xdptxss__edid__parser_8h" startline="191">XDpTxSs_Sink_AV_Capabilities::SupportedColorFormats</references>
         <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" compoundref="xdptxss__edid__parser_8h" startline="197">XDpTxSs_Sink_AV_Capabilities::TimingCount</references>
         <references refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" compoundref="xdptxss__edid__parser_8h" startline="112">XDpTxSs_ParseResult::TotalBlockCount</references>
-        <references refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</references>
+        <references refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="751" endline="912">XDpTxSs_GetVideoTimingsFromEdid</references>
       </memberdef>
       <memberdef kind="function" id="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -539,7 +547,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="894" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="894" bodyend="909"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="923" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="923" bodyend="940"/>
         <references refid="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" compoundref="xdptxss__edid__parser_8h" startline="139">XDpTxSs_VideoTimingParam::AspectRatio</references>
         <references refid="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" compoundref="xdptxss__edid__parser_8h" startline="130">XDpTxSs_VideoTimingParam::F0PVBackPorch</references>
         <references refid="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" compoundref="xdptxss__edid__parser_8h" startline="128">XDpTxSs_VideoTimingParam::F0PVFrontPorch</references>
@@ -702,6 +710,6 @@
 <codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XVIDC_EDID_PARSER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="219"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h"/>
   </compounddef>
 </doxygen>

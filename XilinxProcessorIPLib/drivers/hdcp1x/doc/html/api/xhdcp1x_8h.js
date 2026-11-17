@@ -7,6 +7,7 @@ var xhdcp1x_8h =
     [ "XHDCP1X_RPTR_MAX_CASCADE", "xhdcp1x_8h.html#ga217bbf2604a76a1003c907376d4b8710", null ],
     [ "XHDCP1X_RPTR_MAX_DEVS_COUNT", "xhdcp1x_8h.html#gaf421a5651c89ab4e8ff970ff04d60971", null ],
     [ "XHdcp1x_SetCallBack", "xhdcp1x_8h.html#gaee0d3b90542ca2c3e1cab416b5cc6071", null ],
+    [ "XPAR_XHDCP_NUM_INSTANCES", "xhdcp1x_8h.html#ga92acc39f4ff403d71aad1122fe939664", null ],
     [ "XHdcp1x_Callback", "xhdcp1x_8h.html#gadb148e6df96c874ba6a9cef6cd23921a", null ],
     [ "XHdcp1x_GetDdcHandler", "xhdcp1x_8h.html#gae98b9041ca699cd85637c4ff3e039274", null ],
     [ "XHdcp1x_Ksv", "xhdcp1x_8h.html#gadbd91cd33664e62ecbb56f01f844632e", null ],

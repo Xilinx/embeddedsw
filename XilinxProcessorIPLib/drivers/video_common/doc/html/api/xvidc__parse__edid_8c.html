@@ -50,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -89,7 +88,7 @@ $(document).ready(function(){initNavTree('xvidc__parse__edid_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -323,13 +322,13 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6374cbb06c87ce3f8939224cf1f48061"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc__parse__edid_8c.html#a6374cbb06c87ce3f8939224cf1f48061">XV_VidC_parse_edid</a> (const u8 *const data, <a class="el" href="struct_x_v___vid_c___edid_cntrl_param.html">XV_VidC_EdidCntrlParam</a> *EdidCtrlParam, XV_VidC_Verbose VerboseEn)</td></tr>
-<tr class="memdesc:a6374cbb06c87ce3f8939224cf1f48061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse EDID data and populate control parameter structure.  <a href="#a6374cbb06c87ce3f8939224cf1f48061">More...</a><br/></td></tr>
+<tr class="memdesc:a6374cbb06c87ce3f8939224cf1f48061"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function parses a complete EDID, the base block followed by every extension block it advertises, into the EDID control parameters.  <a href="#a6374cbb06c87ce3f8939224cf1f48061">More...</a><br/></td></tr>
 <tr class="separator:a6374cbb06c87ce3f8939224cf1f48061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ed9895de5efd93d677dd8cd345b0400"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc__parse__edid_8c.html#a2ed9895de5efd93d677dd8cd345b0400">XV_VidC_handle_extension</a> (const struct xvidc_edid_extension *extension, <a class="el" href="struct_x_v___vid_c___edid_cntrl_param.html">XV_VidC_EdidCntrlParam</a> *EdidCtrlParam, XV_VidC_Verbose VerboseEn)</td></tr>
 <tr class="memdesc:a2ed9895de5efd93d677dd8cd345b0400"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles a single EDID extension block by calling the appropriate handler based on the extension tag.  <a href="#a2ed9895de5efd93d677dd8cd345b0400">More...</a><br/></td></tr>
 <tr class="separator:a2ed9895de5efd93d677dd8cd345b0400"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64f3ce83f54001237c5ef62b85b98be4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvidc__parse__edid_8c.html#a64f3ce83f54001237c5ef62b85b98be4">XV_VidC_parse_edid_extension</a> (const u8 *const data, <a class="el" href="struct_x_v___vid_c___edid_cntrl_param.html">XV_VidC_EdidCntrlParam</a> *EdidCtrlParam, XV_VidC_Verbose VerboseEn, u8 SegmentNum)</td></tr>
-<tr class="memdesc:a64f3ce83f54001237c5ef62b85b98be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse EDID extension block data.  <a href="#a64f3ce83f54001237c5ef62b85b98be4">More...</a><br/></td></tr>
+<tr class="memdesc:a64f3ce83f54001237c5ef62b85b98be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function parses one segment of an EDID read over DDC into the EDID control parameters.  <a href="#a64f3ce83f54001237c5ef62b85b98be4">More...</a><br/></td></tr>
 <tr class="separator:a64f3ce83f54001237c5ef62b85b98be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -1307,12 +1306,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parse EDID data and populate control parameter structure. </p>
+<p>This function parses a complete EDID, the base block followed by every extension block it advertises, into the EDID control parameters. </p>
+<p>Parse EDID data and populate control parameter structure.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Pointer to raw EDID data. </td></tr>
-    <tr><td class="paramname">EdidCtrlParam</td><td>Pointer to EDID control parameter structure to populate. </td></tr>
-    <tr><td class="paramname">VerboseEn</td><td>Verbosity enable flag for debug output. </td></tr>
+    <tr><td class="paramname">data</td><td>is a pointer to the raw EDID data. </td></tr>
+    <tr><td class="paramname">EdidCtrlParam</td><td>is a pointer to the EDID Control parameter </td></tr>
+    <tr><td class="paramname">VerboseEn</td><td>is the verbosity enable flag for debug output. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1357,16 +1357,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parse EDID extension block data. </p>
+<p>This function parses one segment of an EDID read over DDC into the EDID control parameters. </p>
+<p>Parse EDID extension block data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Pointer to EDID extension block data. </td></tr>
-    <tr><td class="paramname">EdidCtrlParam</td><td>Pointer to EDID control parameter structure to update. </td></tr>
-    <tr><td class="paramname">VerboseEn</td><td>Verbosity enable flag for debug output. </td></tr>
-    <tr><td class="paramname">SegmentNum</td><td>Extension block segment number. </td></tr>
+    <tr><td class="paramname">data</td><td>is a pointer to the EDID segment data. </td></tr>
+    <tr><td class="paramname">EdidCtrlParam</td><td>is a pointer to the EDID Control parameter </td></tr>
+    <tr><td class="paramname">VerboseEn</td><td>is the verbosity enable flag for debug output. </td></tr>
+    <tr><td class="paramname">SegmentNum</td><td>is the segment number the data was read from.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Segment 0 holds the base block and the first extension block, so the control parameters are initialised there. Each later segment holds two extension blocks and adds to that state. </dd></dl>
 
 <p>References <a class="el" href="xvidc__edid__ext_8c.html#ac20a98f4f7539a00141bf1f84c380692">XV_VidC_EdidCtrlParamInit()</a>, and <a class="el" href="xvidc__parse__edid_8c.html#a2ed9895de5efd93d677dd8cd345b0400">XV_VidC_handle_extension()</a>.</p>
 

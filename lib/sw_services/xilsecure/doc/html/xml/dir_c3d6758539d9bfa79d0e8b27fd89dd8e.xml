@@ -13,11 +13,15 @@
     <innerfile refid="2vp_2xsecure__plat__kat_8h">2vp/xsecure_plat_kat.h</innerfile>
     <innerfile refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c">versal_2vp/xsecure_plat_kat_ipihandler.c</innerfile>
     <innerfile refid="versal__2vp_2xsecure__plat__kat__ipihandler_8h">versal_2vp/xsecure_plat_kat_ipihandler.h</innerfile>
+    <innerfile refid="2vp_2xsecure__server__aesalginfo_8h">2vp/xsecure_server_aesalginfo.h</innerfile>
+    <innerfile refid="2vp_2xsecure__server__ellipticalginfo_8h">2vp/xsecure_server_ellipticalginfo.h</innerfile>
+    <innerfile refid="2vp_2xsecure__server__rsaalginfo_8h">2vp/xsecure_server_rsaalginfo.h</innerfile>
+    <innerfile refid="2vp_2xsecure__server__shaalginfo_8h">2vp/xsecure_server_shaalginfo.h</innerfile>
     <innerfile refid="versal__2vp_2xsecure__sha__hw_8h">versal_2vp/xsecure_sha_hw.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/"/>
   </compounddef>
 </doxygen>

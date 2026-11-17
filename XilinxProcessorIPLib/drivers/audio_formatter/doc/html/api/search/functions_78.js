@@ -9,6 +9,8 @@ var searchData=
   ['xaudioformatterdmastart',['XAudioFormatterDMAStart',['../group__audio__formatter.html#ga65ddaecacb3d843dade3da4a44862963',1,'xaudioformatter.c']]],
   ['xaudioformatterdmastop',['XAudioFormatterDMAStop',['../group__audio__formatter.html#ga95f19d9d0e20ad8b8bafcaf277ea1ca3',1,'xaudioformatter.c']]],
   ['xaudioformattergetdmatransfercount',['XAudioFormatterGetDMATransferCount',['../group__audio__formatter.html#gabc41edf6bcea2a85b50e8893016fb267',1,'xaudioformatter.c']]],
+  ['xaudioformattermm2sintrhandler',['XAudioFormatterMM2SIntrHandler',['../group__audio__formatter.html#gad236d638e2ae1afe068b87d0f3621d27',1,'XAudioFormatterMM2SIntrHandler(void *InstancePtr):&#160;xaudioformatter_intr.c'],['../group__audioformatter.html#gad236d638e2ae1afe068b87d0f3621d27',1,'XAudioFormatterMM2SIntrHandler(void *InstancePtr):&#160;xaudioformatter_intr.c']]],
+  ['xaudioformatters2mmintrhandler',['XAudioFormatterS2MMIntrHandler',['../group__audio__formatter.html#ga16ea676685b69644cd310b70a55b8b27',1,'XAudioFormatterS2MMIntrHandler(void *InstancePtr):&#160;xaudioformatter_intr.c'],['../group__audioformatter.html#ga16ea676685b69644cd310b70a55b8b27',1,'XAudioFormatterS2MMIntrHandler(void *InstancePtr):&#160;xaudioformatter_intr.c']]],
   ['xaudioformattersetfsmultiplier',['XAudioFormatterSetFsMultiplier',['../group__audio__formatter.html#gae4e206855fe0fd0b43a40050d494b40f',1,'xaudioformatter.c']]],
   ['xaudioformattersethwparams',['XAudioFormatterSetHwParams',['../group__audio__formatter.html#ga0d2e42ac1ba8d83eca142032ad59320b',1,'xaudioformatter.c']]],
   ['xaudioformattersets2mmtimeout',['XAudioFormatterSetS2MMTimeOut',['../group__audio__formatter.html#ga6d1e04ada72ed2b53ee4c03809f8146e',1,'xaudioformatter.c']]],

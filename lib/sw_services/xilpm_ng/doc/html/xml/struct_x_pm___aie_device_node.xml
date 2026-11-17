@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_device_node" kind="struct" prot="public">
+    <compoundname>XPm_AieDeviceNode</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_device_node_1a7a5870262a61b5cc9f8abaac4671649e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref></type>
+        <definition>XPm_Device XPm_AieDeviceNode::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_device_node_1ade775e6df84486807a64d7c3f2438c2f" prot="public" static="no" mutable="no">
+        <type>XPm_PlDevice *</type>
+        <definition>XPm_PlDevice* XPm_AieDeviceNode::Parent</definition>
+        <argsstring></argsstring>
+        <name>Parent</name>
+        <briefdescription>
+<para>Parent of Aie device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_device_node_1a95f5f12a49eb3a82f809de5018b00eef" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieDeviceNode::StartCol</definition>
+        <argsstring></argsstring>
+        <name>StartCol</name>
+        <briefdescription>
+<para>Partition start column (inclusive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_device_node_1a2c0c168990cf7874105b8c62c79f0a78" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieDeviceNode::EndCol</definition>
+        <argsstring></argsstring>
+        <name>EndCol</name>
+        <briefdescription>
+<para>Partition end column (inclusive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_device_node_1a3c85e91f8c5b768e646b8a404b9fb7a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_AieDeviceNode::IsPartitioned</definition>
+        <argsstring></argsstring>
+        <name>IsPartitioned</name>
+        <briefdescription>
+<para>1 if partition info was provided </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="23">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="24">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>XPm_AieDeviceNode</label>
+        <childnode refid="20" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.h" bodystart="25" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_device_node_1a7a5870262a61b5cc9f8abaac4671649e" prot="public" virt="non-virtual"><scope>XPm_AieDeviceNode</scope><name>Device</name></member>
+      <member refid="struct_x_pm___aie_device_node_1a2c0c168990cf7874105b8c62c79f0a78" prot="public" virt="non-virtual"><scope>XPm_AieDeviceNode</scope><name>EndCol</name></member>
+      <member refid="struct_x_pm___aie_device_node_1a3c85e91f8c5b768e646b8a404b9fb7a0" prot="public" virt="non-virtual"><scope>XPm_AieDeviceNode</scope><name>IsPartitioned</name></member>
+      <member refid="struct_x_pm___aie_device_node_1ade775e6df84486807a64d7c3f2438c2f" prot="public" virt="non-virtual"><scope>XPm_AieDeviceNode</scope><name>Parent</name></member>
+      <member refid="struct_x_pm___aie_device_node_1a95f5f12a49eb3a82f809de5018b00eef" prot="public" virt="non-virtual"><scope>XPm_AieDeviceNode</scope><name>StartCol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

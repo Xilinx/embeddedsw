@@ -105,17 +105,30 @@ $(document).ready(function(){initNavTree('xiicps__xfer_8c.html','');});
 <div class="title">xiicps_xfer.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the internal data transfer helpers of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__xfer_8c.html" title="Implements the internal data transfer helpers of the XIicPs driver. ">xiicps_xfer.c</a> file contains implementation of required helper functions for the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver.</p>
+<pre> MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
+</p>
+<hr/>
+<p>
+3.11  rna     12/10/19 First release
+        02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+3.18  gm      08/25/23 Added XIicPs_MasterPolledRead, XIicPs_MasterIntrSend
+                 and XIicPs_MasterIntrRead functions.
+3.24  vn      08/26/26 Fix Doxygen warnings
+3.24  tb      09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps__hw_8h.html">xiicps_hw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps__xfer_8h.html">xiicps_xfer.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gab4edada5e6ef2c6e9a986489a54604b3"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gab4edada5e6ef2c6e9a986489a54604b3">XIicPs_SetupMaster</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, s32 Role)</td></tr>
-<tr class="memdesc:gab4edada5e6ef2c6e9a986489a54604b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function prepares a device to transfers as a master.  <a href="group__iicps__api.html#gab4edada5e6ef2c6e9a986489a54604b3">More...</a><br/></td></tr>
+<tr class="memdesc:gab4edada5e6ef2c6e9a986489a54604b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a device to transfer as a master.  <a href="group__iicps__api.html#gab4edada5e6ef2c6e9a986489a54604b3">More...</a><br/></td></tr>
 <tr class="separator:gab4edada5e6ef2c6e9a986489a54604b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf87bf18c36aebe9840bae9102c10572b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gaf87bf18c36aebe9840bae9102c10572b">MasterSendData</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf87bf18c36aebe9840bae9102c10572b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles continuation of sending data.  <a href="group__iicps__api.html#gaf87bf18c36aebe9840bae9102c10572b">More...</a><br/></td></tr>
+<tr class="memdesc:gaf87bf18c36aebe9840bae9102c10572b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles continuation of sending data.  <a href="group__iicps__api.html#gaf87bf18c36aebe9840bae9102c10572b">More...</a><br/></td></tr>
 <tr class="separator:gaf87bf18c36aebe9840bae9102c10572b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec237d71613a20b823bb60d522fe0a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gaec237d71613a20b823bb60d522fe0a4b">XIicPs_MasterPolledRead</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, s32 IsHold, s32 ByteCountVar)</td></tr>
 <tr class="memdesc:gaec237d71613a20b823bb60d522fe0a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles polled mode receive in master mode.  <a href="group__iicps__api.html#gaec237d71613a20b823bb60d522fe0a4b">More...</a><br/></td></tr>

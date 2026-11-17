@@ -17,6 +17,9 @@
       <node id="16">
         <label>xil_assert.h</label>
       </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
       <node id="12">
         <label>xdpdma.h</label>
         <link refid="xdpdma.h"/>
@@ -32,9 +35,6 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
-      </node>
-      <node id="14">
-        <label>xil_io.h</label>
       </node>
       <node id="17">
         <label>xstatus.h</label>
@@ -53,6 +53,10 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="23">
+        <label>xdpdma_sinit.c</label>
+        <link refid="xdpdma__sinit_8c"/>
+      </node>
       <node id="25">
         <label>xdpdma_video_example.c</label>
         <link refid="xdpdma__video__example_8c"/>
@@ -87,16 +91,12 @@
         <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="22">
-        <label>xdpdma_intr.c</label>
-        <link refid="xdpdma__intr_8c"/>
-      </node>
       <node id="21">
         <label>xdpdma_g.c</label>
       </node>
-      <node id="23">
-        <label>xdpdma_sinit.c</label>
-        <link refid="xdpdma__sinit_8c"/>
+      <node id="22">
+        <label>xdpdma_intr.c</label>
+        <link refid="xdpdma__intr_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xdpdma_8h_1a96c41e51add64ba8b5c7339ad616ae6d" prot="public" static="no">
         <name>XDPDMA_DESCRIPTOR_PREAMBLE</name>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -136,7 +136,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who   Dat
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -190,140 +190,126 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who   Dat
 <codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="105"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="108"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="112"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
-<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="117"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>XDpDma_Config;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoChan,</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GraphicsChan,</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioChan0,</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioChan1,</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">}<sp/>XDpDma_ChannelType;</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_DISABLE,</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_ENABLE,</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_IDLE,</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_PAUSE</highlight></codeline>
-<codeline lineno="139"><highlight class="normal">}<sp/>XDpDma_ChannelState;</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Stride;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineSize;</highlight></codeline>
-<codeline lineno="149"><highlight class="normal">}<sp/>XDpDma_FrameBuffer;</highlight></codeline>
-<codeline lineno="153"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
-<codeline lineno="156"><highlight class="normal">}<sp/>XDpDma_AudioBuffer;</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor0;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor1;</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>*Current;</highlight></codeline>
-<codeline lineno="165"><highlight class="normal">}<sp/>XDpDma_Channel;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Channel<sp/>Channel[3];</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AVBufEn;</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_VideoAttribute<sp/>*VideoInfo;</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer[3];</highlight></codeline>
-<codeline lineno="176"><highlight class="normal">}<sp/>XDpDma_VideoChannel;</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Channel<sp/>Channel;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AVBufEn;</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_VideoAttribute<sp/>*VideoInfo;</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal">}<sp/>XDpDma_GfxChannel;</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor0,<sp/>Descriptor1,<sp/>Descriptor2;</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor3,<sp/>Descriptor4,<sp/>Descriptor5;</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor6,<sp/>Descriptor7;</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>*Current;</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioBuffer<sp/>*Buffer;</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Used;</highlight></codeline>
-<codeline lineno="200"><highlight class="normal">}<sp/>XDpDma_AudioChannel;</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************/</highlight></codeline>
-<codeline lineno="210"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDpDma_VSyncInterruptHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************/</highlight></codeline>
-<codeline lineno="221"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDpDma_DoneInterruptHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"></highlight></codeline>
-<codeline lineno="226"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Config<sp/>Config;</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_VideoChannel<sp/>Video;</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_GfxChannel<sp/>Gfx;</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioChannel<sp/>Audio[2];</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoTiming<sp/>*Timing;</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>QOS;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<sp/>XDpDma_Config;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoChan,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GraphicsChan,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioChan0,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioChan1,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/>XDpDma_ChannelType;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_DISABLE,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_ENABLE,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_IDLE,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDMA_PAUSE</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}<sp/>XDpDma_ChannelState;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Stride;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineSize;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}<sp/>XDpDma_FrameBuffer;</highlight></codeline>
+<codeline lineno="147"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}<sp/>XDpDma_AudioBuffer;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor0;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor1;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>*Current;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}<sp/>XDpDma_Channel;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Channel<sp/>Channel[3];</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AVBufEn;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_VideoAttribute<sp/>*VideoInfo;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer[3];</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}<sp/>XDpDma_VideoChannel;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Channel<sp/>Channel;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AVBufEn;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf_VideoAttribute<sp/>*VideoInfo;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}<sp/>XDpDma_GfxChannel;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor0,<sp/>Descriptor1,<sp/>Descriptor2;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor3,<sp/>Descriptor4,<sp/>Descriptor5;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>Descriptor6,<sp/>Descriptor7;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Descriptor<sp/>*Current;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TriggerStatus;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioBuffer<sp/>*Buffer;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Used;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}<sp/>XDpDma_AudioChannel;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************/</highlight></codeline>
+<codeline lineno="204"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDpDma_VSyncInterruptHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDpDma_DoneInterruptHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_Config<sp/>Config;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_VideoChannel<sp/>Video;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_GfxChannel<sp/>Gfx;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioChannel<sp/>Audio[2];</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoTiming<sp/>*Timing;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>QOS;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_VSyncInterruptHandler<sp/>VSyncHandler;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>VSyncInterruptHandler;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_DoneInterruptHandler<sp/>DoneHandler;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>DoneInterruptHandler;</highlight></codeline>
 <codeline lineno="233"><highlight class="normal"></highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_VSyncInterruptHandler<sp/>VSyncHandler;</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>VSyncInterruptHandler;</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_DoneInterruptHandler<sp/>DoneHandler;</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>DoneInterruptHandler;</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"></highlight></codeline>
-<codeline lineno="240"><highlight class="normal">}<sp/>XDpDma;</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a644e1a27df9327819d6fce610e97bae1" kindref="member">XDpDma_CfgInitialize</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_Config<sp/>*CfgPtr);</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal">XDpDma_Config<sp/>*<ref refid="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" kindref="member">XDpDma_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal">XDpDma_Config<sp/>*<ref refid="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" kindref="member">XDpDma_LookupConfig</ref>(u32<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" kindref="member">XDpDma_SetChannelState</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel,</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_ChannelState<sp/>ChannelState);</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1ac04dd8bf90f181c5ca44af2b0bd1e3d2" kindref="member">XDpDma_SetQOS</ref>(XDpDma<sp/>*InstancePtr,<sp/>u8<sp/>QOS);</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a6699e959f7465984b1c4c9875fafe656" kindref="member">XDpDma_SetupChannel</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1acb67495006228d9b631e3824c822f56d" kindref="member">XDpDma_SetVideoFormat</ref>(XDpDma<sp/>*InstancePtr,<sp/>XAVBuf_VideoFormat<sp/>Format);</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a3307b5795328ef76c76674588918739d" kindref="member">XDpDma_SetGraphicsFormat</ref>(XDpDma<sp/>*InstancePtr,<sp/>XAVBuf_VideoFormat<sp/>Format);</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1aa031afe32833d3c31cf50c1245d6a5a3" kindref="member">XDpDma_Trigger</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a33d14a186926a53012087f81a4fd3f16" kindref="member">XDpDma_ReTrigger</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1a1789f821f2b216d7693514352b300216" kindref="member">XDpDma_InterruptEnable</ref>(XDpDma<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1a856c484c8e45df996ba6aa97f38392dd" kindref="member">XDpDma_InterruptHandler</ref>(XDpDma<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1aecdf54c8a3174a7547021952de639875" kindref="member">XDpDma_VSyncHandler</ref>(XDpDma<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a830dfc769c7cd83f4d55e72217863b93" kindref="member">XDpDma_InitVideoDescriptor</ref>(XDpDma_Descriptor<sp/>*CurrDesc,</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer);</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><ref refid="xdpdma_8c_1a17566416aab41ddfefa7ebb65146223f" kindref="member">XDpDma_DisplayVideoFrameBuffer</ref>(XDpDma<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane0,</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane1,</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane2);</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" kindref="member">XDpDma_DisplayGfxFrameBuffer</ref>(XDpDma<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane);</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a3b54f9c726866282dbbe546b1f5ebd55" kindref="member">XDpDma_InitAudioDescriptor</ref>(XDpDma_AudioChannel<sp/>*Channel,</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioBuffer<sp/>*AudioBuffer);</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1aba4cab14f85a787fe924bb785f9cc807" kindref="member">XDpDma_PlayAudio</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_AudioBuffer<sp/>*Buffer,</highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChannelNum);</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"></highlight></codeline>
-<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="273"><highlight class="normal"></highlight></codeline>
-<codeline lineno="278"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDpDma_Config<sp/>XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDpDma_Config<sp/>XDpDma_ConfigTable[];</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XDPDMA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}<sp/>XDpDma;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a644e1a27df9327819d6fce610e97bae1" kindref="member">XDpDma_CfgInitialize</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_Config<sp/>*CfgPtr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">XDpDma_Config<sp/>*<ref refid="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" kindref="member">XDpDma_LookupConfig</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" kindref="member">XDpDma_SetChannelState</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_ChannelState<sp/>ChannelState);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1ac04dd8bf90f181c5ca44af2b0bd1e3d2" kindref="member">XDpDma_SetQOS</ref>(XDpDma<sp/>*InstancePtr,<sp/>u8<sp/>QOS);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a6699e959f7465984b1c4c9875fafe656" kindref="member">XDpDma_SetupChannel</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1acb67495006228d9b631e3824c822f56d" kindref="member">XDpDma_SetVideoFormat</ref>(XDpDma<sp/>*InstancePtr,<sp/>XAVBuf_VideoFormat<sp/>Format);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a3307b5795328ef76c76674588918739d" kindref="member">XDpDma_SetGraphicsFormat</ref>(XDpDma<sp/>*InstancePtr,<sp/>XAVBuf_VideoFormat<sp/>Format);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1aa031afe32833d3c31cf50c1245d6a5a3" kindref="member">XDpDma_Trigger</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a33d14a186926a53012087f81a4fd3f16" kindref="member">XDpDma_ReTrigger</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_ChannelType<sp/>Channel);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1a1789f821f2b216d7693514352b300216" kindref="member">XDpDma_InterruptEnable</ref>(XDpDma<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1a856c484c8e45df996ba6aa97f38392dd" kindref="member">XDpDma_InterruptHandler</ref>(XDpDma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__intr_8c_1aecdf54c8a3174a7547021952de639875" kindref="member">XDpDma_VSyncHandler</ref>(XDpDma<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a830dfc769c7cd83f4d55e72217863b93" kindref="member">XDpDma_InitVideoDescriptor</ref>(XDpDma_Descriptor<sp/>*CurrDesc,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*FrameBuffer);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><ref refid="xdpdma_8c_1a17566416aab41ddfefa7ebb65146223f" kindref="member">XDpDma_DisplayVideoFrameBuffer</ref>(XDpDma<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane0,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane1,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane2);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" kindref="member">XDpDma_DisplayGfxFrameBuffer</ref>(XDpDma<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_FrameBuffer<sp/>*Plane);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1a3b54f9c726866282dbbe546b1f5ebd55" kindref="member">XDpDma_InitAudioDescriptor</ref>(XDpDma_AudioChannel<sp/>*Channel,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma_AudioBuffer<sp/>*AudioBuffer);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma_8c_1aba4cab14f85a787fe924bb785f9cc807" kindref="member">XDpDma_PlayAudio</ref>(XDpDma<sp/>*InstancePtr,<sp/>XDpDma_AudioBuffer<sp/>*Buffer,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChannelNum);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDpDma_Config<sp/>XDpDma_ConfigTable[];</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XDPDMA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma.h"/>
   </compounddef>
 </doxygen>

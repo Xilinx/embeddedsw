@@ -124,7 +124,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       mss  03/13/2024 Fix MISRA-C violation 10.3
       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
       pre  03/02/2025 Modified error throwing condition after exiting from command handler
-2.4   abh  10/27/2025 Fixed MISRA-C violations</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+2.4   abh  10/27/2025 Fixed MISRA-C violations
+2.5   abh  08/24/2026 Converted XPlmi_GetCdoErr from static inline to regular function</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__cmd_8h.html">xplmi_cmd.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__debug_8h.html">xplmi_debug.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__modules_8h.html">xplmi_modules.h</a>&quot;</code><br/>
@@ -132,6 +133,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga7f7450828ca0cc4874e1fa58347566e9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga7f7450828ca0cc4874e1fa58347566e9">XPlmi_GetCdoErr</a> (u32 CmdId)</td></tr>
+<tr class="memdesc:ga7f7450828ca0cc4874e1fa58347566e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the Cdo error type based on the command Id.  <a href="group__xilplmi__server__apis.html#ga7f7450828ca0cc4874e1fa58347566e9">More...</a><br/></td></tr>
+<tr class="separator:ga7f7450828ca0cc4874e1fa58347566e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a3723fdc064e5a4d8086bea79bd3a28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga2a3723fdc064e5a4d8086bea79bd3a28">XPlmi_CmdExecute</a> (XPlmi_Cmd *CmdPtr)</td></tr>
 <tr class="memdesc:ga2a3723fdc064e5a4d8086bea79bd3a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will call the command handler registered with the command.  <a href="group__xilplmi__server__apis.html#ga2a3723fdc064e5a4d8086bea79bd3a28">More...</a><br/></td></tr>
 <tr class="separator:ga2a3723fdc064e5a4d8086bea79bd3a28"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -16,6 +16,8 @@
     <member refid="struct_x_mmi_dp_1a753ce52b16177a273cb8e44b265e371e" kind="variable"><name>SdpCfg3</name></member>
     <member refid="struct_x_mmi_dp_1ab23a1ccdf1af4855bd270dcc8e425e16" kind="variable"><name>SdpRegBank</name></member>
     <member refid="struct_x_mmi_dp_1a790048cae5526229fbc423187c0fcc3f" kind="variable"><name>CtrlConfig</name></member>
+    <member refid="struct_x_mmi_dp_1a7c58a1c7566c0866665bf88c536627f4" kind="variable"><name>MstStreamConfig</name></member>
+    <member refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" kind="variable"><name>MstTopology</name></member>
     <member refid="struct_x_mmi_dp_1aa540cada6ffaa64fd97764461a97d189" kind="variable"><name>AuxDelayUs</name></member>
     <member refid="struct_x_mmi_dp_1add4a5cb5d2fd0dedb2910266cd659393" kind="variable"><name>Config</name></member>
     <member refid="struct_x_mmi_dp_1a81d3b66f29bb1f125538fe65dd6e4a6c" kind="variable"><name>HpdHotPlugCallbackRef</name></member>
@@ -44,7 +46,20 @@
     <member refid="struct_x_mmi_dp___aux_transaction_1aa2471528bd41637dc8b3d5e9bca5339c" kind="variable"><name>NumBytes</name></member>
   </compound>
   <compound refid="struct_x_mmi_dp___config" kind="struct"><name>XMmiDp_Config</name>
+    <member refid="struct_x_mmi_dp___config_1a867763d33c068b613bb88bd60c9cc6b0" kind="variable"><name>Name</name></member>
     <member refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" kind="variable"><name>BaseAddr</name></member>
+    <member refid="struct_x_mmi_dp___config_1a8816b4fe51277d54f807e967b4b56f47" kind="variable"><name>RegNames</name></member>
+    <member refid="struct_x_mmi_dp___config_1a8b4dbb13f745e543dd2d161c440e3540" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_mmi_dp___config_1a550cef9b76ae4cd6c5c0fd5d0e7297b1" kind="variable"><name>IntrNames</name></member>
+    <member refid="struct_x_mmi_dp___config_1a218ce2f906fccc85d1924b9cbbf7e24b" kind="variable"><name>IntrParent</name></member>
+    <member refid="struct_x_mmi_dp___config_1a6d22b90119d7f52c8e0c28ee2472ca55" kind="variable"><name>Ports</name></member>
+    <member refid="struct_x_mmi_dp___config_1a8f4e092e24ed19b9fc85d77353b09754" kind="variable"><name>Hdcp1x</name></member>
+    <member refid="struct_x_mmi_dp___config_1a5d4a8c1babb87bc7e207aa5a2b1b3e71" kind="variable"><name>Hdcp2x</name></member>
+    <member refid="struct_x_mmi_dp___config_1a19b40ab93b913e874598ac2d20c813b2" kind="variable"><name>MstModeEn</name></member>
+    <member refid="struct_x_mmi_dp___config_1ad393a5fc6852b5ab2848a66e12649fec" kind="variable"><name>DptxStreams</name></member>
+    <member refid="struct_x_mmi_dp___config_1a45472f9f26b7fb195052b3530aa1a306" kind="variable"><name>DptxPixelMode</name></member>
+    <member refid="struct_x_mmi_dp___config_1a4aea32216de18f9739a580338024d539" kind="variable"><name>DpLanes</name></member>
+    <member refid="struct_x_mmi_dp___config_1a8c041f28dd5cbd4eca22e7bbc0162541" kind="variable"><name>Phys</name></member>
   </compound>
   <compound refid="struct_x_mmi_dp___controller" kind="struct"><name>XMmiDp_Controller</name>
     <member refid="struct_x_mmi_dp___controller_1a6a0806dc146f895f902e13ea057968a4" kind="variable"><name>ScrambleDis</name></member>
@@ -89,6 +104,24 @@
     <member refid="struct_x_mmi_dp___main_stream_attributes_1a8d17bd2d816d4d1e6ab89b453739a6f0" kind="variable"><name>PixelClockHz</name></member>
     <member refid="struct_x_mmi_dp___main_stream_attributes_1a55e641a0fc21bf163e95422b310cab7c" kind="variable"><name>Reserved</name></member>
   </compound>
+  <compound refid="struct_x_mmi_dp___mst_sink" kind="struct"><name>XMmiDp_MstSink</name>
+    <member refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" kind="variable"><name>LinkCountTotal</name></member>
+    <member refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" kind="variable"><name>RelativeAddress</name></member>
+    <member refid="struct_x_mmi_dp___mst_sink_1a6031928789eea71e3e972dc2619ddc63" kind="variable"><name>PeerDeviceType</name></member>
+    <member refid="struct_x_mmi_dp___mst_sink_1ae0c59fc5046bb8b69954dce8d8fb0f68" kind="variable"><name>DpcdRev</name></member>
+  </compound>
+  <compound refid="struct_x_mmi_dp___mst_stream" kind="struct"><name>XMmiDp_MstStream</name>
+    <member refid="struct_x_mmi_dp___mst_stream_1a57d76dede6dda29973280215a03733bb" kind="variable"><name>MstPbn</name></member>
+    <member refid="struct_x_mmi_dp___mst_stream_1ad6ff59926a2920e1900b0c11918b58c8" kind="variable"><name>TimeSlots</name></member>
+    <member refid="struct_x_mmi_dp___mst_stream_1a2f691b4c0b1542627d4f478f90b8a003" kind="variable"><name>StartSlot</name></member>
+    <member refid="struct_x_mmi_dp___mst_stream_1aab1a34be76dbbbe30a262f46c58722ce" kind="variable"><name>LinkCountTotal</name></member>
+    <member refid="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" kind="variable"><name>RelativeAddress</name></member>
+  </compound>
+  <compound refid="struct_x_mmi_dp___mst_topology" kind="struct"><name>XMmiDp_MstTopology</name>
+    <member refid="struct_x_mmi_dp___mst_topology_1a2975f3c0925a236fbf3199cd3afbe5ca" kind="variable"><name>BranchTotal</name></member>
+    <member refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" kind="variable"><name>SinkTotal</name></member>
+    <member refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" kind="variable"><name>Sinks</name></member>
+  </compound>
   <compound refid="struct_x_mmi_dp___phy_config" kind="struct"><name>XMmiDp_PhyConfig</name>
     <member refid="struct_x_mmi_dp___phy_config_1a05888a6b139341df51dd8e66815baedc" kind="variable"><name>VsLevel</name></member>
     <member refid="struct_x_mmi_dp___phy_config_1a47de6d07351a56e09fd669efe5b8f03e" kind="variable"><name>PeLevel</name></member>
@@ -122,6 +155,26 @@
     <member refid="struct_x_mmi_dp___rx_config_1a67e11ff95b0cf681be41d86d185b838f" kind="variable"><name>ExtendedReceiverCap</name></member>
     <member refid="struct_x_mmi_dp___rx_config_1ad90c5b24a50637754784c042a8b37c66" kind="variable"><name>MstCap</name></member>
     <member refid="struct_x_mmi_dp___rx_config_1ad55d43a48ad930f14ce2717247f5090f" kind="variable"><name>Reserved</name></member>
+  </compound>
+  <compound refid="struct_x_mmi_dp___sb_link_address_port" kind="struct"><name>XMmiDp_SbLinkAddressPort</name>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" kind="variable"><name>InputPort</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" kind="variable"><name>PeerDeviceType</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" kind="variable"><name>PortNum</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" kind="variable"><name>MsgCapStatus</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" kind="variable"><name>DpDevPlugStatus</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a9c1968942d9c970f25676d057e1d2184" kind="variable"><name>LegacyDevPlugStatus</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" kind="variable"><name>DpcdRev</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1a20ad53d6d448e35d9abcf07a5e9cbc27" kind="variable"><name>NumSdpStreams</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_port_1ac5d8719bf7fb54c931d74b49d29677a9" kind="variable"><name>NumSdpStreamSinks</name></member>
+  </compound>
+  <compound refid="struct_x_mmi_dp___sb_link_address_reply" kind="struct"><name>XMmiDp_SbLinkAddressReply</name>
+    <member refid="struct_x_mmi_dp___sb_link_address_reply_1a6221aab9e7adf0f032f3dc0d9ba8f907" kind="variable"><name>Guid</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_reply_1a418a18116f2b2fe8560b842f5777bb8b" kind="variable"><name>NumPorts</name></member>
+    <member refid="struct_x_mmi_dp___sb_link_address_reply_1aba76cb80593fc30fac0993f9ba081fa9" kind="variable"><name>Ports</name></member>
+  </compound>
+  <compound refid="struct_x_mmi_dp___sb_reply" kind="struct"><name>XMmiDp_SbReply</name>
+    <member refid="struct_x_mmi_dp___sb_reply_1a6df765d9c56b29b8d9599d910144a9f0" kind="variable"><name>Length</name></member>
+    <member refid="struct_x_mmi_dp___sb_reply_1ac56c3727ad5267f8ac9083ade1039381" kind="variable"><name>Data</name></member>
   </compound>
   <compound refid="struct_x_mmi_dp___sdp_config" kind="struct"><name>XMmiDp_SdpConfig</name>
     <member refid="struct_x_mmi_dp___sdp_config_1ad27aa14152fbd94a9f9423f24c2c431a" kind="variable"><name>OverrideBytesReqHBlank</name></member>
@@ -182,12 +235,19 @@
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
   <compound refid="xmmidp_8h" kind="file"><name>xmmidp.h</name>
+    <member refid="xmmidp_8h_1a35540ca7f268e7d28ce610273940aa8a" kind="define"><name>XMMIDP_MST_MAX_RAD</name></member>
+    <member refid="xmmidp_8h_1ae8e3ce319bf017353a3b0afaae83049e" kind="define"><name>XMMIDP_MST_MAX_PORTS</name></member>
+    <member refid="xmmidp_8h_1a5ec0ff75ff43472cdbdd3fe50adc33b3" kind="define"><name>XMMIDP_MST_MAX_SINKS</name></member>
+    <member refid="xmmidp_8h_1a4f591a2ee30db4ebc89d7b4c1956040a" kind="define"><name>XMMIDP_MST_MAX_BRANCHES</name></member>
+    <member refid="xmmidp_8h_1aea63cc3b8d5aa823cc3d452a6dcab068" kind="define"><name>XMMIDP_MST_SINK_MIN_LCT</name></member>
+    <member refid="xmmidp_8h_1add85a77384e6763cd1969faae241eaeb" kind="define"><name>XMMIDP_GUID_NBYTES</name></member>
     <member refid="xmmidp_8h_1a993e5cc86628ed6b0c47604792dd397f" kind="define"><name>XMMIDP_MAX_LANES</name></member>
     <member refid="xmmidp_8h_1a089cfcb2a8da037629a3b3fc7b7ebefd" kind="define"><name>XMMIDP_MAX_EDID_READ</name></member>
     <member refid="xmmidp_8h_1a6eb697baa8852c3d661a473965e039ef" kind="define"><name>XMMIDP_RBR_LINK_RATE</name></member>
     <member refid="xmmidp_8h_1ad19966c5ccf2b600f24eff3757bc1f2a" kind="define"><name>XMMIDP_HBR_LINK_RATE</name></member>
     <member refid="xmmidp_8h_1a33c643be2e7062523c9dff3aec748aeb" kind="define"><name>XMMIDP_HBR2_LINK_RATE</name></member>
     <member refid="xmmidp_8h_1ae3f2db7ce9ec6bf49f36eb951fe34b8d" kind="define"><name>XMMIDP_HBR3_LINK_RATE</name></member>
+    <member refid="xmmidp_8h_1a776787b862220e7308651fda7209a5e6" kind="define"><name>XMMIDP_MST_VCP_REG_COUNT</name></member>
     <member refid="xmmidp_8h_1a87908243f791b86e296721175ca2bf70" kind="enum"><name>XMmiDp_PhyLanes</name></member>
     <member refid="xmmidp_8h_1a87908243f791b86e296721175ca2bf70aacb0508c949a872fa2244b469bcd8138" kind="enumvalue"><name>XMMIDP_PHY_LANES_1</name></member>
     <member refid="xmmidp_8h_1a87908243f791b86e296721175ca2bf70a0de937aefea55907e2320123000b7bb6" kind="enumvalue"><name>XMMIDP_PHY_LANES_2</name></member>
@@ -304,6 +364,7 @@
     <member refid="xmmidp_8h_1a776f0ed05c384d026b05cfb0dc3944c3" kind="typedef"><name>XMmiDp_HpdIrqHandler</name></member>
     <member refid="xmmidp_8h_1a8394c508136a04d0f3e660c9b2869612" kind="typedef"><name>XMmiDp_HpdHotPlugHandler</name></member>
     <member refid="xmmidp_8h_1a26252148ff91e0d815c5cb37ef9f5c42" kind="typedef"><name>XMmiDp_HpdHotUnplugHandler</name></member>
+    <member refid="xmmidp_8h_1aedb5a36a9d7b4de0e1e36ce5e9291182" kind="variable"><name>XMmiDp_ConfigTable</name></member>
     <member refid="group__mmi__dppsu14_1gac208ef2307d56ac04e68c5402b5b278e" kind="function"><name>XMmiDp_CfgInitialize</name></member>
     <member refid="group__mmi__dppsu14_1ga8d179f7c6034c9329c8a9871bc466025" kind="function"><name>XMmiDp_Initialize</name></member>
     <member refid="group__mmi__dppsu14_1ga801d0c3bbe8822dbb0b75af631c1c828" kind="function"><name>XMmiDp_AuxWrite</name></member>
@@ -386,6 +447,7 @@
     <member refid="group__mmi__dppsu14_1gaa56c95a1a342ab85ddccb12c7b531e81" kind="function"><name>XMmiDp_TrainingStateChannelEqualization</name></member>
     <member refid="group__mmi__dppsu14_1gadfcdfec9174ff0cf984dbd170bce80f2" kind="function"><name>XMmiDp_CheckLinkStatus</name></member>
     <member refid="group__mmi__dppsu14_1ga2faa4352f70a9938766d8d266bb20b2a" kind="function"><name>XMmiDp_RunTraining</name></member>
+    <member refid="group__mmi__dppsu14_1gad5774015fbf8628ffdbb3746da70b28b" kind="function"><name>XMmiDp_StartFullLinkTrainingCapped</name></member>
     <member refid="group__mmi__dppsu14_1ga0ce3540c32ce1bdcbe2b43fecb15e47d" kind="function"><name>XMmiDp_WaitUs</name></member>
     <member refid="group__mmi__dppsu14_1ga6f3c5f1e710332e8e5b96ca5fdd3e5db" kind="function"><name>XMmiDp_DisableVideoStream</name></member>
     <member refid="group__mmi__dppsu14_1ga785cb9fe8a1bfed10c699b603717eb3b" kind="function"><name>XMmiDp_EnableVideoStream</name></member>
@@ -411,6 +473,13 @@
     <member refid="group__mmi__dppsu14_1ga66e70f6545ca763ce08a076b8be01263" kind="function"><name>XMmiDp_ComputeMisc0</name></member>
     <member refid="group__mmi__dppsu14_1ga5622626e416284d47b7f59cfc6f7a875" kind="function"><name>XMmiDp_ComputeHBlankInterval</name></member>
     <member refid="group__mmi__dppsu14_1gaf94b814b5fe5d3155d7920dd31d86b43" kind="function"><name>XMmiDp_ComputeTuParams</name></member>
+    <member refid="group__mmi__dppsu14_1ga6bbedfa65d698a4f187a50b9b7a95528" kind="function"><name>XMmiDp_GetLinkPbn</name></member>
+    <member refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" kind="function"><name>XMmiDp_ComputeTimeSlot</name></member>
+    <member refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" kind="function"><name>XMmiDp_DistributeMstPayloadSlots</name></member>
+    <member refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" kind="function"><name>XMmiDp_SetSinkVcPayloadTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" kind="function"><name>XMmiDp_AllocatePayloadStream</name></member>
+    <member refid="group__mmi__dppsu14_1ga97463cad79c4d5c93ab9bd4f67bec87e" kind="function"><name>XMmiDp_ClearPayloadVcIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" kind="function"><name>XMmiDp_SetTxVcPayloadTable</name></member>
     <member refid="group__mmi__dppsu14_1ga31759cd807ed207a746e9799c3249d3f" kind="function"><name>XMmiDp_SetVidControllerUseStdVidMode</name></member>
     <member refid="group__mmi__dppsu14_1ga58e09571b65d872ceb65da9e0517c4b1" kind="function"><name>XMmiDp_ConfigureAudioController</name></member>
     <member refid="group__mmi__dppsu14_1ga141cf14bd09824562395b2388d65bbea" kind="function"><name>XMmiDp_SetAudStreamInterfaceSel</name></member>
@@ -448,7 +517,8 @@
     <member refid="group__mmi__dppsu14_1gaf065764ad84b4dfa69ab078238d1ac38" kind="function"><name>XMmiDp_SetControllerInitiateMstActSeq</name></member>
     <member refid="group__mmi__dppsu14_1gabd2a67461b0e2fc53ee3ffef555012f7" kind="function"><name>XMmiDp_SetCoreCtrl</name></member>
     <member refid="group__mmi__dppsu14_1gaa9a796e9233f2d5bb9cd15ba3e1d3f91" kind="function"><name>XMmiDp_MstActSeqEnable</name></member>
-    <member refid="group__mmi__dppsu14_1ga39b2ada01525a228afd7e382c8fac774" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga4fc2ecad0f4c4e18d527f524ecb3e666" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga39f784e7c9f85a391c28a8ca9886007c" kind="function"><name>XMmiDp_SinkMstModeEnable</name></member>
     <member refid="group__mmi__dppsu14_1gaf8aeb8c282f9f029d38987c697bce0a6" kind="function"><name>XMmiDp_WaitPayloadTableUpdateStatus</name></member>
     <member refid="group__mmi__dppsu14_1gafb22147451b141af5abab760ef234e33" kind="function"><name>XMmiDp_WaitActHandledStatus</name></member>
     <member refid="group__mmi__dppsu14_1ga637998cd412788fe3b1bcd33130e1902" kind="function"><name>XMmiDp_InitiateActSeq</name></member>
@@ -460,8 +530,31 @@
     <member refid="group__mmi__dppsu14_1gada5251011126752b3de698748c92babc" kind="function"><name>XMmiDp_SetMstVcpTable5</name></member>
     <member refid="group__mmi__dppsu14_1ga76a4789509ab3fd33768a3b31ffe0bd4" kind="function"><name>XMmiDp_SetMstVcpTable6</name></member>
     <member refid="group__mmi__dppsu14_1ga9ace5b42b25dfcd87cd8303e721b5b02" kind="function"><name>XMmiDp_SetMstVcpTable7</name></member>
+    <member refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" kind="function"><name>XMmiDp_SendSbMsgLinkAddress</name></member>
+    <member refid="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" kind="function"><name>XMmiDp_SendSbMsgEnumPathResources</name></member>
+    <member refid="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" kind="function"><name>XMmiDp_SendSbMsgAllocatePayload</name></member>
+    <member refid="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" kind="function"><name>XMmiDp_SendSbMsgClearPayloadIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kind="function"><name>XMmiDp_MstDiscoverTopology</name></member>
+    <member refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" kind="function"><name>XMmiDp_MstSetStreamSink</name></member>
+  </compound>
+  <compound refid="xmmidp__g_8c" kind="file"><name>xmmidp_g.c</name>
+    <member refid="xmmidp__g_8c_1aedb5a36a9d7b4de0e1e36ce5e9291182" kind="variable"><name>XMmiDp_ConfigTable</name></member>
   </compound>
   <compound refid="xmmidp__hw_8h" kind="file"><name>xmmidp_hw.h</name>
+    <member refid="xmmidp__hw_8h_1aaeae5e920a8b9732c6274b3ae12a5964" kind="define"><name>XMMIDP_DPCD_DOWN_REQ</name></member>
+    <member refid="xmmidp__hw_8h_1a0b04580b8f0310def0c1c90fac055fee" kind="define"><name>XMMIDP_DPCD_DOWN_REP</name></member>
+    <member refid="xmmidp__hw_8h_1a0f7254ed770e03cfcc2f6f1e6b841898" kind="define"><name>XMMIDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0</name></member>
+    <member refid="xmmidp__hw_8h_1a28a6867c8b56ac33a68aeba0cc360d7a" kind="define"><name>XMMIDP_DPCD_ESI0_DOWN_REP_MSG_RDY_MASK</name></member>
+    <member refid="xmmidp__hw_8h_1ad619fc2554a02341579f71bc9f09074f" kind="define"><name>XMMIDP_DPCD_ESI0_UP_REQ_MSG_RDY_MASK</name></member>
+    <member refid="xmmidp__hw_8h_1a455e5d0452719198a7c3d0ce5b9572f5" kind="define"><name>XMMIDP_SBMSG_LINK_ADDRESS</name></member>
+    <member refid="xmmidp__hw_8h_1a9e4dfded4e0601c6c7d59588e81de74f" kind="define"><name>XMMIDP_SBMSG_ENUM_PATH_RESOURCES</name></member>
+    <member refid="xmmidp__hw_8h_1a5b80dbcff804ea6362ea00f05ee31e9c" kind="define"><name>XMMIDP_SBMSG_ALLOCATE_PAYLOAD</name></member>
+    <member refid="xmmidp__hw_8h_1a74ca782acc0883a48d3b2ba400b5fa31" kind="define"><name>XMMIDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE</name></member>
+    <member refid="xmmidp__hw_8h_1a1c7a0c3323db24b212d17161fc50faee" kind="define"><name>XMMIDP_PEER_DEVICE_NONE</name></member>
+    <member refid="xmmidp__hw_8h_1a71a7ec3db10feccdf4cd1a4bc3852cbc" kind="define"><name>XMMIDP_PEER_DEVICE_SOURCE_OR_SST_BRANCH</name></member>
+    <member refid="xmmidp__hw_8h_1a4a7c298158e1858d5e8947b7d7fa217d" kind="define"><name>XMMIDP_PEER_DEVICE_MST_BRANCHING_UNIT</name></member>
+    <member refid="xmmidp__hw_8h_1aca35bf43a41c8b829568219b7ed4488a" kind="define"><name>XMMIDP_PEER_DEVICE_SST_SINK</name></member>
+    <member refid="xmmidp__hw_8h_1afca31ac53a1bf11bc2101df2e26cd365" kind="define"><name>XMMIDP_PEER_DEVICE_DP_LEGACY_CONV</name></member>
     <member refid="xmmidp__hw_8h_1addf1105624c246fba5d10d33adb7bb85" kind="define"><name>XMmiDp_In32</name></member>
     <member refid="xmmidp__hw_8h_1ab4c5430e0b22f39f430eaa113bc5e934" kind="define"><name>XMmiDp_Out32</name></member>
     <member refid="xmmidp__hw_8h_1a76312f7923f83cb5fef981310b14fd7b" kind="define"><name>XXMMIDP_BASEADDR</name></member>
@@ -1711,6 +1804,9 @@
     <member refid="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" kind="function"><name>XMmiDp_SdpStatusInterruptEnable</name></member>
   </compound>
   <compound refid="xmmidp__link_8c" kind="file"><name>xmmidp_link.c</name>
+    <member refid="group__mmi__dppsu14_1ga24a371742427a965f10b46ca6cd04862" kind="define"><name>XMMIDP_LT_VERBOSE</name></member>
+    <member refid="group__mmi__dppsu14_1gae9a83ff4a3159348b8aa40e19bffdf3f" kind="define"><name>XMMIDP_LT_LOG</name></member>
+    <member refid="group__mmi__dppsu14_1ga31e1ca6a15a46bd6a333d62a355fe3e7" kind="define"><name>XMMIDP_LINK_XMIT_SETTLE_US</name></member>
     <member refid="group__mmi__dppsu14_1ga304f5617044b4859523ac59791460809" kind="define"><name>XMMIDP_CR_TIMEOUT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gab6a78540223caa91be722567b16be7eb" kind="define"><name>XMMIDP_MAX_VSLEVEL_CNT</name></member>
     <member refid="group__mmi__dppsu14_1gaf7fbf68d7d86c8f8b93c918a17aed750" kind="define"><name>XMMIDP_LINK_CR_DONE_AUX_RD_INTERVAL</name></member>
@@ -1748,6 +1844,45 @@
     <member refid="group__mmi__dppsu14_1gaa56c95a1a342ab85ddccb12c7b531e81" kind="function"><name>XMmiDp_TrainingStateChannelEqualization</name></member>
     <member refid="group__mmi__dppsu14_1gadfcdfec9174ff0cf984dbd170bce80f2" kind="function"><name>XMmiDp_CheckLinkStatus</name></member>
     <member refid="group__mmi__dppsu14_1ga2faa4352f70a9938766d8d266bb20b2a" kind="function"><name>XMmiDp_RunTraining</name></member>
+    <member refid="group__mmi__dppsu14_1ga1ab5b60caa8cc6c3c30540d1f0becc0a" kind="function"><name>XMmiDp_ApplyUserLinkCaps</name></member>
+    <member refid="group__mmi__dppsu14_1gad5774015fbf8628ffdbb3746da70b28b" kind="function"><name>XMmiDp_StartFullLinkTrainingCapped</name></member>
+  </compound>
+  <compound refid="xmmidp__mst_8c" kind="file"><name>xmmidp_mst.c</name>
+    <member refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kind="define"><name>XMMIDP_SBMSG_MAX_BYTES</name></member>
+    <member refid="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" kind="define"><name>XMMIDP_SBMSG_REPLY_MAX_BYTES</name></member>
+    <member refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kind="define"><name>XMMIDP_SBMSG_AUX_CHUNK</name></member>
+    <member refid="group__mmi__dppsu14_1ga2345f5ea873711188565dc37ddfdc670" kind="define"><name>XMMIDP_SBMSG_REPLY_POLL_US</name></member>
+    <member refid="group__mmi__dppsu14_1ga77f1a91e54e67542a398e83a9e48b9fe" kind="define"><name>XMMIDP_SBMSG_REPLY_TIMEOUT</name></member>
+    <member refid="group__mmi__dppsu14_1ga36b0f119152d251b7aedb1291a117a47" kind="define"><name>XMMIDP_SBMSG_BROADCAST_LCR</name></member>
+    <member refid="group__mmi__dppsu14_1gab545404fb1f8fcc027ebbd185cdd1c28" kind="define"><name>XMMIDP_SBMSG_NAK_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gad1d85698842e3dffcd4a25e566968835" kind="define"><name>XMMIDP_SBMSG_REQ_ID_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gadc1ef4c7ae2a474c895ff6d78678b8de" kind="define"><name>XMMIDP_SBMSG_SOMT_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" kind="define"><name>XMMIDP_SBMSG_EOMT_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" kind="define"><name>XMMIDP_SBMSG_BODY_LEN_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" kind="define"><name>XMMIDP_SBMSG_NAK_REASON_IDX</name></member>
+    <member refid="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" kind="define"><name>XMMIDP_SBMSG_CRC4_POLY</name></member>
+    <member refid="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" kind="define"><name>XMMIDP_SBMSG_CRC8_POLY</name></member>
+    <member refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kind="define"><name>XMMIDP_MST_MAX_LCT</name></member>
+    <member refid="group__mmi__dppsu14_1gaa0c41e1ac7a1c74aa6be4254c78a2aa1" kind="variable"><name>SbReply</name></member>
+    <member refid="group__mmi__dppsu14_1gacc72d598e1930d4bd7d5e570b05ce6c2" kind="variable"><name>SbBusy</name></member>
+    <member refid="group__mmi__dppsu14_1ga9e5ee4b87503261708d96c28113f6348" kind="function"><name>XMmiDp_SbClaim</name></member>
+    <member refid="group__mmi__dppsu14_1gae260a4fad5ab858980f6f1e2baf0d33e" kind="function"><name>XMmiDp_SbRelease</name></member>
+    <member refid="group__mmi__dppsu14_1ga075003c62a06a4faa7b5d6485e677cc7" kind="function"><name>XMmiDp_SbCrc</name></member>
+    <member refid="group__mmi__dppsu14_1ga76e8a4bbfeb9b479866421de69c5a521" kind="function"><name>XMmiDp_SbBuildHeader</name></member>
+    <member refid="group__mmi__dppsu14_1ga700619bca10b23b80d983ab5206fd52f" kind="function"><name>XMmiDp_SbAckDownRep</name></member>
+    <member refid="group__mmi__dppsu14_1ga4b7276ae17e74f3238301ec02ffcdd4e" kind="function"><name>XMmiDp_SbSendRequest</name></member>
+    <member refid="group__mmi__dppsu14_1ga2c658f094b962be05f4a6ed8b3dacb6a" kind="function"><name>XMmiDp_SbWaitDownRep</name></member>
+    <member refid="group__mmi__dppsu14_1gacf75409eae319a3799827b3f34b96993" kind="function"><name>XMmiDp_SbReceiveReply</name></member>
+    <member refid="group__mmi__dppsu14_1gaf63c5ac5760f744d21323c591350188b" kind="function"><name>XMmiDp_SbTransact</name></member>
+    <member refid="group__mmi__dppsu14_1ga003029dcf9175f81e3ec539ecde6eaf7" kind="function"><name>XMmiDp_SbMsgLinkAddress</name></member>
+    <member refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" kind="function"><name>XMmiDp_SendSbMsgLinkAddress</name></member>
+    <member refid="group__mmi__dppsu14_1ga08d695c0be06153e037ae8df4ba0d008" kind="function"><name>XMmiDp_SbMsgEnumPathResources</name></member>
+    <member refid="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" kind="function"><name>XMmiDp_SendSbMsgEnumPathResources</name></member>
+    <member refid="group__mmi__dppsu14_1ga77f158f40a26187188c403fd88eaf38e" kind="function"><name>XMmiDp_SbMsgAllocatePayload</name></member>
+    <member refid="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" kind="function"><name>XMmiDp_SendSbMsgAllocatePayload</name></member>
+    <member refid="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" kind="function"><name>XMmiDp_SendSbMsgClearPayloadIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kind="function"><name>XMmiDp_MstDiscoverTopology</name></member>
+    <member refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" kind="function"><name>XMmiDp_MstSetStreamSink</name></member>
   </compound>
   <compound refid="xmmidp__phy_8c" kind="file"><name>xmmidp_phy.c</name>
     <member refid="group__mmi__dppsu14_1ga725e99268b3da7b236db59fd1164f0f6" kind="define"><name>XMMIDP_AUX_MAX_DATA_WRITE_SIZE</name></member>
@@ -1823,11 +1958,33 @@
     <member refid="group__mmi__dppsu14_1gad934fb7620c27404170d01eb609d2ab7" kind="define"><name>XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gaf466ed878f1d92bf9bc8a2625338fb89" kind="define"><name>XMMIDP_STREAM_OFFSET</name></member>
     <member refid="group__mmi__dppsu14_1gab254f30c7e538b4b6edf19bb5506cdea" kind="define"><name>XMMIDP_TU_SIZE</name></member>
-    <member refid="group__mmi__dppsu14_1ga1d6afbe16896e5bfc91da6b02b19667d" kind="define"><name>XMMIDP_TU_AVG_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1gacb6805d7d30afc29eead2f8f0a33d0f4" kind="define"><name>XMMIDP_AVG_BYTES_PER_TU_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1gaf5a67d5eb59a2ac40c47922cd00f13df" kind="define"><name>XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX</name></member>
     <member refid="group__mmi__dppsu14_1ga9f7aec9ddad2c4c79cc6bbdb65ef34a1" kind="define"><name>XMMIDP_TU_FRAC_SCALE</name></member>
     <member refid="group__mmi__dppsu14_1gafffda8c4b390f2a4a30fa2a30f1968b1" kind="define"><name>XMMIDP_BITS_PER_BYTE</name></member>
     <member refid="group__mmi__dppsu14_1ga1b67f9be30ac1600f14a44be6727fac3" kind="define"><name>XMMIDP_MHZ_TO_HZ</name></member>
     <member refid="group__mmi__dppsu14_1gafb4207096f6f7b31278cc169d64f2cfe" kind="define"><name>XMMIDP_YCBCR420_BW_DIVISOR</name></member>
+    <member refid="group__mmi__dppsu14_1gac03664a005e3c8f5134502cc8cac7859" kind="define"><name>XMMIDP_PBN_CHROMA422_BPC_MULT</name></member>
+    <member refid="group__mmi__dppsu14_1gaf72e739b806592937cea4b39d2b6494a" kind="define"><name>XMMIDP_PBN_RGB444_BPC_MULT</name></member>
+    <member refid="group__mmi__dppsu14_1ga9760c66eaf4d0265926ca134c15900dd" kind="define"><name>XMMIDP_PBN_Y420_BPC_NUM</name></member>
+    <member refid="group__mmi__dppsu14_1ga8a2f675a24f6856c0e6f47d4483630cd" kind="define"><name>XMMIDP_PBN_Y420_BPC_DEN</name></member>
+    <member refid="group__mmi__dppsu14_1ga31bc3051fa2020adf478aa6cc4f77394" kind="define"><name>XMMIDP_PBN_SCALING_NUM</name></member>
+    <member refid="group__mmi__dppsu14_1gaa3bf2b58f542107aaa625e47d447d0e9" kind="define"><name>XMMIDP_PBN_SCALING_DEN</name></member>
+    <member refid="group__mmi__dppsu14_1ga304f4d7ea4f0e38387b5230a3189db44" kind="define"><name>XMMIDP_PBN_MARGIN_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1gaf1a794b6267c895bae358fb68d497c90" kind="define"><name>XMMIDP_PBN_MARGIN_DIVISOR</name></member>
+    <member refid="group__mmi__dppsu14_1ga0641215a34bf77c7cc5e306856e189c8" kind="define"><name>XMMIDP_TS_FRAC_DENOMINATOR</name></member>
+    <member refid="group__mmi__dppsu14_1ga2aa4d79298c479118a64eb388bdc341e" kind="define"><name>XMMIDP_TS_LINK_BW_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1ga814dd4661c4714fb04e84a266285a8ee" kind="define"><name>XMMIDP_TS_PBN_LINK_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1ga5ea36b8021a5c5d7d96f3ec3e3e8379c" kind="define"><name>XMMIDP_LINK_PBN_RATE_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1ga19304f4cd2b5fd0c0cdd09bee2b7c260" kind="define"><name>XMMIDP_LINK_PBN_LANE_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1gaba7e231119d6d721921549901b9aff95" kind="define"><name>XMMIDP_MTP_PAYLOAD_SLOTS_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1ga9cb5d40ad477fd6c8554238cd77b6e60" kind="define"><name>XMMIDP_MST_VC_SLOT_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1gaef4f23ad749cdfb0fbaceef46bff161e" kind="define"><name>XMMIDP_MST_VC_FIRST_SLOT</name></member>
+    <member refid="group__mmi__dppsu14_1ga7d0f019f2959f48f47922fac5ebd7aae" kind="define"><name>XMMIDP_MST_VCP_SLOTS_PER_REG</name></member>
+    <member refid="group__mmi__dppsu14_1ga3af321a980c7a7ca2ebea99cce05a23e" kind="define"><name>XMMIDP_MST_VCP_STREAM_ID_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga49b52e4106f8d106f934327d8264f7d0" kind="define"><name>XMMIDP_MST_VCP_STREAM_ID_BITS</name></member>
+    <member refid="group__mmi__dppsu14_1ga1051a5add0e34dce93b7efe7da9c0612" kind="define"><name>XMMIDP_MST_VCP_REG_STRIDE</name></member>
+    <member refid="group__mmi__dppsu14_1ga8feab97a3fc05adc9f4313c4ab1a25e5" kind="define"><name>XMMIDP_DPCD_PAYLOAD_CLEAR_SLOT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gac704a5109235fda2209fbce3a73973d4" kind="define"><name>XMMIDP_TU_LOW_AVG_BOUNDARY</name></member>
     <member refid="group__mmi__dppsu14_1ga2d0cd2f50199e0705b7259e27120cf20" kind="define"><name>XMMIDP_TU_THRESHOLD_LOW_AVG</name></member>
     <member refid="group__mmi__dppsu14_1ga5b3a192542824d181d70c068fa93aeea" kind="define"><name>XMMIDP_TU_HBLANK_NARROW_420</name></member>
@@ -1838,6 +1995,11 @@
     <member refid="group__mmi__dppsu14_1gaa976cf898f61cb6c45e910ff982a0aff" kind="define"><name>XMMIDP_INIT_THRESHOLD_LO_MASK</name></member>
     <member refid="group__mmi__dppsu14_1ga68e99d35fe556b71fcf1b343adbe853e" kind="define"><name>XMMIDP_INIT_THRESHOLD_LO_BITS</name></member>
     <member refid="group__mmi__dppsu14_1ga6afdfcceaac0ca9825f3af74d319dcc1" kind="define"><name>XMMIDP_INIT_THRESHOLD_HI_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gad86cac3b2076806b869b2e7d14809e16" kind="variable"><name>XMmiDp_LinkPbnTable</name></member>
+    <member refid="group__mmi__dppsu14_1gad1bdf4f2a803733e782dac4ca1130e2f" kind="function"><name>XMmiDp_GetSinkVcPayloadStartSlot</name></member>
+    <member refid="group__mmi__dppsu14_1ga76aa541f2aa4eb8c55ff02fee2e82a1a" kind="function"><name>XMmiDp_WriteMstVcpTableRegs</name></member>
+    <member refid="group__mmi__dppsu14_1ga24479e55867ea235ddf96e07c338518f" kind="function"><name>XMmiDp_SetTuInitThresholdFromTsInt</name></member>
+    <member refid="group__mmi__dppsu14_1gab37b6aebbf3347bd6e86dde91739838b" kind="function"><name>XMmiDp_ApplyMstStreamAllocatedSlots</name></member>
     <member refid="group__mmi__dppsu14_1ga6f3c5f1e710332e8e5b96ca5fdd3e5db" kind="function"><name>XMmiDp_DisableVideoStream</name></member>
     <member refid="group__mmi__dppsu14_1ga785cb9fe8a1bfed10c699b603717eb3b" kind="function"><name>XMmiDp_EnableVideoStream</name></member>
     <member refid="group__mmi__dppsu14_1ga8395176062765d2ce0129595146ccdc4" kind="function"><name>XMmiDp_ClearMsaValues</name></member>
@@ -1903,7 +2065,8 @@
     <member refid="group__mmi__dppsu14_1gaf6369afcfc8245e35dd3904ac2129caf" kind="function"><name>XMmiDp_SetControllereDpEn</name></member>
     <member refid="group__mmi__dppsu14_1gaf065764ad84b4dfa69ab078238d1ac38" kind="function"><name>XMmiDp_SetControllerInitiateMstActSeq</name></member>
     <member refid="group__mmi__dppsu14_1gabd2a67461b0e2fc53ee3ffef555012f7" kind="function"><name>XMmiDp_SetCoreCtrl</name></member>
-    <member refid="group__mmi__dppsu14_1ga39b2ada01525a228afd7e382c8fac774" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga4fc2ecad0f4c4e18d527f524ecb3e666" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga39f784e7c9f85a391c28a8ca9886007c" kind="function"><name>XMmiDp_SinkMstModeEnable</name></member>
     <member refid="group__mmi__dppsu14_1gaa9a796e9233f2d5bb9cd15ba3e1d3f91" kind="function"><name>XMmiDp_MstActSeqEnable</name></member>
     <member refid="group__mmi__dppsu14_1gaf8aeb8c282f9f029d38987c697bce0a6" kind="function"><name>XMmiDp_WaitPayloadTableUpdateStatus</name></member>
     <member refid="group__mmi__dppsu14_1gafb22147451b141af5abab760ef234e33" kind="function"><name>XMmiDp_WaitActHandledStatus</name></member>
@@ -1916,13 +2079,38 @@
     <member refid="group__mmi__dppsu14_1gada5251011126752b3de698748c92babc" kind="function"><name>XMmiDp_SetMstVcpTable5</name></member>
     <member refid="group__mmi__dppsu14_1ga76a4789509ab3fd33768a3b31ffe0bd4" kind="function"><name>XMmiDp_SetMstVcpTable6</name></member>
     <member refid="group__mmi__dppsu14_1ga9ace5b42b25dfcd87cd8303e721b5b02" kind="function"><name>XMmiDp_SetMstVcpTable7</name></member>
+    <member refid="group__mmi__dppsu14_1ga97463cad79c4d5c93ab9bd4f67bec87e" kind="function"><name>XMmiDp_ClearPayloadVcIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" kind="function"><name>XMmiDp_SetTxVcPayloadTable</name></member>
     <member refid="group__mmi__dppsu14_1ga66e70f6545ca763ce08a076b8be01263" kind="function"><name>XMmiDp_ComputeMisc0</name></member>
     <member refid="group__mmi__dppsu14_1ga5622626e416284d47b7f59cfc6f7a875" kind="function"><name>XMmiDp_ComputeHBlankInterval</name></member>
+    <member refid="group__mmi__dppsu14_1ga97fb55bf2aee342e8da8d6ed4654d670" kind="function"><name>XMmiDp_GetPbnBitsPerPixel</name></member>
+    <member refid="group__mmi__dppsu14_1ga6bbedfa65d698a4f187a50b9b7a95528" kind="function"><name>XMmiDp_GetLinkPbn</name></member>
+    <member refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" kind="function"><name>XMmiDp_ComputeTimeSlot</name></member>
+    <member refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" kind="function"><name>XMmiDp_DistributeMstPayloadSlots</name></member>
+    <member refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" kind="function"><name>XMmiDp_SetSinkVcPayloadTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" kind="function"><name>XMmiDp_AllocatePayloadStream</name></member>
     <member refid="group__mmi__dppsu14_1gaf94b814b5fe5d3155d7920dd31d86b43" kind="function"><name>XMmiDp_ComputeTuParams</name></member>
     <member refid="group__mmi__dppsu14_1ga31759cd807ed207a746e9799c3249d3f" kind="function"><name>XMmiDp_SetVidControllerUseStdVidMode</name></member>
   </compound>
   <compound refid="group__mmi__dppsu14" kind="group"><name>mmi_dppsu14</name>
+    <member refid="group__mmi__dppsu14_1ga5d70a403138f2ba510042914681fa59f" kind="define"><name>XMMIDP_SBMSG_MAX_BYTES</name></member>
+    <member refid="group__mmi__dppsu14_1gac3d65e000b503f6d5f007ea76dd063c9" kind="define"><name>XMMIDP_SBMSG_REPLY_MAX_BYTES</name></member>
+    <member refid="group__mmi__dppsu14_1ga66b953f41cf6b5de97264ead7e14248d" kind="define"><name>XMMIDP_SBMSG_AUX_CHUNK</name></member>
+    <member refid="group__mmi__dppsu14_1ga2345f5ea873711188565dc37ddfdc670" kind="define"><name>XMMIDP_SBMSG_REPLY_POLL_US</name></member>
+    <member refid="group__mmi__dppsu14_1ga77f1a91e54e67542a398e83a9e48b9fe" kind="define"><name>XMMIDP_SBMSG_REPLY_TIMEOUT</name></member>
+    <member refid="group__mmi__dppsu14_1ga36b0f119152d251b7aedb1291a117a47" kind="define"><name>XMMIDP_SBMSG_BROADCAST_LCR</name></member>
+    <member refid="group__mmi__dppsu14_1gab545404fb1f8fcc027ebbd185cdd1c28" kind="define"><name>XMMIDP_SBMSG_NAK_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gad1d85698842e3dffcd4a25e566968835" kind="define"><name>XMMIDP_SBMSG_REQ_ID_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gadc1ef4c7ae2a474c895ff6d78678b8de" kind="define"><name>XMMIDP_SBMSG_SOMT_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1gae2cb90d773ab5108be0e715a129ebd61" kind="define"><name>XMMIDP_SBMSG_EOMT_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga6ccde0bea165fdab7034419827326610" kind="define"><name>XMMIDP_SBMSG_BODY_LEN_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga912873dd7dca309d499ce4a0f9bb5281" kind="define"><name>XMMIDP_SBMSG_NAK_REASON_IDX</name></member>
+    <member refid="group__mmi__dppsu14_1ga196432e675efb96eaeea2be4774b60f1" kind="define"><name>XMMIDP_SBMSG_CRC4_POLY</name></member>
+    <member refid="group__mmi__dppsu14_1gad53c35c092673a34cfb626a9c33fdfa0" kind="define"><name>XMMIDP_SBMSG_CRC8_POLY</name></member>
+    <member refid="group__mmi__dppsu14_1gaa0c41e1ac7a1c74aa6be4254c78a2aa1" kind="variable"><name>SbReply</name></member>
+    <member refid="group__mmi__dppsu14_1gacc72d598e1930d4bd7d5e570b05ce6c2" kind="variable"><name>SbBusy</name></member>
     <member refid="group__mmi__dppsu14_1gac6d2392398d5c76d88b7cf2ebbeb0135" kind="variable"><name>XMmiDp_AuxDebugEnabled</name></member>
+    <member refid="group__mmi__dppsu14_1gad86cac3b2076806b869b2e7d14809e16" kind="variable"><name>XMmiDp_LinkPbnTable</name></member>
     <member refid="group__mmi__dppsu14_1gad9754b10ec09c4a56d928cd8471c0ae8" kind="function"><name>XMmiDp_ClearGeneralHpdEvent</name></member>
     <member refid="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" kind="function"><name>XMmiDp_GeneralInterruptEnable</name></member>
     <member refid="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" kind="function"><name>XMmiDp_HpdInterruptEnable</name></member>
@@ -1962,6 +2150,26 @@
     <member refid="group__mmi__dppsu14_1gaa56c95a1a342ab85ddccb12c7b531e81" kind="function"><name>XMmiDp_TrainingStateChannelEqualization</name></member>
     <member refid="group__mmi__dppsu14_1gadfcdfec9174ff0cf984dbd170bce80f2" kind="function"><name>XMmiDp_CheckLinkStatus</name></member>
     <member refid="group__mmi__dppsu14_1ga2faa4352f70a9938766d8d266bb20b2a" kind="function"><name>XMmiDp_RunTraining</name></member>
+    <member refid="group__mmi__dppsu14_1ga1ab5b60caa8cc6c3c30540d1f0becc0a" kind="function"><name>XMmiDp_ApplyUserLinkCaps</name></member>
+    <member refid="group__mmi__dppsu14_1gad5774015fbf8628ffdbb3746da70b28b" kind="function"><name>XMmiDp_StartFullLinkTrainingCapped</name></member>
+    <member refid="group__mmi__dppsu14_1ga9e5ee4b87503261708d96c28113f6348" kind="function"><name>XMmiDp_SbClaim</name></member>
+    <member refid="group__mmi__dppsu14_1gae260a4fad5ab858980f6f1e2baf0d33e" kind="function"><name>XMmiDp_SbRelease</name></member>
+    <member refid="group__mmi__dppsu14_1ga075003c62a06a4faa7b5d6485e677cc7" kind="function"><name>XMmiDp_SbCrc</name></member>
+    <member refid="group__mmi__dppsu14_1ga76e8a4bbfeb9b479866421de69c5a521" kind="function"><name>XMmiDp_SbBuildHeader</name></member>
+    <member refid="group__mmi__dppsu14_1ga700619bca10b23b80d983ab5206fd52f" kind="function"><name>XMmiDp_SbAckDownRep</name></member>
+    <member refid="group__mmi__dppsu14_1ga4b7276ae17e74f3238301ec02ffcdd4e" kind="function"><name>XMmiDp_SbSendRequest</name></member>
+    <member refid="group__mmi__dppsu14_1ga2c658f094b962be05f4a6ed8b3dacb6a" kind="function"><name>XMmiDp_SbWaitDownRep</name></member>
+    <member refid="group__mmi__dppsu14_1gacf75409eae319a3799827b3f34b96993" kind="function"><name>XMmiDp_SbReceiveReply</name></member>
+    <member refid="group__mmi__dppsu14_1gaf63c5ac5760f744d21323c591350188b" kind="function"><name>XMmiDp_SbTransact</name></member>
+    <member refid="group__mmi__dppsu14_1ga003029dcf9175f81e3ec539ecde6eaf7" kind="function"><name>XMmiDp_SbMsgLinkAddress</name></member>
+    <member refid="group__mmi__dppsu14_1ga363ef5919ddd17bc74e8e2cbc1b49591" kind="function"><name>XMmiDp_SendSbMsgLinkAddress</name></member>
+    <member refid="group__mmi__dppsu14_1ga08d695c0be06153e037ae8df4ba0d008" kind="function"><name>XMmiDp_SbMsgEnumPathResources</name></member>
+    <member refid="group__mmi__dppsu14_1gadcf5f64508d79d1c4c497eed10f42464" kind="function"><name>XMmiDp_SendSbMsgEnumPathResources</name></member>
+    <member refid="group__mmi__dppsu14_1ga77f158f40a26187188c403fd88eaf38e" kind="function"><name>XMmiDp_SbMsgAllocatePayload</name></member>
+    <member refid="group__mmi__dppsu14_1ga823c3b6f800ac2878984c7113f0d0999" kind="function"><name>XMmiDp_SendSbMsgAllocatePayload</name></member>
+    <member refid="group__mmi__dppsu14_1ga0fa7532d86575045a79e467e6b6d47cb" kind="function"><name>XMmiDp_SendSbMsgClearPayloadIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kind="function"><name>XMmiDp_MstDiscoverTopology</name></member>
+    <member refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" kind="function"><name>XMmiDp_MstSetStreamSink</name></member>
     <member refid="group__mmi__dppsu14_1ga0ce3540c32ce1bdcbe2b43fecb15e47d" kind="function"><name>XMmiDp_WaitUs</name></member>
     <member refid="group__mmi__dppsu14_1gae002dd9cd03f8c65edcd2ba10db2d137" kind="function"><name>XMmiDp_ClearAuxData</name></member>
     <member refid="group__mmi__dppsu14_1ga5ae6533fdd7ac4a0fc9ab5ba973f5594" kind="function"><name>XMmiDp_SetAuxData</name></member>
@@ -2016,6 +2224,10 @@
     <member refid="group__mmi__dppsu14_1ga94ea5d18a9840a52eb740c92f564b77f" kind="function"><name>XMmiDp_SetPmConfig1</name></member>
     <member refid="group__mmi__dppsu14_1ga8059d2320ca0639377be58174b7eb2ee" kind="function"><name>XMmiDp_SetPmConfig2</name></member>
     <member refid="group__mmi__dppsu14_1ga68ba870d850bb4db93b222ace4145d0e" kind="function"><name>XMmiDp_SetAuxDebug</name></member>
+    <member refid="group__mmi__dppsu14_1gad1bdf4f2a803733e782dac4ca1130e2f" kind="function"><name>XMmiDp_GetSinkVcPayloadStartSlot</name></member>
+    <member refid="group__mmi__dppsu14_1ga76aa541f2aa4eb8c55ff02fee2e82a1a" kind="function"><name>XMmiDp_WriteMstVcpTableRegs</name></member>
+    <member refid="group__mmi__dppsu14_1ga24479e55867ea235ddf96e07c338518f" kind="function"><name>XMmiDp_SetTuInitThresholdFromTsInt</name></member>
+    <member refid="group__mmi__dppsu14_1gab37b6aebbf3347bd6e86dde91739838b" kind="function"><name>XMmiDp_ApplyMstStreamAllocatedSlots</name></member>
     <member refid="group__mmi__dppsu14_1ga6f3c5f1e710332e8e5b96ca5fdd3e5db" kind="function"><name>XMmiDp_DisableVideoStream</name></member>
     <member refid="group__mmi__dppsu14_1ga785cb9fe8a1bfed10c699b603717eb3b" kind="function"><name>XMmiDp_EnableVideoStream</name></member>
     <member refid="group__mmi__dppsu14_1ga8395176062765d2ce0129595146ccdc4" kind="function"><name>XMmiDp_ClearMsaValues</name></member>
@@ -2081,7 +2293,8 @@
     <member refid="group__mmi__dppsu14_1gaf6369afcfc8245e35dd3904ac2129caf" kind="function"><name>XMmiDp_SetControllereDpEn</name></member>
     <member refid="group__mmi__dppsu14_1gaf065764ad84b4dfa69ab078238d1ac38" kind="function"><name>XMmiDp_SetControllerInitiateMstActSeq</name></member>
     <member refid="group__mmi__dppsu14_1gabd2a67461b0e2fc53ee3ffef555012f7" kind="function"><name>XMmiDp_SetCoreCtrl</name></member>
-    <member refid="group__mmi__dppsu14_1ga39b2ada01525a228afd7e382c8fac774" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga4fc2ecad0f4c4e18d527f524ecb3e666" kind="function"><name>XMmiDp_MstModeEnable</name></member>
+    <member refid="group__mmi__dppsu14_1ga39f784e7c9f85a391c28a8ca9886007c" kind="function"><name>XMmiDp_SinkMstModeEnable</name></member>
     <member refid="group__mmi__dppsu14_1gaa9a796e9233f2d5bb9cd15ba3e1d3f91" kind="function"><name>XMmiDp_MstActSeqEnable</name></member>
     <member refid="group__mmi__dppsu14_1gaf8aeb8c282f9f029d38987c697bce0a6" kind="function"><name>XMmiDp_WaitPayloadTableUpdateStatus</name></member>
     <member refid="group__mmi__dppsu14_1gafb22147451b141af5abab760ef234e33" kind="function"><name>XMmiDp_WaitActHandledStatus</name></member>
@@ -2094,10 +2307,21 @@
     <member refid="group__mmi__dppsu14_1gada5251011126752b3de698748c92babc" kind="function"><name>XMmiDp_SetMstVcpTable5</name></member>
     <member refid="group__mmi__dppsu14_1ga76a4789509ab3fd33768a3b31ffe0bd4" kind="function"><name>XMmiDp_SetMstVcpTable6</name></member>
     <member refid="group__mmi__dppsu14_1ga9ace5b42b25dfcd87cd8303e721b5b02" kind="function"><name>XMmiDp_SetMstVcpTable7</name></member>
+    <member refid="group__mmi__dppsu14_1ga97463cad79c4d5c93ab9bd4f67bec87e" kind="function"><name>XMmiDp_ClearPayloadVcIdTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" kind="function"><name>XMmiDp_SetTxVcPayloadTable</name></member>
     <member refid="group__mmi__dppsu14_1ga66e70f6545ca763ce08a076b8be01263" kind="function"><name>XMmiDp_ComputeMisc0</name></member>
     <member refid="group__mmi__dppsu14_1ga5622626e416284d47b7f59cfc6f7a875" kind="function"><name>XMmiDp_ComputeHBlankInterval</name></member>
+    <member refid="group__mmi__dppsu14_1ga97fb55bf2aee342e8da8d6ed4654d670" kind="function"><name>XMmiDp_GetPbnBitsPerPixel</name></member>
+    <member refid="group__mmi__dppsu14_1ga6bbedfa65d698a4f187a50b9b7a95528" kind="function"><name>XMmiDp_GetLinkPbn</name></member>
+    <member refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" kind="function"><name>XMmiDp_ComputeTimeSlot</name></member>
+    <member refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" kind="function"><name>XMmiDp_DistributeMstPayloadSlots</name></member>
+    <member refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" kind="function"><name>XMmiDp_SetSinkVcPayloadTable</name></member>
+    <member refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" kind="function"><name>XMmiDp_AllocatePayloadStream</name></member>
     <member refid="group__mmi__dppsu14_1gaf94b814b5fe5d3155d7920dd31d86b43" kind="function"><name>XMmiDp_ComputeTuParams</name></member>
     <member refid="group__mmi__dppsu14_1ga31759cd807ed207a746e9799c3249d3f" kind="function"><name>XMmiDp_SetVidControllerUseStdVidMode</name></member>
+    <member refid="group__mmi__dppsu14_1ga24a371742427a965f10b46ca6cd04862" kind="define"><name>XMMIDP_LT_VERBOSE</name></member>
+    <member refid="group__mmi__dppsu14_1gae9a83ff4a3159348b8aa40e19bffdf3f" kind="define"><name>XMMIDP_LT_LOG</name></member>
+    <member refid="group__mmi__dppsu14_1ga31e1ca6a15a46bd6a333d62a355fe3e7" kind="define"><name>XMMIDP_LINK_XMIT_SETTLE_US</name></member>
     <member refid="group__mmi__dppsu14_1ga304f5617044b4859523ac59791460809" kind="define"><name>XMMIDP_CR_TIMEOUT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gab6a78540223caa91be722567b16be7eb" kind="define"><name>XMMIDP_MAX_VSLEVEL_CNT</name></member>
     <member refid="group__mmi__dppsu14_1gaf7fbf68d7d86c8f8b93c918a17aed750" kind="define"><name>XMMIDP_LINK_CR_DONE_AUX_RD_INTERVAL</name></member>
@@ -2107,6 +2331,7 @@
     <member refid="group__mmi__dppsu14_1ga349514649a113aadf7596349cfdfe6d3" kind="define"><name>XMMIDP_EQ_MAX_ITERATIONS</name></member>
     <member refid="group__mmi__dppsu14_1ga28fa3720bac9496307cb31f5be086aed" kind="define"><name>XMMIDP_LINK_STATUS_MAX_RETRIES</name></member>
     <member refid="group__mmi__dppsu14_1ga2eede3e9efd2e5a2dc84116033404e49" kind="define"><name>XMMIDP_TRAINING_PATTERN_SET_SIZE</name></member>
+    <member refid="group__mmi__dppsu14_1ga64c56eb8b609fe4d42a9de80fc5f4342" kind="define"><name>XMMIDP_MST_MAX_LCT</name></member>
     <member refid="group__mmi__dppsu14_1ga725e99268b3da7b236db59fd1164f0f6" kind="define"><name>XMMIDP_AUX_MAX_DATA_WRITE_SIZE</name></member>
     <member refid="group__mmi__dppsu14_1ga96e42532d2e7465151ebfefc8d20b0eb" kind="define"><name>XMMIDP_AUX_MAX_TIMEOUT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1ga4b9631d90e746844265d510cba28de7c" kind="define"><name>XMMIDP_AUX_MAX_DEFER_COUNT</name></member>
@@ -2123,11 +2348,33 @@
     <member refid="group__mmi__dppsu14_1gad934fb7620c27404170d01eb609d2ab7" kind="define"><name>XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gaf466ed878f1d92bf9bc8a2625338fb89" kind="define"><name>XMMIDP_STREAM_OFFSET</name></member>
     <member refid="group__mmi__dppsu14_1gab254f30c7e538b4b6edf19bb5506cdea" kind="define"><name>XMMIDP_TU_SIZE</name></member>
-    <member refid="group__mmi__dppsu14_1ga1d6afbe16896e5bfc91da6b02b19667d" kind="define"><name>XMMIDP_TU_AVG_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1gacb6805d7d30afc29eead2f8f0a33d0f4" kind="define"><name>XMMIDP_AVG_BYTES_PER_TU_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1gaf5a67d5eb59a2ac40c47922cd00f13df" kind="define"><name>XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX</name></member>
     <member refid="group__mmi__dppsu14_1ga9f7aec9ddad2c4c79cc6bbdb65ef34a1" kind="define"><name>XMMIDP_TU_FRAC_SCALE</name></member>
     <member refid="group__mmi__dppsu14_1gafffda8c4b390f2a4a30fa2a30f1968b1" kind="define"><name>XMMIDP_BITS_PER_BYTE</name></member>
     <member refid="group__mmi__dppsu14_1ga1b67f9be30ac1600f14a44be6727fac3" kind="define"><name>XMMIDP_MHZ_TO_HZ</name></member>
     <member refid="group__mmi__dppsu14_1gafb4207096f6f7b31278cc169d64f2cfe" kind="define"><name>XMMIDP_YCBCR420_BW_DIVISOR</name></member>
+    <member refid="group__mmi__dppsu14_1gac03664a005e3c8f5134502cc8cac7859" kind="define"><name>XMMIDP_PBN_CHROMA422_BPC_MULT</name></member>
+    <member refid="group__mmi__dppsu14_1gaf72e739b806592937cea4b39d2b6494a" kind="define"><name>XMMIDP_PBN_RGB444_BPC_MULT</name></member>
+    <member refid="group__mmi__dppsu14_1ga9760c66eaf4d0265926ca134c15900dd" kind="define"><name>XMMIDP_PBN_Y420_BPC_NUM</name></member>
+    <member refid="group__mmi__dppsu14_1ga8a2f675a24f6856c0e6f47d4483630cd" kind="define"><name>XMMIDP_PBN_Y420_BPC_DEN</name></member>
+    <member refid="group__mmi__dppsu14_1ga31bc3051fa2020adf478aa6cc4f77394" kind="define"><name>XMMIDP_PBN_SCALING_NUM</name></member>
+    <member refid="group__mmi__dppsu14_1gaa3bf2b58f542107aaa625e47d447d0e9" kind="define"><name>XMMIDP_PBN_SCALING_DEN</name></member>
+    <member refid="group__mmi__dppsu14_1ga304f4d7ea4f0e38387b5230a3189db44" kind="define"><name>XMMIDP_PBN_MARGIN_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1gaf1a794b6267c895bae358fb68d497c90" kind="define"><name>XMMIDP_PBN_MARGIN_DIVISOR</name></member>
+    <member refid="group__mmi__dppsu14_1ga0641215a34bf77c7cc5e306856e189c8" kind="define"><name>XMMIDP_TS_FRAC_DENOMINATOR</name></member>
+    <member refid="group__mmi__dppsu14_1ga2aa4d79298c479118a64eb388bdc341e" kind="define"><name>XMMIDP_TS_LINK_BW_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1ga814dd4661c4714fb04e84a266285a8ee" kind="define"><name>XMMIDP_TS_PBN_LINK_SCALE</name></member>
+    <member refid="group__mmi__dppsu14_1ga5ea36b8021a5c5d7d96f3ec3e3e8379c" kind="define"><name>XMMIDP_LINK_PBN_RATE_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1ga19304f4cd2b5fd0c0cdd09bee2b7c260" kind="define"><name>XMMIDP_LINK_PBN_LANE_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1gaba7e231119d6d721921549901b9aff95" kind="define"><name>XMMIDP_MTP_PAYLOAD_SLOTS_MAX</name></member>
+    <member refid="group__mmi__dppsu14_1ga9cb5d40ad477fd6c8554238cd77b6e60" kind="define"><name>XMMIDP_MST_VC_SLOT_COUNT</name></member>
+    <member refid="group__mmi__dppsu14_1gaef4f23ad749cdfb0fbaceef46bff161e" kind="define"><name>XMMIDP_MST_VC_FIRST_SLOT</name></member>
+    <member refid="group__mmi__dppsu14_1ga7d0f019f2959f48f47922fac5ebd7aae" kind="define"><name>XMMIDP_MST_VCP_SLOTS_PER_REG</name></member>
+    <member refid="group__mmi__dppsu14_1ga3af321a980c7a7ca2ebea99cce05a23e" kind="define"><name>XMMIDP_MST_VCP_STREAM_ID_MASK</name></member>
+    <member refid="group__mmi__dppsu14_1ga49b52e4106f8d106f934327d8264f7d0" kind="define"><name>XMMIDP_MST_VCP_STREAM_ID_BITS</name></member>
+    <member refid="group__mmi__dppsu14_1ga1051a5add0e34dce93b7efe7da9c0612" kind="define"><name>XMMIDP_MST_VCP_REG_STRIDE</name></member>
+    <member refid="group__mmi__dppsu14_1ga8feab97a3fc05adc9f4313c4ab1a25e5" kind="define"><name>XMMIDP_DPCD_PAYLOAD_CLEAR_SLOT_COUNT</name></member>
     <member refid="group__mmi__dppsu14_1gac704a5109235fda2209fbce3a73973d4" kind="define"><name>XMMIDP_TU_LOW_AVG_BOUNDARY</name></member>
     <member refid="group__mmi__dppsu14_1ga2d0cd2f50199e0705b7259e27120cf20" kind="define"><name>XMMIDP_TU_THRESHOLD_LOW_AVG</name></member>
     <member refid="group__mmi__dppsu14_1ga5b3a192542824d181d70c068fa93aeea" kind="define"><name>XMMIDP_TU_HBLANK_NARROW_420</name></member>

@@ -10,12 +10,6 @@
       <node id="51">
         <label>xil_io.h</label>
       </node>
-      <node id="52">
-        <label>xcframe_hw.h</label>
-        <link refid="xcframe__hw_8h"/>
-        <childnode refid="51" relation="include">
-        </childnode>
-      </node>
       <node id="46">
         <label>xcframe_sinit.c</label>
         <link refid="xcframe_sinit.c"/>
@@ -24,6 +18,9 @@
       </node>
       <node id="50">
         <label>xstatus.h</label>
+      </node>
+      <node id="48">
+        <label>xil_types.h</label>
       </node>
       <node id="47">
         <label>xcframe.h</label>
@@ -39,8 +36,11 @@
         <childnode refid="52" relation="include">
         </childnode>
       </node>
-      <node id="48">
-        <label>xil_types.h</label>
+      <node id="52">
+        <label>xcframe_hw.h</label>
+        <link refid="xcframe__hw_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -69,7 +69,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe_sinit.c" bodystart="88" bodyend="104"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe_sinit.c" bodystart="88" bodyend="104"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -149,6 +149,6 @@
 <codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe_sinit.c"/>
   </compounddef>
 </doxygen>

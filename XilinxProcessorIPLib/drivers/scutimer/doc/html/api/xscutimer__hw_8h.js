@@ -5,6 +5,7 @@ var xscutimer__hw_8h =
     [ "XSCUTIMER_CONTROL_IRQ_ENABLE_MASK", "xscutimer__hw_8h.html#ga62c9d23e23b5329976291d26cc36c6a6", null ],
     [ "XSCUTIMER_CONTROL_OFFSET", "xscutimer__hw_8h.html#ga8f0a12cb3bfff490af76bc9a3ffca4be", null ],
     [ "XSCUTIMER_CONTROL_PRESCALER_MASK", "xscutimer__hw_8h.html#ga867b2da6f5e9b1d921c34a925d4b498a", null ],
+    [ "XSCUTIMER_CONTROL_PRESCALER_SHIFT", "xscutimer__hw_8h.html#ga31316fbcb2292f6d29c39a025bbd9821", null ],
     [ "XSCUTIMER_COUNTER_OFFSET", "xscutimer__hw_8h.html#gaa96f9778b3fb95bb968793b504bee53e", null ],
     [ "XScuTimer_GetControlReg", "xscutimer__hw_8h.html#ga1427e7cc324917e9bc062ea9cc1976ac", null ],
     [ "XScuTimer_GetCounterReg", "xscutimer__hw_8h.html#ga65cf8fca671de7e21a9944c43bf7cd8a", null ],

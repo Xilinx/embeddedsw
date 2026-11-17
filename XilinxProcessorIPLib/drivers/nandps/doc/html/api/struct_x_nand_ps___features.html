@@ -106,18 +106,64 @@ $(document).ready(function(){initNavTree('struct_x_nand_ps___features.html','');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XNandPs_Features Struct Reference<div class="ingroups"><a class="el" href="group__nandps.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>ONFI Features and Optional commands supported See parameter page byte 6-7 and 8-9.
+<p>Holds ONFI features and optional commands supported.
  <a href="struct_x_nand_ps___features.html#details">More...</a></p>
 
 <p><code>#include &lt;xnandps.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a21e1fa3e1a5a60b4c9d1d536ce784850"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_ps___features.html#a21e1fa3e1a5a60b4c9d1d536ce784850">ProgramCache</a></td></tr>
+<tr class="memdesc:a21e1fa3e1a5a60b4c9d1d536ce784850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program page cache command support.  <a href="#a21e1fa3e1a5a60b4c9d1d536ce784850">More...</a><br/></td></tr>
+<tr class="separator:a21e1fa3e1a5a60b4c9d1d536ce784850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f600fcb3799137e1edac3af4ba6dae3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_ps___features.html#a7f600fcb3799137e1edac3af4ba6dae3">ReadCache</a></td></tr>
+<tr class="memdesc:a7f600fcb3799137e1edac3af4ba6dae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read page cache command support.  <a href="#a7f600fcb3799137e1edac3af4ba6dae3">More...</a><br/></td></tr>
+<tr class="separator:a7f600fcb3799137e1edac3af4ba6dae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>ONFI Features and Optional commands supported See parameter page byte 6-7 and 8-9. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds ONFI features and optional commands supported. </p>
+<p>See parameter page byte 6-7 and 8-9. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a21e1fa3e1a5a60b4c9d1d536ce784850"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XNandPs_Features::ProgramCache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Program page cache command support. </p>
+
+<p>Referenced by <a class="el" href="group__nandps.html#gacb42515d1fa541b8ac5e785d1fb7eefd">Onfi_NandInit()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7f600fcb3799137e1edac3af4ba6dae3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XNandPs_Features::ReadCache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read page cache command support. </p>
+
+<p>Referenced by <a class="el" href="group__nandps.html#gacb42515d1fa541b8ac5e785d1fb7eefd">Onfi_NandInit()</a>, and <a class="el" href="group__nandps.html#ga605bd783f065806f1d1f602f88128f9b">XNandPs_ReadCache()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

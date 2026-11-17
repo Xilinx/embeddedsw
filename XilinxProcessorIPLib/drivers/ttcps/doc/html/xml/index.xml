@@ -60,7 +60,6 @@
     <member refid="group__ttcps_1ga93f486a44e4fcd438306b1db3f301a95" kind="define"><name>XTTCPS_OPTION_WAVE_DISABLE</name></member>
     <member refid="group__ttcps_1gaf39b9b3bfc4ceef12bb0cea724cf2359" kind="define"><name>XTTCPS_OPTION_WAVE_POLARITY</name></member>
     <member refid="group__ttcps_1ga3ede2f41d69244bd28580862a20ebc0e" kind="define"><name>COUNTER_BASE_ADDRESS_MASK</name></member>
-    <member refid="group__ttcps_1ga8a917f066088e95a1d161fb7f5f28e4a" kind="define"><name>XTTCPS_H</name></member>
     <member refid="group__ttcps_1gada35795ef5a7c900e552c0292a69e8a6" kind="define"><name>XTTCPS_MAX_INTERVAL_COUNT</name></member>
     <member refid="group__ttcps_1ga4e2bde9ad3cac3032e5e69323c9a8043" kind="define"><name>XTTCPS_NUM_COUNTERS</name></member>
     <member refid="group__ttcps_1gac9f96b51b0b8133fdbf9242e54f6576e" kind="define"><name>InstReadReg</name></member>
@@ -130,7 +129,6 @@
     <member refid="group__ttcps_1gab61357b4c938288f51da57d228ecbece" kind="define"><name>XTTCPS_IXR_MATCH_2_MASK</name></member>
     <member refid="group__ttcps_1ga747415f67bf02a86b7c36d72a4ec3f2b" kind="define"><name>XTTCPS_IXR_CNT_OVR_MASK</name></member>
     <member refid="group__ttcps_1ga5958a45b189301b731803a4368b2d799" kind="define"><name>XTTCPS_IXR_ALL_MASK</name></member>
-    <member refid="group__ttcps_1ga3b66142479393f005ea6b6f5eb924ecd" kind="define"><name>XTTCPS_HW_H</name></member>
     <member refid="group__ttcps_1ga3dde6ae31d569b01dc88903a5340d744" kind="define"><name>ARMA9</name></member>
     <member refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kind="define"><name>XTtcPs_ReadReg</name></member>
     <member refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" kind="define"><name>XTtcPs_WriteReg</name></member>
@@ -287,7 +285,6 @@
     <member refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" kind="function"><name>XTtcPs_SetOptions</name></member>
     <member refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" kind="function"><name>XTtcPs_GetOptions</name></member>
     <member refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" kind="function"><name>XTtcPs_SelfTest</name></member>
-    <member refid="group__ttcps_1ga8a917f066088e95a1d161fb7f5f28e4a" kind="define"><name>XTTCPS_H</name></member>
     <member refid="group__ttcps_1gada35795ef5a7c900e552c0292a69e8a6" kind="define"><name>XTTCPS_MAX_INTERVAL_COUNT</name></member>
     <member refid="group__ttcps_1ga4e2bde9ad3cac3032e5e69323c9a8043" kind="define"><name>XTTCPS_NUM_COUNTERS</name></member>
     <member refid="group__ttcps_1gac9f96b51b0b8133fdbf9242e54f6576e" kind="define"><name>InstReadReg</name></member>
@@ -303,7 +300,6 @@
     <member refid="group__ttcps_1ga689593bb0ab2f6d8abe85efcf72fe209" kind="define"><name>XTtcPs_DisableInterrupts</name></member>
     <member refid="group__ttcps_1ga1f24b5dfa3b9147e374aefa0003d924c" kind="define"><name>XTtcPs_GetInterruptStatus</name></member>
     <member refid="group__ttcps_1ga3ab6486250e4adc6343fa3e086540d3e" kind="define"><name>XTtcPs_ClearInterruptStatus</name></member>
-    <member refid="group__ttcps_1ga3b66142479393f005ea6b6f5eb924ecd" kind="define"><name>XTTCPS_HW_H</name></member>
     <member refid="group__ttcps_1ga3dde6ae31d569b01dc88903a5340d744" kind="define"><name>ARMA9</name></member>
     <member refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kind="define"><name>XTtcPs_ReadReg</name></member>
     <member refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" kind="define"><name>XTtcPs_WriteReg</name></member>

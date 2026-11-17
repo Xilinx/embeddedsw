@@ -106,10 +106,8 @@ $(document).ready(function(){initNavTree('xwdttb__low__level__example_8c.html','
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the low-level driver macros of the Watchdog Timer Timebase driver. </p>
-<p>These macros are found in <a class="el" href="xwdttb__l_8h.html">xwdttb_l.h</a>.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
+<div class="textblock"><p>Demonstrates the low-level macros of the <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> driver. </p>
+<p>This file contains a design example using the low-level driver macros of the Watchdog Timer Timebase driver. These macros are found in <a class="el" href="xwdttb__l_8h.html" title="Provides the low-level identifiers and functions of the XWdtTb driver. ">xwdttb_l.h</a>.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -118,7 +116,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.00b rpm  04/26/02 First release
 1.00b sv   04/26/05 Minor changes to comply to Doxygen and coding guidelines
 2.00a ktn  22/10/09 Updated the example to use the HAL APIs/macros.
-              The following macros defined in <a class="el" href="xwdttb__l_8h.html">xwdttb_l.h</a> file have been
+              The following macros defined in <a class="el" href="xwdttb__l_8h.html" title="Provides the low-level identifiers and functions of the XWdtTb driver. ">xwdttb_l.h</a> file have been
               removed - XWdtTb_mEnableWdt, XWdtTb_mDisbleWdt,
               XWdtTb_mRestartWdt, XWdtTb_mGetTimebaseReg and
               XWdtTb_mHasReset.
@@ -133,6 +131,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 5.12  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
                     to support 64-bit addressing.
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xwdttb__l_8h.html">xwdttb_l.h</a>&quot;</code><br/>
@@ -140,10 +139,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afd8217ef0bf003a5bee3c5cc91a1f115"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__low__level__example_8c.html#afd8217ef0bf003a5bee3c5cc91a1f115">XWdtTb_LowLevelExample</a> (UINTPTR WdtTbBaseAddress)</td></tr>
-<tr class="memdesc:afd8217ef0bf003a5bee3c5cc91a1f115"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function assumes that the reset output of the watchdog timer timebase device is not connected to the reset of the processor.  <a href="#afd8217ef0bf003a5bee3c5cc91a1f115">More...</a><br/></td></tr>
+<tr class="memdesc:afd8217ef0bf003a5bee3c5cc91a1f115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the watchdog timer timebase device using low-level macros.  <a href="#afd8217ef0bf003a5bee3c5cc91a1f115">More...</a><br/></td></tr>
 <tr class="separator:afd8217ef0bf003a5bee3c5cc91a1f115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Wdttb low level example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the WDTTB low level example from the main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -161,13 +160,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the Wdttb low level example. </p>
+<p>Calls the WDTTB low level example from the main function. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xwdttb__low__level__example_8c.html#afd8217ef0bf003a5bee3c5cc91a1f115">XWdtTb_LowLevelExample()</a>.</p>
 
@@ -187,12 +185,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function assumes that the reset output of the watchdog timer timebase device is not connected to the reset of the processor. </p>
-<p>The function allows the watchdog timer to timeout such that a reset will occur if it is connected. This also assumes the interrupt output is not connected to an interrupt input.</p>
+<p>Tests the watchdog timer timebase device using low-level macros. </p>
+<p>This function assumes that the reset output of the watchdog timer timebase device is not connected to the reset of the processor. The function allows the watchdog timer to timeout such that a reset occurs if it is connected. This also assumes the interrupt output is not connected to an interrupt input.</p>
 <p>This function checks for Watchdog timer reset condition in two timer expiry state. This function may require some time (seconds or even minutes) to execute because it waits for the watchdog timer to expire.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">WdtTbBaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">WdtTbBaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -201,9 +199,8 @@ Functions</h2></td></tr>
 <li>XST_FAILURE, otherwise. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xwdttb__hw_8h.html#afa6b4b0d4c816cd9bd6da3c9fe7caac3">XWdtTb_ReadReg</a>, <a class="el" href="xwdttb__hw_8h.html#a36d539f7262d0267924d2ef5612f0cc2">XWdtTb_WriteReg</a>, <a class="el" href="group__wdttb__api.html#ga66af9e27001823cc8bc9709fc196d839">XWT_CSR0_EWDT1_MASK</a>, <a class="el" href="group__wdttb__api.html#ga238a7c2e868d73205959bfa8cd8fcf67">XWT_CSR0_WDS_MASK</a>, <a class="el" href="group__wdttb__api.html#gab723ef9be858b9aeb33600ca2d100bd0">XWT_CSR0_WRS_MASK</a>, <a class="el" href="group__wdttb__api.html#ga8a4f0f57f0cf74799a9d17932ebbfca2">XWT_CSRX_EWDT2_MASK</a>, <a class="el" href="group__wdttb__api.html#ga7acdd92b397bdfb0e14b649d4525bb2b">XWT_TWCSR0_OFFSET</a>, and <a class="el" href="group__wdttb__api.html#ga5342d8af54e416c23b56a3dd9904e62b">XWT_TWCSR1_OFFSET</a>.</p>
+<p>References <a class="el" href="group__wdttb__api.html#gafa6b4b0d4c816cd9bd6da3c9fe7caac3">XWdtTb_ReadReg</a>, <a class="el" href="group__wdttb__api.html#ga36d539f7262d0267924d2ef5612f0cc2">XWdtTb_WriteReg</a>, <a class="el" href="group__wdttb__api.html#ga66af9e27001823cc8bc9709fc196d839">XWT_CSR0_EWDT1_MASK</a>, <a class="el" href="group__wdttb__api.html#ga238a7c2e868d73205959bfa8cd8fcf67">XWT_CSR0_WDS_MASK</a>, <a class="el" href="group__wdttb__api.html#gab723ef9be858b9aeb33600ca2d100bd0">XWT_CSR0_WRS_MASK</a>, <a class="el" href="group__wdttb__api.html#ga8a4f0f57f0cf74799a9d17932ebbfca2">XWT_CSRX_EWDT2_MASK</a>, <a class="el" href="group__wdttb__api.html#ga7acdd92b397bdfb0e14b649d4525bb2b">XWT_TWCSR0_OFFSET</a>, and <a class="el" href="group__wdttb__api.html#ga5342d8af54e416c23b56a3dd9904e62b">XWT_TWCSR1_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="xwdttb__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

@@ -8,69 +8,76 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xloader__defs_8h" local="yes">xloader_defs.h</includes>
     <incdepgraph>
-      <node id="130">
-        <label>xloader_mailbox.h</label>
-        <link refid="xloader__mailbox_8h"/>
-        <childnode refid="131" relation="include">
-        </childnode>
-        <childnode refid="132" relation="include">
-        </childnode>
-        <childnode refid="133" relation="include">
-        </childnode>
-      </node>
-      <node id="128">
+      <node id="155">
         <label>xloader_client.h</label>
         <link refid="xloader__client_8h"/>
-        <childnode refid="129" relation="include">
+        <childnode refid="156" relation="include">
         </childnode>
-        <childnode refid="130" relation="include">
+        <childnode refid="157" relation="include">
         </childnode>
-        <childnode refid="133" relation="include">
+        <childnode refid="158" relation="include">
         </childnode>
-        <childnode refid="127" relation="include">
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
         </childnode>
       </node>
-      <node id="136">
+      <node id="164">
         <label>xil_cache.h</label>
       </node>
-      <node id="135">
+      <node id="159">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
         <label>xil_util.h</label>
       </node>
-      <node id="133">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="134" relation="include">
-        </childnode>
-        <childnode refid="129" relation="include">
-        </childnode>
-      </node>
-      <node id="131">
+      <node id="160">
         <label>xilmailbox.h</label>
       </node>
-      <node id="129">
+      <node id="158">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="156">
         <label>xil_types.h</label>
       </node>
-      <node id="132">
-        <label>xparameters.h</label>
-      </node>
-      <node id="134">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="126">
+      <node id="153">
         <label>xilloader_image_store_pdi_client_example.c</label>
         <link refid="xilloader_image_store_pdi_client_example.c"/>
-        <childnode refid="127" relation="include">
+        <childnode refid="154" relation="include">
         </childnode>
-        <childnode refid="128" relation="include">
+        <childnode refid="155" relation="include">
         </childnode>
-        <childnode refid="135" relation="include">
+        <childnode refid="157" relation="include">
         </childnode>
-        <childnode refid="136" relation="include">
+        <childnode refid="164" relation="include">
         </childnode>
-        <childnode refid="133" relation="include">
+        <childnode refid="162" relation="include">
         </childnode>
       </node>
-      <node id="127">
+      <node id="161">
+        <label>xparameters.h</label>
+      </node>
+      <node id="163">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="162">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
         <label>xloader_bsp_config.h</label>
       </node>
     </incdepgraph>
@@ -84,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__example__apis_1ga8d375fa48781630123b41ee18fef838b" prot="public" static="no">
         <name>PDI_SIZE_IN_WORDS</name>
@@ -95,7 +102,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__example__apis_1ga16ace37f7b732061b0144e81f9cae4e9" prot="public" static="no">
         <name>PDI_LOW_ADDRESS</name>
@@ -106,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -136,7 +143,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="157" bodyend="171"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c" bodystart="157" bodyend="171"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -149,7 +156,7 @@
         <briefdescription>
 <para>Main function to call the Add image store PDI function. </para>        </briefdescription>
         <detaileddescription>
-<para>Main function.</para><para>Removes the registered PDI (PDI_ID) from the PLM Image Store (PDI List) via XLoader_RemoveImageStorePdi.</para><para>Main function to call the versalnet or versal_2ve_2vm example functions.</para><para>Main function to call the Load pdi example function.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the Add image store pdi example function.</para><para>Main function to call the Image info example functions.</para><para>Main function to call the Get image info example functions.</para><para>Main function to call the get ATF handoff params example function.</para><para>Main function to call the ExtractMetaheader example function.</para><para>Main function to call the verssalnet example functions.</para><para>Main function to call the cfi selective readback function.</para><para><verbatim>            where it Sends a request to add the PDI which is downloaded to DDR into the Image Store (PDI List) using XLoader_AddImageStorePdi.
+<para>Main function.</para><para>Main function that initializes the mailbox and loader client, then sends the XLoader_SetDdrAddrForRestartImage IPI command to configure the DDR PDI address in PLM.</para><para>Removes the registered PDI (PDI_ID) from the PLM Image Store (PDI List) via XLoader_RemoveImageStorePdi.</para><para>Main function to call the versalnet or versal_2ve_2vm example functions.</para><para>Main function to call the Load pdi example function.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the Add image store pdi example function.</para><para>Main function to configure selected glitch detectors via Loader IPI, then optionally generate a test glitch via direct MMIO.</para><para>Main function to call the Image info example functions.</para><para>Main function to call the Get image info example functions.</para><para>Main function to call the get ATF handoff params example function.</para><para>Main function to call the ExtractMetaheader example function.</para><para>Main function to call the verssalnet example functions.</para><para>Main function to call the cfi selective readback function.</para><para><verbatim>            where it Sends a request to add the PDI which is downloaded to DDR into the Image Store (PDI List) using XLoader_AddImageStorePdi.
 </verbatim></para><para><simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
 </para><simplesectsep/><para><itemizedlist>
@@ -159,12 +166,12 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" bodystart="82" bodyend="120"/>
+<para>Pack one config word per selected detector, then send a single XLoader_ConfigureGlitchDetector IPI. PMC calibration is applied live in GD_FUSE_CTRL, while the ASU and LPD detectors are held in reset by the PLM while calibration is written and released afterwards. Enabling / test-glitch are left to the application (optional TEST_GLITCH_* path below).</para><para>Configure the DDR address of the PDI for the next image load. PLM validates the address range and stores it if valid. On failure the address is marked invalid and PLM falls back to the Image Store PDI list.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" bodystart="82" bodyend="120"/>
         <references refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="60">PDI_ID</references>
         <references refid="group__xloader__client__example__apis_1ga16ace37f7b732061b0144e81f9cae4e9" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="62">PDI_LOW_ADDRESS</references>
         <references refid="group__xloader__client__example__apis_1ga8d375fa48781630123b41ee18fef838b" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="61">PDI_SIZE_IN_WORDS</references>
-        <references refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="293" endline="307">XLoader_AddImageStorePdi</references>
+        <references refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="299" endline="313">XLoader_AddImageStorePdi</references>
         <references refid="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" compoundref="xloader__mailbox_8c" startline="103" endline="117">XLoader_ClientInit</references>
       </memberdef>
       </sectiondef>
@@ -293,6 +300,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="171"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_image_store_pdi_client_example.c"/>
   </compounddef>
 </doxygen>

@@ -13,6 +13,12 @@
       <node id="1603">
         <label>xv_hdmitx.h</label>
       </node>
+      <node id="1595">
+        <label>xv_hdmitxss_hdcp.c</label>
+        <link refid="xv_hdmitxss_hdcp.c"/>
+        <childnode refid="1596" relation="include">
+        </childnode>
+      </node>
       <node id="1596">
         <label>xv_hdmitxss.h</label>
         <link refid="xv__hdmitxss_8h"/>
@@ -38,12 +44,6 @@
       </node>
       <node id="1599">
         <label>xvidc.h</label>
-      </node>
-      <node id="1595">
-        <label>xv_hdmitxss_hdcp.c</label>
-        <link refid="xv_hdmitxss_hdcp.c"/>
-        <childnode refid="1596" relation="include">
-        </childnode>
       </node>
       <node id="1600">
         <label>xv_hdmic.h</label>
@@ -82,7 +82,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" line="1161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" bodystart="1161" bodyend="1181"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" line="1161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" bodystart="1161" bodyend="1181"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmitxss__hdcp_8c_1a23a1a2544ef4bc3ff8e1fde04bcc6f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -110,7 +110,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" line="1195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" bodystart="1195" bodyend="1215"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" line="1195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c" bodystart="1195" bodyend="1215"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1717,6 +1717,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="2203"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="2204"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_hdcp.c"/>
   </compounddef>
 </doxygen>

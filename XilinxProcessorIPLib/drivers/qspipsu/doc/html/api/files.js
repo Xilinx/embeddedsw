@@ -11,6 +11,8 @@ var files =
     [ "xqspipsu_generic_flash_non_blocking_read_example.c", "xqspipsu__generic__flash__non__blocking__read__example_8c.html", "xqspipsu__generic__flash__non__blocking__read__example_8c" ],
     [ "xqspipsu_generic_flash_polled_64bit_dma_r5_example.c", "xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c.html", "xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c" ],
     [ "xqspipsu_generic_flash_polled_example.c", "xqspipsu__generic__flash__polled__example_8c.html", "xqspipsu__generic__flash__polled__example_8c" ],
+    [ "xqspipsu_generic_nand_flash_interrupt_example.c", "xqspipsu__generic__nand__flash__interrupt__example_8c.html", "xqspipsu__generic__nand__flash__interrupt__example_8c" ],
+    [ "xqspipsu_generic_nand_flash_polled_example.c", "xqspipsu__generic__nand__flash__polled__example_8c.html", "xqspipsu__generic__nand__flash__polled__example_8c" ],
     [ "xqspipsu_hw.c", "xqspipsu__hw_8c.html", "xqspipsu__hw_8c" ],
     [ "xqspipsu_hw.h", "xqspipsu__hw_8h.html", "xqspipsu__hw_8h" ],
     [ "xqspipsu_options.c", "xqspipsu__options_8c.html", "xqspipsu__options_8c" ],

@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xufspsxc__phy_8c" kind="file">
+    <compoundname>xufspsxc_phy.c</compoundname>
+    <includes refid="xufspsxc_8h" local="yes">xufspsxc.h</includes>
+    <includes refid="xufspsxc__control_8h" local="yes">xufspsxc_control.h</includes>
+    <incdepgraph>
+      <node id="82">
+        <label>xufspsxc_control.h</label>
+        <link refid="xufspsxc__control_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="81">
+        <label>xil_util.h</label>
+      </node>
+      <node id="77">
+        <label>xufspsxc.h</label>
+        <link refid="xufspsxc_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xufspsxc_phy.c</label>
+        <link refid="xufspsxc_phy.c"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xstatus.h</label>
+      </node>
+      <node id="79">
+        <label>xufspsxc_hw.h</label>
+        <link refid="xufspsxc__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ProgramRxCompValues</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)</argsstring>
+        <name>XUfsPsxc_ProgramRxCompValues</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Programs valid (not 0x00/0xFF) PHY RX ATT/CTLE compensation values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XUFSPSXC_SUCCESS if successful.</para></listitem><listitem><para>Error codes on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_phy.c" bodystart="59" bodyend="81"/>
+        <references refid="struct_x_ufs_psxc_1a3e96a9ca2f1b75abcf78ff5c59e7a18d" compoundref="xufspsxc_8h" startline="317">XUfsPsxc::RxATTCompValL0</references>
+        <references refid="struct_x_ufs_psxc_1a59268ffd267abe52ae11b60ec7beb51f" compoundref="xufspsxc_8h" startline="319">XUfsPsxc::RxATTCompValL1</references>
+        <references refid="struct_x_ufs_psxc_1accf541ed7d3ad51ac2e2a91948b53ee2" compoundref="xufspsxc_8h" startline="321">XUfsPsxc::RxCTLECompValL0</references>
+        <references refid="struct_x_ufs_psxc_1ae911e88161d54777e64efcf5aea88bf3" compoundref="xufspsxc_8h" startline="323">XUfsPsxc::RxCTLECompValL1</references>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" compoundref="xufspsxc_8h" startline="488">XUFSPSXC_SUCCESS</references>
+        <references refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="552" endline="595">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="689" endline="748">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_BypassRxAfeCalib</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)</argsstring>
+        <name>XUfsPsxc_BypassRxAfeCalib</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Bypasses RX-AFE auto-calibration on both RX lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XUFSPSXC_SUCCESS if successful.</para></listitem><listitem><para>Error codes on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_phy.c" bodystart="95" bodyend="120"/>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" compoundref="xufspsxc_8h" startline="529">XUFSPSXC_FAILURE</references>
+        <references refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="613" endline="662">XUfsPsxc_ReadPhyReg</references>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" compoundref="xufspsxc_8h" startline="488">XUFSPSXC_SUCCESS</references>
+        <references refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="552" endline="595">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="689" endline="748">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ProgramRxCalibConfig</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)</argsstring>
+        <name>XUfsPsxc_ProgramRxCalibConfig</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Programs RAWAONLANE_DIG_FW_CALIB_CONFIG[8]=1 on both RX lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XUFSPSXC_SUCCESS if successful.</para></listitem><listitem><para>Error codes on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_phy.c" bodystart="134" bodyend="159"/>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" compoundref="xufspsxc_8h" startline="529">XUFSPSXC_FAILURE</references>
+        <references refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="613" endline="662">XUfsPsxc_ReadPhyReg</references>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" compoundref="xufspsxc_8h" startline="488">XUFSPSXC_SUCCESS</references>
+        <references refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="552" endline="595">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="689" endline="748">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ConfigureHsSeries</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 Rate, u32 RxLanes, u32 tx_gear, u32 *AdaptVal)</argsstring>
+        <name>XUfsPsxc_ConfigureHsSeries</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Rate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RxLanes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>tx_gear</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>AdaptVal</declname>
+        </param>
+        <briefdescription>
+<para>Configures high-speed series settings and RX override handling. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>HS rate series value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RxLanes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of connected RX data lanes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tx_gear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configured TX gear. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">AdaptVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the adapt value that may be updated for G4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XUFSPSXC_SUCCESS if successful.</para></listitem><listitem><para>Error codes on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_phy.c" bodystart="177" bodyend="234"/>
+        <references refid="group__ufspsxc__api_1gaba575b8c0935146a711534b9acb84e9f" compoundref="xufspsxc__hw_8c" startline="835" endline="855">XUfsPsxc_ClearPhyRxOverride</references>
+        <references refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" compoundref="xufspsxc_8h" startline="569">XUFSPSXC_DME_SET_OPCODE</references>
+        <references refid="group__ufspsxc_1ga72e0e4dcbd7402145895597e6584ca7c" compoundref="xufspsxc_8h" startline="881">XUFSPSXC_GEAR4</references>
+        <references refid="group__ufspsxc_1ga949d5c65265c6d011f39a4d57a7c295a" compoundref="xufspsxc_8h" startline="879">XUFSPSXC_HSSERIES_B</references>
+        <references refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" compoundref="xufspsxc__hw_8c" startline="765" endline="820">XUfsPsxc_OverridePhyRxReq</references>
+        <references refid="group__ufspsxc_1gaa2288b87f5161ad5a7c16d1f06e255d2" compoundref="xufspsxc_8h" startline="927">XUFSPSXC_PA_INITIAL_ADAPT</references>
+        <references refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="66" endline="138">XUfsPsxc_SendUICCmd</references>
+        <references refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" compoundref="xufspsxc_8h" startline="488">XUFSPSXC_SUCCESS</references>
+        <referencedby refid="group__ufspsxc__api_1ga9d5217db85b9198686faa9f2dabd07b4" compoundref="xufspsxc__init_8c" startline="904" endline="995">XUfsPsxc_ConfigureTxRxAttributes</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements UFSPSXC PHY calibration and HS series helpers. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file implements the PHY calibration and high-speed series configuration helpers used by the functions in <ref refid="xufspsxc__hw_8c" kindref="compound">xufspsxc_hw.c</ref> and <ref refid="xufspsxc__init_8c" kindref="compound">xufspsxc_init.c</ref> files.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.3   an  09/25/26 First release</preformatted></para><para><preformatted>1.3   tb  09/29/26 Align Doxygen comments with AMD standards.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xufspsxc_8h" kindref="compound">xufspsxc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xufspsxc__control_8h" kindref="compound">xufspsxc_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" kindref="member">XUfsPsxc_ProgramRxCompValues</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Status<sp/>=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" kindref="member">XUFSPSXC_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CompAddr[4]<sp/>=<sp/>{0x4000U,<sp/>0x4100U,<sp/>0x4001U,<sp/>0x4101U};</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CompVal[4];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CompVal[0]<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ufs_psxc_1a3e96a9ca2f1b75abcf78ff5c59e7a18d" kindref="member">RxATTCompValL0</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CompVal[1]<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ufs_psxc_1a59268ffd267abe52ae11b60ec7beb51f" kindref="member">RxATTCompValL1</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CompVal[2]<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ufs_psxc_1accf541ed7d3ad51ac2e2a91948b53ee2" kindref="member">RxCTLECompValL0</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CompVal[3]<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ufs_psxc_1ae911e88161d54777e64efcf5aea88bf3" kindref="member">RxCTLECompValL1</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>4U;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((CompVal[Index]<sp/>!=<sp/>(u32)0x0U)<sp/>&amp;&amp;<sp/>(CompVal[Index]<sp/>!=<sp/>(u32)0xFFU))<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>CompAddr[Index],<sp/>CompVal[Index]);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" kindref="member">XUFSPSXC_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" kindref="member">XUfsPsxc_BypassRxAfeCalib</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Status<sp/>=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" kindref="member">XUFSPSXC_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kindref="member">XUfsPsxc_ReadPhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x401CU,<sp/>&amp;ReadReg);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" kindref="member">XUFSPSXC_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x401CU,<sp/>(ReadReg<sp/>|<sp/>4U));</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kindref="member">XUfsPsxc_ReadPhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x411CU,<sp/>&amp;ReadReg);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x411CU,<sp/>(ReadReg<sp/>|<sp/>4U));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">ERROR:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" kindref="member">XUfsPsxc_ProgramRxCalibConfig</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Status<sp/>=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" kindref="member">XUFSPSXC_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kindref="member">XUfsPsxc_ReadPhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x404DU,<sp/>&amp;ReadReg);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" kindref="member">XUFSPSXC_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x404DU,<sp/>(ReadReg<sp/>|<sp/>0x100U));</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kindref="member">XUfsPsxc_ReadPhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x414DU,<sp/>&amp;ReadReg);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>0x414DU,<sp/>(ReadReg<sp/>|<sp/>0x100U));</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal">ERROR:</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="177" refid="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" kindref="member">XUfsPsxc_ConfigureHsSeries</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Rate,<sp/>u32<sp/>RxLanes,<sp/>u32<sp/>tx_gear,<sp/>u32<sp/>*AdaptVal)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RateSel;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUfsPsxc_FillUICCmd(UicCmdPtr,<sp/>((u32)0x156AU<sp/>&lt;&lt;<sp/>16U),<sp/>Rate,<sp/>0U,<sp/><ref refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" kindref="member">XUFSPSXC_DME_SET_OPCODE</ref>);<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>PA_HSSERIES<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kindref="member">XUfsPsxc_SendUICCmd</ref>(InstancePtr,<sp/>UicCmdPtr);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)<ref refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a7e72ee6121f8f88a5a7ab9a75c410b63" kindref="member">XUFSPSXC_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Rate<sp/>==<sp/><ref refid="group__ufspsxc_1ga949d5c65265c6d011f39a4d57a7c295a" kindref="member">XUFSPSXC_HSSERIES_B</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateSel<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateSel<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RMMI<sp/>CBRATESEL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUfsPsxc_FillUICCmd(UicCmdPtr,<sp/>((u32)0x8114U<sp/>&lt;&lt;<sp/>16U),<sp/>RateSel,<sp/>0U,<sp/><ref refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" kindref="member">XUFSPSXC_DME_SET_OPCODE</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kindref="member">XUfsPsxc_SendUICCmd</ref>(InstancePtr,<sp/>UicCmdPtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>L<sp/>VS_MphyCfgUpdt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUfsPsxc_FillUICCmd(UicCmdPtr,<sp/>((u32)0xD085U<sp/>&lt;&lt;<sp/>16U),<sp/>1U,<sp/>0U,<sp/><ref refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" kindref="member">XUFSPSXC_DME_SET_OPCODE</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kindref="member">XUfsPsxc_SendUICCmd</ref>(InstancePtr,<sp/>UicCmdPtr);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Override<sp/>PHY<sp/>rx_req<sp/>to<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" kindref="member">XUfsPsxc_OverridePhyRxReq</ref>(InstancePtr,<sp/>1U,<sp/>RxLanes);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Override<sp/>PHY<sp/>rx_req<sp/>to<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" kindref="member">XUfsPsxc_OverridePhyRxReq</ref>(InstancePtr,<sp/>0U,<sp/>RxLanes);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Remove<sp/>PHY<sp/>rx_req<sp/>override<sp/>(Connected<sp/>lanes)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ufspsxc__api_1gaba575b8c0935146a711534b9acb84e9f" kindref="member">XUfsPsxc_ClearPhyRxOverride</ref>(InstancePtr,<sp/>UicCmdPtr,<sp/>RxLanes);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XUFSPSXC_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Program<sp/>initial<sp/>ADAPT<sp/>for<sp/>G4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((tx_gear<sp/>==<sp/><ref refid="group__ufspsxc_1ga72e0e4dcbd7402145895597e6584ca7c" kindref="member">XUFSPSXC_GEAR4</ref>)<sp/>&amp;&amp;<sp/>(RxLanes<sp/>==<sp/>2U))<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*AdaptVal<sp/>=<sp/><ref refid="group__ufspsxc_1gaa2288b87f5161ad5a7c16d1f06e255d2" kindref="member">XUFSPSXC_PA_INITIAL_ADAPT</ref>;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">ERROR:</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_phy.c"/>
+  </compounddef>
+</doxygen>

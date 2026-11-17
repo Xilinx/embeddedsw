@@ -41,11 +41,13 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="186">
-        <label>menus.c</label>
+      <node id="190">
+        <label>xedid_print_example.c</label>
+        <link refid="xedid__print__example_8c"/>
       </node>
-      <node id="187">
-        <label>si570.c</label>
+      <node id="189">
+        <label>xdptxss_kcu105_dp14.c</label>
+        <link refid="xdptxss__kcu105__dp14_8c"/>
       </node>
       <node id="192">
         <label>dppt_vdma.c</label>
@@ -77,20 +79,14 @@
         <childnode refid="191" relation="include">
         </childnode>
       </node>
-      <node id="189">
-        <label>xdptxss_kcu105_dp14.c</label>
-        <link refid="xdptxss__kcu105__dp14_8c"/>
+      <node id="186">
+        <label>menus.c</label>
+      </node>
+      <node id="187">
+        <label>si570.c</label>
       </node>
       <node id="191">
         <label>xvid_pat_gen.c</label>
-      </node>
-      <node id="188">
-        <label>xclk_wiz.c</label>
-        <link refid="xclk__wiz_8c"/>
-      </node>
-      <node id="190">
-        <label>xedid_print_example.c</label>
-        <link refid="xedid__print__example_8c"/>
       </node>
       <node id="185">
         <label>xvidframe_crc.c</label>
@@ -101,6 +97,10 @@
         </childnode>
         <childnode refid="185" relation="include">
         </childnode>
+      </node>
+      <node id="188">
+        <label>xclk_wiz.c</label>
+        <link refid="xclk__wiz_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structdma__chan__parms" prot="public">dma_chan_parms</innerclass>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="dppt__vdma_8h_1a747b1a368cc920e3d2970b67bc56c15b" prot="public" static="no">
         <name>NUMBER_OF_READ_FRAMES</name>
@@ -125,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="68" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="dppt__vdma_8h_1a66f3b56b1056171d7e01705636abd086" prot="public" static="no">
         <name>NUMBER_OF_WRITE_FRAMES</name>
@@ -136,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="dppt__vdma_8h_1ad5200a90676d0749ce4847961dadafe1" prot="public" static="no">
         <name>BPC</name>
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="71" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="dppt__vdma_8h_1a36b7f0c7e3750172b363e4a5e6e5858f" prot="public" static="no">
         <name>DDR_MEMORY</name>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="76" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="53" bodyend="60"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" bodystart="53" bodyend="60"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -238,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="26" bodyend="74"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="26" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="dppt__vdma_8h_1a9ac8269bd018614dc029755a1a88fc05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -268,7 +268,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="76" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="76" bodyend="125"/>
       </memberdef>
       <memberdef kind="function" id="dppt__vdma_8h_1a9422a12ca471329ba49688ec15e0562f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -305,7 +305,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="128" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="128" bodyend="170"/>
       </memberdef>
       <memberdef kind="function" id="dppt__vdma_8h_1ace9d495c104714fc20dbeaa085a721ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -346,7 +346,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="224" bodyend="262"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.c" bodystart="224" bodyend="262"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -361,7 +361,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -406,34 +406,24 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>FRAME_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3B53800;//0x1FAA000;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRAME_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8000000;<sp/>//<sp/>This<sp/>is<sp/>good<sp/>for<sp/>8K4K<sp/>resolution</highlight></codeline>
-<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_READ_FRAMES<sp/><sp/><sp/><sp/>XPAR_AXIVDMA_0_NUM_FSTORES</highlight></codeline>
-<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_WRITE_FRAMES<sp/><sp/><sp/>XPAR_AXIVDMA_0_NUM_FSTORES</highlight></codeline>
-<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_READ_FRAMES<sp/><sp/><sp/><sp/>XPAR_AXI_VDMA_0_NUM_FSTORES</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_WRITE_FRAMES<sp/><sp/><sp/>XPAR_AXI_VDMA_0_NUM_FSTORES</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BPC<sp/>(XPAR_DPRXSS_0_BITS_PER_COLOR<sp/>*<sp/>3<sp/>*<sp/>4/8)</highlight></codeline>
-<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_MEMORY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_MEMORY_SUBSYSTEM_DDR4_0_C0_DDR4_MEMORY_MAP_BASEADDR<sp/>+<sp/><sp/>0x1000000)</highlight></codeline>
-<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_MEMORY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_DDR4_0_BASEADDRESS<sp/>+<sp/><sp/>0x1000000)</highlight></codeline>
-<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WriteSetup(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>define_function[1],<sp/>u32<sp/>dp_hres,</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dp_vres,<sp/>u8<sp/>pixel);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ReadSetup(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>define_function[1],<sp/>u32<sp/>dp_hres,</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dp_vres,<sp/>u8<sp/>pixel);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_StartVDMA(XAxiVdma<sp/>*InstancePtr,<sp/>u16<sp/>Direction,<sp/>u32<sp/>hres,<sp/>u32<sp/>vres,</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>pxl,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>*dma_struct);</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_StartVDMA_trunc(XAxiVdma<sp/>*InstancePtr,<sp/>u16<sp/>Direction,<sp/>u32<sp/>hres,<sp/></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>vres,<sp/>u8<sp/>pxl,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>*dma_struct,<sp/>u32<sp/>offset);</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_READ_FRAMES<sp/><sp/><sp/><sp/>XPAR_AXI_VDMA_0_NUM_FSTORES</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NUMBER_OF_WRITE_FRAMES<sp/><sp/><sp/>XPAR_AXI_VDMA_0_NUM_FSTORES</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BPC<sp/>(XPAR_DPRXSS_0_BITS_PER_COLOR<sp/>*<sp/>3<sp/>*<sp/>4/8)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_MEMORY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_DDR4_0_BASEADDRESS<sp/>+<sp/><sp/>0x1000000)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WriteSetup(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>define_function[1],<sp/>u32<sp/>dp_hres,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dp_vres,<sp/>u8<sp/>pixel);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ReadSetup(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>define_function[1],<sp/>u32<sp/>dp_hres,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dp_vres,<sp/>u8<sp/>pixel);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_StartVDMA(XAxiVdma<sp/>*InstancePtr,<sp/>u16<sp/>Direction,<sp/>u32<sp/>hres,<sp/>u32<sp/>vres,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>pxl,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>*dma_struct);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dprx_StartVDMA_trunc(XAxiVdma<sp/>*InstancePtr,<sp/>u16<sp/>Direction,<sp/>u32<sp/>hres,<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>vres,<sp/>u8<sp/>pxl,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>dma_chan_parms<sp/>*dma_struct,<sp/>u32<sp/>offset);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/dppt_vdma.h"/>
   </compounddef>
 </doxygen>

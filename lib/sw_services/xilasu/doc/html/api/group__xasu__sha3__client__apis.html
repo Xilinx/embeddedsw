@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -178,7 +179,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function sends a command to ASUFW to generate the digest for the provided input message using the specified SHA algorithm. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<pre class="fragment">            For SHAKE256 multi-block XOF output, set ShaClientParamPtr-&gt;XofEnableFlag to TRUE
+            on every FINISH except the last (FALSE ends the XOF and releases the engine). The
+            caller must wait for each block's response before sending the next, and must reuse
+            the same client priority so the same context and SHA3 engine are retained. Getting
+            either wrong can leave the SHA engine locked. The context slot of the priority stays
+            allocated for the whole sequence, so a second multi-part request at that priority is
+            refused with XASU_REQUEST_INPROGRESS. The SHA3 engine stays reserved for this
+            sequence between blocks, so any other request for it waits in the queue until the
+            XOF ends: blocking on such a request before sending the next block deadlocks.
+</pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ClientParamPtr</td><td>Pointer to the XAsu_ClientParams structure which holds client input arguments. </td></tr>
     <tr><td class="paramname">ShaClientParamPtr</td><td>Pointer to the <a class="el" href="struct_x_asu___sha_operation_cmd.html" title="This structure contains SHA params info. ">XAsu_ShaOperationCmd</a> structure which holds parameters of sha input arguments.</td></tr>
@@ -191,6 +201,7 @@ Functions</h2></td></tr>
 <li>XST_FAILURE, if sending an IPI request to ASU fails.</li>
 <li>XASU_REQUEST_INPROGRESS, if split request already in progress.</li>
 <li>XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.</li>
+<li>XASU_INVALID_CLIENT_CTX, if the client context does not belong to this request.</li>
 <li>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</li>
 <li>XASU_FAIL_SAVE_CTX, if saving context fails.</li>
 <li>XASU_FREE_CTX_FAIL, if freeing context fails. </li>
@@ -198,12 +209,14 @@ Functions</h2></td></tr>
 </dd></dl>
 <p>Validate input parameters.</p>
 <p>The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported data transfer length.</p>
+<p>XofEnableFlag is valid only for SHAKE256 and must be a boolean; for every other mode it must be clear.</p>
+<p>An XOF block with XofEnableFlag set does not finish the operation, so it must not be served as a single-shot request, which would leave the following blocks without a context.</p>
 <p>Handle context operation.</p>
-<p>Cleanup on FINISH operation.</p>
+<p>Cleanup once the operation is complete.</p>
 <p>Create command header.</p>
 <p>Update request buffer and send an IPI request to ASU. </p>
 
-<p>References <a class="el" href="struct_x_asu___sha_operation_cmd.html#a0c80fb45a77e0d8703c26624f7880384">XAsu_ShaOperationCmd::DataAddr</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a158287b66e45758c02fa6738afad4716">XAsu_ShaOperationCmd::DataSize</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a5a46d5d9f4cbfa657beb34d64989fb93">XAsu_ShaOperationCmd::HashAddr</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#afc4e0234d282f65f5a863173f5003624">XAsu_ShaOperationCmd::HashBufSize</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#afac49d6bc5df4eb5cfcc97cdfd808436">XAsu_ShaOperationCmd::IsLast</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a3e45916a5f844bc83a5607e5f836cd5a">XAsu_ShaOperationCmd::OperationFlags</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a156f2363c44178819cae2f58e1fdab5c">XAsu_ShaOperationCmd::ShaMode</a>, <a class="el" href="group__xasu__common__defs.html#ga76ecdcdf1b1ad4bda09eac3baa13282f">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</a>, <a class="el" href="group__xasu__client__info.html#ga4af0f185b2f94cd5a55c39bd9eede12e">XAsu_CleanupFinishOperation()</a>, <a class="el" href="group__xasu__common__defs.html#ga4ed1b3c195cb21e5e43ab8926dbfe39e">XASU_FALSE</a>, <a class="el" href="group__xasu__common__defs.html#gaa31a05872c26a658a8da800ee649dbe9">XASU_FINISH</a>, <a class="el" href="group__xasu__client__info.html#ga9fc6bcf48e27561e61e8fd79931a363f">XAsu_HandleContextOperation()</a>, <a class="el" href="group__xasu__common__defs.html#gae3a9e9118884ccc0feae9e4728394e3d">XASU_INIT</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9">XASU_INVALID_ARGUMENT</a>, <a class="el" href="group__xasu__common__defs.html#gab2ea82483072fe1f10f4d5dfb9ffde8c">XASU_MODULE_SHA3_ID</a>, <a class="el" href="group__xasu__client__info.html#ga717d31c270f3965991fdd19a0b70c633">XAsu_SendCmdToAsu()</a>, <a class="el" href="group__xasu__common__defs.html#ga7af115dffedb0e4d090e6fa4561a0693">XASU_SHA3_TYPE</a>, <a class="el" href="group__xasu__common__defs.html#ga219220a0d5563c2fc911864cd15a8d96">XASU_SHA_OPERATION_CMD_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>, <a class="el" href="group__xasu__common__defs.html#ga74c866f4c9240345e465c2c9e666d9a1">XASU_UPDATE</a>, <a class="el" href="group__xasu__client__info.html#gae0f7072bf1eddf7ee11f1e5852570682">XAsu_ValidateClientParameters()</a>, and <a class="el" href="group__xasu__client__info.html#ga8e8593fc336981968a9288ff63c61f5b">XASU_WORD_LEN_IN_BYTES</a>.</p>
+<p>References <a class="el" href="struct_x_asu___sha_operation_cmd.html#a0c80fb45a77e0d8703c26624f7880384">XAsu_ShaOperationCmd::DataAddr</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a158287b66e45758c02fa6738afad4716">XAsu_ShaOperationCmd::DataSize</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a5a46d5d9f4cbfa657beb34d64989fb93">XAsu_ShaOperationCmd::HashAddr</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#afc4e0234d282f65f5a863173f5003624">XAsu_ShaOperationCmd::HashBufSize</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#afac49d6bc5df4eb5cfcc97cdfd808436">XAsu_ShaOperationCmd::IsLast</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a3e45916a5f844bc83a5607e5f836cd5a">XAsu_ShaOperationCmd::OperationFlags</a>, <a class="el" href="struct_x_asu___sha_operation_cmd.html#a156f2363c44178819cae2f58e1fdab5c">XAsu_ShaOperationCmd::ShaMode</a>, <a class="el" href="group__xasu__common__defs.html#ga76ecdcdf1b1ad4bda09eac3baa13282f">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</a>, <a class="el" href="group__xasu__client__info.html#ga4af0f185b2f94cd5a55c39bd9eede12e">XAsu_CleanupFinishOperation()</a>, <a class="el" href="group__xasu__common__defs.html#ga4ed1b3c195cb21e5e43ab8926dbfe39e">XASU_FALSE</a>, <a class="el" href="group__xasu__common__defs.html#gaa31a05872c26a658a8da800ee649dbe9">XASU_FINISH</a>, <a class="el" href="group__xasu__client__info.html#ga9fc6bcf48e27561e61e8fd79931a363f">XAsu_HandleContextOperation()</a>, <a class="el" href="group__xasu__common__defs.html#gae3a9e9118884ccc0feae9e4728394e3d">XASU_INIT</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9">XASU_INVALID_ARGUMENT</a>, <a class="el" href="group__xasu__common__defs.html#gab2ea82483072fe1f10f4d5dfb9ffde8c">XASU_MODULE_SHA3_ID</a>, <a class="el" href="group__xasu__client__info.html#ga717d31c270f3965991fdd19a0b70c633">XAsu_SendCmdToAsu()</a>, <a class="el" href="group__xasu__common__defs.html#ga7af115dffedb0e4d090e6fa4561a0693">XASU_SHA3_TYPE</a>, <a class="el" href="group__xasu__common__defs.html#gaacee72cf9c2d25a922f117c6da956f25">XASU_SHA_MODE_SHAKE256</a>, <a class="el" href="group__xasu__common__defs.html#ga219220a0d5563c2fc911864cd15a8d96">XASU_SHA_OPERATION_CMD_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>, <a class="el" href="group__xasu__common__defs.html#ga74c866f4c9240345e465c2c9e666d9a1">XASU_UPDATE</a>, <a class="el" href="group__xasu__client__info.html#gae0f7072bf1eddf7ee11f1e5852570682">XAsu_ValidateClientParameters()</a>, <a class="el" href="group__xasu__client__info.html#ga8e8593fc336981968a9288ff63c61f5b">XASU_WORD_LEN_IN_BYTES</a>, and <a class="el" href="struct_x_asu___sha_operation_cmd.html#a8ee344711a9606c30a150020946e1a37">XAsu_ShaOperationCmd::XofEnableFlag</a>.</p>
 
 </div>
 </div>

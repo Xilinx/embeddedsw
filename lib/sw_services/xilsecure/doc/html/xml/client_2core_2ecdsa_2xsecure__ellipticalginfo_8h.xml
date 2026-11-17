@@ -7,53 +7,53 @@
     <includedby refid="xsecure__ellipticalginfo_8c" local="yes">xsecure_ellipticalginfo.c</includedby>
     <includedby refid="xsecure__ellipticclient_8h" local="yes">xsecure_ellipticclient.h</includedby>
     <incdepgraph>
-      <node id="1376">
-        <label>xsecure_ellipticalginfo.h</label>
-        <link refid="client/core/ecdsa/xsecure_ellipticalginfo.h"/>
-        <childnode refid="1377" relation="include">
-        </childnode>
-        <childnode refid="1378" relation="include">
-        </childnode>
-      </node>
-      <node id="1378">
+      <node id="1430">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1377">
+      <node id="1428">
+        <label>xsecure_ellipticalginfo.h</label>
+        <link refid="client/core/ecdsa/xsecure_ellipticalginfo.h"/>
+        <childnode refid="1429" relation="include">
+        </childnode>
+        <childnode refid="1430" relation="include">
+        </childnode>
+      </node>
+      <node id="1429">
         <label>xil_cryptoalginfo.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1380">
+      <node id="1432">
         <label>xsecure_ellipticalginfo.c</label>
         <link refid="xsecure__ellipticalginfo_8c"/>
       </node>
-      <node id="1379">
+      <node id="1431">
         <label>xsecure_ellipticalginfo.h</label>
         <link refid="client/core/ecdsa/xsecure_ellipticalginfo.h"/>
-        <childnode refid="1380" relation="include">
+        <childnode refid="1432" relation="include">
         </childnode>
-        <childnode refid="1381" relation="include">
+        <childnode refid="1433" relation="include">
         </childnode>
       </node>
-      <node id="1383">
+      <node id="1435">
         <label>xilsecure_versal_ecdsa_client_example.c</label>
         <link refid="xilsecure__versal__ecdsa__client__example_8c"/>
       </node>
-      <node id="1382">
+      <node id="1434">
         <label>xsecure_ellipticclient.c</label>
         <link refid="xsecure__ellipticclient_8c"/>
       </node>
-      <node id="1381">
+      <node id="1433">
         <label>xsecure_ellipticclient.h</label>
         <link refid="xsecure__ellipticclient_8h"/>
-        <childnode refid="1382" relation="include">
+        <childnode refid="1434" relation="include">
         </childnode>
-        <childnode refid="1383" relation="include">
+        <childnode refid="1435" relation="include">
         </childnode>
-        <childnode refid="1384" relation="include">
+        <childnode refid="1436" relation="include">
         </childnode>
       </node>
-      <node id="1384">
+      <node id="1436">
         <label>xilsecure_versal_net_ecdh_client_example.c</label>
         <link refid="xilsecure__versal__net__ecdh__client__example_8c"/>
       </node>
@@ -76,16 +76,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="68">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -135,6 +134,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ELLIPTICALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticalginfo.h"/>
   </compounddef>
 </doxygen>

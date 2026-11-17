@@ -108,18 +108,19 @@ $(document).ready(function(){initNavTree('xiic__pmbus__intr__example_8c.html',''
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file consists of an interrupt mode design example which uses the Xilinx IIC device and low-level driver to communicate with a PMBus device. </p>
+<div class="textblock"><p>Shows interrupt-mode PMBus transfers over IIC. </p>
+<p>This file consists of an interrupt mode design example which uses the Xilinx IIC device and low-level driver to communicate with a PMBus device.</p>
 <p>The example demonstrates how to read voltage and temperature from a PMBus-compliant device using the IIC interface. It includes conversion routines for PMBus Linear11 and Linear16 formats.</p>
-<p>The <a class="el" href="group___overview.html#ga977382e8a20bd5e690229f82af2e7603" title="This function sends data as a master on the IIC bus. ">XIic_MasterSend()</a> API is used to transmit the data and <a class="el" href="group___overview.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="This function receives data as a master from a slave device on the IIC bus. ">XIic_MasterRecv()</a> API is used to receive the data. Interrupt handlers are used for send, receive, and status events.</p>
+<p>The <a class="el" href="group__iic.html#ga977382e8a20bd5e690229f82af2e7603" title="Sends data as a master on the IIC bus. ">XIic_MasterSend()</a> API is used to transmit the data and <a class="el" href="group__iic.html#ga337bf0d322d4a7d9b4f8baa30e00ab45" title="Receives data as a master from a slave device on the IIC bus. ">XIic_MasterRecv()</a> API is used to receive the data. Interrupt handlers are used for send, receive, and status events.</p>
 <p>The define PMBUS_SLAVE_ADDR in this file needs to be changed depending on the PMBus device and board configuration on which this example is to be run.</p>
 <p>This code assumes that no Operating System is being used.</p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 </p>
 <hr/>
 <p>
 3.15  vlt  02/18/26    Initial version
+3.16  tb   09/22/26    Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
@@ -130,28 +131,37 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a028d21c1d779d7c992e41b11d876de26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a028d21c1d779d7c992e41b11d876de26">XIIC_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XIIC_0_BASEADDR</td></tr>
-<tr class="memdesc:a028d21c1d779d7c992e41b11d876de26"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constants map to the XPAR parameters created in the xparameters.h file.  <a href="#a028d21c1d779d7c992e41b11d876de26">More...</a><br/></td></tr>
+<tr class="memdesc:a028d21c1d779d7c992e41b11d876de26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the IIC device.  <a href="#a028d21c1d779d7c992e41b11d876de26">More...</a><br/></td></tr>
 <tr class="separator:a028d21c1d779d7c992e41b11d876de26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ad02ab61f37d20ecedd7acfbc5c42ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a8ad02ab61f37d20ecedd7acfbc5c42ed">IIC_MUX_ADDRESS</a>&#160;&#160;&#160;0x75</td></tr>
-<tr class="memdesc:a8ad02ab61f37d20ecedd7acfbc5c42ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel address 0x05 and PMBus slave address 0x13.  <a href="#a8ad02ab61f37d20ecedd7acfbc5c42ed">More...</a><br/></td></tr>
+<tr class="memdesc:a8ad02ab61f37d20ecedd7acfbc5c42ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">7-bit IIC MUX address.  <a href="#a8ad02ab61f37d20ecedd7acfbc5c42ed">More...</a><br/></td></tr>
 <tr class="separator:a8ad02ab61f37d20ecedd7acfbc5c42ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01f188bacaad2ee1cc6049eb600c9f86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a01f188bacaad2ee1cc6049eb600c9f86">IIC_PMBUS_CHANNEL</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a01f188bacaad2ee1cc6049eb600c9f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">IIC MUX channel for PMBus.  <a href="#a01f188bacaad2ee1cc6049eb600c9f86">More...</a><br/></td></tr>
+<tr class="separator:a01f188bacaad2ee1cc6049eb600c9f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a872f2f314f8e720ab639f76056ea1e7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a872f2f314f8e720ab639f76056ea1e7c">PMBUS_SLAVE_ADDR</a>&#160;&#160;&#160;0x0A</td></tr>
-<tr class="memdesc:a872f2f314f8e720ab639f76056ea1e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the address of the PMBus device on the IIC bus.  <a href="#a872f2f314f8e720ab639f76056ea1e7c">More...</a><br/></td></tr>
+<tr class="memdesc:a872f2f314f8e720ab639f76056ea1e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">7-bit PMBus slave address.  <a href="#a872f2f314f8e720ab639f76056ea1e7c">More...</a><br/></td></tr>
 <tr class="separator:a872f2f314f8e720ab639f76056ea1e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca2c06eb8e2fb046f1eebf52436db999"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#aca2c06eb8e2fb046f1eebf52436db999">IIC_MUX_ENABLE</a>&#160;&#160;&#160;/** Enables the IIC MUX */</td></tr>
-<tr class="memdesc:aca2c06eb8e2fb046f1eebf52436db999"><td class="mdescLeft">&#160;</td><td class="mdescRight">This define should be uncommented if there is an IIC MUX on the board to which the PMBus device is connected.  <a href="#aca2c06eb8e2fb046f1eebf52436db999">More...</a><br/></td></tr>
+<tr class="memitem:aca2c06eb8e2fb046f1eebf52436db999"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#aca2c06eb8e2fb046f1eebf52436db999">IIC_MUX_ENABLE</a></td></tr>
+<tr class="memdesc:aca2c06eb8e2fb046f1eebf52436db999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the IIC MUX.  <a href="#aca2c06eb8e2fb046f1eebf52436db999">More...</a><br/></td></tr>
 <tr class="separator:aca2c06eb8e2fb046f1eebf52436db999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad345bccf457826be9f894cb922452219"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#ad345bccf457826be9f894cb922452219">PMBUS_CMD_READ_VOUT</a>&#160;&#160;&#160;0x8B</td></tr>
+<tr class="memdesc:ad345bccf457826be9f894cb922452219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command to read output voltage (VOUT).  <a href="#ad345bccf457826be9f894cb922452219">More...</a><br/></td></tr>
+<tr class="separator:ad345bccf457826be9f894cb922452219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5a773ba971f9637cdc57c2c5f037ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#aef5a773ba971f9637cdc57c2c5f037ff">PMBUS_CMD_READ_TEMP</a>&#160;&#160;&#160;0x8D</td></tr>
+<tr class="memdesc:aef5a773ba971f9637cdc57c2c5f037ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command to read temperature (TEMP).  <a href="#aef5a773ba971f9637cdc57c2c5f037ff">More...</a><br/></td></tr>
+<tr class="separator:aef5a773ba971f9637cdc57c2c5f037ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac21613290ae2c73274231e4c78ddc09f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#ac21613290ae2c73274231e4c78ddc09f">PMBUS_VOUT_EXPONENT</a>&#160;&#160;&#160;(-12)</td></tr>
-<tr class="memdesc:ac21613290ae2c73274231e4c78ddc09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PMBus READ_VOUT uses LINEAR16 format.  <a href="#ac21613290ae2c73274231e4c78ddc09f">More...</a><br/></td></tr>
+<tr class="memdesc:ac21613290ae2c73274231e4c78ddc09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">VOUT_MODE exponent for LINEAR16 conversion.  <a href="#ac21613290ae2c73274231e4c78ddc09f">More...</a><br/></td></tr>
 <tr class="separator:ac21613290ae2c73274231e4c78ddc09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02055aef4b0f9a801005ebdc7b556157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a02055aef4b0f9a801005ebdc7b556157">MAX_DELAY_CNT</a>&#160;&#160;&#160;1000</td></tr>
-<tr class="memdesc:a02055aef4b0f9a801005ebdc7b556157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum delay count used for timeout handling.  <a href="#a02055aef4b0f9a801005ebdc7b556157">More...</a><br/></td></tr>
+<tr class="memdesc:a02055aef4b0f9a801005ebdc7b556157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum delay count for timeout handling.  <a href="#a02055aef4b0f9a801005ebdc7b556157">More...</a><br/></td></tr>
 <tr class="separator:a02055aef4b0f9a801005ebdc7b556157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f6955c7e0d854dfae76ca64d9861d06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a6f6955c7e0d854dfae76ca64d9861d06">EventMask</a>&#160;&#160;&#160;0xFF</td></tr>
 <tr class="memdesc:a6f6955c7e0d854dfae76ca64d9861d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal IIC event mask.  <a href="#a6f6955c7e0d854dfae76ca64d9861d06">More...</a><br/></td></tr>
 <tr class="separator:a6f6955c7e0d854dfae76ca64d9861d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3289fc3b552e479f461cd4cb762b1c9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a3289fc3b552e479f461cd4cb762b1c9f">Event_Value</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:a3289fc3b552e479f461cd4cb762b1c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal event value used for IIC event checking.  <a href="#a3289fc3b552e479f461cd4cb762b1c9f">More...</a><br/></td></tr>
+<tr class="memdesc:a3289fc3b552e479f461cd4cb762b1c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal event value for IIC event checking.  <a href="#a3289fc3b552e479f461cd4cb762b1c9f">More...</a><br/></td></tr>
 <tr class="separator:a3289fc3b552e479f461cd4cb762b1c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa79883d73882e4c7ca5840f7aab09b3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#aa79883d73882e4c7ca5840f7aab09b3e">EXPONENT_SHIFT</a>&#160;&#160;&#160;11</td></tr>
 <tr class="memdesc:aa79883d73882e4c7ca5840f7aab09b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift to get exponent bits.  <a href="#aa79883d73882e4c7ca5840f7aab09b3e">More...</a><br/></td></tr>
@@ -172,25 +182,28 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8db8cb1247e56449840cd1be84b786b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample</a> (void)</td></tr>
-<tr class="memdesc:a8db8cb1247e56449840cd1be84b786b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates PMBus interrupt access: initializes IIC, sets up interrupts, selects MUX (if enabled), and read voltage and temperature from the PMBus device, printing results.  <a href="#a8db8cb1247e56449840cd1be84b786b2">More...</a><br/></td></tr>
+<tr class="memdesc:a8db8cb1247e56449840cd1be84b786b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates PMBus access in interrupt mode.  <a href="#a8db8cb1247e56449840cd1be84b786b2">More...</a><br/></td></tr>
 <tr class="separator:a8db8cb1247e56449840cd1be84b786b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer used for IIC data transmission.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the PMBus interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a82ac42ea08442144b4d372ff9f7740c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic.html">XIic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a82ac42ea08442144b4d372ff9f7740c0">IicInstance</a></td></tr>
+<tr class="memdesc:a82ac42ea08442144b4d372ff9f7740c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the IIC device.  <a href="#a82ac42ea08442144b4d372ff9f7740c0">More...</a><br/></td></tr>
+<tr class="separator:a82ac42ea08442144b4d372ff9f7740c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19d9dd848a431a459bff8db6e3eb2985"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a19d9dd848a431a459bff8db6e3eb2985">TransmitComplete</a></td></tr>
-<tr class="memdesc:a19d9dd848a431a459bff8db6e3eb2985"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the IIC device.  <a href="#a19d9dd848a431a459bff8db6e3eb2985">More...</a><br/></td></tr>
+<tr class="memdesc:a19d9dd848a431a459bff8db6e3eb2985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check completion of Transmission.  <a href="#a19d9dd848a431a459bff8db6e3eb2985">More...</a><br/></td></tr>
 <tr class="separator:a19d9dd848a431a459bff8db6e3eb2985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f1fae969d865449aacad8208e70ce16"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a9f1fae969d865449aacad8208e70ce16">ReceiveComplete</a></td></tr>
-<tr class="memdesc:a9f1fae969d865449aacad8208e70ce16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check completion of Transmission.  <a href="#a9f1fae969d865449aacad8208e70ce16">More...</a><br/></td></tr>
+<tr class="memdesc:a9f1fae969d865449aacad8208e70ce16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check completion of Reception.  <a href="#a9f1fae969d865449aacad8208e70ce16">More...</a><br/></td></tr>
 <tr class="separator:a9f1fae969d865449aacad8208e70ce16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0073f5989f4bf6135a340c0b26ad2138"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#a0073f5989f4bf6135a340c0b26ad2138">ErrorEvent</a></td></tr>
-<tr class="memdesc:a0073f5989f4bf6135a340c0b26ad2138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check completion of Reception.  <a href="#a0073f5989f4bf6135a340c0b26ad2138">More...</a><br/></td></tr>
+<tr class="memdesc:a0073f5989f4bf6135a340c0b26ad2138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error event flag set by the IIC interrupt handler.  <a href="#a0073f5989f4bf6135a340c0b26ad2138">More...</a><br/></td></tr>
 <tr class="separator:a0073f5989f4bf6135a340c0b26ad2138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd645bea5d9544f256abc449cecde3d5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiic__pmbus__intr__example_8c.html#acd645bea5d9544f256abc449cecde3d5">WriteBuffer</a> [1]</td></tr>
-<tr class="memdesc:acd645bea5d9544f256abc449cecde3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error event flag set by the IIC interrupt handler.  <a href="#acd645bea5d9544f256abc449cecde3d5">More...</a><br/></td></tr>
+<tr class="memdesc:acd645bea5d9544f256abc449cecde3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer used for IIC data transmission.  <a href="#acd645bea5d9544f256abc449cecde3d5">More...</a><br/></td></tr>
 <tr class="separator:acd645bea5d9544f256abc449cecde3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -204,7 +217,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Internal event value used for IIC event checking. </p>
+<p>Internal event value for IIC event checking. </p>
 
 </div>
 </div>
@@ -274,9 +287,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel address 0x05 and PMBus slave address 0x13. </p>
-<p>The ZC702 and ZC706 boards use a PMBus MUX address of 0x74 with channel address 0x80 and PMBus slave address 0x52.</p>
-<p>The KCU105 board uses a PMBus MUX address of 0x74 or 0x75 with channel address 0x04 and PMBus slave address 0x0A. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct addresses and channel to use for PMBus communication. The defines below must be updated to match the board in use. </p>
+<p>7-bit IIC MUX address. </p>
 
 </div>
 </div>
@@ -285,13 +296,26 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IIC_MUX_ENABLE&#160;&#160;&#160;/** Enables the IIC MUX */</td>
+          <td class="memname">#define IIC_MUX_ENABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This define should be uncommented if there is an IIC MUX on the board to which the PMBus device is connected. </p>
-<p>For example, the KCU105 board uses an IIC MUX to access PMBus devices. </p>
+<p>Enables the IIC MUX. </p>
+
+</div>
+</div>
+<a class="anchor" id="a01f188bacaad2ee1cc6049eb600c9f86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IIC_PMBUS_CHANNEL&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IIC MUX channel for PMBus. </p>
 
 </div>
 </div>
@@ -333,7 +357,39 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Maximum delay count used for timeout handling. </p>
+<p>Maximum delay count for timeout handling. </p>
+
+</div>
+</div>
+<a class="anchor" id="aef5a773ba971f9637cdc57c2c5f037ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMBUS_CMD_READ_TEMP&#160;&#160;&#160;0x8D</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command to read temperature (TEMP). </p>
+
+<p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad345bccf457826be9f894cb922452219"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMBUS_CMD_READ_VOUT&#160;&#160;&#160;0x8B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command to read output voltage (VOUT). </p>
+
+<p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
 
 </div>
 </div>
@@ -347,8 +403,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The following constant defines the address of the PMBus device on the IIC bus. </p>
-<p>Note that this is a 7-bit address. The PMBus slave address may vary depending on the board and the PMBus device used. For example, the KCU105 board uses 0x0A as the PMBus slave address for its power controller. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct slave address to use. </p>
+<p>7-bit PMBus slave address. </p>
 
 <p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
 
@@ -364,8 +419,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>PMBus READ_VOUT uses LINEAR16 format. </p>
-<p>As per PMBus specification, the exponent is defined by VOUT_MODE. For the PMBus device used in this example, VOUT_MODE exponent is fixed at -12 (device/board specific). </p>
+<p>VOUT_MODE exponent for LINEAR16 conversion. </p>
 
 <p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
 
@@ -381,8 +435,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The following constants map to the XPAR parameters created in the xparameters.h file. </p>
-<p>They are defined here such that a user can easily change all the needed parameters in one place. </p>
+<p>Base address of the IIC device. </p>
 
 <p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
 
@@ -403,9 +456,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function demonstrates PMBus interrupt access: initializes IIC, sets up interrupts, selects MUX (if enabled), and read voltage and temperature from the PMBus device, printing results. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Demonstrates PMBus access in interrupt mode. </p>
+<p>It initializes IIC, sets up interrupts, selects the MUX (if enabled), reads voltage and temperature from the PMBus device, and prints the results.</p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 <p>Initialize the IIC driver so that it is ready to use.</p>
 <p>Setup the Interrupt System.</p>
 <p>Set the Handlers for transmit and reception.</p>
@@ -418,7 +475,7 @@ Variables</h2></td></tr>
 <p>Read the output temperature from the PMBus device</p>
 <p>Convert raw PMBus temperature data (Linear11) to centi-degrees Celsius and print</p>
 
-<p>References <a class="el" href="struct_x_iic___config.html#ae783f76b6713be6d9b77060d77328102">XIic_Config::BaseAddress</a>, <a class="el" href="struct_x_iic.html#a389e4b8500329c37d7835098408b5ed3">XIic::BaseAddress</a>, <a class="el" href="struct_x_iic___config.html#acab9a6750ed1288bc87868653feaf70e">XIic_Config::IntrId</a>, <a class="el" href="struct_x_iic___config.html#a30b5d6af72a05a175b7af553f8eef939">XIic_Config::IntrParent</a>, <a class="el" href="xiic__pmbus__polled__example_8c.html#ad345bccf457826be9f894cb922452219">PMBUS_CMD_READ_VOUT</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a872f2f314f8e720ab639f76056ea1e7c">PMBUS_SLAVE_ADDR</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#ac21613290ae2c73274231e4c78ddc09f">PMBUS_VOUT_EXPONENT</a>, <a class="el" href="group___overview.html#gace6af337aea33e4f162897b40591e0ac">XII_ADDR_TO_SEND_TYPE</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a028d21c1d779d7c992e41b11d876de26">XIIC_BASEADDRESS</a>, <a class="el" href="group___overview.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">XIic_InterruptHandler()</a>, <a class="el" href="xiic__l_8h.html#a7071fcf4cf60d65fd862653fa34faa21">XIic_IntrGlobalEnable</a>, <a class="el" href="group___overview.html#ga7e448669953bf36074837f174726814d">XIic_LookupConfig()</a>, <a class="el" href="group___overview.html#gad944f42c3d9972fc2c986a7eed726297">XIic_SetAddress()</a>, <a class="el" href="group___overview.html#ga86b4b2b307df26df2ecac39337c78bed">XIic_SetRecvHandler()</a>, <a class="el" href="group___overview.html#gad33428830e9016ef50c1deae59d1e604">XIic_SetSendHandler()</a>, <a class="el" href="group___overview.html#gaa74a6884f6dfc826a10768d7d0333991">XIic_SetStatusHandler()</a>, and <a class="el" href="group___overview.html#ga5f4e497710a9c3719f27d40faa74a10f">XIic_Start()</a>.</p>
+<p>References <a class="el" href="struct_x_iic___config.html#ae783f76b6713be6d9b77060d77328102">XIic_Config::BaseAddress</a>, <a class="el" href="struct_x_iic.html#a389e4b8500329c37d7835098408b5ed3">XIic::BaseAddress</a>, <a class="el" href="struct_x_iic___config.html#acab9a6750ed1288bc87868653feaf70e">XIic_Config::IntrId</a>, <a class="el" href="struct_x_iic___config.html#a30b5d6af72a05a175b7af553f8eef939">XIic_Config::IntrParent</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#aef5a773ba971f9637cdc57c2c5f037ff">PMBUS_CMD_READ_TEMP</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#ad345bccf457826be9f894cb922452219">PMBUS_CMD_READ_VOUT</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a872f2f314f8e720ab639f76056ea1e7c">PMBUS_SLAVE_ADDR</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#ac21613290ae2c73274231e4c78ddc09f">PMBUS_VOUT_EXPONENT</a>, <a class="el" href="xiic__dynamic__eeprom__example_8c.html#af87b2a3712f19c0723e6b945b30cd2cc">ReadBuffer</a>, <a class="el" href="group__iic.html#gace6af337aea33e4f162897b40591e0ac">XII_ADDR_TO_SEND_TYPE</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a028d21c1d779d7c992e41b11d876de26">XIIC_BASEADDRESS</a>, <a class="el" href="group__iic__api.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>, <a class="el" href="group__iic.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">XIic_InterruptHandler()</a>, <a class="el" href="group__iic__api.html#ga7071fcf4cf60d65fd862653fa34faa21">XIic_IntrGlobalEnable</a>, <a class="el" href="group__iic.html#ga9a97d3d56689e80a6773701e1bf0e808">XIic_LookupConfig()</a>, <a class="el" href="group__iic__api.html#gad944f42c3d9972fc2c986a7eed726297">XIic_SetAddress()</a>, <a class="el" href="group__iic__api.html#ga86b4b2b307df26df2ecac39337c78bed">XIic_SetRecvHandler()</a>, <a class="el" href="group__iic__api.html#gad33428830e9016ef50c1deae59d1e604">XIic_SetSendHandler()</a>, <a class="el" href="group__iic__api.html#gaa74a6884f6dfc826a10768d7d0333991">XIic_SetStatusHandler()</a>, and <a class="el" href="group__iic__api.html#ga5f4e497710a9c3719f27d40faa74a10f">XIic_Start()</a>.</p>
 
 <p>Referenced by <a class="el" href="xiic__pmbus__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -438,10 +495,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Write buffer used for IIC data transmission. </p>
-<p>Main function to call the PMBus interrupt example.</p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Runs the PMBus interrupt example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 <p>Run the PMBus example.</p>
 
 <p>References <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>.</p>
@@ -459,7 +518,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Flag to check completion of Reception. </p>
+<p>Error event flag set by the IIC interrupt handler. </p>
+
+</div>
+</div>
+<a class="anchor" id="a82ac42ea08442144b4d372ff9f7740c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_iic.html">XIic</a> IicInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the IIC device. </p>
 
 </div>
 </div>
@@ -473,7 +546,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Flag to check completion of Transmission. </p>
+<p>Flag to check completion of Reception. </p>
 
 </div>
 </div>
@@ -487,7 +560,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The instance of the IIC device. </p>
+<p>Flag to check completion of Transmission. </p>
 
 </div>
 </div>
@@ -501,7 +574,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Error event flag set by the IIC interrupt handler. </p>
+<p>Write buffer used for IIC data transmission. </p>
 
 </div>
 </div>

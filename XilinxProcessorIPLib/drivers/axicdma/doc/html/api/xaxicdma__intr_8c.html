@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li><a href="pages.html"><span>Examples</span></a></li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxicdma__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +110,17 @@ $(document).ready(function(){initNavTree('xaxicdma__intr_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga9f146fe224ea4c9a86477de3030dd79a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga9f146fe224ea4c9a86477de3030dd79a">XAxiCdma_IntrEnable</a> (XAxiCdma *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga9f146fe224ea4c9a86477de3030dd79a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables interrupts specified by the Mask.  <a href="group__axicdma.html#ga9f146fe224ea4c9a86477de3030dd79a">More...</a><br/></td></tr>
+<tr class="memitem:ga9f146fe224ea4c9a86477de3030dd79a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga9f146fe224ea4c9a86477de3030dd79a">XAxiCdma_IntrEnable</a> (<a class="el" href="struct_x_axi_cdma.html">XAxiCdma</a> *InstancePtr, u32 Mask)</td></tr>
+<tr class="memdesc:ga9f146fe224ea4c9a86477de3030dd79a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables interrupts specified by the Mask.  <a href="group__axicdma.html#ga9f146fe224ea4c9a86477de3030dd79a">More...</a><br/></td></tr>
 <tr class="separator:ga9f146fe224ea4c9a86477de3030dd79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a269e884ce6e3552313521dea8032b6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga1a269e884ce6e3552313521dea8032b6">XAxiCdma_IntrGetEnabled</a> (XAxiCdma *InstancePtr)</td></tr>
-<tr class="memdesc:ga1a269e884ce6e3552313521dea8032b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the mask for the interrupts that are currently enabled.  <a href="group__axicdma.html#ga1a269e884ce6e3552313521dea8032b6">More...</a><br/></td></tr>
+<tr class="memitem:ga1a269e884ce6e3552313521dea8032b6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga1a269e884ce6e3552313521dea8032b6">XAxiCdma_IntrGetEnabled</a> (<a class="el" href="struct_x_axi_cdma.html">XAxiCdma</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga1a269e884ce6e3552313521dea8032b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the mask for currently enabled interrupts.  <a href="group__axicdma.html#ga1a269e884ce6e3552313521dea8032b6">More...</a><br/></td></tr>
 <tr class="separator:ga1a269e884ce6e3552313521dea8032b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabdccf08d74f4e037b06a36a2e9db2877"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable</a> (XAxiCdma *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gabdccf08d74f4e037b06a36a2e9db2877"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables interrupts specified by the Mask.  <a href="group__axicdma.html#gabdccf08d74f4e037b06a36a2e9db2877">More...</a><br/></td></tr>
+<tr class="memitem:gabdccf08d74f4e037b06a36a2e9db2877"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable</a> (<a class="el" href="struct_x_axi_cdma.html">XAxiCdma</a> *InstancePtr, u32 Mask)</td></tr>
+<tr class="memdesc:gabdccf08d74f4e037b06a36a2e9db2877"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables interrupts specified by the Mask.  <a href="group__axicdma.html#gabdccf08d74f4e037b06a36a2e9db2877">More...</a><br/></td></tr>
 <tr class="separator:gabdccf08d74f4e037b06a36a2e9db2877"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8acd5bf5f5f072c6e425a8cc1b589498"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axicdma.html#ga8acd5bf5f5f072c6e425a8cc1b589498">XAxiCdma_IntrHandler</a> (void *HandlerRef)</td></tr>
-<tr class="memdesc:ga8acd5bf5f5f072c6e425a8cc1b589498"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver, it handles all the interrupts.  <a href="group__axicdma.html#ga8acd5bf5f5f072c6e425a8cc1b589498">More...</a><br/></td></tr>
+<tr class="memdesc:ga8acd5bf5f5f072c6e425a8cc1b589498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles driver interrupts, it handles all the interrupts.  <a href="group__axicdma.html#ga8acd5bf5f5f072c6e425a8cc1b589498">More...</a><br/></td></tr>
 <tr class="separator:ga8acd5bf5f5f072c6e425a8cc1b589498"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

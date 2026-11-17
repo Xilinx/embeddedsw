@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('mmi__dpdc__example_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mmi_dpdc_example.h File Reference</div>  </div>
 </div><!--header-->
@@ -135,6 +136,12 @@ Macros</h2></td></tr>
 <tr class="memitem:ad00f5a4497e1ea61e5af71a571c6740b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__example_8h.html#ad00f5a4497e1ea61e5af71a571c6740b">__MMI_DPDC_EXAMPLE_H__</a></td></tr>
 <tr class="memdesc:ad00f5a4497e1ea61e5af71a571c6740b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="#ad00f5a4497e1ea61e5af71a571c6740b">More...</a><br/></td></tr>
 <tr class="separator:ad00f5a4497e1ea61e5af71a571c6740b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5615c1a208b9f4897040f89bcf5b4f6c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dpdc__example_8h.html#a5615c1a208b9f4897040f89bcf5b4f6c">XDpDc_GetAudSampleRateHz</a> (u8 AudioFrequency)</td></tr>
+<tr class="memdesc:a5615c1a208b9f4897040f89bcf5b4f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the audio sample rate in Hz for a sample frequency selector.  <a href="#a5615c1a208b9f4897040f89bcf5b4f6c">More...</a><br/></td></tr>
+<tr class="separator:a5615c1a208b9f4897040f89bcf5b4f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ad00f5a4497e1ea61e5af71a571c6740b"></a>
@@ -148,6 +155,36 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Prevent circular inclusions by using protection macros. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a5615c1a208b9f4897040f89bcf5b4f6c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDpDc_GetAudSampleRateHz </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>AudioFrequency</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the audio sample rate in Hz for a sample frequency selector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AudioFrequency</td><td>is the sample frequency selector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sample rate in Hz, or XDPDC_AUD_RATE_UNSUPPORTED_HZ if the selector is not supported. </dd></dl>
+
+<p>References <a class="el" href="xdcsub_8h.html#a65e6a502a143e97cc356e8fbaa027bdb">XDCSUB_AUDIO_FREQ_MAX</a>.</p>
+
+<p>Referenced by <a class="el" href="mmi__dpdc__menus_8h.html#a6ed49c1ca08ecf19af7bdd721bbaa33f">XDpDc_DisplayConfig()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>, and <a class="el" href="mmi__dpdc__menus_8h.html#a4478f802d7e122a29e231d39d32c1147">XDpDc_MenuLoop()</a>.</p>
 
 </div>
 </div>

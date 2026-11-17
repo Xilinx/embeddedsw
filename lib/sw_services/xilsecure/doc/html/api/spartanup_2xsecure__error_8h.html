@@ -115,7 +115,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 5.6   tus  08/19/2025 Add error codes for SHA
 5.7   tvp  02/19/2026 Added XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
       mb   03/13/2026 Add support for ECC curves for SPARTANUPLUSAES1 device
-      mb   04/17/2026 Add error code XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      mb   04/17/2026 Add error code XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED
+5.8   tvp  05/17/2026 Remove XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -153,115 +154,114 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da917d756770d2ee6e35e23d14784e9571">XSECURE_SHA_DMA_TRANSFER_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dab925a467d83b4df75182c9da5213fd79">XSECURE_SHA_PADDING_BUFFER_INIT_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da19400794fb8c83709bd0e717166d72b1">XSECURE_SHA_NIST_PADDING_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5bbf6086b98a7497000d097fdfeefb26">XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf57f2308b32da6892b83838f0c1089e2">XSECURE_RESERVED_SHA1</a> = 0x30,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf57f2308b32da6892b83838f0c1089e2">XSECURE_RESERVED_SHA1</a> = 0x30,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da473195c49fcd3be96311f009e354fa48">XSECURE_AES_GCM_TAG_MISMATCH</a> = 0x40,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da473195c49fcd3be96311f009e354fa48">XSECURE_AES_GCM_TAG_MISMATCH</a> = 0x40,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da76b98334d6644a365588e55bd6dfcb0e">XSECURE_AES_KEY_CLEAR_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da90061f62208adcedc0527bc0539fe081">XSECURE_AES_DPA_CM_NOT_SUPPORTED</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daadbe44e20e57bb805f6159aa21d95a19">XSECURE_AES_INVALID_PARAM</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daadbe44e20e57bb805f6159aa21d95a19">XSECURE_AES_INVALID_PARAM</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2">XSECURE_AES_STATE_MISMATCH_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc47a7e8e079ea3b61729bb366e5b8e2">XSECURE_AES_STATE_MISMATCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da70aefb1743e70c7929fd8cd61a826957">XSECURE_AES_DEVICE_KEY_NOT_ALLOWED</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3ed18f8c5ffcab22fa5659fa69ba1c70">XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f">XSECURE_AES_UNALIGNED_SIZE_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f">XSECURE_AES_UNALIGNED_SIZE_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3f18036e699931b45af368fec5209942">XSECURE_AES_INVALID_MODE</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3f18036e699931b45af368fec5209942">XSECURE_AES_INVALID_MODE</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da2fda03187ed24897deb551730db5d7dd">XSECURE_AES_KAT_DATA_MISMATCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da4b9b4090d10d4c1030e23e3130833495">XSECURE_AES_KAT_FAILED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5dfed5555e46d48451bb2345028c909a">XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5dfed5555e46d48451bb2345028c909a">XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da7863b4c9a5c8ddc9ca0f658bff0e887e">XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da7863b4c9a5c8ddc9ca0f658bff0e887e">XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa97a22290a4e6e26fc49338a4f216fe5">XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf26011e5420631afa29846768749df37">XSECURE_AESDPACM_KAT_FAILED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb">XSECURE_AESKAT_INVALID_PARAM</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf9af68710576ff8ec15632d615f8b2eb">XSECURE_AESKAT_INVALID_PARAM</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabfee7bb020c6efb04d5ae74068e1e32d">XSECURE_AES_DMA_COMPONENT_IS_NOT_READY</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabfee7bb020c6efb04d5ae74068e1e32d">XSECURE_AES_DMA_COMPONENT_IS_NOT_READY</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc4cea3870255f81c6afc5b0af4c7112">XSECURE_LMS_INVALID_PARAM</a> = 0x95,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dae83d2b01f972d0ee87da7a43db16bfb1">XSECURE_LMS_OTS_PUB_KEY_SIGN_TYPE_MISMATCH_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa15d24504679d0c2ed1521469fa6ab66">XSECURE_LMS_TYPE_UNSUPPORTED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa15d24504679d0c2ed1521469fa6ab66">XSECURE_LMS_TYPE_UNSUPPORTED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5b5ca03645d66f1e6bd95539a5928abf">XSECURE_LMS_TYPE_LOOKUP_GLITCH_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5b5ca03645d66f1e6bd95539a5928abf">XSECURE_LMS_TYPE_LOOKUP_GLITCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da653a419d3351c5f2229333ba3363b74b">XSECURE_LMS_OTS_SIGN_SHA_DIGEST_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5aa113c8a3d77d5dc864af5c2f809849">XSECURE_LMS_OTS_SIGN_UNSUPPORTED_TYPE_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da42b2d136194158b45491f3861c11ccf5">XSECURE_AUTH_LMS_OTS_INVALID_SIGN_ADDR_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da42b2d136194158b45491f3861c11ccf5">XSECURE_AUTH_LMS_OTS_INVALID_SIGN_ADDR_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dae72d8e6b308b80d0dd709b9014030c78">XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dae72d8e6b308b80d0dd709b9014030c78">XSECURE_AUTH_LMS_DIGEST_CHECKSUM_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da484ce5a3516b19b4456da11579260a1b">XSECURE_LMS_OTS_DIGEST_CHECKSUM_OP_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9299ca106a9be8ad23a25deb4631a861">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_ADDR_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabb871025ef657445add8755e5a6e0077">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_1_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabb871025ef657445add8755e5a6e0077">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_1_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da2c7f67cb007825061cea0a8122d147ec">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da2c7f67cb007825061cea0a8122d147ec">XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da7f5d9c0c614cfee7db08b6f2055ba01c">XSECURE_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da81f1e66a1def2c74088c6379ebb1dec0">XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3222b24cc7e8f18f476ee02b2bb7ba5e">XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3222b24cc7e8f18f476ee02b2bb7ba5e">XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da98a27e16a848106c4ab8d9ebb79bd4c0">XSECURE_LMS_SIGN_LEN_1_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da98a27e16a848106c4ab8d9ebb79bd4c0">XSECURE_LMS_SIGN_LEN_1_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dae6754836b479318194650d53a7c9365d">XSECURE_LMS_SIGN_LEN_2_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da471748e6250c24aceb61a32058dd3b90">XSECURE_LMS_SIGN_LEN_3_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3838867affba78273af36014f0b9760e">XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3838867affba78273af36014f0b9760e">XSECURE_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9ea2747433f1e061789903601a1cf051">XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9ea2747433f1e061789903601a1cf051">XSECURE_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa21082e86fb0821385f0008058ae4d2d">XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da30bdd1e0d54a423fbea077ec00c4d80f">XSECURE_LMS_SIGN_OTS_OP_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da37b05f89e934ac2aa17d94e35f8dd41b">XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da37b05f89e934ac2aa17d94e35f8dd41b">XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daebb63f40baaa306c4a9893bf6a870768">XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daebb63f40baaa306c4a9893bf6a870768">XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da08499b9b367065551b28ea39c50b351c">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da564d39418f8c35c24e44b43c54d757aa">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9d64d3ba385e778eb5c2311152ffd191">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da9d64d3ba385e778eb5c2311152ffd191">XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dac0142a99044b248cf9de44cd80563c52">XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dac0142a99044b248cf9de44cd80563c52">XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da6eeb0389b0125b67b3178bee78128212">XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L1_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf40b6edb4ff764ab240938927be24347">XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_1_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacf8252635e76d70b0536fa4b33d8317a">XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacf8252635e76d70b0536fa4b33d8317a">XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5dc988f13f1f51c4c3e28ed3fee3cb69">XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5dc988f13f1f51c4c3e28ed3fee3cb69">XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da6dea4359a1cea07a02d4a26c5acc848b">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa8d2dfa0aff23197491bff52bcbf0916">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da1a9aa90f5ad11fbbd676f0924422f8f3">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da1a9aa90f5ad11fbbd676f0924422f8f3">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da78bf5b8f8b158337aa879149df9d7a0c">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da78bf5b8f8b158337aa879149df9d7a0c">XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dadfc7f0aec695048344c249c41e2c978a">XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da34749cfcbb65dd2fa62831a32abc7be4">XSECURE_LMS_HSS_SIGN_INVALID_LEN_1_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa43c6fd9a4e0fdf95b4fe6ae9bd0de6d">XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa43c6fd9a4e0fdf95b4fe6ae9bd0de6d">XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da52cea29488d9d09504cc25b98ba237a7">XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da52cea29488d9d09504cc25b98ba237a7">XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daf5c31047d3007a3c183c1f784f3aa5b6">XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da867397d1c5d08fd88cdee4694314eeff">XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da55f0f498095633533d71c4610b650062">XSECURE_LMS_HSS_L1_PUB_KEY_AUTH_FAILED_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da55f0f498095633533d71c4610b650062">XSECURE_LMS_HSS_L1_PUB_KEY_AUTH_FAILED_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da958288d2bb37e171f3218ccd44da3e94">XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da958288d2bb37e171f3218ccd44da3e94">XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da83a91144eee447ba46ba68d051d8875c">XSECURE_LMS_PUB_OP_FAILED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da02868afd108384a2fb0ada70a7e5e66c">XSECURE_LMS_PUB_OP_FAILED_1_ERROR</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da6d64080b375d7a684165177f5467469b">XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da6d64080b375d7a684165177f5467469b">XSECURE_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc6b3fc14a0503e220be85b8c04f88a9">XSECURE_LMS_OTS_TYPE_UNSUPPORTED_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc6b3fc14a0503e220be85b8c04f88a9">XSECURE_LMS_OTS_TYPE_UNSUPPORTED_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da6ed7cfb9208ac3bc2fa03c7f076878e5">XSECURE_LMS_OTS_TYPE_LOOKUP_GLITCH_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8671fb5c337fdafd4371858e46e6c945">XSECURE_LMS_MEM_COPY_ERROR</a> = 0xD9,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dada7495e2a868464d30553e806b0d4400">XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dada7495e2a868464d30553e806b0d4400">XSECURE_LMS_HSS_KEY_ZEROIZE_ERROR</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa001a8379fcff725db2105456726de68">XSECURE_ELLIPTIC_NON_SUPPORTED_CRV</a> = 0xC6,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa001a8379fcff725db2105456726de68">XSECURE_ELLIPTIC_NON_SUPPORTED_CRV</a> = 0xC6,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da83b58599bb19054f82b8b0ae035b789a">XSECURE_ELLIPTIC_KEY_ZERO</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da0faf938abdac9e0d6c8a949493431c61">XSECURE_ELLIPTIC_KEY_WRONG_ORDER</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da11a5820deacf8cd6d5e0576b268fc1a0">XSECURE_ELLIPTIC_KEY_NOT_ON_CRV</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da11a5820deacf8cd6d5e0576b268fc1a0">XSECURE_ELLIPTIC_KEY_NOT_ON_CRV</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da18a716562563208f5e88a88ec50df500">XSECURE_ELLIPTIC_BAD_SIGN</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da18a716562563208f5e88a88ec50df500">XSECURE_ELLIPTIC_BAD_SIGN</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5cfe27959e40581cb43ced3a3451bdeb">XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dacc2d05ce3aeec10732ec209e18031720">XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da127805b39c4ad4d4140a913b1bf3ce25">XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da127805b39c4ad4d4140a913b1bf3ce25">XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8139861ed2172f9e08100898cb7ecbbc">XSECURE_ELLIPTIC_GEN_KEY_ERR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8139861ed2172f9e08100898cb7ecbbc">XSECURE_ELLIPTIC_GEN_KEY_ERR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec">XSECURE_ELLIPTIC_INVALID_PARAM</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da5da0de9f27b7012473ee7f7e0e4d0747">XSECURE_ELLIPTIC_VER_SIGN_R_ZERO</a>,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da77bc8e1afed29bac66f985179da277d8">XSECURE_ELLIPTIC_VER_SIGN_S_ZERO</a>,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da77bc8e1afed29bac66f985179da277d8">XSECURE_ELLIPTIC_VER_SIGN_S_ZERO</a>,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da15e2df039013013886c345c133edc35e">XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR</a>,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da15e2df039013013886c345c133edc35e">XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dac1c1e6e13381f0a298de3233ef6104ee">XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da432abf378aa4bad748485cf4c276628e">XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED</a> = 0xF4,
+<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dad656187ce5e8c1711546967df1096f79">XSECURE_ERR_INVALID_CORE</a> = 0xF5,
 <br/>
-&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dad656187ce5e8c1711546967df1096f79">XSECURE_ERR_INVALID_CORE</a> = 0xF5,
-<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb">XSECURE_ERR_GLITCH_DETECTED</a> = 0xFC,
+&#160;&#160;<a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb">XSECURE_ERR_GLITCH_DETECTED</a> = 0xFC,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da3c1f331839ddf7c640d82b3e386b56ae">XSECURE_ERR_IN_TRNG_SELF_TESTS</a>,
 <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da8c7cd84b41f1e78398e90ed2841d644f">XSECURE_ERR_TRNG_INIT_N_CONFIG</a>
 <br/>
@@ -391,9 +391,6 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da19400794fb8c83709bd0e717166d72b1"></a>XSECURE_SHA_NIST_PADDING_ERROR</em>&nbsp;</td><td class="fielddoc">
 <p>0x10 - Error during NIST padding operation </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2da5bbf6086b98a7497000d097fdfeefb26"></a>XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR</em>&nbsp;</td><td class="fielddoc">
-<p>0x11 - Error when requested hash size exceeds maximum supported hash size </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a0411cd49bb5b71852cecd93bcbf0ca2daf57f2308b32da6892b83838f0c1089e2"></a>XSECURE_RESERVED_SHA1</em>&nbsp;</td><td class="fielddoc">
 <p>0x30 - Reserved for SHA1 </p>

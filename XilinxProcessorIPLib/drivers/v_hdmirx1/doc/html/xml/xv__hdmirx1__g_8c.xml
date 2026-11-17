@@ -13,6 +13,9 @@
       <node id="64">
         <label>sleep.h</label>
       </node>
+      <node id="69">
+        <label>xdebug.h</label>
+      </node>
       <node id="72">
         <label>xv_hdmirx1_frl.h</label>
         <childnode refid="73" relation="include">
@@ -20,33 +23,6 @@
         <childnode refid="67" relation="include">
         </childnode>
         <childnode refid="68" relation="include">
-        </childnode>
-      </node>
-      <node id="69">
-        <label>xdebug.h</label>
-      </node>
-      <node id="68">
-        <label>xstatus.h</label>
-      </node>
-      <node id="70">
-        <label>xvidc.h</label>
-      </node>
-      <node id="73">
-        <label>xil_types.h</label>
-      </node>
-      <node id="65">
-        <label>xv_hdmirx1_hw.h</label>
-        <link refid="xv__hdmirx1__hw_8h"/>
-        <childnode refid="66" relation="include">
-        </childnode>
-      </node>
-      <node id="71">
-        <label>xv_hdmic.h</label>
-      </node>
-      <node id="62">
-        <label>xv_hdmirx1_g.c</label>
-        <link refid="xv_hdmirx1_g.c"/>
-        <childnode refid="63" relation="include">
         </childnode>
       </node>
       <node id="63">
@@ -71,8 +47,32 @@
         <childnode refid="74" relation="include">
         </childnode>
       </node>
+      <node id="68">
+        <label>xstatus.h</label>
+      </node>
+      <node id="70">
+        <label>xvidc.h</label>
+      </node>
+      <node id="73">
+        <label>xil_types.h</label>
+      </node>
+      <node id="71">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="65">
+        <label>xv_hdmirx1_hw.h</label>
+        <link refid="xv__hdmirx1__hw_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
       <node id="74">
         <label>xparameters.h</label>
+      </node>
+      <node id="62">
+        <label>xv_hdmirx1_g.c</label>
+        <link refid="xv_hdmirx1_g.c"/>
+        <childnode refid="63" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c" bodystart="18" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c" bodystart="18" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -143,6 +143,6 @@
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_g.c"/>
   </compounddef>
 </doxygen>

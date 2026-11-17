@@ -6,47 +6,47 @@
     <includes local="yes">xcsi.h</includes>
     <includes refid="xcsiss_8h" local="yes">xcsiss.h</includes>
     <incdepgraph>
-      <node id="1508">
+      <node id="1545">
         <label>xil_io.h</label>
       </node>
-      <node id="1507">
-        <label>xcsiss_hw.h</label>
-        <link refid="xcsiss__hw_8h"/>
-        <childnode refid="1508" relation="include">
-        </childnode>
-      </node>
-      <node id="1503">
+      <node id="1540">
         <label>xcsi.h</label>
       </node>
-      <node id="1506">
+      <node id="1543">
         <label>xdebug.h</label>
       </node>
-      <node id="1504">
-        <label>xcsiss.h</label>
-        <link refid="xcsiss_8h"/>
-        <childnode refid="1505" relation="include">
-        </childnode>
-        <childnode refid="1503" relation="include">
-        </childnode>
-        <childnode refid="1506" relation="include">
-        </childnode>
-        <childnode refid="1507" relation="include">
+      <node id="1544">
+        <label>xcsiss_hw.h</label>
+        <link refid="xcsiss__hw_8h"/>
+        <childnode refid="1545" relation="include">
         </childnode>
       </node>
-      <node id="1505">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1502">
-        <label>xparameters.h</label>
-      </node>
-      <node id="1501">
+      <node id="1538">
         <label>xcsiss_intr.c</label>
         <link refid="xcsiss_intr.c"/>
-        <childnode refid="1502" relation="include">
+        <childnode refid="1539" relation="include">
         </childnode>
-        <childnode refid="1503" relation="include">
+        <childnode refid="1540" relation="include">
         </childnode>
-        <childnode refid="1504" relation="include">
+        <childnode refid="1541" relation="include">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1539">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1541">
+        <label>xcsiss.h</label>
+        <link refid="xcsiss_8h"/>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1544" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -86,10 +86,10 @@ The application is responsible for connecting this function to the interrupt sys
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="72" bodyend="81"/>
-        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
-        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="72" bodyend="81"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="245">XCsiSs::CsiPtr</references>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="195" endline="314">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csiss_1ga806675fd5dc154656f12869b549e916a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -197,10 +197,10 @@ XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="117" bodyend="132"/>
-        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
-        <references refid="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" compoundref="xcsiss_8h" startline="254">XCsiSs::IsReady</references>
-        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="117" bodyend="132"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="245">XCsiSs::CsiPtr</references>
+        <references refid="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" compoundref="xcsiss_8h" startline="243">XCsiSs::IsReady</references>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="195" endline="314">CsiSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -255,8 +255,8 @@ XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="147" bodyend="155"/>
-        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="147" bodyend="155"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="245">XCsiSs::CsiPtr</references>
         <references refid="group__csiss_1gaf23dc8ba1af93a7c2ecccbe7c0ebe98e" compoundref="xcsiss__hw_8h" startline="79">XCSISS_ISR_ALLINTR_MASK</references>
       </memberdef>
       </sectiondef>
@@ -336,6 +336,6 @@ XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
 <codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_IntrDisable(InstancePtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref>,<sp/>IntrMask);</highlight></codeline>
 <codeline lineno="155"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c"/>
   </compounddef>
 </doxygen>

@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___cmd_upiu.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,18 +105,62 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___cmd_upiu.html','')
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XUfsPsxc_CmdUpiu Struct Reference<div class="ingroups"><a class="el" href="group__ufspsxc.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Command UPIU Structure.
+<p>Holds a SCSI command UPIU payload.
  <a href="struct_x_ufs_psxc___cmd_upiu.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a5686f280c6ddfc4c7852586d6c4f6eea"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___cmd_upiu.html#a5686f280c6ddfc4c7852586d6c4f6eea">ExpDataXferLen</a></td></tr>
+<tr class="memdesc:a5686f280c6ddfc4c7852586d6c4f6eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected data transfer length (bytes).  <a href="#a5686f280c6ddfc4c7852586d6c4f6eea">More...</a><br/></td></tr>
+<tr class="separator:a5686f280c6ddfc4c7852586d6c4f6eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227d52a3623e1b21cff8053f001dd318"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___cmd_upiu.html#a227d52a3623e1b21cff8053f001dd318">scsi_cdb</a> [16U]</td></tr>
+<tr class="memdesc:a227d52a3623e1b21cff8053f001dd318"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCSI Command Descriptor Block.  <a href="#a227d52a3623e1b21cff8053f001dd318">More...</a><br/></td></tr>
+<tr class="separator:a227d52a3623e1b21cff8053f001dd318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Command UPIU Structure. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds a SCSI command UPIU payload. </p>
+<p>Command UPIU Structure </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5686f280c6ddfc4c7852586d6c4f6eea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_CmdUpiu::ExpDataXferLen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Expected data transfer length (bytes). </p>
+
+<p>Referenced by <a class="el" href="group__ufspsxc__api.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a227d52a3623e1b21cff8053f001dd318"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XUfsPsxc_CmdUpiu::scsi_cdb[16U]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SCSI Command Descriptor Block. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

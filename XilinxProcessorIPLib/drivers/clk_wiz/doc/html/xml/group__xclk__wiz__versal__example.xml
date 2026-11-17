@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xclk__wiz__versal__example" kind="group">
+    <compoundname>xclk_wiz_versal_example</compoundname>
+    <title>Xclk_wiz_versal_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xclk__wiz__versal__example_1gafe1f538083ba57672c15775f0d15739d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref></type>
+        <definition>XClk_Wiz ClkWiz_Dynamic</definition>
+        <argsstring></argsstring>
+        <name>ClkWiz_Dynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1ga91d283445c401eebe2a05eff4c549363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 ClkWiz_Example</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>ClkWiz_Example</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs the CLK_WIZ rate example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the main entry point for the versal example using the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> driver. This function sets up the system with interrupts handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the system setup failed.</para></listitem><listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XClk_WaitForLock</definition>
+        <argsstring>(XClk_Wiz_Config *CfgPtr_Dynamic)</argsstring>
+        <name>XClk_WaitForLock</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref> *</type>
+          <declname>CfgPtr_Dynamic</declname>
+        </param>
+        <briefdescription>
+<para>Waits for the dynamic clock wizard to lock. </para>        </briefdescription>
+        <detaileddescription>
+<para>Waits for the lock to settle after a frequency change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CfgPtr_Dynamic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides pointer to clock wizard dynamic config.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the lock occurs.</para></listitem><listitem><para>XST_FAILURE if timeout. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="106" bodyend="118"/>
+        <references refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" compoundref="xclk__wiz_8h" startline="189">XClk_Wiz_Config::BaseAddr</references>
+        <references refid="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" compoundref="xclk__wiz__versal__example_8c" startline="68">CLK_LOCK</references>
+        <references refid="group__clk__wiz__api_1ga38a1af73dd61e339615ff6d772c67bd6" compoundref="xclk__wiz__hw_8h" startline="74">XCLK_WIZ_REG4_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Runs the CLK_WIZ example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the main function for <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> rate example. If the ClkWiz_Example function which sets up the system succeeds, this function sets the desired rate.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the interrupt example was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>main returns after ClkWiz_Example completes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="136" bodyend="157"/>
+        <references refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="150" endline="203">ClkWiz_Example</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" prot="public" static="no">
+        <name>CLK_LOCK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Clock-lock status bit value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" compoundref="xclk__wiz__versal__example_8c" startline="106" endline="118">XClk_WaitForLock</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

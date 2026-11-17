@@ -34,13 +34,6 @@
     <member refid="group__ipipsu__api_1ga429d934e93e38c71d92ad98775b9cd92" kind="function"><name>XIpiPsu_WriteMessage</name></member>
   </compound>
   <compound refid="xipipsu_8h" kind="file"><name>xipipsu.h</name>
-    <member refid="group__ipipsu_1gaad130b0ac7cc7a948fa636e7a2000bed" kind="define"><name>XIPIPSU_BUF_TYPE_MSG</name></member>
-    <member refid="group__ipipsu_1gad0b378b86976236e743f8a75ed9f8d8d" kind="define"><name>XIPIPSU_BUF_TYPE_RESP</name></member>
-    <member refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kind="define"><name>XIPIPSU_CRC_INDEX</name></member>
-    <member refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kind="define"><name>XIPIPSU_W0_TO_W6_SIZE</name></member>
-    <member refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" kind="define"><name>XIPIPSU_CRC_ERROR</name></member>
-    <member refid="group__ipipsu_1ga2d1f1a28e0f7355b25520ccb9ff0a77b" kind="define"><name>ENABLE_IPI_CRC_VAL</name></member>
-    <member refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kind="define"><name>XIPIPSU_MAX_MSG_LEN</name></member>
     <member refid="group__ipipsu_1gaf1cab31a5860df46d9182d8587c57775" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_0_CH0_MASK</name></member>
     <member refid="group__ipipsu_1gaac47aebd25b474f2a858115f3b9a058a" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_1_CH0_MASK</name></member>
     <member refid="group__ipipsu_1gadbb410ea074fd7b121e92900d209d5e3" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_2_CH0_MASK</name></member>
@@ -51,6 +44,13 @@
     <member refid="group__ipipsu_1ga7eae3c9e9081ea6c4fadc08efdf4ba63" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_1_CH0_MASK</name></member>
     <member refid="group__ipipsu_1ga750ab7b76dd81747517faa1506aa77a8" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_2_CH0_MASK</name></member>
     <member refid="group__ipipsu_1ga6f4b82d3c3f422822fdbc397908ea626" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_3_CH0_MASK</name></member>
+    <member refid="group__ipipsu_1gaad130b0ac7cc7a948fa636e7a2000bed" kind="define"><name>XIPIPSU_BUF_TYPE_MSG</name></member>
+    <member refid="group__ipipsu_1gad0b378b86976236e743f8a75ed9f8d8d" kind="define"><name>XIPIPSU_BUF_TYPE_RESP</name></member>
+    <member refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kind="define"><name>XIPIPSU_CRC_INDEX</name></member>
+    <member refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kind="define"><name>XIPIPSU_W0_TO_W6_SIZE</name></member>
+    <member refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" kind="define"><name>XIPIPSU_CRC_ERROR</name></member>
+    <member refid="group__ipipsu_1ga2d1f1a28e0f7355b25520ccb9ff0a77b" kind="define"><name>ENABLE_IPI_CRC_VAL</name></member>
+    <member refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kind="define"><name>XIPIPSU_MAX_MSG_LEN</name></member>
     <member refid="group__ipipsu_1gac400a6861c1d0ee565ad5fac914a7220" kind="define"><name>XIpiPsu_ReadReg</name></member>
     <member refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" kind="define"><name>XIpiPsu_WriteReg</name></member>
     <member refid="group__ipipsu_1gaa4e2694e0d28168f195f87583a34190c" kind="define"><name>XIpiPsu_InterruptEnable</name></member>
@@ -66,21 +66,21 @@
     <member refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" kind="function"><name>XIpiPsu_PollForAck</name></member>
     <member refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" kind="function"><name>XIpiPsu_ReadMessage</name></member>
     <member refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" kind="function"><name>XIpiPsu_WriteMessage</name></member>
-    <member refid="group__ipipsu_1gab4466706c8ede1b9b6e5b592a075afa7" kind="function"><name>XIpiPsu_SetConfigTable</name></member>
   </compound>
   <compound refid="xipipsu__buf_8c" kind="file"><name>xipipsu_buf.c</name>
-    <member refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" kind="function"><name>XIpiPsu_GetBufferAddress</name></member>
+    <member refid="group__ipipsu__api_1ga09ecec5ff12505d68ceebf1914b8b30f" kind="function"><name>XIpiPsu_GetBufferAddress</name></member>
   </compound>
   <compound refid="xipipsu__buf_8h" kind="file"><name>xipipsu_buf.h</name>
+    <member refid="group__ipipsu__api_1ga09ecec5ff12505d68ceebf1914b8b30f" kind="function"><name>XIpiPsu_GetBufferAddress</name></member>
+    <member refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" kind="function"><name>XIpiPsu_GetBufferIndex</name></member>
   </compound>
   <compound refid="xipipsu__g_8c" kind="file"><name>xipipsu_g.c</name>
-    <member refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kind="variable"><name>XIpiPsu_ConfigTable</name></member>
+    <member refid="group__ipipsu__api_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kind="variable"><name>XIpiPsu_ConfigTable</name></member>
   </compound>
   <compound refid="xipipsu__helper_8c" kind="file"><name>xipipsu_helper.c</name>
     <member refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" kind="function"><name>XIpiPsu_GetBufferIndex</name></member>
   </compound>
   <compound refid="xipipsu__hw_8h" kind="file"><name>xipipsu_hw.h</name>
-    <member refid="group__ipipsu__api_1gaf92686c675ebd6fe4efc7213c7f8f204" kind="define"><name>XIPIPSU_HW_H_</name></member>
     <member refid="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" kind="define"><name>XIPIPSU_MSG_RAM_BASE</name></member>
     <member refid="group__ipipsu__api_1ga5989f697e24f79be32727d13ee3f4350" kind="define"><name>XIPIPSU_MSG_BUF_SIZE</name></member>
     <member refid="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" kind="define"><name>XIPIPSU_MAX_BUFF_INDEX</name></member>
@@ -111,16 +111,16 @@
     <member refid="group__ipipsu__api_1gacb9c27ce83faa62ddce4b6898ddb419e" kind="function"><name>XIpiPsu_LookupConfig</name></member>
   </compound>
   <compound refid="group__ipipsu__api" kind="group"><name>ipipsu_api</name>
+    <member refid="group__ipipsu__api_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kind="variable"><name>XIpiPsu_ConfigTable</name></member>
     <member refid="group__ipipsu__api_1ga9fb4494480ae0079422956f2af1da357" kind="function"><name>XIpiPsu_CfgInitialize</name></member>
     <member refid="group__ipipsu__api_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" kind="function"><name>XIpiPsu_Reset</name></member>
     <member refid="group__ipipsu__api_1ga8aa0005ec03abef3b3c1a506cb924e6e" kind="function"><name>XIpiPsu_TriggerIpi</name></member>
     <member refid="group__ipipsu__api_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" kind="function"><name>XIpiPsu_PollForAck</name></member>
     <member refid="group__ipipsu__api_1ga64113249dac23760b5cc0e9d038f8361" kind="function"><name>XIpiPsu_ReadMessage</name></member>
     <member refid="group__ipipsu__api_1ga429d934e93e38c71d92ad98775b9cd92" kind="function"><name>XIpiPsu_WriteMessage</name></member>
-    <member refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" kind="function"><name>XIpiPsu_GetBufferAddress</name></member>
+    <member refid="group__ipipsu__api_1ga09ecec5ff12505d68ceebf1914b8b30f" kind="function"><name>XIpiPsu_GetBufferAddress</name></member>
     <member refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" kind="function"><name>XIpiPsu_GetBufferIndex</name></member>
     <member refid="group__ipipsu__api_1gacb9c27ce83faa62ddce4b6898ddb419e" kind="function"><name>XIpiPsu_LookupConfig</name></member>
-    <member refid="group__ipipsu__api_1gaf92686c675ebd6fe4efc7213c7f8f204" kind="define"><name>XIPIPSU_HW_H_</name></member>
     <member refid="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" kind="define"><name>XIPIPSU_MSG_RAM_BASE</name></member>
     <member refid="group__ipipsu__api_1ga5989f697e24f79be32727d13ee3f4350" kind="define"><name>XIPIPSU_MSG_BUF_SIZE</name></member>
     <member refid="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" kind="define"><name>XIPIPSU_MAX_BUFF_INDEX</name></member>
@@ -138,22 +138,6 @@
     <member refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" kind="define"><name>XIPIPSU_ALL_MASK</name></member>
   </compound>
   <compound refid="group__ipipsu" kind="group"><name>ipipsu</name>
-    <member refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kind="variable"><name>XIpiPsu_ConfigTable</name></member>
-    <member refid="group__ipipsu_1gacb9c27ce83faa62ddce4b6898ddb419e" kind="function"><name>XIpiPsu_LookupConfig</name></member>
-    <member refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" kind="function"><name>XIpiPsu_CfgInitialize</name></member>
-    <member refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" kind="function"><name>XIpiPsu_Reset</name></member>
-    <member refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" kind="function"><name>XIpiPsu_TriggerIpi</name></member>
-    <member refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" kind="function"><name>XIpiPsu_PollForAck</name></member>
-    <member refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" kind="function"><name>XIpiPsu_ReadMessage</name></member>
-    <member refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" kind="function"><name>XIpiPsu_WriteMessage</name></member>
-    <member refid="group__ipipsu_1gab4466706c8ede1b9b6e5b592a075afa7" kind="function"><name>XIpiPsu_SetConfigTable</name></member>
-    <member refid="group__ipipsu_1gaad130b0ac7cc7a948fa636e7a2000bed" kind="define"><name>XIPIPSU_BUF_TYPE_MSG</name></member>
-    <member refid="group__ipipsu_1gad0b378b86976236e743f8a75ed9f8d8d" kind="define"><name>XIPIPSU_BUF_TYPE_RESP</name></member>
-    <member refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kind="define"><name>XIPIPSU_CRC_INDEX</name></member>
-    <member refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kind="define"><name>XIPIPSU_W0_TO_W6_SIZE</name></member>
-    <member refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" kind="define"><name>XIPIPSU_CRC_ERROR</name></member>
-    <member refid="group__ipipsu_1ga2d1f1a28e0f7355b25520ccb9ff0a77b" kind="define"><name>ENABLE_IPI_CRC_VAL</name></member>
-    <member refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kind="define"><name>XIPIPSU_MAX_MSG_LEN</name></member>
     <member refid="group__ipipsu_1gaf1cab31a5860df46d9182d8587c57775" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_0_CH0_MASK</name></member>
     <member refid="group__ipipsu_1gaac47aebd25b474f2a858115f3b9a058a" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_1_CH0_MASK</name></member>
     <member refid="group__ipipsu_1gadbb410ea074fd7b121e92900d209d5e3" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_CORTEXA53_2_CH0_MASK</name></member>
@@ -164,6 +148,21 @@
     <member refid="group__ipipsu_1ga7eae3c9e9081ea6c4fadc08efdf4ba63" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_1_CH0_MASK</name></member>
     <member refid="group__ipipsu_1ga750ab7b76dd81747517faa1506aa77a8" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_2_CH0_MASK</name></member>
     <member refid="group__ipipsu_1ga6f4b82d3c3f422822fdbc397908ea626" kind="define"><name>XPAR_XIPIPS_TARGET_PSU_PMU_3_CH0_MASK</name></member>
+    <member refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kind="variable"><name>XIpiPsu_ConfigTable</name></member>
+    <member refid="group__ipipsu_1gacb9c27ce83faa62ddce4b6898ddb419e" kind="function"><name>XIpiPsu_LookupConfig</name></member>
+    <member refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" kind="function"><name>XIpiPsu_CfgInitialize</name></member>
+    <member refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" kind="function"><name>XIpiPsu_Reset</name></member>
+    <member refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" kind="function"><name>XIpiPsu_TriggerIpi</name></member>
+    <member refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" kind="function"><name>XIpiPsu_PollForAck</name></member>
+    <member refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" kind="function"><name>XIpiPsu_ReadMessage</name></member>
+    <member refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" kind="function"><name>XIpiPsu_WriteMessage</name></member>
+    <member refid="group__ipipsu_1gaad130b0ac7cc7a948fa636e7a2000bed" kind="define"><name>XIPIPSU_BUF_TYPE_MSG</name></member>
+    <member refid="group__ipipsu_1gad0b378b86976236e743f8a75ed9f8d8d" kind="define"><name>XIPIPSU_BUF_TYPE_RESP</name></member>
+    <member refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kind="define"><name>XIPIPSU_CRC_INDEX</name></member>
+    <member refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kind="define"><name>XIPIPSU_W0_TO_W6_SIZE</name></member>
+    <member refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" kind="define"><name>XIPIPSU_CRC_ERROR</name></member>
+    <member refid="group__ipipsu_1ga2d1f1a28e0f7355b25520ccb9ff0a77b" kind="define"><name>ENABLE_IPI_CRC_VAL</name></member>
+    <member refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kind="define"><name>XIPIPSU_MAX_MSG_LEN</name></member>
     <member refid="group__ipipsu_1gac400a6861c1d0ee565ad5fac914a7220" kind="define"><name>XIpiPsu_ReadReg</name></member>
     <member refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" kind="define"><name>XIpiPsu_WriteReg</name></member>
     <member refid="group__ipipsu_1gaa4e2694e0d28168f195f87583a34190c" kind="define"><name>XIpiPsu_InterruptEnable</name></member>
@@ -179,7 +178,5 @@
   <compound refid="dir_96f67a646ce725d4eb9a61c1a7f7acd3" kind="dir"><name>ipipsu</name>
   </compound>
   <compound refid="dir_bcf6363f9d1612d786961568229341ac" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

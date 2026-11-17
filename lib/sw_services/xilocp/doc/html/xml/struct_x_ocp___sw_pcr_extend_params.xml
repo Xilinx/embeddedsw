@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,8 +41,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="153" bodyend="-1"/>
-        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="60" endline="93">XOcp_ExtendSwPcr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="154" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="154" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -68,15 +68,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="155" bodyend="-1"/>
-        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="60" endline="93">XOcp_ExtendSwPcr</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Software PCR extend parameters structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="150" bodyend="156"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="150" bodyend="156"/>
     <listofallmembers>
       <member refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>DataAddr</name></member>
       <member refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" prot="public" virt="non-virtual"><scope>XOcp_SwPcrExtendParams</scope><name>DataSize</name></member>

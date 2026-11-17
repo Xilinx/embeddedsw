@@ -143,7 +143,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
                       operation uses DMA0 after encrypt update.
       pre  03/02/2025 Removed data context setting and resource busy functionality for AES
 5.6     obs  07/25/2025 Added XSECURE_AES_IV_SIZE_IN_BYTES macro
-5.7   tbk  02/05/2026 Remove unwanted header</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xpmcdma.h&quot;</code><br/>
+5.7   tbk  02/05/2026 Remove unwanted header
+      tbk  04/29/2026 Repack XSecure_AesKeyLookup struct: drop RegOffset,
+                      narrow KeyDecSrcSelVal to u8, replace KeyClearVal with
+                      KeyClearBitPos</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xpmcdma.h&quot;</code><br/>
 <code>#include &quot;xsecure_sss.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>

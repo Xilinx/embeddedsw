@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__i_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,21 +106,38 @@ $(document).ready(function(){initNavTree('xspi__i_8h.html','');});
 <div class="title">xspi_i.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Contains internal identifiers of the SPI driver. </p>
+<p>This header is intended for internal use only.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a rpm  10/11/01 First release
+1.00b jhl  03/14/02 Repartitioned driver for smaller files.
+1.00b rpm  04/24/02 Moved register definitions to <a class="el" href="xspi__l_8h.html" title="Contains the identifiers, registers and low-level macros of the SPI. ">xspi_l.h</a>
+1.11a wgr  03/22/07 Converted to new coding style.
+1.12a sv   03/28/08 Removed the Macro for statistics, moved the interrupt
+                    register definitions and bit definitions to _l.h.
+2.00a sv   07/30/08 Removed the Macro for statistics, moved the interrupt
+                    register definitions and bit definitions to _l.h.
+4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi__l_8h.html">xspi_l.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga44a2dc795761b35ed0ebdd6989675022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga44a2dc795761b35ed0ebdd6989675022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aborts a transfer in progress by setting the stop bit in the control register, then resetting the FIFOs if present.  <a href="group__spi.html#ga44a2dc795761b35ed0ebdd6989675022">More...</a><br/></td></tr>
+<tr class="memitem:ga44a2dc795761b35ed0ebdd6989675022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga44a2dc795761b35ed0ebdd6989675022">XSpi_Abort</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga44a2dc795761b35ed0ebdd6989675022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aborts a transfer in progress by setting the stop bit in the control register, then resetting the FIFOs if present.  <a href="group__spi__api.html#ga44a2dc795761b35ed0ebdd6989675022">More...</a><br/></td></tr>
 <tr class="separator:ga44a2dc795761b35ed0ebdd6989675022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga31f3cf000e45e67f36d374906154ac38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga31f3cf000e45e67f36d374906154ac38">XSpi_ConfigTable</a> []</td></tr>
-<tr class="memdesc:ga31f3cf000e45e67f36d374906154ac38"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each SPI device in the system.  <a href="group__spi.html#ga31f3cf000e45e67f36d374906154ac38">More...</a><br/></td></tr>
+<tr class="memitem:ga31f3cf000e45e67f36d374906154ac38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga31f3cf000e45e67f36d374906154ac38">XSpi_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga31f3cf000e45e67f36d374906154ac38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration information for each SPI device in the system.  <a href="group__spi__api.html#ga31f3cf000e45e67f36d374906154ac38">More...</a><br/></td></tr>
 <tr class="separator:ga31f3cf000e45e67f36d374906154ac38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

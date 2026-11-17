@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_vault_export_result" kind="struct" prot="public">
+    <compoundname>XAsu_KeyVaultExportResult</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_vault_export_result_1a7bcddc5088f0732391cbb8919cd9c162" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyVaultExportResult::ActualSize</definition>
+        <argsstring></argsstring>
+        <name>ActualSize</name>
+        <briefdescription>
+<para>Actual size in bytes of the exported AEKV blob. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_vault_export_result_1a048e5390994bd06162d3b300efa2ddfb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyVaultExportResult::Modified</definition>
+        <argsstring></argsstring>
+        <name>Modified</name>
+        <briefdescription>
+<para>XASU_KM_EXPORT_MODIFIED if the vault changed since the previous export, XASU_KM_EXPORT_NOT_MODIFIED otherwise. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure holds the result returned to the caller on key vault export. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="450" bodyend="454"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_vault_export_result_1a7bcddc5088f0732391cbb8919cd9c162" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultExportResult</scope><name>ActualSize</name></member>
+      <member refid="struct_x_asu___key_vault_export_result_1a048e5390994bd06162d3b300efa2ddfb" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultExportResult</scope><name>Modified</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

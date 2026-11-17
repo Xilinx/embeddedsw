@@ -11,7 +11,6 @@ var xgpio__l_8h =
     [ "XGPIO_IR_CH2_MASK", "xgpio__l_8h.html#ga202cdf1a14179cd31df27346a55dced4", null ],
     [ "XGPIO_IR_MASK", "xgpio__l_8h.html#ga421755999f173a708b8254bb9cdc9b62", null ],
     [ "XGPIO_ISR_OFFSET", "xgpio__l_8h.html#ga6cbde8210cb1476b67ca87eccacbc2ed", null ],
-    [ "XGPIO_L_H", "xgpio__l_8h.html#gada15711b613febaabed053cffec66e57", null ],
     [ "XGpio_Out32", "xgpio__l_8h.html#ga2d9bfd9cb86f240e7c57a6f9f0728ba7", null ],
     [ "XGpio_ReadReg", "xgpio__l_8h.html#ga7199da4092b92413af00c613c8cffa57", null ],
     [ "XGPIO_TRI2_OFFSET", "xgpio__l_8h.html#gac881efa0580f36e99ab03230b26ca2e2", null ],

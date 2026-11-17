@@ -1,5 +1,6 @@
 var xuartns550_8h =
 [
+    [ "XUartNs550_UpdateStats", "xuartns550_8h.html#gaab6f0640b2ce44ce814b72be9be82af2", null ],
     [ "XUN_ERROR_BREAK_MASK", "xuartns550_8h.html#ga30f8d32289eefb7b8f4144e702da0248", null ],
     [ "XUN_ERROR_FRAMING_MASK", "xuartns550_8h.html#ga34ea957b9587fc0a2571be9d0816e994", null ],
     [ "XUN_ERROR_NONE", "xuartns550_8h.html#ga9f68b9cbaa34388aab27c289db3e390a", null ],
@@ -31,6 +32,8 @@ var xuartns550_8h =
     [ "XUN_MODEM_DSR_MASK", "xuartns550_8h.html#ga1aeb58a464b66388317130cd8494d270", null ],
     [ "XUN_MODEM_RING_STOP_MASK", "xuartns550_8h.html#gacf0b84214ccac5dc53ad63bfee0b2af1", null ],
     [ "XUN_MODEM_RINGING_MASK", "xuartns550_8h.html#ga04af798da0a7441edba3f2422311b407", null ],
+    [ "XUN_NS16550_MAX_RATE", "xuartns550_8h.html#ga0d0b450ce409b77274109a7610a9d4a9", null ],
+    [ "XUN_NS16550_MIN_RATE", "xuartns550_8h.html#gad953e8f3c273533ab5613314fb3344b6", null ],
     [ "XUN_OPTION_ASSERT_DTR", "xuartns550_8h.html#ga98413720ccbd9c0e7a47468885d894a8", null ],
     [ "XUN_OPTION_ASSERT_OUT1", "xuartns550_8h.html#gadfd56895540a03acdc510be3df5d2af2", null ],
     [ "XUN_OPTION_ASSERT_OUT2", "xuartns550_8h.html#ga98ca88cd5c9a0dbbb44ab7feee22e1ea", null ],

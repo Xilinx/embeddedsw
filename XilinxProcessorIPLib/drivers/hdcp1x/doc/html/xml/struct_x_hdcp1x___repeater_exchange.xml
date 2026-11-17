@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="955" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="897">XHdcp1x_RxGetRepeaterInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="947" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="900">XHdcp1x_RxGetRepeaterInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___repeater_exchange_1a020414febebe00bdd191ee44c5aca495" prot="public" static="no" mutable="no">
         <type><ref refid="group__hdcp1x_1gadbd91cd33664e62ecbb56f01f844632e" kindref="member">XHdcp1x_Ksv</ref></type>
@@ -29,10 +29,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="957" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="957" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="897">XHdcp1x_RxGetRepeaterInfo</referencedby>
-        <referencedby refid="group__hdcp1x_1gad2d20e2c7ccd2e279a5bd4c3400484d3" compoundref="xhdcp1x__rx_8c" startline="1468" endline="1477">XHdcp1x_RxSetTopologyKSVList</referencedby>
-        <referencedby refid="group__hdcp1x_1gad633915b955c6b56fa317e44bf26593a" compoundref="xhdcp1x__tx_8c" startline="2235" endline="2254">XHdcp1x_TxGetTopologyKSVList</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="949" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="949" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="900">XHdcp1x_RxGetRepeaterInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1gad2d20e2c7ccd2e279a5bd4c3400484d3" compoundref="xhdcp1x__rx_8c" startline="1462" endline="1475">XHdcp1x_RxSetTopologyKSVList</referencedby>
+        <referencedby refid="group__hdcp1x_1gad633915b955c6b56fa317e44bf26593a" compoundref="xhdcp1x__tx_8c" startline="2264" endline="2286">XHdcp1x_TxGetTopologyKSVList</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___repeater_exchange_1a40144408f1bb58cf5a97b3a50ba792b6" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -45,10 +45,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="960" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="960" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="897">XHdcp1x_RxGetRepeaterInfo</referencedby>
-        <referencedby refid="group__hdcp1x_1ga97cc65af5348a4bc57badb185250d39d" compoundref="xhdcp1x__rx_8c" startline="1489" endline="1492">XHdcp1x_RxSetTopologyDepth</referencedby>
-        <referencedby refid="group__hdcp1x_1ga11572e1f3d8c314380b5442a2edfb4bc" compoundref="xhdcp1x__tx_8c" startline="2269" endline="2272">XHdcp1x_TxGetTopologyDepth</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="952" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="952" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="900">XHdcp1x_RxGetRepeaterInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1ga97cc65af5348a4bc57badb185250d39d" compoundref="xhdcp1x__rx_8c" startline="1487" endline="1490">XHdcp1x_RxSetTopologyDepth</referencedby>
+        <referencedby refid="group__hdcp1x_1ga11572e1f3d8c314380b5442a2edfb4bc" compoundref="xhdcp1x__tx_8c" startline="2301" endline="2304">XHdcp1x_TxGetTopologyDepth</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___repeater_exchange_1af6d1681d45b9be94629caf1e8ecdfdc2" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,11 +61,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="961" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="961" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="897">XHdcp1x_RxGetRepeaterInfo</referencedby>
-        <referencedby refid="group__hdcp1x_1gadfa4b6b01fe73a264da702c451eec590" compoundref="xhdcp1x__rx_8c" startline="1504" endline="1507">XHdcp1x_RxSetTopologyDeviceCnt</referencedby>
-        <referencedby refid="group__hdcp1x_1gad4fca1a785fdb5e58b98c8f6619614e9" compoundref="xhdcp1x__tx_8c" startline="2289" endline="2292">XHdcp1x_TxGetTopologyDeviceCnt</referencedby>
-        <referencedby refid="group__hdcp1x_1gad633915b955c6b56fa317e44bf26593a" compoundref="xhdcp1x__tx_8c" startline="2235" endline="2254">XHdcp1x_TxGetTopologyKSVList</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="953" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="953" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad04a19828d3f0e503ac0a89cfb5e8212" compoundref="xhdcp1x__rx_8c" startline="852" endline="900">XHdcp1x_RxGetRepeaterInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1gadfa4b6b01fe73a264da702c451eec590" compoundref="xhdcp1x__rx_8c" startline="1502" endline="1505">XHdcp1x_RxSetTopologyDeviceCnt</referencedby>
+        <referencedby refid="group__hdcp1x_1gad4fca1a785fdb5e58b98c8f6619614e9" compoundref="xhdcp1x__tx_8c" startline="2321" endline="2324">XHdcp1x_TxGetTopologyDeviceCnt</referencedby>
+        <referencedby refid="group__hdcp1x_1gad633915b955c6b56fa317e44bf26593a" compoundref="xhdcp1x__tx_8c" startline="2264" endline="2286">XHdcp1x_TxGetTopologyKSVList</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___repeater_exchange_1a7f8ae259aee2e08e61b794d1a6738c85" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -78,14 +78,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="963" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="963" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="955" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains an instance of the HDCP Repeater values to exchanged between HDCP Tx and HDCP Rx. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="954" bodyend="964"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="946" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="946" bodyend="956"/>
     <listofallmembers>
       <member refid="struct_x_hdcp1x___repeater_exchange_1a40144408f1bb58cf5a97b3a50ba792b6" prot="public" virt="non-virtual"><scope>XHdcp1x_RepeaterExchange</scope><name>Depth</name></member>
       <member refid="struct_x_hdcp1x___repeater_exchange_1af6d1681d45b9be94629caf1e8ecdfdc2" prot="public" virt="non-virtual"><scope>XHdcp1x_RepeaterExchange</scope><name>DeviceCount</name></member>

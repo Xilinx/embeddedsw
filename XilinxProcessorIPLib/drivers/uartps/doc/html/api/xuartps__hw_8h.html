@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartps__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,32 @@ $(document).ready(function(){initNavTree('xuartps__hw_8h.html','');});
 <div class="title">xuartps_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the hardware register interface for the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> device. </p>
+<p>Contains register offsets, bit masks, and low-level access macros.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00    drg/jz 01/12/10 First Release
+1.03a sg     09/04/12 Added defines for XUARTPS_IXR_TOVR,  XUARTPS_IXR_TNFUL
+                and XUARTPS_IXR_TTRIG.
+                Modified the names of these defines
+                XUARTPS_MEDEMSR_DCDX to XUARTPS_MODEMSR_DDCD
+                XUARTPS_MEDEMSR_RIX to XUARTPS_MODEMSR_TERI
+                XUARTPS_MEDEMSR_DSRX to XUARTPS_MODEMSR_DDSR
+                XUARTPS_MEDEMSR_CTSX to XUARTPS_MODEMSR_DCTS
+1.05a hk     08/22/13 Added prototype for uart reset and related
+                constant definitions.
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.1     kvn    04/10/15 Modified code for latest RTL changes.
+3.6   ms     02/16/18 Updates flow control mode offset value in
+                modem control register.
+4.0   sd     02/02/24 Added macros for transmission FIFO empty check
+                      and transmission active state check
+3.19  vn     08/26/26 Fix Doxygen warnings
+3.19  vn   09/10/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
@@ -114,22 +139,22 @@ $(document).ready(function(){initNavTree('xuartps__hw_8h.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga16be7534dc3d678f8abcfeb87e6a4f7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga16be7534dc3d678f8abcfeb87e6a4f7e">XUartPs_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddress) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga16be7534dc3d678f8abcfeb87e6a4f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a UART register.  <a href="group__uartps.html#ga16be7534dc3d678f8abcfeb87e6a4f7e">More...</a><br/></td></tr>
+<tr class="memdesc:ga16be7534dc3d678f8abcfeb87e6a4f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a UART register.  <a href="group__uartps.html#ga16be7534dc3d678f8abcfeb87e6a4f7e">More...</a><br/></td></tr>
 <tr class="separator:ga16be7534dc3d678f8abcfeb87e6a4f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab541297d822b163193a2e47305987ab6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gab541297d822b163193a2e47305987ab6">XUartPs_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))</td></tr>
-<tr class="memdesc:gab541297d822b163193a2e47305987ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a UART register.  <a href="group__uartps.html#gab541297d822b163193a2e47305987ab6">More...</a><br/></td></tr>
+<tr class="memdesc:gab541297d822b163193a2e47305987ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a UART register.  <a href="group__uartps.html#gab541297d822b163193a2e47305987ab6">More...</a><br/></td></tr>
 <tr class="separator:gab541297d822b163193a2e47305987ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac8b8f06d10cf178227ce88c140d78eb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gac8b8f06d10cf178227ce88c140d78eb4">XUartPs_IsReceiveData</a>(BaseAddress)</td></tr>
-<tr class="memdesc:gac8b8f06d10cf178227ce88c140d78eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if there is receive data in the receiver and/or FIFO.  <a href="group__uartps.html#gac8b8f06d10cf178227ce88c140d78eb4">More...</a><br/></td></tr>
+<tr class="memdesc:gac8b8f06d10cf178227ce88c140d78eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if there is receive data in the receiver and/or FIFO.  <a href="group__uartps.html#gac8b8f06d10cf178227ce88c140d78eb4">More...</a><br/></td></tr>
 <tr class="separator:gac8b8f06d10cf178227ce88c140d78eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf1507e8d7b12983484a0ab5436a51970"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gaf1507e8d7b12983484a0ab5436a51970">XUartPs_IsTransmitFull</a>(BaseAddress)</td></tr>
-<tr class="memdesc:gaf1507e8d7b12983484a0ab5436a51970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a byte of data can be sent with the transmitter.  <a href="group__uartps.html#gaf1507e8d7b12983484a0ab5436a51970">More...</a><br/></td></tr>
+<tr class="memdesc:gaf1507e8d7b12983484a0ab5436a51970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a byte of data can be sent with the transmitter.  <a href="group__uartps.html#gaf1507e8d7b12983484a0ab5436a51970">More...</a><br/></td></tr>
 <tr class="separator:gaf1507e8d7b12983484a0ab5436a51970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8170a2befa118c8bd2ccc108163c4b7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga8170a2befa118c8bd2ccc108163c4b7a">XUartPs_IsTransmitFifoEmpty</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga8170a2befa118c8bd2ccc108163c4b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if transmission FIFO is empty.  <a href="group__uartps.html#ga8170a2befa118c8bd2ccc108163c4b7a">More...</a><br/></td></tr>
+<tr class="memdesc:ga8170a2befa118c8bd2ccc108163c4b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the transmission FIFO is empty.  <a href="group__uartps.html#ga8170a2befa118c8bd2ccc108163c4b7a">More...</a><br/></td></tr>
 <tr class="separator:ga8170a2befa118c8bd2ccc108163c4b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa34f1217cdc0b14977fbe3a22ec167ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gaa34f1217cdc0b14977fbe3a22ec167ee">XUartPs_IsTransmitActive</a>(BaseAddress)</td></tr>
-<tr class="memdesc:gaa34f1217cdc0b14977fbe3a22ec167ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if transmission state machine is active.  <a href="group__uartps.html#gaa34f1217cdc0b14977fbe3a22ec167ee">More...</a><br/></td></tr>
+<tr class="memdesc:gaa34f1217cdc0b14977fbe3a22ec167ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the transmission state machine is active.  <a href="group__uartps.html#gaa34f1217cdc0b14977fbe3a22ec167ee">More...</a><br/></td></tr>
 <tr class="separator:gaa34f1217cdc0b14977fbe3a22ec167ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register Map</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Register offsets for the UART. </p>
@@ -301,7 +326,7 @@ Macros</h2></td></tr>
 <tr class="separator:gac383c8056146a93a6113ce9a05501ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Registers</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Interrupt control logic uses the interrupt enable register (IER) and the interrupt disable register (IDR) to set the value of the bits in the interrupt mask register (IMR).</p>
-<p>The IMR determines whether to pass an interrupt to the interrupt status register (ISR). Writing a 1 to IER Enbables an interrupt, writing a 1 to IDR disables an interrupt. IMR and ISR are read only, and IER and IDR are write only. Reading either IER or IDR returns 0x00.</p>
+<p>The IMR determines whether to pass an interrupt to the interrupt status register (ISR). Writing a 1 to IER enables an interrupt, writing a 1 to IDR disables an interrupt. IMR and ISR are read only, and IER and IDR are write only. Reading either IER or IDR returns 0x00.</p>
 <p>All four registers have the same bit definitions. </p>
 </div></td></tr>
 <tr class="memitem:gab5df3d1fd00008bd7cc177abd02f07e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gab5df3d1fd00008bd7cc177abd02f07e5">XUARTPS_IXR_RBRK</a>&#160;&#160;&#160;0x00002000U</td></tr>
@@ -365,7 +390,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga0df74dbc1f99f853eac534c58465c67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Baud Divisor Rate register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The baud rate divider register (BDIV) controls how much the bit sample rate is divided by.</p>
-<p>It sets the baud rate. Valid values are 0x04 to 0xFF. Writing a value less than 4 will be ignored.</p>
+<p>It sets the baud rate. Valid values are 0x04 to 0xFF. Writing a value less than 4 is ignored.</p>
 <p>Baud rate = CCLK / ((BAUDDIV + 1) x BRGR), where the CCLK is selected by the MR_CCLK bit in the MR register. </p>
 </div></td></tr>
 <tr class="memitem:ga0994c9a85c14e41d593f7ced18d73325"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga0994c9a85c14e41d593f7ced18d73325">XUARTPS_BAUDDIV_MASK</a>&#160;&#160;&#160;0x000000FFU</td></tr>
@@ -483,7 +508,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga954d4d3a50798651fff9701809b20130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Flow Delay Register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Operation of the flow delay register (FLOWDEL) is very similar to the receive FIFO trigger register.</p>
-<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger will not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
+<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger does not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
 </div></td></tr>
 <tr class="memitem:ga6b7df91642929dda91d4098ed126134c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga6b7df91642929dda91d4098ed126134c">XUARTPS_FLOWDEL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__uartps.html#ga0b1b76b99179a02db9e22d6c290765fd">XUARTPS_RXWM_MASK</a></td></tr>
 <tr class="memdesc:ga6b7df91642929dda91d4098ed126134c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid bit mask.  <a href="group__uartps.html#ga6b7df91642929dda91d4098ed126134c">More...</a><br/></td></tr>
@@ -532,20 +557,32 @@ Macros</h2></td></tr>
 <tr class="memitem:gad270e6c5e81ad53fe663527ce2292e7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gad270e6c5e81ad53fe663527ce2292e7c">XUARTPS_RXBS_MASK</a>&#160;&#160;&#160;0x00000007U</td></tr>
 <tr class="memdesc:gad270e6c5e81ad53fe663527ce2292e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">3 bit RX byte status mask  <a href="group__uartps.html#gad270e6c5e81ad53fe663527ce2292e7c">More...</a><br/></td></tr>
 <tr class="separator:gad270e6c5e81ad53fe663527ce2292e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Deprecated modem status register aliases</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>These aliases are retained for backward compatibility and are planned for removal in the next version of the driver.</p>
+<p>Use the XUARTPS_MODEMSR_* names instead. </p>
+</div></td></tr>
+<tr class="memitem:ga265d603a9978cd7629ea5ef465d38b94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga265d603a9978cd7629ea5ef465d38b94">XUARTPS_MEDEMSR_DCDX</a>&#160;&#160;&#160;<a class="el" href="group__uartps.html#ga9d0628da915d6e0ec3d9c3aa0f99a6e8">XUARTPS_MODEMSR_DDCD</a></td></tr>
+<tr class="separator:ga265d603a9978cd7629ea5ef465d38b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf3b4f7a9c4a5d236853f26119c84820"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gabf3b4f7a9c4a5d236853f26119c84820">XUARTPS_MEDEMSR_RIX</a>&#160;&#160;&#160;<a class="el" href="group__uartps.html#ga436c976255badb632aca558faac74a5c">XUARTPS_MODEMSR_TERI</a></td></tr>
+<tr class="separator:gabf3b4f7a9c4a5d236853f26119c84820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ea7cbbf85cd2215007963355ec6d2b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga1ea7cbbf85cd2215007963355ec6d2b2">XUARTPS_MEDEMSR_DSRX</a>&#160;&#160;&#160;<a class="el" href="group__uartps.html#ga045cf2ea99ad7e3761cdd44ba234ce07">XUARTPS_MODEMSR_DDSR</a></td></tr>
+<tr class="separator:ga1ea7cbbf85cd2215007963355ec6d2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c95471105535328ac929eafd723fb17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga5c95471105535328ac929eafd723fb17">XUARTPS_MEDEMSR_CTSX</a>&#160;&#160;&#160;<a class="el" href="group__uartps.html#gabefff2fb8865b052a2452c8dfa29beec">XUARTPS_MODEMSR_DCTS</a></td></tr>
+<tr class="separator:ga5c95471105535328ac929eafd723fb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">XUartPs_SendByte</a> (u32 BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends one byte using the device.  <a href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">More...</a><br/></td></tr>
+<tr class="memdesc:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends one byte using the device in polled mode.  <a href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">More...</a><br/></td></tr>
 <tr class="separator:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga60240486c69f6167ab13194ced5e8bb7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">XUartPs_RecvByte</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga60240486c69f6167ab13194ced5e8bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a byte from the device.  <a href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">More...</a><br/></td></tr>
+<tr class="memdesc:ga60240486c69f6167ab13194ced5e8bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a byte from the device in polled mode.  <a href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">More...</a><br/></td></tr>
 <tr class="separator:ga60240486c69f6167ab13194ced5e8bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga157cf5966738452bc13639746f4b8d97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">XUartPs_ResetHw</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga157cf5966738452bc13639746f4b8d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets UART.  <a href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">More...</a><br/></td></tr>
+<tr class="memdesc:ga157cf5966738452bc13639746f4b8d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the UART.  <a href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">More...</a><br/></td></tr>
 <tr class="separator:ga157cf5966738452bc13639746f4b8d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf789b78ee831825f3131f9a016e15044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">XUartPs_WaitTransmitDone</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:gaf789b78ee831825f3131f9a016e15044"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function waits for transmission to complete.  <a href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">More...</a><br/></td></tr>
+<tr class="memdesc:gaf789b78ee831825f3131f9a016e15044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for transmission to complete.  <a href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">More...</a><br/></td></tr>
 <tr class="separator:gaf789b78ee831825f3131f9a016e15044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

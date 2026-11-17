@@ -114,9 +114,6 @@ $(document).ready(function(){initNavTree('xscugic__hw_8h.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gac1bc762eba383937d08c41704737091c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gac1bc762eba383937d08c41704737091c">XSCUGIC_HW_H</a></td></tr>
-<tr class="memdesc:gac1bc762eba383937d08c41704737091c"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; prevent circular inclusions  <a href="group__scugic__api.html#gac1bc762eba383937d08c41704737091c">More...</a><br/></td></tr>
-<tr class="separator:gac1bc762eba383937d08c41704737091c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1027fc01e0c0efc80eadd0e6bb69f801"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga1027fc01e0c0efc80eadd0e6bb69f801">XSCUGIC_MAX_NUM_INTR_INPUTS</a>&#160;&#160;&#160;195U</td></tr>
 <tr class="memdesc:ga1027fc01e0c0efc80eadd0e6bb69f801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of interrupt defined by Zynq Ultrascale Mp.  <a href="group__scugic__api.html#ga1027fc01e0c0efc80eadd0e6bb69f801">More...</a><br/></td></tr>
 <tr class="separator:ga1027fc01e0c0efc80eadd0e6bb69f801"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,42 +126,39 @@ Macros</h2></td></tr>
 <tr class="memitem:ga314e70261cb0c4c4da8019ff78c7e6f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga314e70261cb0c4c4da8019ff78c7e6f8">XSCUGIC_INTR_PRIO_MASK</a>&#160;&#160;&#160;0x000000F8U</td></tr>
 <tr class="memdesc:ga314e70261cb0c4c4da8019ff78c7e6f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Interrupt priority mask value.  <a href="group__scugic__api.html#ga314e70261cb0c4c4da8019ff78c7e6f8">More...</a><br/></td></tr>
 <tr class="separator:ga314e70261cb0c4c4da8019ff78c7e6f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga1aea23f3bd1941b93443e441bd1e8e58">XSCUGIC_PEND_INTID_MASK</a>&#160;&#160;&#160;0x000003FFU</td></tr>
-<tr class="memdesc:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pending Interrupt ID.  <a href="group__scugic__api.html#ga1aea23f3bd1941b93443e441bd1e8e58">More...</a><br/></td></tr>
-<tr class="separator:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3921ef6af4f5fd6a35cb5089ef85a22a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a3921ef6af4f5fd6a35cb5089ef85a22a">XSCUGIC_INT_CFG_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga8c3e4a0e11aeeb05a7425826893a48b5">XSCUGIC_INT_CFG_OFFSET</a> + (((InterruptID)/16U) * 4U))</td></tr>
-<tr class="memdesc:a3921ef6af4f5fd6a35cb5089ef85a22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Configuration Register offset for an interrupt ID.  <a href="#a3921ef6af4f5fd6a35cb5089ef85a22a">More...</a><br/></td></tr>
-<tr class="separator:a3921ef6af4f5fd6a35cb5089ef85a22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5f397349cab91733882c9d388498d5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#af5f397349cab91733882c9d388498d5b">XSCUGIC_PRIORITY_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga4e103b71357ac53c890d8aebd3b80997">XSCUGIC_PRIORITY_OFFSET</a> + (((InterruptID)/4U) * 4U))</td></tr>
-<tr class="memdesc:af5f397349cab91733882c9d388498d5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Priority Register offset for an interrupt ID.  <a href="#af5f397349cab91733882c9d388498d5b">More...</a><br/></td></tr>
-<tr class="separator:af5f397349cab91733882c9d388498d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68ccffbaf26e88803874e3fd9592bc80"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a68ccffbaf26e88803874e3fd9592bc80">XSCUGIC_IROUTER_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_IROUTER_BASE_OFFSET + (InterruptID * 8))</td></tr>
-<tr class="memdesc:a68ccffbaf26e88803874e3fd9592bc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Routing Register offset for an interrupt ID.  <a href="#a68ccffbaf26e88803874e3fd9592bc80">More...</a><br/></td></tr>
-<tr class="separator:a68ccffbaf26e88803874e3fd9592bc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2cf2e3acd2e8cf537c415276efa3a97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#aa2cf2e3acd2e8cf537c415276efa3a97">XSCUGIC_SPI_TARGET_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga0ff09d2f6f8b9b89f847f756ee0ed408">XSCUGIC_SPI_TARGET_OFFSET</a> + (((InterruptID)/4U) * 4U))</td></tr>
-<tr class="memdesc:aa2cf2e3acd2e8cf537c415276efa3a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the SPI Target Register offset for an interrupt ID.  <a href="#aa2cf2e3acd2e8cf537c415276efa3a97">More...</a><br/></td></tr>
-<tr class="separator:aa2cf2e3acd2e8cf537c415276efa3a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e0bd7cf9402e0fae93afefa3c6dae90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a0e0bd7cf9402e0fae93afefa3c6dae90">XSCUGIC_SECURITY_TARGET_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#gaf8413fc164b51c233c05c6e48fdc0bf5">XSCUGIC_SECURITY_OFFSET</a> + (((InterruptID)/32U)*4U))</td></tr>
-<tr class="memdesc:a0e0bd7cf9402e0fae93afefa3c6dae90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the SPI Target Register offset for an interrupt ID.  <a href="#a0e0bd7cf9402e0fae93afefa3c6dae90">More...</a><br/></td></tr>
-<tr class="separator:a0e0bd7cf9402e0fae93afefa3c6dae90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53759eec986eab489c00e26a566d2b00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a53759eec986eab489c00e26a566d2b00">XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_RDIST_INT_CONFIG_OFFSET + ((InterruptID /16)*4))</td></tr>
-<tr class="memdesc:a53759eec986eab489c00e26a566d2b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Re-distributor Interrupt configuration register offset.  <a href="#a53759eec986eab489c00e26a566d2b00">More...</a><br/></td></tr>
-<tr class="separator:a53759eec986eab489c00e26a566d2b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93135e195fabc65c81e26163c8aabcdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a93135e195fabc65c81e26163c8aabcdb">XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + ((InterruptID/4) * 4))</td></tr>
-<tr class="memdesc:a93135e195fabc65c81e26163c8aabcdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Re-distributor Interrupt Priority register offset.  <a href="#a93135e195fabc65c81e26163c8aabcdb">More...</a><br/></td></tr>
-<tr class="separator:a93135e195fabc65c81e26163c8aabcdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a37b4c6eb0a94fe5e17b6ce5ddc021f5b">XSCUGIC_EN_DIS_OFFSET_CALC</a>(Register, InterruptID)&#160;&#160;&#160;((Register) + (((InterruptID)/32U) * 4U))</td></tr>
-<tr class="memdesc:a37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Clear-Enable Register offset for an interrupt ID.  <a href="#a37b4c6eb0a94fe5e17b6ce5ddc021f5b">More...</a><br/></td></tr>
-<tr class="separator:a37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5fb346faf5dff7820e4ce87c86f8eca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#af5fb346faf5dff7820e4ce87c86f8eca">XScuGic_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;(Xil_In32((BaseAddress) + (RegOffset)))</td></tr>
-<tr class="memdesc:af5fb346faf5dff7820e4ce87c86f8eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given Intc register.  <a href="#af5fb346faf5dff7820e4ce87c86f8eca">More...</a><br/></td></tr>
-<tr class="separator:af5fb346faf5dff7820e4ce87c86f8eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67ce957524b208789b863ed9a5c8b44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#ad67ce957524b208789b863ed9a5c8b44">XScuGic_ReadReg64</a>(BaseAddress, RegOffset)&#160;&#160;&#160;(Xil_In64((BaseAddress) + (RegOffset)))</td></tr>
-<tr class="memdesc:ad67ce957524b208789b863ed9a5c8b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given Intc register.  <a href="#ad67ce957524b208789b863ed9a5c8b44">More...</a><br/></td></tr>
-<tr class="separator:ad67ce957524b208789b863ed9a5c8b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01c0f85e48858531c313ce22cbfd2dfa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;(Xil_Out32(((BaseAddress) + (RegOffset)), ((u32)(Data))))</td></tr>
-<tr class="memdesc:a01c0f85e48858531c313ce22cbfd2dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given Intc register.  <a href="#a01c0f85e48858531c313ce22cbfd2dfa">More...</a><br/></td></tr>
-<tr class="separator:a01c0f85e48858531c313ce22cbfd2dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3921ef6af4f5fd6a35cb5089ef85a22a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga3921ef6af4f5fd6a35cb5089ef85a22a">XSCUGIC_INT_CFG_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga8c3e4a0e11aeeb05a7425826893a48b5">XSCUGIC_INT_CFG_OFFSET</a> + (((InterruptID)/16U) * 4U))</td></tr>
+<tr class="memdesc:ga3921ef6af4f5fd6a35cb5089ef85a22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Configuration Register offset for an interrupt ID.  <a href="group__scugic__api.html#ga3921ef6af4f5fd6a35cb5089ef85a22a">More...</a><br/></td></tr>
+<tr class="separator:ga3921ef6af4f5fd6a35cb5089ef85a22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5f397349cab91733882c9d388498d5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaf5f397349cab91733882c9d388498d5b">XSCUGIC_PRIORITY_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga4e103b71357ac53c890d8aebd3b80997">XSCUGIC_PRIORITY_OFFSET</a> + (((InterruptID)/4U) * 4U))</td></tr>
+<tr class="memdesc:gaf5f397349cab91733882c9d388498d5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Priority Register offset for an interrupt ID.  <a href="group__scugic__api.html#gaf5f397349cab91733882c9d388498d5b">More...</a><br/></td></tr>
+<tr class="separator:gaf5f397349cab91733882c9d388498d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68ccffbaf26e88803874e3fd9592bc80"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga68ccffbaf26e88803874e3fd9592bc80">XSCUGIC_IROUTER_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_IROUTER_BASE_OFFSET + (InterruptID * 8))</td></tr>
+<tr class="memdesc:ga68ccffbaf26e88803874e3fd9592bc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Routing Register offset for an interrupt ID.  <a href="group__scugic__api.html#ga68ccffbaf26e88803874e3fd9592bc80">More...</a><br/></td></tr>
+<tr class="separator:ga68ccffbaf26e88803874e3fd9592bc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2cf2e3acd2e8cf537c415276efa3a97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaa2cf2e3acd2e8cf537c415276efa3a97">XSCUGIC_SPI_TARGET_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga0ff09d2f6f8b9b89f847f756ee0ed408">XSCUGIC_SPI_TARGET_OFFSET</a> + (((InterruptID)/4U) * 4U))</td></tr>
+<tr class="memdesc:gaa2cf2e3acd2e8cf537c415276efa3a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the SPI Target Register offset for an interrupt ID.  <a href="group__scugic__api.html#gaa2cf2e3acd2e8cf537c415276efa3a97">More...</a><br/></td></tr>
+<tr class="separator:gaa2cf2e3acd2e8cf537c415276efa3a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e0bd7cf9402e0fae93afefa3c6dae90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga0e0bd7cf9402e0fae93afefa3c6dae90">XSCUGIC_SECURITY_TARGET_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#gaf8413fc164b51c233c05c6e48fdc0bf5">XSCUGIC_SECURITY_OFFSET</a> + (((InterruptID)/32U)*4U))</td></tr>
+<tr class="memdesc:ga0e0bd7cf9402e0fae93afefa3c6dae90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the SPI Target Register offset for an interrupt ID.  <a href="group__scugic__api.html#ga0e0bd7cf9402e0fae93afefa3c6dae90">More...</a><br/></td></tr>
+<tr class="separator:ga0e0bd7cf9402e0fae93afefa3c6dae90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga53759eec986eab489c00e26a566d2b00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga53759eec986eab489c00e26a566d2b00">XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_RDIST_INT_CONFIG_OFFSET + ((InterruptID /16)*4))</td></tr>
+<tr class="memdesc:ga53759eec986eab489c00e26a566d2b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Re-distributor Interrupt configuration register offset.  <a href="group__scugic__api.html#ga53759eec986eab489c00e26a566d2b00">More...</a><br/></td></tr>
+<tr class="separator:ga53759eec986eab489c00e26a566d2b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93135e195fabc65c81e26163c8aabcdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga93135e195fabc65c81e26163c8aabcdb">XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</a>(InterruptID)&#160;&#160;&#160;((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + ((InterruptID/4) * 4))</td></tr>
+<tr class="memdesc:ga93135e195fabc65c81e26163c8aabcdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Re-distributor Interrupt Priority register offset.  <a href="group__scugic__api.html#ga93135e195fabc65c81e26163c8aabcdb">More...</a><br/></td></tr>
+<tr class="separator:ga93135e195fabc65c81e26163c8aabcdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga37b4c6eb0a94fe5e17b6ce5ddc021f5b">XSCUGIC_EN_DIS_OFFSET_CALC</a>(Register, InterruptID)&#160;&#160;&#160;((Register) + (((InterruptID)/32U) * 4U))</td></tr>
+<tr class="memdesc:ga37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Interrupt Clear-Enable Register offset for an interrupt ID.  <a href="group__scugic__api.html#ga37b4c6eb0a94fe5e17b6ce5ddc021f5b">More...</a><br/></td></tr>
+<tr class="separator:ga37b4c6eb0a94fe5e17b6ce5ddc021f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5fb346faf5dff7820e4ce87c86f8eca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaf5fb346faf5dff7820e4ce87c86f8eca">XScuGic_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;(Xil_In32((BaseAddress) + (RegOffset)))</td></tr>
+<tr class="memdesc:gaf5fb346faf5dff7820e4ce87c86f8eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given Intc register.  <a href="group__scugic__api.html#gaf5fb346faf5dff7820e4ce87c86f8eca">More...</a><br/></td></tr>
+<tr class="separator:gaf5fb346faf5dff7820e4ce87c86f8eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad67ce957524b208789b863ed9a5c8b44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gad67ce957524b208789b863ed9a5c8b44">XScuGic_ReadReg64</a>(BaseAddress, RegOffset)&#160;&#160;&#160;(Xil_In64((BaseAddress) + (RegOffset)))</td></tr>
+<tr class="memdesc:gad67ce957524b208789b863ed9a5c8b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given Intc register.  <a href="group__scugic__api.html#gad67ce957524b208789b863ed9a5c8b44">More...</a><br/></td></tr>
+<tr class="separator:gad67ce957524b208789b863ed9a5c8b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01c0f85e48858531c313ce22cbfd2dfa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga01c0f85e48858531c313ce22cbfd2dfa">XScuGic_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;(Xil_Out32(((BaseAddress) + (RegOffset)), ((u32)(Data))))</td></tr>
+<tr class="memdesc:ga01c0f85e48858531c313ce22cbfd2dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given Intc register.  <a href="group__scugic__api.html#ga01c0f85e48858531c313ce22cbfd2dfa">More...</a><br/></td></tr>
+<tr class="separator:ga01c0f85e48858531c313ce22cbfd2dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Distributor Interface Register Map</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Define the offsets from the base address for all Distributor registers of the interrupt controller, some registers may be reserved in the hardware device. </p>
 </div></td></tr>
@@ -233,7 +227,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga63c9b51176e1db04adbbfa91b517d9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Lockable Shared Peripheral Interrupts.  <a href="group__scugic__api.html#ga63c9b51176e1db04adbbfa91b517d9a1">More...</a><br/></td></tr>
 <tr class="separator:ga63c9b51176e1db04adbbfa91b517d9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad0bd2ae20c2b47d8c7aaea2a78f5199"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaad0bd2ae20c2b47d8c7aaea2a78f5199">XSCUGIC_DOMAIN_MASK</a>&#160;&#160;&#160;0x00000400U</td></tr>
-<tr class="memdesc:gaad0bd2ae20c2b47d8c7aaea2a78f5199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number os Security domains.  <a href="group__scugic__api.html#gaad0bd2ae20c2b47d8c7aaea2a78f5199">More...</a><br/></td></tr>
+<tr class="memdesc:gaad0bd2ae20c2b47d8c7aaea2a78f5199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Security domains.  <a href="group__scugic__api.html#gaad0bd2ae20c2b47d8c7aaea2a78f5199">More...</a><br/></td></tr>
 <tr class="separator:gaad0bd2ae20c2b47d8c7aaea2a78f5199"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21918105af9b486b28a8581c2caac127"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga21918105af9b486b28a8581c2caac127">XSCUGIC_CPU_NUM_MASK</a>&#160;&#160;&#160;0x000000E0U</td></tr>
 <tr class="memdesc:ga21918105af9b486b28a8581c2caac127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of CPU Interfaces.  <a href="group__scugic__api.html#ga21918105af9b486b28a8581c2caac127">More...</a><br/></td></tr>
@@ -401,10 +395,10 @@ Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Provides the status of the CFGBIGEND input signal and allows the endianness of the GIC to be set. </p>
 </div></td></tr>
 <tr class="memitem:ga3b4028834925dd0ed1a6175492d8ae89"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga3b4028834925dd0ed1a6175492d8ae89">XSCUGIC_AHB_END_MASK</a>&#160;&#160;&#160;0x00000004U</td></tr>
-<tr class="memdesc:ga3b4028834925dd0ed1a6175492d8ae89"><td class="mdescLeft">&#160;</td><td class="mdescRight">0-GIC uses little Endian, 1-GIC uses Big Endian  <a href="group__scugic__api.html#ga3b4028834925dd0ed1a6175492d8ae89">More...</a><br/></td></tr>
+<tr class="memdesc:ga3b4028834925dd0ed1a6175492d8ae89"><td class="mdescLeft">&#160;</td><td class="mdescRight">0-GIC uses little Endian, 1-GIC uses Big Endian.  <a href="group__scugic__api.html#ga3b4028834925dd0ed1a6175492d8ae89">More...</a><br/></td></tr>
 <tr class="separator:ga3b4028834925dd0ed1a6175492d8ae89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa9d9d58262a639eb2a8858e2856b277d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaa9d9d58262a639eb2a8858e2856b277d">XSCUGIC_AHB_ENDOVR_MASK</a>&#160;&#160;&#160;0x00000002U</td></tr>
-<tr class="memdesc:gaa9d9d58262a639eb2a8858e2856b277d"><td class="mdescLeft">&#160;</td><td class="mdescRight">0-Uses CFGBIGEND control, 1-use the AHB_END bit  <a href="group__scugic__api.html#gaa9d9d58262a639eb2a8858e2856b277d">More...</a><br/></td></tr>
+<tr class="memdesc:gaa9d9d58262a639eb2a8858e2856b277d"><td class="mdescLeft">&#160;</td><td class="mdescRight">0-Uses CFGBIGEND control, 1-use the AHB_END bit.  <a href="group__scugic__api.html#gaa9d9d58262a639eb2a8858e2856b277d">More...</a><br/></td></tr>
 <tr class="separator:gaa9d9d58262a639eb2a8858e2856b277d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga786c66ef9c8619b0a36ae25e85ea58e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga786c66ef9c8619b0a36ae25e85ea58e5">XSCUGIC_AHB_TIE_OFF_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
 <tr class="memdesc:ga786c66ef9c8619b0a36ae25e85ea58e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of CFGBIGEND.  <a href="group__scugic__api.html#ga786c66ef9c8619b0a36ae25e85ea58e5">More...</a><br/></td></tr>
@@ -412,8 +406,8 @@ Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Software Triggered Interrupt Register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Controls issuing of software interrupts. </p>
 </div></td></tr>
-<tr class="memitem:gabf33f61e175ef268411963ed72bc3ba3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabf33f61e175ef268411963ed72bc3ba3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSCUGIC_SFI_SELFTRIG_MASK</b>&#160;&#160;&#160;0x02010000U</td></tr>
+<tr class="memitem:gabf33f61e175ef268411963ed72bc3ba3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gabf33f61e175ef268411963ed72bc3ba3">XSCUGIC_SFI_SELFTRIG_MASK</a>&#160;&#160;&#160;0x02010000U</td></tr>
+<tr class="memdesc:gabf33f61e175ef268411963ed72bc3ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SGI self-trigger mask (target = requester).  <a href="group__scugic__api.html#gabf33f61e175ef268411963ed72bc3ba3">More...</a><br/></td></tr>
 <tr class="separator:gabf33f61e175ef268411963ed72bc3ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57d7eef981cdc87055eb0df1d147a822"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga57d7eef981cdc87055eb0df1d147a822">XSCUGIC_SFI_TRIG_TRGFILT_MASK</a>&#160;&#160;&#160;0x03000000U</td></tr>
 <tr class="memdesc:ga57d7eef981cdc87055eb0df1d147a822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target List filter b00-Use the target List b01-All CPUs except requester b10-To Requester b11-reserved.  <a href="group__scugic__api.html#ga57d7eef981cdc87055eb0df1d147a822">More...</a><br/></td></tr>
@@ -422,7 +416,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gab68476cc3813858c0c809ebfb4e28c74"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU Target list.  <a href="group__scugic__api.html#gab68476cc3813858c0c809ebfb4e28c74">More...</a><br/></td></tr>
 <tr class="separator:gab68476cc3813858c0c809ebfb4e28c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga14c75b6deed6c34d98453d802627a26e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga14c75b6deed6c34d98453d802627a26e">XSCUGIC_SFI_TRIG_SATT_MASK</a>&#160;&#160;&#160;0x00008000U</td></tr>
-<tr class="memdesc:ga14c75b6deed6c34d98453d802627a26e"><td class="mdescLeft">&#160;</td><td class="mdescRight">0= Use a secure interrupt  <a href="group__scugic__api.html#ga14c75b6deed6c34d98453d802627a26e">More...</a><br/></td></tr>
+<tr class="memdesc:ga14c75b6deed6c34d98453d802627a26e"><td class="mdescLeft">&#160;</td><td class="mdescRight">0= Use a secure interrupt.  <a href="group__scugic__api.html#ga14c75b6deed6c34d98453d802627a26e">More...</a><br/></td></tr>
 <tr class="separator:ga14c75b6deed6c34d98453d802627a26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7956d8a2796ad6f92fafc49d92aa1a7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga7956d8a2796ad6f92fafc49d92aa1a7d">XSCUGIC_SFI_TRIG_INTID_MASK</a>&#160;&#160;&#160;0x0000000FU</td></tr>
 <tr class="memdesc:ga7956d8a2796ad6f92fafc49d92aa1a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to the INTID signaled to the CPU.  <a href="group__scugic__api.html#ga7956d8a2796ad6f92fafc49d92aa1a7d">More...</a><br/></td></tr>
@@ -499,6 +493,12 @@ Macros</h2></td></tr>
 <tr class="memitem:ga8ac1ba33bfaefe69aacd6221b0375f1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga8ac1ba33bfaefe69aacd6221b0375f1c">XSCUGIC_RUN_PRIORITY_MASK</a>&#160;&#160;&#160;0x000000FFU</td></tr>
 <tr class="memdesc:ga8ac1ba33bfaefe69aacd6221b0375f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Priority.  <a href="group__scugic__api.html#ga8ac1ba33bfaefe69aacd6221b0375f1c">More...</a><br/></td></tr>
 <tr class="separator:ga8ac1ba33bfaefe69aacd6221b0375f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Highest Pending Interrupt Register</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Highest Pending Interrupt register definitions Identifies the interrupt priority of the highest priority pending interrupt. </p>
+</div></td></tr>
+<tr class="memitem:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga1aea23f3bd1941b93443e441bd1e8e58">XSCUGIC_PEND_INTID_MASK</a>&#160;&#160;&#160;0x000003FFU</td></tr>
+<tr class="memdesc:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pending Interrupt ID.  <a href="group__scugic__api.html#ga1aea23f3bd1941b93443e441bd1e8e58">More...</a><br/></td></tr>
+<tr class="separator:ga1aea23f3bd1941b93443e441bd1e8e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -533,354 +533,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga0d183d23d05aac5d61cd640c5b39b275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the interrupt source provided as the argument Int_Id so that the interrupt controller will not cause interrupts for the specified Int_Id.  <a href="group__scugic__api.html#ga0d183d23d05aac5d61cd640c5b39b275">More...</a><br/></td></tr>
 <tr class="separator:ga0d183d23d05aac5d61cd640c5b39b275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a37b4c6eb0a94fe5e17b6ce5ddc021f5b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_EN_DIS_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Register, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((Register) + (((InterruptID)/32U) * 4U))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Interrupt Clear-Enable Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Register</td><td>Register offset for the clear/enable bank. </td></tr>
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#ga6146a0489a1c748ceeaee729639d48a7">XScuGic_Stop()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3921ef6af4f5fd6a35cb5089ef85a22a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_INT_CFG_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga8c3e4a0e11aeeb05a7425826893a48b5">XSCUGIC_INT_CFG_OFFSET</a> + (((InterruptID)/16U) * 4U))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Interrupt Configuration Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__api.html#ga19437ca93adc808161232c5667d7ca62">XScuGic_GetPriTrigTypeByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">XScuGic_SetPriorityTriggerType()</a>, and <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a68ccffbaf26e88803874e3fd9592bc80"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_IROUTER_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)XSCUGIC_IROUTER_BASE_OFFSET + (InterruptID * 8))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Interrupt Routing Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#gaadf6b084a0540093dd64b8a8e3e74d6c">XScuGic_InterruptMapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga2a94f1a519d965f051d598e5a6b5a855">XScuGic_InterruptMaptoCpu()</a>, and <a class="el" href="group__scugic__api.html#ga6146a0489a1c748ceeaee729639d48a7">XScuGic_Stop()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5f397349cab91733882c9d388498d5b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_PRIORITY_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga4e103b71357ac53c890d8aebd3b80997">XSCUGIC_PRIORITY_OFFSET</a> + (((InterruptID)/4U) * 4U))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Interrupt Priority Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__api.html#ga19437ca93adc808161232c5667d7ca62">XScuGic_GetPriTrigTypeByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">XScuGic_SetPriorityTriggerType()</a>, and <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a53759eec986eab489c00e26a566d2b00"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)XSCUGIC_RDIST_INT_CONFIG_OFFSET + ((InterruptID /16)*4))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Re-distributor Interrupt configuration register offset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__api.html#ga19437ca93adc808161232c5667d7ca62">XScuGic_GetPriTrigTypeByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">XScuGic_SetPriorityTriggerType()</a>, and <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a93135e195fabc65c81e26163c8aabcdb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + ((InterruptID/4) * 4))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the Re-distributor Interrupt Priority register offset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType()</a>, <a class="el" href="group__scugic__api.html#ga19437ca93adc808161232c5667d7ca62">XScuGic_GetPriTrigTypeByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">XScuGic_SetPriorityTriggerType()</a>, and <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5fb346faf5dff7820e4ce87c86f8eca"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XScuGic_ReadReg</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">BaseAddress, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegOffset&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(Xil_In32((BaseAddress) + (RegOffset)))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the given Intc register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Register offset to be read.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xscugic__hw_8h.html#af5fb346faf5dff7820e4ce87c86f8eca" title="Reads the given Intc register. ">XScuGic_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
-
-<p>Referenced by <a class="el" href="xscugic__low__level__example_8c.html#a1f77e8cd34d4dcfb72db81ada16e2942">LowInterruptHandler()</a>, <a class="el" href="group__scugic__api.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>, <a class="el" href="group__scugic__api.html#ga0d183d23d05aac5d61cd640c5b39b275">XScuGic_DisableIntr()</a>, <a class="el" href="group__scugic__api.html#gadaa95193630e661a6a578f35a5e3ea1a">XScuGic_EnableIntr()</a>, <a class="el" href="group__scugic__api.html#ga19437ca93adc808161232c5667d7ca62">XScuGic_GetPriTrigTypeByDistAddr()</a>, <a class="el" href="group__scugic__api.html#gaadf6b084a0540093dd64b8a8e3e74d6c">XScuGic_InterruptMapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga51ba67d5953cb6b68a8d327b5e3103d7">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga61b776573423fcfb32d9eb30010b17a8">XScuGic_IsInitialized()</a>, <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>, and <a class="el" href="group__scugic__api.html#gac7192c00a59e0cca27ed4c46f2755bb0">XScuGic_UnmapAllInterruptsFromCpuByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad67ce957524b208789b863ed9a5c8b44"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XScuGic_ReadReg64</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">BaseAddress, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegOffset&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(Xil_In64((BaseAddress) + (RegOffset)))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the given Intc register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Register offset to be read.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 64-bit value of the register</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xscugic__hw_8h.html#ad67ce957524b208789b863ed9a5c8b44" title="Reads the given Intc register. ">XScuGic_ReadReg64(UINTPTR BaseAddress, u32 RegOffset)</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a0e0bd7cf9402e0fae93afefa3c6dae90"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_SECURITY_TARGET_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#gaf8413fc164b51c233c05c6e48fdc0bf5">XSCUGIC_SECURITY_OFFSET</a> + (((InterruptID)/32U)*4U))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the SPI Target Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa2cf2e3acd2e8cf537c415276efa3a97"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSCUGIC_SPI_TARGET_OFFSET_CALC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InterruptID</td><td>)</td>
-          <td>&#160;&#160;&#160;((u32)<a class="el" href="group__scugic__api.html#ga0ff09d2f6f8b9b89f847f756ee0ed408">XSCUGIC_SPI_TARGET_OFFSET</a> + (((InterruptID)/4U) * 4U))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the SPI Target Register offset for an interrupt ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InterruptID</td><td>Interrupt number.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the offset. </dd></dl>
-
-<p>Referenced by <a class="el" href="group__scugic__api.html#gaadf6b084a0540093dd64b8a8e3e74d6c">XScuGic_InterruptMapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga2a94f1a519d965f051d598e5a6b5a855">XScuGic_InterruptMaptoCpu()</a>, <a class="el" href="group__scugic__api.html#ga04f8ea74458251784b293e4ad98f2d74">XScuGic_InterruptUnmapFromCpu()</a>, <a class="el" href="group__scugic__api.html#ga51ba67d5953cb6b68a8d327b5e3103d7">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga6146a0489a1c748ceeaee729639d48a7">XScuGic_Stop()</a>, <a class="el" href="group__scugic__api.html#ga66b2416be64a5e582e530ed9ed7f962c">XScuGic_UnmapAllInterruptsFromCpu()</a>, and <a class="el" href="group__scugic__api.html#gac7192c00a59e0cca27ed4c46f2755bb0">XScuGic_UnmapAllInterruptsFromCpuByDistAddr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a01c0f85e48858531c313ce22cbfd2dfa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XScuGic_WriteReg</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">BaseAddress, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegOffset, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Data&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(Xil_Out32(((BaseAddress) + (RegOffset)), ((u32)(Data))))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes the given Intc register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Register offset to be written </td></tr>
-    <tr><td class="paramname">Data</td><td>32-bit value to write to the register</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="xscugic__hw_8h.html#a01c0f85e48858531c313ce22cbfd2dfa" title="Writes the given Intc register. ">XScuGic_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
-
-<p>Referenced by <a class="el" href="xscugic__low__level__example_8c.html#a1f77e8cd34d4dcfb72db81ada16e2942">LowInterruptHandler()</a>, <a class="el" href="group__scugic__api.html#ga96bfe161e3b4e401f76f2b35df9fab86">XScuGic_DeviceInterruptHandler()</a>, <a class="el" href="group__scugic__api.html#ga0d183d23d05aac5d61cd640c5b39b275">XScuGic_DisableIntr()</a>, <a class="el" href="group__scugic__api.html#gadaa95193630e661a6a578f35a5e3ea1a">XScuGic_EnableIntr()</a>, <a class="el" href="group__scugic__api.html#gaadf6b084a0540093dd64b8a8e3e74d6c">XScuGic_InterruptMapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#ga51ba67d5953cb6b68a8d327b5e3103d7">XScuGic_InterruptUnmapFromCpuByDistAddr()</a>, <a class="el" href="group__scugic__api.html#gac8e95bba26e2b07a882cb03750540b4d">XScuGic_SetPriTrigTypeByDistAddr()</a>, and <a class="el" href="group__scugic__api.html#gac7192c00a59e0cca27ed4c46f2755bb0">XScuGic_UnmapAllInterruptsFromCpuByDistAddr()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

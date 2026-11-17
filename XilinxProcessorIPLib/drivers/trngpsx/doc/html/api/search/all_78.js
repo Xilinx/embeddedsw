@@ -13,6 +13,7 @@ var searchData=
   ['xtrngpsx_5fcatastrophic_5fdtf_5ferror',['XTRNGPSX_CATASTROPHIC_DTF_ERROR',['../group__trngpsx__api.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a2929b58685ab788ea0107d339657632d',1,'xtrngpsx.h']]],
   ['xtrngpsx_5fcfginitialize',['XTrngpsx_CfgInitialize',['../group__trngpsx__api.html#ga6b5653250d7dad396a064b0ba6fa5c34',1,'xtrngpsx.c']]],
   ['xtrngpsx_5fconfig',['XTrngpsx_Config',['../struct_x_trngpsx___config.html',1,'']]],
+  ['xtrngpsx_5fconfigtable',['XTrngpsx_ConfigTable',['../group__trngpsx__api.html#ga8a9a86209f21795b5c59ea97229d04a3',1,'XTrngpsx_ConfigTable():&#160;xtrngpsx_g.c'],['../group__trngpsx__api.html#ga8a9a86209f21795b5c59ea97229d04a3',1,'XTrngpsx_ConfigTable():&#160;xtrngpsx_g.c']]],
   ['xtrngpsx_5fdf_5f2clks_5fwait',['XTRNGPSX_DF_2CLKS_WAIT',['../group__trngpsx__api.html#gaa2ef373e2cf65b9ed262214213f81ea8',1,'xtrngpsx.c']]],
   ['xtrngpsx_5fdf_5f700clks_5fwait',['XTRNGPSX_DF_700CLKS_WAIT',['../group__trngpsx__api.html#ga3503bef03eb9057b912fe6248f6e966c',1,'xtrngpsx.c']]],
   ['xtrngpsx_5fdf_5fmax_5flength',['XTRNGPSX_DF_MAX_LENGTH',['../group__trngpsx__api.html#gacdb1fbfdbaf6706a613cabfe35e4b23d',1,'xtrngpsx.c']]],

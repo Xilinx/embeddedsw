@@ -1,5 +1,6 @@
 var struct_x_strm___tx_fifo_streamer =
 [
+    [ "AlignedBuffer", "struct_x_strm___tx_fifo_streamer.html#ab219d36b21fc84935af04761c15ff26d", null ],
     [ "FifoInstance", "struct_x_strm___tx_fifo_streamer.html#ac20fde8a3090fddfc01f8b2900fd9051", null ],
     [ "FifoWidth", "struct_x_strm___tx_fifo_streamer.html#a474cf91d66d43f716a34299d4ab9b9b2", null ],
     [ "GetVacancyFn", "struct_x_strm___tx_fifo_streamer.html#ab33212eea0a6327f2c6b1173510170a9", null ],

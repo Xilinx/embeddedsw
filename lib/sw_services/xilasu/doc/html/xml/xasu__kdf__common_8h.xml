@@ -7,54 +7,54 @@
     <includedby refid="xasu__kdf_8c" local="yes">xasu_kdf.c</includedby>
     <includedby refid="xasu__kdf__common_8c" local="yes">xasu_kdf_common.c</includedby>
     <incdepgraph>
-      <node id="518">
-        <label>xasu_kdfinfo.h</label>
-        <link refid="xasu__kdfinfo_8h"/>
-        <childnode refid="517" relation="include">
-        </childnode>
-        <childnode refid="519" relation="include">
-        </childnode>
-        <childnode refid="520" relation="include">
-        </childnode>
-      </node>
-      <node id="520">
+      <node id="619">
         <label>xasu_bsp_config.h</label>
       </node>
-      <node id="517">
-        <label>xil_types.h</label>
-      </node>
-      <node id="516">
+      <node id="615">
         <label>xasu_kdf_common.h</label>
         <link refid="xasu_kdf_common.h"/>
-        <childnode refid="517" relation="include">
+        <childnode refid="616" relation="include">
         </childnode>
-        <childnode refid="518" relation="include">
+        <childnode refid="617" relation="include">
         </childnode>
       </node>
-      <node id="519">
+      <node id="617">
+        <label>xasu_kdfinfo.h</label>
+        <link refid="xasu__kdfinfo_8h"/>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
         <label>xasu_hmacinfo.h</label>
         <link refid="xasu__hmacinfo_8h"/>
-        <childnode refid="517" relation="include">
+        <childnode refid="616" relation="include">
         </childnode>
-        <childnode refid="520" relation="include">
+        <childnode refid="619" relation="include">
         </childnode>
+      </node>
+      <node id="616">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="522">
+      <node id="621">
         <label>xasu_kdf.c</label>
         <link refid="xasu__kdf_8c"/>
       </node>
-      <node id="523">
+      <node id="622">
         <label>xasu_kdf_common.c</label>
         <link refid="xasu__kdf__common_8c"/>
       </node>
-      <node id="521">
+      <node id="620">
         <label>xasu_kdf_common.h</label>
         <link refid="xasu_kdf_common.h"/>
-        <childnode refid="522" relation="include">
+        <childnode refid="621" relation="include">
         </childnode>
-        <childnode refid="523" relation="include">
+        <childnode refid="622" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -84,21 +84,22 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validate SHA Mode and SHA Type.</para><para>Validate that exactly one of KeyInAddr or KeyId is provided.</para><para>When a direct key is provided, its length must be valid; context and output buffers must be valid. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" bodystart="60" bodyend="93"/>
-        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::ContextAddr</references>
-        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::ContextLen</references>
-        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+<para>Validate SHA Mode and SHA Type.</para><para>Get the hash length, which bounds the key output length below.</para><para>Validate that exactly one of KeyInAddr or KeyId is provided, and that a vault sourced key carries no length.</para><para>When a direct key is provided, its length must be valid; context and output buffers must be valid. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" bodystart="60" bodyend="104"/>
+        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::ContextAddr</references>
+        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::ContextLen</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="58">XAsu_KdfHmacKeyObject::KeyId</references>
         <references refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" compoundref="xasu__hmacinfo_8h" startline="54">XAsu_KdfHmacKeyObject::KeyInAddr</references>
         <references refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" compoundref="xasu__hmacinfo_8h" startline="55">XAsu_KdfHmacKeyObject::KeyInLen</references>
-        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
-        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::KeyOutAddr</references>
-        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::KeyOutLen</references>
-        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="67">XAsu_KdfParams::ShaMode</references>
-        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::KeyOutAddr</references>
+        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::KeyOutLen</references>
+        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="69">XAsu_KdfParams::ShaMode</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="68">XAsu_KdfParams::ShaType</references>
         <references refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" compoundref="xasu__kdfinfo_8h" startline="54">XASU_KDF_MAX_CONTEXT_LEN</references>
+        <references refid="group__xasu__common__defs_1ga875f561a26016348988c56a1051b0fda" compoundref="xasu__kdfinfo_8h" startline="56">XASU_KDF_MAX_ITERATIONS</references>
         <references refid="group__xasu__common__defs_1gaeecfde1eef6f8a357c4bb0bf2f235d70" compoundref="xasu__kdfinfo_8h" startline="55">XASU_KDF_MAX_KEY_LENGTH</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" compoundref="xasu__keymanager__common_8c" startline="598" endline="622">XAsu_KmValidateKeyAddrNdKeyId</references>
         <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
         <referencedby refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</referencedby>
       </memberdef>
@@ -147,6 +148,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KDF_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.h"/>
   </compounddef>
 </doxygen>

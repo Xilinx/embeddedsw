@@ -1,38 +1,90 @@
 var NAVTREE =
 [
-  [ "v_mix", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "main.c", "example.html#ex1", null ],
-      [ "vmix_example.tcl", "example.html#ex2", null ]
-    ] ]
-  ] ]
+  [
+    "v_mix",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xv__mix_8c.html#a34ae5fd90dce0ec5e1f467ea82135ae7",
-"xv__mix_8c.html#abff7f6341b8a4f9cfb7704943b93ec16",
-"xv__mix_8h.html#a5dc72eb0cda915d2954cedf8808c1c9c",
-"xv__mix_8h.html#af78a8d327739298106b06ed97f6af0a6",
-"xv__mix__hw_8h.html#a6ab8c3a6d1a3f06668ff9ace8e814a90",
-"xv__mix__hw_8h.html#afb6b092ef064c455a67229fdeaad3afc"
+"xv__mix_8c.html#a360d7b31757437fdbbdbfe2e3fbd53af",
+"xv__mix_8c.html#ac250f71b6d51497380a4f6c7869015f1",
+"xv__mix_8h.html#a6089075d8eda901ea46dffba2c6f6695",
+"xv__mix_8h.html#af8068111690e26da6f88ad03a156ab4f",
+"xv__mix__hw_8h.html#a6b9432b8d0c0fb93e0af9c72a7f98fd9",
+"xv__mix__hw_8h.html#afd18ffa4622abe77d7ca64b9fcb02a0b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

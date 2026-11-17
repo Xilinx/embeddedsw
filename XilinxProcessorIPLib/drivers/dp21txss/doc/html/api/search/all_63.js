@@ -4,6 +4,8 @@ var searchData=
   ['clk_5fset_2ec',['clk_set.c',['../clk__set_8c.html',1,'']]],
   ['clk_5fset_2eh',['clk_set.h',['../clk__set_8h.html',1,'']]],
   ['clkwiz_5flocked',['ClkWiz_Locked',['../xdptxss__dp21__tx_8c.html#a40db3a1befdd0b153debbb04049ccc70',1,'xdptxss_dp21_tx.c']]],
+  ['clkwizconfig',['ClkWizConfig',['../struct_x_dp_tx_ss___clk_wiz_sub_core.html#a6d7825d52b08ccfaafa4e6421b066d15',1,'XDpTxSs_ClkWizSubCore']]],
+  ['clkwizsubcore',['ClkWizSubCore',['../struct_x_dp_tx_ss___config.html#af19b6ec768c165a039c6ea559e98b29d',1,'XDpTxSs_Config']]],
   ['config',['Config',['../struct_x_dp_tx_ss.html#a9469d77acb349ab8c6672fb9338ea5fc',1,'XDpTxSs']]],
   ['configptr_5fiic',['ConfigPtr_IIC',['../xdptxss__dp21__tx_8c.html#aa1d1298820f21d23082d9c0f918e8657',1,'xdptxss_dp21_tx.c']]],
   ['cta861_5faudio_5fdata_5fblock',['CTA861_AUDIO_DATA_BLOCK',['../group__dptxss.html#ga21ee658908549ea5a7e7f3c1d5b57180',1,'xdptxss_edid_parser.h']]],

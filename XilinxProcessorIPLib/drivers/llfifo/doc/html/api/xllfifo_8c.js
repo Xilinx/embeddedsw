@@ -1,5 +1,6 @@
 var xllfifo_8c =
 [
+    [ "FIFO_WIDTH_BYTES", "xllfifo_8c.html#ga9ab678f3af0afefab24bc4f670a50bf6", null ],
     [ "XLlFifo_CfgInitialize", "xllfifo_8c.html#ga874c22807476dc0ffec670c38f452443", null ],
     [ "XLlFifo_Initialize", "xllfifo_8c.html#ga3debde0a34325b3f314d15fe6f43a7ee", null ],
     [ "XLlFifo_iRead_Aligned", "xllfifo_8c.html#ga18bc620d388cbca83d63cc1c6ef33225", null ],

@@ -8,5 +8,6 @@ var struct_x_qspi_ps =
     [ "RequestedBytes", "struct_x_qspi_ps.html#a1b140d53f85afb3367a0864d7bbf4f9e", null ],
     [ "SendBufferPtr", "struct_x_qspi_ps.html#a7356f0fa57545532428d565647adacb6", null ],
     [ "ShiftReadData", "struct_x_qspi_ps.html#ae46299d271d034c3ed877f6152b75327", null ],
+    [ "StatusHandler", "struct_x_qspi_ps.html#a93d99af7c25270dea6901d5303e10aa3", null ],
     [ "StatusRef", "struct_x_qspi_ps.html#acb2b967c48eea7164860e726d2f28545", null ]
 ];

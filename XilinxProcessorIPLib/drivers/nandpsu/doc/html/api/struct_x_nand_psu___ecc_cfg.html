@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___ecc_cfg.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,18 +106,114 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___ecc_cfg.html','');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XNandPsu_EccCfg Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XNandPsu_EccCfg Struct Reference<div class="ingroups"><a class="el" href="group__nandpsu.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_nand_psu___ecc_cfg.html" title="The XNandPsu_EccCfg structure contains ECC configuration. ">XNandPsu_EccCfg</a> structure contains ECC configuration.
+<p>Holds the ECC configuration.
  <a href="struct_x_nand_psu___ecc_cfg.html#details">More...</a></p>
 
 <p><code>#include &lt;xnandpsu.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a1a744c48af8a35100a99ca3cc5786af3"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_cfg.html#a1a744c48af8a35100a99ca3cc5786af3">EccAddr</a></td></tr>
+<tr class="memdesc:a1a744c48af8a35100a99ca3cc5786af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC address.  <a href="#a1a744c48af8a35100a99ca3cc5786af3">More...</a><br/></td></tr>
+<tr class="separator:a1a744c48af8a35100a99ca3cc5786af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3aba93d35655ce65a4239fa2c01b94d"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_cfg.html#ac3aba93d35655ce65a4239fa2c01b94d">EccSize</a></td></tr>
+<tr class="memdesc:ac3aba93d35655ce65a4239fa2c01b94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC size in bytes.  <a href="#ac3aba93d35655ce65a4239fa2c01b94d">More...</a><br/></td></tr>
+<tr class="separator:ac3aba93d35655ce65a4239fa2c01b94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac80138f241ad7f8c191fa766ecb8b6"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_cfg.html#acac80138f241ad7f8c191fa766ecb8b6">CodeWordSize</a></td></tr>
+<tr class="memdesc:acac80138f241ad7f8c191fa766ecb8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC codeword size.  <a href="#acac80138f241ad7f8c191fa766ecb8b6">More...</a><br/></td></tr>
+<tr class="separator:acac80138f241ad7f8c191fa766ecb8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7fa748180bfe4fca4094691f595b4ba"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_cfg.html#ad7fa748180bfe4fca4094691f595b4ba">NumEccBits</a></td></tr>
+<tr class="memdesc:ad7fa748180bfe4fca4094691f595b4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of ECC correctable bits.  <a href="#ad7fa748180bfe4fca4094691f595b4ba">More...</a><br/></td></tr>
+<tr class="separator:ad7fa748180bfe4fca4094691f595b4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d6a475996c60699ac0441314fbe2e5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_cfg.html#a69d6a475996c60699ac0441314fbe2e5">IsBCH</a></td></tr>
+<tr class="memdesc:a69d6a475996c60699ac0441314fbe2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">BCH ECC in use (1) or Hamming ECC (0).  <a href="#a69d6a475996c60699ac0441314fbe2e5">More...</a><br/></td></tr>
+<tr class="separator:a69d6a475996c60699ac0441314fbe2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_nand_psu___ecc_cfg.html" title="The XNandPsu_EccCfg structure contains ECC configuration. ">XNandPsu_EccCfg</a> structure contains ECC configuration. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the ECC configuration. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="acac80138f241ad7f8c191fa766ecb8b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccCfg::CodeWordSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC codeword size. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a744c48af8a35100a99ca3cc5786af3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccCfg::EccAddr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC address. </p>
+
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac3aba93d35655ce65a4239fa2c01b94d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccCfg::EccSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC size in bytes. </p>
+
+<p>Referenced by <a class="el" href="group__nandpsu.html#ga7c4f4816209d1d66b9de152735046b0f">XNandPsu_WriteSpareBytes()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a69d6a475996c60699ac0441314fbe2e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XNandPsu_EccCfg::IsBCH</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BCH ECC in use (1) or Hamming ECC (0). </p>
+
+</div>
+</div>
+<a class="anchor" id="ad7fa748180bfe4fca4094691f595b4ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XNandPsu_EccCfg::NumEccBits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of ECC correctable bits. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

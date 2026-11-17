@@ -4,49 +4,49 @@
     <compoundname>zynqmp/xsecure_utils.c</compoundname>
     <includes refid="zynqmp_2xsecure__utils_8h" local="yes">xsecure_utils.h</includes>
     <incdepgraph>
-      <node id="4932">
+      <node id="5173">
         <label>xil_assert.h</label>
       </node>
-      <node id="4927">
+      <node id="5168">
         <label>xil_io.h</label>
       </node>
-      <node id="4930">
+      <node id="5171">
         <label>sleep.h</label>
       </node>
-      <node id="4925">
-        <label>xsecure_utils.c</label>
-        <link refid="zynqmp/xsecure_utils.c"/>
-        <childnode refid="4926" relation="include">
-        </childnode>
-      </node>
-      <node id="4926">
-        <label>xsecure_utils.h</label>
-        <link refid="zynqmp_2xsecure__utils_8h"/>
-        <childnode refid="4927" relation="include">
-        </childnode>
-        <childnode refid="4928" relation="include">
-        </childnode>
-        <childnode refid="4929" relation="include">
-        </childnode>
-        <childnode refid="4930" relation="include">
-        </childnode>
-        <childnode refid="4931" relation="include">
-        </childnode>
-        <childnode refid="4932" relation="include">
-        </childnode>
-        <childnode refid="4933" relation="include">
-        </childnode>
-      </node>
-      <node id="4933">
+      <node id="5174">
         <label>xil_mem.h</label>
       </node>
-      <node id="4931">
+      <node id="5172">
         <label>xstatus.h</label>
       </node>
-      <node id="4929">
+      <node id="5166">
+        <label>xsecure_utils.c</label>
+        <link refid="zynqmp/xsecure_utils.c"/>
+        <childnode refid="5167" relation="include">
+        </childnode>
+      </node>
+      <node id="5167">
+        <label>xsecure_utils.h</label>
+        <link refid="zynqmp_2xsecure__utils_8h"/>
+        <childnode refid="5168" relation="include">
+        </childnode>
+        <childnode refid="5169" relation="include">
+        </childnode>
+        <childnode refid="5170" relation="include">
+        </childnode>
+        <childnode refid="5171" relation="include">
+        </childnode>
+        <childnode refid="5172" relation="include">
+        </childnode>
+        <childnode refid="5173" relation="include">
+        </childnode>
+        <childnode refid="5174" relation="include">
+        </childnode>
+      </node>
+      <node id="5170">
         <label>xil_types.h</label>
       </node>
-      <node id="4928">
+      <node id="5169">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
@@ -85,7 +85,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="59" bodyend="63"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="59" bodyend="63"/>
         <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
         <references refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" compoundref="core_2util_2xsecure__utils_8h" startline="51">XSECURE_RESET_UNSET</references>
       </memberdef>
@@ -123,7 +123,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="73" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="73" bodyend="76"/>
         <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -171,12 +171,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.c" bodystart="74" bodyend="95"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="88" bodyend="109"/>
         <references refid="group__xsecure__generic__server__apis_1ga5d090a399a2fe568bea608504ae2b586" compoundref="core_2util_2xsecure__utils_8h" startline="56">XSECURE_WORD_ALIGN_MASK</references>
-        <referencedby refid="group__xsecure__aes__server__apis_1gafc1c2624b3827e83af7c24b2906bb7db" compoundref="core_2aes_2xsecure__aes_8c" startline="948" endline="952">XSecure_AesEncryptUpdate</referencedby>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
-        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
-        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -231,7 +227,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
-<codeline lineno="88"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>(u64<sp/>DstAddr,<sp/>u64<sp/>SrcAddr,<sp/>u32<sp/>Cnt)</highlight></codeline>
+<codeline lineno="88" refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>(u64<sp/>DstAddr,<sp/>u64<sp/>SrcAddr,<sp/>u32<sp/>Cnt)</highlight></codeline>
 <codeline lineno="89"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Dst<sp/>=<sp/>DstAddr;</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Src<sp/>=<sp/>SrcAddr;</highlight></codeline>
@@ -254,6 +250,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="109"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c"/>
   </compounddef>
 </doxygen>

@@ -13,6 +13,12 @@
       <node id="71">
         <label>xil_assert.h</label>
       </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="72">
+        <label>xil_types.h</label>
+      </node>
       <node id="70">
         <label>xi2stx_debug.h</label>
         <link refid="xi2stx_debug.h"/>
@@ -23,24 +29,58 @@
         <childnode refid="73" relation="include">
         </childnode>
       </node>
-      <node id="73">
-        <label>xstatus.h</label>
-      </node>
-      <node id="72">
-        <label>xil_types.h</label>
-      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="78">
+        <label>xi2stx_chsts.c</label>
+        <link refid="xi2stx__chsts_8c"/>
+      </node>
+      <node id="77">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xi2stx_sinit.c</label>
+        <link refid="xi2stx__sinit_8c"/>
+      </node>
       <node id="80">
         <label>xi2stx_g.c</label>
       </node>
-      <node id="84">
-        <label>xi2stx_intr_example.c</label>
-        <link refid="xi2stx__intr__example_8c"/>
+      <node id="82">
+        <label>xi2stx_selftest.c</label>
+        <link refid="xi2stx__selftest_8c"/>
+      </node>
+      <node id="79">
+        <label>xi2stx_debug.c</label>
+        <link refid="xi2stx__debug_8c"/>
+      </node>
+      <node id="74">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx_debug.h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
       </node>
       <node id="76">
         <label>xi2stx.c</label>
         <link refid="xi2stx_8c"/>
+      </node>
+      <node id="85">
+        <label>xi2stx_selftest_example.c</label>
+        <link refid="xi2stx__selftest__example_8c"/>
       </node>
       <node id="75">
         <label>xi2stx.h</label>
@@ -66,53 +106,13 @@
         <childnode refid="85" relation="include">
         </childnode>
       </node>
-      <node id="79">
-        <label>xi2stx_debug.c</label>
-        <link refid="xi2stx__debug_8c"/>
-      </node>
-      <node id="74">
-        <label>xi2stx_debug.h</label>
-        <link refid="xi2stx_debug.h"/>
-        <childnode refid="75" relation="include">
-        </childnode>
-        <childnode refid="76" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
-        <childnode refid="79" relation="include">
-        </childnode>
-      </node>
-      <node id="82">
-        <label>xi2stx_selftest.c</label>
-        <link refid="xi2stx__selftest_8c"/>
-      </node>
-      <node id="85">
-        <label>xi2stx_selftest_example.c</label>
-        <link refid="xi2stx__selftest__example_8c"/>
-      </node>
       <node id="81">
         <label>xi2stx_intr.c</label>
         <link refid="xi2stx__intr_8c"/>
       </node>
-      <node id="78">
-        <label>xi2stx_chsts.c</label>
-        <link refid="xi2stx__chsts_8c"/>
-      </node>
-      <node id="77">
-        <label>xi2stx_chsts.h</label>
-        <link refid="xi2stx__chsts_8h"/>
-        <childnode refid="75" relation="include">
-        </childnode>
-        <childnode refid="76" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
-        <childnode refid="79" relation="include">
-        </childnode>
-      </node>
-      <node id="83">
-        <label>xi2stx_sinit.c</label>
-        <link refid="xi2stx__sinit_8c"/>
+      <node id="84">
+        <label>xi2stx_intr_example.c</label>
+        <link refid="xi2stx__intr__example_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_i2s___tx___log_item" prot="public">XI2s_Tx_LogItem</innerclass>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="58" bodyend="64"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="58" bodyend="64"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -239,6 +239,6 @@
 <codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2STX_DEBUG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h"/>
   </compounddef>
 </doxygen>

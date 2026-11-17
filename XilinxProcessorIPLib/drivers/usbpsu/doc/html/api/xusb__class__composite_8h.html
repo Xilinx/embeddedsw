@@ -100,6 +100,8 @@ $(document).ready(function(){initNavTree('xusb__class__composite_8h.html','');})
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_class_composite.h File Reference</div>  </div>
@@ -116,16 +118,313 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.5   vak  13/02/19 Added support for versal
 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xusb__ch9_8h.html">xusb_ch9.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdfu__if.html">dfu_if</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DFU interface state and control data structure.  <a href="structdfu__if.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaudio__if.html">audio_if</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Audio interface descriptor structure.  <a href="structaudio__if.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstorage__if.html">storage_if</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Mass Storage interface descriptor structure.  <a href="structstorage__if.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomposite__dev.html">composite_dev</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB composite device configuration structure.  <a href="structcomposite__dev.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a64c259382ba0bc1d606f049ce6edc785"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a64c259382ba0bc1d606f049ce6edc785">STATE_APP_IDLE</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a64c259382ba0bc1d606f049ce6edc785"><td class="mdescLeft">&#160;</td><td class="mdescRight">State App Idle.  <a href="#a64c259382ba0bc1d606f049ce6edc785">More...</a><br/></td></tr>
+<tr class="separator:a64c259382ba0bc1d606f049ce6edc785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af49711fa169b5c78a2fd73abfe68b802"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#af49711fa169b5c78a2fd73abfe68b802">STATE_APP_DETACH</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:af49711fa169b5c78a2fd73abfe68b802"><td class="mdescLeft">&#160;</td><td class="mdescRight">State App Detach.  <a href="#af49711fa169b5c78a2fd73abfe68b802">More...</a><br/></td></tr>
+<tr class="separator:af49711fa169b5c78a2fd73abfe68b802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7682da19ba681e067b72dcaaad8c06e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a7682da19ba681e067b72dcaaad8c06e0">STATE_DFU_IDLE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a7682da19ba681e067b72dcaaad8c06e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Idle.  <a href="#a7682da19ba681e067b72dcaaad8c06e0">More...</a><br/></td></tr>
+<tr class="separator:a7682da19ba681e067b72dcaaad8c06e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d2c6876a1806477fca042cd456a75b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a5d2c6876a1806477fca042cd456a75b5">STATE_DFU_DOWNLOAD_SYNC</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a5d2c6876a1806477fca042cd456a75b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Download Sync.  <a href="#a5d2c6876a1806477fca042cd456a75b5">More...</a><br/></td></tr>
+<tr class="separator:a5d2c6876a1806477fca042cd456a75b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab84f038b292fbf493645e8410406eb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aab84f038b292fbf493645e8410406eb0">STATE_DFU_DOWNLOAD_BUSY</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:aab84f038b292fbf493645e8410406eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Download Busy.  <a href="#aab84f038b292fbf493645e8410406eb0">More...</a><br/></td></tr>
+<tr class="separator:aab84f038b292fbf493645e8410406eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb01f5c3e89ae6a471c5dbb0a38422e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aabb01f5c3e89ae6a471c5dbb0a38422e">STATE_DFU_DOWNLOAD_IDLE</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:aabb01f5c3e89ae6a471c5dbb0a38422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Download Idle.  <a href="#aabb01f5c3e89ae6a471c5dbb0a38422e">More...</a><br/></td></tr>
+<tr class="separator:aabb01f5c3e89ae6a471c5dbb0a38422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adea9d9ab353da9373e1ae22774b8b296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#adea9d9ab353da9373e1ae22774b8b296">STATE_DFU_MANIFEST_SYNC</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:adea9d9ab353da9373e1ae22774b8b296"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Manifest Sync.  <a href="#adea9d9ab353da9373e1ae22774b8b296">More...</a><br/></td></tr>
+<tr class="separator:adea9d9ab353da9373e1ae22774b8b296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18201acdac101c3ba74670a6c673df79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a18201acdac101c3ba74670a6c673df79">STATE_DFU_MANIFEST</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:a18201acdac101c3ba74670a6c673df79"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Manifest.  <a href="#a18201acdac101c3ba74670a6c673df79">More...</a><br/></td></tr>
+<tr class="separator:a18201acdac101c3ba74670a6c673df79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0eb94aa682995bf1b298bdd4f6a8723"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ac0eb94aa682995bf1b298bdd4f6a8723">STATE_DFU_MANIFEST_WAIT_RESET</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:ac0eb94aa682995bf1b298bdd4f6a8723"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Manifest Wait Reset.  <a href="#ac0eb94aa682995bf1b298bdd4f6a8723">More...</a><br/></td></tr>
+<tr class="separator:ac0eb94aa682995bf1b298bdd4f6a8723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408f5b36840adf32284c71c7ad8a74b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a408f5b36840adf32284c71c7ad8a74b7">STATE_DFU_UPLOAD_IDLE</a>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memdesc:a408f5b36840adf32284c71c7ad8a74b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Upload Idle.  <a href="#a408f5b36840adf32284c71c7ad8a74b7">More...</a><br/></td></tr>
+<tr class="separator:a408f5b36840adf32284c71c7ad8a74b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac45da3645c8f37ea2b18de63ff1047"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aaac45da3645c8f37ea2b18de63ff1047">STATE_DFU_ERROR</a>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memdesc:aaac45da3645c8f37ea2b18de63ff1047"><td class="mdescLeft">&#160;</td><td class="mdescRight">State Dfu Error.  <a href="#aaac45da3645c8f37ea2b18de63ff1047">More...</a><br/></td></tr>
+<tr class="separator:aaac45da3645c8f37ea2b18de63ff1047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca1223d97fed104d04df2f13f4e278b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#adca1223d97fed104d04df2f13f4e278b">DFU_STATUS_OK</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:adca1223d97fed104d04df2f13f4e278b"><td class="mdescLeft">&#160;</td><td class="mdescRight">DFU status: No error.  <a href="#adca1223d97fed104d04df2f13f4e278b">More...</a><br/></td></tr>
+<tr class="separator:adca1223d97fed104d04df2f13f4e278b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14499b3729ae52272fa5df5975dd3fce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a14499b3729ae52272fa5df5975dd3fce">DFU_STATUS_ERROR_TARGET</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a14499b3729ae52272fa5df5975dd3fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Target.  <a href="#a14499b3729ae52272fa5df5975dd3fce">More...</a><br/></td></tr>
+<tr class="separator:a14499b3729ae52272fa5df5975dd3fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9490d88735e358d2c5d41a86a04051ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9490d88735e358d2c5d41a86a04051ad">DFU_STATUS_ERROR_FILE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a9490d88735e358d2c5d41a86a04051ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error File.  <a href="#a9490d88735e358d2c5d41a86a04051ad">More...</a><br/></td></tr>
+<tr class="separator:a9490d88735e358d2c5d41a86a04051ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e13ccce805358f4caa876b6d7d816d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9e13ccce805358f4caa876b6d7d816d1">DFU_STATUS_ERROR_WRITE</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a9e13ccce805358f4caa876b6d7d816d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Write.  <a href="#a9e13ccce805358f4caa876b6d7d816d1">More...</a><br/></td></tr>
+<tr class="separator:a9e13ccce805358f4caa876b6d7d816d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14adf8ace168a4663a145a3628afe4e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a14adf8ace168a4663a145a3628afe4e7">DFU_STATUS_ERROR_ERASE</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a14adf8ace168a4663a145a3628afe4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Erase.  <a href="#a14adf8ace168a4663a145a3628afe4e7">More...</a><br/></td></tr>
+<tr class="separator:a14adf8ace168a4663a145a3628afe4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1895d554b8e041b905806cfc3049c1b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a1895d554b8e041b905806cfc3049c1b5">DFU_STATUS_ERROR_CHECK_ERASED</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:a1895d554b8e041b905806cfc3049c1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Check Erased.  <a href="#a1895d554b8e041b905806cfc3049c1b5">More...</a><br/></td></tr>
+<tr class="separator:a1895d554b8e041b905806cfc3049c1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a951312ed14382dabfec369f3e8cebc2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a951312ed14382dabfec369f3e8cebc2e">DFU_STATUS_ERROR_PROG</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:a951312ed14382dabfec369f3e8cebc2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Prog.  <a href="#a951312ed14382dabfec369f3e8cebc2e">More...</a><br/></td></tr>
+<tr class="separator:a951312ed14382dabfec369f3e8cebc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a4672d5084eb120863ab25a0c64b23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a90a4672d5084eb120863ab25a0c64b23">DFU_STATUS_ERROR_VERIFY</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:a90a4672d5084eb120863ab25a0c64b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Verify.  <a href="#a90a4672d5084eb120863ab25a0c64b23">More...</a><br/></td></tr>
+<tr class="separator:a90a4672d5084eb120863ab25a0c64b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d9cdec73437db1e0d5ef38d7e326fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ac0d9cdec73437db1e0d5ef38d7e326fa">DFU_STATUS_ERROR_ADDRESS</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:ac0d9cdec73437db1e0d5ef38d7e326fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Address.  <a href="#ac0d9cdec73437db1e0d5ef38d7e326fa">More...</a><br/></td></tr>
+<tr class="separator:ac0d9cdec73437db1e0d5ef38d7e326fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f5caf2d3608013662e481f420112bdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4f5caf2d3608013662e481f420112bdb">DFU_STATUS_ERROR_NOTDONE</a>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memdesc:a4f5caf2d3608013662e481f420112bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Notdone.  <a href="#a4f5caf2d3608013662e481f420112bdb">More...</a><br/></td></tr>
+<tr class="separator:a4f5caf2d3608013662e481f420112bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e9e63fa5bd689b8d2c3e780597306c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#af8e9e63fa5bd689b8d2c3e780597306c">DFU_STATUS_ERROR_FIRMWARE</a>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memdesc:af8e9e63fa5bd689b8d2c3e780597306c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Firmware.  <a href="#af8e9e63fa5bd689b8d2c3e780597306c">More...</a><br/></td></tr>
+<tr class="separator:af8e9e63fa5bd689b8d2c3e780597306c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb139d7d1b973e19f78b7d2dd4b027f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aadb139d7d1b973e19f78b7d2dd4b027f">DFU_STATUS_ERROR_VENDOR</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:aadb139d7d1b973e19f78b7d2dd4b027f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Vendor.  <a href="#aadb139d7d1b973e19f78b7d2dd4b027f">More...</a><br/></td></tr>
+<tr class="separator:aadb139d7d1b973e19f78b7d2dd4b027f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a698ce75398a4cf9f540fd0ad6c519203"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a698ce75398a4cf9f540fd0ad6c519203">DFU_STATUS_ERROR_USBR</a>&#160;&#160;&#160;0x0c</td></tr>
+<tr class="memdesc:a698ce75398a4cf9f540fd0ad6c519203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Usbr.  <a href="#a698ce75398a4cf9f540fd0ad6c519203">More...</a><br/></td></tr>
+<tr class="separator:a698ce75398a4cf9f540fd0ad6c519203"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d32748e71383d08d7a048e0c95b17f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4d32748e71383d08d7a048e0c95b17f5">DFU_STATUS_ERROR_POR</a>&#160;&#160;&#160;0x0d</td></tr>
+<tr class="memdesc:a4d32748e71383d08d7a048e0c95b17f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Por.  <a href="#a4d32748e71383d08d7a048e0c95b17f5">More...</a><br/></td></tr>
+<tr class="separator:a4d32748e71383d08d7a048e0c95b17f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd19e1f5b4164b01f7fed3b9dc498bd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#abd19e1f5b4164b01f7fed3b9dc498bd6">DFU_STATUS_ERROR_UNKNOWN</a>&#160;&#160;&#160;0x0e</td></tr>
+<tr class="memdesc:abd19e1f5b4164b01f7fed3b9dc498bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Unknown.  <a href="#abd19e1f5b4164b01f7fed3b9dc498bd6">More...</a><br/></td></tr>
+<tr class="separator:abd19e1f5b4164b01f7fed3b9dc498bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa188c82cf7b5d2783953bfc241bb4442"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aa188c82cf7b5d2783953bfc241bb4442">DFU_STATUS_ERROR_STALLEDPKT</a>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memdesc:aa188c82cf7b5d2783953bfc241bb4442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Status Error Stalledpkt.  <a href="#aa188c82cf7b5d2783953bfc241bb4442">More...</a><br/></td></tr>
+<tr class="separator:aa188c82cf7b5d2783953bfc241bb4442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dbfcd9de4badc68f1a79720113dfa3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a1dbfcd9de4badc68f1a79720113dfa3d">DFU_DETACH</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a1dbfcd9de4badc68f1a79720113dfa3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Detach.  <a href="#a1dbfcd9de4badc68f1a79720113dfa3d">More...</a><br/></td></tr>
+<tr class="separator:a1dbfcd9de4badc68f1a79720113dfa3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf8b2bc0fa447ec925a47cee00916e4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aaf8b2bc0fa447ec925a47cee00916e4a">DFU_DNLOAD</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:aaf8b2bc0fa447ec925a47cee00916e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Dnload.  <a href="#aaf8b2bc0fa447ec925a47cee00916e4a">More...</a><br/></td></tr>
+<tr class="separator:aaf8b2bc0fa447ec925a47cee00916e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ec42539a3b1d7a1fcb47383e5ae73b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9ec42539a3b1d7a1fcb47383e5ae73b7">DFU_UPLOAD</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a9ec42539a3b1d7a1fcb47383e5ae73b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Upload.  <a href="#a9ec42539a3b1d7a1fcb47383e5ae73b7">More...</a><br/></td></tr>
+<tr class="separator:a9ec42539a3b1d7a1fcb47383e5ae73b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af45d9250c3e5dfb12a217bc08828cc06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#af45d9250c3e5dfb12a217bc08828cc06">DFU_GETSTATUS</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:af45d9250c3e5dfb12a217bc08828cc06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Getstatus.  <a href="#af45d9250c3e5dfb12a217bc08828cc06">More...</a><br/></td></tr>
+<tr class="separator:af45d9250c3e5dfb12a217bc08828cc06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff6ab40ddfc07a8e873aa4c8dde99fc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aff6ab40ddfc07a8e873aa4c8dde99fc8">DFU_CLRSTATUS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:aff6ab40ddfc07a8e873aa4c8dde99fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Clrstatus.  <a href="#aff6ab40ddfc07a8e873aa4c8dde99fc8">More...</a><br/></td></tr>
+<tr class="separator:aff6ab40ddfc07a8e873aa4c8dde99fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41912ad6c650bf2df2b730f3d6d07849"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a41912ad6c650bf2df2b730f3d6d07849">DFU_GETSTATE</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a41912ad6c650bf2df2b730f3d6d07849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Getstate.  <a href="#a41912ad6c650bf2df2b730f3d6d07849">More...</a><br/></td></tr>
+<tr class="separator:a41912ad6c650bf2df2b730f3d6d07849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0bb6811ae976a2cd8a7b42c19a8390"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9f0bb6811ae976a2cd8a7b42c19a8390">DFU_ABORT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:a9f0bb6811ae976a2cd8a7b42c19a8390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Abort.  <a href="#a9f0bb6811ae976a2cd8a7b42c19a8390">More...</a><br/></td></tr>
+<tr class="separator:a9f0bb6811ae976a2cd8a7b42c19a8390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4146d5ff7ef456a8c2fdef4ef68cfd23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4146d5ff7ef456a8c2fdef4ef68cfd23">DFU_ALT_SETTING</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a4146d5ff7ef456a8c2fdef4ef68cfd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Alt Setting.  <a href="#a4146d5ff7ef456a8c2fdef4ef68cfd23">More...</a><br/></td></tr>
+<tr class="separator:a4146d5ff7ef456a8c2fdef4ef68cfd23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b2a8445191e4e509153c74bb9f9dbec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a8b2a8445191e4e509153c74bb9f9dbec">UAC2_CS_CUR</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a8b2a8445191e4e509153c74bb9f9dbec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Cur.  <a href="#a8b2a8445191e4e509153c74bb9f9dbec">More...</a><br/></td></tr>
+<tr class="separator:a8b2a8445191e4e509153c74bb9f9dbec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618edb4d50d3e1d435a1421eebc050e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a618edb4d50d3e1d435a1421eebc050e1">UAC2_CS_RANGE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a618edb4d50d3e1d435a1421eebc050e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Range.  <a href="#a618edb4d50d3e1d435a1421eebc050e1">More...</a><br/></td></tr>
+<tr class="separator:a618edb4d50d3e1d435a1421eebc050e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1662f078f25f00b88229f1ccef3f037a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a1662f078f25f00b88229f1ccef3f037a">UAC2_CS_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a1662f078f25f00b88229f1ccef3f037a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Undefined.  <a href="#a1662f078f25f00b88229f1ccef3f037a">More...</a><br/></td></tr>
+<tr class="separator:a1662f078f25f00b88229f1ccef3f037a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af347650d747729e3bd81179d135f34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a0af347650d747729e3bd81179d135f34">UAC2_CS_CONTROL_SAM_FREQ</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a0af347650d747729e3bd81179d135f34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Sam Freq.  <a href="#a0af347650d747729e3bd81179d135f34">More...</a><br/></td></tr>
+<tr class="separator:a0af347650d747729e3bd81179d135f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af761a3c529272768675db42bfb39ed9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#af761a3c529272768675db42bfb39ed9b">UAC2_CS_CONTROL_CLOCK_VALID</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:af761a3c529272768675db42bfb39ed9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cs Control Clock Valid.  <a href="#af761a3c529272768675db42bfb39ed9b">More...</a><br/></td></tr>
+<tr class="separator:af761a3c529272768675db42bfb39ed9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db226a634c1d5f31b1964662ebb4dcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9db226a634c1d5f31b1964662ebb4dcb">UAC2_CX_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a9db226a634c1d5f31b1964662ebb4dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cx Control Undefined.  <a href="#a9db226a634c1d5f31b1964662ebb4dcb">More...</a><br/></td></tr>
+<tr class="separator:a9db226a634c1d5f31b1964662ebb4dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fb3344c4fd61753a3561b760327d691"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4fb3344c4fd61753a3561b760327d691">UAC2_CX_CONTROL_CLOCK_SEL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a4fb3344c4fd61753a3561b760327d691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Cx Control Clock Sel.  <a href="#a4fb3344c4fd61753a3561b760327d691">More...</a><br/></td></tr>
+<tr class="separator:a4fb3344c4fd61753a3561b760327d691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3080151311398fc9a479a88b697de174"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a3080151311398fc9a479a88b697de174">UAC2_FU_CONTROL_UNDEFINED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a3080151311398fc9a479a88b697de174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Control Undefined.  <a href="#a3080151311398fc9a479a88b697de174">More...</a><br/></td></tr>
+<tr class="separator:a3080151311398fc9a479a88b697de174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50195a810e6b38e7381f36d9e63a5192"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a50195a810e6b38e7381f36d9e63a5192">UAC2_FU_MUTE_CONTROL</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a50195a810e6b38e7381f36d9e63a5192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Mute Control.  <a href="#a50195a810e6b38e7381f36d9e63a5192">More...</a><br/></td></tr>
+<tr class="separator:a50195a810e6b38e7381f36d9e63a5192"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6995a9c0bcc3c0d52f9af100cabecee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#af6995a9c0bcc3c0d52f9af100cabecee">UAC2_FU_VOLUME_CONTROL</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:af6995a9c0bcc3c0d52f9af100cabecee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uac2 Fu Volume Control.  <a href="#af6995a9c0bcc3c0d52f9af100cabecee">More...</a><br/></td></tr>
+<tr class="separator:af6995a9c0bcc3c0d52f9af100cabecee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab8f5bc9518d1611092d31d8212bc06b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aab8f5bc9518d1611092d31d8212bc06b">ISO_EP</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:aab8f5bc9518d1611092d31d8212bc06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iso Ep.  <a href="#aab8f5bc9518d1611092d31d8212bc06b">More...</a><br/></td></tr>
+<tr class="separator:aab8f5bc9518d1611092d31d8212bc06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae96580781c25b231abf66dd6ecbff045"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ae96580781c25b231abf66dd6ecbff045">STORAGE_EP</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ae96580781c25b231abf66dd6ecbff045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mass storage endpoint number.  <a href="#ae96580781c25b231abf66dd6ecbff045">More...</a><br/></td></tr>
+<tr class="separator:ae96580781c25b231abf66dd6ecbff045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611e1198c0727b99ccbc4ee1fba8323f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a611e1198c0727b99ccbc4ee1fba8323f">KEYBOARD_EP</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a611e1198c0727b99ccbc4ee1fba8323f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyboard Ep.  <a href="#a611e1198c0727b99ccbc4ee1fba8323f">More...</a><br/></td></tr>
+<tr class="separator:a611e1198c0727b99ccbc4ee1fba8323f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6632ef52233cb537bc54b0f27f755213"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a6632ef52233cb537bc54b0f27f755213">INTERVAL_PER_SECOND</a>&#160;&#160;&#160;(u32)(8000)</td></tr>
+<tr class="memdesc:a6632ef52233cb537bc54b0f27f755213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval Per Second.  <a href="#a6632ef52233cb537bc54b0f27f755213">More...</a><br/></td></tr>
+<tr class="separator:a6632ef52233cb537bc54b0f27f755213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3effb770f0314c0352dabcd57e9954c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aa3effb770f0314c0352dabcd57e9954c">AUDIO_INTERVAL</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:aa3effb770f0314c0352dabcd57e9954c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Interval.  <a href="#aa3effb770f0314c0352dabcd57e9954c">More...</a><br/></td></tr>
+<tr class="separator:aa3effb770f0314c0352dabcd57e9954c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26b97c01792871b3dbdc8c6f4b3d10c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7">MAX_AUDIO_FREQ</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a26b97c01792871b3dbdc8c6f4b3d10c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Audio Freq.  <a href="#a26b97c01792871b3dbdc8c6f4b3d10c7">More...</a><br/></td></tr>
+<tr class="separator:a26b97c01792871b3dbdc8c6f4b3d10c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a193e7cdfcb2277e98ee9e1ec3822c288"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a193e7cdfcb2277e98ee9e1ec3822c288">CUR_AUDIO_FREQ</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a193e7cdfcb2277e98ee9e1ec3822c288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cur Audio Freq.  <a href="#a193e7cdfcb2277e98ee9e1ec3822c288">More...</a><br/></td></tr>
+<tr class="separator:a193e7cdfcb2277e98ee9e1ec3822c288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a249b2f85a059ee807759a5186766e4ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a249b2f85a059ee807759a5186766e4ca">AUDIO_FRAME_SIZE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a249b2f85a059ee807759a5186766e4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Frame Size.  <a href="#a249b2f85a059ee807759a5186766e4ca">More...</a><br/></td></tr>
+<tr class="separator:a249b2f85a059ee807759a5186766e4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee6203978efd916bf43ab7659fad0658"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aee6203978efd916bf43ab7659fad0658">BIT_RESOLUTION</a>&#160;&#160;&#160;((<a class="el" href="xusb__freertos__class__composite_8h.html#a249b2f85a059ee807759a5186766e4ca">AUDIO_FRAME_SIZE</a>) * (0x08))</td></tr>
+<tr class="memdesc:aee6203978efd916bf43ab7659fad0658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Resolution.  <a href="#aee6203978efd916bf43ab7659fad0658">More...</a><br/></td></tr>
+<tr class="separator:aee6203978efd916bf43ab7659fad0658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeb77857383eb0c9b78bec7208516bfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aaeb77857383eb0c9b78bec7208516bfc">USB_RBC_TEST_UNIT_READY</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:aaeb77857383eb0c9b78bec7208516bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Test Unit Ready.  <a href="#aaeb77857383eb0c9b78bec7208516bfc">More...</a><br/></td></tr>
+<tr class="separator:aaeb77857383eb0c9b78bec7208516bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191cf1e7f01d47d29963a1f0d89f86a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a191cf1e7f01d47d29963a1f0d89f86a9">USB_RBC_REQUEST_SENSE</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a191cf1e7f01d47d29963a1f0d89f86a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Request Sense.  <a href="#a191cf1e7f01d47d29963a1f0d89f86a9">More...</a><br/></td></tr>
+<tr class="separator:a191cf1e7f01d47d29963a1f0d89f86a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b0e5efd889a2b9cffb2d96d5b52ca2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a97b0e5efd889a2b9cffb2d96d5b52ca2">USB_RBC_FORMAT</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a97b0e5efd889a2b9cffb2d96d5b52ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Format.  <a href="#a97b0e5efd889a2b9cffb2d96d5b52ca2">More...</a><br/></td></tr>
+<tr class="separator:a97b0e5efd889a2b9cffb2d96d5b52ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb23c3984d1eab7f6c9eda96bf4acd2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#afb23c3984d1eab7f6c9eda96bf4acd2e">USB_RBC_INQUIRY</a>&#160;&#160;&#160;0x12</td></tr>
+<tr class="memdesc:afb23c3984d1eab7f6c9eda96bf4acd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Inquiry.  <a href="#afb23c3984d1eab7f6c9eda96bf4acd2e">More...</a><br/></td></tr>
+<tr class="separator:afb23c3984d1eab7f6c9eda96bf4acd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3b0e96e90d2dc212958885a0b6b6f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aea3b0e96e90d2dc212958885a0b6b6f2">USB_RBC_MODE_SELECT</a>&#160;&#160;&#160;0x15</td></tr>
+<tr class="memdesc:aea3b0e96e90d2dc212958885a0b6b6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Mode Select.  <a href="#aea3b0e96e90d2dc212958885a0b6b6f2">More...</a><br/></td></tr>
+<tr class="separator:aea3b0e96e90d2dc212958885a0b6b6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d0a6b6c407e9b1d244772ee99bd162"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a16d0a6b6c407e9b1d244772ee99bd162">USB_RBC_MODE_SENSE</a>&#160;&#160;&#160;0x1a</td></tr>
+<tr class="memdesc:a16d0a6b6c407e9b1d244772ee99bd162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Mode Sense.  <a href="#a16d0a6b6c407e9b1d244772ee99bd162">More...</a><br/></td></tr>
+<tr class="separator:a16d0a6b6c407e9b1d244772ee99bd162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe24a3069290946faa733b63c08b4001"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#abe24a3069290946faa733b63c08b4001">USB_RBC_STARTSTOP_UNIT</a>&#160;&#160;&#160;0x1b</td></tr>
+<tr class="memdesc:abe24a3069290946faa733b63c08b4001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Startstop Unit.  <a href="#abe24a3069290946faa733b63c08b4001">More...</a><br/></td></tr>
+<tr class="separator:abe24a3069290946faa733b63c08b4001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a02161cc295a2b736377657565d0e55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a2a02161cc295a2b736377657565d0e55">USB_RBC_MEDIUM_REMOVAL</a>&#160;&#160;&#160;0x1e</td></tr>
+<tr class="memdesc:a2a02161cc295a2b736377657565d0e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Medium Removal.  <a href="#a2a02161cc295a2b736377657565d0e55">More...</a><br/></td></tr>
+<tr class="separator:a2a02161cc295a2b736377657565d0e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9197267b87aaed640f3e5bff0e581cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ab9197267b87aaed640f3e5bff0e581cc">USB_UFI_GET_CAP_LIST</a>&#160;&#160;&#160;0x23</td></tr>
+<tr class="memdesc:ab9197267b87aaed640f3e5bff0e581cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ufi Get Cap List.  <a href="#ab9197267b87aaed640f3e5bff0e581cc">More...</a><br/></td></tr>
+<tr class="separator:ab9197267b87aaed640f3e5bff0e581cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8953eaa3b8dec85c5084acd3cdf54e79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a8953eaa3b8dec85c5084acd3cdf54e79">USB_RBC_READ_CAP</a>&#160;&#160;&#160;0x25</td></tr>
+<tr class="memdesc:a8953eaa3b8dec85c5084acd3cdf54e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Read Cap.  <a href="#a8953eaa3b8dec85c5084acd3cdf54e79">More...</a><br/></td></tr>
+<tr class="separator:a8953eaa3b8dec85c5084acd3cdf54e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc195711abc29433cfd79274727fff12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#adc195711abc29433cfd79274727fff12">USB_RBC_READ</a>&#160;&#160;&#160;0x28</td></tr>
+<tr class="memdesc:adc195711abc29433cfd79274727fff12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Read.  <a href="#adc195711abc29433cfd79274727fff12">More...</a><br/></td></tr>
+<tr class="separator:adc195711abc29433cfd79274727fff12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8cc5f967ddc0a55466220d616b06354"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ae8cc5f967ddc0a55466220d616b06354">USB_RBC_WRITE</a>&#160;&#160;&#160;0x2a</td></tr>
+<tr class="memdesc:ae8cc5f967ddc0a55466220d616b06354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Write.  <a href="#ae8cc5f967ddc0a55466220d616b06354">More...</a><br/></td></tr>
+<tr class="separator:ae8cc5f967ddc0a55466220d616b06354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b0f59a04fa488ad9be98af8827e61d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a66b0f59a04fa488ad9be98af8827e61d">USB_RBC_VERIFY</a>&#160;&#160;&#160;0x2f</td></tr>
+<tr class="memdesc:a66b0f59a04fa488ad9be98af8827e61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Rbc Verify.  <a href="#a66b0f59a04fa488ad9be98af8827e61d">More...</a><br/></td></tr>
+<tr class="separator:a66b0f59a04fa488ad9be98af8827e61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add4d413170667a9508bc7e6064f531a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#add4d413170667a9508bc7e6064f531a5">USB_SYNC_SCSI</a>&#160;&#160;&#160;0x35</td></tr>
+<tr class="memdesc:add4d413170667a9508bc7e6064f531a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Sync Scsi.  <a href="#add4d413170667a9508bc7e6064f531a5">More...</a><br/></td></tr>
+<tr class="separator:add4d413170667a9508bc7e6064f531a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6f782ffe53d87f0fd0327d4b09352c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>&#160;&#160;&#160;0x6400000</td></tr>
+<tr class="memdesc:a8d6f782ffe53d87f0fd0327d4b09352c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage Size.  <a href="#a8d6f782ffe53d87f0fd0327d4b09352c">More...</a><br/></td></tr>
+<tr class="separator:a8d6f782ffe53d87f0fd0327d4b09352c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aa1d7b80c152cc5a9014bc6e7095379"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a6aa1d7b80c152cc5a9014bc6e7095379">STORAGE_BLOCK_SIZE</a>&#160;&#160;&#160;0x200</td></tr>
+<tr class="memdesc:a6aa1d7b80c152cc5a9014bc6e7095379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage Block Size.  <a href="#a6aa1d7b80c152cc5a9014bc6e7095379">More...</a><br/></td></tr>
+<tr class="separator:a6aa1d7b80c152cc5a9014bc6e7095379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e868fab5b780acbd8c87ebf44ebbb22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a2e868fab5b780acbd8c87ebf44ebbb22">STORAGE_NUM_BLOCKS</a>&#160;&#160;&#160;(<a class="el" href="xusb__freertos__class__storage_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>/<a class="el" href="xusb__freertos__class__storage_8h.html#a6aa1d7b80c152cc5a9014bc6e7095379">STORAGE_BLOCK_SIZE</a>)</td></tr>
+<tr class="memdesc:a2e868fab5b780acbd8c87ebf44ebbb22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage Num Blocks.  <a href="#a2e868fab5b780acbd8c87ebf44ebbb22">More...</a><br/></td></tr>
+<tr class="separator:a2e868fab5b780acbd8c87ebf44ebbb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59096a9a713a89558cc546c21206811d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a59096a9a713a89558cc546c21206811d">USB_CLASSREQ_MASS_STORAGE_RESET</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:a59096a9a713a89558cc546c21206811d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Classreq Mass Storage Reset.  <a href="#a59096a9a713a89558cc546c21206811d">More...</a><br/></td></tr>
+<tr class="separator:a59096a9a713a89558cc546c21206811d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588e1d863090b52bc7625ec7f147adbd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a588e1d863090b52bc7625ec7f147adbd">USB_CLASSREQ_GET_MAX_LUN</a>&#160;&#160;&#160;0xFE</td></tr>
+<tr class="memdesc:a588e1d863090b52bc7625ec7f147adbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Classreq Get Max Lun.  <a href="#a588e1d863090b52bc7625ec7f147adbd">More...</a><br/></td></tr>
+<tr class="separator:a588e1d863090b52bc7625ec7f147adbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcbcd024a52f656cbba34106b10a01ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#abcbcd024a52f656cbba34106b10a01ce">USB_EP_STATE_COMMAND</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:abcbcd024a52f656cbba34106b10a01ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep State Command.  <a href="#abcbcd024a52f656cbba34106b10a01ce">More...</a><br/></td></tr>
+<tr class="separator:abcbcd024a52f656cbba34106b10a01ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed1d7983bc5b354f75b39f84585db954"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aed1d7983bc5b354f75b39f84585db954">USB_EP_STATE_DATA_IN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:aed1d7983bc5b354f75b39f84585db954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep State Data In.  <a href="#aed1d7983bc5b354f75b39f84585db954">More...</a><br/></td></tr>
+<tr class="separator:aed1d7983bc5b354f75b39f84585db954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dae14213e2f18ebc39ee85441cddd5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a2dae14213e2f18ebc39ee85441cddd5a">USB_EP_STATE_DATA_OUT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a2dae14213e2f18ebc39ee85441cddd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep State Data Out.  <a href="#a2dae14213e2f18ebc39ee85441cddd5a">More...</a><br/></td></tr>
+<tr class="separator:a2dae14213e2f18ebc39ee85441cddd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9428396c3d325d9305a67c7fae00382f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9428396c3d325d9305a67c7fae00382f">USB_EP_STATE_STATUS</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a9428396c3d325d9305a67c7fae00382f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep State Status.  <a href="#a9428396c3d325d9305a67c7fae00382f">More...</a><br/></td></tr>
+<tr class="separator:a9428396c3d325d9305a67c7fae00382f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa03608beb1b25ad637d718c1c895c61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#afa03608beb1b25ad637d718c1c895c61">GET_REPORT_REQUEST</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:afa03608beb1b25ad637d718c1c895c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Report Request.  <a href="#afa03608beb1b25ad637d718c1c895c61">More...</a><br/></td></tr>
+<tr class="separator:afa03608beb1b25ad637d718c1c895c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9c44b05036da5d2adbe56da76bf7612"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ab9c44b05036da5d2adbe56da76bf7612">GET_IDLE_REQUEST</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:ab9c44b05036da5d2adbe56da76bf7612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Idle Request.  <a href="#ab9c44b05036da5d2adbe56da76bf7612">More...</a><br/></td></tr>
+<tr class="separator:ab9c44b05036da5d2adbe56da76bf7612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dfffa0018e5286b97504f4b5ccf7463"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a8dfffa0018e5286b97504f4b5ccf7463">GET_PROTOCOL_REQUEST</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a8dfffa0018e5286b97504f4b5ccf7463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Protocol Request.  <a href="#a8dfffa0018e5286b97504f4b5ccf7463">More...</a><br/></td></tr>
+<tr class="separator:a8dfffa0018e5286b97504f4b5ccf7463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add870ff2d225063a043e39186010806e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#add870ff2d225063a043e39186010806e">SET_REPORT_REQUEST</a>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memdesc:add870ff2d225063a043e39186010806e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Report Request.  <a href="#add870ff2d225063a043e39186010806e">More...</a><br/></td></tr>
+<tr class="separator:add870ff2d225063a043e39186010806e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce4676aadb75ffcdca24df19a753d3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a6ce4676aadb75ffcdca24df19a753d3b">SET_IDLE_REQUEST</a>&#160;&#160;&#160;0x0A</td></tr>
+<tr class="memdesc:a6ce4676aadb75ffcdca24df19a753d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Idle Request.  <a href="#a6ce4676aadb75ffcdca24df19a753d3b">More...</a><br/></td></tr>
+<tr class="separator:a6ce4676aadb75ffcdca24df19a753d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202090681ef6a9a496ac0404bdf47824"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a202090681ef6a9a496ac0404bdf47824">SET_PROTOCOL_REQUEST</a>&#160;&#160;&#160;0x0B</td></tr>
+<tr class="memdesc:a202090681ef6a9a496ac0404bdf47824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Protocol Request.  <a href="#a202090681ef6a9a496ac0404bdf47824">More...</a><br/></td></tr>
+<tr class="separator:a202090681ef6a9a496ac0404bdf47824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e4016a67048ea7e04d730dd04f619c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9e4016a67048ea7e04d730dd04f619c3">HID_KEYBOARD_PROTOCOL</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a9e4016a67048ea7e04d730dd04f619c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hid Keyboard Protocol.  <a href="#a9e4016a67048ea7e04d730dd04f619c3">More...</a><br/></td></tr>
+<tr class="separator:a9e4016a67048ea7e04d730dd04f619c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0e73b2bc790091a019e93c278af1bed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aa0e73b2bc790091a019e93c278af1bed">REPORT_DESC_LENGTH</a>&#160;&#160;&#160;0x3F</td></tr>
+<tr class="memdesc:aa0e73b2bc790091a019e93c278af1bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Report Desc Length.  <a href="#aa0e73b2bc790091a019e93c278af1bed">More...</a><br/></td></tr>
+<tr class="separator:aa0e73b2bc790091a019e93c278af1bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab38b55a211d3339a35c466c588f0aabc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ab38b55a211d3339a35c466c588f0aabc">REPORT_LENGTH</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ab38b55a211d3339a35c466c588f0aabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Report Length.  <a href="#ab38b55a211d3339a35c466c588f0aabc">More...</a><br/></td></tr>
+<tr class="separator:ab38b55a211d3339a35c466c588f0aabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52c09be724fe37647b22cf3e4684e25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ac52c09be724fe37647b22cf3e4684e25">AUDIO_INTF</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ac52c09be724fe37647b22cf3e4684e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Intf.  <a href="#ac52c09be724fe37647b22cf3e4684e25">More...</a><br/></td></tr>
+<tr class="separator:ac52c09be724fe37647b22cf3e4684e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ab18e8f7f454b4b205b145c2323c72"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#aa9ab18e8f7f454b4b205b145c2323c72">AUDIO_INTF_OUT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:aa9ab18e8f7f454b4b205b145c2323c72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Intf Out.  <a href="#aa9ab18e8f7f454b4b205b145c2323c72">More...</a><br/></td></tr>
+<tr class="separator:aa9ab18e8f7f454b4b205b145c2323c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4baab767198beecf551f0db822ab12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a9a4baab767198beecf551f0db822ab12">AUDIO_INTF_IN</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a9a4baab767198beecf551f0db822ab12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio Intf In.  <a href="#a9a4baab767198beecf551f0db822ab12">More...</a><br/></td></tr>
+<tr class="separator:a9a4baab767198beecf551f0db822ab12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06804a5d329eb5f17202c0fcd6baad9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a06804a5d329eb5f17202c0fcd6baad9c">DFU_INTF</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a06804a5d329eb5f17202c0fcd6baad9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dfu Intf.  <a href="#a06804a5d329eb5f17202c0fcd6baad9c">More...</a><br/></td></tr>
+<tr class="separator:a06804a5d329eb5f17202c0fcd6baad9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a07dacdcd262573836cc3be3861afc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a63a07dacdcd262573836cc3be3861afc">STORAGE_INTF</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a63a07dacdcd262573836cc3be3861afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage Intf.  <a href="#a63a07dacdcd262573836cc3be3861afc">More...</a><br/></td></tr>
+<tr class="separator:a63a07dacdcd262573836cc3be3861afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a665d7fca8b1bdab3ae290e18951d236c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a665d7fca8b1bdab3ae290e18951d236c">KEYBOARD_INTF</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a665d7fca8b1bdab3ae290e18951d236c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyboard Intf.  <a href="#a665d7fca8b1bdab3ae290e18951d236c">More...</a><br/></td></tr>
+<tr class="separator:a665d7fca8b1bdab3ae290e18951d236c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae664e7492e37d324831caf2321ddda37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ae664e7492e37d324831caf2321ddda37">DIV_ROUND_UP</a>(n, d)&#160;&#160;&#160;(((n) + (d) - 1) / (d))</td></tr>
+<tr class="memdesc:ae664e7492e37d324831caf2321ddda37"><td class="mdescLeft">&#160;</td><td class="mdescRight">D I V_ R O U N D_ U P(n, d).  <a href="#ae664e7492e37d324831caf2321ddda37">More...</a><br/></td></tr>
+<tr class="separator:ae664e7492e37d324831caf2321ddda37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad1d69266191044d7d27c63bd7c049b7c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState</a> (struct dfu_if *DFU, u8 dfu_state)</td></tr>
+<tr class="memitem:ad1d69266191044d7d27c63bd7c049b7c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 dfu_state)</td></tr>
 <tr class="memdesc:ad1d69266191044d7d27c63bd7c049b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles setting of DFU state.  <a href="#ad1d69266191044d7d27c63bd7c049b7c">More...</a><br/></td></tr>
 <tr class="separator:ad1d69266191044d7d27c63bd7c049b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ad7bb0798660879a761038133bf0b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4ad7bb0798660879a761038133bf0b80">USB_DfuSetDwloadState</a> (struct dfu_if *DFU, u8 *status)</td></tr>
+<tr class="memitem:a4ad7bb0798660879a761038133bf0b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a4ad7bb0798660879a761038133bf0b80">USB_DfuSetDwloadState</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 *status)</td></tr>
 <tr class="memdesc:a4ad7bb0798660879a761038133bf0b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the current state while downloading a file.  <a href="#a4ad7bb0798660879a761038133bf0b80">More...</a><br/></td></tr>
 <tr class="separator:a4ad7bb0798660879a761038133bf0b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ade58346ca33654f5138ee9c443610d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a3ade58346ca33654f5138ee9c443610d">USB_DfuGetStatus</a> (struct dfu_if *DFU, u8 *status)</td></tr>
-<tr class="memdesc:a3ade58346ca33654f5138ee9c443610d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles getting of DFU status.  <a href="#a3ade58346ca33654f5138ee9c443610d">More...</a><br/></td></tr>
+<tr class="memitem:a3ade58346ca33654f5138ee9c443610d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a3ade58346ca33654f5138ee9c443610d">USB_DfuGetStatus</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 *status)</td></tr>
+<tr class="memdesc:a3ade58346ca33654f5138ee9c443610d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles getting of DFU status.  <a href="#a3ade58346ca33654f5138ee9c443610d">More...</a><br/></td></tr>
 <tr class="separator:a3ade58346ca33654f5138ee9c443610d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a194a9e11a6d5b86e53384260e2f1a90b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a194a9e11a6d5b86e53384260e2f1a90b">Usb_DisconnectHandler</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a194a9e11a6d5b86e53384260e2f1a90b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles USB disconnect, called from driver.  <a href="#a194a9e11a6d5b86e53384260e2f1a90b">More...</a><br/></td></tr>
@@ -137,18 +436,1393 @@ Functions</h2></td></tr>
 <tr class="memdesc:acd0aa2711cb840f03df965a2c16dfebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles set interface request.  <a href="#acd0aa2711cb840f03df965a2c16dfebf">More...</a><br/></td></tr>
 <tr class="separator:acd0aa2711cb840f03df965a2c16dfebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32b6f95139e55ff73c71303408094577"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
-<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
+<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB class request for the composite device.  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
 <tr class="separator:a32b6f95139e55ff73c71303408094577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adabccc59f14f73295d6d3e8ab2a84ed3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
 <tr class="memdesc:adabccc59f14f73295d6d3e8ab2a84ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is class handler for Mass storage and is called when Setup packet received is for Class request(not Standard Device request)  <a href="#adabccc59f14f73295d6d3e8ab2a84ed3">More...</a><br/></td></tr>
 <tr class="separator:adabccc59f14f73295d6d3e8ab2a84ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787b860ced36f781523ab445c3f0f1e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, struct storage_if *f)</td></tr>
+<tr class="memitem:a787b860ced36f781523ab445c3f0f1e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, struct <a class="el" href="structstorage__if.html">storage_if</a> *f)</td></tr>
 <tr class="memdesc:a787b860ced36f781523ab445c3f0f1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Reduced Block Command (RBC) requests from the host.  <a href="#a787b860ced36f781523ab445c3f0f1e9">More...</a><br/></td></tr>
 <tr class="separator:a787b860ced36f781523ab445c3f0f1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b339129f8d97ba9e8fd4cde9bc8e756"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, struct storage_if *f, u32 Length)</td></tr>
+<tr class="memitem:a3b339129f8d97ba9e8fd4cde9bc8e756"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, struct <a class="el" href="structstorage__if.html">storage_if</a> *f, u32 Length)</td></tr>
 <tr class="memdesc:a3b339129f8d97ba9e8fd4cde9bc8e756"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to send SCSI Command Status Wrapper to Host.  <a href="#a3b339129f8d97ba9e8fd4cde9bc8e756">More...</a><br/></td></tr>
 <tr class="separator:a3b339129f8d97ba9e8fd4cde9bc8e756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a249b2f85a059ee807759a5186766e4ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_FRAME_SIZE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Frame Size. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa3effb770f0314c0352dabcd57e9954c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_INTERVAL&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Interval. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac52c09be724fe37647b22cf3e4684e25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_INTF&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Intf. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a4baab767198beecf551f0db822ab12"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_INTF_IN&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Intf In. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa9ab18e8f7f454b4b205b145c2323c72"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUDIO_INTF_OUT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio Intf Out. </p>
+
+</div>
+</div>
+<a class="anchor" id="aee6203978efd916bf43ab7659fad0658"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BIT_RESOLUTION&#160;&#160;&#160;((<a class="el" href="xusb__freertos__class__composite_8h.html#a249b2f85a059ee807759a5186766e4ca">AUDIO_FRAME_SIZE</a>) * (0x08))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Resolution. </p>
+
+</div>
+</div>
+<a class="anchor" id="a193e7cdfcb2277e98ee9e1ec3822c288"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CUR_AUDIO_FREQ&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cur Audio Freq. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9f0bb6811ae976a2cd8a7b42c19a8390"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_ABORT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Abort. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4146d5ff7ef456a8c2fdef4ef68cfd23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_ALT_SETTING&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Alt Setting. </p>
+
+</div>
+</div>
+<a class="anchor" id="aff6ab40ddfc07a8e873aa4c8dde99fc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_CLRSTATUS&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Clrstatus. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1dbfcd9de4badc68f1a79720113dfa3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_DETACH&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Detach. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaf8b2bc0fa447ec925a47cee00916e4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_DNLOAD&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Dnload. </p>
+
+</div>
+</div>
+<a class="anchor" id="a41912ad6c650bf2df2b730f3d6d07849"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_GETSTATE&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Getstate. </p>
+
+</div>
+</div>
+<a class="anchor" id="af45d9250c3e5dfb12a217bc08828cc06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_GETSTATUS&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Getstatus. </p>
+
+</div>
+</div>
+<a class="anchor" id="a06804a5d329eb5f17202c0fcd6baad9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_INTF&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Intf. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac0d9cdec73437db1e0d5ef38d7e326fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_ADDRESS&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Address. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1895d554b8e041b905806cfc3049c1b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_CHECK_ERASED&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Check Erased. </p>
+
+</div>
+</div>
+<a class="anchor" id="a14adf8ace168a4663a145a3628afe4e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_ERASE&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Erase. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9490d88735e358d2c5d41a86a04051ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_FILE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error File. </p>
+
+</div>
+</div>
+<a class="anchor" id="af8e9e63fa5bd689b8d2c3e780597306c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_FIRMWARE&#160;&#160;&#160;0x0a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Firmware. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4f5caf2d3608013662e481f420112bdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_NOTDONE&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Notdone. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4d32748e71383d08d7a048e0c95b17f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_POR&#160;&#160;&#160;0x0d</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Por. </p>
+
+</div>
+</div>
+<a class="anchor" id="a951312ed14382dabfec369f3e8cebc2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_PROG&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Prog. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa188c82cf7b5d2783953bfc241bb4442"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_STALLEDPKT&#160;&#160;&#160;0x0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Stalledpkt. </p>
+
+</div>
+</div>
+<a class="anchor" id="a14499b3729ae52272fa5df5975dd3fce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_TARGET&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Target. </p>
+
+</div>
+</div>
+<a class="anchor" id="abd19e1f5b4164b01f7fed3b9dc498bd6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_UNKNOWN&#160;&#160;&#160;0x0e</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Unknown. </p>
+
+</div>
+</div>
+<a class="anchor" id="a698ce75398a4cf9f540fd0ad6c519203"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_USBR&#160;&#160;&#160;0x0c</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Usbr. </p>
+
+</div>
+</div>
+<a class="anchor" id="aadb139d7d1b973e19f78b7d2dd4b027f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_VENDOR&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Vendor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a90a4672d5084eb120863ab25a0c64b23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_VERIFY&#160;&#160;&#160;0x07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Verify. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9e13ccce805358f4caa876b6d7d816d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_ERROR_WRITE&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Status Error Write. </p>
+
+</div>
+</div>
+<a class="anchor" id="adca1223d97fed104d04df2f13f4e278b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_STATUS_OK&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DFU status: No error. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9ec42539a3b1d7a1fcb47383e5ae73b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_UPLOAD&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dfu Upload. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae664e7492e37d324831caf2321ddda37"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DIV_ROUND_UP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((n) + (d) - 1) / (d))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D I V_ R O U N D_ U P(n, d). </p>
+
+</div>
+</div>
+<a class="anchor" id="ab9c44b05036da5d2adbe56da76bf7612"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GET_IDLE_REQUEST&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get Idle Request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8dfffa0018e5286b97504f4b5ccf7463"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GET_PROTOCOL_REQUEST&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get Protocol Request. </p>
+
+</div>
+</div>
+<a class="anchor" id="afa03608beb1b25ad637d718c1c895c61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GET_REPORT_REQUEST&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get Report Request. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e4016a67048ea7e04d730dd04f619c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HID_KEYBOARD_PROTOCOL&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hid Keyboard Protocol. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6632ef52233cb537bc54b0f27f755213"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTERVAL_PER_SECOND&#160;&#160;&#160;(u32)(8000)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interval Per Second. </p>
+
+</div>
+</div>
+<a class="anchor" id="aab8f5bc9518d1611092d31d8212bc06b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ISO_EP&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iso Ep. </p>
+
+</div>
+</div>
+<a class="anchor" id="a611e1198c0727b99ccbc4ee1fba8323f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEYBOARD_EP&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Keyboard Ep. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a665d7fca8b1bdab3ae290e18951d236c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEYBOARD_INTF&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Keyboard Intf. </p>
+
+<p>Referenced by <a class="el" href="xusb__class__composite_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a26b97c01792871b3dbdc8c6f4b3d10c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_AUDIO_FREQ&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max Audio Freq. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa0e73b2bc790091a019e93c278af1bed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REPORT_DESC_LENGTH&#160;&#160;&#160;0x3F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Report Desc Length. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab38b55a211d3339a35c466c588f0aabc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REPORT_LENGTH&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Report Length. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ce4676aadb75ffcdca24df19a753d3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SET_IDLE_REQUEST&#160;&#160;&#160;0x0A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set Idle Request. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a202090681ef6a9a496ac0404bdf47824"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SET_PROTOCOL_REQUEST&#160;&#160;&#160;0x0B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set Protocol Request. </p>
+
+</div>
+</div>
+<a class="anchor" id="add870ff2d225063a043e39186010806e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SET_REPORT_REQUEST&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set Report Request. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af49711fa169b5c78a2fd73abfe68b802"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_APP_DETACH&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State App Detach. </p>
+
+</div>
+</div>
+<a class="anchor" id="a64c259382ba0bc1d606f049ce6edc785"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_APP_IDLE&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State App Idle. </p>
+
+</div>
+</div>
+<a class="anchor" id="aab84f038b292fbf493645e8410406eb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_DOWNLOAD_BUSY&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Download Busy. </p>
+
+</div>
+</div>
+<a class="anchor" id="aabb01f5c3e89ae6a471c5dbb0a38422e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_DOWNLOAD_IDLE&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Download Idle. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5d2c6876a1806477fca042cd456a75b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_DOWNLOAD_SYNC&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Download Sync. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaac45da3645c8f37ea2b18de63ff1047"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_ERROR&#160;&#160;&#160;0x0a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7682da19ba681e067b72dcaaad8c06e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_IDLE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Idle. </p>
+
+</div>
+</div>
+<a class="anchor" id="a18201acdac101c3ba74670a6c673df79"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_MANIFEST&#160;&#160;&#160;0x07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Manifest. </p>
+
+</div>
+</div>
+<a class="anchor" id="adea9d9ab353da9373e1ae22774b8b296"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_MANIFEST_SYNC&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Manifest Sync. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac0eb94aa682995bf1b298bdd4f6a8723"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_MANIFEST_WAIT_RESET&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Manifest Wait Reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a408f5b36840adf32284c71c7ad8a74b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATE_DFU_UPLOAD_IDLE&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>State Dfu Upload Idle. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6aa1d7b80c152cc5a9014bc6e7095379"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_BLOCK_SIZE&#160;&#160;&#160;0x200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage Block Size. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae96580781c25b231abf66dd6ecbff045"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_EP&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mass storage endpoint number. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a63a07dacdcd262573836cc3be3861afc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_INTF&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage Intf. </p>
+
+<p>Referenced by <a class="el" href="xusb__class__composite_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2e868fab5b780acbd8c87ebf44ebbb22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_NUM_BLOCKS&#160;&#160;&#160;(<a class="el" href="xusb__freertos__class__storage_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>/<a class="el" href="xusb__freertos__class__storage_8h.html#a6aa1d7b80c152cc5a9014bc6e7095379">STORAGE_BLOCK_SIZE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage Num Blocks. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d6f782ffe53d87f0fd0327d4b09352c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_SIZE&#160;&#160;&#160;0x6400000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Storage Size. </p>
+
+</div>
+</div>
+<a class="anchor" id="af761a3c529272768675db42bfb39ed9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_CLOCK_VALID&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Clock Valid. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0af347650d747729e3bd81179d135f34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_SAM_FREQ&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Sam Freq. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1662f078f25f00b88229f1ccef3f037a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b2a8445191e4e509153c74bb9f9dbec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_CUR&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Cur. </p>
+
+</div>
+</div>
+<a class="anchor" id="a618edb4d50d3e1d435a1421eebc050e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CS_RANGE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cs Range. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4fb3344c4fd61753a3561b760327d691"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CX_CONTROL_CLOCK_SEL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cx Control Clock Sel. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9db226a634c1d5f31b1964662ebb4dcb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_CX_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Cx Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3080151311398fc9a479a88b697de174"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_CONTROL_UNDEFINED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Control Undefined. </p>
+
+</div>
+</div>
+<a class="anchor" id="a50195a810e6b38e7381f36d9e63a5192"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_MUTE_CONTROL&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Mute Control. </p>
+
+</div>
+</div>
+<a class="anchor" id="af6995a9c0bcc3c0d52f9af100cabecee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UAC2_FU_VOLUME_CONTROL&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uac2 Fu Volume Control. </p>
+
+</div>
+</div>
+<a class="anchor" id="a588e1d863090b52bc7625ec7f147adbd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASSREQ_GET_MAX_LUN&#160;&#160;&#160;0xFE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Classreq Get Max Lun. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a59096a9a713a89558cc546c21206811d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASSREQ_MASS_STORAGE_RESET&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Classreq Mass Storage Reset. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abcbcd024a52f656cbba34106b10a01ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_STATE_COMMAND&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep State Command. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, and <a class="el" href="xusb__ch9__storage_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aed1d7983bc5b354f75b39f84585db954"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_STATE_DATA_IN&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep State Data In. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, and <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2dae14213e2f18ebc39ee85441cddd5a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_STATE_DATA_OUT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep State Data Out. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, and <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9428396c3d325d9305a67c7fae00382f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_STATE_STATUS&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep State Status. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8c.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a97b0e5efd889a2b9cffb2d96d5b52ca2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_FORMAT&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Format. </p>
+
+</div>
+</div>
+<a class="anchor" id="afb23c3984d1eab7f6c9eda96bf4acd2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_INQUIRY&#160;&#160;&#160;0x12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Inquiry. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a02161cc295a2b736377657565d0e55"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_MEDIUM_REMOVAL&#160;&#160;&#160;0x1e</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Medium Removal. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea3b0e96e90d2dc212958885a0b6b6f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_MODE_SELECT&#160;&#160;&#160;0x15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Mode Select. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a16d0a6b6c407e9b1d244772ee99bd162"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_MODE_SENSE&#160;&#160;&#160;0x1a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Mode Sense. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adc195711abc29433cfd79274727fff12"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_READ&#160;&#160;&#160;0x28</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Read. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8953eaa3b8dec85c5084acd3cdf54e79"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_READ_CAP&#160;&#160;&#160;0x25</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Read Cap. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a191cf1e7f01d47d29963a1f0d89f86a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_REQUEST_SENSE&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Request Sense. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abe24a3069290946faa733b63c08b4001"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_STARTSTOP_UNIT&#160;&#160;&#160;0x1b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Startstop Unit. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaeb77857383eb0c9b78bec7208516bfc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_TEST_UNIT_READY&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Test Unit Ready. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66b0f59a04fa488ad9be98af8827e61d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_VERIFY&#160;&#160;&#160;0x2f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Verify. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae8cc5f967ddc0a55466220d616b06354"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_RBC_WRITE&#160;&#160;&#160;0x2a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Rbc Write. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add4d413170667a9508bc7e6064f531a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SYNC_SCSI&#160;&#160;&#160;0x35</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Sync Scsi. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab9197267b87aaed640f3e5bff0e581cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_UFI_GET_CAP_LIST&#160;&#160;&#160;0x23</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ufi Get Cap List. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="adabccc59f14f73295d6d3e8ab2a84ed3"></a>
 <div class="memitem">
@@ -177,13 +1851,11 @@ Functions</h2></td></tr>
 <p>This function is class handler for Mass storage and is called when Setup packet received is for Class request(not Standard Device request) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -200,7 +1872,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct storage_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structstorage__if.html">storage_if</a> *&#160;</td>
           <td class="paramname"><em>f</em>&#160;</td>
         </tr>
         <tr>
@@ -214,13 +1886,11 @@ Functions</h2></td></tr>
 <p>This function handles Reduced Block Command (RBC) requests from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">f</td><td>is a pointer to storage interface</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>is a pointer to the storage interface instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -237,7 +1907,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct storage_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structstorage__if.html">storage_if</a> *&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -257,22 +1927,12 @@ Functions</h2></td></tr>
 <p>This function is used to send SCSI Command Status Wrapper to Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Length</td><td>is the data residue.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Length</td><td>is the data residue. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>is a pointer to the storage interface instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Length</td><td>is the data residue.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -300,25 +1960,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request) </p>
+<p>Handle USB class request for the composite device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to the setup packet data. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -329,7 +1978,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void USB_DfuGetStatus </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -346,28 +1995,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function handles getting of DFU status. </p>
+<p>Handles getting of DFU status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">status</td><td>is the pointer of the DFU status</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to the DFU instance of the controller. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">status</td><td>is a pointer to the DFU status byte array (6 bytes). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">status</td><td>is the pointer of the DFU status</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the function is successful.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -378,7 +2013,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void USB_DfuSetDwloadState </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -398,12 +2033,11 @@ Functions</h2></td></tr>
 <p>This function updates the current state while downloading a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">status</td><td>is a pointer of the DFU status</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">status</td><td>is a pointer of the DFU status </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -414,7 +2048,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">s32 Usb_DfuSetState </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -434,16 +2068,15 @@ Functions</h2></td></tr>
 <p>This function handles setting of DFU state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">dfu_state</td><td>is a value of the DFU state to be set</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dfu_state</td><td>is a value of the DFU state to be set</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if the function is successful.<ul>
-<li>XST_FAILURE if an Error occurred.</li>
+<li>XST_FAILURE if an Error occurred. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -464,12 +2097,10 @@ Functions</h2></td></tr>
 <p>This function handles USB disconnect, called from driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -490,12 +2121,10 @@ Functions</h2></td></tr>
 <p>This function handles USB reset, called from driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -526,13 +2155,11 @@ Functions</h2></td></tr>
 <p>This function handles set interface request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is a pointer to setup token of control transfer</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to setup token of control transfer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>

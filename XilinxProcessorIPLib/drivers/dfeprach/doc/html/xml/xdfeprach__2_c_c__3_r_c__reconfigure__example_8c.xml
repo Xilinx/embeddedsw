@@ -19,7 +19,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c" bodystart="73" bodyend="377"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c" bodystart="73" bodyend="377"/>
         <references refid="struct_x_dfe_prach___trigger_cfg_1af2e1ccd34f5bfe01b41cb0f1bb652220" compoundref="xdfeprach_8h" startline="247">XDfePrach_TriggerCfg::Activate</references>
         <references refid="struct_x_dfe_prach___d_d_c_cfg_1a31fbe2e7f11a937712811abe5a3ccead" compoundref="xdfeprach_8h" startline="412">XDfePrach_DDCCfg::DecimationRate</references>
         <references refid="struct_x_dfe_prach___n_c_o_1aafb16e37434841de906c93a9846b1090" compoundref="xdfeprach_8h" startline="370">XDfePrach_NCO::DualModCount</references>
@@ -412,6 +412,6 @@
 <codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeprach_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="377"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c"/>
   </compounddef>
 </doxygen>

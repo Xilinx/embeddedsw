@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="149" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1af4a2bfe8c203d186833dd3f1590bc262" compoundref="xdppsu__spm_8c" startline="362" endline="462">XDpPsu_CfgMsaUseEdidPreferredTiming</referencedby>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="156" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="150" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1af4a2bfe8c203d186833dd3f1590bc262" compoundref="xdppsu__spm_8c" startline="362" endline="462">XDpPsu_CfgMsaUseEdidPreferredTiming</referencedby>
@@ -51,7 +51,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="152" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="160" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="154" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -83,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="155" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a288a08c1d83e4f66f0217cab4d695544" compoundref="xdppsu__spm_8c" startline="603" endline="623">XDpPsu_CfgMsaEnSynchClkMode</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="164" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="158" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="167" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="161" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="168" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="162" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -150,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="170" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="164" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -166,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="173" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="167" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -182,7 +182,7 @@
 <para>In MST mode, this is also the number of time slots that are allotted in the payload ID table. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="176" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="170" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="181" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="175" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
@@ -214,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="184" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="178" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1af59b28d1d599ee7d265c7ab0badf1e19" compoundref="xdppsu__spm_8c" startline="576" endline="588">XDpPsu_CfgMsaSetBpc</referencedby>
       </memberdef>
@@ -229,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="186" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="180" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
       </memberdef>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="188" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="182" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
       </memberdef>
@@ -259,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="184" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
       </memberdef>
@@ -274,7 +274,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="186" bodyend="-1"/>
         <referencedby refid="xdppsu__spm_8c_1a288a08c1d83e4f66f0217cab4d695544" compoundref="xdppsu__spm_8c" startline="603" endline="623">XDpPsu_CfgMsaEnSynchClkMode</referencedby>
         <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
       </memberdef>
@@ -283,7 +283,7 @@
 <para>This typedef contains the main stream attributes which determine how the video will be displayed. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="154" bodyend="194"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="148" bodyend="188"/>
     <listofallmembers>
       <member refid="struct_x_dp_psu___main_stream_attributes_1a68c1a909b07494754efdb3013fefd3a2" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>AvgBytesPerTU</name></member>
       <member refid="struct_x_dp_psu___main_stream_attributes_1a45cd153f3800b1f808f85d3d5a479bb5" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>BitsPerColor</name></member>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d9c52b3579286b57bca31bfb2418e9d2" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="common_2xpm__defs_8h">common/xpm_defs.h</innerfile>
+    <innerfile refid="common_2xpm__err_8h">common/xpm_err.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/common/"/>
+  </compounddef>
+</doxygen>

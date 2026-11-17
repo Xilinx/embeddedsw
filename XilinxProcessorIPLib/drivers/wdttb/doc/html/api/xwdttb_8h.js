@@ -1,6 +1,5 @@
 var xwdttb_8h =
 [
-    [ "XWDTTB_H", "xwdttb_8h.html#gaa6893b6ff733519d217debc3a198903f", null ],
     [ "XWdtTb_Event", "xwdttb_8h.html#ga6ce266ea00535f8b8c9594d2e1f0e630", [
       [ "XWDTTB_NO_BAD_EVENT", "xwdttb_8h.html#gga6ce266ea00535f8b8c9594d2e1f0e630a46d6c3798d61cc4e49a0d5a117c2c44c", null ],
       [ "XWDTTB_RS_KICK_EVENT", "xwdttb_8h.html#gga6ce266ea00535f8b8c9594d2e1f0e630a6597551da73e180aee12bade6494796f", null ],

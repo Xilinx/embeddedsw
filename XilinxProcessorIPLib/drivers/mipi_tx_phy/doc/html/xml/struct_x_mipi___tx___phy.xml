@@ -15,8 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="305" bodyend="-1"/>
-        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="65" endline="81">XMipi_Tx_Phy_CfgInitialize</referencedby>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
         <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" prot="public" static="no" mutable="no">
@@ -30,8 +31,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="306" bodyend="-1"/>
-        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="65" endline="81">XMipi_Tx_Phy_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -51,7 +52,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="304" bodyend="307"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="312" bodyend="315"/>
     <listofallmembers>
       <member refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy</scope><name>Config</name></member>
       <member refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy</scope><name>IsReady</name></member>

@@ -132,6 +132,7 @@ var xvphy__hw_8h =
     [ "XVPHY_TX_CONTROL_REG", "xvphy__hw_8h.html#ga052755dd1d5a33d0631255f9c13f6ae8", null ],
     [ "XVPHY_TX_DRIVER_CH12_REG", "xvphy__hw_8h.html#gab418e02e6dc1913346dbc38bc07a6dfc", null ],
     [ "XVPHY_TX_DRIVER_CH34_REG", "xvphy__hw_8h.html#ga53fd0433c17e0cced2b30825e4ffb131", null ],
+    [ "XVPHY_TX_DRIVER_EXT_REG", "xvphy__hw_8h.html#gae0cdb3843b85563d1ea0322e519a1ce6", null ],
     [ "XVPHY_TX_INIT_REG", "xvphy__hw_8h.html#gafa6b79b6ca3f8205d83c3f80f6544742", null ],
     [ "XVPHY_TX_INIT_STATUS_REG", "xvphy__hw_8h.html#ga339e922dfce6c42e2ab0035abb4c16a9", null ],
     [ "XVPHY_TX_INIT_USERRDY_ALL_MASK", "xvphy__hw_8h.html#gaa2a8f5464bad44ae6bff5a39532e1fb9", null ],

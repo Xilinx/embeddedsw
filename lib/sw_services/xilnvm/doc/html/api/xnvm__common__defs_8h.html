@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__common__defs_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,7 +117,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 3.2   ng   06/30/23 Added support for system device tree flow
       yog  09/13/23 Fixed review comments
 3.3     vss  02/23/24 Added IPI support for eFuse read and write
-      ng   11/22/2023 Fixed doxygen grouping</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      ng   11/22/2023 Fixed doxygen grouping
+3.8   rpu  07/06/26 Clean up PPK hash length macros
+      mkr  07/20/26 Moved XNVM_CL_MAX_COUNT_VAL definition from <a class="el" href="xnvm__bbram_8c.html" title="This file contains NVM library BBRAM functions. ">xnvm_bbram.c</a> to <a class="el" href="xnvm__common__defs_8h.html" title="This file contains the xilnvm Versal_Net API IDs. ">xnvm_common_defs.h</a>
+                    to make it available for both client and server.
+      tus  08/19/26 Added XilNvm capability bit enum
+      mkr  08/25/26 Removed duplicate XNVM_WORD_LEN, added consolidated
+                    XNVM_EFUSE_WORD_LEN</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<code>#include &quot;xnvm_utils.h&quot;</code><br/>
 <code>#include &quot;xilnvm_bsp_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -191,14 +198,23 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa7f7b6c8917369edc7cb2e7cc55caa12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaa7f7b6c8917369edc7cb2e7cc55caa12">XNVM_NUM_OF_OFFCHIP_ID_FUSES</a>&#160;&#160;&#160;(8U)</td></tr>
 <tr class="memdesc:gaa7f7b6c8917369edc7cb2e7cc55caa12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of offchip revocation ID eFuses.  <a href="group__xnvm__def__api__ids.html#gaa7f7b6c8917369edc7cb2e7cc55caa12">More...</a><br/></td></tr>
 <tr class="separator:gaa7f7b6c8917369edc7cb2e7cc55caa12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga187d1e419e66b1ba10a3a73debd9904d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga187d1e419e66b1ba10a3a73debd9904d">XNVM_EFUSE_WORD_LEN</a>&#160;&#160;&#160;(4U)</td></tr>
+<tr class="memdesc:ga187d1e419e66b1ba10a3a73debd9904d"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse word length  <a href="group__xnvm__def__api__ids.html#ga187d1e419e66b1ba10a3a73debd9904d">More...</a><br/></td></tr>
+<tr class="separator:ga187d1e419e66b1ba10a3a73debd9904d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf965e82f749494f8504f3c8556c1863"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaaf965e82f749494f8504f3c8556c1863">XNVM_EFUSE_AES_KEY_LEN_IN_WORDS</a>&#160;&#160;&#160;(8U)</td></tr>
 <tr class="memdesc:gaaf965e82f749494f8504f3c8556c1863"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES key length in words.  <a href="group__xnvm__def__api__ids.html#gaaf965e82f749494f8504f3c8556c1863">More...</a><br/></td></tr>
 <tr class="separator:gaaf965e82f749494f8504f3c8556c1863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae1984762c1944ac8c80f3106dd665d00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gae1984762c1944ac8c80f3106dd665d00">XNVM_EFUSE_IV_LEN_IN_WORDS</a>&#160;&#160;&#160;(3U)</td></tr>
 <tr class="memdesc:gae1984762c1944ac8c80f3106dd665d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse IV length in words  <a href="group__xnvm__def__api__ids.html#gae1984762c1944ac8c80f3106dd665d00">More...</a><br/></td></tr>
 <tr class="separator:gae1984762c1944ac8c80f3106dd665d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga77d5f99272bcd933950fca66031e544a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga77d5f99272bcd933950fca66031e544a">XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</a>&#160;&#160;&#160;(8U)</td></tr>
-<tr class="memdesc:ga77d5f99272bcd933950fca66031e544a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK Hash length in words for Versal and VersalNet.  <a href="group__xnvm__def__api__ids.html#ga77d5f99272bcd933950fca66031e544a">More...</a><br/></td></tr>
+<tr class="memitem:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</a>&#160;&#160;&#160;(32U)</td></tr>
+<tr class="memdesc:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK hash length in bytes for Versal, VersalNet and Versal_2vp.  <a href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">More...</a><br/></td></tr>
+<tr class="separator:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefbf4e27b6843265081be643b58c9ea0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaefbf4e27b6843265081be643b58c9ea0">XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</a>&#160;&#160;&#160;(<a class="el" href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</a> * 8U)</td></tr>
+<tr class="memdesc:gaefbf4e27b6843265081be643b58c9ea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK hash length in bits.  <a href="group__xnvm__def__api__ids.html#gaefbf4e27b6843265081be643b58c9ea0">More...</a><br/></td></tr>
+<tr class="separator:gaefbf4e27b6843265081be643b58c9ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77d5f99272bcd933950fca66031e544a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga77d5f99272bcd933950fca66031e544a">XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</a>&#160;&#160;&#160;(<a class="el" href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</a> / XNVM_WORD_LEN)</td></tr>
+<tr class="memdesc:ga77d5f99272bcd933950fca66031e544a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK hash length in words.  <a href="group__xnvm__def__api__ids.html#ga77d5f99272bcd933950fca66031e544a">More...</a><br/></td></tr>
 <tr class="separator:ga77d5f99272bcd933950fca66031e544a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada6b833758f1fca50f00e996c5a427c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gada6b833758f1fca50f00e996c5a427c3">XNVM_EFUSE_DNA_LEN_IN_WORDS</a>&#160;&#160;&#160;(4U)</td></tr>
 <tr class="memdesc:gada6b833758f1fca50f00e996c5a427c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNA length in words.  <a href="group__xnvm__def__api__ids.html#gada6b833758f1fca50f00e996c5a427c3">More...</a><br/></td></tr>
@@ -209,24 +225,15 @@ Macros</h2></td></tr>
 <tr class="memitem:gacf2cf44f1f64595a6dacd7af19a7e54f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gacf2cf44f1f64595a6dacd7af19a7e54f">XNVM_EFUSE_AES_KEY_LEN_IN_BITS</a>&#160;&#160;&#160;(256U)</td></tr>
 <tr class="memdesc:gacf2cf44f1f64595a6dacd7af19a7e54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES key length in bits.  <a href="group__xnvm__def__api__ids.html#gacf2cf44f1f64595a6dacd7af19a7e54f">More...</a><br/></td></tr>
 <tr class="separator:gacf2cf44f1f64595a6dacd7af19a7e54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaefbf4e27b6843265081be643b58c9ea0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaefbf4e27b6843265081be643b58c9ea0">XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</a>&#160;&#160;&#160;(256U)</td></tr>
-<tr class="memdesc:gaefbf4e27b6843265081be643b58c9ea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK hash length in bits for Versal and VersalNet.  <a href="group__xnvm__def__api__ids.html#gaefbf4e27b6843265081be643b58c9ea0">More...</a><br/></td></tr>
-<tr class="separator:gaefbf4e27b6843265081be643b58c9ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9435113a07aefdaab43f2178d121de0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga9435113a07aefdaab43f2178d121de0b">XNVM_EFUSE_IV_LEN_IN_BYTES</a>&#160;&#160;&#160;(12U)</td></tr>
 <tr class="memdesc:ga9435113a07aefdaab43f2178d121de0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">IV length in bits.  <a href="group__xnvm__def__api__ids.html#ga9435113a07aefdaab43f2178d121de0b">More...</a><br/></td></tr>
 <tr class="separator:ga9435113a07aefdaab43f2178d121de0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b6fa417448d6983db8491b58f5ab3f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga9b6fa417448d6983db8491b58f5ab3f0">XNVM_EFUSE_AES_KEY_LEN_IN_BYTES</a>&#160;&#160;&#160;(32U)</td></tr>
 <tr class="memdesc:ga9b6fa417448d6983db8491b58f5ab3f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aes key length in bytes.  <a href="group__xnvm__def__api__ids.html#ga9b6fa417448d6983db8491b58f5ab3f0">More...</a><br/></td></tr>
 <tr class="separator:ga9b6fa417448d6983db8491b58f5ab3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</a>&#160;&#160;&#160;(32U)</td></tr>
-<tr class="memdesc:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK hash length in bytes.  <a href="group__xnvm__def__api__ids.html#ga25e4686e8bf210fed6a7ed41e1d88340">More...</a><br/></td></tr>
-<tr class="separator:ga25e4686e8bf210fed6a7ed41e1d88340"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ae9c460e837225a637dd5cc35ad39bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga6ae9c460e837225a637dd5cc35ad39bb">XNVM_IV_STRING_LEN</a>&#160;&#160;&#160;(24U)</td></tr>
 <tr class="memdesc:ga6ae9c460e837225a637dd5cc35ad39bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">IV length in string.  <a href="group__xnvm__def__api__ids.html#ga6ae9c460e837225a637dd5cc35ad39bb">More...</a><br/></td></tr>
 <tr class="separator:ga6ae9c460e837225a637dd5cc35ad39bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaea0d7fa1f00d844fe51451c22316b9e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaea0d7fa1f00d844fe51451c22316b9e8">XNVM_WORD_LEN</a>&#160;&#160;&#160;(4U)</td></tr>
-<tr class="memdesc:gaea0d7fa1f00d844fe51451c22316b9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">WORD length.  <a href="group__xnvm__def__api__ids.html#gaea0d7fa1f00d844fe51451c22316b9e8">More...</a><br/></td></tr>
-<tr class="separator:gaea0d7fa1f00d844fe51451c22316b9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae90a96afb82790626728eb3e7b0f8c41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gae90a96afb82790626728eb3e7b0f8c41">XNVM_EFUSE_CRC_AES_ZEROS</a>&#160;&#160;&#160;(0x6858A3D5U)</td></tr>
 <tr class="memdesc:gae90a96afb82790626728eb3e7b0f8c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC value for all zero key.  <a href="group__xnvm__def__api__ids.html#gae90a96afb82790626728eb3e7b0f8c41">More...</a><br/></td></tr>
 <tr class="separator:gae90a96afb82790626728eb3e7b0f8c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,9 +243,29 @@ Macros</h2></td></tr>
 <tr class="memitem:ga796a382bfe9b1db5b6d9ac7c37d5b3cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga796a382bfe9b1db5b6d9ac7c37d5b3cf">XNVM_MAX_REVOKE_ID_FUSES</a></td></tr>
 <tr class="memdesc:ga796a382bfe9b1db5b6d9ac7c37d5b3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum revocation ID eFuses.  <a href="group__xnvm__def__api__ids.html#ga796a382bfe9b1db5b6d9ac7c37d5b3cf">More...</a><br/></td></tr>
 <tr class="separator:ga796a382bfe9b1db5b6d9ac7c37d5b3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ga7fd9a5bf7b80ee78101050e35daf9f40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga7fd9a5bf7b80ee78101050e35daf9f40">XNVM_BBRAM_AES_KEY_SIZE</a>&#160;&#160;&#160;XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</td></tr>
+<tr class="memdesc:ga7fd9a5bf7b80ee78101050e35daf9f40"><td class="mdescLeft">&#160;</td><td class="mdescRight">BBRAM AES Key size.  <a href="group__xnvm__def__api__ids.html#ga7fd9a5bf7b80ee78101050e35daf9f40">More...</a><br/></td></tr>
+<tr class="separator:ga7fd9a5bf7b80ee78101050e35daf9f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3201b971919b08d8190b4927bd3da3ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga3201b971919b08d8190b4927bd3da3ec">XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS</a>&#160;&#160;&#160;(<a class="el" href="group__xnvm__def__api__ids.html#ga7fd9a5bf7b80ee78101050e35daf9f40">XNVM_BBRAM_AES_KEY_SIZE</a> / sizeof(u32))</td></tr>
+<tr class="memdesc:ga3201b971919b08d8190b4927bd3da3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key size in words.  <a href="group__xnvm__def__api__ids.html#ga3201b971919b08d8190b4927bd3da3ec">More...</a><br/></td></tr>
+<tr class="separator:ga3201b971919b08d8190b4927bd3da3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:gadf764cbdea00d65edcd07bb9953ad2b7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br/>
+&#160;&#160;<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a37280e2abc558de6b57ad3df042adfa8">XNVM_CAP_ACCESS_PUF_USER_DATA_BIT</a> = 0,
+<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a8f2d2e875126bfe80fb94ef64a9aca45">XNVM_CAP_EN_ADD_PPKS_BIT</a> = 1,
+<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7ad117a11fb4ede7028eb37558d5bb88dd">XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE_BIT</a> = 2,
+<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7aadf099f8c2f12d61de269885c3f21084">XNVM_CAP_WRITE_USER_EFUSE_BIT</a> = 3,
+<br/>
+&#160;&#160;<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7ad84b04e4daa4b39f09d8ced068423abb">XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE_BIT</a> = 4,
+<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a10ede66949538e1f4c79613bc1104c1a">XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA_BIT</a> = 5,
+<a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a67dd5f70f8f19375df5b95b643b0b9d9">XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS_BIT</a> = 6
+<br/>
+ }</td></tr>
+<tr class="memdesc:gadf764cbdea00d65edcd07bb9953ad2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilNvm capability bits in Xil_LibInfo.Capability[0] returned in the Features-command library-info response.  <a href="group__xnvm__def__api__ids.html#gadf764cbdea00d65edcd07bb9953ad2b7">More...</a><br/></td></tr>
+<tr class="separator:gadf764cbdea00d65edcd07bb9953ad2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b9c488dfe06ff2966d5ded5f5ec76ba"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#ga9b9c488dfe06ff2966d5ded5f5ec76ba">XNvm_IvType</a> { <a class="el" href="group__xnvm__def__api__ids.html#gga9b9c488dfe06ff2966d5ded5f5ec76baa884b29c04e75cd096aaafeff16bd41de">XNVM_EFUSE_META_HEADER_IV_RANGE</a> = 0,
 <a class="el" href="group__xnvm__def__api__ids.html#gga9b9c488dfe06ff2966d5ded5f5ec76baaa24c66c0d4a7d485bfaed80f8a0bbe03">XNVM_EFUSE_BLACK_IV</a>,
 <a class="el" href="group__xnvm__def__api__ids.html#gga9b9c488dfe06ff2966d5ded5f5ec76baa17b8b268f9d0ac85d038f82ad662a307">XNVM_EFUSE_PLM_IV_RANGE</a>,
@@ -246,9 +273,14 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga9b9c488dfe06ff2966d5ded5f5ec76ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum for IV types.  <a href="group__xnvm__def__api__ids.html#ga9b9c488dfe06ff2966d5ded5f5ec76ba">More...</a><br/></td></tr>
 <tr class="separator:ga9b9c488dfe06ff2966d5ded5f5ec76ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaafc5df161f553f1717cbf341bc30cd2c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaafc5df161f553f1717cbf341bc30cd2c">XNvm_PpkType</a> { <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca928eb461776b691d01df0067168cbeb2">XNVM_EFUSE_PPK0</a> = 0,
+<tr class="memitem:gaafc5df161f553f1717cbf341bc30cd2c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__def__api__ids.html#gaafc5df161f553f1717cbf341bc30cd2c">XNvm_PpkType</a> { <br/>
+&#160;&#160;<a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca928eb461776b691d01df0067168cbeb2">XNVM_EFUSE_PPK0</a> = 0,
 <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca6e608e7e460e21c9a60f77fdc8199f01">XNVM_EFUSE_PPK1</a>,
-<a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2cacabb8510d521f1f2c81b72a99db4ce07">XNVM_EFUSE_PPK2</a>
+<a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2cacabb8510d521f1f2c81b72a99db4ce07">XNVM_EFUSE_PPK2</a>,
+<a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca317e03f738b958fb3cd8f0fb2e37b3bc">XNVM_EFUSE_PPK3</a>,
+<br/>
+&#160;&#160;<a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2caf933249ad1d5d94f19de28a5363af266">XNVM_EFUSE_PPK4</a>
+<br/>
  }</td></tr>
 <tr class="memdesc:gaafc5df161f553f1717cbf341bc30cd2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum for PPK types.  <a href="group__xnvm__def__api__ids.html#gaafc5df161f553f1717cbf341bc30cd2c">More...</a><br/></td></tr>
 <tr class="separator:gaafc5df161f553f1717cbf341bc30cd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>

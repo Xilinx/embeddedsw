@@ -150,7 +150,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       bm   07/15/2024 Fixed Memset logic by using source buffer in PPU RAM
       obs  01/27/2025 Changed DMA WaitForDone calls to use APIs which support timeout
 1.10  vss  02/11/2025 Updated SSS configuration correctly.
-      ma   03/19/2025 Remove clearing the SSS configuration for SBI-&gt;DMA1</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__dma_8h.html">xplmi_dma.h</a>&quot;</code><br/>
+      ma   03/19/2025 Remove clearing the SSS configuration for SBI-&gt;DMA1
+      pre  07/14/2026 Fixed unaligned bytes copy logic in XPlmi_MemSetBytes function</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__dma_8h.html">xplmi_dma.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__debug_8h.html">xplmi_debug.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__proc_8h.html">xplmi_proc.h</a>&quot;</code><br/>
@@ -171,7 +172,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9f29b32281a13f0c85ff0c5618bb3f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initialize the DMA driver instances.  <a href="group__xilplmi__server__apis.html#ga9f29b32281a13f0c85ff0c5618bb3f26">More...</a><br/></td></tr>
 <tr class="separator:ga9f29b32281a13f0c85ff0c5618bb3f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga50c5875e99edce32a327940dc1c996f8"><td class="memItemLeft" align="right" valign="top">XPmcDma *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga50c5875e99edce32a327940dc1c996f8">XPlmi_GetDmaInstance</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga50c5875e99edce32a327940dc1c996f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns DMA instance.  <a href="group__xilplmi__server__apis.html#ga50c5875e99edce32a327940dc1c996f8">More...</a><br/></td></tr>
+<tr class="memdesc:ga50c5875e99edce32a327940dc1c996f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns DMA instance based on the base address.  <a href="group__xilplmi__server__apis.html#ga50c5875e99edce32a327940dc1c996f8">More...</a><br/></td></tr>
 <tr class="separator:ga50c5875e99edce32a327940dc1c996f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga544f491afc4a8af8e70c4634a0483a33"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga544f491afc4a8af8e70c4634a0483a33">XPlmi_WaitForNonBlkDma</a> (u32 DmaFlags)</td></tr>
 <tr class="memdesc:ga544f491afc4a8af8e70c4634a0483a33"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to wait on non blocking DMA.  <a href="group__xilplmi__server__apis.html#ga544f491afc4a8af8e70c4634a0483a33">More...</a><br/></td></tr>

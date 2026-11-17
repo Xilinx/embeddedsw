@@ -1,4 +1,20 @@
 var searchData=
 [
-  ['rambase',['RamBase',['../struct_x_usb___ep_config.html#ae435ae7b41b9b695000ac64e1b5734f2',1,'XUsb_EpConfig']]]
+  ['rambase',['RamBase',['../struct_x_usb___ep_config.html#ae435ae7b41b9b695000ac64e1b5734f2',1,'XUsb_EpConfig']]],
+  ['ramdisk',['RamDisk',['../xusb__storage_8h.html#a3fa91773d2b28c819810e9bf01c58235',1,'xusb_storage.h']]],
+  ['rbac',['rbac',['../struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l.html#a06ba7be421c7d672ba9bb234d5f5cdbd',1,'MODE_SENSE_REPLY_ALL']]],
+  ['rdindex',['RdIndex',['../xusb__dma__intr__storage_8c.html#a9da1b8e3e706a5c1451b6fc1221d7c3f',1,'xusb_dma_intr_storage.c']]],
+  ['rdramdiskptr',['RdRamDiskPtr',['../xusb__dma__intr__storage_8c.html#ab2f50a0732c58bca25e6b8606fab0266',1,'xusb_dma_intr_storage.c']]],
+  ['rdresponsesent',['RdResponseSent',['../xusb__dma__intr__storage_8c.html#a61d1a70b8f5adc3b41f2561dc9c53128',1,'xusb_dma_intr_storage.c']]],
+  ['read10abort',['Read10Abort',['../xusb__storage_8h.html#a6a7ae0f21abbd6d25562b61b6ce75543',1,'xusb_storage.h']]],
+  ['read_5fretry_5fcount',['read_retry_count',['../struct_m_o_d_e_s_e_n_s_e___r_w_e_r.html#a0c2c580915ce6d08fb968687bd726415',1,'MODESENSE_RWER']]],
+  ['recovery_5flimit',['recovery_limit',['../struct_m_o_d_e_s_e_n_s_e___r_w_e_r.html#a4dc46fbdb4e793c32f37d4936ce2b39f',1,'MODESENSE_RWER']]],
+  ['reserved_5f2',['reserved_2',['../struct_u_s_b_c_b_w.html#ad38fe99bf79182ac86e092f7141ee2b4',1,'USBCBW']]],
+  ['reserved_5fmb0',['reserved_mb0',['../struct_m_o_d_e_s_e_n_s_e___r_w_e_r.html#a46c978f50bc5e3281c5a0199bbf397c6',1,'MODESENSE_RWER']]],
+  ['reserved_5fmb3',['reserved_mb3',['../struct_m_o_d_e_s_e_n_s_e___r_w_e_r.html#a7ad04819055f33e8354a5a7f7e838011',1,'MODESENSE_RWER']]],
+  ['residue',['Residue',['../struct_u_s_b_c_s_w.html#a9125cd6d88669e019ff90190495e5de0',1,'USBCSW']]],
+  ['responsesent',['ResponseSent',['../xusb__dma__intr__storage_8c.html#a6160da95e92ce968d750c1d1d97faa53',1,'xusb_dma_intr_storage.c']]],
+  ['rmb',['RMB',['../struct_i_n_q_u_i_r_y.html#ac955ce4b8baab03dfef94db92c21f9f4',1,'INQUIRY']]],
+  ['rwer',['rwer',['../struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l.html#a3595d967ce4b7e283cf53d85e653b5df',1,'MODE_SENSE_REPLY_ALL']]],
+  ['rxdmatransfer',['RxDmaTransfer',['../xusb__dma__intr__storage_8c.html#ac34e81bb3c5473f595c79060bd4fa0b1',1,'xusb_dma_intr_storage.c']]]
 ];

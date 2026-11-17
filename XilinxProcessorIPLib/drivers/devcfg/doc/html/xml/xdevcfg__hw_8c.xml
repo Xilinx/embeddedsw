@@ -4,12 +4,6 @@
     <compoundname>xdevcfg_hw.c</compoundname>
     <includes refid="xdevcfg__hw_8h" local="yes">xdevcfg_hw.h</includes>
     <incdepgraph>
-      <node id="40">
-        <label>xil_io.h</label>
-      </node>
-      <node id="39">
-        <label>xil_types.h</label>
-      </node>
       <node id="37">
         <label>xdevcfg_hw.c</label>
         <link refid="xdevcfg_hw.c"/>
@@ -23,6 +17,12 @@
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
+      </node>
+      <node id="40">
+        <label>xil_io.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -51,7 +51,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" bodystart="59" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" bodystart="59" bodyend="89"/>
         <references refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" compoundref="xdevcfg__hw_8h" startline="55">XDCFG_CFG_OFFSET</references>
         <references refid="group__devcfg_1gaf9a1d48578faa2caf085c0d8d7f48897" compoundref="xdevcfg__hw_8h" startline="412">XDCFG_CONFIG_RESET_VALUE</references>
         <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
@@ -127,6 +127,6 @@
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
 <codeline lineno="89"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c"/>
   </compounddef>
 </doxygen>

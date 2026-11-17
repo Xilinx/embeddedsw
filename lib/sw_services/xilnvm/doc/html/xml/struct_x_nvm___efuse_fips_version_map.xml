@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_fips_version_map" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseFipsVersionMap</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_fips_version_map_1a25ab9fabd3cc3b3d8c0fbed10e242264" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFipsVersionMap::Row</definition>
+        <argsstring></argsstring>
+        <name>Row</name>
+        <briefdescription>
+<para>Fuse row holding version bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_fips_version_map_1aafbc09acb2330bc3ee4da0a624d67efb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFipsVersionMap::Page</definition>
+        <argsstring></argsstring>
+        <name>Page</name>
+        <briefdescription>
+<para>eFuse page select </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_fips_version_map_1aa7a00717dadb67063be3de511021725b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFipsVersionMap::BitCols[XNVM_EFUSE_FIPS_VERSION_NUM_BITS]</definition>
+        <argsstring>[XNVM_EFUSE_FIPS_VERSION_NUM_BITS]</argsstring>
+        <name>BitCols</name>
+        <briefdescription>
+<para>Column for each version bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_fips_version_map_1a634978258d5adf7fc3d99636aca9aa12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFipsVersionMap::MaxVersion</definition>
+        <argsstring></argsstring>
+        <name>MaxVersion</name>
+        <briefdescription>
+<para>Largest encodable version value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9b518b5753573d6f65ba1d15c94fce86" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="462" endline="510">XNvm_EfuseWriteFipsInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines FIPS version scattered-column mapping. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="349" bodyend="354"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_fips_version_map_1aa7a00717dadb67063be3de511021725b" prot="public" virt="non-virtual"><scope>XNvm_EfuseFipsVersionMap</scope><name>BitCols</name></member>
+      <member refid="struct_x_nvm___efuse_fips_version_map_1a634978258d5adf7fc3d99636aca9aa12" prot="public" virt="non-virtual"><scope>XNvm_EfuseFipsVersionMap</scope><name>MaxVersion</name></member>
+      <member refid="struct_x_nvm___efuse_fips_version_map_1aafbc09acb2330bc3ee4da0a624d67efb" prot="public" virt="non-virtual"><scope>XNvm_EfuseFipsVersionMap</scope><name>Page</name></member>
+      <member refid="struct_x_nvm___efuse_fips_version_map_1a25ab9fabd3cc3b3d8c0fbed10e242264" prot="public" virt="non-virtual"><scope>XNvm_EfuseFipsVersionMap</scope><name>Row</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

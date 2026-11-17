@@ -32,6 +32,6 @@
 <codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_ipihandler.c)</highlight></codeline>
 <codeline lineno="24"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

@@ -15,17 +15,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="465" bodyend="-1"/>
-        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
-        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="485" endline="564">EepromWriteData</referencedby>
-        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
-        <referencedby refid="group___overview_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="99" endline="112">XIic_ClearStats</referencedby>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="63" endline="85">XIic_GetStats</referencedby>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="478" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="442" endline="522">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="498" endline="577">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="group__iic__api_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="101" endline="114">XIic_ClearStats</referencedby>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic__api_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="67" endline="89">XIic_GetStats</referencedby>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -38,31 +38,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="466" bodyend="-1"/>
-        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
-        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="280" endline="333">SlaveReadData</referencedby>
-        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="348" endline="400">SlaveWriteData</referencedby>
-        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="285" endline="338">TenBitAddrReadData</referencedby>
-        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="353" endline="404">TenBitAddrWriteData</referencedby>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
-        <referencedby refid="group___overview_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="552" endline="568">XIic_GetGpOutput</referencedby>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
-        <referencedby refid="group___overview_1gaa4b84f9d58cbd40d2633140d79e2aed4" compoundref="xiic_8c" startline="584" endline="593">XIic_IsSlave</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="341" endline="348">XIic_Reset</referencedby>
-        <referencedby refid="group___overview_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="81" endline="134">XIic_SelfTest</referencedby>
-        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
-        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
-        <referencedby refid="group___overview_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="513" endline="528">XIic_SetGpOutput</referencedby>
-        <referencedby refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="121" endline="152">XIic_SetOptions</referencedby>
-        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
-        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
-        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
-        <referencedby refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="479" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="290" endline="343">SlaveReadData</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="359" endline="411">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="295" endline="348">TenBitAddrReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="364" endline="415">TenBitAddrWriteData</referencedby>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga6f86310d413cbe343462b6488f1cf8ab" compoundref="xiic__dyn__master_8c" startline="609" endline="621">XIic_DynamicInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="465" endline="491">XIic_GetAddress</referencedby>
+        <referencedby refid="group__iic_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="550" endline="566">XIic_GetGpOutput</referencedby>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group__iic_1gaa4b84f9d58cbd40d2633140d79e2aed4" compoundref="xiic_8c" startline="582" endline="591">XIic_IsSlave</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="344" endline="351">XIic_Reset</referencedby>
+        <referencedby refid="group__iic__api_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="87" endline="140">XIic_SelfTest</referencedby>
+        <referencedby refid="group__iic_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="398" endline="438">XIic_SetAddress</referencedby>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+        <referencedby refid="group__iic_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="514" endline="529">XIic_SetGpOutput</referencedby>
+        <referencedby refid="group__iic__api_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="126" endline="157">XIic_SetOptions</referencedby>
+        <referencedby refid="group__iic__api_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="228" endline="279">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="123" endline="171">XIic_SlaveSend</referencedby>
+        <referencedby refid="group__iic_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="228" endline="270">XIic_Start</referencedby>
+        <referencedby refid="group__iic_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="297" endline="327">XIic_Stop</referencedby>
+        <referencedby refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -75,10 +77,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="467" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
-        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="480" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="465" endline="491">XIic_GetAddress</referencedby>
+        <referencedby refid="group__iic_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="398" endline="438">XIic_SetAddress</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -91,17 +93,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="468" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="99" endline="112">XIic_ClearStats</referencedby>
-        <referencedby refid="group___overview_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="63" endline="85">XIic_GetStats</referencedby>
-        <referencedby refid="group___overview_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="341" endline="348">XIic_Reset</referencedby>
-        <referencedby refid="group___overview_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="81" endline="134">XIic_SelfTest</referencedby>
-        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
-        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
-        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
-        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
-        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="481" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="101" endline="114">XIic_ClearStats</referencedby>
+        <referencedby refid="group__iic__api_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="67" endline="89">XIic_GetStats</referencedby>
+        <referencedby refid="group__iic_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="344" endline="351">XIic_Reset</referencedby>
+        <referencedby refid="group__iic__api_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="87" endline="140">XIic_SelfTest</referencedby>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+        <referencedby refid="group__iic_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="616" endline="625">XIic_SetRecvHandler</referencedby>
+        <referencedby refid="group__iic_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="645" endline="654">XIic_SetSendHandler</referencedby>
+        <referencedby refid="group__iic_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="675" endline="684">XIic_SetStatusHandler</referencedby>
+        <referencedby refid="group__iic_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="228" endline="270">XIic_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -114,10 +116,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="469" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
-        <referencedby refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="482" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="228" endline="270">XIic_Start</referencedby>
+        <referencedby refid="group__iic_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="297" endline="327">XIic_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -130,13 +132,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="470" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="483" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="465" endline="491">XIic_GetAddress</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="398" endline="438">XIic_SetAddress</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -149,12 +151,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="472" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaf15dd70c4f1bb34a9e35c1ca85cee841" compoundref="xiic__options_8c" startline="171" endline="176">XIic_GetOptions</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="121" endline="152">XIic_SetOptions</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="485" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1gaf15dd70c4f1bb34a9e35c1ca85cee841" compoundref="xiic__options_8c" startline="176" endline="181">XIic_GetOptions</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="126" endline="157">XIic_SetOptions</referencedby>
+        <referencedby refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -167,13 +170,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="473" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
-        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="486" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="228" endline="279">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="123" endline="171">XIic_SlaveSend</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -186,13 +189,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="474" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
-        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="228" endline="279">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="123" endline="171">XIic_SlaveSend</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -205,11 +208,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="475" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -222,10 +225,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="476" bodyend="-1"/>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="489" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="123" endline="171">XIic_SlaveSend</referencedby>
+        <referencedby refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -238,11 +242,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="477" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="228" endline="279">XIic_SlaveRecv</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a309fbb83dcbf11ecb031fc3283c21bd1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -255,9 +259,9 @@
 <para>call callback </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="479" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="492" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -270,13 +274,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="481" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="552" endline="568">XIic_GetGpOutput</referencedby>
-        <referencedby refid="group___overview_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="513" endline="528">XIic_SetGpOutput</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="550" endline="566">XIic_GetGpOutput</referencedby>
+        <referencedby refid="group__iic_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="514" endline="529">XIic_SetGpOutput</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" prot="public" static="no" mutable="no">
-        <type><ref refid="group___overview_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref></type>
+        <type><ref refid="group__iic_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref></type>
         <definition>XIic_StatusHandler XIic::StatusHandler</definition>
         <argsstring></argsstring>
         <name>StatusHandler</name>
@@ -286,9 +290,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="483" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="496" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="675" endline="684">XIic_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -301,11 +305,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="484" bodyend="-1"/>
-        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="497" bodyend="-1"/>
+        <referencedby refid="group__iic_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="675" endline="684">XIic_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a6459379a9289a7db0f29ded8c4696e7e" prot="public" static="no" mutable="no">
-        <type><ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+        <type><ref refid="group__iic_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
         <definition>XIic_Handler XIic::RecvHandler</definition>
         <argsstring></argsstring>
         <name>RecvHandler</name>
@@ -315,9 +319,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="485" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="616" endline="625">XIic_SetRecvHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a089dc79200a64984f2fc5dca2b3a0ab5" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -330,11 +334,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="486" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="499" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="616" endline="625">XIic_SetRecvHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" prot="public" static="no" mutable="no">
-        <type><ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+        <type><ref refid="group__iic_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
         <definition>XIic_Handler XIic::SendHandler</definition>
         <argsstring></argsstring>
         <name>SendHandler</name>
@@ -344,10 +348,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="487" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
-        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="500" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group__iic_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="645" endline="654">XIic_SetSendHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a42ba7a5a3635caf03b7e15fa3348b32f" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -360,9 +364,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="488" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
-        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="116" endline="235">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group__iic_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="645" endline="654">XIic_SetSendHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -375,13 +379,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="489" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
-        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
-        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
-        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
-        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="310" endline="429">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="97" endline="183">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+        <referencedby refid="group__iic_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="228" endline="270">XIic_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a85857f85c5a0fc9af74f3a6745839eca" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -394,8 +398,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="490" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="503" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -408,9 +412,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="492" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="505" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -423,15 +427,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="493" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="506" bodyend="-1"/>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver instance data. </para>    </briefdescription>
+<para>Holds <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every IIC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>The application must allocate a variable of this type for every IIC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="3">
         <label>XIic</label>
@@ -445,7 +449,7 @@
         <link refid="struct_x_iic_stats"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="464" bodyend="496"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="477" bodyend="509"/>
     <listofallmembers>
       <member refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" prot="public" virt="non-virtual"><scope>XIic</scope><name>AddrOfSlave</name></member>
       <member refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" prot="public" virt="non-virtual"><scope>XIic</scope><name>AxiClkFreq</name></member>

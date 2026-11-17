@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartps__selftest__example_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,15 +100,15 @@ $(document).ready(function(){initNavTree('xuartps__selftest__example_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xuartps_selftest_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This example runs on zynqmp evaluation board (zcu102), it performs self test on the device by using <a class="el" href="struct_x_uart_ps.html" title="The XUartPs driver instance data structure. ">XUartPs</a> driver. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> self-test functionality. </p>
+<p>The example runs on the ZynqMP evaluation board (ZCU102). It performs a self-test on the device by using the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> driver.</p>
 <p>MODIFICATION HISTORY: </p>
 <pre>
 Ver   Who    Date     Changes
@@ -120,19 +120,53 @@ Ver   Who    Date     Changes
                 the device ID to use the first Device Id
                 Removed the printf at the start of the main
 3.18  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartps_8h.html">xuartps.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the XPAR parameters created in the xparameters.h file.</p>
+<p>They are defined here such that a user can easily change all the needed parameters in one place. </p>
+</div></td></tr>
+<tr class="memitem:a1978f7e46ae20e71943d4b3c15e8dd0e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartps__selftest__example_8c.html#a1978f7e46ae20e71943d4b3c15e8dd0e">XUARTPS_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XUARTPS_0_BASEADDR</td></tr>
+<tr class="memdesc:a1978f7e46ae20e71943d4b3c15e8dd0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">UART base address.  <a href="#a1978f7e46ae20e71943d4b3c15e8dd0e">More...</a><br/></td></tr>
+<tr class="separator:a1978f7e46ae20e71943d4b3c15e8dd0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3b7c1654c35d7057efc2f78d40b91d98"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartps__selftest__example_8c.html#a3b7c1654c35d7057efc2f78d40b91d98">UartPsSelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a3b7c1654c35d7057efc2f78d40b91d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the <a class="el" href="struct_x_uart_ps.html" title="The XUartPs driver instance data structure. ">XUartPs</a> driver.  <a href="#a3b7c1654c35d7057efc2f78d40b91d98">More...</a><br/></td></tr>
+<tr class="memdesc:a3b7c1654c35d7057efc2f78d40b91d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a minimal self-test on the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> driver.  <a href="#a3b7c1654c35d7057efc2f78d40b91d98">More...</a><br/></td></tr>
 <tr class="separator:a3b7c1654c35d7057efc2f78d40b91d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartps__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the UART self-test example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae0cf3afcf5c7824135c307adfc1f1477"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ps.html">XUartPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartps__selftest__example_8c.html#ae0cf3afcf5c7824135c307adfc1f1477">Uart_Ps</a></td></tr>
+<tr class="memdesc:ae0cf3afcf5c7824135c307adfc1f1477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the UART Device.  <a href="#ae0cf3afcf5c7824135c307adfc1f1477">More...</a><br/></td></tr>
+<tr class="separator:ae0cf3afcf5c7824135c307adfc1f1477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a1978f7e46ae20e71943d4b3c15e8dd0e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUARTPS_BASEADDRESS&#160;&#160;&#160;XPAR_XUARTPS_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UART base address. </p>
+
+<p>Referenced by <a class="el" href="xuartps__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -148,11 +182,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Calls the UART self-test example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xuartps__selftest__example_8c.html#a3b7c1654c35d7057efc2f78d40b91d98">UartPsSelfTestExample()</a>.</p>
+<p>References <a class="el" href="xuartps__selftest__example_8c.html#a3b7c1654c35d7057efc2f78d40b91d98">UartPsSelfTestExample()</a>, and <a class="el" href="xuartps__selftest__example_8c.html#a1978f7e46ae20e71943d4b3c15e8dd0e">XUARTPS_BASEADDRESS</a>.</p>
 
 </div>
 </div>
@@ -170,19 +203,34 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the <a class="el" href="struct_x_uart_ps.html" title="The XUartPs driver instance data structure. ">XUartPs</a> driver. </p>
+<p>Performs a minimal self-test on the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_ps___config.html#a17ad7e10fcc2b3645537bb6ba93ee6b2">XUartPs_Config::BaseAddress</a>, <a class="el" href="group__uartps.html#ga371d525c4d48239a3ce77c44d0a92b05">XUartPs_CfgInitialize()</a>, <a class="el" href="group__uartps.html#ga35a351ea7a51809810dc9da08e2d68ef">XUartPs_LookupConfig()</a>, and <a class="el" href="group__uartps.html#ga64e7142d1c69e2e29c9e323c4497baaf">XUartPs_SelfTest()</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartps__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ae0cf3afcf5c7824135c307adfc1f1477"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_uart_ps.html">XUartPs</a> Uart_Ps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the UART Device. </p>
 
 </div>
 </div>

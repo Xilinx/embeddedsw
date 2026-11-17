@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['reg_5fbond_5fnslices',['REG_BOND_NSLICES',['../xrfdc__read__write__example_8c.html#aef0cdec22a7831862d756dba63c1e16d',1,'xrfdc_read_write_example.c']]],
+  ['rfdc_5fdevice_5fid',['RFDC_DEVICE_ID',['../xrfdc__gen2__or__below__clocked__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_gen2_or_below_clocked_example.c'],['../xrfdc__gen3__clocked__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_gen3_clocked_example.c'],['../xrfdc__intr__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_intr_example.c'],['../xrfdc__mts__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_mts_example.c'],['../xrfdc__read__write__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_read_write_example.c'],['../xrfdc__selftest__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e',1,'RFDC_DEVICE_ID():&#160;xrfdc_selftest_example.c']]]
+];

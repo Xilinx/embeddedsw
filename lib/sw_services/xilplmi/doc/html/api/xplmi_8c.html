@@ -160,7 +160,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
                       and 2VM Devices
       pre  08/21/2025 Added TPM initialization after LPD initialization
       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
-      pre  03/16/2026 Added client support for TPM module</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      pre  03/16/2026 Added client support for TPM module
+      pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
+      vid  08/18/2026 Decoupled TPM module init from xiltpm using a
+                      TpmModuleInitHandler parameter to <a class="el" href="group__xilplmi__server__apis.html#gaa729a1ad7805acd4e271e20f2b02d1f3" title="This function will initialize the PLMI module. ">XPlmi_Init()</a>,
+                      stored in a static callback, instead of calling
+                      XTpm_ModuleInit() directly, to break a circular
+                      xilplmi-xiltpm BitBake dependency. Validate the
+                      handler in <a class="el" href="group__xilplmi__server__apis.html#gaa729a1ad7805acd4e271e20f2b02d1f3" title="This function will initialize the PLMI module. ">XPlmi_Init()</a> itself (fail fast) so
+                      <a class="el" href="group__xilplmi__server__apis.html#ga096c3ab59b174d7abd84700c70debaa7" title="This function calls all the PS LPD init functions of all the different modules. ">XPlmi_LpdInit()</a> can call it directly</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi_8h.html">xplmi.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__debug_8h.html">xplmi_debug.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__err__common_8h.html">xplmi_err_common.h</a>&quot;</code><br/>
@@ -173,9 +181,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga87aef31fe1a4af9ef9dbb6f9a06a3c34"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga87aef31fe1a4af9ef9dbb6f9a06a3c34">XPlmi_Init</a> (<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a> IsAddrRangeValidHandler)</td></tr>
-<tr class="memdesc:ga87aef31fe1a4af9ef9dbb6f9a06a3c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initialize the PLMI module.  <a href="group__xilplmi__server__apis.html#ga87aef31fe1a4af9ef9dbb6f9a06a3c34">More...</a><br/></td></tr>
-<tr class="separator:ga87aef31fe1a4af9ef9dbb6f9a06a3c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa729a1ad7805acd4e271e20f2b02d1f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gaa729a1ad7805acd4e271e20f2b02d1f3">XPlmi_Init</a> (<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a> IsAddrRangeValidHandler, XPlmi_TpmModuleInit_t TpmModuleInitHandler)</td></tr>
+<tr class="memdesc:gaa729a1ad7805acd4e271e20f2b02d1f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initialize the PLMI module.  <a href="group__xilplmi__server__apis.html#gaa729a1ad7805acd4e271e20f2b02d1f3">More...</a><br/></td></tr>
+<tr class="separator:gaa729a1ad7805acd4e271e20f2b02d1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac7d9401e9180244111edb141932b0d37"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gac7d9401e9180244111edb141932b0d37">XPlmi_RunTimeConfigInit</a> (void)</td></tr>
 <tr class="memdesc:gac7d9401e9180244111edb141932b0d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the Runtime Configuration Area with default values.  <a href="group__xilplmi__server__apis.html#gac7d9401e9180244111edb141932b0d37">More...</a><br/></td></tr>
 <tr class="separator:gac7d9401e9180244111edb141932b0d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,7 +220,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">XPlmi_IsAddrRangeValid</a> = NULL</td></tr>
+<tr class="memitem:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">XPlmi_IsAddrRangeValid</a> = NULL</td></tr>
 <tr class="memdesc:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Global address range validation handler  <a href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">More...</a><br/></td></tr>
 <tr class="separator:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

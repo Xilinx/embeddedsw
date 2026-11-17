@@ -99,12 +99,19 @@ $(document).ready(function(){initNavTree('group__xilpdi__apis.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">XilPDI APIs</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga6dc0e81411e6a8bf2c9967d03fd597ae">XILPDI_PDI_TYPE_IAU</a>&#160;&#160;&#160;(0x7U)</td></tr>
+<tr class="memdesc:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">PDI type of an in-place ASU update PDI.  <a href="#ga6dc0e81411e6a8bf2c9967d03fd597ae">More...</a><br/></td></tr>
+<tr class="separator:ga6dc0e81411e6a8bf2c9967d03fd597ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gacf4b60f3bfd29d0d200e4f218b74dcdf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">XilPdi_ValidateChecksum</a> (const void *Buffer, u32 Length)</td></tr>
@@ -134,9 +141,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga99aeeb01dc13465959103fa29625923a"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga99aeeb01dc13465959103fa29625923a">XilPdi_SearchOptionalData</a> (u64 StartAddress, u64 EndAddress, u32 DataId)</td></tr>
 <tr class="memdesc:ga99aeeb01dc13465959103fa29625923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function searches for optional data address based on given Data ID.  <a href="#ga99aeeb01dc13465959103fa29625923a">More...</a><br/></td></tr>
 <tr class="separator:ga99aeeb01dc13465959103fa29625923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
-<tr class="memdesc:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="#gab4d2ba6eeeac98dd13665d92c892a5ac">More...</a><br/></td></tr>
-<tr class="separator:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
+<tr class="memdesc:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="#ga100ef0559ecd6bfa98c1c97c1838692b">More...</a><br/></td></tr>
+<tr class="separator:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab206394653dbbd10d5fbdbb41832c8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gaab206394653dbbd10d5fbdbb41832c8e">XilPdi_ReadImgHdrs</a> (const <a class="el" href="struct_xil_pdi___meta_hdr.html">XilPdi_MetaHdr</a> *MetaHdrPtr)</td></tr>
 <tr class="memdesc:gaab206394653dbbd10d5fbdbb41832c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Image Headers from the pdi stored in device (flash/SBI buffer/DDR/SD)  <a href="#gaab206394653dbbd10d5fbdbb41832c8e">More...</a><br/></td></tr>
 <tr class="separator:gaab206394653dbbd10d5fbdbb41832c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,13 +157,30 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga3351549fd88876c437726037b8bd5ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies Image headers.  <a href="#ga3351549fd88876c437726037b8bd5ca3">More...</a><br/></td></tr>
 <tr class="separator:ga3351549fd88876c437726037b8bd5ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gab4d2ba6eeeac98dd13665d92c892a5ac"></a>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga6dc0e81411e6a8bf2c9967d03fd597ae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a>* XilPdi_IsPrtnHashPresent </td>
+          <td class="memname">#define XILPDI_PDI_TYPE_IAU&#160;&#160;&#160;(0x7U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PDI type of an in-place ASU update PDI. </p>
+
+<p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga0174729e4271ff3ed60e891b111a80fb">XilPdi_ReadOptionalData()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga100ef0559ecd6bfa98c1c97c1838692b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a>* XilPdi_IsPrtnHashPresent </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>PrtnNum</em>, </td>
@@ -252,7 +276,8 @@ Functions</h2></td></tr>
 <p>This function reads IHT and optional data in Image Header Table. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">MetaHdrPtr</td><td>is pointer to Meta Header table.</td></tr>
+    <tr><td class="paramname">MetaHdrPtr</td><td>is pointer to Meta Header table. </td></tr>
+    <tr><td class="paramname">PdiType</td><td>is type of PDI for which optional data is being read.</td></tr>
   </table>
   </dd>
 </dl>
@@ -379,11 +404,11 @@ Functions</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Read the IHT Optional data from Meta header</li>
-<li>Verify that the length of optional data is less than or equal to 15872 bytes. Otherwise, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA error.</li>
+<li>Verify that the length of optional data is less than or equal to 15872 bytes. OptionalDataLen is in words, so convert the byte limit to words before comparing. Otherwise, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA error.</li>
 <li>Copy optional data. If copy is successful, return XST_SUCCESS. Otherwise, return error code.</li>
 </ul>
 
-<p>References <a class="el" href="struct_xil_pdi___meta_hdr.html#af4c05505d849cc9cb018b43c8f848776">XilPdi_MetaHdr::DeviceCopy</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a7aedb1bc8b9897f706301f22ed7a1725">XilPdi_MetaHdr::FlashOfstAddr</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a8a6314a7d4b3c68b8466d1c2f8fede3b">XilPdi_MetaHdr::ImgHdrTbl</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#adce12a2a74474eccb3d8cce3040a6ac9">XilPdi_MetaHdr::MetaHdrOfst</a>, <a class="el" href="struct_xil_pdi___img_hdr_tbl.html#a576c524d2e5b2d8d99621a90d0ead74f">XilPdi_ImgHdrTbl::OptionalDataLen</a>, <a class="el" href="xilpdi_8h.html#a107d5dada2af10ad48a8c87f60da4fdb">SMAP_BUS_WIDTH_LENGTH</a>, <a class="el" href="xilpdi_8h.html#a1d569af531389c06604431461dcd6206">XIH_IHT_LEN</a>, and <a class="el" href="xilpdi_8h.html#a339a46932d4db4aff7ddc1c922b1cf32">XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES</a>.</p>
+<p>References <a class="el" href="struct_xil_pdi___meta_hdr.html#af4c05505d849cc9cb018b43c8f848776">XilPdi_MetaHdr::DeviceCopy</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a7aedb1bc8b9897f706301f22ed7a1725">XilPdi_MetaHdr::FlashOfstAddr</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a8a6314a7d4b3c68b8466d1c2f8fede3b">XilPdi_MetaHdr::ImgHdrTbl</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#adce12a2a74474eccb3d8cce3040a6ac9">XilPdi_MetaHdr::MetaHdrOfst</a>, <a class="el" href="struct_xil_pdi___img_hdr_tbl.html#a576c524d2e5b2d8d99621a90d0ead74f">XilPdi_ImgHdrTbl::OptionalDataLen</a>, <a class="el" href="xilpdi_8h.html#a107d5dada2af10ad48a8c87f60da4fdb">SMAP_BUS_WIDTH_LENGTH</a>, <a class="el" href="xilpdi_8h.html#a1d569af531389c06604431461dcd6206">XIH_IHT_LEN</a>, <a class="el" href="xilpdi_8h.html#a339a46932d4db4aff7ddc1c922b1cf32">XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES</a>, and <a class="el" href="group__xilpdi__apis.html#ga6dc0e81411e6a8bf2c9967d03fd597ae">XILPDI_PDI_TYPE_IAU</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xilpdi__apis.html#gaf79c8f43bf8b64976d3fffe442108861">XilPdi_ReadIhtAndOptionalData()</a>.</p>
 
@@ -469,6 +494,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Search for the data ID given and return optional data address if data ID is found. Otherwise, return end address of IHT optional data.</li>
+<li>A corrupt header with a zero length would leave the offset unchanged and spin forever. Terminate the search treating the data ID as not found by returning the end address.</li>
 </ul>
 
 <p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">XilPdi_StoreDigestTable()</a>.</p>
@@ -673,14 +699,17 @@ DigestTableSize is size of Data except first(0x00) and last word(Last)</pre><ul>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS on successful image validation.</li>
-<li>XILPDI_ERR_IH_CHECKSUM on checksum fail. </li>
+<li>XILPDI_ERR_IH_CHECKSUM on checksum fail.</li>
+<li>XILPDI_ERR_IMG_NO_OF_PRTNS if the number of partitions in an image is more than XIH_MAX_PRTNS or if the partitions of all images do not add up to the count in the Image Header Table. </li>
 </ul>
 </dd></dl>
 <ul>
 <li>Verify checksum of all image Headers. If verification is passed, return XST_SUCCESS. Otherwise, return XILPDI_ERR_IH_CHECKSUM error.</li>
+<li>Verify the number of partitions in the image is not more than the size of the Partition Header array. Otherwise, return XILPDI_ERR_IMG_NO_OF_PRTNS error.</li>
+<li>Verify the partitions of all the images add up to the number of partitions in the Image Header Table. Partition Headers are indexed by a count that runs across images, so a mismatch here would let that count walk past the end of the array. Otherwise, return XILPDI_ERR_IMG_NO_OF_PRTNS error.</li>
 </ul>
 
-<p>References <a class="el" href="struct_xil_pdi___meta_hdr.html#a11507d2e756a50021cb7b1ad8c1560f1">XilPdi_MetaHdr::ImgHdr</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a8a6314a7d4b3c68b8466d1c2f8fede3b">XilPdi_MetaHdr::ImgHdrTbl</a>, <a class="el" href="struct_xil_pdi___img_hdr_tbl.html#a0bbcb045b71c8d6f86224e4bbd0e58a4">XilPdi_ImgHdrTbl::NoOfImgs</a>, and <a class="el" href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">XilPdi_ValidateChecksum()</a>.</p>
+<p>References <a class="el" href="struct_xil_pdi___meta_hdr.html#a11507d2e756a50021cb7b1ad8c1560f1">XilPdi_MetaHdr::ImgHdr</a>, <a class="el" href="struct_xil_pdi___meta_hdr.html#a8a6314a7d4b3c68b8466d1c2f8fede3b">XilPdi_MetaHdr::ImgHdrTbl</a>, <a class="el" href="struct_xil_pdi___img_hdr_tbl.html#a0bbcb045b71c8d6f86224e4bbd0e58a4">XilPdi_ImgHdrTbl::NoOfImgs</a>, <a class="el" href="struct_xil_pdi___img_hdr_tbl.html#a305d63ece76563b3e113b38817608210">XilPdi_ImgHdrTbl::NoOfPrtns</a>, <a class="el" href="struct_xil_pdi___img_hdr.html#a1d4d4cc531aadaa95e09ae3fe1613f4f">XilPdi_ImgHdr::NoOfPrtns</a>, <a class="el" href="xilpdi_8h.html#a3ef00fe6fefe0453bdf0bf588f9a4758">XILPDI_ERR_IMG_NO_OF_PRTNS</a>, and <a class="el" href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">XilPdi_ValidateChecksum()</a>.</p>
 
 </div>
 </div>

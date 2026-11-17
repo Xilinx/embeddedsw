@@ -4,6 +4,17 @@
     <compoundname>xcsi2tx_g.c</compoundname>
     <includes refid="xcsi2tx_8h" local="yes">xcsi2tx.h</includes>
     <incdepgraph>
+      <node id="37">
+        <label>xcsi2tx_hw.h</label>
+        <link refid="xcsi2tx__hw_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xil_io.h</label>
+      </node>
       <node id="34">
         <label>xcsi2tx.h</label>
         <link refid="xcsi2tx_8h"/>
@@ -14,27 +25,16 @@
         <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="38">
-        <label>xil_io.h</label>
-      </node>
-      <node id="33">
-        <label>xcsi2tx_g.c</label>
-        <link refid="xcsi2tx_g.c"/>
-        <childnode refid="34" relation="include">
-        </childnode>
-      </node>
       <node id="36">
         <label>xstatus.h</label>
       </node>
       <node id="35">
         <label>xil_types.h</label>
       </node>
-      <node id="37">
-        <label>xcsi2tx_hw.h</label>
-        <link refid="xcsi2tx__hw_8h"/>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
+      <node id="33">
+        <label>xcsi2tx_g.c</label>
+        <link refid="xcsi2tx_g.c"/>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" line="8" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" bodystart="8" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" line="8" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" bodystart="8" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -92,6 +92,6 @@
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c"/>
   </compounddef>
 </doxygen>

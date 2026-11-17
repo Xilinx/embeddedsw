@@ -15,15 +15,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="100" bodyend="-1"/>
-        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="631" endline="746">XTrngpsx_Generate</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains status related to TRNG. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="99" bodyend="101"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="100" bodyend="102"/>
     <listofallmembers>
       <member refid="struct_x_trngpsx___status_1a6829b403e9725800370da4b70cd94b39" prot="public" virt="non-virtual"><scope>XTrngpsx_Status</scope><name>ElapsedSeedLife</name></member>
     </listofallmembers>

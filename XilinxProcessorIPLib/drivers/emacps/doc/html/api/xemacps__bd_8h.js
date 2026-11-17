@@ -1,7 +1,10 @@
 var xemacps__bd_8h =
 [
+    [ "XEMACPS_BD_H", "xemacps__bd_8h.html#ab825072cd56beaecf492fd80eeea3e85", null ],
+    [ "XEMACPS_BD_NUM_WORDS", "xemacps__bd_8h.html#ga889b193f177a603709fbcd4918eb1383", null ],
     [ "XEmacPs_BdClear", "xemacps__bd_8h.html#gaf95ab3f6c363667f67cfa83facb35f8f", null ],
     [ "XEmacPs_BdClearLast", "xemacps__bd_8h.html#gac57500dc03d1692de7ce80ddbee0d863", null ],
+    [ "XEmacPs_BdClearRxNew", "xemacps__bd_8h.html#gaa572089d40ec2c845fa3e75879d99f64", null ],
     [ "XEmacPs_BdClearTxNoCRC", "xemacps__bd_8h.html#ga97d9e1c1d084a338141b17c8a039556f", null ],
     [ "XEmacPs_BdClearTxUsed", "xemacps__bd_8h.html#gad7e175fa90e13d73738f0ef6c34055e0", null ],
     [ "XEmacPs_BdGetBufAddr", "xemacps__bd_8h.html#ga823598057360184874bd9f0e08ab1b17", null ],
@@ -32,6 +35,7 @@ var xemacps__bd_8h =
     [ "XEmacPs_BdSetTxNoCRC", "xemacps__bd_8h.html#gac7d8ec566b7faa86bbcd9902f3e3897e", null ],
     [ "XEmacPs_BdSetTxUsed", "xemacps__bd_8h.html#ga62a28ec9db099257758eee0a4b3cab2d", null ],
     [ "XEmacPs_BdWrite", "xemacps__bd_8h.html#ga2eda31db4a3a8d9f8213d91e2671d396", null ],
+    [ "XEMACPS_DMABD_MINIMUM_ALIGNMENT", "xemacps__bd_8h.html#ga4267858cc1fe48a5f52398d174ea8d1b", null ],
     [ "XEmacPs_GetRxFrameSize", "xemacps__bd_8h.html#ga9b765b658406c81b1c8bb96d5c171a1e", null ],
     [ "XEmacPs_Bd", "xemacps__bd_8h.html#gabdac9aa9170655a763bf06bab3aa2a62", null ]
 ];

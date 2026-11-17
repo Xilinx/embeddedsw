@@ -105,13 +105,29 @@ $(document).ready(function(){initNavTree('xbram_8c.html','');});
 <div class="title">xbram.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> interface functions. </p>
+<p>The implementation of the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> driver's basic functionality. See <a class="el" href="xbram_8h.html">xbram.h</a> for more information about the driver.</p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+ 1.00a sa   05/11/10 First release
+ 3.01a sa   13/01/12 Added CorrectableFailingDataRegs and
+                     UncorrectableFailingDataRegs in
+                                          XBram_CfgInitialize API.
+ 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                     Changed the prototype of XBram_CfgInitialize API.
+ 4.9   sd   07/07/23 Added SDT support.
+ 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab305438b0844ddb20139878c21ef0e6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize</a> (<a class="el" href="struct_x_bram.html">XBram</a> *InstancePtr, <a class="el" href="struct_x_bram___config.html">XBram_Config</a> *Config, UINTPTR EffectiveAddr)</td></tr>
-<tr class="memdesc:gab305438b0844ddb20139878c21ef0e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="struct_x_bram.html" title="The XBram driver instance data. ">XBram</a> instance provided by the caller based on the given configuration data.  <a href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">More...</a><br/></td></tr>
+<tr class="memitem:gab305438b0844ddb20139878c21ef0e6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram__api.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize</a> (<a class="el" href="struct_x_bram.html">XBram</a> *InstancePtr, <a class="el" href="struct_x_bram___config.html">XBram_Config</a> *Config, UINTPTR EffectiveAddr)</td></tr>
+<tr class="memdesc:gab305438b0844ddb20139878c21ef0e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> instance.  <a href="group__bram__api.html#gab305438b0844ddb20139878c21ef0e6b">More...</a><br/></td></tr>
 <tr class="separator:gab305438b0844ddb20139878c21ef0e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="422" bodyend="-1"/>
-        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="426" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1025" endline="1122">XNandPs_SendCommand</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___command_format_1add044f5e1abe6bf7857d6e0d678b0ae8" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="423" bodyend="-1"/>
-        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1025" endline="1122">XNandPs_SendCommand</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___command_format_1a82db80bc15a0f098854ed8034187b36e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -43,9 +43,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="424" bodyend="-1"/>
-        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="488" endline="664">Onfi_NandInit</referencedby>
-        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="428" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="461" endline="640">Onfi_NandInit</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1025" endline="1122">XNandPs_SendCommand</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___command_format_1a4fc076b266b7ef2cc79e059c7ef4e59b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -58,15 +58,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="425" bodyend="-1"/>
-        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="429" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1025" endline="1122">XNandPs_SendCommand</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>NAND Command format structures. </para>    </briefdescription>
+<para>Describes the NAND command format. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="421" bodyend="426"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="425" bodyend="430"/>
     <listofallmembers>
       <member refid="struct_x_nand_ps___command_format_1a82db80bc15a0f098854ed8034187b36e" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>AddrCycles</name></member>
       <member refid="struct_x_nand_ps___command_format_1add044f5e1abe6bf7857d6e0d678b0ae8" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>EndCmd</name></member>

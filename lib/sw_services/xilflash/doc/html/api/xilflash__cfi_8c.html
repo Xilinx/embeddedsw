@@ -105,17 +105,16 @@ $(document).ready(function(){initNavTree('xilflash__cfi_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>The file implements the functions for retrieval and translation of CFI data from a compliant flash device. </p>
-<p>CFI contains data that defines part geometry, write/erase timing, and programming data.</p>
-<p>Data is retrieved using macros defined in this xflash_cfi.h file. The macros simplify data extraction because they have been written to take into account the layout of parts on the data bus. To the library, CFI data appears as if it were always being read from a single 8-bit part (XFL_LAYOUT_X8_X8_X1) Otherwise, the retrieval code would have to contend with all the formats illustrated below. The illustration shows how the first three bytes of the CFI query data "QRY" appear in flash memory space for various part layouts. </p>
+<div class="textblock"><p>Implements the retrieval and translation of CFI data. </p>
+<p>The file implements the functions for retrieval and translation of CFI data from a compliant flash device. CFI contains data that defines part geometry, write/erase timing, and programming data.</p>
+<p>Data is retrieved using macros defined in the <a class="el" href="xilflash__cfi_8h.html" title="Declares the methods that extract and interpret CFI data. ">xilflash_cfi.h</a> file. The macros simplify data extraction because they have been written to take into account the layout of parts on the data bus. To the library, CFI data appears as if it were always being read from a single 8-bit part (XFL_LAYOUT_X8_X8_X1). Otherwise, the retrieval code would have to contend with all the formats illustrated below. The illustration shows how the first three bytes of the CFI query data "QRY" appear in flash memory space for various part layouts. </p>
 <pre></pre><pre>                Byte Offset (Big-Endian)
                 0123456789ABCDEF
                 ----------------
                 XFL_LAYOUT_X16_X16_X1   Q R Y
                 XFL_LAYOUT_X16_X16_X2   Q Q R R Y Y
-</pre><p>Where the holes between Q, R, and Y are NULL (all bits 0)</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This code is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads, mutual exclusion, virtual memory, or cache control management must be satisfied by the layer above this library.</p>
+</pre><p>Where the holes between Q, R, and Y are NULL (all bits 0).</p>
+<dl class="section note"><dt>Note</dt><dd>This code is intended to be RTOS and processor independent. It works with physical addresses only. The layer above this library must satisfy any needs for dynamic memory management, threads, mutual exclusion, virtual memory, or cache control management.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -140,6 +139,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.5     tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 4.7     akm  07/23/19 Initialized Status variable to XST_FAILURE.
 4.10    akm  07/14/23 Added support for system device-tree flow.
+4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xilflash_8h.html">include/xilflash.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xilflash__cfi_8h.html">include/xilflash_cfi.h</a>&quot;</code><br/>
@@ -150,7 +150,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a025ba2cd783a06301dc7caa4fb537d95"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__cfi_8c.html#a025ba2cd783a06301dc7caa4fb537d95">XFlashCFI_ReadCommon</a> (XFlash *InstancePtr, u8 BusWidth)</td></tr>
-<tr class="memdesc:a025ba2cd783a06301dc7caa4fb537d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the standard CFI data from the part(s), interpret the data, and update the provided geometry and properties structures.  <a href="#a025ba2cd783a06301dc7caa4fb537d95">More...</a><br/></td></tr>
+<tr class="memdesc:a025ba2cd783a06301dc7caa4fb537d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves and interprets the standard CFI data from the parts.  <a href="#a025ba2cd783a06301dc7caa4fb537d95">More...</a><br/></td></tr>
 <tr class="separator:a025ba2cd783a06301dc7caa4fb537d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad868fe5f733b6042f9ee8b6adb59652c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__cfi_8c.html#ad868fe5f733b6042f9ee8b6adb59652c">XFlashCFI_Read8</a> (u8 *Ptr, u8 Interleave, u8 Mode)</td></tr>
 <tr class="memdesc:ad868fe5f733b6042f9ee8b6adb59652c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads 8-bits of data from the CFI data location into a local variable.  <a href="#ad868fe5f733b6042f9ee8b6adb59652c">More...</a><br/></td></tr>
@@ -193,9 +193,9 @@ Functions</h2></td></tr>
 <p>Reads 16-bits of data from the CFI data location into a local variable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Ptr</td><td>is the pointer to read. Can be a pointer to any type. </td></tr>
-    <tr><td class="paramname">Interleave</td><td>is the byte interleaving (based on part layout). </td></tr>
-    <tr><td class="paramname">Mode</td><td>is the mode of operation (based on part layout).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ptr</td><td>Pointer to read. Can be a pointer to any type. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Interleave</td><td>Byte interleaving (based on part layout). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mode</td><td>Mode of operation (based on part layout).</td></tr>
   </table>
   </dd>
 </dl>
@@ -238,9 +238,9 @@ Functions</h2></td></tr>
 <p>Reads 8-bits of data from the CFI data location into a local variable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Ptr</td><td>is the pointer to read. Can be a pointer to any type. </td></tr>
-    <tr><td class="paramname">Interleave</td><td>is the byte interleaving (based on part layout). </td></tr>
-    <tr><td class="paramname">Mode</td><td>is the mode of operation (based on part layout).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ptr</td><td>Pointer to read. Can be a pointer to any type. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Interleave</td><td>Byte interleaving (based on part layout). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mode</td><td>Mode of operation (based on part layout).</td></tr>
   </table>
   </dd>
 </dl>
@@ -274,24 +274,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the standard CFI data from the part(s), interpret the data, and update the provided geometry and properties structures. </p>
+<p>Retrieves and interprets the standard CFI data from the parts. </p>
+<p>Retrieves the standard CFI data from the parts, interprets the data, and updates the provided geometry and properties structures.</p>
 <p>Extended CFI data is part specific and ignored here. This data must be read by the specific flash device family library.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the pointer to the XFlash instance. </td></tr>
-    <tr><td class="paramname">BusWidth</td><td>is the total width of the flash memory, in bytes.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the XFlash instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BusWidth</td><td>Total width of the flash memory, in bytes.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
 <li>XFLASH_CFI_QUERY_ERROR if an error occurred interpreting the data.</li>
-<li>XFLASH_PART_NOT_SUPPORTED if invalid Layout parameter.</li>
+<li>XFLASH_PART_NOT_SUPPORTED if invalid Layout parameter. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xilflash__cfi_8h.html#a2e6f76db4955297ab8edfd917acf4e40">XFL_CFI_ADVANCE_PTR16</a>, <a class="el" href="xilflash__cfi_8h.html#abee73d45fcdf7098f5b2daf57b27698a">XFL_CFI_ADVANCE_PTR8</a>, <a class="el" href="xilflash__cfi_8h.html#a12bd0c89aecceb6ce7e6449d0a76137a">XFL_CFI_POSITION_PTR</a>, <a class="el" href="xilflash__cfi_8h.html#a5f6c51f2f7f22d4a83dd5fb20cea6812">XFL_LAYOUT_NUM_PARTS_MASK</a>, <a class="el" href="xilflash__cfi_8h.html#a25c9cc3b842a35592e8b009f64b3df1f">XFlashCFI_Read16()</a>, and <a class="el" href="xilflash__cfi_8h.html#ad868fe5f733b6042f9ee8b6adb59652c">XFlashCFI_Read8()</a>.</p>
+<p>References <a class="el" href="xilflash__cfi_8h.html#a2e6f76db4955297ab8edfd917acf4e40">XFL_CFI_ADVANCE_PTR16</a>, <a class="el" href="xilflash__cfi_8h.html#abee73d45fcdf7098f5b2daf57b27698a">XFL_CFI_ADVANCE_PTR8</a>, <a class="el" href="xilflash__cfi_8h.html#a12bd0c89aecceb6ce7e6449d0a76137a">XFL_CFI_POSITION_PTR</a>, <a class="el" href="xilflash__cfi_8h.html#a736f5a863edb22e78c84a74662dbb2b8">XFL_LAYOUT_CFI_INTERL_MASK</a>, <a class="el" href="xilflash__cfi_8h.html#a5f6c51f2f7f22d4a83dd5fb20cea6812">XFL_LAYOUT_NUM_PARTS_MASK</a>, <a class="el" href="xilflash__cfi_8h.html#af6b3f8e8b48c63755f9ea145c7f38acd">XFL_LAYOUT_PART_MODE_MASK</a>, <a class="el" href="xilflash__cfi_8h.html#a25c9cc3b842a35592e8b009f64b3df1f">XFlashCFI_Read16()</a>, and <a class="el" href="xilflash__cfi_8h.html#ad868fe5f733b6042f9ee8b6adb59652c">XFlashCFI_Read8()</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xilflash__apis.html#gab4c908ad78f6ded9407d0dc7ed611370">XFlash_Initialize()</a>.</p>
 

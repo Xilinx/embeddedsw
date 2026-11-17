@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xmmidp__link_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('xmmidp__link_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xmmidp_link.c File Reference</div>  </div>
@@ -106,9 +107,21 @@ $(document).ready(function(){initNavTree('xmmidp__link_8c.html','');});
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &lt;xstatus.h&gt;</code><br/>
-<code>#include &lt;sleep.h&gt;</code><br/>
+<code>#include &lt;xil_assert.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="xmmidp_8h.html">xmmidp.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga24a371742427a965f10b46ca6cd04862"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga24a371742427a965f10b46ca6cd04862">XMMIDP_LT_VERBOSE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga24a371742427a965f10b46ca6cd04862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to 1 to print link training debug messages.  <a href="group__mmi__dppsu14.html#ga24a371742427a965f10b46ca6cd04862">More...</a><br/></td></tr>
+<tr class="separator:ga24a371742427a965f10b46ca6cd04862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9a83ff4a3159348b8aa40e19bffdf3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gae9a83ff4a3159348b8aa40e19bffdf3f">XMMIDP_LT_LOG</a>(...)&#160;&#160;&#160;((void)0)</td></tr>
+<tr class="memdesc:gae9a83ff4a3159348b8aa40e19bffdf3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link training debug messages are compiled out.  <a href="group__mmi__dppsu14.html#gae9a83ff4a3159348b8aa40e19bffdf3f">More...</a><br/></td></tr>
+<tr class="separator:gae9a83ff4a3159348b8aa40e19bffdf3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31e1ca6a15a46bd6a333d62a355fe3e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga31e1ca6a15a46bd6a333d62a355fe3e7">XMMIDP_LINK_XMIT_SETTLE_US</a>&#160;&#160;&#160;1000000U</td></tr>
+<tr class="memdesc:ga31e1ca6a15a46bd6a333d62a355fe3e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">PHY/main link settle time after <a class="el" href="group__mmi__dppsu14.html#ga53ae7c2346ac26c5e79580b2e5602771" title="This function initiates link training sequence with the Rx. ">XMmiDp_StartLinkXmit()</a> before CR/EQ.  <a href="group__mmi__dppsu14.html#ga31e1ca6a15a46bd6a333d62a355fe3e7">More...</a><br/></td></tr>
+<tr class="separator:ga31e1ca6a15a46bd6a333d62a355fe3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gae87ff6b8ea456fb3e6d6cd77d3a48f1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gae87ff6b8ea456fb3e6d6cd77d3a48f1b">XMmiDp_FastLinkTrainEnable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
@@ -195,6 +208,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2faa4352f70a9938766d8d266bb20b2a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga2faa4352f70a9938766d8d266bb20b2a">XMmiDp_RunTraining</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga2faa4352f70a9938766d8d266bb20b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the link training process.  <a href="group__mmi__dppsu14.html#ga2faa4352f70a9938766d8d266bb20b2a">More...</a><br/></td></tr>
 <tr class="separator:ga2faa4352f70a9938766d8d266bb20b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5774015fbf8628ffdbb3746da70b28b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gad5774015fbf8628ffdbb3746da70b28b">XMmiDp_StartFullLinkTrainingCapped</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 UserMaxLanes, u8 UserMaxLinkBW)</td></tr>
+<tr class="memdesc:gad5774015fbf8628ffdbb3746da70b28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function prepares for link training.  <a href="group__mmi__dppsu14.html#gad5774015fbf8628ffdbb3746da70b28b">More...</a><br/></td></tr>
+<tr class="separator:gad5774015fbf8628ffdbb3746da70b28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

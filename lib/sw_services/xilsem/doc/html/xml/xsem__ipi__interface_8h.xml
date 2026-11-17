@@ -4,31 +4,13 @@
     <compoundname>xsem_ipi_interface.h</compoundname>
     <includedby refid="xsem__client__api_8h" local="yes">xsem_client_api.h</includedby>
     <invincdepgraph>
-      <node id="144">
-        <label>xsem_ipi_interface.h</label>
-        <link refid="xsem_ipi_interface.h"/>
-        <childnode refid="145" relation="include">
-        </childnode>
-      </node>
-      <node id="152">
-        <label>xsem_npi_ssit_example.c</label>
-        <link refid="xsem__npi__ssit__example_8c"/>
-      </node>
-      <node id="147">
-        <label>xsem_cram_example.c</label>
-        <link refid="xsem__cram__example_8c"/>
-      </node>
-      <node id="146">
+      <node id="148">
         <label>xsem_client_api.c</label>
         <link refid="xsem__client__api_8c"/>
       </node>
-      <node id="145">
+      <node id="147">
         <label>xsem_client_api.h</label>
         <link refid="xsem__client__api_8h"/>
-        <childnode refid="146" relation="include">
-        </childnode>
-        <childnode refid="147" relation="include">
-        </childnode>
         <childnode refid="148" relation="include">
         </childnode>
         <childnode refid="149" relation="include">
@@ -39,22 +21,40 @@
         </childnode>
         <childnode refid="152" relation="include">
         </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
       </node>
-      <node id="151">
+      <node id="153">
         <label>xsem_npi_example_pl_mb.c</label>
         <link refid="xsem__npi__example__pl__mb_8c"/>
       </node>
       <node id="150">
-        <label>xsem_npi_example.c</label>
-        <link refid="xsem__npi__example_8c"/>
-      </node>
-      <node id="148">
         <label>xsem_cram_example_pl_mb.c</label>
         <link refid="xsem__cram__example__pl__mb_8c"/>
       </node>
+      <node id="154">
+        <label>xsem_npi_ssit_example.c</label>
+        <link refid="xsem__npi__ssit__example_8c"/>
+      </node>
       <node id="149">
+        <label>xsem_cram_example.c</label>
+        <link refid="xsem__cram__example_8c"/>
+      </node>
+      <node id="151">
         <label>xsem_cram_ssit_example.c</label>
         <link refid="xsem__cram__ssit__example_8c"/>
+      </node>
+      <node id="152">
+        <label>xsem_npi_example.c</label>
+        <link refid="xsem__npi__example_8c"/>
+      </node>
+      <node id="146">
+        <label>xsem_ipi_interface.h</label>
+        <link refid="xsem_ipi_interface.h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -155,6 +155,6 @@
 <codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="136"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSEM_IPI_INTERFACE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_ipi_interface.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_ipi_interface.h"/>
   </compounddef>
 </doxygen>

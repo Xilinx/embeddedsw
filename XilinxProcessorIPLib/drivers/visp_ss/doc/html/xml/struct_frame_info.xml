@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_frame_info" kind="struct" prot="public">
+    <compoundname>FrameInfo</compoundname>
+    <includes local="no">mmi_dpdc_example.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 FrameInfo::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Frame buffer base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Frame buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+<para>Stride in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::LineSize</definition>
+        <argsstring></argsstring>
+        <name>LineSize</name>
+        <briefdescription>
+<para>Line size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Height</definition>
+        <argsstring></argsstring>
+        <name>Height</name>
+        <briefdescription>
+<para>Height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Bpc</definition>
+        <argsstring></argsstring>
+        <name>Bpc</name>
+        <briefdescription>
+<para>Bits per component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" prot="public" static="no" mutable="no">
+        <type>XDc_VideoFormat</type>
+        <definition>XDc_VideoFormat FrameInfo::VideoFormat</definition>
+        <argsstring></argsstring>
+        <name>VideoFormat</name>
+        <briefdescription>
+<para>Video format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the frame buffer information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/mmi_dpdc_example.h" bodystart="56" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Address</name></member>
+      <member refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Bpc</name></member>
+      <member refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Height</name></member>
+      <member refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>LineSize</name></member>
+      <member refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Size</name></member>
+      <member refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Stride</name></member>
+      <member refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>VideoFormat</name></member>
+      <member refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

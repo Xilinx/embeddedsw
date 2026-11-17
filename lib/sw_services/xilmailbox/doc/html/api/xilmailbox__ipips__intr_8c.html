@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips__intr_8c.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,18 +104,39 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips__intr_8c.html','');}
 <div class="title">xilmailbox_ipips_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox__ipips__control_8h.html">xilmailbox_ipips_control.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IPI acknowledgment polling and interrupt registration. </p>
+<p>This file contains the definitions for XIpiPs_PollforDone and XIpiPs_RegisterIrq.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
+</p>
+<hr/>
+<p>
+1.8   ht   07/24/23    Restructure the code for more modularity
+1.10  ht   06/05/24    Register GIC handler using device id
+1.11  ht   01/02/25    Fix GCC warnings.
+1.11  ht   01/30/25    Update handler registration for XMAILBOX_INTR_ID
+                       in SDT flow.
+1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+                          Instance, which could lead to race conditions and data
+                          corruption when handling multiple requests from
+                          different IPI channels concurrently.
+                          Use RemoteId based APIs to support concurrent IPI
+                          channel requests.
+1.14  vn   08/26/26    Fix Doxygen warnings.
+1.14  vn   09/30/26    Align Doxygen comments with AMD standards</pre><pre> *</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox__ipips__control_8h.html">xilmailbox_ipips_control.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gadb81c93bcb13ef48d004b89eb27ecc6c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">XIpiPs_PollforDone</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gadb81c93bcb13ef48d004b89eb27ecc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for an acknowledgement using Observation Register.  <a href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">More...</a><br/></td></tr>
+<tr class="memdesc:gadb81c93bcb13ef48d004b89eb27ecc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgment using the observation register.  <a href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">More...</a><br/></td></tr>
 <tr class="separator:gadb81c93bcb13ef48d004b89eb27ecc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8102ed0d9a2448e2754d4036b0aeebac"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga8102ed0d9a2448e2754d4036b0aeebac">XIpiPs_PollforDoneById</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u32 RemoteId)</td></tr>
-<tr class="memdesc:ga8102ed0d9a2448e2754d4036b0aeebac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for an acknowledgement using Observation Register.  <a href="group__xilmailbox.html#ga8102ed0d9a2448e2754d4036b0aeebac">More...</a><br/></td></tr>
+<tr class="memdesc:ga8102ed0d9a2448e2754d4036b0aeebac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgment using the observation register.  <a href="group__xilmailbox.html#ga8102ed0d9a2448e2754d4036b0aeebac">More...</a><br/></td></tr>
 <tr class="separator:ga8102ed0d9a2448e2754d4036b0aeebac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4da6358addbe4237f3982d5b5b06c228"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228">XIpiPs_RegisterIrq</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u32 IpiIntrId)</td></tr>
-<tr class="memdesc:ga4da6358addbe4237f3982d5b5b06c228"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function registers an irq.  <a href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228">More...</a><br/></td></tr>
+<tr class="memdesc:ga4da6358addbe4237f3982d5b5b06c228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an IRQ.  <a href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228">More...</a><br/></td></tr>
 <tr class="separator:ga4da6358addbe4237f3982d5b5b06c228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

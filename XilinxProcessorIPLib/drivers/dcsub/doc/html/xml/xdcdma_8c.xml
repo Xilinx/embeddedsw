@@ -6,49 +6,49 @@
     <includes local="no">xstatus.h</includes>
     <includes refid="xdcdma_8h" local="yes">xdcdma.h</includes>
     <incdepgraph>
-      <node id="614">
+      <node id="637">
         <label>xil_io.h</label>
       </node>
-      <node id="610">
+      <node id="633">
         <label>stdlib.h</label>
       </node>
-      <node id="615">
-        <label>xdc.h</label>
-        <link refid="xdc_8h"/>
-        <childnode refid="616" relation="include">
-        </childnode>
-      </node>
-      <node id="616">
+      <node id="639">
         <label>xdc_hw.h</label>
         <link refid="xdc__hw_8h"/>
-        <childnode refid="614" relation="include">
+        <childnode refid="637" relation="include">
         </childnode>
       </node>
-      <node id="611">
+      <node id="634">
         <label>xstatus.h</label>
       </node>
-      <node id="613">
+      <node id="636">
         <label>xdcdma_hw.h</label>
         <link refid="xdcdma__hw_8h"/>
-        <childnode refid="614" relation="include">
+        <childnode refid="637" relation="include">
         </childnode>
       </node>
-      <node id="609">
+      <node id="638">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="639" relation="include">
+        </childnode>
+      </node>
+      <node id="632">
         <label>xdcdma.c</label>
         <link refid="xdcdma.c"/>
-        <childnode refid="610" relation="include">
+        <childnode refid="633" relation="include">
         </childnode>
-        <childnode refid="611" relation="include">
+        <childnode refid="634" relation="include">
         </childnode>
-        <childnode refid="612" relation="include">
+        <childnode refid="635" relation="include">
         </childnode>
       </node>
-      <node id="612">
+      <node id="635">
         <label>xdcdma.h</label>
         <link refid="xdcdma_8h"/>
-        <childnode refid="613" relation="include">
+        <childnode refid="636" relation="include">
         </childnode>
-        <childnode refid="615" relation="include">
+        <childnode refid="638" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1gabfb60a6caf47298b9e44e03695f39a4b" prot="public" static="no">
         <name>XDCDMA_QOS_MIN</name>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="38" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1ga65f9182e8fb06650cf1c6a84dd11a190" prot="public" static="no">
         <name>XDCDMA_QOS_MAX</name>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1ga52cc3029795f0b28fc48e4c06950d789" prot="public" static="no">
         <name>XDCDMA_DSCR_DLY_MIN</name>
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1gaef3a87a78ea5708a965f60ce8d19f41b" prot="public" static="no">
         <name>XDCDMA_DSCR_DLY_MAX</name>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1gaaa728f3b4f0ee2e8e29791d0ae657b6a" prot="public" static="no">
         <name>XDCDMA_AXCACHE_MIN</name>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1ga3c144e3ba0ff1f46b7463e7662cfc3c4" prot="public" static="no">
         <name>XDCDMA_AXCACHE_MAX</name>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1gadad0fdfdc14a354ddd1f71ef4dbd43ae" prot="public" static="no">
         <name>XDCDMA_AXPROT_MIN</name>
@@ -139,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1ga53ea4241679d835873db3b32f3356d46" prot="public" static="no">
         <name>XDCDMA_AXPROT_MAX</name>
@@ -150,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mmi__dcdma_1gaba091834006573d08f0c5021695cd919" prot="public" static="no">
         <name>XDCDMA_WAIT_TIMEOUT</name>
@@ -161,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="46" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -201,8 +201,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="60" bodyend="85"/>
-        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="60" bodyend="85"/>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="428" endline="513">XDpDc_InitDcSubsystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga406539d327e2a84079b1105fc64465ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -228,7 +228,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="96" bodyend="107"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="96" bodyend="107"/>
         <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
         <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
@@ -257,11 +257,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="118" bodyend="131"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="118" bodyend="131"/>
         <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
         <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
-        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="428" endline="513">XDpDc_InitDcSubsystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga91f1b1f6e28e522f43cd33bb8a17a4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -287,7 +287,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="142" bodyend="156"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="142" bodyend="156"/>
         <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
         <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
       </memberdef>
@@ -337,7 +337,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="169" bodyend="179"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="169" bodyend="179"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
       </memberdef>
@@ -387,7 +387,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="192" bodyend="239"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="192" bodyend="239"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
       </memberdef>
@@ -437,7 +437,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="251" bodyend="300"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="251" bodyend="300"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
       </memberdef>
@@ -487,7 +487,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="312" bodyend="322"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="312" bodyend="322"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
       </memberdef>
@@ -537,7 +537,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="335" bodyend="346"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="335" bodyend="346"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
       </memberdef>
@@ -587,7 +587,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="359" bodyend="418"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="359" bodyend="418"/>
         <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
         <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
         <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
@@ -630,7 +630,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="430" bodyend="450"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="430" bodyend="450"/>
         <references refid="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" compoundref="xdcdma_8c" startline="462" endline="472">XDCDma_GetOutstandingTxn</references>
         <referencedby refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</referencedby>
       </memberdef>
@@ -669,7 +669,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="462" bodyend="472"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="462" bodyend="472"/>
         <references refid="xdcdma__hw_8h_1a8a10fd4606e24d0e3131f1bffa2eb231" compoundref="xdcdma__hw_8h" startline="2128">XDCDMA_CH0_STATUS</references>
         <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
         <referencedby refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" compoundref="xdcdma_8c" startline="430" endline="450">XDcDma_WaitPendingTransaction</referencedby>
@@ -709,11 +709,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="484" bodyend="490"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="484" bodyend="490"/>
         <references refid="xdcdma__hw_8h_1a4ab30311a6a69d413c2f7507e5e8cc9f" compoundref="xdcdma__hw_8h" startline="788">XDCDMA_MISC_IER</references>
         <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
-        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="527" endline="538">XDpDc_SetupInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga00a98d41f9767c53fab0a3284f005e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -743,7 +743,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="501" bodyend="504"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="501" bodyend="504"/>
         <references refid="xdcdma__hw_8h_1a9d215a90fc7e95562adb843c7936a2ba" compoundref="xdcdma__hw_8h" startline="809">XDCDMA_MISC_IDR</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
       </memberdef>
@@ -783,7 +783,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="515" bodyend="586"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="515" bodyend="586"/>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -813,7 +813,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="597" bodyend="656"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="597" bodyend="656"/>
         <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -844,7 +844,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="667" bodyend="724"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="667" bodyend="724"/>
         <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
         <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
@@ -873,7 +873,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="735" bodyend="748"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="735" bodyend="748"/>
         <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
         <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
         <references refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</references>
@@ -902,7 +902,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="759" bodyend="862"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="759" bodyend="862"/>
         <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
         <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
         <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
@@ -947,7 +947,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="874" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="874" bodyend="943"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="874" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="874" bodyend="943"/>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -984,7 +984,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="955" bodyend="998"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="955" bodyend="998"/>
         <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1011,8 +1011,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1009" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1009" bodyend="1016"/>
-        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1009" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1009" bodyend="1016"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="217" endline="268">XDpDc_CreateDescriptors</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1038,9 +1038,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1027" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1027" bodyend="1035"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1027" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1027" bodyend="1035"/>
         <references refid="struct_x_dc_dma_1a43095e622f6bb0153c07149129ec6633" compoundref="xdcdma_8h" startline="235">XDcDma::LastDescId</references>
-        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="217" endline="268">XDpDc_CreateDescriptors</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mmi__dcdma_1ga74f4612f706aaf02b9f780c0046c99e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1066,7 +1066,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1046" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1046" bodyend="1057"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1046" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1046" bodyend="1057"/>
         <references refid="xdcdma__hw_8h_1a9a6e190e3d9a169d6202601553bec00a" compoundref="xdcdma__hw_8h" startline="72">XDCDMA_AUD_CTRL</references>
         <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
       </memberdef>
@@ -1904,6 +1904,6 @@
 <codeline lineno="1057"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1058"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c"/>
   </compounddef>
 </doxygen>

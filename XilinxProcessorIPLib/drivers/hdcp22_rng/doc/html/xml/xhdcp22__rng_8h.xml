@@ -16,6 +16,15 @@
       <node id="12">
         <label>xil_io.h</label>
       </node>
+      <node id="11">
+        <label>xhdcp22_rng_hw.h</label>
+        <link refid="xhdcp22__rng__hw_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>xstatus.h</label>
+      </node>
       <node id="10">
         <label>xhdcp22_rng.h</label>
         <link refid="xhdcp22_rng.h"/>
@@ -26,17 +35,15 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>xstatus.h</label>
-      </node>
-      <node id="11">
-        <label>xhdcp22_rng_hw.h</label>
-        <link refid="xhdcp22__rng__hw_8h"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="19">
+        <label>xhdcp22_rng_sinit.c</label>
+        <link refid="xhdcp22__rng__sinit_8c"/>
+      </node>
+      <node id="17">
+        <label>xhdcp22_rng_g.c</label>
+      </node>
       <node id="18">
         <label>xhdcp22_rng_selftest.c</label>
         <link refid="xhdcp22__rng__selftest_8c"/>
@@ -57,13 +64,6 @@
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="19">
-        <label>xhdcp22_rng_sinit.c</label>
-        <link refid="xhdcp22__rng__sinit_8c"/>
-      </node>
-      <node id="17">
-        <label>xhdcp22_rng_g.c</label>
-      </node>
     </invincdepgraph>
     <innerclass refid="struct_x_hdcp22___rng___config" prot="public">XHdcp22_Rng_Config</innerclass>
     <innerclass refid="struct_x_hdcp22___rng" prot="public">XHdcp22_Rng</innerclass>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rng_1gad006a0ad38fbd6e0fef9221d012deaba" prot="public" static="no">
         <name>XHdcp22Rng_Enable</name>
@@ -99,7 +99,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rng_1ga640f54bbe7fcc1a4e40f19b497d1e982" prot="public" static="no">
         <name>XHdcp22Rng_Disable</name>
@@ -122,7 +122,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="113" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rng_1gaec0fb65709ad82ac57e967b377d0b76d" prot="public" static="no">
         <name>XHdcp22Rng_IsEnabled</name>
@@ -145,7 +145,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -174,7 +174,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_sinit.c" bodystart="88" bodyend="107"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_sinit.c" bodystart="65" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -225,10 +225,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" bodystart="71" bodyend="98"/>
-        <references refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" compoundref="xhdcp22__rng_8h" startline="69">XHdcp22_Rng_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" compoundref="xhdcp22__rng_8h" startline="77">XHdcp22_Rng::Config</references>
-        <references refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" compoundref="xhdcp22__rng_8h" startline="78">XHdcp22_Rng::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" bodystart="71" bodyend="98"/>
+        <references refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" compoundref="xhdcp22__rng_8h" startline="65">XHdcp22_Rng_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" compoundref="xhdcp22__rng_8h" startline="73">XHdcp22_Rng::Config</references>
+        <references refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" compoundref="xhdcp22__rng_8h" startline="74">XHdcp22_Rng::IsReady</references>
         <references refid="group__hdcp22__rng_1ga147e84ce2dd3dae51899f2119d26353c" compoundref="xhdcp22__rng__hw_8h" startline="79">XHDCP22_RNG_MASK_16</references>
         <references refid="group__hdcp22__rng_1ga80e6797beb7aea9d2af847825d596a2c" compoundref="xhdcp22__rng__hw_8h" startline="78">XHDCP22_RNG_SHIFT_16</references>
         <references refid="group__hdcp22__rng_1gaba6489a8e046d1fa6f482e60a19d3dc5" compoundref="xhdcp22__rng__hw_8h" startline="80">XHDCP22_RNG_VER_ID</references>
@@ -293,9 +293,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" bodystart="117" bodyend="141"/>
-        <references refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" compoundref="xhdcp22__rng_8h" startline="69">XHdcp22_Rng_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" compoundref="xhdcp22__rng_8h" startline="77">XHdcp22_Rng::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.c" bodystart="117" bodyend="141"/>
+        <references refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" compoundref="xhdcp22__rng_8h" startline="65">XHdcp22_Rng_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" compoundref="xhdcp22__rng_8h" startline="73">XHdcp22_Rng::Config</references>
         <references refid="group__hdcp22__rng_1ga03d330ac1cbe3923383b7a0c0efed3e2" compoundref="xhdcp22__rng__hw_8h" startline="58">XHDCP22_RNG_REG_RN_1_OFFSET</references>
         <references refid="group__hdcp22__rng_1ga3ae6850ae9b44be5a7e6d44e4ec471b9" compoundref="xhdcp22__rng__hw_8h" startline="112">XHdcp22Rng_ReadReg</references>
       </memberdef>
@@ -329,60 +329,52 @@
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
 <codeline lineno="63" refid="struct_x_hdcp22___rng___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="66"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="69" refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" kindref="member">BaseAddress</ref>;<sp/><sp/></highlight></codeline>
-<codeline lineno="70"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref>;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76" refid="struct_x_hdcp22___rng" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="77" refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/><ref refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" kindref="member">Config</ref>;<sp/></highlight></codeline>
-<codeline lineno="78" refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref>;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="96" refid="group__hdcp22__rng_1gad006a0ad38fbd6e0fef9221d012deaba" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_Enable(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Rng_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="98"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_RNG_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_RNG_REG_CTRL_RUN_MASK))</highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="113" refid="group__hdcp22__rng_1ga640f54bbe7fcc1a4e40f19b497d1e982" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_Disable(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Rng_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_RNG_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_RNG_REG_CTRL_RUN_MASK))</highlight></codeline>
-<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="130" refid="group__hdcp22__rng_1gaec0fb65709ad82ac57e967b377d0b76d" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_IsEnabled(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="131"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Rng_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_RNG_REG_CTRL_RUN_MASK)<sp/>==<sp/><sp/>XHDCP22_RNG_REG_CTRL_RUN_MASK)</highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="65" refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" kindref="member">BaseAddress</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="struct_x_hdcp22___rng" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73" refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/><ref refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" kindref="member">Config</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="92" refid="group__hdcp22__rng_1gad006a0ad38fbd6e0fef9221d012deaba" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_Enable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Rng_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_RNG_REG_CTRL_SET_OFFSET),<sp/>(XHDCP22_RNG_REG_CTRL_RUN_MASK))</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__hdcp22__rng_1ga640f54bbe7fcc1a4e40f19b497d1e982" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_Disable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Rng_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XHDCP22_RNG_REG_CTRL_CLR_OFFSET),<sp/>(XHDCP22_RNG_REG_CTRL_RUN_MASK))</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="126" refid="group__hdcp22__rng_1gaec0fb65709ad82ac57e967b377d0b76d" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp22Rng_IsEnabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp22Rng_GetControlReg((InstancePtr)-&gt;Config.BaseAddress)\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XHDCP22_RNG_REG_CTRL_RUN_MASK)<sp/>==<sp/><sp/>XHDCP22_RNG_REG_CTRL_RUN_MASK)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xhdcp22_rng_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/>*<ref refid="group__hdcp22__rng_1gae102de1299566f662b0fde3fd94aad47" kindref="member">XHdcp22Rng_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xhdcp22_rng_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/>*<ref refid="group__hdcp22__rng_1gae102de1299566f662b0fde3fd94aad47" kindref="member">XHdcp22Rng_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/>*<ref refid="group__hdcp22__rng_1gae102de1299566f662b0fde3fd94aad47" kindref="member">XHdcp22Rng_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xhdcp22_rng.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" kindref="member">XHdcp22Rng_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Return<sp/>a<sp/>random<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rng_1ga7e005af26bda452f9939a06d306bfafe" kindref="member">XHdcp22Rng_GetRandom</ref>(<ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufferPtr,<sp/>u16<sp/>BufferLength,<sp/>u16<sp/>RandomLength);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_RNG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xhdcp22_rng.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" kindref="member">XHdcp22Rng_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Return<sp/>a<sp/>random<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rng_1ga7e005af26bda452f9939a06d306bfafe" kindref="member">XHdcp22Rng_GetRandom</ref>(<ref refid="struct_x_hdcp22___rng" kindref="compound">XHdcp22_Rng</ref><sp/>*InstancePtr,<sp/>u8<sp/>*BufferPtr,<sp/>u16<sp/>BufferLength,<sp/>u16<sp/>RandomLength);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_RNG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h"/>
   </compounddef>
 </doxygen>

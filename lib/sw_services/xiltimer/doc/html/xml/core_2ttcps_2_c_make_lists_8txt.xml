@@ -11,6 +11,6 @@
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>ttcps.c)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

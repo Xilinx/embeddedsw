@@ -164,7 +164,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
-1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header
+1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
+                      const pointer to prevent caller from modifying digest table in PMC RAM.
+      obs  08/21/2026 Added XILPDI_ERR_IMG_NO_OF_PRTNS error code
+      gnr  09/02/2026 Reserved optional data ID for OSPI RX tuning pattern
+      obs  09/12/2026 Documented XILPDI_ERR_IMG_NO_OF_PRTNS for Doxygen
+      obs  09/15/2026 Normalized the AMD copyright format</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
@@ -353,6 +359,9 @@ XilPdi Definitions</h2></td></tr>
 <tr class="memitem:afd334250881c64975fbca0c9e1af65b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd334250881c64975fbca0c9e1af65b0"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XILPDI_ERR_NO_OF_IMGS</b>&#160;&#160;&#160;(0x7)</td></tr>
 <tr class="separator:afd334250881c64975fbca0c9e1af65b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef00fe6fefe0453bdf0bf588f9a4758"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilpdi_8h.html#a3ef00fe6fefe0453bdf0bf588f9a4758">XILPDI_ERR_IMG_NO_OF_PRTNS</a>&#160;&#160;&#160;(0x8)</td></tr>
+<tr class="memdesc:a3ef00fe6fefe0453bdf0bf588f9a4758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid number of partitions in an image.  <a href="#a3ef00fe6fefe0453bdf0bf588f9a4758">More...</a><br/></td></tr>
+<tr class="separator:a3ef00fe6fefe0453bdf0bf588f9a4758"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1885706027ca5f25657481f9cb82d492"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1885706027ca5f25657481f9cb82d492"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XILPDI_ERR_IH_CHECKSUM</b>&#160;&#160;&#160;(0x40)</td></tr>
 <tr class="separator:a1885706027ca5f25657481f9cb82d492"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -398,6 +407,9 @@ XilPdi Definitions</h2></td></tr>
 <tr class="memitem:acc7c7bce644442453baceece73a280ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilpdi_8h.html#acc7c7bce644442453baceece73a280ee">XILPDI_PARTITION_HASH_DATA_ID</a>&#160;&#160;&#160;(3U)</td></tr>
 <tr class="memdesc:acc7c7bce644442453baceece73a280ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition hash data Id.  <a href="#acc7c7bce644442453baceece73a280ee">More...</a><br/></td></tr>
 <tr class="separator:acc7c7bce644442453baceece73a280ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a852078c87101c2a6752cddb6d5a58e47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilpdi_8h.html#a852078c87101c2a6752cddb6d5a58e47">XILPDI_OSPI_RX_TUNING_DATA_ID</a>&#160;&#160;&#160;(0x05U)</td></tr>
+<tr class="memdesc:a852078c87101c2a6752cddb6d5a58e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">OSPI RX tuning pattern data Id.  <a href="#a852078c87101c2a6752cddb6d5a58e47">More...</a><br/></td></tr>
+<tr class="separator:a852078c87101c2a6752cddb6d5a58e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed1210cba3367f72a3ae1a0a8d34f981"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilpdi_8h.html#aed1210cba3367f72a3ae1a0a8d34f981">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</a>&#160;&#160;&#160;(0xF201D200U)</td></tr>
 <tr class="memdesc:aed1210cba3367f72a3ae1a0a8d34f981"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common address of storing partition hashes for both versal and versal_net.  <a href="#aed1210cba3367f72a3ae1a0a8d34f981">More...</a><br/></td></tr>
 <tr class="separator:aed1210cba3367f72a3ae1a0a8d34f981"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -467,9 +479,9 @@ XilPdi Definitions</h2></td></tr>
 <tr class="memitem:gacf4b60f3bfd29d0d200e4f218b74dcdf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">XilPdi_ValidateChecksum</a> (const void *Buffer, u32 Length)</td></tr>
 <tr class="memdesc:gacf4b60f3bfd29d0d200e4f218b74dcdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to validate the word checksum for the Image Header table and Partition Headers.  <a href="group__xilpdi__apis.html#gacf4b60f3bfd29d0d200e4f218b74dcdf">More...</a><br/></td></tr>
 <tr class="separator:gacf4b60f3bfd29d0d200e4f218b74dcdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
-<tr class="memdesc:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">More...</a><br/></td></tr>
-<tr class="separator:gab4d2ba6eeeac98dd13665d92c892a5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_xil_pdi___prtn_hash_info.html">XilPdi_PrtnHashInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">XilPdi_IsPrtnHashPresent</a> (u32 PrtnNum, u32 HashTableSize)</td></tr>
+<tr class="memdesc:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns address of hash entry for the given partition number.  <a href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">More...</a><br/></td></tr>
+<tr class="separator:ga100ef0559ecd6bfa98c1c97c1838692b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3bac0965e4b613497a5126a4e34feae1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">XilPdi_StoreDigestTable</a> (<a class="el" href="struct_xil_pdi___meta_hdr.html">XilPdi_MetaHdr</a> *MetaHdrPtr)</td></tr>
 <tr class="memdesc:ga3bac0965e4b613497a5126a4e34feae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores digest table for given data Id.  <a href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">More...</a><br/></td></tr>
 <tr class="separator:ga3bac0965e4b613497a5126a4e34feae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -626,7 +638,7 @@ XilPdi Definitions</h2></td></tr>
 
 <p>Common address of storing partition hashes for both versal and versal_net. </p>
 
-<p>Referenced by <a class="el" href="group__xilpdi__apis.html#gab4d2ba6eeeac98dd13665d92c892a5ac">XilPdi_IsPrtnHashPresent()</a>, <a class="el" href="group__xilpdi__apis.html#gaf79c8f43bf8b64976d3fffe442108861">XilPdi_ReadIhtAndOptionalData()</a>, and <a class="el" href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">XilPdi_StoreDigestTable()</a>.</p>
+<p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga100ef0559ecd6bfa98c1c97c1838692b">XilPdi_IsPrtnHashPresent()</a>, <a class="el" href="group__xilpdi__apis.html#gaf79c8f43bf8b64976d3fffe442108861">XilPdi_ReadIhtAndOptionalData()</a>, and <a class="el" href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">XilPdi_StoreDigestTable()</a>.</p>
 
 </div>
 </div>
@@ -659,6 +671,22 @@ XilPdi Definitions</h2></td></tr>
 <p>Errors during XilPdi processing. </p>
 
 <p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga797b37ca16b6096549489adff97e5dfc">XilPdi_ValidateImgHdrTbl()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3ef00fe6fefe0453bdf0bf588f9a4758"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XILPDI_ERR_IMG_NO_OF_PRTNS&#160;&#160;&#160;(0x8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invalid number of partitions in an image. </p>
+
+<p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga3351549fd88876c437726037b8bd5ca3">XilPdi_VerifyImgHdrs()</a>.</p>
 
 </div>
 </div>
@@ -749,6 +777,20 @@ XilPdi Definitions</h2></td></tr>
 <p>Optional data attributes. </p>
 
 <p>Referenced by <a class="el" href="group__xilpdi__apis.html#ga3bac0965e4b613497a5126a4e34feae1">XilPdi_StoreDigestTable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a852078c87101c2a6752cddb6d5a58e47"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XILPDI_OSPI_RX_TUNING_DATA_ID&#160;&#160;&#160;(0x05U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>OSPI RX tuning pattern data Id. </p>
 
 </div>
 </div>

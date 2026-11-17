@@ -72,10 +72,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
       <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li class="current"><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_b"><span>b</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -98,7 +108,7 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,16 +118,43 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
 <li>BIT
 : <a class="el" href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">xilmailbox_ipips.h</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>IPI_ADDRDECODE_ERROR
 : <a class="el" href="group__xilmailbox.html#ga10837217c3d1614d878ab47ff497e30c">xilmailbox_ipips.h</a>
 </li>
 <li>IPI_BASEADDRESS
 : <a class="el" href="group__xilmailbox.html#ga90293f74a32c52eb71ecf11d8c34bc3d">xilmailbox_ipips.h</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>REMOTE_CHANNEL_ID
+: <a class="el" href="xilmailbox__example_8c.html#ab425367fb53bf4df5288b24636685cc2">xilmailbox_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TEST_CHANNEL_BASEADDRESS
+: <a class="el" href="xilmailbox__example_8c.html#a1aca91e30eaed544f18d93780b2f4066">xilmailbox_example.c</a>
+</li>
+<li>TEST_MSG_LEN
+: <a class="el" href="xilmailbox__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">xilmailbox_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XILMBOX_MSG_TYPE_REQ
 : <a class="el" href="group__xilmailbox.html#gab916c58f41e76689faa0d2ca46df0427">xilmailbox.h</a>
 </li>
@@ -166,11 +203,17 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XMAILBOX_IPI9
 : <a class="el" href="group__xilmailbox.html#ga614efa3482faad5c76efb8e9d8bcaba1">xilmailbox_ipips.h</a>
 </li>
+<li>XMAILBOX_MAJOR_VERSION
+: <a class="el" href="group__xilmailbox.html#ga1127e6e1c8ca0ea4d9ea607d36b47293">xilmailbox.h</a>
+</li>
 <li>XMAILBOX_MAX_CHANNELS
 : <a class="el" href="group__xilmailbox.html#gaf83db6a62871c736b4f8f485d56caed8">xilmailbox_ipips.h</a>
 </li>
 <li>XMAILBOX_MAX_MSG_LEN
 : <a class="el" href="group__xilmailbox.html#ga02889c9c255257274405440f2e0398f0">xilmailbox.h</a>
+</li>
+<li>XMAILBOX_MINOR_VERSION
+: <a class="el" href="group__xilmailbox.html#ga8151a25cf365b645b6ef13793323b472">xilmailbox.h</a>
 </li>
 <li>XMAILBOX_PAYLOAD_LEN_1U
 : <a class="el" href="group__xilmailbox.html#ga0661fcb809edc8a04919686b2c24c2de">xilmailbox.h</a>

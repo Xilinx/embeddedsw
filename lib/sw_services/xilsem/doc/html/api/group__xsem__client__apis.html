@@ -218,7 +218,7 @@ Functions</h2></td></tr>
 <li>0001: Target is master only</li>
 <li>0010: Target is slave 0 only</li>
 <li>0100: Target is slave 1 only</li>
-<li>1000: Target is slave 2 onl</li>
+<li>1000: Target is slave 2 only</li>
 </ul>
 </li>
 <li>Bit [24:20]: CRAM Error codes<ul>
@@ -868,7 +868,7 @@ Functions</h2></td></tr>
 <li>Bit [21]: 0 - No error in DDR calibration 1 - Indicates NPI DDRMC Main Slave Arbitration Timeout occurred during the scan. If the DDRMC calibration is not done, the descriptor will be skipped and scan will continue to run for next descriptor</li>
 <li>Bit [20]: 0 - No error in descriptor format 1 - Indicates NPI Descriptor has invalid format. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</li>
 <li>Bit [19]: 0 - No error in NPI Descriptor SHA header 1 - Indicates NPI Descriptor SHA Header mismatch occurred during the scan. This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</li>
-<li>Bit [18]: 0 - NPI descriptors are present in the memory 1 - Indicates the absence of NPI Descriptor (Zero descriptors) This failure indicates that there is some corruption in the XilSEM NPI descriptor data. The scan will be stopped, and notification will be sent to R5</li>
+<li>Bit [18]: Reserved</li>
 <li>Bit [17]: 0 - No error in SHA comparison during run time 1- Indicates SHA comparison failure occurred during run time. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</li>
 <li>Bit [16]: 0 - No error in SHA comparison during first scan 1- Indicates SHA comparison failure occurred during initialization. This failure indicates that there is some bit flip in the NPI registers. The scan will be stopped and an event will be sent to R5</li>
 <li>Bit [15-12]: NPI Target SLR ID 0001 - Target is master only 0010 - Target is slave 0 only 0100 - Target is slave 1 only 1000 - Target is slave 2 only</li>
@@ -1105,7 +1105,7 @@ Functions</h2></td></tr>
 <pre class="fragment">    Primarily this function sends an IPI request to PLM to invoke
     SEM Event Notifier registration, waits for PLM to process the
     request and check the status. Since SLR slave devices do not support
-    IPI, registering events to mater registers events on all slave SLRs
+    IPI, registering events to master registers events on all slave SLRs
     In case of EL1 Non-Secure mode, this function generates an SMC call
     to TF-A. The SMC request goes to the PLM through the TF-A.
     This function reads the response of the SMC call

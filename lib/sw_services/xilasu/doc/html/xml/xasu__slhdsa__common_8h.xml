@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__slhdsa__common_8h" kind="file">
+    <compoundname>xasu_slhdsa_common.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xasu__slhdsainfo_8h" local="yes">xasu_slhdsainfo.h</includes>
+    <includedby refid="xasu__slhdsa_8c" local="yes">xasu_slhdsa.c</includedby>
+    <includedby refid="xasu__slhdsa__common_8c" local="yes">xasu_slhdsa_common.c</includedby>
+    <includedby refid="xasu__slhdsa__example_8c" local="yes">xasu_slhdsa_example.c</includedby>
+    <incdepgraph>
+      <node id="1847">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1844">
+        <label>xasu_slhdsa_common.h</label>
+        <link refid="xasu_slhdsa_common.h"/>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1846" relation="include">
+        </childnode>
+      </node>
+      <node id="1846">
+        <label>xasu_slhdsainfo.h</label>
+        <link refid="xasu__slhdsainfo_8h"/>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+      </node>
+      <node id="1845">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1849">
+        <label>xasu_slhdsa.c</label>
+        <link refid="xasu__slhdsa_8c"/>
+      </node>
+      <node id="1850">
+        <label>xasu_slhdsa_common.c</label>
+        <link refid="xasu__slhdsa__common_8c"/>
+      </node>
+      <node id="1848">
+        <label>xasu_slhdsa_common.h</label>
+        <link refid="xasu_slhdsa_common.h"/>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+      </node>
+      <node id="1851">
+        <label>xasu_slhdsa_example.c</label>
+        <link refid="xasu__slhdsa__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1ga57726cccaa416401e5aa431a59667071" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaGetPkSize</definition>
+        <argsstring>(u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaGetPkSize</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the public key size in bytes for the given SLH-DSA parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (XASU_SLHDSA_PARAM_*).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Public key size in bytes (32 for 128s sets, 64 for 256s sets), or 0 if ParamSet is unsupported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Public key size is 2n bytes: 64 for 256s sets and 32 for 128s sets. Unsupported ParamSet values return 0.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="61" bodyend="87"/>
+        <references refid="group__xasu__common__defs_1ga53004d577696ef53aad60c8665106407" compoundref="xasu__slhdsainfo_8h" startline="94">XASU_SLHDSA_128S_PK_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga8edc31af9d6630a3b2daf0dddbe6fd79" compoundref="xasu__slhdsainfo_8h" startline="98">XASU_SLHDSA_256S_PK_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga2459a5ffeef9093b58bbb5d60f22393a" compoundref="xasu__slhdsainfo_8h" startline="112">XASU_SLHDSA_PARAM_SHA2_128S</references>
+        <references refid="group__xasu__common__defs_1ga7346541974a621cf21ac6b231f4a8b59" compoundref="xasu__slhdsainfo_8h" startline="111">XASU_SLHDSA_PARAM_SHA2_256S</references>
+        <references refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" compoundref="xasu__slhdsainfo_8h" startline="110">XASU_SLHDSA_PARAM_SHAKE_128S</references>
+        <references refid="group__xasu__common__defs_1ga9e82a37d364e328403de79714ca5bf65" compoundref="xasu__slhdsainfo_8h" startline="109">XASU_SLHDSA_PARAM_SHAKE_256S</references>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1ga5df2ab942de896d7c7b19b1b6c09394e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaGetSkSize</definition>
+        <argsstring>(u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaGetSkSize</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the secret key size in bytes for the given SLH-DSA parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (XASU_SLHDSA_PARAM_*).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Secret key size in bytes (64 for 128s sets, 128 for 256s sets), or 0 if ParamSet is unsupported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Secret key size is 4n bytes: 128 for 256s sets and 64 for 128s sets. Unsupported ParamSet values return 0.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="100" bodyend="126"/>
+        <references refid="group__xasu__common__defs_1ga7d5dc4ffe0faa75e5a82550d3bc22448" compoundref="xasu__slhdsainfo_8h" startline="95">XASU_SLHDSA_128S_SK_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga2e312048f2515525ac389950d327f3c0" compoundref="xasu__slhdsainfo_8h" startline="99">XASU_SLHDSA_256S_SK_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga2459a5ffeef9093b58bbb5d60f22393a" compoundref="xasu__slhdsainfo_8h" startline="112">XASU_SLHDSA_PARAM_SHA2_128S</references>
+        <references refid="group__xasu__common__defs_1ga7346541974a621cf21ac6b231f4a8b59" compoundref="xasu__slhdsainfo_8h" startline="111">XASU_SLHDSA_PARAM_SHA2_256S</references>
+        <references refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" compoundref="xasu__slhdsainfo_8h" startline="110">XASU_SLHDSA_PARAM_SHAKE_128S</references>
+        <references refid="group__xasu__common__defs_1ga9e82a37d364e328403de79714ca5bf65" compoundref="xasu__slhdsainfo_8h" startline="109">XASU_SLHDSA_PARAM_SHAKE_256S</references>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" compoundref="xasu__slhdsa__common_8c" startline="291" endline="384">XAsu_SlhdsaValidateSignParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1ga5fbcf41d2217388e71de402db0f07653" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaGetSigSize</definition>
+        <argsstring>(u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaGetSigSize</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the signature size in bytes for the given SLH-DSA parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (XASU_SLHDSA_PARAM_*).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Signature size in bytes (7856 for 128s sets, 29792 for 256s sets), or 0 if ParamSet is unsupported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Signature length is fixed per parameter set (FIPS 205 Table 2). SHAKE and SHA2 share the same sizes for a given security level; unsupported selectors return 0.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="139" bodyend="172"/>
+        <references refid="group__xasu__common__defs_1ga2459a5ffeef9093b58bbb5d60f22393a" compoundref="xasu__slhdsainfo_8h" startline="112">XASU_SLHDSA_PARAM_SHA2_128S</references>
+        <references refid="group__xasu__common__defs_1ga7346541974a621cf21ac6b231f4a8b59" compoundref="xasu__slhdsainfo_8h" startline="111">XASU_SLHDSA_PARAM_SHA2_256S</references>
+        <references refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" compoundref="xasu__slhdsainfo_8h" startline="110">XASU_SLHDSA_PARAM_SHAKE_128S</references>
+        <references refid="group__xasu__common__defs_1ga9e82a37d364e328403de79714ca5bf65" compoundref="xasu__slhdsainfo_8h" startline="109">XASU_SLHDSA_PARAM_SHAKE_256S</references>
+        <references refid="group__xasu__common__defs_1gabea865eae9ecfa105fa162155fb71f3d" compoundref="xasu__slhdsainfo_8h" startline="103">XASU_SLHDSA_SHA2_128S_SIG_SIZE</references>
+        <references refid="group__xasu__common__defs_1gae05c812a4997f68de1bb5262bdf1fc75" compoundref="xasu__slhdsainfo_8h" startline="104">XASU_SLHDSA_SHA2_256S_SIG_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga7a2ddc4b217ed26dde311e3f771daf09" compoundref="xasu__slhdsainfo_8h" startline="101">XASU_SLHDSA_SHAKE_128S_SIG_SIZE</references>
+        <references refid="group__xasu__common__defs_1gab408fba27d5451e0167ad66cbf94b47f" compoundref="xasu__slhdsainfo_8h" startline="102">XASU_SLHDSA_SHAKE_256S_SIG_SIZE</references>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" compoundref="xasu__slhdsa__common_8c" startline="291" endline="384">XAsu_SlhdsaValidateSignParams</referencedby>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1ga99e9c60fc03fce1a428ba350e21e03c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaGetPreHashDigestLen</definition>
+        <argsstring>(u8 HashId)</argsstring>
+        <name>XAsu_SlhdsaGetPreHashDigestLen</name>
+        <param>
+          <type>u8</type>
+          <declname>HashId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the PH(M) digest length for a pre-hash HashId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HashId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pre-hash function identifier (XASU_SLHDSA_HASHID_*).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Digest length in bytes (32 for SHA-256, 64 for SHA-512), or 0 if unsupported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Map HashId to PH(M) length: 32 bytes for SHA-256, 64 bytes for SHA-512. An unsupported HashId returns 0.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="183" bodyend="207"/>
+        <references refid="group__xasu__common__defs_1gae715e6a03654f1f17f259b2709bde272" compoundref="xasu__slhdsainfo_8h" startline="125">XASU_SLHDSA_HASHID_SHA256</references>
+        <references refid="group__xasu__common__defs_1gad73d065bc8932d3aafca63d04e460b68" compoundref="xasu__slhdsainfo_8h" startline="126">XASU_SLHDSA_HASHID_SHA512</references>
+        <references refid="group__xasu__common__defs_1ga37f867c4f2495c7619147378c924beb9" compoundref="xasu__slhdsainfo_8h" startline="128">XASU_SLHDSA_PREHASH_SHA256_LEN</references>
+        <references refid="group__xasu__common__defs_1gaaf59cfd3faee16863736e2f7d7a1884b" compoundref="xasu__slhdsainfo_8h" startline="129">XASU_SLHDSA_PREHASH_SHA512_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_SlhdsaValidateSignParams</definition>
+        <argsstring>(const XAsu_SlhdsaSignParams *ParamsPtr)</argsstring>
+        <name>XAsu_SlhdsaValidateSignParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___slhdsa_sign_params" kindref="compound">XAsu_SlhdsaSignParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates SLH-DSA sign parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___slhdsa_sign_params" kindref="compound">XAsu_SlhdsaSignParams</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation succeeds.</para></listitem><listitem><para>XST_INVALID_PARAM, if any field is invalid (NULL pointer, zero addresses, invalid ParamSet, CtxLen/CtxAddr mismatch, MsgLen exceeds DMA limit, SignatureLen mismatch, or SkLen not equal to the ParamSet secret-key size). </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input pointer.</para><para>Validate the parameter set first, since the expected signature size and the required pre-hash function are both derived from it.</para><para>Validate the context length against the FIPS 205 limit of 255 bytes.</para><para>Validate that a context address is supplied whenever a non-empty context is used.</para><para>Bound the message length by what the ASU DMA can transfer in a single operation, as the message is fed to the hash engine without being split.</para><para>The secret key, message and signature addresses are all mandatory, so a zero address in any of them is rejected before ASUFW dereferences it.</para><para>The secret key is a fixed length per parameter set, so SkLen must match exactly. A caller declaring any other length has not supplied the whole key.</para><para>SLH-DSA signatures are a fixed length per parameter set, so SignatureLen must match exactly. This is what guarantees the output buffer is large enough to be written.</para><para>Validate the pure versus pre-hash message mode, and in pre-hash mode that HashId is the one required by the parameter set and MsgLen is the matching digest length.</para><para>Validate the sign mode, which selects hedged or deterministic signing. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="291" bodyend="384"/>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a93821c93862fe1df60e97bf88931c15f" compoundref="xasu__slhdsainfo_8h" startline="173">XAsu_SlhdsaSignParams::CtxAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a5a27be9eeb5a88080892bc1c30321ec4" compoundref="xasu__slhdsainfo_8h" startline="176">XAsu_SlhdsaSignParams::CtxLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1adce88e3e1da985f1e5e84c3c768f0420" compoundref="xasu__slhdsainfo_8h" startline="180">XAsu_SlhdsaSignParams::HashId</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a2d5e443f37f73dba136abcd62576b63f" compoundref="xasu__slhdsainfo_8h" startline="171">XAsu_SlhdsaSignParams::MsgAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a9e35d6d8fa82ed0aa2188763b691433e" compoundref="xasu__slhdsainfo_8h" startline="174">XAsu_SlhdsaSignParams::MsgLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a8d5de7f25d0a8214813ade582de375a0" compoundref="xasu__slhdsainfo_8h" startline="177">XAsu_SlhdsaSignParams::ParamSet</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1ad8a5bf918cba04c1fa2db79bf0228138" compoundref="xasu__slhdsainfo_8h" startline="178">XAsu_SlhdsaSignParams::PreHashMode</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1a8592c27f63789595058a13ce516db6c3" compoundref="xasu__slhdsainfo_8h" startline="172">XAsu_SlhdsaSignParams::SignatureAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1ab9b375393c46f1b5b8f892ba26a4d36d" compoundref="xasu__slhdsainfo_8h" startline="175">XAsu_SlhdsaSignParams::SignatureLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1af423a095d5fd246c19390b2aeee61535" compoundref="xasu__slhdsainfo_8h" startline="182">XAsu_SlhdsaSignParams::SignMode</references>
+        <references refid="struct_x_asu___slhdsa_sk_object_1a2c9a9dd2b844126b9a8243c7227d600f" compoundref="xasu__slhdsainfo_8h" startline="156">XAsu_SlhdsaSkObject::SkAddr</references>
+        <references refid="struct_x_asu___slhdsa_sk_object_1ae5ee9c8cd442e840306f7b26d9b19d46" compoundref="xasu__slhdsainfo_8h" startline="158">XAsu_SlhdsaSkObject::SkLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_params_1ab8b7f11b27e2cacec1dffa06cd1ba5cc" compoundref="xasu__slhdsainfo_8h" startline="170">XAsu_SlhdsaSignParams::SkObj</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="73">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__slhdsa__common__apis_1ga5fbcf41d2217388e71de402db0f07653" compoundref="xasu__slhdsa__common_8c" startline="139" endline="172">XAsu_SlhdsaGetSigSize</references>
+        <references refid="group__xasu__slhdsa__common__apis_1ga5df2ab942de896d7c7b19b1b6c09394e" compoundref="xasu__slhdsa__common_8c" startline="100" endline="126">XAsu_SlhdsaGetSkSize</references>
+        <referencedby refid="group__xasu__slhdsa__client__apis_1ga45384778f3af32738cd271cd20ded544" compoundref="xasu__slhdsa_8c" startline="72" endline="109">XAsu_SlhdsaSign</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_SlhdsaValidateSignVerifyParams</definition>
+        <argsstring>(const XAsu_SlhdsaSignVerifyParams *ParamsPtr)</argsstring>
+        <name>XAsu_SlhdsaValidateSignVerifyParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___slhdsa_sign_verify_params" kindref="compound">XAsu_SlhdsaSignVerifyParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates SLH-DSA signature verification parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___slhdsa_sign_verify_params" kindref="compound">XAsu_SlhdsaSignVerifyParams</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation succeeds.</para></listitem><listitem><para>XST_INVALID_PARAM, if any field is invalid (NULL pointer, zero addresses, invalid ParamSet, CtxLen/CtxAddr mismatch, MsgLen exceeds DMA limit, SignatureLen mismatch, or PubKeyLen not equal to the ParamSet public key size). </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input pointer.</para><para>Validate the parameter set, which fixes the expected signature and public key sizes.</para><para>Validate the context length against the FIPS 205 limit of 255 bytes.</para><para>Validate that a context address is supplied whenever a non-empty context is used. Both CtxLen and CtxAddr must reproduce the values used at signing time, because the context is bound into the message digest.</para><para>Bound the message length by the maximum single ASU DMA transfer length.</para><para>The public key, message and signature addresses are all mandatory for verification.</para><para>Reject a signature whose length does not match the parameter set, so that a truncated or oversized signature is never parsed as if it were well formed.</para><para>The public key is a fixed length per parameter set, so PubKeyLen must match exactly. Verification always reads the whole key, so a shorter declared length would leave part of it unvalidated.</para><para>Validate the message mode and, for pre-hash mode, the HashId and digest length. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.c" bodystart="398" bodyend="476"/>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1a3b90b1ff7efbdd5b93230f0435c52cc0" compoundref="xasu__slhdsainfo_8h" startline="191">XAsu_SlhdsaSignVerifyParams::CtxAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1ab2dee5c4ed99c34c2fc6581d5f42b3a2" compoundref="xasu__slhdsainfo_8h" startline="194">XAsu_SlhdsaSignVerifyParams::CtxLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1acc81af269a4314eef423d8e0f2f324c6" compoundref="xasu__slhdsainfo_8h" startline="198">XAsu_SlhdsaSignVerifyParams::HashId</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1a5aa3bf01e0a7bf5a530c6765ce2b64da" compoundref="xasu__slhdsainfo_8h" startline="189">XAsu_SlhdsaSignVerifyParams::MsgAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1a4ae290a1d4fd4d74bcdfbeae1bffa6ce" compoundref="xasu__slhdsainfo_8h" startline="192">XAsu_SlhdsaSignVerifyParams::MsgLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1a64a30acbcf1f54a2f956aedbf9cb9746" compoundref="xasu__slhdsainfo_8h" startline="195">XAsu_SlhdsaSignVerifyParams::ParamSet</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1ae14080be2cdddd7b233b4bd707518d50" compoundref="xasu__slhdsainfo_8h" startline="188">XAsu_SlhdsaSignVerifyParams::PkObj</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1af276db27ac7f55ae5202e6eef85a48dc" compoundref="xasu__slhdsainfo_8h" startline="196">XAsu_SlhdsaSignVerifyParams::PreHashMode</references>
+        <references refid="struct_x_asu___slhdsa_pk_object_1a0312c0a9aba8201fe38edfabd54c166b" compoundref="xasu__slhdsainfo_8h" startline="163">XAsu_SlhdsaPkObject::PubKeyAddr</references>
+        <references refid="struct_x_asu___slhdsa_pk_object_1a9a4b95b7e26aad452a6de83e8470e7ab" compoundref="xasu__slhdsainfo_8h" startline="165">XAsu_SlhdsaPkObject::PubKeyLen</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1a167bef6fb19ef0e49f22b4965e0d7802" compoundref="xasu__slhdsainfo_8h" startline="190">XAsu_SlhdsaSignVerifyParams::SignatureAddr</references>
+        <references refid="struct_x_asu___slhdsa_sign_verify_params_1af5747a606595e6f2b157e022413ee8af" compoundref="xasu__slhdsainfo_8h" startline="193">XAsu_SlhdsaSignVerifyParams::SignatureLen</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="73">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__slhdsa__common__apis_1ga57726cccaa416401e5aa431a59667071" compoundref="xasu__slhdsa__common_8c" startline="61" endline="87">XAsu_SlhdsaGetPkSize</references>
+        <references refid="group__xasu__slhdsa__common__apis_1ga5fbcf41d2217388e71de402db0f07653" compoundref="xasu__slhdsa__common_8c" startline="139" endline="172">XAsu_SlhdsaGetSigSize</references>
+        <referencedby refid="group__xasu__slhdsa__client__apis_1gacacd407a2fb969d654685dd6babc3c35" compoundref="xasu__slhdsa_8c" startline="132" endline="170">XAsu_SlhdsaSignVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the SLH-DSA function prototypes which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kk   07/10/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_SLHDSA_COMMON_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SLHDSA_COMMON_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__slhdsainfo_8h" kindref="compound">xasu_slhdsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">u32<sp/><ref refid="group__xasu__slhdsa__common__apis_1ga57726cccaa416401e5aa431a59667071" kindref="member">XAsu_SlhdsaGetPkSize</ref>(u8<sp/>ParamSet);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">u32<sp/><ref refid="group__xasu__slhdsa__common__apis_1ga5df2ab942de896d7c7b19b1b6c09394e" kindref="member">XAsu_SlhdsaGetSkSize</ref>(u8<sp/>ParamSet);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">u32<sp/><ref refid="group__xasu__slhdsa__common__apis_1ga5fbcf41d2217388e71de402db0f07653" kindref="member">XAsu_SlhdsaGetSigSize</ref>(u8<sp/>ParamSet);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">u32<sp/><ref refid="group__xasu__slhdsa__common__apis_1ga99e9c60fc03fce1a428ba350e21e03c7" kindref="member">XAsu_SlhdsaGetPreHashDigestLen</ref>(u8<sp/>HashId);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">s32<sp/><ref refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" kindref="member">XAsu_SlhdsaValidateSignParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___slhdsa_sign_params" kindref="compound">XAsu_SlhdsaSignParams</ref><sp/>*ParamsPtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">s32<sp/><ref refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" kindref="member">XAsu_SlhdsaValidateSignVerifyParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___slhdsa_sign_verify_params" kindref="compound">XAsu_SlhdsaSignVerifyParams</ref><sp/>*ParamsPtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XASU_SLHDSA_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsa_common.h"/>
+  </compounddef>
+</doxygen>

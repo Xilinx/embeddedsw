@@ -5,8 +5,15 @@
     <includedby refid="clk__set_8c" local="yes">clk_set.c</includedby>
     <includedby refid="xdptxss__dp21__tx_8h" local="yes">xdptxss_dp21_tx.h</includedby>
     <invincdepgraph>
+      <node id="12">
+        <label>si570.c</label>
+        <link refid="si570_8c"/>
+      </node>
       <node id="11">
         <label>menus.c</label>
+      </node>
+      <node id="14">
+        <label>xvid_clk_gen.c</label>
       </node>
       <node id="13">
         <label>xdptxss_dp21_tx.c</label>
@@ -23,13 +30,6 @@
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-      </node>
-      <node id="12">
-        <label>si570.c</label>
-        <link refid="si570_8c"/>
-      </node>
-      <node id="14">
-        <label>xvid_clk_gen.c</label>
       </node>
       <node id="9">
         <label>clk_set.c</label>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.c" bodystart="57" bodyend="78"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.c" bodystart="55" bodyend="76"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -95,6 +95,6 @@
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_CLK_SET_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.h"/>
   </compounddef>
 </doxygen>

@@ -19,30 +19,6 @@
       <node id="32">
         <label>assert.h</label>
       </node>
-      <node id="35">
-        <label>xdfeequ_hw.h</label>
-      </node>
-      <node id="39">
-        <label>metal/sleep.h</label>
-      </node>
-      <node id="30">
-        <label>xdfeequ.h</label>
-        <link refid="xdfeequ_8h"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>metal/log.h</label>
-      </node>
-      <node id="36">
-        <label>math.h</label>
-      </node>
       <node id="29">
         <label>xdfeequ_examples.h</label>
         <link refid="xdfeequ_examples.h"/>
@@ -59,11 +35,35 @@
         <childnode refid="39" relation="include">
         </childnode>
       </node>
+      <node id="39">
+        <label>metal/sleep.h</label>
+      </node>
+      <node id="38">
+        <label>metal/log.h</label>
+      </node>
+      <node id="36">
+        <label>math.h</label>
+      </node>
       <node id="31">
         <label>linux/types.h</label>
       </node>
       <node id="37">
         <label>stdio.h</label>
+      </node>
+      <node id="35">
+        <label>xdfeequ_hw.h</label>
+      </node>
+      <node id="30">
+        <label>xdfeequ.h</label>
+        <link refid="xdfeequ_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xdfeequ__examples_8h_1a30155680a8ff27b3dd1b14b28e65d9a4" prot="public" static="no">
         <name>XDFESI570_CURRENT_FREQUENCY</name>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="59" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="59" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xdfeequ__examples_8h_1a5599898d6dff2449f73d0407823f6a8e" prot="public" static="no">
         <name>XDFESI570_NEW_FREQUENCY</name>
@@ -110,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -168,6 +168,6 @@
 <codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h"/>
   </compounddef>
 </doxygen>

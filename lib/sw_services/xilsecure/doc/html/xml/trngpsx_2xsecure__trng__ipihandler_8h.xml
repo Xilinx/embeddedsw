@@ -9,50 +9,50 @@
     <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <incdepgraph>
-      <node id="4858">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="4857">
+      <node id="5106">
         <label>xsecure_trng_ipihandler.h</label>
         <link refid="trngpsx/xsecure_trng_ipihandler.h"/>
-        <childnode refid="4858" relation="include">
+        <childnode refid="5107" relation="include">
         </childnode>
+      </node>
+      <node id="5107">
+        <label>xplmi_cmd.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4862">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp_2xsecure__cmd_8c"/>
-      </node>
-      <node id="4863">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp__p_2xsecure__cmd_8c"/>
-      </node>
-      <node id="4860">
+      <node id="5109">
         <label>xsecure_trng_ipihandler.c</label>
         <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
       </node>
-      <node id="4859">
+      <node id="5108">
         <label>xsecure_trng_ipihandler.h</label>
         <link refid="trngpsx/xsecure_trng_ipihandler.h"/>
-        <childnode refid="4860" relation="include">
+        <childnode refid="5109" relation="include">
         </childnode>
-        <childnode refid="4861" relation="include">
+        <childnode refid="5110" relation="include">
         </childnode>
-        <childnode refid="4862" relation="include">
+        <childnode refid="5111" relation="include">
         </childnode>
-        <childnode refid="4863" relation="include">
+        <childnode refid="5112" relation="include">
         </childnode>
-        <childnode refid="4864" relation="include">
+        <childnode refid="5113" relation="include">
         </childnode>
       </node>
-      <node id="4864">
+      <node id="5110">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="5113">
         <label>xsecure_cmd.c</label>
         <link refid="net_2xsecure__cmd_8c"/>
       </node>
-      <node id="4861">
+      <node id="5112">
         <label>xsecure_cmd.c</label>
-        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="5111">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -93,11 +93,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" bodystart="53" bodyend="76"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
-        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" bodystart="56" bodyend="86"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" compoundref="xsecure__plat__defs_8h" startline="81">XSECURE_API_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="156">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="179">XSECURE_API_TRNG_KAT</references>
+        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="54" endline="83">XSecure_TrngGenerateRandNum</references>
+        <references refid="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" compoundref="versal__2ve__2vm_2xsecure__plat__katclient_8c" startline="58" endline="79">XSecure_TrngKat</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -141,6 +144,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_TRNG_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng_ipihandler.h"/>
   </compounddef>
 </doxygen>

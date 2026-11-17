@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrtcpsu__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,21 +105,43 @@ $(document).ready(function(){initNavTree('xrtcpsu__intr_8c.html','');});
 <div class="title">xrtcpsu_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrtcpsu_8h.html">xrtcpsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interrupt handling functions of the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver. </p>
+<p>This file contains functions related to RTC interrupt handling.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00  kvn    04/21/15 First release
+1.3   vak    04/25/16 Changed the <a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7" title="Handles interrupts for the driver. ">XRtcPsu_InterruptHandler()</a> for updating RTC
+                      read and write time logic(cr#948833).
+1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+1.7   sne    03/01/19 Added Versal support.
+1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+                      modified the code such as
+                      No brackets to loop body,Declared the pointer param
+                      as Pointer to const,No brackets to then/else,
+                      Literal value requires a U suffix,Casting operation to a pointer
+                      Array has no bounds specified,Logical conjunctions need brackets.
+1.17  vlt    01/30/26 Fixed codespell errors.
+1.18  vn     07/30/26 Fix Doxygen warnings
+1.18  vn     09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrtcpsu_8h.html">xrtcpsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga645920d3519722e8dc815d07db527367"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367">XRtcPsu_SetInterruptMask</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga645920d3519722e8dc815d07db527367"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the interrupt mask.  <a href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367">More...</a><br/></td></tr>
+<tr class="memdesc:ga645920d3519722e8dc815d07db527367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt mask.  <a href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367">More...</a><br/></td></tr>
 <tr class="separator:ga645920d3519722e8dc815d07db527367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaefced00316539320411829b4d701fe3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtcpsu.html#gaefced00316539320411829b4d701fe3c">XRtcPsu_ClearInterruptMask</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gaefced00316539320411829b4d701fe3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the interrupt mask.  <a href="group__rtcpsu.html#gaefced00316539320411829b4d701fe3c">More...</a><br/></td></tr>
+<tr class="memdesc:gaefced00316539320411829b4d701fe3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the interrupt mask.  <a href="group__rtcpsu.html#gaefced00316539320411829b4d701fe3c">More...</a><br/></td></tr>
 <tr class="separator:gaefced00316539320411829b4d701fe3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40b45bedf590e3e65eb525f1827768e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4">XRtcPsu_SetHandler</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *InstancePtr, <a class="el" href="group__rtcpsu.html#ga275e074ddd4db57dfbcfb362c41c9af0">XRtcPsu_Handler</a> FunctionPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga40b45bedf590e3e65eb525f1827768e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs that needs application's attention.  <a href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4">More...</a><br/></td></tr>
+<tr class="memdesc:ga40b45bedf590e3e65eb525f1827768e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler that the driver calls when an event occurs.  <a href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4">More...</a><br/></td></tr>
 <tr class="separator:ga40b45bedf590e3e65eb525f1827768e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga01ca03d23194687c8026dc2f38da6ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7">XRtcPsu_InterruptHandler</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga01ca03d23194687c8026dc2f38da6ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver.  <a href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7">More...</a><br/></td></tr>
+<tr class="memdesc:ga01ca03d23194687c8026dc2f38da6ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the driver.  <a href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7">More...</a><br/></td></tr>
 <tr class="separator:ga01ca03d23194687c8026dc2f38da6ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

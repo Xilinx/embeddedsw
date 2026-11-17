@@ -1466,7 +1466,7 @@ BitMasks for grouped interrupts</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lookup the device configuration based on the base address. </p>
-<p>This function looks for the device configuration based on the unique device ID.</p>
+<p>This function looks for the device configuration based on the base address of the device.</p>
 <p>This function returns a reference to an <a class="el" href="struct_x_csi_ss___config.html" title="MIPI CSI Rx Subsystem configuration structure. ">XCsiSs_Config</a> structure based on the base address. This function will return a NULL pointer if the base address is not found.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1479,11 +1479,11 @@ BitMasks for grouped interrupts</h2></td></tr>
 <p>The table XCsiSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device being looked up</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xcsiss__intr__example_8c.html#a6fb058d3bf941cd9a817bb6ad7e0a819">CsiSs_IntrExample()</a>, <a class="el" href="xcsiss__selftest__example_8c.html#a670a4c28d6e2f3b6341f0f261a7a1835">CsiSs_SelfTestExample()</a>, and <a class="el" href="pipeline__program_8h.html#a9af254929ec07e0b8e29ff28e18ec709">InitializeCsiRxSs()</a>.</p>

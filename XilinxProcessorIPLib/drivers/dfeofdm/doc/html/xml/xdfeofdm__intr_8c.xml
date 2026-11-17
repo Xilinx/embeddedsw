@@ -37,7 +37,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="59" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="59" bodyend="91"/>
         <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
         <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
         <references refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" compoundref="xdfeofdm_8h" startline="393">XDfeOfdm_Status::Overflow</references>
@@ -81,7 +81,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="104" bodyend="129"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="104" bodyend="129"/>
         <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
         <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
         <references refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" compoundref="xdfeofdm_8h" startline="393">XDfeOfdm_Status::Overflow</references>
@@ -125,7 +125,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="142" bodyend="180"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="142" bodyend="180"/>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" compoundref="xdfeofdm_8h" startline="401">XDfeOfdm_InterruptMask::CCUpdate</references>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" compoundref="xdfeofdm_8h" startline="402">XDfeOfdm_InterruptMask::FTCCSequenceError</references>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" compoundref="xdfeofdm_8h" startline="404">XDfeOfdm_InterruptMask::Overflow</references>
@@ -165,7 +165,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="192" bodyend="215"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="192" bodyend="215"/>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" compoundref="xdfeofdm_8h" startline="401">XDfeOfdm_InterruptMask::CCUpdate</references>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" compoundref="xdfeofdm_8h" startline="402">XDfeOfdm_InterruptMask::FTCCSequenceError</references>
         <references refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" compoundref="xdfeofdm_8h" startline="404">XDfeOfdm_InterruptMask::Overflow</references>
@@ -324,6 +324,6 @@
 <codeline lineno="215"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c"/>
   </compounddef>
 </doxygen>

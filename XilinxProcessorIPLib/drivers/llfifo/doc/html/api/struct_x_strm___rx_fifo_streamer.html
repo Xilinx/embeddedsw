@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_strm___rx_fifo_streamer.html'
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,20 @@ $(document).ready(function(){initNavTree('struct_x_strm___rx_fifo_streamer.html'
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XStrm_RxFifoStreamer Struct Reference<div class="ingroups"><a class="el" href="group__llfifo.html">Overview</a></div></div>  </div>
+<div class="title">XStrm_RxFifoStreamer Struct Reference<div class="ingroups"><a class="el" href="group__llfifo__api.html">LLFIFO APIs</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef defines a run-time instance of a receive byte-streamer.
+<p>Defines the receive byte-streamer instance.
  <a href="struct_x_strm___rx_fifo_streamer.html#details">More...</a></p>
 
 <p><code>#include &lt;xstreamer.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a5d1f8f992cd102849b29a2df35751393"><td class="memItemLeft" align="right" valign="top">union XStrm_AlignedBufferType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___rx_fifo_streamer.html#a5d1f8f992cd102849b29a2df35751393">AlignedBuffer</a></td></tr>
+<tr class="memdesc:a5d1f8f992cd102849b29a2df35751393"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO holding buffer.  <a href="#a5d1f8f992cd102849b29a2df35751393">More...</a><br/></td></tr>
+<tr class="separator:a5d1f8f992cd102849b29a2df35751393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6321ab6bf1a1f3979c0771618a4aba7c"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___rx_fifo_streamer.html#a6321ab6bf1a1f3979c0771618a4aba7c">HeadIndex</a></td></tr>
 <tr class="memdesc:a6321ab6bf1a1f3979c0771618a4aba7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">HeadIndex is the index to the AlignedBuffer as bytes.  <a href="#a6321ab6bf1a1f3979c0771618a4aba7c">More...</a><br/></td></tr>
 <tr class="separator:a6321ab6bf1a1f3979c0771618a4aba7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,8 +146,25 @@ Data Fields</h2></td></tr>
 <tr class="separator:a8d552e42f58c3230de010178832b41b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef defines a run-time instance of a receive byte-streamer. </p>
+<div class="textblock"><p>Defines the receive byte-streamer instance. </p>
+<p>This typedef defines a run-time instance of a receive byte-streamer. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5d1f8f992cd102849b29a2df35751393"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">union XStrm_AlignedBufferType XStrm_RxFifoStreamer::AlignedBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FIFO holding buffer. </p>
+
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab278ceaef035943f8a3a8b85a8cab99d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +177,7 @@ Data Fields</h2></td></tr>
 
 <p>FifoInstance is the FIFO driver instance to pass to ReadFn, GetLenFn, and GetOccupancyFn routines. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -173,7 +193,7 @@ Data Fields</h2></td></tr>
 
 <p>FifoWidth is the FIFO key hole width in bytes. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -189,7 +209,7 @@ Data Fields</h2></td></tr>
 
 <p>FrmByteCnt is the number of bytes in the next Frame. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, and <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, and <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>.</p>
 
 </div>
 </div>
@@ -205,7 +225,7 @@ Data Fields</h2></td></tr>
 
 <p>GetLenFn is the routine the streamer uses to initiate receive operations on the FIFO. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -221,7 +241,7 @@ Data Fields</h2></td></tr>
 
 <p>GetOccupancyFn is the routine the streamer uses to get the occupancy from the FIFO. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -237,7 +257,7 @@ Data Fields</h2></td></tr>
 
 <p>HeadIndex is the index to the AlignedBuffer as bytes. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -253,7 +273,7 @@ Data Fields</h2></td></tr>
 
 <p>ReadFn is the routine the streamer uses to receive bytes from the Fifo. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, and <a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read()</a>, and <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize()</a>.</p>
 
 </div>
 </div>

@@ -1,79 +1,331 @@
 var NAVTREE =
 [
-  [ "usbpsu", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xusb_ch9.c", "example.html#ex1", null ],
-      [ "xusb_cp9.h", "example.html#ex2", null ],
-      [ "xusb_ch9_storage.c", "example.html#ex3", null ],
-      [ "xusb_ch9_storage.h", "example.html#ex4", null ],
-      [ "xusb_class_storage.c", "example.html#ex5", null ],
-      [ "xusb_class_storage.h", "example.html#ex6", null ],
-      [ "xusb_intr_example.c", "example.html#ex7", null ],
-      [ "xusb_ch9_dfu.c", "example.html#ex8", null ],
-      [ "xusb_ch9_dfu.h", "example.html#ex9", null ],
-      [ "xusb_class_dfu.c", "example.html#ex10", null ],
-      [ "xusb_class_dfu.h", "example.html#ex11", null ],
-      [ "xusb_dfu_example.c", "example.html#ex12", null ],
-      [ "xusb_freertos_ch9_composite.c", "example.html#ex13", null ],
-      [ "xusb_freertos_ch9_composite.h", "example.html#ex14", null ],
-      [ "xusb_freertos_class_composite.c", "example.html#ex15", null ],
-      [ "xusb_freertos_class_composite.h", "example.html#ex16", null ],
-      [ "xusb_freertos_composite.c", "example.html#ex17", null ],
-      [ "xusb_ch9_composite.c", "example.html#ex18", null ],
-      [ "xusb_class_composite.h", "example.html#ex19", null ],
-      [ "xusb_composite_example.c", "example.html#ex20", null ],
-      [ "xusb_freertos_ch9_storage.c", "example.html#ex21", null ],
-      [ "xusb_freertos_ch9_storage.h", "example.html#ex22", null ],
-      [ "xusb_freertos_class_storage.c", "example.html#ex23", null ],
-      [ "xusb_freertos_class_storage.h", "example.html#ex24", null ],
-      [ "xusb_freertos_massstorage.c", "example.html#ex25", null ],
-      [ "xusb_freertos_ch9_keyboard.h", "example.html#ex26", null ],
-      [ "xusb_freertos_class_keyboard.c", "example.html#ex27", null ],
-      [ "xusb_freertos_class_keyboard.h", "example.html#ex28", null ],
-      [ "xusb_freertos_keyboard.c", "example.html#ex29", null ],
-      [ "xusb_freertos_ch9_audio.c", "example.html#ex30", null ],
-      [ "xusb_freertos_ch9_audio.h", "example.html#ex31", null ],
-      [ "xusb_freertos_class_audio.c", "example.html#ex32", null ],
-      [ "xusb_freertos_class_audio.h", "example.html#ex33", null ],
-      [ "xusb_freertos_audio.c", "example.html#ex34", null ],
-      [ "xusb_freertos_dfu.c", "example.html#ex35", null ],
-      [ "xusb_audio_dfu_example.c", "example.html#ex36", null ],
-      [ "xusb_ch9_audio_dfu.c", "example.html#ex37", null ],
-      [ "xusb_ch9_audio_dfu.h", "example.html#ex38", null ],
-      [ "xusb_class_audio_dfu.c", "example.html#ex39", null ],
-      [ "xusb_class_audio_dfu.h", "example.html#ex40", null ],
-      [ "xusb_wrapper.c", "example.html#ex41", null ],
-      [ "xusb_wrapper.h", "example.html#ex42", null ],
-      [ "xusb_poll_example.c", "example.html#ex43", [
-        [ "Notes", "example.html#Notes", null ]
-      ] ]
-    ] ]
-  ] ]
+  [
+    "usbpsu",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xusb_ch9.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xusb_cp9.h",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xusb_ch9_storage.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xusb_ch9_storage.h",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xusb_class_storage.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xusb_class_storage.h",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xusb_intr_example.c",
+            "example.html#ex7",
+            null
+          ],
+          [
+            "xusb_ch9_dfu.c",
+            "example.html#ex8",
+            null
+          ],
+          [
+            "xusb_ch9_dfu.h",
+            "example.html#ex9",
+            null
+          ],
+          [
+            "xusb_class_dfu.c",
+            "example.html#ex10",
+            null
+          ],
+          [
+            "xusb_class_dfu.h",
+            "example.html#ex11",
+            null
+          ],
+          [
+            "xusb_dfu_example.c",
+            "example.html#ex12",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_composite.c",
+            "example.html#ex13",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_composite.h",
+            "example.html#ex14",
+            null
+          ],
+          [
+            "xusb_freertos_class_composite.c",
+            "example.html#ex15",
+            null
+          ],
+          [
+            "xusb_freertos_class_composite.h",
+            "example.html#ex16",
+            null
+          ],
+          [
+            "xusb_freertos_composite.c",
+            "example.html#ex17",
+            null
+          ],
+          [
+            "xusb_ch9_composite.c",
+            "example.html#ex18",
+            null
+          ],
+          [
+            "xusb_class_composite.h",
+            "example.html#ex19",
+            null
+          ],
+          [
+            "xusb_composite_example.c",
+            "example.html#ex20",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_storage.c",
+            "example.html#ex21",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_storage.h",
+            "example.html#ex22",
+            null
+          ],
+          [
+            "xusb_freertos_class_storage.c",
+            "example.html#ex23",
+            null
+          ],
+          [
+            "xusb_freertos_class_storage.h",
+            "example.html#ex24",
+            null
+          ],
+          [
+            "xusb_freertos_massstorage.c",
+            "example.html#ex25",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_keyboard.c",
+            "example.html#ex26b",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_keyboard.h",
+            "example.html#ex26",
+            null
+          ],
+          [
+            "xusb_freertos_class_keyboard.c",
+            "example.html#ex27",
+            null
+          ],
+          [
+            "xusb_freertos_class_keyboard.h",
+            "example.html#ex28",
+            null
+          ],
+          [
+            "xusb_freertos_keyboard.c",
+            "example.html#ex29",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_audio.c",
+            "example.html#ex30",
+            null
+          ],
+          [
+            "xusb_freertos_ch9_audio.h",
+            "example.html#ex31",
+            null
+          ],
+          [
+            "xusb_freertos_class_audio.c",
+            "example.html#ex32",
+            null
+          ],
+          [
+            "xusb_freertos_class_audio.h",
+            "example.html#ex33",
+            null
+          ],
+          [
+            "xusb_freertos_audio.c",
+            "example.html#ex34",
+            null
+          ],
+          [
+            "xusb_freertos_dfu.c",
+            "example.html#ex35",
+            null
+          ],
+          [
+            "xusb_audio_dfu_example.c",
+            "example.html#ex36",
+            null
+          ],
+          [
+            "xusb_ch9_audio_dfu.c",
+            "example.html#ex37",
+            null
+          ],
+          [
+            "xusb_ch9_audio_dfu.h",
+            "example.html#ex38",
+            null
+          ],
+          [
+            "xusb_class_audio_dfu.c",
+            "example.html#ex39",
+            null
+          ],
+          [
+            "xusb_class_audio_dfu.h",
+            "example.html#ex40",
+            null
+          ],
+          [
+            "xusb_wrapper.c",
+            "example.html#ex41",
+            null
+          ],
+          [
+            "xusb_wrapper.h",
+            "example.html#ex42",
+            null
+          ],
+          [
+            "xusb_poll_example.c",
+            "example.html#ex43",
+            [
+              [
+                "Notes",
+                "example.html#Notes",
+                null
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xusb__freertos__ch9__keyboard_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2",
-"xusbpsu__hw_8h.html#gaf77de6ef99216d8d681032f133438d1d"
+"xusb__ch9_8h.html#ac0c33c0c20c57a68596e55b00a6302b7",
+"xusb__class__composite_8c.html#ad1d69266191044d7d27c63bd7c049b7c",
+"xusb__freertos__ch9__audio_8h.html#a79bd164810a1af8ab1067c9b6443f702",
+"xusb__freertos__class__composite_8h.html#a9e4016a67048ea7e04d730dd04f619c3",
+"xusb__wrapper_8h.html#a7155981f80b1a470f00f2072abf97124"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

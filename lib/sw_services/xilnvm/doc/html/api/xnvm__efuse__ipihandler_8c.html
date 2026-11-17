@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__ipihandler_8c.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -128,7 +128,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       ng   11/22/2023 Fixed doxygen grouping
 3.6     obs  08/26/2025 Added support for Verifying Address Range
 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
-      ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
+      ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead
+      obs  03/26/2026 Replaced XSysMonPsv casts with XNvm_SysmonPsv
+3.8     rpu  08/17/2026 Fixed user fuse write to use <a class="el" href="struct_x_nvm___efuse_user_data_addr.html" title="Structure for User eFuses data. ">XNvm_EfuseUserDataAddr</a>
+      rpu  08/26/2026 Added parameter validation for user fuse IPI write
+      rap  09/22/2026 Added RowCount overflow check in XNvm_EfuseRead
+      mkr  10/03/2026 Renamed affected error codes to XNVM_EFUSE_ERR_ prefix
+                      and removed duplicate XNVM_EFUSE_WORD_LEN macro, now
+                      defined in <a class="el" href="xnvm__common__defs_8h.html" title="This file contains the xilnvm Versal_Net API IDs. ">xnvm_common_defs.h</a>
+      sri  10/15/2026 Staged XNvm_EfuseRead in a local buffer and copied it
+                      to the 64-bit destination. Reject a span past the
+                      cache and a destination that overlaps that buffer</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
 <code>#include &quot;xplmi_plat.h&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

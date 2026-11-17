@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,58 +102,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">mcdma Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>AXI MultiChannel Direct Memory Access (AXI MDMA) IP provides high-bandwidth Direct memory access between the AXI4 memory mapped and AXI4-Stream IP interfaces. Its scatter gather capabilities also offload data Movement tasks from the Central Processing Unit (CPU) in processor-based Systems.</p>
-<p>In AXI MCDMA Primary high-speed DMA data movement between system memory and Stream target is through the AXI4 Read Master to AXI4 memory-mapped to Stream (MM2S) Master, and AXI stream to memory-mapped (S2MM) Slave to AXI4 Write Master. AXI DMA enables up to 16 multiple channels of data movement on both MM2S and S2MM paths.</p>
-<p><b>Initialization &amp; Configuration</b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate to the AXI MCDMA IP core.</p>
-<p><a class="el" href="group__mcdma.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API is used to initialize the MCDMA core. The user needs to first call the XMcDma_LookupConfig() API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__mcdma.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API.</p>
-<p><b> Interrupts </b> In single interrupt multiple channels case driver provides interrupt handler XMcdma_TxIntrHandler and XMcdma_IntrHandler for mm2s and s2mm side respectively for handling the interrupt from the MCDMA core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XMcdma_SetCallBack API.</p>
-<p><b>Buffer Descriptors(BD) management </b></p>
-<p>BD is shared by the software and the hardware. To use BD for SG DMA transfers, the application needs to use the driver API to do the following:</p>
-<ul>
-<li>Setup the BD's for the Channel:<ul>
-<li>XMcDma_ChanBdCreate(...)</li>
-</ul>
-</li>
-<li>Submit a DMA transfer for the required length.<ul>
-<li>XMcDma_ChanSubmit(...)</li>
-</ul>
-</li>
-<li>Submit all prepared BDs to the hardware:<ul>
-<li>XMcDma_ChantoHw(...)</li>
-</ul>
-</li>
-<li>Upon transfer completion, the application can request completed BDs from the hardware:<ul>
-<li>XMcdma_BdChainFromHW(...)</li>
-</ul>
-</li>
-<li>After the application has finished using the BDs, it should free the BDs back to the free pool:<ul>
-<li>XMcdma_BdChainFree(...)</li>
-</ul>
-</li>
-</ul>
-<p>The driver also provides API functions to get the status of a completed BD, along with get functions for other fields in the BD.</p>
-<p>The following diagram shows the correct flow of BDs:</p>
-<p>The diagram shows a complete cycle for BDs, starting from requesting the BDs to freeing the BDs. </p>
-<pre></pre><pre>        <a class="el" href="group__mcdma.html#ga043e7eb1811040fdbdafe288cd4ac5ea" title="This function Populates the BD Chain with the required buffer address and length fields. ">XMcDma_ChanSubmit()</a>                   <a class="el" href="group__mcdma.html#gadccaaa44cfbb7f8c45790050fa14a9aa" title="This function triggers/Starts the h/w by programming the Current and Tail Descriptors and enabling th...">XMcDma_ChanToHw()</a>
-Free ------------------------&gt; Pre-process ----------------------&gt; Hardware
-                                                                   |
- /|\                                                               |
-  |    <a class="el" href="group__mcdma.html#gac503b02c1b13e908931f84facd8eae44" title="Frees a set of BDs that had been previously retrieved with XMcdma_BdChainFromHW(). ">XMcdma_BdChainFree()</a>                 <a class="el" href="group__mcdma.html#gaab94e04161d34aae300d76dd51948117" title="Returns a set of BD(s) that have been processed by hardware. ">XMcdma_BdChainFromHW()</a> |
-  +--------------------------- Post-process &lt;----------------------+</pre><pre></pre><p><b> Virtual Memory </b></p>
-<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</p>
-<p><b> Threads </b></p>
-<p>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</p>
-<p><b> Asserts </b></p>
-<p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</p>
-<p><b> Building the driver </b></p>
-<p>The AXI MCDMA driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</p>
-<p>This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx AXI MCDMA core instance.</p>
-<p>MODIFICATION HISTORY:</p>
-<p>Ver Who Date Changes </p>
-<hr/>
-<p> 1.0 adk 18/07/17 Initial version. 1.0 adk 09/02/18 Fixed CR#994435 Changes are made in the driver tcl file. 1.2 mj 05/03/18 Exported APIs <a class="el" href="group__mcdma.html#gac503b02c1b13e908931f84facd8eae44" title="Frees a set of BDs that had been previously retrieved with XMcdma_BdChainFromHW(). ">XMcdma_BdChainFree()</a> and <a class="el" href="group__mcdma.html#ga357821499f1231555343dc309c59c67a" title="Set the APP word at the specified APP word offset for a BD. ">XMcDma_BdSetAppWord()</a>. 1.2 mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform. 1.3 rsp 02/12/19 Add HasRxLength field in config and channel structure. 1.3 rsp 02/11/19 Add top level submit <a class="el" href="group__mcdma.html#gaea3a22718a28af2430b0508f213b96d1" title="This function populates the BD Chain with the required buffer address, length APP(user application)...">XMcDma_Chan_Sideband_Submit()</a> API to program BD control and sideband information. 1.5 sk 07/13/20 Add <a class="el" href="group__mcdma.html#ga9295d5a6e89fe6a6471371191078b7fc" title="Get the APP word at the specified APP word offset for a BD. ">XMcDma_BdGetAppWord()</a> function declaration to fix the gcc warning in mcdma integration test suite. 1.7 sa 08/12/22 Updated the examples to use latest MIG cannoical define i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -6,43 +6,43 @@
     <includes refid="xsecure__alghelper_8h" local="yes">xsecure_alghelper.h</includes>
     <includes local="yes">xsecure_plat_defs.h</includes>
     <incdepgraph>
-      <node id="4865">
-        <label>xsecure_trngalginfo.c</label>
-        <link refid="xsecure_trngalginfo.c"/>
-        <childnode refid="4866" relation="include">
-        </childnode>
-        <childnode refid="4869" relation="include">
-        </childnode>
-        <childnode refid="4871" relation="include">
-        </childnode>
-      </node>
-      <node id="4866">
-        <label>xsecure_trngalginfo.h</label>
-        <link refid="xsecure__trngalginfo_8h"/>
-        <childnode refid="4867" relation="include">
-        </childnode>
-        <childnode refid="4868" relation="include">
-        </childnode>
-      </node>
-      <node id="4868">
+      <node id="5117">
         <label>xil_sutil.h</label>
       </node>
-      <node id="4871">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="4867">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="4870">
-        <label>xil_types.h</label>
-      </node>
-      <node id="4869">
+      <node id="5118">
         <label>xsecure_alghelper.h</label>
         <link refid="xsecure__alghelper_8h"/>
-        <childnode refid="4867" relation="include">
+        <childnode refid="5116" relation="include">
         </childnode>
-        <childnode refid="4870" relation="include">
+        <childnode refid="5119" relation="include">
         </childnode>
+      </node>
+      <node id="5114">
+        <label>xsecure_trngalginfo.c</label>
+        <link refid="xsecure_trngalginfo.c"/>
+        <childnode refid="5115" relation="include">
+        </childnode>
+        <childnode refid="5118" relation="include">
+        </childnode>
+        <childnode refid="5120" relation="include">
+        </childnode>
+      </node>
+      <node id="5115">
+        <label>xsecure_trngalginfo.h</label>
+        <link refid="xsecure__trngalginfo_8h"/>
+        <childnode refid="5116" relation="include">
+        </childnode>
+        <childnode refid="5117" relation="include">
+        </childnode>
+      </node>
+      <node id="5120">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="5116">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="5119">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -63,16 +63,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="156">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -107,12 +106,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
-<codeline lineno="52" refid="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" kindref="member">XSecure_TrngGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
-<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" kindref="member">XSecure_TrngGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c"/>
   </compounddef>
 </doxygen>

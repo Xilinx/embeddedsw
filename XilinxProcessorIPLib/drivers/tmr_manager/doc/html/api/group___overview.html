@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group___overview.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -124,28 +124,205 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaed2dede73cee6aea5d17d5a417807d99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;XTMR_Manager_Out32((BaseAddress) + (RegOffset), (u32)(Data))</td></tr>
+<tr class="memitem:ga68c6f0dc734a2b74c97003d1061f89d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga68c6f0dc734a2b74c97003d1061f89d8">XTMR_MANAGER_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:ga68c6f0dc734a2b74c97003d1061f89d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions.  <a href="#ga68c6f0dc734a2b74c97003d1061f89d8">More...</a><br/></td></tr>
+<tr class="separator:ga68c6f0dc734a2b74c97003d1061f89d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab728712d783ab5320c45c529a780295e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab728712d783ab5320c45c529a780295e">XTMR_MANAGER_I_H</a></td></tr>
+<tr class="memdesc:gab728712d783ab5320c45c529a780295e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions.  <a href="#gab728712d783ab5320c45c529a780295e">More...</a><br/></td></tr>
+<tr class="separator:gab728712d783ab5320c45c529a780295e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39fa3295185ab115bf8cd56248825799"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga39fa3295185ab115bf8cd56248825799">XTMR_Manager_UpdateStats</a>(InstancePtr, FirstFailingRegister)</td></tr>
+<tr class="memdesc:ga39fa3295185ab115bf8cd56248825799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the statistics of the instance.  <a href="#ga39fa3295185ab115bf8cd56248825799">More...</a><br/></td></tr>
+<tr class="separator:ga39fa3295185ab115bf8cd56248825799"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9447be063104e81a6f271e225647f88c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9447be063104e81a6f271e225647f88c">XTMR_MANAGER_L_H</a></td></tr>
+<tr class="memdesc:ga9447be063104e81a6f271e225647f88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions.  <a href="#ga9447be063104e81a6f271e225647f88c">More...</a><br/></td></tr>
+<tr class="separator:ga9447be063104e81a6f271e225647f88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c24f1d8ef07f0d90b8bd2330e821ea7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3c24f1d8ef07f0d90b8bd2330e821ea7">XTM_CR_OFFSET</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga3c24f1d8ef07f0d90b8bd2330e821ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">control reg  <a href="#ga3c24f1d8ef07f0d90b8bd2330e821ea7">More...</a><br/></td></tr>
+<tr class="separator:ga3c24f1d8ef07f0d90b8bd2330e821ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44e93ee97dd9ae05253652d2a956e63b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga44e93ee97dd9ae05253652d2a956e63b"><td class="mdescLeft">&#160;</td><td class="mdescRight">first failing reg  <a href="#ga44e93ee97dd9ae05253652d2a956e63b">More...</a><br/></td></tr>
+<tr class="separator:ga44e93ee97dd9ae05253652d2a956e63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a21d5af788a6a35fe528cfb99da6385"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9a21d5af788a6a35fe528cfb99da6385">XTM_CMR0_OFFSET</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga9a21d5af788a6a35fe528cfb99da6385"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparison mask reg 0  <a href="#ga9a21d5af788a6a35fe528cfb99da6385">More...</a><br/></td></tr>
+<tr class="separator:ga9a21d5af788a6a35fe528cfb99da6385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8562bcbabb07b3158d0c3737dacdf9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac8562bcbabb07b3158d0c3737dacdf9f">XTM_CMR1_OFFSET</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:gac8562bcbabb07b3158d0c3737dacdf9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparison mask reg 1  <a href="#gac8562bcbabb07b3158d0c3737dacdf9f">More...</a><br/></td></tr>
+<tr class="separator:gac8562bcbabb07b3158d0c3737dacdf9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9f9825608068c2cffab46e5b68dd726"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad9f9825608068c2cffab46e5b68dd726">XTM_BDIR_OFFSET</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gad9f9825608068c2cffab46e5b68dd726"><td class="mdescLeft">&#160;</td><td class="mdescRight">break delay init reg  <a href="#gad9f9825608068c2cffab46e5b68dd726">More...</a><br/></td></tr>
+<tr class="separator:gad9f9825608068c2cffab46e5b68dd726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2556e065d2f2ecc06861b3ecf672cb70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2556e065d2f2ecc06861b3ecf672cb70">XTM_SEMSR_OFFSET</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga2556e065d2f2ecc06861b3ecf672cb70"><td class="mdescLeft">&#160;</td><td class="mdescRight">sem status reg, read  <a href="#ga2556e065d2f2ecc06861b3ecf672cb70">More...</a><br/></td></tr>
+<tr class="separator:ga2556e065d2f2ecc06861b3ecf672cb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e0c6cab4a340cd26a38bb0f4035a30c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3e0c6cab4a340cd26a38bb0f4035a30c">XTM_SEMSSR_OFFSET</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:ga3e0c6cab4a340cd26a38bb0f4035a30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sem sticky status reg  <a href="#ga3e0c6cab4a340cd26a38bb0f4035a30c">More...</a><br/></td></tr>
+<tr class="separator:ga3e0c6cab4a340cd26a38bb0f4035a30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a0bf4e75668b4ed345b443b18e95ad3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>&#160;&#160;&#160;28</td></tr>
+<tr class="memdesc:ga2a0bf4e75668b4ed345b443b18e95ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">sem interrupt mask reg  <a href="#ga2a0bf4e75668b4ed345b443b18e95ad3">More...</a><br/></td></tr>
+<tr class="separator:ga2a0bf4e75668b4ed345b443b18e95ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d04421a6de3a367cfdf04a987275949"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1d04421a6de3a367cfdf04a987275949">XTM_WR_OFFSET</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga1d04421a6de3a367cfdf04a987275949"><td class="mdescLeft">&#160;</td><td class="mdescRight">watchdog reg  <a href="#ga1d04421a6de3a367cfdf04a987275949">More...</a><br/></td></tr>
+<tr class="separator:ga1d04421a6de3a367cfdf04a987275949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga077182d8edfed7e3829d9a9f62b65e30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga077182d8edfed7e3829d9a9f62b65e30">XTM_RFSR_OFFSET</a>&#160;&#160;&#160;36</td></tr>
+<tr class="memdesc:ga077182d8edfed7e3829d9a9f62b65e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset failing state reg  <a href="#ga077182d8edfed7e3829d9a9f62b65e30">More...</a><br/></td></tr>
+<tr class="separator:ga077182d8edfed7e3829d9a9f62b65e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeeeac32655b5957258681941267d93f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaeeeac32655b5957258681941267d93f4">XTM_CSCR_OFFSET</a>&#160;&#160;&#160;40</td></tr>
+<tr class="memdesc:gaeeeac32655b5957258681941267d93f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparator status clear reg  <a href="#gaeeeac32655b5957258681941267d93f4">More...</a><br/></td></tr>
+<tr class="separator:gaeeeac32655b5957258681941267d93f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae250e4141d5245e41fa9234bf9b19acf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae250e4141d5245e41fa9234bf9b19acf">XTM_CFIR_OFFSET</a>&#160;&#160;&#160;44</td></tr>
+<tr class="memdesc:gae250e4141d5245e41fa9234bf9b19acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparator fault inject reg  <a href="#gae250e4141d5245e41fa9234bf9b19acf">More...</a><br/></td></tr>
+<tr class="separator:gae250e4141d5245e41fa9234bf9b19acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga779f8a47d0cbca121d2b0dbc07319ce6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga779f8a47d0cbca121d2b0dbc07319ce6">XTM_CR_MAGIC1</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga779f8a47d0cbca121d2b0dbc07319ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">magic byte 1  <a href="#ga779f8a47d0cbca121d2b0dbc07319ce6">More...</a><br/></td></tr>
+<tr class="separator:ga779f8a47d0cbca121d2b0dbc07319ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga187d60e0b896732be36d788e9bf8d5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga187d60e0b896732be36d788e9bf8d5f0">XTM_CR_MAGIC2</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga187d60e0b896732be36d788e9bf8d5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">magic byte 2  <a href="#ga187d60e0b896732be36d788e9bf8d5f0">More...</a><br/></td></tr>
+<tr class="separator:ga187d60e0b896732be36d788e9bf8d5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7e8e2723802889e6e06c675f8f8c58a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab7e8e2723802889e6e06c675f8f8c58a">XTM_CR_RIR</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gab7e8e2723802889e6e06c675f8f8c58a"><td class="mdescLeft">&#160;</td><td class="mdescRight">recover is reset  <a href="#gab7e8e2723802889e6e06c675f8f8c58a">More...</a><br/></td></tr>
+<tr class="separator:gab7e8e2723802889e6e06c675f8f8c58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace0e14f63ba9e62012afb9322f4b495b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gace0e14f63ba9e62012afb9322f4b495b">XTM_CR_BFR</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:gace0e14f63ba9e62012afb9322f4b495b"><td class="mdescLeft">&#160;</td><td class="mdescRight">block fatal reset  <a href="#gace0e14f63ba9e62012afb9322f4b495b">More...</a><br/></td></tr>
+<tr class="separator:gace0e14f63ba9e62012afb9322f4b495b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2844871c59c8706e09e82211d875c6ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2844871c59c8706e09e82211d875c6ca">XTM_CR_BB</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:ga2844871c59c8706e09e82211d875c6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">block break  <a href="#ga2844871c59c8706e09e82211d875c6ca">More...</a><br/></td></tr>
+<tr class="separator:ga2844871c59c8706e09e82211d875c6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6025f6d5441f78863fe55699508dd750"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6025f6d5441f78863fe55699508dd750">XTM_CR_BFO</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga6025f6d5441f78863fe55699508dd750"><td class="mdescLeft">&#160;</td><td class="mdescRight">block fatal output  <a href="#ga6025f6d5441f78863fe55699508dd750">More...</a><br/></td></tr>
+<tr class="separator:ga6025f6d5441f78863fe55699508dd750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad29671007edb5ebfe84bd0ae5a391978"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad29671007edb5ebfe84bd0ae5a391978">XTM_CR_MAGIC1_MASK</a>&#160;&#160;&#160;0x000ff</td></tr>
+<tr class="memdesc:gad29671007edb5ebfe84bd0ae5a391978"><td class="mdescLeft">&#160;</td><td class="mdescRight">magic byte 1 mask  <a href="#gad29671007edb5ebfe84bd0ae5a391978">More...</a><br/></td></tr>
+<tr class="separator:gad29671007edb5ebfe84bd0ae5a391978"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab40f74458c08123c3961542faceb9ee2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab40f74458c08123c3961542faceb9ee2">XTM_CR_MAGIC2_MASK</a>&#160;&#160;&#160;0x0ff00</td></tr>
+<tr class="memdesc:gab40f74458c08123c3961542faceb9ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">magic byte 2 mask  <a href="#gab40f74458c08123c3961542faceb9ee2">More...</a><br/></td></tr>
+<tr class="separator:gab40f74458c08123c3961542faceb9ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1f403ffc96a702832baff7e00831be2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab1f403ffc96a702832baff7e00831be2">XTM_CR_RIR_MASK</a>&#160;&#160;&#160;0x10000</td></tr>
+<tr class="memdesc:gab1f403ffc96a702832baff7e00831be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">recover is reset mask  <a href="#gab1f403ffc96a702832baff7e00831be2">More...</a><br/></td></tr>
+<tr class="separator:gab1f403ffc96a702832baff7e00831be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga528c0d5e7cc7e4a43ef7cee06f02ac65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga528c0d5e7cc7e4a43ef7cee06f02ac65">XTM_FFR_LM12</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga528c0d5e7cc7e4a43ef7cee06f02ac65"><td class="mdescLeft">&#160;</td><td class="mdescRight">lockstep mismatch 1-2  <a href="#ga528c0d5e7cc7e4a43ef7cee06f02ac65">More...</a><br/></td></tr>
+<tr class="separator:ga528c0d5e7cc7e4a43ef7cee06f02ac65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga890cc3893b64532e521d4d274dedbbc5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga890cc3893b64532e521d4d274dedbbc5">XTM_FFR_LM13</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga890cc3893b64532e521d4d274dedbbc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">lockstep mismatch 1-3  <a href="#ga890cc3893b64532e521d4d274dedbbc5">More...</a><br/></td></tr>
+<tr class="separator:ga890cc3893b64532e521d4d274dedbbc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16c2af545cf762290950365938b1b429"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga16c2af545cf762290950365938b1b429">XTM_FFR_LM23</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga16c2af545cf762290950365938b1b429"><td class="mdescLeft">&#160;</td><td class="mdescRight">lockstep mismatch 2-3  <a href="#ga16c2af545cf762290950365938b1b429">More...</a><br/></td></tr>
+<tr class="separator:ga16c2af545cf762290950365938b1b429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga589798490f989cfa032c68538bb19855"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga589798490f989cfa032c68538bb19855">XTM_FFR_REC</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga589798490f989cfa032c68538bb19855"><td class="mdescLeft">&#160;</td><td class="mdescRight">recovery  <a href="#ga589798490f989cfa032c68538bb19855">More...</a><br/></td></tr>
+<tr class="separator:ga589798490f989cfa032c68538bb19855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b49a6471b6d391ca5abc3467be31ed9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3b49a6471b6d391ca5abc3467be31ed9">XTM_FFR_FAT12</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga3b49a6471b6d391ca5abc3467be31ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">fatal error 1-2  <a href="#ga3b49a6471b6d391ca5abc3467be31ed9">More...</a><br/></td></tr>
+<tr class="separator:ga3b49a6471b6d391ca5abc3467be31ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b4f213074bdbb42e9cc486066ce206d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6b4f213074bdbb42e9cc486066ce206d">XTM_FFR_FAT13</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:ga6b4f213074bdbb42e9cc486066ce206d"><td class="mdescLeft">&#160;</td><td class="mdescRight">fatal error 1-3  <a href="#ga6b4f213074bdbb42e9cc486066ce206d">More...</a><br/></td></tr>
+<tr class="separator:ga6b4f213074bdbb42e9cc486066ce206d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac3798de62fc03559fa19f270724884db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac3798de62fc03559fa19f270724884db">XTM_FFR_FAT23</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:gac3798de62fc03559fa19f270724884db"><td class="mdescLeft">&#160;</td><td class="mdescRight">fatal error 2-3  <a href="#gac3798de62fc03559fa19f270724884db">More...</a><br/></td></tr>
+<tr class="separator:gac3798de62fc03559fa19f270724884db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04e2c9921cf63de015cea69fa7b14953"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga04e2c9921cf63de015cea69fa7b14953">XTM_FFR_FATV</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga04e2c9921cf63de015cea69fa7b14953"><td class="mdescLeft">&#160;</td><td class="mdescRight">fatal voter error  <a href="#ga04e2c9921cf63de015cea69fa7b14953">More...</a><br/></td></tr>
+<tr class="separator:ga04e2c9921cf63de015cea69fa7b14953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga197b537654c686dace0f16292916bbc1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga197b537654c686dace0f16292916bbc1">XTM_FFR_FATUE</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga197b537654c686dace0f16292916bbc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">fatal uncorr error  <a href="#ga197b537654c686dace0f16292916bbc1">More...</a><br/></td></tr>
+<tr class="separator:ga197b537654c686dace0f16292916bbc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ad81aa743c6c1b53bff87a450fa6473"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3ad81aa743c6c1b53bff87a450fa6473">XTM_FFR_WE</a>&#160;&#160;&#160;21</td></tr>
+<tr class="memdesc:ga3ad81aa743c6c1b53bff87a450fa6473"><td class="mdescLeft">&#160;</td><td class="mdescRight">watchdog expired  <a href="#ga3ad81aa743c6c1b53bff87a450fa6473">More...</a><br/></td></tr>
+<tr class="separator:ga3ad81aa743c6c1b53bff87a450fa6473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3deb46d580dafc76c1ca1554a3c9d474"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3deb46d580dafc76c1ca1554a3c9d474">XTM_FFR_LM12_LM13_MASK</a>&#160;&#160;&#160;0x000003</td></tr>
+<tr class="memdesc:ga3deb46d580dafc76c1ca1554a3c9d474"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM12 and LM13 combined mask.  <a href="#ga3deb46d580dafc76c1ca1554a3c9d474">More...</a><br/></td></tr>
+<tr class="separator:ga3deb46d580dafc76c1ca1554a3c9d474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaddcb145d8ab812d04573b9d81a9cd5be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaddcb145d8ab812d04573b9d81a9cd5be">XTM_FFR_LM12_LM23_MASK</a>&#160;&#160;&#160;0x000005</td></tr>
+<tr class="memdesc:gaddcb145d8ab812d04573b9d81a9cd5be"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM12 and LM23 combined mask.  <a href="#gaddcb145d8ab812d04573b9d81a9cd5be">More...</a><br/></td></tr>
+<tr class="separator:gaddcb145d8ab812d04573b9d81a9cd5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8af548d45f5443dbd1bb10430ae91d8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8af548d45f5443dbd1bb10430ae91d8a">XTM_FFR_LM13_LM23_MASK</a>&#160;&#160;&#160;0x000006</td></tr>
+<tr class="memdesc:ga8af548d45f5443dbd1bb10430ae91d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM13 and LM23 combined mask.  <a href="#ga8af548d45f5443dbd1bb10430ae91d8a">More...</a><br/></td></tr>
+<tr class="separator:ga8af548d45f5443dbd1bb10430ae91d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gababaad940c35fec5595eab663b99b816"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gababaad940c35fec5595eab663b99b816">XTM_FFR_REC_MASK</a>&#160;&#160;&#160;0x000008</td></tr>
+<tr class="memdesc:gababaad940c35fec5595eab663b99b816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recovery mask.  <a href="#gababaad940c35fec5595eab663b99b816">More...</a><br/></td></tr>
+<tr class="separator:gababaad940c35fec5595eab663b99b816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9fcb75f72e89ae0e5b167517f1ed67a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab9fcb75f72e89ae0e5b167517f1ed67a">XTM_FFR_REC_12_13_MASK</a>&#160;&#160;&#160;0x00000b</td></tr>
+<tr class="memdesc:gab9fcb75f72e89ae0e5b167517f1ed67a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recovery with LM12 and LM13 mask.  <a href="#gab9fcb75f72e89ae0e5b167517f1ed67a">More...</a><br/></td></tr>
+<tr class="separator:gab9fcb75f72e89ae0e5b167517f1ed67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f29ddf323caf31094a781fc08b9aadd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8f29ddf323caf31094a781fc08b9aadd">XTM_FFR_REC_12_23_MASK</a>&#160;&#160;&#160;0x00000d</td></tr>
+<tr class="memdesc:ga8f29ddf323caf31094a781fc08b9aadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recovery with LM12 and LM23 mask.  <a href="#ga8f29ddf323caf31094a781fc08b9aadd">More...</a><br/></td></tr>
+<tr class="separator:ga8f29ddf323caf31094a781fc08b9aadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4dbc8a7aba5a39776ce84c16bf978a05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4dbc8a7aba5a39776ce84c16bf978a05">XTM_FFR_REC_13_23_MASK</a>&#160;&#160;&#160;0x00000e</td></tr>
+<tr class="memdesc:ga4dbc8a7aba5a39776ce84c16bf978a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recovery with LM13 and LM23 mask.  <a href="#ga4dbc8a7aba5a39776ce84c16bf978a05">More...</a><br/></td></tr>
+<tr class="separator:ga4dbc8a7aba5a39776ce84c16bf978a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad370ee1895a3ccac5392a07837bdf04c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad370ee1895a3ccac5392a07837bdf04c">XTM_SEM_HBWE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gad370ee1895a3ccac5392a07837bdf04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">heartbeat watchdog expired  <a href="#gad370ee1895a3ccac5392a07837bdf04c">More...</a><br/></td></tr>
+<tr class="separator:gad370ee1895a3ccac5392a07837bdf04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga554917bede53f1c50013fbb683f717c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga554917bede53f1c50013fbb683f717c7">XTM_SEM_HB</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga554917bede53f1c50013fbb683f717c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">heartbeat input  <a href="#ga554917bede53f1c50013fbb683f717c7">More...</a><br/></td></tr>
+<tr class="separator:ga554917bede53f1c50013fbb683f717c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8af41453b8153d341b758892603f9443"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8af41453b8153d341b758892603f9443">XTM_SEM_INI</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga8af41453b8153d341b758892603f9443"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialization input  <a href="#ga8af41453b8153d341b758892603f9443">More...</a><br/></td></tr>
+<tr class="separator:ga8af41453b8153d341b758892603f9443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31ad636d04017f60ceb7eabfe8846bda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga31ad636d04017f60ceb7eabfe8846bda">XTM_SEM_OBS</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga31ad636d04017f60ceb7eabfe8846bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">observation input  <a href="#ga31ad636d04017f60ceb7eabfe8846bda">More...</a><br/></td></tr>
+<tr class="separator:ga31ad636d04017f60ceb7eabfe8846bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad15dfbe9f97733d78b8a2b55582d8d90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad15dfbe9f97733d78b8a2b55582d8d90">XTM_SEM_CORR</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gad15dfbe9f97733d78b8a2b55582d8d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">correction input  <a href="#gad15dfbe9f97733d78b8a2b55582d8d90">More...</a><br/></td></tr>
+<tr class="separator:gad15dfbe9f97733d78b8a2b55582d8d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac756ba9014528dbd7ecbc7dbda2134c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac756ba9014528dbd7ecbc7dbda2134c5">XTM_SEM_CLA</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gac756ba9014528dbd7ecbc7dbda2134c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">classification input  <a href="#gac756ba9014528dbd7ecbc7dbda2134c5">More...</a><br/></td></tr>
+<tr class="separator:gac756ba9014528dbd7ecbc7dbda2134c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60df95916ba8b387529c39182ee1e7da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga60df95916ba8b387529c39182ee1e7da">XTM_SEM_INJ</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga60df95916ba8b387529c39182ee1e7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">injection input  <a href="#ga60df95916ba8b387529c39182ee1e7da">More...</a><br/></td></tr>
+<tr class="separator:ga60df95916ba8b387529c39182ee1e7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d2ca9c0210627c206ff2b10afbc552b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7d2ca9c0210627c206ff2b10afbc552b">XTM_SEM_UNC</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ga7d2ca9c0210627c206ff2b10afbc552b"><td class="mdescLeft">&#160;</td><td class="mdescRight">uncorrectable input  <a href="#ga7d2ca9c0210627c206ff2b10afbc552b">More...</a><br/></td></tr>
+<tr class="separator:ga7d2ca9c0210627c206ff2b10afbc552b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga852e270a9bed29117b990a2e6e6aed8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga852e270a9bed29117b990a2e6e6aed8a">XTM_SEM_ESS</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga852e270a9bed29117b990a2e6e6aed8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">essential input  <a href="#ga852e270a9bed29117b990a2e6e6aed8a">More...</a><br/></td></tr>
+<tr class="separator:ga852e270a9bed29117b990a2e6e6aed8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc7cb2070beb303a147edbcd1b728c9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gafc7cb2070beb303a147edbcd1b728c9b">XTM_SEM_DO</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memdesc:gafc7cb2070beb303a147edbcd1b728c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">detect only input  <a href="#gafc7cb2070beb303a147edbcd1b728c9b">More...</a><br/></td></tr>
+<tr class="separator:gafc7cb2070beb303a147edbcd1b728c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga83c14bfd01ce0032d311ef81cc18cae5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga83c14bfd01ce0032d311ef81cc18cae5">XTM_SEM_DS</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga83c14bfd01ce0032d311ef81cc18cae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">diagnostic scan input  <a href="#ga83c14bfd01ce0032d311ef81cc18cae5">More...</a><br/></td></tr>
+<tr class="separator:ga83c14bfd01ce0032d311ef81cc18cae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98e995996e233250ee20410ff80ca558"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga98e995996e233250ee20410ff80ca558">XTM_CFIR_IE12</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga98e995996e233250ee20410ff80ca558"><td class="mdescLeft">&#160;</td><td class="mdescRight">inject error 1-2  <a href="#ga98e995996e233250ee20410ff80ca558">More...</a><br/></td></tr>
+<tr class="separator:ga98e995996e233250ee20410ff80ca558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60a586269336db3e9a27061dc145d64c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga60a586269336db3e9a27061dc145d64c">XTM_CFIR_IE23</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga60a586269336db3e9a27061dc145d64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">inject error 1-2  <a href="#ga60a586269336db3e9a27061dc145d64c">More...</a><br/></td></tr>
+<tr class="separator:ga60a586269336db3e9a27061dc145d64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga821f768a8d0ce98ece99ee22b790b409"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga821f768a8d0ce98ece99ee22b790b409">XTM_CFIR_IE13</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga821f768a8d0ce98ece99ee22b790b409"><td class="mdescLeft">&#160;</td><td class="mdescRight">inject error 1-2  <a href="#ga821f768a8d0ce98ece99ee22b790b409">More...</a><br/></td></tr>
+<tr class="separator:ga821f768a8d0ce98ece99ee22b790b409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae577bb65529a459bdc313eea08929d63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae577bb65529a459bdc313eea08929d63">XTM_CFIR_IVE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:gae577bb65529a459bdc313eea08929d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">inject voter error  <a href="#gae577bb65529a459bdc313eea08929d63">More...</a><br/></td></tr>
+<tr class="separator:gae577bb65529a459bdc313eea08929d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4fe12bfc994cb94fb63b21a9e80b333"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab4fe12bfc994cb94fb63b21a9e80b333">XTMR_Manager_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gab4fe12bfc994cb94fb63b21a9e80b333"><td class="mdescLeft">&#160;</td><td class="mdescRight">32-bit register read accessor.  <a href="#gab4fe12bfc994cb94fb63b21a9e80b333">More...</a><br/></td></tr>
+<tr class="separator:gab4fe12bfc994cb94fb63b21a9e80b333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea6e0bfcfd66fa6548889b406fa61b96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaea6e0bfcfd66fa6548889b406fa61b96">XTMR_Manager_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:gaea6e0bfcfd66fa6548889b406fa61b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">32-bit register write accessor.  <a href="#gaea6e0bfcfd66fa6548889b406fa61b96">More...</a><br/></td></tr>
+<tr class="separator:gaea6e0bfcfd66fa6548889b406fa61b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed2dede73cee6aea5d17d5a417807d99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaea6e0bfcfd66fa6548889b406fa61b96">XTMR_Manager_Out32</a>((BaseAddress) + (RegOffset), (u32)(Data))</td></tr>
 <tr class="memdesc:gaed2dede73cee6aea5d17d5a417807d99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a value to a TMRManager register.  <a href="#gaed2dede73cee6aea5d17d5a417807d99">More...</a><br/></td></tr>
 <tr class="separator:gaed2dede73cee6aea5d17d5a417807d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9c918e69e2db4e9aafa6aad8e01c091"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XTMR_Manager_In32((BaseAddress) + (RegOffset))</td></tr>
+<tr class="memitem:gae9c918e69e2db4e9aafa6aad8e01c091"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group___overview.html#gab4fe12bfc994cb94fb63b21a9e80b333">XTMR_Manager_In32</a>((BaseAddress) + (RegOffset))</td></tr>
 <tr class="memdesc:gae9c918e69e2db4e9aafa6aad8e01c091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a value from a TMRManager register.  <a href="#gae9c918e69e2db4e9aafa6aad8e01c091">More...</a><br/></td></tr>
 <tr class="separator:gae9c918e69e2db4e9aafa6aad8e01c091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga118a93e90f95b79257d33cded7a3d85d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga118a93e90f95b79257d33cded7a3d85d">XTMR_Manager_SetControlReg</a>(BaseAddress, Mask)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_CONTROL_OFFSET, (Mask))</td></tr>
 <tr class="memdesc:ga118a93e90f95b79257d33cded7a3d85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contents of the control register.  <a href="#ga118a93e90f95b79257d33cded7a3d85d">More...</a><br/></td></tr>
 <tr class="separator:ga118a93e90f95b79257d33cded7a3d85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae097f0b81faa2914c3609fa800b971f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>((BaseAddress), XTM_FFR_OFFSET)</td></tr>
+<tr class="memitem:gae097f0b81faa2914c3609fa800b971f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>)</td></tr>
 <tr class="memdesc:gae097f0b81faa2914c3609fa800b971f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the contents of the first failing register.  <a href="#gae097f0b81faa2914c3609fa800b971f5">More...</a><br/></td></tr>
 <tr class="separator:gae097f0b81faa2914c3609fa800b971f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4ec324f514b4bd419c5dbdccb3c0bc0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4ec324f514b4bd419c5dbdccb3c0bc0c">XTMR_Manager_ClearFirstFailingReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_FFR_OFFSET, 0)</td></tr>
+<tr class="memitem:ga4ec324f514b4bd419c5dbdccb3c0bc0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4ec324f514b4bd419c5dbdccb3c0bc0c">XTMR_Manager_ClearFirstFailingReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>, 0)</td></tr>
 <tr class="memdesc:ga4ec324f514b4bd419c5dbdccb3c0bc0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the contents of the first failing register.  <a href="#ga4ec324f514b4bd419c5dbdccb3c0bc0c">More...</a><br/></td></tr>
 <tr class="separator:ga4ec324f514b4bd419c5dbdccb3c0bc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2ae595b05de96f37f1499e5f4b5538bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2ae595b05de96f37f1499e5f4b5538bf">XTMR_Manager_IsLockstepMismatch</a>(BaseAddress)</td></tr>
 <tr class="memdesc:ga2ae595b05de96f37f1499e5f4b5538bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if a lockstep mismatch has occurred.  <a href="#ga2ae595b05de96f37f1499e5f4b5538bf">More...</a><br/></td></tr>
 <tr class="separator:ga2ae595b05de96f37f1499e5f4b5538bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae5a9d6158755ca9bedfd0bcf2cdf8652"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae5a9d6158755ca9bedfd0bcf2cdf8652">XTMR_Manager_EnableIntr</a>(BaseAddress, Mask)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_SEMIMR_OFFSET, Mask)</td></tr>
+<tr class="memitem:gae5a9d6158755ca9bedfd0bcf2cdf8652"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gae5a9d6158755ca9bedfd0bcf2cdf8652">XTMR_Manager_EnableIntr</a>(BaseAddress, Mask)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, Mask)</td></tr>
 <tr class="memdesc:gae5a9d6158755ca9bedfd0bcf2cdf8652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the SEM interrupt.  <a href="#gae5a9d6158755ca9bedfd0bcf2cdf8652">More...</a><br/></td></tr>
 <tr class="separator:gae5a9d6158755ca9bedfd0bcf2cdf8652"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaa104ec8c3c8be004c16f6e6879effa0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaaa104ec8c3c8be004c16f6e6879effa0">XTMR_Manager_DisableIntr</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_SEMIMR_OFFSET, 0)</td></tr>
+<tr class="memitem:gaaa104ec8c3c8be004c16f6e6879effa0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaaa104ec8c3c8be004c16f6e6879effa0">XTMR_Manager_DisableIntr</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, 0)</td></tr>
 <tr class="memdesc:gaaa104ec8c3c8be004c16f6e6879effa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the SEM interrupt.  <a href="#gaaa104ec8c3c8be004c16f6e6879effa0">More...</a><br/></td></tr>
 <tr class="separator:gaaa104ec8c3c8be004c16f6e6879effa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -154,18 +331,24 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga8c9619c50a362b87f1d210c31ef76d15"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8c9619c50a362b87f1d210c31ef76d15">XTMR_Manager_Handler</a> )(void *CallBackRef)</td></tr>
 <tr class="memdesc:ga8c9619c50a362b87f1d210c31ef76d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function.  <a href="#ga8c9619c50a362b87f1d210c31ef76d15">More...</a><br/></td></tr>
 <tr class="separator:ga8c9619c50a362b87f1d210c31ef76d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab0ab64d8a9b6be8268492f2850afe5e5">Handler</a> )(<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to send data to the TMR_Manager.  <a href="#gab0ab64d8a9b6be8268492f2850afe5e5">More...</a><br/></td></tr>
-<tr class="separator:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga9277979a616076ffb7f7ee793bbbf452"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9277979a616076ffb7f7ee793bbbf452">_xtmr_manager_initialize</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga9277979a616076ffb7f7ee793bbbf452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform low-level hardware initialization of the TMR Manager.  <a href="#ga9277979a616076ffb7f7ee793bbbf452">More...</a><br/></td></tr>
+<tr class="separator:ga9277979a616076ffb7f7ee793bbbf452"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09e58678fd2da7ffea2012d1f25ee42e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="struct_x_t_m_r___manager___config.html">XTMR_Manager_Config</a> *Config, UINTPTR EffectiveAddr)</td></tr>
 <tr class="memdesc:ga09e58678fd2da7ffea2012d1f25ee42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.  <a href="#ga09e58678fd2da7ffea2012d1f25ee42e">More...</a><br/></td></tr>
 <tr class="separator:ga09e58678fd2da7ffea2012d1f25ee42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad39bb96c73a9cfee8367f01565d02b7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad39bb96c73a9cfee8367f01565d02b7a">XTMR_Manager_Configure_BrkDelay</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, u32 BrkDelay)</td></tr>
+<tr class="memdesc:gad39bb96c73a9cfee8367f01565d02b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the break delay value in Break Delay Initialization Register.  <a href="#gad39bb96c73a9cfee8367f01565d02b7a">More...</a><br/></td></tr>
+<tr class="separator:gad39bb96c73a9cfee8367f01565d02b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa1feb2cff60ea2b09f42a1fe6ad1a9df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, UINTPTR BaseAddr)</td></tr>
 <tr class="memdesc:gaa1feb2cff60ea2b09f42a1fe6ad1a9df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.  <a href="#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">More...</a><br/></td></tr>
 <tr class="separator:gaa1feb2cff60ea2b09f42a1fe6ad1a9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19df82d2bc220d9855e5eaed3fc42b67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_t_m_r___manager___config.html">XTMR_Manager_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga19df82d2bc220d9855e5eaed3fc42b67">XTMR_Manager_LookupConfig</a> (UINTPTR BaseAddr)</td></tr>
+<tr class="memdesc:ga19df82d2bc220d9855e5eaed3fc42b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up TMR Manager configuration by base address (SDT flow).  <a href="#ga19df82d2bc220d9855e5eaed3fc42b67">More...</a><br/></td></tr>
+<tr class="separator:ga19df82d2bc220d9855e5eaed3fc42b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab07912dd332bd8ef68ca0c91cf06ef4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab07912dd332bd8ef68ca0c91cf06ef4b">XTMR_Manager_SetRecoveryHandler</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="group___overview.html#ga8c9619c50a362b87f1d210c31ef76d15">XTMR_Manager_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
 <tr class="memdesc:gab07912dd332bd8ef68ca0c91cf06ef4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the user recovery handler, which can replace the pre-defined handler completely, to do custom recovery.  <a href="#gab07912dd332bd8ef68ca0c91cf06ef4b">More...</a><br/></td></tr>
 <tr class="separator:gab07912dd332bd8ef68ca0c91cf06ef4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,20 +358,29 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4a316389f148733636ce902586b3635a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4a316389f148733636ce902586b3635a">XTMR_Manager_SetPostResetHandler</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="group___overview.html#ga8c9619c50a362b87f1d210c31ef76d15">XTMR_Manager_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
 <tr class="memdesc:ga4a316389f148733636ce902586b3635a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the user post-reset handler, which can be used to restore context after reset in a recovery sequence.  <a href="#ga4a316389f148733636ce902586b3635a">More...</a><br/></td></tr>
 <tr class="separator:ga4a316389f148733636ce902586b3635a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb4b2d1d6034b3151973a91bd83ee4a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gabb4b2d1d6034b3151973a91bd83ee4a5">XTMR_Manager_RestartWdt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gabb4b2d1d6034b3151973a91bd83ee4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart the internal watchdog timer.  <a href="#gabb4b2d1d6034b3151973a91bd83ee4a5">More...</a><br/></td></tr>
+<tr class="separator:gabb4b2d1d6034b3151973a91bd83ee4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fdc1688444aec5eb0173a45f6e0a2e6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3fdc1688444aec5eb0173a45f6e0a2e6">XTMR_Manager_IsWdtExpired</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga3fdc1688444aec5eb0173a45f6e0a2e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the internal watchdog timer has expired.  <a href="#ga3fdc1688444aec5eb0173a45f6e0a2e6">More...</a><br/></td></tr>
+<tr class="separator:ga3fdc1688444aec5eb0173a45f6e0a2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga97c7f0c8ee8e35d6358f7e93aaacb6c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga97c7f0c8ee8e35d6358f7e93aaacb6c2">XTMR_Manager_GetStats</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="struct_x_t_m_r___manager___stats.html">XTMR_Manager_Stats</a> *StatsPtr)</td></tr>
 <tr class="memdesc:ga97c7f0c8ee8e35d6358f7e93aaacb6c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a snapshot of the current statistics in the structure specified.  <a href="#ga97c7f0c8ee8e35d6358f7e93aaacb6c2">More...</a><br/></td></tr>
 <tr class="separator:ga97c7f0c8ee8e35d6358f7e93aaacb6c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6328ba6cbb2bab523942eb82a3515a8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6328ba6cbb2bab523942eb82a3515a8d">XTMR_Manager_ClearStats</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga6328ba6cbb2bab523942eb82a3515a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function zeros the statistics for the given instance.  <a href="#ga6328ba6cbb2bab523942eb82a3515a8d">More...</a><br/></td></tr>
 <tr class="separator:ga6328ba6cbb2bab523942eb82a3515a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3712c905face19b5734a4807ad5e2814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3712c905face19b5734a4807ad5e2814">XTMR_Manager_EnableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga3712c905face19b5734a4807ad5e2814"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the core interrupt such that an interrupt will occur when any of the SEM status signals indicated by the mask are changed.  <a href="#ga3712c905face19b5734a4807ad5e2814">More...</a><br/></td></tr>
-<tr class="separator:ga3712c905face19b5734a4807ad5e2814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc6863b91093c3c17f37d2c888c8540c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gabc6863b91093c3c17f37d2c888c8540c">XTMR_Manager_SemCommand</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, char *command, char *response)</td></tr>
+<tr class="memdesc:gabc6863b91093c3c17f37d2c888c8540c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a SEM command and receive the response.  <a href="#gabc6863b91093c3c17f37d2c888c8540c">More...</a><br/></td></tr>
+<tr class="separator:gabc6863b91093c3c17f37d2c888c8540c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">XTMR_Manager_EnableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, u32 mask)</td></tr>
+<tr class="memdesc:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the core interrupt such that an interrupt will occur when any of the unmasked SEM status signals change value.  <a href="#gaae4460868ab0d9ac0f28f4eba203a68a">More...</a><br/></td></tr>
+<tr class="separator:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd9c760a09f6060be524c4724149aeb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">XTMR_Manager_DisableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gabd9c760a09f6060be524c4724149aeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the core interrupt.  <a href="#gabd9c760a09f6060be524c4724149aeb1">More...</a><br/></td></tr>
+<tr class="memdesc:gabd9c760a09f6060be524c4724149aeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the core interrupt.  <a href="#gabd9c760a09f6060be524c4724149aeb1">More...</a><br/></td></tr>
 <tr class="separator:gabd9c760a09f6060be524c4724149aeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6dc411afbbc8a1bd33eb216be609b57b">XTMR_Manager_SetHandler</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="group___overview.html#ga8c9619c50a362b87f1d210c31ef76d15">XTMR_Manager_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs in the driver.  <a href="#ga6dc411afbbc8a1bd33eb216be609b57b">More...</a><br/></td></tr>
+<tr class="memdesc:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler that will be called when an interrupt event occurs.  <a href="#ga6dc411afbbc8a1bd33eb216be609b57b">More...</a><br/></td></tr>
 <tr class="separator:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad5a70c2dc4f54f69f80a13b972b6d8d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gad5a70c2dc4f54f69f80a13b972b6d8d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the device hardware.  <a href="#gad5a70c2dc4f54f69f80a13b972b6d8d3">More...</a><br/></td></tr>
@@ -213,6 +405,776 @@ Variables</h2></td></tr>
 <tr class="separator:gabeb554e9f74397f104b26f0cd6fef0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="gad9f9825608068c2cffab46e5b68dd726"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_BDIR_OFFSET&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>break delay init reg </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gad39bb96c73a9cfee8367f01565d02b7a">XTMR_Manager_Configure_BrkDelay()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga98e995996e233250ee20410ff80ca558"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CFIR_IE12&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inject error 1-2 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga821f768a8d0ce98ece99ee22b790b409"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CFIR_IE13&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inject error 1-2 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga60a586269336db3e9a27061dc145d64c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CFIR_IE23&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inject error 1-2 </p>
+
+</div>
+</div>
+<a class="anchor" id="gae577bb65529a459bdc313eea08929d63"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CFIR_IVE&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inject voter error </p>
+
+</div>
+</div>
+<a class="anchor" id="gae250e4141d5245e41fa9234bf9b19acf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CFIR_OFFSET&#160;&#160;&#160;44</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>comparator fault inject reg </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9a21d5af788a6a35fe528cfb99da6385"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CMR0_OFFSET&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>comparison mask reg 0 </p>
+
+</div>
+</div>
+<a class="anchor" id="gac8562bcbabb07b3158d0c3737dacdf9f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CMR1_OFFSET&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>comparison mask reg 1 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2844871c59c8706e09e82211d875c6ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_BB&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>block break </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6025f6d5441f78863fe55699508dd750"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_BFO&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>block fatal output </p>
+
+</div>
+</div>
+<a class="anchor" id="gace0e14f63ba9e62012afb9322f4b495b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_BFR&#160;&#160;&#160;17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>block fatal reset </p>
+
+</div>
+</div>
+<a class="anchor" id="ga779f8a47d0cbca121d2b0dbc07319ce6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_MAGIC1&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>magic byte 1 </p>
+
+</div>
+</div>
+<a class="anchor" id="gad29671007edb5ebfe84bd0ae5a391978"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_MAGIC1_MASK&#160;&#160;&#160;0x000ff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>magic byte 1 mask </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga8eda042057cb93a92372914efcc95370">XTMR_Manager_BreakHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga187d60e0b896732be36d788e9bf8d5f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_MAGIC2&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>magic byte 2 </p>
+
+</div>
+</div>
+<a class="anchor" id="gab40f74458c08123c3961542faceb9ee2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_MAGIC2_MASK&#160;&#160;&#160;0x0ff00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>magic byte 2 mask </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3c24f1d8ef07f0d90b8bd2330e821ea7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_OFFSET&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>control reg </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab7e8e2723802889e6e06c675f8f8c58a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_RIR&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>recover is reset </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab1f403ffc96a702832baff7e00831be2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CR_RIR_MASK&#160;&#160;&#160;0x10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>recover is reset mask </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga8eda042057cb93a92372914efcc95370">XTMR_Manager_BreakHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaeeeac32655b5957258681941267d93f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_CSCR_OFFSET&#160;&#160;&#160;40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>comparator status clear reg </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3b49a6471b6d391ca5abc3467be31ed9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_FAT12&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fatal error 1-2 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6b4f213074bdbb42e9cc486066ce206d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_FAT13&#160;&#160;&#160;17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fatal error 1-3 </p>
+
+</div>
+</div>
+<a class="anchor" id="gac3798de62fc03559fa19f270724884db"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_FAT23&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fatal error 2-3 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga197b537654c686dace0f16292916bbc1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_FATUE&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fatal uncorr error </p>
+
+</div>
+</div>
+<a class="anchor" id="ga04e2c9921cf63de015cea69fa7b14953"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_FATV&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fatal voter error </p>
+
+</div>
+</div>
+<a class="anchor" id="ga528c0d5e7cc7e4a43ef7cee06f02ac65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM12&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lockstep mismatch 1-2 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3deb46d580dafc76c1ca1554a3c9d474"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM12_LM13_MASK&#160;&#160;&#160;0x000003</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM12 and LM13 combined mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaddcb145d8ab812d04573b9d81a9cd5be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM12_LM23_MASK&#160;&#160;&#160;0x000005</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM12 and LM23 combined mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga890cc3893b64532e521d4d274dedbbc5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM13&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lockstep mismatch 1-3 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8af548d45f5443dbd1bb10430ae91d8a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM13_LM23_MASK&#160;&#160;&#160;0x000006</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM13 and LM23 combined mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga16c2af545cf762290950365938b1b429"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_LM23&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lockstep mismatch 2-3 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga44e93ee97dd9ae05253652d2a956e63b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_OFFSET&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>first failing reg </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga589798490f989cfa032c68538bb19855"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_REC&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>recovery </p>
+
+</div>
+</div>
+<a class="anchor" id="gab9fcb75f72e89ae0e5b167517f1ed67a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_REC_12_13_MASK&#160;&#160;&#160;0x00000b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recovery with LM12 and LM13 mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga8f29ddf323caf31094a781fc08b9aadd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_REC_12_23_MASK&#160;&#160;&#160;0x00000d</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recovery with LM12 and LM23 mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga4dbc8a7aba5a39776ce84c16bf978a05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_REC_13_23_MASK&#160;&#160;&#160;0x00000e</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recovery with LM13 and LM23 mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gababaad940c35fec5595eab663b99b816"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_REC_MASK&#160;&#160;&#160;0x000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recovery mask. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga3ad81aa743c6c1b53bff87a450fa6473"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_FFR_WE&#160;&#160;&#160;21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>watchdog expired </p>
+
+</div>
+</div>
+<a class="anchor" id="ga077182d8edfed7e3829d9a9f62b65e30"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_RFSR_OFFSET&#160;&#160;&#160;36</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>reset failing state reg </p>
+
+</div>
+</div>
+<a class="anchor" id="gac756ba9014528dbd7ecbc7dbda2134c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_CLA&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>classification input </p>
+
+</div>
+</div>
+<a class="anchor" id="gad15dfbe9f97733d78b8a2b55582d8d90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_CORR&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>correction input </p>
+
+</div>
+</div>
+<a class="anchor" id="gafc7cb2070beb303a147edbcd1b728c9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_DO&#160;&#160;&#160;9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>detect only input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga83c14bfd01ce0032d311ef81cc18cae5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_DS&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>diagnostic scan input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga852e270a9bed29117b990a2e6e6aed8a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_ESS&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>essential input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga554917bede53f1c50013fbb683f717c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_HB&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>heartbeat input </p>
+
+</div>
+</div>
+<a class="anchor" id="gad370ee1895a3ccac5392a07837bdf04c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_HBWE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>heartbeat watchdog expired </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8af41453b8153d341b758892603f9443"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_INI&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>initialization input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga60df95916ba8b387529c39182ee1e7da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_INJ&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>injection input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga31ad636d04017f60ceb7eabfe8846bda"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_OBS&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>observation input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7d2ca9c0210627c206ff2b10afbc552b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEM_UNC&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>uncorrectable input </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2a0bf4e75668b4ed345b443b18e95ad3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEMIMR_OFFSET&#160;&#160;&#160;28</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sem interrupt mask reg </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>, <a class="el" href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">XTMR_Manager_DisableInterrupt()</a>, and <a class="el" href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">XTMR_Manager_EnableInterrupt()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga2556e065d2f2ecc06861b3ecf672cb70"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEMSR_OFFSET&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sem status reg, read </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3e0c6cab4a340cd26a38bb0f4035a30c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_SEMSSR_OFFSET&#160;&#160;&#160;24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sem sticky status reg </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1d04421a6de3a367cfdf04a987275949"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTM_WR_OFFSET&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>watchdog reg </p>
+
+</div>
+</div>
 <a class="anchor" id="ga4ec324f514b4bd419c5dbdccb3c0bc0c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +1184,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">BaseAddress</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_FFR_OFFSET, 0)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>, 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -230,7 +1192,7 @@ Variables</h2></td></tr>
 <p>Clear the contents of the first failing register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
@@ -250,7 +1212,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">BaseAddress</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_SEMIMR_OFFSET, 0)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -259,11 +1221,10 @@ Variables</h2></td></tr>
 <p>We cannot read the SEM Interrupt Mask Register, so we just clear all bits. Since the register only defines the interrupt mask, this works without side effects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group___overview.html#gaaa104ec8c3c8be004c16f6e6879effa0" title="Disable the SEM interrupt. ">XTMR_Manager_DisableIntr(u32 BaseAddress)</a>; </dd></dl>
 
 </div>
@@ -287,7 +1248,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), XTM_SEMIMR_OFFSET, Mask)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, Mask)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -296,11 +1257,10 @@ Variables</h2></td></tr>
 <p>We cannot read the SEM Interrupt Mask Register, so we just write the enabled interrupt bits and clear all others. Since the register only defines the interrupt mask, this works without side effects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group___overview.html#gae5a9d6158755ca9bedfd0bcf2cdf8652" title="Enable the SEM interrupt. ">XTMR_Manager_EnableIntr(u32 BaseAddress)</a>; </dd></dl>
 
 </div>
@@ -314,7 +1274,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">BaseAddress</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>((BaseAddress), XTM_FFR_OFFSET)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>((BaseAddress), <a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -323,7 +1283,7 @@ Variables</h2></td></tr>
 <p>Use the XTM_FFR_* constants defined above to interpret the bit-mask returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
@@ -331,6 +1291,48 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>C-style Signature: u32 <a class="el" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5" title="Get the contents of the first failing register. ">XTMR_Manager_GetFirstFailingReg(u32 BaseAddress)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="group___overview.html#ga35bf0628effa71127914a170724b7e74">XTMR_Manager_ResetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga68c6f0dc734a2b74c97003d1061f89d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_MANAGER_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab728712d783ab5320c45c529a780295e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_MANAGER_I_H</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab4fe12bfc994cb94fb63b21a9e80b333"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_Manager_In32&#160;&#160;&#160;Xil_In32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>32-bit register read accessor. </p>
 
 </div>
 </div>
@@ -348,18 +1350,49 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a>((BaseAddress)) &amp; \</div>
-<div class="line">    ((1 &lt;&lt; XTM_FFR_LM12) | (1 &lt;&lt; XTM_FFR_LM13)| (1 &lt;&lt; XTM_FFR_LM23)) != 0)</div>
-<div class="ttc" id="group___overview_html_gae097f0b81faa2914c3609fa800b971f5"><div class="ttname"><a href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a></div><div class="ttdeci">#define XTMR_Manager_GetFirstFailingReg(BaseAddress)</div><div class="ttdoc">Get the contents of the first failing register. </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:194</div></div>
+<div class="line">    ((1 &lt;&lt; <a class="code" href="group___overview.html#ga528c0d5e7cc7e4a43ef7cee06f02ac65">XTM_FFR_LM12</a>) | (1 &lt;&lt; <a class="code" href="group___overview.html#ga890cc3893b64532e521d4d274dedbbc5">XTM_FFR_LM13</a>)| (1 &lt;&lt; <a class="code" href="group___overview.html#ga16c2af545cf762290950365938b1b429">XTM_FFR_LM23</a>)) != 0)</div>
+<div class="ttc" id="group___overview_html_ga890cc3893b64532e521d4d274dedbbc5"><div class="ttname"><a href="group___overview.html#ga890cc3893b64532e521d4d274dedbbc5">XTM_FFR_LM13</a></div><div class="ttdeci">#define XTM_FFR_LM13</div><div class="ttdoc">lockstep mismatch 1-3 </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:77</div></div>
+<div class="ttc" id="group___overview_html_ga528c0d5e7cc7e4a43ef7cee06f02ac65"><div class="ttname"><a href="group___overview.html#ga528c0d5e7cc7e4a43ef7cee06f02ac65">XTM_FFR_LM12</a></div><div class="ttdeci">#define XTM_FFR_LM12</div><div class="ttdoc">lockstep mismatch 1-2 </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:76</div></div>
+<div class="ttc" id="group___overview_html_ga16c2af545cf762290950365938b1b429"><div class="ttname"><a href="group___overview.html#ga16c2af545cf762290950365938b1b429">XTM_FFR_LM23</a></div><div class="ttdeci">#define XTM_FFR_LM23</div><div class="ttdoc">lockstep mismatch 2-3 </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:78</div></div>
+<div class="ttc" id="group___overview_html_gae097f0b81faa2914c3609fa800b971f5"><div class="ttname"><a href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a></div><div class="ttdeci">#define XTMR_Manager_GetFirstFailingReg(BaseAddress)</div><div class="ttdoc">Get the contents of the first failing register. </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:186</div></div>
 </div><!-- fragment -->
 <p>Check to see if a lockstep mismatch has occurred. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if a lockstep mismatch has occurred, FALSE otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group___overview.html#ga2ae595b05de96f37f1499e5f4b5538bf" title="Check to see if a lockstep mismatch has occurred. ">XTMR_Manager_IsLockstepMismatch(u32 BaseAddress)</a>; </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9447be063104e81a6f271e225647f88c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_MANAGER_L_H</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaea6e0bfcfd66fa6548889b406fa61b96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_Manager_Out32&#160;&#160;&#160;Xil_Out32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>32-bit register write accessor. </p>
 
 </div>
 </div>
@@ -382,7 +1415,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XTMR_Manager_In32((BaseAddress) + (RegOffset))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gab4fe12bfc994cb94fb63b21a9e80b333">XTMR_Manager_In32</a>((BaseAddress) + (RegOffset))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -391,8 +1424,8 @@ Variables</h2></td></tr>
 <p>A 32 bit read is performed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the TMRManager device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset from the base to read from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the TMRManager device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>is the register offset from the base to read from.</td></tr>
   </table>
   </dd>
 </dl>
@@ -431,13 +1464,56 @@ Variables</h2></td></tr>
 <p>Use the XTM_CR_* constants defined above to create the bit-mask to be written to the register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 32-bit value to write to the control register</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>is the 32-bit value to write to the control register</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group___overview.html#ga118a93e90f95b79257d33cded7a3d85d" title="Set the contents of the control register. ">XTMR_Manager_SetControlReg(u32 BaseAddress, u32 Mask)</a>; </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga39fa3295185ab115bf8cd56248825799"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMR_Manager_UpdateStats</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">FirstFailingRegister&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">{                                                                       \</div>
+<div class="line">        if ((FirstFailingRegister) &amp; <a class="code" href="group___overview.html#ga589798490f989cfa032c68538bb19855">XTM_FFR_REC</a>)                       \</div>
+<div class="line">        {                                                               \</div>
+<div class="line">                (InstancePtr)-&gt;Stats.RecoveryCount++;                   \</div>
+<div class="line">        }                                                               \</div>
+<div class="line">}</div>
+<div class="ttc" id="group___overview_html_ga589798490f989cfa032c68538bb19855"><div class="ttname"><a href="group___overview.html#ga589798490f989cfa032c68538bb19855">XTM_FFR_REC</a></div><div class="ttdeci">#define XTM_FFR_REC</div><div class="ttdoc">recovery </div><div class="ttdef"><b>Definition:</b> xtmr_manager_l.h:79</div></div>
+</div><!-- fragment -->
+<p>Update the statistics of the instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FirstFailingRegister</td><td>contains the contents of the first failing register to update the statistics with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<p>Signature: void XTMR_Manager_UpdateStats(<a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> *InstancePtr, u32 FirstFailingRegister) </p>
 
 </div>
 </div>
@@ -466,7 +1542,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XTMR_Manager_Out32((BaseAddress) + (RegOffset), (u32)(Data))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaea6e0bfcfd66fa6548889b406fa61b96">XTMR_Manager_Out32</a>((BaseAddress) + (RegOffset), (u32)(Data))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -475,44 +1551,19 @@ Variables</h2></td></tr>
 <p>A 32 bit write is performed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the TMRManager device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset from the base to write to. </td></tr>
-    <tr><td class="paramname">Data</td><td>is the data written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the TMRManager device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>is the register offset from the base to write to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>is the data written to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void XTMR_Manager_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </dd></dl>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>, <a class="el" href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">XTMR_Manager_DisableInterrupt()</a>, and <a class="el" href="group___overview.html#ga3712c905face19b5734a4807ad5e2814">XTMR_Manager_EnableInterrupt()</a>.</p>
+<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>, <a class="el" href="group___overview.html#gad39bb96c73a9cfee8367f01565d02b7a">XTMR_Manager_Configure_BrkDelay()</a>, <a class="el" href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">XTMR_Manager_DisableInterrupt()</a>, and <a class="el" href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">XTMR_Manager_EnableInterrupt()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="gab0ab64d8a9b6be8268492f2850afe5e5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Handler</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the handler which performs processing to send data to the TMR_Manager. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when the transmit FIFO of the TMR_Manager is empty and more data can be sent through the TMR_Manager.</p>
-<p>This handler provides an example of how to handle data for the TMR_Manager, but is application specific.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>contains a callback reference from the driver. In this case it is the instance pointer for the TMR_Manager driver.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ga8c9619c50a362b87f1d210c31ef76d15"></a>
 <div class="memitem">
 <div class="memproto">
@@ -529,6 +1580,32 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga9277979a616076ffb7f7ee793bbbf452"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void _xtmr_manager_initialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform low-level hardware initialization of the TMR Manager. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga8eda042057cb93a92372914efcc95370"></a>
 <div class="memitem">
 <div class="memproto">
@@ -547,14 +1624,13 @@ Variables</h2></td></tr>
 <p>Call the prerecovery user handler, and then suspend the processor, to signal to the TMR Manager hardware that it should reset the TMR sub-system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Called from break vector, with interrupts disabled. </dd></dl>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___config.html#a2c2492ecb0c3e378b52e354cb96e4889">XTMR_Manager_Config::Magic1</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#a742af92f46cbd48043582f2f1fac1586">XTMR_Manager::Config</a>, <a class="el" href="struct_x_t_m_r___manager.html#a5900b2ad4493f3b1cac896e93f7a134b">XTMR_Manager::Cr</a>, <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a2c2492ecb0c3e378b52e354cb96e4889">XTMR_Manager_Config::Magic1</a>, <a class="el" href="struct_x_t_m_r___manager.html#a513a53d97b3c01bfba7f6f8f70fd175f">XTMR_Manager::PreResetCallBackRef</a>, <a class="el" href="struct_x_t_m_r___manager.html#a2dfd3181c6a6e135645b9e094dac2da7">XTMR_Manager::PreResetHandler</a>, <a class="el" href="group___overview.html#gad29671007edb5ebfe84bd0ae5a391978">XTM_CR_MAGIC1_MASK</a>, and <a class="el" href="group___overview.html#gab1f403ffc96a702832baff7e00831be2">XTM_CR_RIR_MASK</a>.</p>
 
 </div>
 </div>
@@ -592,9 +1668,9 @@ Variables</h2></td></tr>
 <p>The receive and transmit FIFOs of the core are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the core interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
-    <tr><td class="paramname">Config</td><td>is a reference to a structure containing information about a specific TMR Manager device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Config</td><td>is a reference to a structure containing information about a specific TMR Manager device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
   </table>
   </dd>
 </dl>
@@ -604,7 +1680,7 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The Config pointer argument is not used by this function, but is provided to keep the function signature consistent with other drivers. </dd></dl>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___config.html#ab5028443b50f20268cdbaa3505434587">XTMR_Manager_Config::BrkDelayRstValue</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#aea5febd4b3d76611b3ead50ba72cc664">XTMR_Manager_Config::BrkDelayWidth</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a5638cd043ab056eab8ac0f3b1e86f6cd">XTMR_Manager_Config::ComparatorsMask</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a2c2492ecb0c3e378b52e354cb96e4889">XTMR_Manager_Config::Magic1</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a401aee407942cb10d557e9fc482359f0">XTMR_Manager_Config::MaskRstValue</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#ab1be7d71a20060985cf8d28e0f29735a">XTMR_Manager_Config::SemInterface</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a94861f845e23a09e1e96a8f976325b6e">XTMR_Manager_Config::TestComparator</a>, <a class="el" href="group___overview.html#ga6328ba6cbb2bab523942eb82a3515a8d">XTMR_Manager_ClearStats()</a>, and <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
+<p>References <a class="el" href="group___overview.html#ga9277979a616076ffb7f7ee793bbbf452">_xtmr_manager_initialize()</a>, <a class="el" href="struct_x_t_m_r___manager.html#affe67f7e583533cfd95180e0fda40065">XTMR_Manager::Bdir</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#ab5028443b50f20268cdbaa3505434587">XTMR_Manager_Config::BrkDelayRstValue</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#aea5febd4b3d76611b3ead50ba72cc664">XTMR_Manager_Config::BrkDelayWidth</a>, <a class="el" href="struct_x_t_m_r___manager.html#abc84d4a956b1ebdb7b20b053f1a5c482">XTMR_Manager::Cfir</a>, <a class="el" href="struct_x_t_m_r___manager.html#a9fee1a4c60dfd49105fe50b150768a10">XTMR_Manager::Cmr0</a>, <a class="el" href="struct_x_t_m_r___manager.html#a3ce2d8e35325aa85054196aa48647978">XTMR_Manager::Cmr1</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a5638cd043ab056eab8ac0f3b1e86f6cd">XTMR_Manager_Config::ComparatorsMask</a>, <a class="el" href="struct_x_t_m_r___manager.html#a742af92f46cbd48043582f2f1fac1586">XTMR_Manager::Config</a>, <a class="el" href="struct_x_t_m_r___manager.html#a5900b2ad4493f3b1cac896e93f7a134b">XTMR_Manager::Cr</a>, <a class="el" href="struct_x_t_m_r___manager.html#aaf6e0ead681cf5b466c1cb5cbc1817bc">XTMR_Manager::Handler</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a7af3688caf0ba497d9adf870b5e8c2cd">XTMR_Manager_Config::IntrId</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#ad762ee0355ec7220ee1c1b11912ba4e5">XTMR_Manager_Config::IntrParent</a>, <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a2c2492ecb0c3e378b52e354cb96e4889">XTMR_Manager_Config::Magic1</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a401aee407942cb10d557e9fc482359f0">XTMR_Manager_Config::MaskRstValue</a>, <a class="el" href="struct_x_t_m_r___manager.html#a1318c3215d2d8636bd93babee7c5a5d6">XTMR_Manager::PostResetHandler</a>, <a class="el" href="struct_x_t_m_r___manager.html#a2dfd3181c6a6e135645b9e094dac2da7">XTMR_Manager::PreResetHandler</a>, <a class="el" href="struct_x_t_m_r___manager.html#ac2332ba307f2df6127ee6c182c559918">XTMR_Manager::RecoveryHandler</a>, <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="struct_x_t_m_r___manager.html#ac5fd5d597db81fc4b33df4ccf308c1ed">XTMR_Manager::SemImr</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#ab1be7d71a20060985cf8d28e0f29735a">XTMR_Manager_Config::SemInterface</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a94861f845e23a09e1e96a8f976325b6e">XTMR_Manager_Config::TestComparator</a>, <a class="el" href="group___overview.html#ga3c24f1d8ef07f0d90b8bd2330e821ea7">XTM_CR_OFFSET</a>, <a class="el" href="group___overview.html#gab7e8e2723802889e6e06c675f8f8c58a">XTM_CR_RIR</a>, <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, <a class="el" href="group___overview.html#ga6328ba6cbb2bab523942eb82a3515a8d">XTMR_Manager_ClearStats()</a>, and <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>.</p>
 
@@ -627,16 +1703,53 @@ Variables</h2></td></tr>
 <p>This function zeros the statistics for the given instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#ada777980dd034c3f1eef945e94570c93">XTMR_Manager_Stats::InterruptCount</a>, and <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#ada777980dd034c3f1eef945e94570c93">XTMR_Manager_Stats::InterruptCount</a>, <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, and <a class="el" href="struct_x_t_m_r___manager.html#a93e610bae21b4f43b4cf6e3bc3150638">XTMR_Manager::Stats</a>.</p>
 
 <p>Referenced by <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gad39bb96c73a9cfee8367f01565d02b7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XTMR_Manager_Configure_BrkDelay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>BrkDelay</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function configures the break delay value in Break Delay Initialization Register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BrkDelay</td><td>is the break delay value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="group___overview.html#gad9f9825608068c2cffab46e5b68dd726">XTM_BDIR_OFFSET</a>, and <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
 
 </div>
 </div>
@@ -654,22 +1767,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function disables the core interrupt. </p>
-<p>After calling this function, data may still be received by the core but no interrupt will be generated since the hardware device has no way to disable the receiver.</p>
+<p>Disables the core interrupt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="struct_x_t_m_r___manager.html#ac5fd5d597db81fc4b33df4ccf308c1ed">XTMR_Manager::SemImr</a>, <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, and <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga3712c905face19b5734a4807ad5e2814"></a>
+<a class="anchor" id="gaae4460868ab0d9ac0f28f4eba203a68a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -693,27 +1803,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function enables the core interrupt such that an interrupt will occur when any of the SEM status signals indicated by the mask are changed. </p>
-<p>This function enables the core interrupt such that an interrupt will occur when an unmasked SEM status input changes value.</p>
+<p>Enables the core interrupt such that an interrupt will occur when any of the unmasked SEM status signals change value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
-    <tr><td class="paramname">Mask</td><td>is a mask indicating bits that should give an interrupt.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mask</td><td>is a bitmask indicating which SEM signals trigger an interrupt. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="struct_x_t_m_r___manager.html#ac5fd5d597db81fc4b33df4ccf308c1ed">XTMR_Manager::SemImr</a>, <a class="el" href="group___overview.html#ga2a0bf4e75668b4ed345b443b18e95ad3">XTM_SEMIMR_OFFSET</a>, and <a class="el" href="group___overview.html#gaed2dede73cee6aea5d17d5a417807d99">XTMR_Manager_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>.</p>
 
@@ -746,15 +1845,14 @@ Variables</h2></td></tr>
 <p>Returns a snapshot of the current statistics in the structure specified. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
-    <tr><td class="paramname">StatsPtr</td><td>is a pointer to a XTMR_ManagerStats structure to where the statistics are to be copied.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">StatsPtr</td><td>is a pointer to a XTMR_ManagerStats structure to where the statistics are to be copied. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>&lt; Copy the stats from the instance to the specified stats </p>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#ada777980dd034c3f1eef945e94570c93">XTMR_Manager_Stats::InterruptCount</a>, and <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#ada777980dd034c3f1eef945e94570c93">XTMR_Manager_Stats::InterruptCount</a>, <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, and <a class="el" href="struct_x_t_m_r___manager.html#a93e610bae21b4f43b4cf6e3bc3150638">XTMR_Manager::Stats</a>.</p>
 
 </div>
 </div>
@@ -786,21 +1884,20 @@ Variables</h2></td></tr>
 <p>The receive and transmit FIFOs of the core are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the core interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>is the unique id of the device controlled by this <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. Passing in a device id associates the generic <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance to a specific device, as chosen by the caller or application developer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the TMR_Manager device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if everything starts up as expected.</li>
-<li>XST_DEVICE_NOT_FOUND if the device is not found in the configuration table.</li>
+<li>XST_DEVICE_NOT_FOUND if the device is not found in the configuration table. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___config.html#a9956aa0740b61010392479fbace5a73d">XTMR_Manager_Config::RegBaseAddr</a>, and <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager___config.html#a9956aa0740b61010392479fbace5a73d">XTMR_Manager_Config::RegBaseAddr</a>, <a class="el" href="group___overview.html#ga09e58678fd2da7ffea2012d1f25ee42e">XTMR_Manager_CfgInitialize()</a>, and <a class="el" href="group___overview.html#ga19df82d2bc220d9855e5eaed3fc42b67">XTMR_Manager_LookupConfig()</a>.</p>
 
-<p>Referenced by <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>, <a class="el" href="xtmr__manager__polled__example_8c.html#a336862d0c73c58f22cb7d79142b2458f">TMR_ManagerPolledExample()</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>, and <a class="el" href="xtmr__manager__selftest__example_8c.html#af6aa41ffa676294ac2652cfb84f87d16">TMR_ManagerSelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>, <a class="el" href="xtmr__manager__polled__example_8c.html#a336862d0c73c58f22cb7d79142b2458f">TMR_ManagerPolledExample()</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>, and <a class="el" href="xtmr__manager__selftest__example_8c.html#af6aa41ffa676294ac2652cfb84f87d16">TMR_ManagerSelfTestExample()</a>.</p>
 
 </div>
 </div>
@@ -822,12 +1919,64 @@ Variables</h2></td></tr>
 <p>It must be connected to an interrupt system by the user such that it is called when an interrupt for any TMR Manager occurs. This function does not save or restore the processor context such that the user must ensure this occurs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>contains a pointer to the instance of the core that the interrupt is for.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>contains a pointer to the instance of the core that the interrupt is for. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga3fdc1688444aec5eb0173a45f6e0a2e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XTMR_Manager_IsWdtExpired </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the internal watchdog timer has expired. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-zero if the watchdog has expired, zero otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga19df82d2bc220d9855e5eaed3fc42b67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_t_m_r___manager___config.html">XTMR_Manager_Config</a> * XTMR_Manager_LookupConfig </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Look up TMR Manager configuration by base address (SDT flow). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the TMR Manager device.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the matching config structure, or NULL if not found. </dd></dl>
+
+<p>References <a class="el" href="struct_x_t_m_r___manager___config.html#a38216f8f48523e6647c97c017bb060b3">XTMR_Manager_Config::Name</a>, and <a class="el" href="group___overview.html#gad24de1aa423a2db29d027fd88f97845c">XTMR_Manager_ConfigTable</a>.</p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>.</p>
 
 </div>
 </div>
@@ -848,14 +1997,40 @@ Variables</h2></td></tr>
 <p>Detect and handle recovery reset or cold reset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether the reset was recovery reset (1) or cold reset (0).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Called from assembler context. The assembler routine ensures that the context is restored when doing a recovery reset. </dd></dl>
+<p>&lt; Clear First Failing Status after successful recovery</p>
+<p>&lt; Restore saved context and resume execution </p>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, <a class="el" href="group___overview.html#ga4ec324f514b4bd419c5dbdccb3c0bc0c">XTMR_Manager_ClearFirstFailingReg</a>, and <a class="el" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#ae5088cc2d2df5aa676971e07559d02d9">XTMR_Manager::PostResetCallBackRef</a>, <a class="el" href="struct_x_t_m_r___manager.html#a1318c3215d2d8636bd93babee7c5a5d6">XTMR_Manager::PostResetHandler</a>, <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="struct_x_t_m_r___manager.html#a93e610bae21b4f43b4cf6e3bc3150638">XTMR_Manager::Stats</a>, <a class="el" href="group___overview.html#ga3deb46d580dafc76c1ca1554a3c9d474">XTM_FFR_LM12_LM13_MASK</a>, <a class="el" href="group___overview.html#gaddcb145d8ab812d04573b9d81a9cd5be">XTM_FFR_LM12_LM23_MASK</a>, <a class="el" href="group___overview.html#ga8af548d45f5443dbd1bb10430ae91d8a">XTM_FFR_LM13_LM23_MASK</a>, <a class="el" href="group___overview.html#gab9fcb75f72e89ae0e5b167517f1ed67a">XTM_FFR_REC_12_13_MASK</a>, <a class="el" href="group___overview.html#ga8f29ddf323caf31094a781fc08b9aadd">XTM_FFR_REC_12_23_MASK</a>, <a class="el" href="group___overview.html#ga4dbc8a7aba5a39776ce84c16bf978a05">XTM_FFR_REC_13_23_MASK</a>, <a class="el" href="group___overview.html#gababaad940c35fec5595eab663b99b816">XTM_FFR_REC_MASK</a>, <a class="el" href="group___overview.html#ga4ec324f514b4bd419c5dbdccb3c0bc0c">XTMR_Manager_ClearFirstFailingReg</a>, and <a class="el" href="group___overview.html#gae097f0b81faa2914c3609fa800b971f5">XTMR_Manager_GetFirstFailingReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabb4b2d1d6034b3151973a91bd83ee4a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XTMR_Manager_RestartWdt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Restart the internal watchdog timer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -877,20 +2052,61 @@ Variables</h2></td></tr>
 <p>Since there is no way to perform a loopback in the hardware, this test can only check the state of the status register to verify it is correct. This test assumes that the hardware device is still in its reset state, but has been initialized with the Initialize function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the self-test was successful.</li>
-<li>XST_FAILURE if the self-test failed, the status register value was not correct</li>
+<li>XST_FAILURE if the self-test failed, the status register value was not correct </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#a96959d8b1b4f7fa0382fdb0dc8a3c63f">XTMR_Manager::RegBaseAddress</a>, <a class="el" href="group___overview.html#ga44e93ee97dd9ae05253652d2a956e63b">XTM_FFR_OFFSET</a>, and <a class="el" href="group___overview.html#gae9c918e69e2db4e9aafa6aad8e01c091">XTMR_Manager_ReadReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>, <a class="el" href="xtmr__manager__polled__example_8c.html#a336862d0c73c58f22cb7d79142b2458f">TMR_ManagerPolledExample()</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>, and <a class="el" href="xtmr__manager__selftest__example_8c.html#af6aa41ffa676294ac2652cfb84f87d16">TMR_ManagerSelfTestExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabc6863b91093c3c17f37d2c888c8540c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XTMR_Manager_SemCommand </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>response</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a SEM command and receive the response. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">command</td><td>is the SEM command string to send. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">response</td><td>is the buffer to store the SEM response. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -924,29 +2140,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </p>
-<p>The purpose of the handler is to allow application specific processing to be performed.</p>
+<p>Sets the handler that will be called when an interrupt event occurs. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver doesn't know what it is (nor should it)</dd></dl>
-<p>The purpose of the handler is to allow application specific processing to be performed.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance . </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver doesn't know what it is (nor should it) </dd></dl>
+
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#afd72080a3e684a34516743136f0f4d80">XTMR_Manager::CallBackRef</a>, <a class="el" href="struct_x_t_m_r___manager.html#aaf6e0ead681cf5b466c1cb5cbc1817bc">XTMR_Manager::Handler</a>, and <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>.</p>
 
 </div>
 </div>
@@ -983,11 +2187,14 @@ Variables</h2></td></tr>
 <p>Set the user post-reset handler, which can be used to restore context after reset in a recovery sequence. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#ae5088cc2d2df5aa676971e07559d02d9">XTMR_Manager::PostResetCallBackRef</a>, and <a class="el" href="struct_x_t_m_r___manager.html#a1318c3215d2d8636bd93babee7c5a5d6">XTMR_Manager::PostResetHandler</a>.</p>
 
 </div>
 </div>
@@ -1024,13 +2231,17 @@ Variables</h2></td></tr>
 <p>Set the user pre-reset handler, which can be used to save context before reset in a recovery sequence. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This function is run in interrupt context. </dd></dl>
 
-<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#a513a53d97b3c01bfba7f6f8f70fd175f">XTMR_Manager::PreResetCallBackRef</a>, and <a class="el" href="struct_x_t_m_r___manager.html#a2dfd3181c6a6e135645b9e094dac2da7">XTMR_Manager::PreResetHandler</a>.</p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
 
 </div>
 </div>
@@ -1067,11 +2278,15 @@ Variables</h2></td></tr>
 <p>Set the user recovery handler, which can replace the pre-defined handler completely, to do custom recovery. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This function is run in interrupt context. </dd></dl>
+
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#af1d89c01a7a69b3e9a8b7a6d970132c6">XTMR_Manager::IsReady</a>, <a class="el" href="struct_x_t_m_r___manager.html#ae74d16e0403d25e6456f026a5847bf82">XTMR_Manager::RecoveryCallBackRef</a>, and <a class="el" href="struct_x_t_m_r___manager.html#ac2332ba307f2df6127ee6c182c559918">XTMR_Manager::RecoveryHandler</a>.</p>
 
 </div>
 </div>
@@ -1115,6 +2330,8 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p>The configuration table for TMR Manager devices. </p>
 
+<p>Referenced by <a class="el" href="group___overview.html#ga19df82d2bc220d9855e5eaed3fc42b67">XTMR_Manager_LookupConfig()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="gabeb554e9f74397f104b26f0cd6fef0ee"></a>
@@ -1128,6 +2345,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The configuration table for TMR Manager devices. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga19df82d2bc220d9855e5eaed3fc42b67">XTMR_Manager_LookupConfig()</a>.</p>
 
 </div>
 </div>

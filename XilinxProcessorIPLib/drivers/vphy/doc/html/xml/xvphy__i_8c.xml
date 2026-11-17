@@ -18,19 +18,6 @@
       <node id="215">
         <label>sleep.h</label>
       </node>
-      <node id="205">
-        <label>xvphy.h</label>
-        <childnode refid="206" relation="include">
-        </childnode>
-        <childnode refid="207" relation="include">
-        </childnode>
-        <childnode refid="208" relation="include">
-        </childnode>
-        <childnode refid="211" relation="include">
-        </childnode>
-        <childnode refid="212" relation="include">
-        </childnode>
-      </node>
       <node id="208">
         <label>xvphy_hw.h</label>
         <link refid="xvphy__hw_8h"/>
@@ -42,32 +29,17 @@
       <node id="212">
         <label>xvphy_dp.h</label>
       </node>
-      <node id="204">
-        <label>xstatus.h</label>
-      </node>
-      <node id="211">
-        <label>xvidc.h</label>
-      </node>
-      <node id="216">
-        <label>xvphy_gt.h</label>
-        <link refid="xvphy__gt_8h"/>
-        <childnode refid="205" relation="include">
-        </childnode>
-        <childnode refid="213" relation="include">
-        </childnode>
+      <node id="205">
+        <label>xvphy.h</label>
         <childnode refid="206" relation="include">
         </childnode>
-      </node>
-      <node id="210">
-        <label>xil_types.h</label>
-      </node>
-      <node id="207">
-        <label>xparameters.h</label>
-      </node>
-      <node id="214">
-        <label>xvphy_hdmi.h</label>
-        <link refid="xvphy__hdmi_8h"/>
         <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="212" relation="include">
         </childnode>
       </node>
       <node id="203">
@@ -98,6 +70,34 @@
         <childnode refid="211" relation="include">
         </childnode>
         <childnode refid="212" relation="include">
+        </childnode>
+      </node>
+      <node id="214">
+        <label>xvphy_hdmi.h</label>
+        <link refid="xvphy__hdmi_8h"/>
+        <childnode refid="207" relation="include">
+        </childnode>
+      </node>
+      <node id="204">
+        <label>xstatus.h</label>
+      </node>
+      <node id="211">
+        <label>xvidc.h</label>
+      </node>
+      <node id="210">
+        <label>xil_types.h</label>
+      </node>
+      <node id="207">
+        <label>xparameters.h</label>
+      </node>
+      <node id="216">
+        <label>xvphy_gt.h</label>
+        <link refid="xvphy__gt_8h"/>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -140,31 +140,31 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="64" bodyend="116"/>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
-        <references refid="group__vphy_1ga9317f3ce5601d5174843522ad0d99833" compoundref="xvphy__hw_8h" startline="219">XVPHY_REF_CLK_SEL_QPLL0_MASK</references>
-        <references refid="group__vphy_1gae55bddf7963259779b5bd6a24b1dae0e" compoundref="xvphy__hw_8h" startline="220">XVPHY_REF_CLK_SEL_CPLL_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="64" bodyend="116"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
+        <references refid="group__vphy_1ga9317f3ce5601d5174843522ad0d99833" compoundref="xvphy__hw_8h" startline="220">XVPHY_REF_CLK_SEL_QPLL0_MASK</references>
+        <references refid="group__vphy_1gae55bddf7963259779b5bd6a24b1dae0e" compoundref="xvphy__hw_8h" startline="221">XVPHY_REF_CLK_SEL_CPLL_MASK</references>
         <references refid="struct_x_vphy___channel_1ab7b9e1486c525cab92eff049db5b2736" compoundref="xvphy_8h" startline="518">XVphy_Channel::CpllRefClkSel</references>
-        <references refid="group__vphy_1gab4e5423a75488aa7af3b0326fcecf627" compoundref="xvphy__hw_8h" startline="221">XVPHY_REF_CLK_SEL_CPLL_SHIFT</references>
-        <references refid="group__vphy_1ga80cd103c19c96a6a08af34df8e6bd8ff" compoundref="xvphy__hw_8h" startline="222">XVPHY_REF_CLK_SEL_QPLL1_MASK</references>
-        <references refid="group__vphy_1gab304b38d00d897fe23ea94fd29cdd412" compoundref="xvphy__hw_8h" startline="223">XVPHY_REF_CLK_SEL_QPLL1_SHIFT</references>
-        <references refid="group__vphy_1gaf699b85ad50d83a9999d9b7efa1ee01f" compoundref="xvphy__hw_8h" startline="235">XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK</references>
+        <references refid="group__vphy_1gab4e5423a75488aa7af3b0326fcecf627" compoundref="xvphy__hw_8h" startline="222">XVPHY_REF_CLK_SEL_CPLL_SHIFT</references>
+        <references refid="group__vphy_1ga80cd103c19c96a6a08af34df8e6bd8ff" compoundref="xvphy__hw_8h" startline="223">XVPHY_REF_CLK_SEL_QPLL1_MASK</references>
+        <references refid="group__vphy_1gab304b38d00d897fe23ea94fd29cdd412" compoundref="xvphy__hw_8h" startline="224">XVPHY_REF_CLK_SEL_QPLL1_SHIFT</references>
+        <references refid="group__vphy_1gaf699b85ad50d83a9999d9b7efa1ee01f" compoundref="xvphy__hw_8h" startline="236">XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK</references>
         <references refid="struct_x_vphy___channel_1a53154b4333f2b5e8d59da3247d951725" compoundref="xvphy_8h" startline="558">XVphy_Channel::TxDataRefClkSel</references>
-        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="283">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
-        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="263">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="284">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="264">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
         <references refid="struct_x_vphy___channel_1ada3cc8b765b058c1ba28cc333f88929b" compoundref="xvphy_8h" startline="554">XVphy_Channel::RxDataRefClkSel</references>
-        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="278">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
-        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="258">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="279">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="259">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
         <references refid="struct_x_vphy___channel_1ab4b1b716be1ebf833f0c3719eb1fb91a" compoundref="xvphy_8h" startline="571">XVphy_Channel::TxOutRefClkSel</references>
-        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="273">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
-        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="253">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="274">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="254">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
         <references refid="struct_x_vphy___channel_1aec2b2686abaaff0248e78b59dfb5e933" compoundref="xvphy_8h" startline="567">XVphy_Channel::RxOutRefClkSel</references>
-        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="268">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
-        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="248">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="269">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="249">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
         <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
@@ -226,9 +226,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="133" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="133" bodyend="143"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga3e41b30a437f2c8d8722c780b9cbc798" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -289,9 +289,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="161" bodyend="173"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="161" bodyend="173"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga3221e83cfbd76a7616329bdff01d517b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -352,9 +352,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="191" bodyend="203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="191" bodyend="203"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga742f461cf5a891acfd63d38ad99c068a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -415,7 +415,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="219" bodyend="246"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="219" bodyend="246"/>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -464,8 +464,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="263" bodyend="274"/>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="263" bodyend="274"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <referencedby refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</referencedby>
         <referencedby refid="group__xvphy_1gaee5af44d484a3efa16330f845a7dc65e" compoundref="xvphy__i_8c" startline="1187" endline="1233">XVphy_GetPllVcoFreqHz</referencedby>
       </memberdef>
@@ -527,18 +527,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="290" bodyend="319"/>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="290" bodyend="319"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
         <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
-        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="263">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
-        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="283">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
-        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="258">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
-        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="278">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="264">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
+        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="284">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="259">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="279">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
         <referencedby refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</referencedby>
-        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1694" endline="1720">XVphy_IsBonded</referencedby>
+        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1703" endline="1729">XVphy_IsBonded</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gafa18f0da25042d12e577a5e16d950476" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XVphy_SysClkOutSelType</type>
@@ -598,18 +598,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="335" bodyend="364"/>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="335" bodyend="364"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
         <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
-        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="253">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
-        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="273">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
-        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="248">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
-        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="268">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="254">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
+        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="274">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="249">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="269">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
         <referencedby refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</referencedby>
-        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1694" endline="1720">XVphy_IsBonded</referencedby>
+        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1703" endline="1729">XVphy_IsBonded</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gaef25e82d5f217655c1c3c3039c9e1dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -660,17 +660,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="381" bodyend="429"/>
-        <references refid="group__vphy_1ga89e35d3be0b8d1942436152817321827" compoundref="xvphy__hw_8h" startline="303">XVPHY_PLL_LOCK_STATUS_QPLL0_MASK</references>
-        <references refid="group__vphy_1gade38a4cd6f631fb127241292b60482d0" compoundref="xvphy__hw_8h" startline="304">XVPHY_PLL_LOCK_STATUS_QPLL1_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="381" bodyend="429"/>
+        <references refid="group__vphy_1ga89e35d3be0b8d1942436152817321827" compoundref="xvphy__hw_8h" startline="304">XVPHY_PLL_LOCK_STATUS_QPLL0_MASK</references>
+        <references refid="group__vphy_1gade38a4cd6f631fb127241292b60482d0" compoundref="xvphy__hw_8h" startline="305">XVPHY_PLL_LOCK_STATUS_QPLL1_MASK</references>
         <references refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</references>
         <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
-        <references refid="group__vphy_1ga598b853807e775702e06d90ae2028f15" compoundref="xvphy__hw_8h" startline="312">XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK</references>
-        <references refid="group__vphy_1ga503ab32adc84817ebd54f488de14fe0f" compoundref="xvphy__hw_8h" startline="306">XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK</references>
-        <references refid="group__vphy_1ga82b799e34c08dc9d5701e9f2465083a5" compoundref="xvphy__hw_8h" startline="301">XVPHY_PLL_LOCK_STATUS_CPLL_MASK</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga598b853807e775702e06d90ae2028f15" compoundref="xvphy__hw_8h" startline="313">XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK</references>
+        <references refid="group__vphy_1ga503ab32adc84817ebd54f488de14fe0f" compoundref="xvphy__hw_8h" startline="307">XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK</references>
+        <references refid="group__vphy_1ga82b799e34c08dc9d5701e9f2465083a5" compoundref="xvphy__hw_8h" startline="302">XVPHY_PLL_LOCK_STATUS_CPLL_MASK</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
         <references refid="group__vphy_1gaee21fa50e60826e78bef611bcc2fe092" compoundref="xvphy__hw_8h" startline="62">XVPHY_PLL_LOCK_STATUS_REG</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gae11d25f939879208256c3e8155f9873c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -744,17 +744,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="448" bodyend="490"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="448" bodyend="490"/>
         <references refid="group__vphy_1gafa6b79b6ca3f8205d83c3f80f6544742" compoundref="xvphy__hw_8h" startline="63">XVPHY_TX_INIT_REG</references>
-        <references refid="group__vphy_1gaa2a8f5464bad44ae6bff5a39532e1fb9" compoundref="xvphy__hw_8h" startline="346">XVPHY_TX_INIT_USERRDY_ALL_MASK</references>
-        <references refid="group__vphy_1ga22d1b42fe983250a7ebe64acb7c26966" compoundref="xvphy__hw_8h" startline="331">XVPHY_TX_INIT_USERRDY_MASK</references>
+        <references refid="group__vphy_1gaa2a8f5464bad44ae6bff5a39532e1fb9" compoundref="xvphy__hw_8h" startline="347">XVPHY_TX_INIT_USERRDY_ALL_MASK</references>
+        <references refid="group__vphy_1ga22d1b42fe983250a7ebe64acb7c26966" compoundref="xvphy__hw_8h" startline="332">XVPHY_TX_INIT_USERRDY_MASK</references>
         <references refid="group__vphy_1ga6ba1a933e773341388711b0f1b12ff1e" compoundref="xvphy__hw_8h" startline="65">XVPHY_RX_INIT_REG</references>
-        <references refid="group__vphy_1ga0830a06b34073f57c7caaa4a539000bd" compoundref="xvphy__hw_8h" startline="352">XVPHY_RX_INIT_USERRDY_ALL_MASK</references>
-        <references refid="group__vphy_1gabf685da805c452c0b6b7c27e0c4d4140" compoundref="xvphy__hw_8h" startline="334">XVPHY_RX_INIT_USERRDY_MASK</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <references refid="group__vphy_1ga0830a06b34073f57c7caaa4a539000bd" compoundref="xvphy__hw_8h" startline="353">XVPHY_RX_INIT_USERRDY_ALL_MASK</references>
+        <references refid="group__vphy_1gabf685da805c452c0b6b7c27e0c4d4140" compoundref="xvphy__hw_8h" startline="335">XVPHY_RX_INIT_USERRDY_MASK</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gadc182ff22a7ec230dc163f90ec5263a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -816,14 +816,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="508" bodyend="536"/>
-        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
-        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
-        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="508" bodyend="536"/>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="131">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="139">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1233" endline="1296">XVphy_MmcmStart</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga096dbcd95256264a53fe8af27c8387fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -883,14 +883,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="553" bodyend="580"/>
-        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
-        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
-        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="553" bodyend="580"/>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="131">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="139">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1233" endline="1296">XVphy_MmcmStart</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gac7160e541232b5a66b08df49d415acb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -939,12 +939,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="597" bodyend="617"/>
-        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
-        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="597" bodyend="617"/>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="131">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="139">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga15c1341136ca5bde85ab447ba9e09c56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -992,13 +992,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="630" bodyend="662"/>
-        <references refid="group__vphy_1gad67467b7c3b3679aaa2224fda0662e70" compoundref="xvphy__hw_8h" startline="135">XVPHY_BUFGGT_TXUSRCLK_REG</references>
-        <references refid="group__vphy_1ga8cf3e121bab45049367b3f75c45709fb" compoundref="xvphy__hw_8h" startline="143">XVPHY_BUFGGT_RXUSRCLK_REG</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="630" bodyend="662"/>
+        <references refid="group__vphy_1gad67467b7c3b3679aaa2224fda0662e70" compoundref="xvphy__hw_8h" startline="136">XVPHY_BUFGGT_TXUSRCLK_REG</references>
+        <references refid="group__vphy_1ga8cf3e121bab45049367b3f75c45709fb" compoundref="xvphy__hw_8h" startline="144">XVPHY_BUFGGT_RXUSRCLK_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga1b82d1b302268e36126450121d948505" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1060,16 +1060,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="680" bodyend="726"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="680" bodyend="726"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
-        <references refid="group__vphy_1gacba7c208384732be9e8ffe356f7a6387" compoundref="xvphy__hw_8h" startline="405">XVPHY_POWERDOWN_CONTROL_QPLL0PD_MASK</references>
-        <references refid="group__vphy_1gae07be42f5af7ad6233488e47da9afdfc" compoundref="xvphy__hw_8h" startline="408">XVPHY_POWERDOWN_CONTROL_QPLL1PD_MASK</references>
-        <references refid="group__vphy_1ga6f29e8743378b2e9235c310e1c58ec21" compoundref="xvphy__hw_8h" startline="402">XVPHY_POWERDOWN_CONTROL_CPLLPD_MASK</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1gacba7c208384732be9e8ffe356f7a6387" compoundref="xvphy__hw_8h" startline="406">XVPHY_POWERDOWN_CONTROL_QPLL0PD_MASK</references>
+        <references refid="group__vphy_1gae07be42f5af7ad6233488e47da9afdfc" compoundref="xvphy__hw_8h" startline="409">XVPHY_POWERDOWN_CONTROL_QPLL1PD_MASK</references>
+        <references refid="group__vphy_1ga6f29e8743378b2e9235c310e1c58ec21" compoundref="xvphy__hw_8h" startline="403">XVPHY_POWERDOWN_CONTROL_CPLLPD_MASK</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
         <references refid="group__vphy_1gaf9b0bbdef2c107a07b5f1ef9c21b8de2" compoundref="xvphy__hw_8h" startline="68">XVPHY_POWERDOWN_CONTROL_REG</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga918c7447d08e6af827ab03493348b706" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1142,7 +1142,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="754" bodyend="770"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="754" bodyend="770"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
         <references refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</references>
       </memberdef>
@@ -1206,7 +1206,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="788" bodyend="813"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="788" bodyend="813"/>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a564fa05841a99d8026e486f0ca8518c6" compoundref="xvphy_8h" startline="340">XVPHY_LOG_EVT_GT_TX_RECONFIG</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ad5bf29ae3737a33ccdbe8fc80f6a9be0" compoundref="xvphy_8h" startline="341">XVPHY_LOG_EVT_GT_RX_RECONFIG</references>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
@@ -1271,11 +1271,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="831" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="831" bodyend="875"/>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
-        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
-        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="831" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="831" bodyend="875"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="683">XVphy_Config::TxProtocol</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="684">XVphy_Config::RxProtocol</references>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a564fa05841a99d8026e486f0ca8518c6" compoundref="xvphy_8h" startline="340">XVPHY_LOG_EVT_GT_TX_RECONFIG</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ad5bf29ae3737a33ccdbe8fc80f6a9be0" compoundref="xvphy_8h" startline="341">XVPHY_LOG_EVT_GT_RX_RECONFIG</references>
@@ -1329,17 +1329,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="893" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="893" bodyend="939"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="893" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="893" bodyend="939"/>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
         <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
-        <references refid="struct_x_vphy_1af531211ea7310c5ca915087e3e149ba7" compoundref="xvphy_8h" startline="742">XVphy::HdmiIsQpllPresent</references>
+        <references refid="struct_x_vphy_1af531211ea7310c5ca915087e3e149ba7" compoundref="xvphy_8h" startline="736">XVphy::HdmiIsQpllPresent</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a4b20089e51eaca42947a432468aa6a56" compoundref="xvphy_8h" startline="363">XVPHY_LOG_EVT_NO_QPLL_ERR</references>
         <references refid="group__xvphy_1ga6955153625236c5779240d2aab90678e" compoundref="xvphy__intr_8c" startline="265" endline="284">XVphy_CfgErrIntr</references>
         <references refid="group__vphy_1gga0c4928c07c1953d959717f3b336ceca4a072511027ffc971304ceaf36b905f3c9" compoundref="xvphy_8h" startline="391">XVPHY_ERR_NO_QPLL</references>
         <references refid="group__xvphy_1ga73b006ef6011c416c0e582d546b192a5" compoundref="xvphy__i_8c" startline="1489" endline="1494">XVphy_ErrorHandler</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ac40104381761e9e75f7cd39b77604468" compoundref="xvphy_8h" startline="326">XVPHY_LOG_EVT_CPLL_RECONFIG</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a786d40f0263293814d72536da3dc0f8c" compoundref="xvphy_8h" startline="306">XVPHY_LOG_EVT_QPLL_RECONFIG</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862acd2a55ba7c91782029e40356154b66a2" compoundref="xvphy_8h" startline="318">XVPHY_LOG_EVT_PLL0_RECONFIG</references>
         <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ab201b87e897162791ec58380d04a984b" compoundref="xvphy_8h" startline="322">XVPHY_LOG_EVT_PLL1_RECONFIG</references>
@@ -1402,13 +1402,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="958" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="958" bodyend="1008"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="958" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="958" bodyend="1008"/>
         <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a99ff7516bbf21301a9d10ca0faf725a2" compoundref="xvphy_8h" startline="706">XVphy_Config::UseGtAsTxTmdsClk</references>
-        <references refid="struct_x_vphy___config_1a2b34afde69ce6733341003cde6aee506" compoundref="xvphy_8h" startline="685">XVphy_Config::TxChannels</references>
-        <references refid="struct_x_vphy___config_1af7fdb76ac0ffc18275711ae874d309a1" compoundref="xvphy_8h" startline="686">XVphy_Config::RxChannels</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a99ff7516bbf21301a9d10ca0faf725a2" compoundref="xvphy_8h" startline="702">XVphy_Config::UseGtAsTxTmdsClk</references>
+        <references refid="struct_x_vphy___config_1a2b34afde69ce6733341003cde6aee506" compoundref="xvphy_8h" startline="681">XVphy_Config::TxChannels</references>
+        <references refid="struct_x_vphy___config_1af7fdb76ac0ffc18275711ae874d309a1" compoundref="xvphy_8h" startline="682">XVphy_Config::RxChannels</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
         <referencedby refid="xvphy_8c_1ad5d2ef80f68b92db024b3e690d0c410e" compoundref="xvphy_8c" startline="385" endline="399">XVphy_CfgLineRate</referencedby>
         <referencedby refid="xvphy_8c_1a0b84e89a63bfed4a253be21d5c1d45d7" compoundref="xvphy_8c" startline="848" endline="897">XVphy_SetPrbsSel</referencedby>
         <referencedby refid="group__xvphy_1ga76c375e68d3d82cba1c7d8a53c961eb7" compoundref="xvphy__i_8c" startline="133" endline="143">XVphy_CfgPllRefClkSel</referencedby>
@@ -1446,7 +1446,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1021" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1021" bodyend="1034"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1021" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1021" bodyend="1034"/>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga4d8c6a493924deb1f7d367bc3da8f437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1474,7 +1474,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1047" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1047" bodyend="1060"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1047" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1047" bodyend="1060"/>
         <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1548,12 +1548,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1086" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1086" bodyend="1171"/>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1086" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1086" bodyend="1171"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <references refid="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" compoundref="xvphy__i_8c" startline="263" endline="274">XVphy_GetQuadRefClkFreq</references>
         <references refid="xvphy_8c_1a83265bb40529b7550588a1ee0216fe1f" compoundref="xvphy_8c" startline="511" endline="519">XVphy_GetLineRateHz</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="680">XVphy_Config::XcvrType</references>
         <references refid="struct_x_vphy___channel_1a3fd1bb0f1355b276eb5ebad802dc0d3c" compoundref="xvphy_8h" startline="510">XVphy_Channel::LineRateHz</references>
         <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
         <referencedby refid="group__xvphy_1ga918c7447d08e6af827ab03493348b706" compoundref="xvphy__i_8c" startline="754" endline="770">XVphy_ClkCalcParams</referencedby>
@@ -1616,13 +1616,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1187" bodyend="1233"/>
-        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1187" bodyend="1233"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="729">XVphy::Quads</references>
         <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
-        <references refid="struct_x_vphy_1a0155c11fa9df81437618a87b5a3a3058" compoundref="xvphy_8h" startline="738">XVphy::HdmiTxRefClkHz</references>
+        <references refid="struct_x_vphy_1a0155c11fa9df81437618a87b5a3a3058" compoundref="xvphy_8h" startline="732">XVphy::HdmiTxRefClkHz</references>
         <references refid="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" compoundref="xvphy__i_8c" startline="263" endline="274">XVphy_GetQuadRefClkFreq</references>
-        <references refid="struct_x_vphy_1acc8c8add92ab924f374bab01a466f7ee" compoundref="xvphy_8h" startline="741">XVphy::HdmiRxDruIsEnabled</references>
-        <references refid="struct_x_vphy_1a77176131b002d4f0d72af27d855c0316" compoundref="xvphy_8h" startline="737">XVphy::HdmiRxRefClkHz</references>
+        <references refid="struct_x_vphy_1acc8c8add92ab924f374bab01a466f7ee" compoundref="xvphy_8h" startline="735">XVphy::HdmiRxDruIsEnabled</references>
+        <references refid="struct_x_vphy_1a77176131b002d4f0d72af27d855c0316" compoundref="xvphy_8h" startline="731">XVphy::HdmiRxRefClkHz</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1649,14 +1649,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1247" bodyend="1294"/>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
-        <references refid="struct_x_vphy___config_1a051aa77b41a00fb1fa60db838fb388e2" compoundref="xvphy_8h" startline="689">XVphy_Config::TxRefClkSel</references>
-        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
-        <references refid="struct_x_vphy___config_1ae9a8b806d7a523628ca8b375836b1d73" compoundref="xvphy_8h" startline="690">XVphy_Config::RxRefClkSel</references>
-        <references refid="struct_x_vphy___config_1af548321a00c7220627ee6a34d930f103" compoundref="xvphy_8h" startline="693">XVphy_Config::DruIsPresent</references>
-        <references refid="struct_x_vphy___config_1ae27a9635e2070126c83f132e3c885dd9" compoundref="xvphy_8h" startline="695">XVphy_Config::DruRefClkSel</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1247" bodyend="1294"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="683">XVphy_Config::TxProtocol</references>
+        <references refid="struct_x_vphy___config_1a051aa77b41a00fb1fa60db838fb388e2" compoundref="xvphy_8h" startline="685">XVphy_Config::TxRefClkSel</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="684">XVphy_Config::RxProtocol</references>
+        <references refid="struct_x_vphy___config_1ae9a8b806d7a523628ca8b375836b1d73" compoundref="xvphy_8h" startline="686">XVphy_Config::RxRefClkSel</references>
+        <references refid="struct_x_vphy___config_1af548321a00c7220627ee6a34d930f103" compoundref="xvphy_8h" startline="689">XVphy_Config::DruIsPresent</references>
+        <references refid="struct_x_vphy___config_1ae27a9635e2070126c83f132e3c885dd9" compoundref="xvphy_8h" startline="691">XVphy_Config::DruRefClkSel</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1694,11 +1694,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1463" bodyend="1476"/>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
-        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
-        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1463" bodyend="1476"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="683">XVphy_Config::TxProtocol</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="684">XVphy_Config::RxProtocol</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1233" endline="1296">XVphy_MmcmStart</referencedby>
         <referencedby refid="group__xvphy_1gaef25e82d5f217655c1c3c3039c9e1dc3" compoundref="xvphy__i_8c" startline="381" endline="429">XVphy_IsPllLocked</referencedby>
         <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
         <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
@@ -1730,9 +1730,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1489" bodyend="1494"/>
-        <references refid="struct_x_vphy_1a5ae275f2f42007a128bac1b3c1a7ae2b" compoundref="xvphy_8h" startline="824">XVphy::ErrorCallback</references>
-        <references refid="struct_x_vphy_1a0b218971d2035f0bfde658179ed6dfc6" compoundref="xvphy_8h" startline="825">XVphy::ErrorRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" line="1489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1489" bodyend="1494"/>
+        <references refid="struct_x_vphy_1a5ae275f2f42007a128bac1b3c1a7ae2b" compoundref="xvphy_8h" startline="818">XVphy::ErrorCallback</references>
+        <references refid="struct_x_vphy_1a0b218971d2035f0bfde658179ed6dfc6" compoundref="xvphy_8h" startline="819">XVphy::ErrorRef</references>
         <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
       </memberdef>
       </sectiondef>
@@ -2744,6 +2744,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="1514"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1515"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c"/>
   </compounddef>
 </doxygen>

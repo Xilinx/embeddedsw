@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xusb__ch9__dfu_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_ch9_dfu.h File Reference</div>  </div>
@@ -118,6 +119,24 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusb__ch9_8h.html">xusb_ch9.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#a17b88ec5acbe5c6ca45a3f8afd8ff50d">DFU_MAX_TRANSFER</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum DFU block transfer size in bytes.  <a href="#a17b88ec5acbe5c6ca45a3f8afd8ff50d">More...</a><br/></td></tr>
+<tr class="separator:a17b88ec5acbe5c6ca45a3f8afd8ff50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ad75a7f1933dd84023d554f49267d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#ae4ad75a7f1933dd84023d554f49267d2">be2le</a>(val)&#160;&#160;&#160;(u32)(val)</td></tr>
+<tr class="memdesc:ae4ad75a7f1933dd84023d554f49267d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Be2le(val).  <a href="#ae4ad75a7f1933dd84023d554f49267d2">More...</a><br/></td></tr>
+<tr class="separator:ae4ad75a7f1933dd84023d554f49267d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>(x)&#160;&#160;&#160;(u16) (x)</td></tr>
+<tr class="memdesc:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Be2les(x).  <a href="#adef8521a1dcd1b2e4eaa90c52f502d3c">More...</a><br/></td></tr>
+<tr class="separator:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16">htonl</a>(val)</td></tr>
+<tr class="memdesc:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap byte order from host to network (32-bit).  <a href="#a8135b2c24ee2a9f4bce9c36060c76d16">More...</a><br/></td></tr>
+<tr class="separator:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51799f5ebb4c7228ef7e95c247030f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#a51799f5ebb4c7228ef7e95c247030f42">htons</a>(x)&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td></tr>
+<tr class="memdesc:a51799f5ebb4c7228ef7e95c247030f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap byte order from host to network (16-bit).  <a href="#a51799f5ebb4c7228ef7e95c247030f42">More...</a><br/></td></tr>
+<tr class="separator:a51799f5ebb4c7228ef7e95c247030f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8eaa9363a2026b377cee0a09377f6420"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#a8eaa9363a2026b377cee0a09377f6420">Usb_Ch9SetupDevDescReply</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, u8 *BufPtr, u32 BufLen)</td></tr>
@@ -136,9 +155,100 @@ Functions</h2></td></tr>
 <tr class="memdesc:af99800b04544fe0bfa385de154d79087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes State of Core to USB configured State.  <a href="#af99800b04544fe0bfa385de154d79087">More...</a><br/></td></tr>
 <tr class="separator:af99800b04544fe0bfa385de154d79087"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__dfu_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *Ctrl)</td></tr>
-<tr class="memdesc:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host.  <a href="#a4e6a99c41d5f094f189a0d4c0ad8b58b">More...</a><br/></td></tr>
+<tr class="memdesc:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.  <a href="#a4e6a99c41d5f094f189a0d4c0ad8b58b">More...</a><br/></td></tr>
 <tr class="separator:a4e6a99c41d5f094f189a0d4c0ad8b58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae4ad75a7f1933dd84023d554f49267d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2le</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td>&#160;&#160;&#160;(u32)(val)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Be2le(val). </p>
+
+</div>
+</div>
+<a class="anchor" id="adef8521a1dcd1b2e4eaa90c52f502d3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2les</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) (x)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Be2les(x). </p>
+
+</div>
+</div>
+<a class="anchor" id="a17b88ec5acbe5c6ca45a3f8afd8ff50d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DFU_MAX_TRANSFER&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum DFU block transfer size in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8135b2c24ee2a9f4bce9c36060c76d16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htonl</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((((u32)(val) &amp; 0x000000FF)&lt;&lt;24) |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x0000FF00)&lt;&lt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x00FF0000)&gt;&gt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0xFF000000)&gt;&gt;24))</div>
+</div><!-- fragment -->
+<p>Swap byte order from host to network (32-bit). </p>
+
+</div>
+</div>
+<a class="anchor" id="a51799f5ebb4c7228ef7e95c247030f42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htons</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Swap byte order from host to network (16-bit). </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6b9c8f0b5b4de1072d44ca05f15d3601"></a>
 <div class="memitem">
@@ -167,8 +277,8 @@ Functions</h2></td></tr>
 <p>This function returns the BOS descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -209,9 +319,9 @@ Functions</h2></td></tr>
 <p>This function returns the configuration descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -252,9 +362,9 @@ Functions</h2></td></tr>
 <p>This function returns the device descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -301,10 +411,10 @@ Functions</h2></td></tr>
 <p>This function returns a string descriptor for the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
-    <tr><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
   </table>
   </dd>
 </dl>
@@ -339,22 +449,12 @@ Functions</h2></td></tr>
 <p>Changes State of Core to USB configured State. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE if device is not in address state</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE </dd></dl>
 
 </div>
 </div>
@@ -382,22 +482,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </p>
+<p>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. </p>
+<p>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if successful,<ul>
-<li>XST_FAILURE if unsuccessful.</li>
-</ul>
-</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>

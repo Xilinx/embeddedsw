@@ -72,6 +72,7 @@
     <member refid="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" kind="variable"><name>IsCsr</name></member>
   </compound>
   <compound refid="client_2_c_make_lists_8txt" kind="file"><name>client/CMakeLists.txt</name>
+    <member refid="client_2_c_make_lists_8txt_1afa2e569ec29ee6588449532e7d9205c8" kind="function"><name>if</name></member>
   </compound>
   <compound refid="client_2dme_2_c_make_lists_8txt" kind="file"><name>client/dme/CMakeLists.txt</name>
   </compound>
@@ -90,6 +91,8 @@
   <compound refid="server_2versal__2ve__2vm_2_c_make_lists_8txt" kind="file"><name>server/versal_2ve_2vm/CMakeLists.txt</name>
   </compound>
   <compound refid="server_2versal__2vp_2_c_make_lists_8txt" kind="file"><name>server/versal_2vp/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2versal__2vp__p_2_c_make_lists_8txt" kind="file"><name>server/versal_2vp_p/CMakeLists.txt</name>
   </compound>
   <compound refid="server_2versal__net_2_c_make_lists_8txt" kind="file"><name>server/versal_net/CMakeLists.txt</name>
   </compound>
@@ -146,9 +149,13 @@
   </compound>
   <compound refid="xocp__client_8c" kind="file"><name>xocp_client.c</name>
     <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" kind="function"><name>XOcp_GetClientLibVersion</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" kind="function"><name>XOcp_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xocp__client_8h" kind="file"><name>xocp_client.h</name>
     <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" kind="function"><name>XOcp_GetClientLibVersion</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" kind="function"><name>XOcp_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xocp__cmd_8c" kind="file"><name>xocp_cmd.c</name>
   </compound>
@@ -256,6 +263,12 @@
     <member refid="group__xocp__definitions_1gaa8d58e56f5d115e19424d4d0d02b8207" kind="define"><name>XOCP_EXTENDED_HASH_SIZE_IN_BITS</name></member>
     <member refid="group__xocp__definitions_1gab835a3422a1a25e56cea83a48d48560e" kind="define"><name>XOCP_DME_NONCE_SIZE_IN_BITS</name></member>
     <member refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kind="define"><name>XOCP_ADDR_HIGH_SHIFT</name></member>
+    <member refid="group__xocp__definitions_1ga06fc87d81c62e9abb8790b6e5713c55b" kind="enum"><name>@0</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba5fee71ba9d3b6081dd917d28e7a5c085" kind="enumvalue"><name>XOCP_CAP_HW_PCR_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55bad68f6ce2a2f6227f7221401ec1c8c21c" kind="enumvalue"><name>XOCP_CAP_KEY_MGMT_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba21fee0c993bf6794a0647b0b232bcafb" kind="enumvalue"><name>XOCP_CAP_NATIVE_KEY_MGMT_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba4a65bce0e2da62bc6d1afa20f147dd37" kind="enumvalue"><name>XOCP_CAP_KEY_WRAP_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba40406a91b2dee6340889826105b17701" kind="enumvalue"><name>XOCP_CAP_ASUFW_KEY_MGMT_BIT</name></member>
   </compound>
   <compound refid="versal__2vp_2xocp__dice__dme_8c" kind="file"><name>versal_2vp/xocp_dice_dme.c</name>
   </compound>
@@ -284,6 +297,8 @@
   <compound refid="versal__2ve__2vm_2xocp__hw_8h" kind="file"><name>versal_2ve_2vm/xocp_hw.h</name>
   </compound>
   <compound refid="versal__2vp_2xocp__hw_8h" kind="file"><name>versal_2vp/xocp_hw.h</name>
+  </compound>
+  <compound refid="versal__2vp__p_2xocp__hw_8h" kind="file"><name>versal_2vp_p/xocp_hw.h</name>
   </compound>
   <compound refid="versal__net_2xocp__hw_8h" kind="file"><name>versal_net/xocp_hw.h</name>
   </compound>
@@ -326,10 +341,10 @@
   <compound refid="xocp__keymgmt__native_8h" kind="file"><name>xocp_keymgmt_native.h</name>
   </compound>
   <compound refid="xocp__mailbox_8c" kind="file"><name>xocp_mailbox.c</name>
-    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" kind="function"><name>XOcp_ProcessMailbox</name></member>
   </compound>
   <compound refid="xocp__mailbox_8h" kind="file"><name>xocp_mailbox.h</name>
-    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" kind="function"><name>XOcp_ProcessMailbox</name></member>
   </compound>
   <compound refid="xocp__pcr_8c" kind="file"><name>xocp_pcr.c</name>
   </compound>
@@ -502,6 +517,12 @@
     <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_MISC_CONFIG</name></member>
     <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG</name></member>
     <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" kind="enumvalue"><name>XOCP_ERR_IN_MEMCPY</name></member>
+    <member refid="group__xocp__definitions_1ga06fc87d81c62e9abb8790b6e5713c55b" kind="enum"><name>@0</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba5fee71ba9d3b6081dd917d28e7a5c085" kind="enumvalue"><name>XOCP_CAP_HW_PCR_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55bad68f6ce2a2f6227f7221401ec1c8c21c" kind="enumvalue"><name>XOCP_CAP_KEY_MGMT_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba21fee0c993bf6794a0647b0b232bcafb" kind="enumvalue"><name>XOCP_CAP_NATIVE_KEY_MGMT_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba4a65bce0e2da62bc6d1afa20f147dd37" kind="enumvalue"><name>XOCP_CAP_KEY_WRAP_BIT</name></member>
+    <member refid="group__xocp__definitions_1gga06fc87d81c62e9abb8790b6e5713c55ba40406a91b2dee6340889826105b17701" kind="enumvalue"><name>XOCP_CAP_ASUFW_KEY_MGMT_BIT</name></member>
     <member refid="group__xocp__definitions_1gadb87c9a8f9ef9ed1dd757911265433e9" kind="define"><name>XOCP_PCR_SIZE_WORDS</name></member>
     <member refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" kind="define"><name>XOCP_PCR_SIZE_BYTES</name></member>
     <member refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" kind="define"><name>XOCP_DME_DEVICE_ID_SIZE_WORDS</name></member>
@@ -543,7 +564,9 @@
   </compound>
   <compound refid="group__xocp__mailbox__apis" kind="group"><name>xocp_mailbox_apis</name>
     <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
-    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" kind="function"><name>XOcp_GetClientLibVersion</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" kind="function"><name>XOcp_GetServerLibInfo</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" kind="function"><name>XOcp_ProcessMailbox</name></member>
   </compound>
   <compound refid="group__xilocp__pcr__server__apis" kind="group"><name>xilocp_pcr_server_apis</name>
   </compound>
@@ -576,6 +599,8 @@
   <compound refid="dir_beef951c24db56a849b13b52ed4c04c2" kind="dir"><name>versal_2ve_2vm</name>
   </compound>
   <compound refid="dir_8fda72420a24783a8b03ddbb21c5a71d" kind="dir"><name>versal_2vp</name>
+  </compound>
+  <compound refid="dir_26f9d72e1939948dc5f51ebd3b205177" kind="dir"><name>versal_2vp_p</name>
   </compound>
   <compound refid="dir_3d40b51f361b9d764a074fb4b1745f37" kind="dir"><name>versal_net</name>
   </compound>

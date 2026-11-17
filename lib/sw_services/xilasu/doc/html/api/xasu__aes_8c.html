@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -120,7 +121,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       am   04/26/25 Cleaned and simplified AAD and input data validation logic
       yog  07/10/25 Added support for priority based multiple request and context verification
       kd   07/23/25 Fixed gcc warnings
-      kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KATs</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xasu__aes_8h.html">xasu_aes.h</a>&quot;</code><br/>
+      kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KATs
+      kp   09/09/26 Allow addressless 256-bit KeyObject for eFUSE Red Key 1
+      kp   09/23/26 Accept black/red eFUSE User Key 1; KeySrc selects transfer form</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xasu__aes_8h.html">xasu_aes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__def_8h.html">xasu_def.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__aes__common_8h.html">xasu_aes_common.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__keymanager__common_8h.html">xasu_keymanager_common.h</a>&quot;</code><br/>

@@ -11,11 +11,10 @@ var searchData=
   ['xaxis_5fswitch_2ec',['xaxis_switch.c',['../xaxis__switch_8c.html',1,'']]],
   ['xaxis_5fswitch_2eh',['xaxis_switch.h',['../xaxis__switch_8h.html',1,'']]],
   ['xaxis_5fswitch_5fconfig',['XAxis_Switch_Config',['../struct_x_axis___switch___config.html',1,'']]],
+  ['xaxis_5fswitch_5fconfigtable',['XAxis_Switch_ConfigTable',['../group__axis__switch.html#ga14e1f6044fd4c0876c1f531cc32053a6',1,'xaxis_switch_g.c']]],
   ['xaxis_5fswitch_5fexample_2ec',['xaxis_switch_example.c',['../xaxis__switch__example_8c.html',1,'']]],
   ['xaxis_5fswitch_5fg_2ec',['xaxis_switch_g.c',['../xaxis__switch__g_8c.html',1,'']]],
-  ['xaxis_5fswitch_5fh_5f',['XAXIS_SWITCH_H_',['../group__axis__switch.html#ga19b5f68d74238e0c11856dbe5e566237',1,'xaxis_switch.h']]],
   ['xaxis_5fswitch_5fhw_2eh',['xaxis_switch_hw.h',['../xaxis__switch__hw_8h.html',1,'']]],
-  ['xaxis_5fswitch_5fhw_5fh_5f',['XAXIS_SWITCH_HW_H_',['../group__axis__switch.html#ga5a9a509c0aec471d47a841f955c087c5',1,'xaxis_switch_hw.h']]],
   ['xaxis_5fswitch_5fselftest_2ec',['xaxis_switch_selftest.c',['../xaxis__switch__selftest_8c.html',1,'']]],
   ['xaxis_5fswitch_5fsinit_2ec',['xaxis_switch_sinit.c',['../xaxis__switch__sinit_8c.html',1,'']]],
   ['xaxisscr_5fcfginitialize',['XAxisScr_CfgInitialize',['../group__axis__switch.html#ga91d899fe6d8456f8460acd4a122dce64',1,'xaxis_switch.c']]],
@@ -31,5 +30,6 @@ var searchData=
   ['xaxisscr_5fregupdatedisable',['XAxisScr_RegUpdateDisable',['../group__axis__switch.html#gafc168e986cd2b401045578c06bc90869',1,'xaxis_switch.h']]],
   ['xaxisscr_5fregupdateenable',['XAxisScr_RegUpdateEnable',['../group__axis__switch.html#gaa82658cbc43e600c53a429fce04d3a4c',1,'xaxis_switch.h']]],
   ['xaxisscr_5fselftest',['XAxisScr_SelfTest',['../group__axis__switch.html#gad9c646b6e8d7f5d6c431c2985592fb4b',1,'xaxis_switch_selftest.c']]],
-  ['xaxisscr_5fwritereg',['XAxisScr_WriteReg',['../group__axis__switch.html#ga993bec85cbffd929a7f8418e65f293de',1,'xaxis_switch_hw.h']]]
+  ['xaxisscr_5fwritereg',['XAxisScr_WriteReg',['../group__axis__switch.html#ga993bec85cbffd929a7f8418e65f293de',1,'xaxis_switch_hw.h']]],
+  ['xpar_5fxaxis_5fswitch_5fnum_5finstances',['XPAR_XAXIS_SWITCH_NUM_INSTANCES',['../group__axis__switch.html#gae64dba69ade8dab5a90245ef7b7e21fd',1,'xaxis_switch_sinit.c']]]
 ];

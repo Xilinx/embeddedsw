@@ -114,13 +114,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
 <p>
 1.0   als  10/19/15 Initial release.
-</pre> </div><div class="textblock"><code>#include &quot;xvphy.h&quot;</code><br/>
+</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<code>#include &quot;xvphy.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xvphy__i_8h.html">xvphy_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac71a1fa7d872abe2ccb70ec835b14419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_vphy___config.html">XVphy_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvphy__sinit_8c.html#ac71a1fa7d872abe2ccb70ec835b14419">XVphy_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ac71a1fa7d872abe2ccb70ec835b14419"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#ac71a1fa7d872abe2ccb70ec835b14419">More...</a><br/></td></tr>
+<tr class="memdesc:ac71a1fa7d872abe2ccb70ec835b14419"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the base address.  <a href="#ac71a1fa7d872abe2ccb70ec835b14419">More...</a><br/></td></tr>
 <tr class="separator:ac71a1fa7d872abe2ccb70ec835b14419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -144,16 +145,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function looks for the device configuration based on the unique device ID. </p>
+<p>This function looks for the device configuration based on the base address. </p>
 <p>The table XVphy_ConfigTable[] contains the configuration information for each device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up.</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device being looked up.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_vphy___config.html#a4e46ce5abd860393f1891835dc783583">XVphy_Config::Name</a>.</p>
 
 </div>
 </div>

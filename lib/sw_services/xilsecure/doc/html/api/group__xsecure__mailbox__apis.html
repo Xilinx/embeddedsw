@@ -107,9 +107,9 @@ $(document).ready(function(){initNavTree('group__xsecure__mailbox__apis.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga6ac5f0da32dd8fb5fcd15a7e65b492bb">XSecure_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga6ac5f0da32dd8fb5fcd15a7e65b492bb">More...</a><br/></td></tr>
-<tr class="separator:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga172d3381387b4ba9fdec420f63e64b17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga172d3381387b4ba9fdec420f63e64b17">XSecure_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga172d3381387b4ba9fdec420f63e64b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga172d3381387b4ba9fdec420f63e64b17">More...</a><br/></td></tr>
+<tr class="separator:ga172d3381387b4ba9fdec420f63e64b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga14ac66445aa924c4c0bd9b91b9744af9">XSecure_ClientInit</a> (XSecure_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</td></tr>
 <tr class="memdesc:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the instance of mailbox.  <a href="#ga14ac66445aa924c4c0bd9b91b9744af9">More...</a><br/></td></tr>
 <tr class="separator:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,13 +143,13 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
-    <tr><td class="paramname">MailboxPtr</td><td>Pointer to the mailbox instance</td></tr>
+    <tr><td class="paramname">MailboxPtr</td><td>Pointer to the mailbox instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful initialization</li>
-<li>XST_FAILURE On failure </li>
+<li>XST_INVALID_PARAM On invalid input parameter </li>
 </ul>
 </dd></dl>
 <ul>
@@ -160,7 +160,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga6ac5f0da32dd8fb5fcd15a7e65b492bb"></a>
+<a class="anchor" id="ga172d3381387b4ba9fdec420f63e64b17"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -180,7 +180,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>MsgLen</em>&#160;</td>
+          <td class="paramname"><em>MsgLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Response</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -195,18 +201,22 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">MailboxPtr</td><td>Pointer to XMailbox </td></tr>
     <tr><td class="paramname">MsgPtr</td><td>Pointer to the payload message </td></tr>
-    <tr><td class="paramname">MsgLen</td><td>Length of the message</td></tr>
+    <tr><td class="paramname">MsgLen</td><td>Length of the message </td></tr>
+    <tr><td class="paramname">Response</td><td>Pointer to a buffer of RESPONSE_ARG_CNT words that receives the full IPI response payload. May be NULL when only the status word is needed.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the IPI send and receive is successful</li>
+<li>XST_INVALID_PARAM On invalid input parameter</li>
 <li>XST_FAILURE If there is a failure</li>
-<li>Response received from server</li>
+<li>Response status word received from the server</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Payload consists of API ID and call arguments to be written in IPI buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Payload consists of API ID and call arguments to be written in the IPI buffer. Response[0] carries the server status word; subsequent words carry the command-specific payload. When Response is NULL a local buffer is used so status-only callers need not allocate one. </dd></dl>
 <ul>
+<li>Status-only callers pass NULL; fall back to a local response buffer.</li>
+<li>Return XST_INVALID_PARAM if NULL pointer and MsgLen range validation failed</li>
 <li>Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed</li>
 <li>Wait for IPI response from PLM with a timeout. If the timeout exceeds then error is returned otherwise it returns the status of the IPI response</li>
 </ul>

@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_ots_sign_to_pub_k
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a5b15ca9136c41ffa081515249fa08296"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_ots_sign_to_pub_key_hash__.html#a5b15ca9136c41ffa081515249fa08296">Buff</a> [<a class="el" href="group__xsecure__lms__server__apis.html#ga82176c002a5c65e1876ec23722ca8c9e">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE</a>]</td></tr>
+<tr class="memdesc:a5b15ca9136c41ffa081515249fa08296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte buffer of LMS OTS sign to public key hash.  <a href="#a5b15ca9136c41ffa081515249fa08296">More...</a><br/></td></tr>
+<tr class="separator:a5b15ca9136c41ffa081515249fa08296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dab1622f0460ce93f097c4d79d6ca09"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a2c2815058464c648062965fc688b1c3b"><td class="memItemLeft" >&#160;&#160;&#160;u8&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_ots_sign_to_pub_key_hash__.html#afb7003f45d43db0c42c6aaa9ce46ddf7">I</a> [<a class="el" href="group__xsecure__lms__server__apis.html#gafcdce570f5a0f46e23bc4993015be56b">XSECURE_LMS_I_FIELD_SIZE</a>]</td></tr>
 <tr class="memdesc:a2c2815058464c648062965fc688b1c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">I - Merkle Tree's unique identifier (uniformly random 16-byte string) Size - 16 bytes, 0 to 15 bytes.  <a href="#a2c2815058464c648062965fc688b1c3b">More...</a><br/></td></tr>
@@ -140,6 +143,20 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Structure used when validating LMS OTS, once hash chain is completed, result needs to be stored so that they can be further concatenated and hashed to get OTS public key, this provides a way to access members and fill data in a structured way. </p>
 <p>Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32)) </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5b15ca9136c41ffa081515249fa08296"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsOtsSignToPubKeyHash_::Buff[<a class="el" href="group__xsecure__lms__server__apis.html#ga82176c002a5c65e1876ec23722ca8c9e">XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte buffer of LMS OTS sign to public key hash. </p>
+
+</div>
+</div>
 <a class="anchor" id="aecad5aa0debf08462495aad1226fd963"></a>
 <div class="memitem">
 <div class="memproto">

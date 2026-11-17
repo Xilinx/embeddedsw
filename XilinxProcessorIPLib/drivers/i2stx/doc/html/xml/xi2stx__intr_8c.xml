@@ -10,6 +10,34 @@
       <node id="114">
         <label>xil_io.h</label>
       </node>
+      <node id="119">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>xstatus.h</label>
+      </node>
+      <node id="117">
+        <label>xil_types.h</label>
+      </node>
+      <node id="115">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
       <node id="112">
         <label>xi2stx.h</label>
         <link refid="xi2stx_8h"/>
@@ -24,38 +52,10 @@
         <childnode refid="118" relation="include">
         </childnode>
       </node>
-      <node id="115">
-        <label>xi2stx_debug.h</label>
-        <link refid="xi2stx__debug_8h"/>
-        <childnode refid="116" relation="include">
-        </childnode>
-        <childnode refid="117" relation="include">
-        </childnode>
-        <childnode refid="118" relation="include">
-        </childnode>
-      </node>
-      <node id="118">
-        <label>xstatus.h</label>
-      </node>
       <node id="111">
         <label>xi2stx_intr.c</label>
         <link refid="xi2stx_intr.c"/>
         <childnode refid="112" relation="include">
-        </childnode>
-      </node>
-      <node id="119">
-        <label>xi2stx_chsts.h</label>
-        <link refid="xi2stx__chsts_8h"/>
-        <childnode refid="112" relation="include">
-        </childnode>
-      </node>
-      <node id="117">
-        <label>xil_types.h</label>
-      </node>
-      <node id="113">
-        <label>xi2stx_hw.h</label>
-        <link refid="xi2stx__hw_8h"/>
-        <childnode refid="114" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -84,13 +84,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="134">XI2s_Tx::IsReady</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
@@ -101,7 +101,7 @@
         <references refid="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" compoundref="xi2stx__hw_8h" startline="134">XI2S_TX_INTR_AUDUNDRFLW_MASK</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" compoundref="xi2stx__hw_8h" startline="50">XI2S_TX_IRQSTS_OFFSET</references>
-        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</references>
+        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="85">XI2s_Tx_LogWrite</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -171,10 +171,10 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd" compoundref="xi2stx_8h" startline="65">XI2S_TX_HANDLER_AES_BLKCMPLT</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a8172cb6e2a0d147df0f06a0eada66f8d" compoundref="xi2stx_8h" startline="66">XI2S_TX_HANDLER_AES_BLKSYNCERR</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3ab9374d0904c4cd4ac730b17fff220107" compoundref="xi2stx_8h" startline="67">XI2S_TX_HANDLER_AES_CHSTSUPD</references>
@@ -313,6 +313,6 @@ HandlerType                              Callback Function
 <codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="187"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c"/>
   </compounddef>
 </doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="403" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="403" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
         <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
         <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
@@ -37,7 +37,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="404" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="404" bodyend="-1"/>
         <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
         <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
         <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
@@ -49,7 +49,7 @@
 <para>Defines settings for single CC&apos;s DUC/DDC. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="402" bodyend="410"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="402" bodyend="410"/>
     <listofallmembers>
       <member refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a35c7833cc86f7fd89ed24c8ba114a75b" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCCfg</scope><name>CCGain</name></member>
       <member refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a725d2046d45ee60e61083b1465434308" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCCfg</scope><name>NCOIdx</name></member>

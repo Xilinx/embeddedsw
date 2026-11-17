@@ -9,7 +9,6 @@ var xgpiops__hw_8h =
     [ "XGPIOPS_DATA_RO_OFFSET", "xgpiops__hw_8h.html#ga29e4ebe4ad7fef5e1a1fe215f578d8a8", null ],
     [ "XGPIOPS_DIRM_OFFSET", "xgpiops__hw_8h.html#gaee82145f62455e2928a5b8fe66553a40", null ],
     [ "XGPIOPS_FOUR", "xgpiops__hw_8h.html#ga5e6bff389611d55cc6ca4d3f21a7e4d2", null ],
-    [ "XGPIOPS_HW_H", "xgpiops__hw_8h.html#gae9716887ddbdd1ac6093380b90d0eb57", null ],
     [ "XGPIOPS_INTANY_OFFSET", "xgpiops__hw_8h.html#ga9ba60ac847a2c6ad66240cf1a849afba", null ],
     [ "XGPIOPS_INTDIS_OFFSET", "xgpiops__hw_8h.html#ga457b603b9dda39af3aad037e3fb7fe89", null ],
     [ "XGPIOPS_INTEN_OFFSET", "xgpiops__hw_8h.html#ga090dab3e38b9493eb63a30c4cc9a9267", null ],

@@ -17,6 +17,8 @@ var searchData=
   ['maxfocal',['maxFocal',['../struct_cam_device_af_config__s.html#a6e16a43fa523967cdd43a03512e546b8',1,'CamDeviceAfConfig_s']]],
   ['maxfps',['maxFps',['../struct_cam_device_sensor_drv_mode_info__s.html#a883ebc8d1a7aebea486a8f071c530895',1,'CamDeviceSensorDrvModeInfo_s::maxFps()'],['../struct_cam_device_sensor_mode_info__s.html#a3e7d8cd7cafc31c3303d82218d1e8f49',1,'CamDeviceSensorModeInfo_s::maxFps()']]],
   ['maxgain',['maxGain',['../struct_cam_device_wdr_gain_limitation_config__s.html#a23c2945fa02533d21b31e527d66e748c',1,'CamDeviceWdrGainLimitationConfig_s::maxGain()'],['../struct_cam_device_wdr_auto_config__s.html#a54a33c800604134cc55ca6a13ef0defc',1,'CamDeviceWdrAutoConfig_s::maxGain()']]],
+  ['maxlanecount',['MaxLaneCount',['../struct_run_config.html#a6c31fb2de76478d7c5a9e545a297866d',1,'RunConfig']]],
+  ['maxlinkrate',['MaxLinkRate',['../struct_run_config.html#ad55f7cc55ffd5f98018cd819f5d09407',1,'RunConfig']]],
   ['mcm',['mcm',['../union_cam_device_mode_config__s.html#a0058a57cd3f5374da94753cd61649a43',1,'CamDeviceModeConfig_s']]],
   ['mcmop',['mcmOp',['../struct_cam_device_mcm_mode_config__s.html#a605712fc019df77ab04051efe3c06fdc',1,'CamDeviceMcmModeConfig_s']]],
   ['mcmregcfg',['mcmRegCfg',['../struct_cam_device_mcm_mode_config__s.html#add69802873a9dce102f81178f6236610',1,'CamDeviceMcmModeConfig_s']]],

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmonpsv__services_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,116 +105,31 @@ $(document).ready(function(){initNavTree('xsysmonpsv__services_8h.html','');});
 <div class="title">xsysmonpsv_services.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares the services-layer APIs for the <a class="el" href="struct_x_sys_mon_psv.html" title="Holds the XSysMonPsv driver instance data. ">XSysMonPsv</a> driver. </p>
+<p>The <a class="el" href="xsysmonpsv__services_8h.html" title="Declares the services-layer APIs for the XSysMonPsv driver. ">xsysmonpsv_services.h</a> file declares services-layer APIs such as temperature and voltage alarms.</p>
+<pre></pre><pre>MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+3.0   cog    03/25/21 Driver Restructure
+3.1   cog    04/09/22 Remove GIC standalone related functionality for
+                      arch64 architecture
+4.0   se     11/10/22 Secure and Non-Secure mode integration
+5.2   se     08/24/25 Microblaze support added
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a27ee2cbf4e86a5e66f8ed744187a805f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__services_8h.html#a27ee2cbf4e86a5e66f8ed744187a805f">XSysMonPsv_EnableVoltageEvents</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Supply, u32 IntrNum)</td></tr>
-<tr class="memdesc:a27ee2cbf4e86a5e66f8ed744187a805f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables voltage event for the supply.  <a href="#a27ee2cbf4e86a5e66f8ed744187a805f">More...</a><br/></td></tr>
-<tr class="separator:a27ee2cbf4e86a5e66f8ed744187a805f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae768764267b169d51b366abe2c67e6ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__services_8h.html#ae768764267b169d51b366abe2c67e6ad">XSysMonPsv_DisableVoltageEvents</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Supply)</td></tr>
-<tr class="memdesc:ae768764267b169d51b366abe2c67e6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables voltage event for the supply.  <a href="#ae768764267b169d51b366abe2c67e6ad">More...</a><br/></td></tr>
-<tr class="separator:ae768764267b169d51b366abe2c67e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27ee2cbf4e86a5e66f8ed744187a805f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga27ee2cbf4e86a5e66f8ed744187a805f">XSysMonPsv_EnableVoltageEvents</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Supply, u32 IntrNum)</td></tr>
+<tr class="memdesc:ga27ee2cbf4e86a5e66f8ed744187a805f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the voltage event for the supply.  <a href="group__sysmonpsv__api.html#ga27ee2cbf4e86a5e66f8ed744187a805f">More...</a><br/></td></tr>
+<tr class="separator:ga27ee2cbf4e86a5e66f8ed744187a805f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae768764267b169d51b366abe2c67e6ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae768764267b169d51b366abe2c67e6ad">XSysMonPsv_DisableVoltageEvents</a> (<a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *InstancePtr, u32 Supply)</td></tr>
+<tr class="memdesc:gae768764267b169d51b366abe2c67e6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the voltage event for the supply.  <a href="group__sysmonpsv__api.html#gae768764267b169d51b366abe2c67e6ad">More...</a><br/></td></tr>
+<tr class="separator:gae768764267b169d51b366abe2c67e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae768764267b169d51b366abe2c67e6ad"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XSysMonPsv_DisableVoltageEvents </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Supply</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Disables voltage event for the supply. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">Supply</td><td>Enum from the XSysMonPsv_Supply.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_FAILURE if error.<ul>
-<li>XST_SUCCESS if successful. </li>
-</ul>
-</li>
-</ul>
-</dd></dl>
-
-<p>References <a class="el" href="xsysmonpsv__common_8h.html#a16099b2571d3ca0524e7e54165aa80d6">ALARM_REG</a>, <a class="el" href="xsysmonpsv__common_8h.html#abb9e93a5e3a832c42d695231684ba43d">ALARM_SHIFT</a>, <a class="el" href="struct_x_sys_mon_psv.html#addcacffd66e527f65d6bfd53bcb44605">XSysMonPsv::Config</a>, <a class="el" href="struct_x_sys_mon_psv___config.html#a8dd8a0f21ce7dda3a56d1526c3e8f676">XSysMonPsv_Config::Supply_List</a>, <a class="el" href="group__sysmonpsv__api.html#ga9113de15440d133d50790fe91a6d45c0">XSYSMONPSV_ALARM_REG0</a>, <a class="el" href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">XSYSMONPSV_INVALID_SUPPLY</a>, <a class="el" href="xsysmonpsv__driver_8h.html#a16eec4745af4af2aaee82607ad4ba2e3">XSYSMONPSV_MAX_SUPPLIES</a>, <a class="el" href="xsysmonpsv__direct_8c.html#af4320c775170d738c09e9514f8ed0578">XSysMonPsv_ReadReg32()</a>, and <a class="el" href="xsysmonpsv__direct_8c.html#a858045476b6a6087db4ca972b571177b">XSysMonPsv_WriteReg32()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a27ee2cbf4e86a5e66f8ed744187a805f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XSysMonPsv_EnableVoltageEvents </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Supply</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>IntrNum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enables voltage event for the supply. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">Supply</td><td>Enum from the XSysMonPsv_Supply. </td></tr>
-    <tr><td class="paramname">IntrNum</td><td>Interrupt Offset.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_FAILURE if error.<ul>
-<li>XST_SUCCESS if successful. </li>
-</ul>
-</li>
-</ul>
-</dd></dl>
-
-<p>References <a class="el" href="xsysmonpsv__common_8h.html#a16099b2571d3ca0524e7e54165aa80d6">ALARM_REG</a>, <a class="el" href="xsysmonpsv__common_8h.html#abb9e93a5e3a832c42d695231684ba43d">ALARM_SHIFT</a>, <a class="el" href="struct_x_sys_mon_psv.html#addcacffd66e527f65d6bfd53bcb44605">XSysMonPsv::Config</a>, <a class="el" href="xsysmonpsv__common_8h.html#a19668d9ffa3ce7d0838b70efa933fc08">GET_BIT</a>, <a class="el" href="struct_x_sys_mon_psv___config.html#a8dd8a0f21ce7dda3a56d1526c3e8f676">XSysMonPsv_Config::Supply_List</a>, <a class="el" href="group__sysmonpsv__api.html#ga9113de15440d133d50790fe91a6d45c0">XSYSMONPSV_ALARM_REG0</a>, <a class="el" href="xsysmonpsv__common_8c.html#a4ae75168c5bf36923920778a77c15190">XSysMonPsv_InterruptEnable()</a>, <a class="el" href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">XSYSMONPSV_INVALID_SUPPLY</a>, <a class="el" href="xsysmonpsv__driver_8h.html#a16eec4745af4af2aaee82607ad4ba2e3">XSYSMONPSV_MAX_SUPPLIES</a>, <a class="el" href="xsysmonpsv__direct_8c.html#af4320c775170d738c09e9514f8ed0578">XSysMonPsv_ReadReg32()</a>, and <a class="el" href="xsysmonpsv__direct_8c.html#a858045476b6a6087db4ca972b571177b">XSysMonPsv_WriteReg32()</a>.</p>
-
-<p>Referenced by <a class="el" href="xsysmonpsv__intr__example_8c.html#a08f29d1a3ede32c28ff1b454b3b68a28">SysMonPsvIntrExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

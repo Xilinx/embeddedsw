@@ -48,6 +48,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec___config.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,19 +105,102 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec___config.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSdFec_Config Struct Reference</div>  </div>
+<div class="title">XSdFec_Config Struct Reference<div class="ingroups"><a class="el" href="group__sd__fec.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Device configuration.
+<p>Holds device configuration.
  <a href="struct_x_sd_fec___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xsdfec.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a5ab6892b57772a895b23f6fc64718a21"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec___config.html#a5ab6892b57772a895b23f6fc64718a21">Name</a></td></tr>
+<tr class="memdesc:a5ab6892b57772a895b23f6fc64718a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device name in the SDT flow.  <a href="#a5ab6892b57772a895b23f6fc64718a21">More...</a><br/></td></tr>
+<tr class="separator:a5ab6892b57772a895b23f6fc64718a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a477b6400d89a5b19bf8e56f8debb3ba9"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec___config.html#a477b6400d89a5b19bf8e56f8debb3ba9">BaseAddress</a></td></tr>
+<tr class="memdesc:a477b6400d89a5b19bf8e56f8debb3ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device base address.  <a href="#a477b6400d89a5b19bf8e56f8debb3ba9">More...</a><br/></td></tr>
+<tr class="separator:a477b6400d89a5b19bf8e56f8debb3ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c1ac5c778303b9c1f30fa246a44d28"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec___config.html#a81c1ac5c778303b9c1f30fa246a44d28">Standard</a></td></tr>
+<tr class="memdesc:a81c1ac5c778303b9c1f30fa246a44d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configured standard.  <a href="#a81c1ac5c778303b9c1f30fa246a44d28">More...</a><br/></td></tr>
+<tr class="separator:a81c1ac5c778303b9c1f30fa246a44d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a251b973184b6320642cd1a0e688fdbf8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec___config.html#a251b973184b6320642cd1a0e688fdbf8">Initialization</a> [4]</td></tr>
+<tr class="memdesc:a251b973184b6320642cd1a0e688fdbf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed register address and data pairs.  <a href="#a251b973184b6320642cd1a0e688fdbf8">More...</a><br/></td></tr>
+<tr class="separator:a251b973184b6320642cd1a0e688fdbf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Device configuration. </p>
+<div class="textblock"><p>Holds device configuration. </p>
 <p>Contains configuration information for the device. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a477b6400d89a5b19bf8e56f8debb3ba9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XSdFec_Config::BaseAddress</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device base address. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga28a130a2d1db759801b12254d0658373">XSdFecCfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a251b973184b6320642cd1a0e688fdbf8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFec_Config::Initialization[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixed register address and data pairs. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga28a130a2d1db759801b12254d0658373">XSdFecCfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5ab6892b57772a895b23f6fc64718a21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* XSdFec_Config::Name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device name in the SDT flow. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec__api.html#ga5e2234a445b369c5c21fc51545be119b">XSdFecLookupConfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a81c1ac5c778303b9c1f30fa246a44d28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFec_Config::Standard</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configured standard. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga28a130a2d1db759801b12254d0658373">XSdFecCfgInitialize()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xwdttb__winwdt__qamode__example" kind="group">
+    <compoundname>xwdttb_winwdt_qamode_example</compoundname>
+    <title>Xwdttb_winwdt_qamode_example</title>
+      <sectiondef kind="user-defined">
+      <header>Q&amp;A mode window configuration values</header>
+      <description><para>First window clock cycles count should be high enough to ensure 3 answer bytes are calculated and written back. </para></description>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1gab6e6b6019e1c9f1297df69a9c0f5d3cd" prot="public" static="no">
+        <name>WIN_WDT_FW_COUNT</name>
+        <initializer>0x1C00000</initializer>
+        <briefdescription>
+<para>First window clock cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1gabcca4fac23cabb6f0a7a684a08c3a90a" prot="public" static="no">
+        <name>WIN_WDT_SW_COUNT</name>
+        <initializer>0x1C00000</initializer>
+        <briefdescription>
+<para>Second window clock cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1ga7c4beb8b18f7cc956dae726959908860" prot="public" static="no">
+        <name>WIN_WDT_SBC_COUNT</name>
+        <initializer>150</initializer>
+        <briefdescription>
+<para>Selected byte count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1ga5cb3630794e82059b27032e5116b5a66" prot="public" static="no">
+        <name>WIN_WDT_BSS_COUNT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Byte segment selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1ga31caf9690474a71920e62bc3267a0f10" prot="public" static="no">
+        <name>WIN_WDT_TOKEN_SEED</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>Token seed value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1gacc21eb8bd043b4b73269ebcbc74dd5e7" prot="public" static="no">
+        <name>WIN_WDT_FEEDBACK</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Token feedback value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xwdttb__winwdt__qamode__example_1gab8af281a0812133a8f56ae603f696ef1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref></type>
+        <definition>XWdtTb WdtTbInstance</definition>
+        <argsstring></argsstring>
+        <name>WdtTbInstance</name>
+        <briefdescription>
+<para>Instance of Time Base WatchDog Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xwdttb__winwdt__qamode__example_1ga9a3a500686a269cd8194f4693c6f8b45" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int WdtExpired</definition>
+        <argsstring></argsstring>
+        <name>WdtExpired</name>
+        <briefdescription>
+<para>Flag set when the WDT expires. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xwdttb__winwdt__qamode__example_1gad5e60e9f326186ec41039b1ad536e60d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int WdtTbIntrExample</definition>
+        <argsstring>(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>WdtTbIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> *</type>
+          <declname>WdtTbInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Demonstrates the functioning of the Window Watchdog QA mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets up WWDT in QA mode, enables interrupt subsystem. It programs the first (closed) and second (window) and sets up an interrupt to raise an interrupt in the open window. In the closed window the function writes three correct responses to the relevant Token_Resp register. Once the interrupt is received in the open window, it writes the 4th correct response to the Token_resp register. The last (fourth) write ends the second (open window).</para><para>This function assumes that the reset output of the Window Watchdog Timer is not connected to the reset of the processor. The function allows the Window Watchdog Timer to timeout such that a reset occurs if it is connected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">WdtTbInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of WdtTb driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt example run successfully.</para></listitem><listitem><para>XST_FAILURE, if reset has occurred.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the example uses WdtTbDeviceId and WdtTbIntrId to look up the device configuration and set up interrupt handling. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="140" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xwdttb__winwdt__qamode__example_1gae691ce80002584ae7e099ecd7979e36f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void WinWdtQAModeIntrHandler</definition>
+        <argsstring>(void *CallBackRef)</argsstring>
+        <name>WinWdtQAModeIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Handles the WDT interrupt of the WdtTb device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler runs in interrupt context when the timer reaches the interrupt programmed point.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="548" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xwdttb__winwdt__qamode__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the Window Watchdog QA mode example from the main function. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="170" bodyend="193"/>
+        <references refid="group__xwdttb__gwdt__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" compoundref="xwdttb__gwdt__intr__example_8c" startline="189" endline="284">WdtTbIntrExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xwdttb__winwdt__qamode__example_1gaece0338062e13b9afd622c6937664303" prot="public" static="no">
+        <name>WIN_NUM_ITERATIONS</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Number of iterations should be high enough to ensure that FCV (fail counter value) is decremented to zero and the watchdog is successfully disabled after the example. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default for FCV count is 5 and every good event decrements it by 1. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_winwdt_qamode_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

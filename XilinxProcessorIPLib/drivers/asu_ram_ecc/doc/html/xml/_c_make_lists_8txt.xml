@@ -12,8 +12,14 @@
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
 <codeline lineno="4"><highlight class="normal">project(asu_ram_ecc)</highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal">add_library(asu_ram_ecc<sp/>INTERFACE)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_ram_ecc.h)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">add_library(asu_ram_ecc<sp/>INTERFACE)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/asu_ram_ecc/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/asu_ram_ecc/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

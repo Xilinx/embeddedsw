@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__phy_8h" kind="file">
+    <compoundname>mbox_phy.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includes>
+    <includedby refid="mbox__interface_8c" local="yes">mbox_interface.c</includedby>
+    <includedby refid="mbox__phy_8c" local="yes">mbox_phy.c</includedby>
+    <incdepgraph>
+      <node id="6923">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6928">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6931">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6929">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6928" relation="include">
+        </childnode>
+        <childnode refid="6930" relation="include">
+        </childnode>
+      </node>
+      <node id="6919">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6920" relation="include">
+        </childnode>
+        <childnode refid="6921" relation="include">
+        </childnode>
+        <childnode refid="6922" relation="include">
+        </childnode>
+        <childnode refid="6923" relation="include">
+        </childnode>
+        <childnode refid="6924" relation="include">
+        </childnode>
+        <childnode refid="6925" relation="include">
+        </childnode>
+        <childnode refid="6926" relation="include">
+        </childnode>
+        <childnode refid="6927" relation="include">
+        </childnode>
+        <childnode refid="6931" relation="include">
+        </childnode>
+        <childnode refid="6929" relation="include">
+        </childnode>
+        <childnode refid="6932" relation="include">
+        </childnode>
+        <childnode refid="6933" relation="include">
+        </childnode>
+        <childnode refid="6935" relation="include">
+        </childnode>
+      </node>
+      <node id="6918">
+        <label>stdint.h</label>
+      </node>
+      <node id="6921">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6932">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6929" relation="include">
+        </childnode>
+      </node>
+      <node id="6924">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6934">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="6933">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6927" relation="include">
+        </childnode>
+        <childnode refid="6934" relation="include">
+        </childnode>
+      </node>
+      <node id="6922">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6935">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6925">
+        <label>signal.h</label>
+      </node>
+      <node id="6927">
+        <label>mbox_api.h</label>
+        <childnode refid="6928" relation="include">
+        </childnode>
+        <childnode refid="6918" relation="include">
+        </childnode>
+        <childnode refid="6929" relation="include">
+        </childnode>
+      </node>
+      <node id="6930">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6926">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6917">
+        <label>mbox_phy.h</label>
+        <link refid="mbox_phy.h"/>
+        <childnode refid="6918" relation="include">
+        </childnode>
+        <childnode refid="6919" relation="include">
+        </childnode>
+      </node>
+      <node id="6920">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6937">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="6938">
+        <label>mbox_phy.c</label>
+      </node>
+      <node id="6936">
+        <label>mbox_phy.h</label>
+        <link refid="mbox_phy.h"/>
+        <childnode refid="6937" relation="include">
+        </childnode>
+        <childnode refid="6938" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__phy_8h_1a3a693ce1a3c5a6445c23de49042dae80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_init</definition>
+        <argsstring>(MboxCoreId current_cpu_id)</argsstring>
+        <name>mbox_phy_init</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>current_cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the mailbox transport layer for the local core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">current_cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="271" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8h_1a45745cddfff77ee8f123ee5f1190ab1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_phy_close</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_phy_close</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Closes the mailbox transport layer and frees its buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="303" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8h_1a0efadae4c61e4047538b4928d7353a08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_send</definition>
+        <argsstring>(MboxPostMsg *msg, MboxCoreId receiver_id, MboxCoreId core_id)</argsstring>
+        <name>mbox_phy_send</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <briefdescription>
+<para>Posts a fully stamped message over the mailbox transport. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to post. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sending core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="325" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8h_1a50f542105cd6b3fa8a91adf70547e56a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_pop_rx</definition>
+        <argsstring>(MboxPostMsg *out_msg)</argsstring>
+        <name>mbox_phy_pop_rx</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>out_msg</declname>
+        </param>
+        <briefdescription>
+<para>Pops the next received message from the mailbox FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">out_msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer that receives the message.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="347" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8h_1a8295ce7358730a78362c2c0654ab8951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mbox_phy_has_rx</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_phy_has_rx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns whether the mailbox FIFO has a pending message. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if a message is available, false otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="361" bodyend="367"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_MBOX_PHY_H_</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_PHY_H_</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__cmd_8h" kindref="compound">mbox_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">int32_t<sp/>mbox_phy_init(MboxCoreId<sp/>current_cpu_id);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_phy_close(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">int32_t<sp/>mbox_phy_send(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/>MboxCoreId<sp/>receiver_id,<sp/>MboxCoreId<sp/>core_id);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">int32_t<sp/>mbox_phy_pop_rx(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*out_msg);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>mbox_phy_has_rx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_phy.h"/>
+  </compounddef>
+</doxygen>

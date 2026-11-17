@@ -7,6 +7,7 @@ var files =
     [ "xufspsxc_hw.c", "xufspsxc__hw_8c.html", "xufspsxc__hw_8c" ],
     [ "xufspsxc_hw.h", "xufspsxc__hw_8h.html", null ],
     [ "xufspsxc_init.c", "xufspsxc__init_8c.html", "xufspsxc__init_8c" ],
+    [ "xufspsxc_phy.c", "xufspsxc__phy_8c.html", "xufspsxc__phy_8c" ],
     [ "xufspsxc_setluncfg_example.c", "xufspsxc__setluncfg__example_8c.html", "xufspsxc__setluncfg__example_8c" ],
     [ "xufspsxc_sinit.c", "xufspsxc__sinit_8c.html", "xufspsxc__sinit_8c" ]
 ];

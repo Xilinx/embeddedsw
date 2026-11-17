@@ -7,5 +7,6 @@ var searchData=
   ['pagesperblock',['PagesPerBlock',['../struct_x_nand_ps___geometry.html#a576a8a74bbfb359310107c333e0682d8',1,'XNandPs_Geometry::PagesPerBlock()'],['../struct_onfi_nand___geometry.html#a956a607bf93793f894c31e35d26af8cc',1,'OnfiNand_Geometry::PagesPerBlock()']]],
   ['partialprogattr',['PartialProgAttr',['../struct_onfi_nand___geometry.html#a94490a17735ca3c481d65a803d9d9f8f',1,'OnfiNand_Geometry']]],
   ['pattern',['Pattern',['../struct_x_nand_ps___bad_block_pattern.html#a9c1f59c04f5e756227c129e69d1fb45f',1,'XNandPs_BadBlockPattern']]],
+  ['programcache',['ProgramCache',['../struct_x_nand_ps___features.html#a21e1fa3e1a5a60b4c9d1d536ce784850',1,'XNandPs_Features']]],
   ['programsperpage',['ProgramsPerPage',['../struct_onfi_nand___geometry.html#a9230a8172f8b81ca1ba3686b819d747e',1,'OnfiNand_Geometry']]]
 ];

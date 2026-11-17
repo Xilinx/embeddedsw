@@ -11,14 +11,14 @@
     <includedby refid="_repeater_professional_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <includedby refid="_tx_only_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <incdepgraph>
+      <node id="208">
+        <label>platform_config.h</label>
+      </node>
       <node id="207">
         <label>platform.h</label>
         <link refid="platform.h"/>
         <childnode refid="208" relation="include">
         </childnode>
-      </node>
-      <node id="208">
-        <label>platform_config.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -42,25 +42,7 @@
         <childnode refid="236" relation="include">
         </childnode>
       </node>
-      <node id="231">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="228">
-        <label>xhdmi_example.h</label>
-        <childnode refid="229" relation="include">
-        </childnode>
-        <childnode refid="230" relation="include">
-        </childnode>
-        <childnode refid="231" relation="include">
-        </childnode>
-      </node>
-      <node id="233">
-        <label>xhdcp.c</label>
-      </node>
       <node id="235">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="223">
         <label>xhdmi_example.c</label>
       </node>
       <node id="232">
@@ -70,15 +52,6 @@
         <childnode refid="234" relation="include">
         </childnode>
         <childnode refid="235" relation="include">
-        </childnode>
-      </node>
-      <node id="220">
-        <label>xhdmi_example.h</label>
-        <childnode refid="221" relation="include">
-        </childnode>
-        <childnode refid="222" relation="include">
-        </childnode>
-        <childnode refid="223" relation="include">
         </childnode>
       </node>
       <node id="218">
@@ -93,15 +66,11 @@
         <childnode refid="218" relation="include">
         </childnode>
       </node>
-      <node id="213">
-        <label>xhdmi_example.c</label>
+      <node id="216">
+        <label>xhdcp.c</label>
       </node>
-      <node id="211">
-        <label>xhdmi_example.h</label>
-        <childnode refid="212" relation="include">
-        </childnode>
-        <childnode refid="213" relation="include">
-        </childnode>
+      <node id="233">
+        <label>xhdcp.c</label>
       </node>
       <node id="227">
         <label>xhdmi_example.c</label>
@@ -113,16 +82,71 @@
         <childnode refid="227" relation="include">
         </childnode>
       </node>
-      <node id="224">
+      <node id="214">
         <label>xhdmi_menu.c</label>
       </node>
-      <node id="222">
+      <node id="212">
         <label>xhdmi_menu.h</label>
-        <childnode refid="220" relation="include">
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+      </node>
+      <node id="219">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="217">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+      </node>
+      <node id="226">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="223">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="220">
+        <label>xhdmi_example.h</label>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
         </childnode>
         <childnode refid="223" relation="include">
         </childnode>
-        <childnode refid="224" relation="include">
+      </node>
+      <node id="231">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="228">
+        <label>xhdmi_example.h</label>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="210">
+        <label>hdcp_key_utility.c</label>
+      </node>
+      <node id="213">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="211">
+        <label>xhdmi_example.h</label>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
         </childnode>
       </node>
       <node id="230">
@@ -153,41 +177,17 @@
         <childnode refid="232" relation="include">
         </childnode>
       </node>
-      <node id="219">
+      <node id="224">
         <label>xhdmi_menu.c</label>
       </node>
-      <node id="217">
+      <node id="222">
         <label>xhdmi_menu.h</label>
-        <childnode refid="215" relation="include">
+        <childnode refid="220" relation="include">
         </childnode>
-        <childnode refid="218" relation="include">
+        <childnode refid="223" relation="include">
         </childnode>
-        <childnode refid="219" relation="include">
+        <childnode refid="224" relation="include">
         </childnode>
-      </node>
-      <node id="214">
-        <label>xhdmi_menu.c</label>
-      </node>
-      <node id="212">
-        <label>xhdmi_menu.h</label>
-        <childnode refid="213" relation="include">
-        </childnode>
-        <childnode refid="211" relation="include">
-        </childnode>
-        <childnode refid="214" relation="include">
-        </childnode>
-      </node>
-      <node id="216">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="221">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="226">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="210">
-        <label>hdcp_key_utility.c</label>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="60" bodyend="73"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="60" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="76" bodyend="79"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.c" bodystart="76" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -239,6 +239,6 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/platforms/platform.h"/>
   </compounddef>
 </doxygen>

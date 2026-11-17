@@ -2,6 +2,7 @@ var searchData=
 [
   ['xdptxss',['XDpTxSs',['../struct_x_dp_tx_ss.html',1,'']]],
   ['xdptxss_5faudiosad',['XDpTxSs_AudioSAD',['../struct_x_dp_tx_ss___audio_s_a_d.html',1,'']]],
+  ['xdptxss_5fclkwizsubcore',['XDpTxSs_ClkWizSubCore',['../struct_x_dp_tx_ss___clk_wiz_sub_core.html',1,'']]],
   ['xdptxss_5fconfig',['XDpTxSs_Config',['../struct_x_dp_tx_ss___config.html',1,'']]],
   ['xdptxss_5fdpsubcore',['XDpTxSs_DpSubCore',['../struct_x_dp_tx_ss___dp_sub_core.html',1,'']]],
   ['xdptxss_5fdssubcore',['XDpTxSs_DsSubCore',['../struct_x_dp_tx_ss___ds_sub_core.html',1,'']]],

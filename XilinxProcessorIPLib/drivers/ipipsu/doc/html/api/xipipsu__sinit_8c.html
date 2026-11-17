@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xipipsu__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,26 @@ $(document).ready(function(){initNavTree('xipipsu__sinit_8c.html','');});
 <div class="title">xipipsu_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization of the <a class="el" href="struct_x_ipi_psu.html" title="Holds the XIpiPsu driver instance data. ">XIpiPsu</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   mjr  03/15/15 First release
+2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
+2.9   sdd  03/11/21 Moved declaration to header files
+2.19  vlt  12/12/25 Update Doxygen comments to include SDT flow details
+2.19  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                    to support 64-bit addressing
+2.20  vn   09/10/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e">XIpiPsu_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e">More...</a><br/></td></tr>
+<tr class="memdesc:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or base address.  <a href="group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e">More...</a><br/></td></tr>
 <tr class="separator:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

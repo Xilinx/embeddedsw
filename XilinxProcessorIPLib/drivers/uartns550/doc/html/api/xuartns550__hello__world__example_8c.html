@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__hello__world__example_8c.h
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,14 +100,15 @@ $(document).ready(function(){initNavTree('xuartns550__hello__world__example_8c.h
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xuartns550_hello_world_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Uart 16450/550 driver (<a class="el" href="struct_x_uart_ns550.html" title="The XUartNs550 driver instance data. ">XUartNs550</a>) and hardware device using polled mode. </p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<div class="textblock"><p>Demonstrates <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> driver usage in polled mode. </p>
+<p>This file contains a design example using the Uart 16450/550 driver (<a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a>) and hardware device using polled mode.</p>
 <p>MODIFICATION HISTORY: </p>
 <pre>
 Ver   Who  Date     Changes
@@ -124,19 +125,53 @@ Ver   Who  Date     Changes
                     CR-965028.
 3.9   gm   07/09/23 Added SDT support
 3.13  bkv  07/07/25 Fixed GCC Warnings.
-3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+3.15  vn   09/09/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the XPAR parameters created in the xparameters.h file.</p>
+<p>They are defined here such that a user can easily change all the needed parameters in one place. </p>
+</div></td></tr>
+<tr class="memitem:ac9565031659897863ae69977e7021556"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__hello__world__example_8c.html#ac9565031659897863ae69977e7021556">XUARTNS550_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XUARTNS550_0_BASEADDR</td></tr>
+<tr class="memdesc:ac9565031659897863ae69977e7021556"><td class="mdescLeft">&#160;</td><td class="mdescRight">UART base address.  <a href="#ac9565031659897863ae69977e7021556">More...</a><br/></td></tr>
+<tr class="separator:ac9565031659897863ae69977e7021556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab269c836d95b1105366a916e20e7c1a0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__hello__world__example_8c.html#ab269c836d95b1105366a916e20e7c1a0">UartNs550HelloWorldExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ab269c836d95b1105366a916e20e7c1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends Hello World with the UART 16450/550 device and driver as a design example.  <a href="#ab269c836d95b1105366a916e20e7c1a0">More...</a><br/></td></tr>
+<tr class="memdesc:ab269c836d95b1105366a916e20e7c1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends "Hello World" over the UART in polled mode.  <a href="#ab269c836d95b1105366a916e20e7c1a0">More...</a><br/></td></tr>
 <tr class="separator:ab269c836d95b1105366a916e20e7c1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__hello__world__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the UartNs550 hello world example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6e87fcc551de28aab7f27c3be026a642"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ns550.html">XUartNs550</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xuartns550__hello__world__example_8c.html#a6e87fcc551de28aab7f27c3be026a642">UartNs550</a></td></tr>
+<tr class="memdesc:a6e87fcc551de28aab7f27c3be026a642"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the UART Driver.  <a href="#a6e87fcc551de28aab7f27c3be026a642">More...</a><br/></td></tr>
+<tr class="separator:a6e87fcc551de28aab7f27c3be026a642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ac9565031659897863ae69977e7021556"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUARTNS550_BASEADDRESS&#160;&#160;&#160;XPAR_XUARTNS550_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UART base address. </p>
+
+<p>Referenced by <a class="el" href="xuartns550__hello__world__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -152,15 +187,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the example. </p>
+<p>Calls the UartNs550 hello world example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_FAILURE if the Test Failed.</li>
-<li>A non-negative number indicating the number of characters sent.</li>
+<li>A non-negative number indicating the number of characters sent. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xuartns550__hello__world__example_8c.html#ab269c836d95b1105366a916e20e7c1a0">UartNs550HelloWorldExample()</a>.</p>
+<p>References <a class="el" href="xuartns550__hello__world__example_8c.html#ab269c836d95b1105366a916e20e7c1a0">UartNs550HelloWorldExample()</a>, and <a class="el" href="xuartns550__hello__world__example_8c.html#ac9565031659897863ae69977e7021556">XUARTNS550_BASEADDRESS</a>.</p>
 
 </div>
 </div>
@@ -178,12 +212,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sends Hello World with the UART 16450/550 device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_uart_ns550.html" title="The XUartNs550 driver instance data. ">XUartNs550</a> driver.</p>
+<p>Sends "Hello World" over the UART in polled mode. </p>
+<p>Sends Hello World with the UART 16450/550 device and driver as a design example.</p>
+<p>This function illustrates how to use the <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> driver.</p>
 <p>This function polls the UART and does not require the use of interrupts.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -197,6 +232,21 @@ Functions</h2></td></tr>
 <p>References <a class="el" href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">XUartNs550_Initialize()</a>, and <a class="el" href="group__uartns550.html#ga421921af6a8df7c51ddbfa5d2301ad1b">XUartNs550_Send()</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartns550__hello__world__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a6e87fcc551de28aab7f27c3be026a642"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> UartNs550</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the UART Driver. </p>
 
 </div>
 </div>

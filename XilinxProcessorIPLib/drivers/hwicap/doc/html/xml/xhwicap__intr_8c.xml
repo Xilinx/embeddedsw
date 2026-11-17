@@ -7,9 +7,18 @@
       <node id="87">
         <label>xil_assert.h</label>
       </node>
-      <node id="84">
-        <label>xhwicap_i.h</label>
-        <link refid="xhwicap__i_8h"/>
+      <node id="85">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap__l_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xil_io.h</label>
       </node>
       <node id="83">
         <label>xhwicap.h</label>
@@ -23,30 +32,21 @@
         <childnode refid="90" relation="include">
         </childnode>
       </node>
-      <node id="88">
-        <label>xil_io.h</label>
-      </node>
-      <node id="85">
-        <label>xhwicap_l.h</label>
-        <link refid="xhwicap__l_8h"/>
-        <childnode refid="86" relation="include">
-        </childnode>
-        <childnode refid="87" relation="include">
-        </childnode>
-        <childnode refid="88" relation="include">
-        </childnode>
+      <node id="84">
+        <label>xhwicap_i.h</label>
+        <link refid="xhwicap__i_8h"/>
       </node>
       <node id="89">
         <label>xstatus.h</label>
+      </node>
+      <node id="86">
+        <label>xil_types.h</label>
       </node>
       <node id="82">
         <label>xhwicap_intr.c</label>
         <link refid="xhwicap_intr.c"/>
         <childnode refid="83" relation="include">
         </childnode>
-      </node>
-      <node id="86">
-        <label>xil_types.h</label>
       </node>
       <node id="90">
         <label>xparameters.h</label>
@@ -100,7 +100,7 @@
 The handler is called within interrupt context, so it should do its work quickly and queue potentially time-consuming work to a task-level thread. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="669" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c" bodystart="77" bodyend="86"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="669" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c" bodystart="77" bodyend="86"/>
         <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
         <references refid="struct_x_hw_icap_1aab5f5571907cba99091ede9d3cadd039" compoundref="xhwicap_8h" startline="273">XHwIcap::StatusHandler</references>
         <references refid="struct_x_hw_icap_1a6b08114ef8b6d6478e9ae4890e68f671" compoundref="xhwicap_8h" startline="274">XHwIcap::StatusRef</references>
@@ -131,7 +131,7 @@ The handler is called within interrupt context, so it should do its work quickly
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="668" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c" bodystart="105" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="668" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c" bodystart="105" bodyend="170"/>
         <references refid="struct_x_hw_icap_1a6f6de856eedef3b63c0df360781984d6" compoundref="xhwicap_8h" startline="272">XHwIcap::IsTransferInProgress</references>
         <references refid="struct_x_hw_icap_1a6d23e949e46c1a0d88dd6ea065dc70c0" compoundref="xhwicap_8h" startline="271">XHwIcap::RemainingWords</references>
         <references refid="struct_x_hw_icap_1a694bf48b4c008d20e058cb5f610f35f5" compoundref="xhwicap_8h" startline="270">XHwIcap::RequestedWords</references>
@@ -255,6 +255,6 @@ The handler is called within interrupt context, so it should do its work quickly
 <codeline lineno="170"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_intr.c"/>
   </compounddef>
 </doxygen>

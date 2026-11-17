@@ -7,7 +7,7 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
@@ -23,7 +23,7 @@
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>file(READ<sp/>&quot;${HEADER_FILE_PATH}</highlight><highlight class="stringliteral">&quot;<sp/>HEADER_CONTENTS)</highlight></codeline>
 <codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>string(REGEX<sp/>MATCH<sp/>&quot;</highlight><highlight class="normal">#define[<sp/>\t]+${MACRO_NAME}[<sp/>\t]+</highlight><highlight class="stringliteral">&quot;<sp/>MACRO_FOUND<sp/>&quot;</highlight><highlight class="normal">${HEADER_CONTENTS}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
 <codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(NOT<sp/>(MACRO_FOUND))</highlight></codeline>
-<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">XilSem<sp/>client<sp/>library<sp/>requires<sp/>atleast<sp/>one<sp/>IPI<sp/>instance.</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">XilSem<sp/>client<sp/>library<sp/>requires<sp/>at<sp/>least<sp/>one<sp/>IPI<sp/>instance.</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
 <codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
 <codeline lineno="19"><highlight class="stringliteral">endif()</highlight></codeline>
 <codeline lineno="20"><highlight class="stringliteral"></highlight></codeline>
@@ -55,6 +55,6 @@
 <codeline lineno="46"><highlight class="stringliteral">install(DIRECTORY<sp/>${CMAKE_BINARY_DIR}/include/<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH})</highlight></codeline>
 <codeline lineno="47"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

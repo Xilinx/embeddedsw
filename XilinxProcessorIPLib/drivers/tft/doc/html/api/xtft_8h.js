@@ -14,7 +14,7 @@ var xtft_8h =
     [ "XTft_GetVsyncStatus", "xtft_8h.html#gacc8325682d029d3618ff0a7d6ee265dc", null ],
     [ "XTft_IntrDisable", "xtft_8h.html#ga1bc1f7d9c152c6e661cd125f4c190dd8", null ],
     [ "XTft_IntrEnable", "xtft_8h.html#ga3241465696077377ea4000f4caca21a7", null ],
-    [ "XTft_LookupConfig", "xtft_8h.html#ga6fbdb38685fd32b2c564a93b5fe70bf3", null ],
+    [ "XTft_LookupConfig", "xtft_8h.html#gafa2e204523f93ebfad01cc5dce39d859", null ],
     [ "XTft_ReadReg", "xtft_8h.html#ga254efd25fdc63b78691a33ed565ae759", null ],
     [ "XTft_ScanNormal", "xtft_8h.html#ga62eadbfc2233460b7ae8003c34347c01", null ],
     [ "XTft_ScanReverse", "xtft_8h.html#gaab5334330486fb514c230f98702d485a", null ],

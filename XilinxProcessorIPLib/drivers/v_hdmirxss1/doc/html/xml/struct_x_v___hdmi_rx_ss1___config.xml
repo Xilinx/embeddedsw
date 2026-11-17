@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="337" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="327" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ac34aadaeb0d531c2374d101e6ac1d46c" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -29,9 +29,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="339" bodyend="-1"/>
-        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
-        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="328" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="542" endline="682">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="109">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1aa06caad7292658282e00a8b8c7ef4bfc" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="341" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="330" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1a23cb1bc207dcd4b239ff035c3a7dfe45" prot="public" static="no" mutable="no">
         <type>XVidC_PixelsPerClock</type>
@@ -58,11 +58,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="343" bodyend="-1"/>
-        <referencedby refid="xv__hdmirxss1_8h_1a4b1da9fb9e5b37bea30c629293a76772" compoundref="xv__hdmirxss1_8c" startline="2866" endline="2873">XV_HdmiRxSs1_SetDefaultPpc</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1ac95834c8296864ddf9bd11cddee740da" compoundref="xv__hdmirxss1_8c" startline="2890" endline="2893">XV_HdmiRxSs1_SetPpc</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1a33f9facfc1978f57febcf29682fed6c7" compoundref="xv__hdmirxss1_8c" startline="2180" endline="2211">XV_HdmiRxSs1_SetStream</referencedby>
-        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="332" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1a4b1da9fb9e5b37bea30c629293a76772" compoundref="xv__hdmirxss1_8c" startline="2837" endline="2840">XV_HdmiRxSs1_SetDefaultPpc</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac95834c8296864ddf9bd11cddee740da" compoundref="xv__hdmirxss1_8c" startline="2857" endline="2860">XV_HdmiRxSs1_SetPpc</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a33f9facfc1978f57febcf29682fed6c7" compoundref="xv__hdmirxss1_8c" startline="2151" endline="2182">XV_HdmiRxSs1_SetStream</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="109">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1aac89f80e85d26d55ba1b5e5faf7e22b8" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="344" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="333" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1a1b09ebc0f94088fc28b1d82adf53cded" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="345" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="334" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ade5e3a9f12bcce870ca087356da0097c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -101,11 +101,11 @@
 <para>Dynamic HDR supported </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="346" bodyend="-1"/>
-        <referencedby refid="xv__hdmirxss1_8h_1aea595ce7b6a72c3ef581593dc634f693" compoundref="xv__hdmirxss1_8c" startline="3032" endline="3043">XV_HdmiRxSs1_DynHDR_DM_Disable</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1ac7d12d5726eed2735460f2f7ae91ac68" compoundref="xv__hdmirxss1_8c" startline="3007" endline="3018">XV_HdmiRxSs1_DynHDR_DM_Enable</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1a42ec2b4dba172edc37040ec1e9ad7590" compoundref="xv__hdmirxss1_8c" startline="3090" endline="3104">XV_HdmiRxSs1_DynHDR_GetInfo</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1aa3c4292a7e63691e8d096746c61c79e5" compoundref="xv__hdmirxss1_8c" startline="3059" endline="3073">XV_HdmiRxSs1_DynHDR_SetAddr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1aea595ce7b6a72c3ef581593dc634f693" compoundref="xv__hdmirxss1_8c" startline="2999" endline="3010">XV_HdmiRxSs1_DynHDR_DM_Disable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1ac7d12d5726eed2735460f2f7ae91ac68" compoundref="xv__hdmirxss1_8c" startline="2974" endline="2985">XV_HdmiRxSs1_DynHDR_DM_Enable</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a42ec2b4dba172edc37040ec1e9ad7590" compoundref="xv__hdmirxss1_8c" startline="3057" endline="3071">XV_HdmiRxSs1_DynHDR_GetInfo</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1aa3c4292a7e63691e8d096746c61c79e5" compoundref="xv__hdmirxss1_8c" startline="3026" endline="3040">XV_HdmiRxSs1_DynHDR_SetAddr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1aad3079f7c61932fca7de4876a008ff29" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -118,9 +118,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="347" bodyend="-1"/>
-        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
-        <referencedby refid="xv__hdmirxss1_8h_1a2391ad693895b50024731a951c6aa990" compoundref="xv__hdmirxss1_8c" startline="3205" endline="3214">XV_HdmiRxSs1_DSC_IsEnableStream</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="542" endline="682">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirxss1_8h_1a2391ad693895b50024731a951c6aa990" compoundref="xv__hdmirxss1_8c" startline="3172" endline="3181">XV_HdmiRxSs1_DSC_IsEnableStream</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1afce02f1610b14e6a599c142352055d59" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -133,9 +133,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="348" bodyend="-1"/>
-        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
-        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="542" endline="682">XV_HdmiRxSs1_CfgInitialize</referencedby>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="109">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1acf1343cb7b7cef1889fab0eec80f221d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -148,8 +148,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="349" bodyend="-1"/>
-        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="109">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ab720a83810afc9e162b9dda767642b9e" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v___hdmi_rx_ss1___sub_core" kindref="compound">XV_HdmiRxSs1_SubCore</ref></type>
@@ -162,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="350" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="339" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ad5e615d539bd7133bc6df85fcc2a1ecd" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v___hdmi_rx_ss1___sub_core" kindref="compound">XV_HdmiRxSs1_SubCore</ref></type>
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="351" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="340" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ab599515b162907cc0c3ddf3005036b72" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v___hdmi_rx_ss1___sub_core" kindref="compound">XV_HdmiRxSs1_SubCore</ref></type>
@@ -188,7 +188,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="352" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="341" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1ae087a3e8b92106e5e7cebb2d32315c66" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v___hdmi_rx_ss1___sub_core" kindref="compound">XV_HdmiRxSs1_SubCore</ref></type>
@@ -201,8 +201,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="353" bodyend="-1"/>
-        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="115">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" compoundref="xv__hdmirxss1__coreinit_8c" startline="66" endline="109">XV_HdmiRxSs1_SubcoreInitHdmiRx1</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1a60277fcca3bff19afd0e1f147ca04384" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="355" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="343" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___config_1abd4b7e94f003af353482c98de504e2bd" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -228,7 +228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="356" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="344" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -236,22 +236,22 @@
     <detaileddescription>
 <para>Each subsystem device should have a configuration structure associated that defines the MAX supported sub-cores within subsystem </para>    </detaileddescription>
     <collaborationgraph>
-      <node id="42">
+      <node id="44">
         <label>XV_HdmiRxSs1_Config</label>
         <link refid="struct_x_v___hdmi_rx_ss1___config"/>
-        <childnode refid="43" relation="usage">
+        <childnode refid="45" relation="usage">
           <edgelabel>HdmiRx1</edgelabel>
           <edgelabel>Hdcp22</edgelabel>
           <edgelabel>Hdcp14</edgelabel>
           <edgelabel>HdcpTimer</edgelabel>
         </childnode>
       </node>
-      <node id="43">
+      <node id="45">
         <label>XV_HdmiRxSs1_SubCore</label>
         <link refid="struct_x_v___hdmi_rx_ss1___sub_core"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="332" bodyend="359"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="325" bodyend="346"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_rx_ss1___config_1afce02f1610b14e6a599c142352055d59" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_Config</scope><name>AxiLiteClkFreq</name></member>
       <member refid="struct_x_v___hdmi_rx_ss1___config_1ac34aadaeb0d531c2374d101e6ac1d46c" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_Config</scope><name>BaseAddress</name></member>

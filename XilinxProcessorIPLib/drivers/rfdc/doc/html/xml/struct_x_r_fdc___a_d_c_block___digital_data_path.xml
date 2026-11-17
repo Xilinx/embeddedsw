@@ -5,43 +5,51 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1ac05334670959012157e524359f2d1ac3" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath::MixerInputDataType</definition>
         <argsstring></argsstring>
         <name>MixerInputDataType</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer input data type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="739" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="739" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="805" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="805" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga43b39e1be1937e41fa1635b60e904f56" compoundref="xrfdc__ap_8c" startline="313" endline="392">XRFdc_GetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gab0076018f6530e26bd9ad95bc7cdc7fa" compoundref="xrfdc__ap_8c" startline="955" endline="1011">XRFdc_GetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gac3fb87248f09b356e8fdb3836658eb27" compoundref="xrfdc__ap_8c" startline="693" endline="780">XRFdc_SetThresholdClrMode</referencedby>
+        <referencedby refid="group___overview_1gaba6dca1e8e40a31b090f14fa12ecd891" compoundref="xrfdc__ap_8c" startline="806" endline="929">XRFdc_SetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1ga69a7ae63cf7acb97d3a3cf591f8a37b4" compoundref="xrfdc__ap_8c" startline="597" endline="667">XRFdc_ThresholdStickyClear</referencedby>
+        <referencedby refid="group___overview_1ga340750315304dc48dc87089b429b5364" compoundref="xrfdc__dp_8c" startline="260" endline="359">XRFdc_UpdateEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1aee310a7096b120406e854194dc0c6e5f" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath::DataWidth</definition>
         <argsstring></argsstring>
         <name>DataWidth</name>
         <briefdescription>
-        </briefdescription>
+<para>Data width. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="740" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="740" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="806" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="806" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1a001562baa94a8250baf370e55030c103" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath::DecimationFactor</definition>
         <argsstring></argsstring>
         <name>DecimationFactor</name>
         <briefdescription>
-        </briefdescription>
+<para>Decimation factor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="741" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="741" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="807" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1ac64192d56245d0e363152f42fdc3d5bf" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -49,12 +57,13 @@
         <argsstring></argsstring>
         <name>ConnectedIData</name>
         <briefdescription>
-        </briefdescription>
+<para>Connected I data path. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="742" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="742" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="808" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="808" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1a56ca717327a69216eb678a18268bd9eb" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -62,38 +71,39 @@
         <argsstring></argsstring>
         <name>ConnectedQData</name>
         <briefdescription>
-        </briefdescription>
+<para>Connected Q data path. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="743" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="743" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="809" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="809" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1a0e00fe649f0c0884f188709e803ff061" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_ADCBlock_DigitalDataPath::DigitalPathEnabled</definition>
         <argsstring></argsstring>
         <name>DigitalPathEnabled</name>
         <briefdescription>
-        </briefdescription>
+<para>Digital path enabled status. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="744" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="744" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="810" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1a8f4d939bd471117cb5501c39ffcbb8d5" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_ADCBlock_DigitalDataPath::DigitalPathAvailable</definition>
         <argsstring></argsstring>
         <name>DigitalPathAvailable</name>
         <briefdescription>
-        </briefdescription>
+<para>Digital path available status. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="745" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="745" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="811" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="811" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path_1a7d4398ed42d79944df026d82fb86d6db" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_r_fdc___mixer___settings" kindref="compound">XRFdc_Mixer_Settings</ref></type>
@@ -101,12 +111,14 @@
         <argsstring></argsstring>
         <name>Mixer_Settings</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer settings. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="746" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="746" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="812" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="812" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -126,7 +138,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="738" bodyend="747"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="804" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="804" bodyend="813"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___a_d_c_block___digital_data_path_1ac64192d56245d0e363152f42fdc3d5bf" prot="public" virt="non-virtual"><scope>XRFdc_ADCBlock_DigitalDataPath</scope><name>ConnectedIData</name></member>
       <member refid="struct_x_r_fdc___a_d_c_block___digital_data_path_1a56ca717327a69216eb678a18268bd9eb" prot="public" virt="non-virtual"><scope>XRFdc_ADCBlock_DigitalDataPath</scope><name>ConnectedQData</name></member>

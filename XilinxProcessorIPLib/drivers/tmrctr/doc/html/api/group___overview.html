@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group___overview.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -124,12 +124,42 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:gafc4684a3912a1169c7516b7dad56a20a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gafc4684a3912a1169c7516b7dad56a20a">XTMRCTR_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:gafc4684a3912a1169c7516b7dad56a20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>.  <a href="#gafc4684a3912a1169c7516b7dad56a20a">More...</a><br/></td></tr>
+<tr class="separator:gafc4684a3912a1169c7516b7dad56a20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a3efe61990e0eb158b9238143e915b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>(a, b)&#160;&#160;&#160;((a + (b / 2)) / b)</td></tr>
+<tr class="memdesc:ga2a3efe61990e0eb158b9238143e915b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round integer division of a by b to nearest integer.  <a href="#ga2a3efe61990e0eb158b9238143e915b0">More...</a><br/></td></tr>
+<tr class="separator:ga2a3efe61990e0eb158b9238143e915b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5552f8d5f7ed58263e6811f98647f8be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga5552f8d5f7ed58263e6811f98647f8be">XTC_HZ_TO_NS</a>(Hz)&#160;&#160;&#160;<a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>(1000000000, Hz)</td></tr>
+<tr class="memdesc:ga5552f8d5f7ed58263e6811f98647f8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert clock frequency in Hz to period in nanoseconds.  <a href="#ga5552f8d5f7ed58263e6811f98647f8be">More...</a><br/></td></tr>
+<tr class="separator:ga5552f8d5f7ed58263e6811f98647f8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaffe6718acb596f90c980fcaeb149d440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaffe6718acb596f90c980fcaeb149d440">XTMRCTR_I_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:gaffe6718acb596f90c980fcaeb149d440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr__i_8h.html">xtmrctr_i.h</a>.  <a href="#gaffe6718acb596f90c980fcaeb149d440">More...</a><br/></td></tr>
+<tr class="separator:gaffe6718acb596f90c980fcaeb149d440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad575eebe2cbe61e414d82832385d63a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad575eebe2cbe61e414d82832385d63a1">XTMRCTR_L_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:gad575eebe2cbe61e414d82832385d63a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr__l_8h.html">xtmrctr_l.h</a>.  <a href="#gad575eebe2cbe61e414d82832385d63a1">More...</a><br/></td></tr>
+<tr class="separator:gad575eebe2cbe61e414d82832385d63a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba99b973ef1f13bf0a2716cf52ca5319"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:gaba99b973ef1f13bf0a2716cf52ca5319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the number of timer counters within a single hardware device.  <a href="#gaba99b973ef1f13bf0a2716cf52ca5319">More...</a><br/></td></tr>
 <tr class="separator:gaba99b973ef1f13bf0a2716cf52ca5319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22c78277a54b31ec738e72eca0662e35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga22c78277a54b31ec738e72eca0662e35">XTC_TIMER_COUNTER_OFFSET</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga22c78277a54b31ec738e72eca0662e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address space consumed by each timer counter instance (16 bytes).  <a href="#ga22c78277a54b31ec738e72eca0662e35">More...</a><br/></td></tr>
+<tr class="separator:ga22c78277a54b31ec738e72eca0662e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbe3e1a524e50edb1098c1a824f0dc79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gacbe3e1a524e50edb1098c1a824f0dc79">XTC_TIMER_0</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gacbe3e1a524e50edb1098c1a824f0dc79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer counter 0 instance index.  <a href="#gacbe3e1a524e50edb1098c1a824f0dc79">More...</a><br/></td></tr>
+<tr class="separator:gacbe3e1a524e50edb1098c1a824f0dc79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5693165001c579683430dfc150215290"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga5693165001c579683430dfc150215290">XTC_TIMER_1</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga5693165001c579683430dfc150215290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer counter 1 instance index.  <a href="#ga5693165001c579683430dfc150215290">More...</a><br/></td></tr>
+<tr class="separator:ga5693165001c579683430dfc150215290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1b5b45fe13bd14e5045077eff1d522e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf1b5b45fe13bd14e5045077eff1d522e">XTC_MAX_LOAD_VALUE</a>&#160;&#160;&#160;0xFFFFFFFF</td></tr>
+<tr class="memdesc:gaf1b5b45fe13bd14e5045077eff1d522e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum load value for a 32-bit timer counter.  <a href="#gaf1b5b45fe13bd14e5045077eff1d522e">More...</a><br/></td></tr>
+<tr class="separator:gaf1b5b45fe13bd14e5045077eff1d522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaea427162ce7e92fd08afb7ee1cc1c12e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>(BaseAddress, TmrCtrNumber, RegOffset)</td></tr>
 <tr class="memdesc:gaea427162ce7e92fd08afb7ee1cc1c12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read one of the timer counter registers.  <a href="#gaea427162ce7e92fd08afb7ee1cc1c12e">More...</a><br/></td></tr>
 <tr class="separator:gaea427162ce7e92fd08afb7ee1cc1c12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09ca31bffdcb5d86ce0059163b24bdaf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga09ca31bffdcb5d86ce0059163b24bdaf">XTimerCtr_ReadReg</a>&#160;&#160;&#160;<a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></td></tr>
+<tr class="memdesc:ga09ca31bffdcb5d86ce0059163b24bdaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value for XTimerCtr_ReadReg.  <a href="#ga09ca31bffdcb5d86ce0059163b24bdaf">More...</a><br/></td></tr>
+<tr class="separator:ga09ca31bffdcb5d86ce0059163b24bdaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga56d9c2d54afce39c3693356e3892547f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</td></tr>
 <tr class="memdesc:ga56d9c2d54afce39c3693356e3892547f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a specified value to a register of a timer counter.  <a href="#ga56d9c2d54afce39c3693356e3892547f">More...</a><br/></td></tr>
 <tr class="separator:ga56d9c2d54afce39c3693356e3892547f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +196,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gac6bbcadfe43a528d4d895650bee25a4e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac6bbcadfe43a528d4d895650bee25a4e">XTmrCtr_HasEventOccurred</a>(BaseAddress, TmrCtrNumber)</td></tr>
 <tr class="memdesc:gac6bbcadfe43a528d4d895650bee25a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a timer counter event has occurred.  <a href="#gac6bbcadfe43a528d4d895650bee25a4e">More...</a><br/></td></tr>
 <tr class="separator:gac6bbcadfe43a528d4d895650bee25a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76c08a827bf7a7d6e555a6e5f2c9ed65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga76c08a827bf7a7d6e555a6e5f2c9ed65">XTC_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(Mapping))</td></tr>
+<tr class="memdesc:ga76c08a827bf7a7d6e555a6e5f2c9ed65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in the timer options table.  <a href="#ga76c08a827bf7a7d6e555a6e5f2c9ed65">More...</a><br/></td></tr>
+<tr class="separator:ga76c08a827bf7a7d6e555a6e5f2c9ed65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec9424685a653e23abf84d1ebfc1c9a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaec9424685a653e23abf84d1ebfc1c9a6">XPAR_XTMRCTR_NUM_INSTANCES</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gaec9424685a653e23abf84d1ebfc1c9a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of timer counter instances in the system (default 0 for SDT).  <a href="#gaec9424685a653e23abf84d1ebfc1c9a6">More...</a><br/></td></tr>
+<tr class="separator:gaec9424685a653e23abf84d1ebfc1c9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -218,10 +254,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga372cc1b26240b627c5a830a9d44ab9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="#ga372cc1b26240b627c5a830a9d44ab9e1">More...</a><br/></td></tr>
 <tr class="separator:ga372cc1b26240b627c5a830a9d44ab9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76">XTmrCtr_SetOptions</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, u8 TmrCtrNumber, u32 Options)</td></tr>
-<tr class="memdesc:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the specified options for the specified timer counter.  <a href="#ga93d796cf55144d6adb3c51fedf6c3b76">More...</a><br/></td></tr>
+<tr class="memdesc:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets options for the specified timer counter.  <a href="#ga93d796cf55144d6adb3c51fedf6c3b76">More...</a><br/></td></tr>
 <tr class="separator:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b">XTmrCtr_GetOptions</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, u8 TmrCtrNumber)</td></tr>
-<tr class="memdesc:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the options for the specified timer counter.  <a href="#gaaff209dc01c2946c239c6e5c1bdc1a5b">More...</a><br/></td></tr>
+<tr class="memdesc:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the options for the specified timer counter.  <a href="#gaaff209dc01c2946c239c6e5c1bdc1a5b">More...</a><br/></td></tr>
 <tr class="separator:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c99744f99aef2a019616e712206f1b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3c99744f99aef2a019616e712206f1b0">XTmrCtr_GetStats</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, <a class="el" href="struct_x_tmr_ctr_stats.html">XTmrCtrStats</a> *StatsPtr)</td></tr>
 <tr class="memdesc:ga3c99744f99aef2a019616e712206f1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a copy of the <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure, which contains the current statistics for this driver.  <a href="#ga3c99744f99aef2a019616e712206f1b0">More...</a><br/></td></tr>
@@ -250,28 +286,28 @@ Variables</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Configuration options</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp50f33d14f129e4548c1c270fd6725a78"></a>These options are used in <a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76" title="Enables the specified options for the specified timer counter. ">XTmrCtr_SetOptions()</a> and <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Get the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp50f33d14f129e4548c1c270fd6725a78"></a>These options are used in <a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76" title="Sets options for the specified timer counter. ">XTmrCtr_SetOptions()</a> and <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Returns the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> </p>
 </td></tr>
 <tr class="memitem:ga4fb085742ee50628791c81ff9a14bc2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4fb085742ee50628791c81ff9a14bc2c">XTC_CASCADE_MODE_OPTION</a>&#160;&#160;&#160;0x00000080UL</td></tr>
 <tr class="memdesc:ga4fb085742ee50628791c81ff9a14bc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to configure the timer counter device.  <a href="#ga4fb085742ee50628791c81ff9a14bc2c">More...</a><br/></td></tr>
 <tr class="separator:ga4fb085742ee50628791c81ff9a14bc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac50df31e95b1a82441de09ff360eca48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac50df31e95b1a82441de09ff360eca48"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_ENABLE_ALL_OPTION</b>&#160;&#160;&#160;0x00000040UL</td></tr>
+<tr class="memitem:gac50df31e95b1a82441de09ff360eca48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac50df31e95b1a82441de09ff360eca48">XTC_ENABLE_ALL_OPTION</a>&#160;&#160;&#160;0x00000040UL</td></tr>
+<tr class="memdesc:gac50df31e95b1a82441de09ff360eca48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag to enable all timer counters simultaneously.  <a href="#gac50df31e95b1a82441de09ff360eca48">More...</a><br/></td></tr>
 <tr class="separator:gac50df31e95b1a82441de09ff360eca48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9cc7b106e2e846ec41fd983da0772dc8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_DOWN_COUNT_OPTION</b>&#160;&#160;&#160;0x00000020UL</td></tr>
+<tr class="memitem:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9cc7b106e2e846ec41fd983da0772dc8">XTC_DOWN_COUNT_OPTION</a>&#160;&#160;&#160;0x00000020UL</td></tr>
+<tr class="memdesc:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag to configure timer counter for down counting.  <a href="#ga9cc7b106e2e846ec41fd983da0772dc8">More...</a><br/></td></tr>
 <tr class="separator:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf93c62016d132546b5ee99789b4e48c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf93c62016d132546b5ee99789b4e48c1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_CAPTURE_MODE_OPTION</b>&#160;&#160;&#160;0x00000010UL</td></tr>
+<tr class="memitem:gaf93c62016d132546b5ee99789b4e48c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf93c62016d132546b5ee99789b4e48c1">XTC_CAPTURE_MODE_OPTION</a>&#160;&#160;&#160;0x00000010UL</td></tr>
+<tr class="memdesc:gaf93c62016d132546b5ee99789b4e48c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_CAPTURE_MODE_OPTION.  <a href="#gaf93c62016d132546b5ee99789b4e48c1">More...</a><br/></td></tr>
 <tr class="separator:gaf93c62016d132546b5ee99789b4e48c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaad72f141ec429ad4b782868c33b32c1b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaad72f141ec429ad4b782868c33b32c1b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_INT_MODE_OPTION</b>&#160;&#160;&#160;0x00000008UL</td></tr>
+<tr class="memitem:gaad72f141ec429ad4b782868c33b32c1b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaad72f141ec429ad4b782868c33b32c1b">XTC_INT_MODE_OPTION</a>&#160;&#160;&#160;0x00000008UL</td></tr>
+<tr class="memdesc:gaad72f141ec429ad4b782868c33b32c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_INT_MODE_OPTION.  <a href="#gaad72f141ec429ad4b782868c33b32c1b">More...</a><br/></td></tr>
 <tr class="separator:gaad72f141ec429ad4b782868c33b32c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace3deb2a423d72960864a46eacd11fdc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gace3deb2a423d72960864a46eacd11fdc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_AUTO_RELOAD_OPTION</b>&#160;&#160;&#160;0x00000004UL</td></tr>
+<tr class="memitem:gace3deb2a423d72960864a46eacd11fdc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gace3deb2a423d72960864a46eacd11fdc">XTC_AUTO_RELOAD_OPTION</a>&#160;&#160;&#160;0x00000004UL</td></tr>
+<tr class="memdesc:gace3deb2a423d72960864a46eacd11fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_AUTO_RELOAD_OPTION.  <a href="#gace3deb2a423d72960864a46eacd11fdc">More...</a><br/></td></tr>
 <tr class="separator:gace3deb2a423d72960864a46eacd11fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3d33636409ed76e99828909edcff0d4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3d33636409ed76e99828909edcff0d4a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_EXT_COMPARE_OPTION</b>&#160;&#160;&#160;0x00000002UL</td></tr>
+<tr class="memitem:ga3d33636409ed76e99828909edcff0d4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3d33636409ed76e99828909edcff0d4a">XTC_EXT_COMPARE_OPTION</a>&#160;&#160;&#160;0x00000002UL</td></tr>
+<tr class="memdesc:ga3d33636409ed76e99828909edcff0d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_EXT_COMPARE_OPTION.  <a href="#ga3d33636409ed76e99828909edcff0d4a">More...</a><br/></td></tr>
 <tr class="separator:ga3d33636409ed76e99828909edcff0d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -330,6 +366,50 @@ Control Status Register Bit Definitions</h2></td></tr>
 <tr class="separator:gaa0563f5483d9fef6126df6b2e447da08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="gaec9424685a653e23abf84d1ebfc1c9a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPAR_XTMRCTR_NUM_INSTANCES&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of timer counter instances in the system (default 0 for SDT). </p>
+
+</div>
+</div>
+<a class="anchor" id="gace3deb2a423d72960864a46eacd11fdc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_AUTO_RELOAD_OPTION&#160;&#160;&#160;0x00000004UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag for XTC_AUTO_RELOAD_OPTION. </p>
+
+<p>Referenced by <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a2a0a4c94c41976b913d5f021f257bd51">TmrCtrCascadeIntrExample()</a>, <a class="el" href="xtmrctr__fast__intr__example_8c.html#a54a8e8c734acc65446415bf6aab2d995">TmrCtrFastIntrExample()</a>, <a class="el" href="xtmrctr__intr__example_8c.html#a51bb17a10cb7750f7b8e62c81c239cd6">TmrCtrIntrExample()</a>, and <a class="el" href="xtmrctr__polled__example_8c.html#ab0b2505b096466782f12f8e4f9fa3a55">TmrCtrPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf93c62016d132546b5ee99789b4e48c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_CAPTURE_MODE_OPTION&#160;&#160;&#160;0x00000010UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag for XTC_CAPTURE_MODE_OPTION. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga4fb085742ee50628791c81ff9a14bc2c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -575,6 +655,146 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 
 </div>
 </div>
+<a class="anchor" id="ga9cc7b106e2e846ec41fd983da0772dc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_DOWN_COUNT_OPTION&#160;&#160;&#160;0x00000020UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag to configure timer counter for down counting. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac50df31e95b1a82441de09ff360eca48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_ENABLE_ALL_OPTION&#160;&#160;&#160;0x00000040UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag to enable all timer counters simultaneously. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3d33636409ed76e99828909edcff0d4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_EXT_COMPARE_OPTION&#160;&#160;&#160;0x00000002UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag for XTC_EXT_COMPARE_OPTION. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5552f8d5f7ed58263e6811f98647f8be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_HZ_TO_NS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Hz</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>(1000000000, Hz)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert clock frequency in Hz to period in nanoseconds. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaad72f141ec429ad4b782868c33b32c1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_INT_MODE_OPTION&#160;&#160;&#160;0x00000008UL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option flag for XTC_INT_MODE_OPTION. </p>
+
+<p>Referenced by <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a2a0a4c94c41976b913d5f021f257bd51">TmrCtrCascadeIntrExample()</a>, <a class="el" href="xtmrctr__fast__intr__example_8c.html#a54a8e8c734acc65446415bf6aab2d995">TmrCtrFastIntrExample()</a>, <a class="el" href="xtmrctr__intr__example_8c.html#a51bb17a10cb7750f7b8e62c81c239cd6">TmrCtrIntrExample()</a>, and <a class="el" href="xtmrctr__pwm__example_8c.html#a2bb99ca758c410790a4779cef91b7fa2">TmrCtrPwmExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf1b5b45fe13bd14e5045077eff1d522e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_MAX_LOAD_VALUE&#160;&#160;&#160;0xFFFFFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum load value for a 32-bit timer counter. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga76c08a827bf7a7d6e555a6e5f2c9ed65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_NUM_OPTIONS&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(Mapping))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of entries in the timer options table. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b">XTmrCtr_GetOptions()</a>, and <a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76">XTmrCtr_SetOptions()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga2a3efe61990e0eb158b9238143e915b0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_ROUND_DIV</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((a + (b / 2)) / b)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Round integer division of a by b to nearest integer. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="gad054cd3c12bc686f9be366e093c2f97a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -607,6 +827,52 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 
 </div>
 </div>
+<a class="anchor" id="gacbe3e1a524e50edb1098c1a824f0dc79"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_TIMER_0&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timer counter 0 instance index. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>, <a class="el" href="group___overview.html#ga7442dd2a194e46db961019a29c9e755d">XTmrCtr_PwmDisable()</a>, and <a class="el" href="group___overview.html#gaf13a8cf6dcc0f322abd768c41243220d">XTmrCtr_PwmEnable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5693165001c579683430dfc150215290"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_TIMER_1&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timer counter 1 instance index. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>, <a class="el" href="group___overview.html#ga7442dd2a194e46db961019a29c9e755d">XTmrCtr_PwmDisable()</a>, and <a class="el" href="group___overview.html#gaf13a8cf6dcc0f322abd768c41243220d">XTmrCtr_PwmEnable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga22c78277a54b31ec738e72eca0662e35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTC_TIMER_COUNTER_OFFSET&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Address space consumed by each timer counter instance (16 bytes). </p>
+
+</div>
+</div>
 <a class="anchor" id="ga38a380fdcb3114c3db51524a8182c4ad"></a>
 <div class="memitem">
 <div class="memproto">
@@ -620,6 +886,20 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Load register. </p>
 
 <p>Referenced by <a class="el" href="group___overview.html#gad8f339bdf71ed11fa92f08720c9ce663">XTmrCtr_GetCaptureValue()</a>, <a class="el" href="group___overview.html#gac3ffcfef4ba4507d5f2b9e17a08c7bf0">XTmrCtr_InitHw()</a>, <a class="el" href="group___overview.html#ga295c8b4acc8b8fd71cb1085d3fa2c53c">XTmrCtr_PwmConfigure()</a>, <a class="el" href="group___overview.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7">XTmrCtr_SelfTest()</a>, and <a class="el" href="group___overview.html#ga74b790866611a3ab1e96700feb48f6ea">XTmrCtr_SetResetValue()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga09ca31bffdcb5d86ce0059163b24bdaf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTimerCtr_ReadReg&#160;&#160;&#160;<a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value for XTimerCtr_ReadReg. </p>
 
 </div>
 </div>
@@ -649,20 +929,19 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
 <div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber),\</div>
 <div class="line">                                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) &amp; ~ <a class="code" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_gaa7cbbacf96f3f51bcd12d5826b03e620"><div class="ttname"><a href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_TMR_MASK</div><div class="ttdoc">Enables only the specific timer. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:113</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_gaa7cbbacf96f3f51bcd12d5826b03e620"><div class="ttname"><a href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_TMR_MASK</div><div class="ttdoc">Enables only the specific timer. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:109</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
 </div><!-- fragment -->
 <p>Disable a timer counter such that it stops running. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group___overview.html#gae5874bbf23d48004ab15acd250a34688" title="Disable a timer counter such that it stops running. ">XTmrCtr_Disable(u32 BaseAddress, u8 TmrCtrNumber)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
@@ -692,25 +971,24 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>,  \</div>
-<div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber),                   \</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
+<div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber), \</div>
 <div class="line">                                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) &amp; ~ (<a class="code" href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a> \</div>
 <div class="line">                                                          | <a class="code" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>)))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_ga2744df54b0fc4bc5df1dba14a6afc840"><div class="ttname"><a href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a></div><div class="ttdeci">#define XTC_CSR_INT_OCCURED_MASK</div><div class="ttdoc">If bit is set, an interrupt has occurred. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:102</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_ga0e56ed788d0a3f4b6d89319e03797002"><div class="ttname"><a href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_INT_MASK</div><div class="ttdoc">Enables the interrupt output. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:116</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_ga2744df54b0fc4bc5df1dba14a6afc840"><div class="ttname"><a href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a></div><div class="ttdeci">#define XTC_CSR_INT_OCCURED_MASK</div><div class="ttdoc">If bit is set, an interrupt has occurred. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:98</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_ga0e56ed788d0a3f4b6d89319e03797002"><div class="ttname"><a href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_INT_MASK</div><div class="ttdoc">Enables the interrupt output. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:112</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
 </div><!-- fragment -->
 <p>Disable the interrupt for a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group___overview.html#ga582e5bbde5675a5750d3e4328493e318" title="Disable the interrupt for a timer counter. ">XTmrCtr_DisableIntr(u32 BaseAddress, u8 TmrCtrNumber)</a>; </dd></dl>
 
 </div>
@@ -738,23 +1016,22 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>,   \</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
 <div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), ( TmrCtrNumber), \</div>
 <div class="line">                                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) | <a class="code" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_gaa7cbbacf96f3f51bcd12d5826b03e620"><div class="ttname"><a href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_TMR_MASK</div><div class="ttdoc">Enables only the specific timer. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:113</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_gaa7cbbacf96f3f51bcd12d5826b03e620"><div class="ttname"><a href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_TMR_MASK</div><div class="ttdoc">Enables only the specific timer. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:109</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
 </div><!-- fragment -->
 <p>Enable a timer counter such that it starts running. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group___overview.html#gad1f98a1af5b68454aead939a5a727ff1" title="Enable a timer counter such that it starts running. ">XTmrCtr_Enable(u32 BaseAddress, u8 TmrCtrNumber)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
@@ -784,23 +1061,22 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>,   \</div>
-<div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber),  \</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
+<div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber), \</div>
 <div class="line">                                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) | <a class="code" href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a>))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_ga0e56ed788d0a3f4b6d89319e03797002"><div class="ttname"><a href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_INT_MASK</div><div class="ttdoc">Enables the interrupt output. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:116</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_ga0e56ed788d0a3f4b6d89319e03797002"><div class="ttname"><a href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a></div><div class="ttdeci">#define XTC_CSR_ENABLE_INT_MASK</div><div class="ttdoc">Enables the interrupt output. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:112</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
 </div><!-- fragment -->
 <p>Enable the interrupt for a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group___overview.html#ga2b0b144df40ea454cd791aa2fbdaeb94" title="Enable the interrupt for a timer counter. ">XTmrCtr_EnableIntr(u32 BaseAddress, u8 TmrCtrNumber)</a>; </dd></dl>
 
 </div>
@@ -832,8 +1108,8 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Get the Control Status Register of a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
@@ -871,8 +1147,8 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Get the Load Register of a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
@@ -908,8 +1184,8 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Get the Timer Counter Register of a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
@@ -917,6 +1193,20 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 XTmrCtr_GetTimerCounterReg(u32 BaseAddress, u8 TmrCtrNumber); </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gafc4684a3912a1169c7516b7dad56a20a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMRCTR_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>. </p>
 
 </div>
 </div>
@@ -944,22 +1234,50 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber),        \</div>
-<div class="line">                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) &amp; <a class="code" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>) ==               \</div>
+<div class="line">                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) &amp; <a class="code" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>) ==       \</div>
 <div class="line">         <a class="code" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>)</div>
-<div class="ttc" id="group___overview_html_ga2744df54b0fc4bc5df1dba14a6afc840"><div class="ttname"><a href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a></div><div class="ttdeci">#define XTC_CSR_INT_OCCURED_MASK</div><div class="ttdoc">If bit is set, an interrupt has occurred. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:102</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
+<div class="ttc" id="group___overview_html_ga2744df54b0fc4bc5df1dba14a6afc840"><div class="ttname"><a href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a></div><div class="ttdeci">#define XTC_CSR_INT_OCCURED_MASK</div><div class="ttdoc">If bit is set, an interrupt has occurred. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:98</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
 </div><!-- fragment -->
 <p>Determine if a timer counter event has occurred. </p>
 <p>Events are defined to be when a capture has occurred or the counter has roller over.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: int <a class="el" href="group___overview.html#gac6bbcadfe43a528d4d895650bee25a4e" title="Determine if a timer counter event has occurred. ">XTmrCtr_HasEventOccurred(u32 BaseAddress, u8 TmrCtrNumber)</a>; </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaffe6718acb596f90c980fcaeb149d440"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMRCTR_I_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr__i_8h.html">xtmrctr_i.h</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="gad575eebe2cbe61e414d82832385d63a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMRCTR_L_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr__l_8h.html">xtmrctr_l.h</a>. </p>
 
 </div>
 </div>
@@ -989,20 +1307,19 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
 <div class="line">                         (<a class="code" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>((BaseAddress), (TmrCtrNumber),\</div>
 <div class="line">                                          <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>) | <a class="code" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
-<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:218</div></div>
-<div class="ttc" id="group___overview_html_gaa10a23e3e387b53bac89f97cc5adf455"><div class="ttname"><a href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a></div><div class="ttdeci">#define XTC_CSR_LOAD_MASK</div><div class="ttdoc">Loads the timer using the load value provided earlier in the Load Register, XTC_TLR_OFFSET. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:119</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
+<div class="ttc" id="group___overview_html_gaea427162ce7e92fd08afb7ee1cc1c12e"><div class="ttname"><a href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a></div><div class="ttdeci">#define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)</div><div class="ttdoc">Read one of the timer counter registers. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:214</div></div>
+<div class="ttc" id="group___overview_html_gaa10a23e3e387b53bac89f97cc5adf455"><div class="ttname"><a href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a></div><div class="ttdeci">#define XTC_CSR_LOAD_MASK</div><div class="ttdoc">Loads the timer using the load value provided earlier in the Load Register, XTC_TLR_OFFSET. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:115</div></div>
 </div><!-- fragment -->
 <p>Cause the timer counter to load it's Timer Counter Register with the value in the Load Register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void XTmrCtr_LoadTimerCounterReg(u32 BaseAddress, u8 TmrCtrNumber); </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
@@ -1044,9 +1361,9 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Read one of the timer counter registers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the timer counter device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>contains the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>contains the offset from the 1st register of the timer counter to select the specific register of the timer counter.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the timer counter device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>contains the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>contains the offset from the 1st register of the timer counter to select the specific register of the timer counter.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1086,21 +1403,20 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>,     \</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, \</div>
 <div class="line">                         (RegisterValue))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:83</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_ga81c9a818cb57cf5f106cf5a3b7c3c59f"><div class="ttname"><a href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a></div><div class="ttdeci">#define XTC_TCSR_OFFSET</div><div class="ttdoc">Control/Status register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:80</div></div>
 </div><!-- fragment -->
 <p>Set the Control Status Register of a timer counter to the specified value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">RegisterValue</td><td>is the 32 bit value to be written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegisterValue</td><td>is the 32 bit value to be written to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void XTmrCtr_SetControlStatusReg(u32 BaseAddress, u8 TmrCtrNumber,u32 RegisterValue); </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
@@ -1138,19 +1454,18 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>((BaseAddress), (TmrCtrNumber), <a class="code" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, \</div>
 <div class="line">                         (RegisterValue))</div>
-<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:241</div></div>
-<div class="ttc" id="group___overview_html_ga38a380fdcb3114c3db51524a8182c4ad"><div class="ttname"><a href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a></div><div class="ttdeci">#define XTC_TLR_OFFSET</div><div class="ttdoc">Load register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:84</div></div>
+<div class="ttc" id="group___overview_html_ga56d9c2d54afce39c3693356e3892547f"><div class="ttname"><a href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a></div><div class="ttdeci">#define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)</div><div class="ttdoc">Write a specified value to a register of a timer counter. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:238</div></div>
+<div class="ttc" id="group___overview_html_ga38a380fdcb3114c3db51524a8182c4ad"><div class="ttname"><a href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a></div><div class="ttdeci">#define XTC_TLR_OFFSET</div><div class="ttdoc">Load register. </div><div class="ttdef"><b>Definition:</b> xtmrctr_l.h:81</div></div>
 </div><!-- fragment -->
 <p>Set the Load Register of a timer counter to the specified value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">RegisterValue</td><td>is the 32 bit value to be written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegisterValue</td><td>is the 32 bit value to be written to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void XTmrCtr_SetLoadReg(u32 BaseAddress, u8 TmrCtrNumber, u32 RegisterValue); </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
@@ -1198,10 +1513,10 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Write a specified value to a register of a timer counter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the timer counter device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>contain the offset from the 1st register of the timer counter to select the specific register of the timer counter. </td></tr>
-    <tr><td class="paramname">ValueToWrite</td><td>is the 32 bit value to be written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the timer counter device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>contain the offset from the 1st register of the timer counter to select the specific register of the timer counter. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ValueToWrite</td><td>is the 32 bit value to be written to the register.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1225,8 +1540,8 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Signature for the callback function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. Its type is unimportant to the driver, so it is a void pointer. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the number of the timer/counter within the device. The device typically contains at least two timer/counters. The timer number is a zero based number with a range of 0 to (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. Its type is unimportant to the driver, so it is a void pointer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the number of the timer/counter within the device. The device typically contains at least two timer/counters. The timer number is a zero based number with a range of 0 to (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
@@ -1267,16 +1582,15 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>This function populates the timer counter's configuration structure and sets some configurations defaults. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">ConfigPtr</td><td>is a pointer to the configuration structure that will be used to copy the settings from. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory space. If the address translation is not used, then the physical address is passed.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigPtr</td><td>is a pointer to the configuration structure that will be used to copy the settings from. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory space. If the address translation is not used, then the physical address is passed.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Unexpected errors may occur if the address mapping is changed after this function is invoked. </dd></dl>
 
-<p>References <a class="el" href="struct_x_tmr_ctr___config.html#a399beafc33fb2989566b777768b560c0">XTmrCtr_Config::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a19b7b38862e322c61d95f0f71f325f13">XTmrCtr::CallBackRef</a>, <a class="el" href="struct_x_tmr_ctr.html#a1fc51ca5db0c37e2b9b8db794f8a7496">XTmrCtr::Config</a>, <a class="el" href="struct_x_tmr_ctr.html#a5cc0b10723d9bad1b654dab33ae56c23">XTmrCtr::Handler</a>, <a class="el" href="struct_x_tmr_ctr_stats.html#a3e3996ef053ba44bc8720616f3f4c397">XTmrCtrStats::Interrupts</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, and <a class="el" href="struct_x_tmr_ctr.html#ad5cd023157ffa3ef8881bc88ae6ea26b">XTmrCtr::Stats</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr___config.html#a399beafc33fb2989566b777768b560c0">XTmrCtr_Config::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a19b7b38862e322c61d95f0f71f325f13">XTmrCtr::CallBackRef</a>, <a class="el" href="struct_x_tmr_ctr.html#a1fc51ca5db0c37e2b9b8db794f8a7496">XTmrCtr::Config</a>, <a class="el" href="struct_x_tmr_ctr.html#a5cc0b10723d9bad1b654dab33ae56c23">XTmrCtr::Handler</a>, <a class="el" href="struct_x_tmr_ctr_stats.html#a3e3996ef053ba44bc8720616f3f4c397">XTmrCtrStats::Interrupts</a>, <a class="el" href="struct_x_tmr_ctr.html#aa5c711ba517f5360a868695f8324df73">XTmrCtr::IsPwmEnabled</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, and <a class="el" href="struct_x_tmr_ctr.html#ad5cd023157ffa3ef8881bc88ae6ea26b">XTmrCtr::Stats</a>.</p>
 
 <p>Referenced by <a class="el" href="group___overview.html#ga8fbe1a132a6c742c79cb73dee233e779">XTmrCtr_Initialize()</a>.</p>
 
@@ -1299,12 +1613,10 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Clear the <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure for this driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr_stats.html#a3e3996ef053ba44bc8720616f3f4c397">XTmrCtrStats::Interrupts</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, and <a class="el" href="struct_x_tmr_ctr.html#ad5cd023157ffa3ef8881bc88ae6ea26b">XTmrCtr::Stats</a>.</p>
 
@@ -1337,13 +1649,12 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Returns the timer counter value that was captured the last time the external capture input was asserted. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current capture value for the indicated timer counter.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current capture value for the indicated timer counter. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, and <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>.</p>
 
@@ -1373,19 +1684,18 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
       </table>
 </div><div class="memdoc">
 
-<p>Get the options for the specified timer counter. </p>
+<p>Returns the options for the specified timer counter. </p>
+<p>Get the options for the specified timer counter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-<p>The currently set options. An option which is set to a '1' is enabled and set to a '0' is disabled. The options are bit masks such that multiple options may be set or cleared. The options are described in <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>.</p>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The currently set options. An option which is set to a '1' is enabled and set to a '0' is disabled. The options are bit masks such that multiple options may be set or cleared. The options are described in <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>. </dd></dl>
 
-<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, and <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga76c08a827bf7a7d6e555a6e5f2c9ed65">XTC_NUM_OPTIONS</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, and <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>.</p>
 
 </div>
 </div>
@@ -1416,13 +1726,11 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Get a copy of the <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure, which contains the current statistics for this driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">StatsPtr</td><td>is a pointer to a <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure which will get a copy of current statistics.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">StatsPtr</td><td>is a pointer to a <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure which will get a copy of current statistics. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr_stats.html#a3e3996ef053ba44bc8720616f3f4c397">XTmrCtrStats::Interrupts</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, and <a class="el" href="struct_x_tmr_ctr.html#ad5cd023157ffa3ef8881bc88ae6ea26b">XTmrCtr::Stats</a>.</p>
 
@@ -1456,13 +1764,12 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>The timer counter may be either incrementing or decrementing based upon the current mode of operation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current value for the timer counter.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current value for the timer counter. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#gad054cd3c12bc686f9be366e093c2f97a">XTC_TCR_OFFSET</a>, and <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>.</p>
 
@@ -1487,16 +1794,15 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>(Re-)initializes all timer counters which aren't started already. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if at least one timer counter is stopped.</li>
-<li>XST_DEVICE_IS_STARTED otherwise.</li>
+<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if at least one timer counter is stopped.<ul>
+<li>XST_DEVICE_IS_STARTED otherwise. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>&lt; Set the compare register to 0. </p>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>, <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -1532,18 +1838,18 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Initialize fields of the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> structure, then reset the timer/counter.If a timer is already running then it is not initialized.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if initialization was successful</li>
+<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if initialization was successful<ul>
 <li>XST_DEVICE_IS_STARTED if the device has already been started</li>
 <li>XST_DEVICE_NOT_FOUND if the device doesn't exist</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+<p>&lt; Retrieve configuration of timer counter core with matching ID. </p>
 
 <p>References <a class="el" href="struct_x_tmr_ctr___config.html#a399beafc33fb2989566b777768b560c0">XTmrCtr_Config::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="group___overview.html#ga220874785f096cc5f38b3bec907a008c">XTmrCtr_CfgInitialize()</a>, <a class="el" href="group___overview.html#gac3ffcfef4ba4507d5f2b9e17a08c7bf0">XTmrCtr_InitHw()</a>, and <a class="el" href="group___overview.html#ga372cc1b26240b627c5a830a9d44ab9e1">XTmrCtr_LookupConfig()</a>.</p>
 
@@ -1569,12 +1875,10 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>This function only performs processing for the device and does not save and restore the interrupt context.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>contains a pointer to the timer/counter instance for the interrupt.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>contains a pointer to the timer/counter instance for the interrupt. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a19b7b38862e322c61d95f0f71f325f13">XTmrCtr::CallBackRef</a>, <a class="el" href="struct_x_tmr_ctr.html#a5cc0b10723d9bad1b654dab33ae56c23">XTmrCtr::Handler</a>, <a class="el" href="struct_x_tmr_ctr_stats.html#a3e3996ef053ba44bc8720616f3f4c397">XTmrCtrStats::Interrupts</a>, <a class="el" href="struct_x_tmr_ctr.html#ad5cd023157ffa3ef8881bc88ae6ea26b">XTmrCtr::Stats</a>, <a class="el" href="group___overview.html#gab06d844c7a245c7be88a63f3559bbd46">XTC_CSR_AUTO_RELOAD_MASK</a>, <a class="el" href="group___overview.html#gaa0563f5483d9fef6126df6b2e447da08">XTC_CSR_CAPTURE_MODE_MASK</a>, <a class="el" href="group___overview.html#ga0e56ed788d0a3f4b6d89319e03797002">XTC_CSR_ENABLE_INT_MASK</a>, <a class="el" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>, <a class="el" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>, <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -1611,13 +1915,12 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>When interrupts are enabled, the expiration causes an interrupt. This function is typically used to poll a timer counter to determine when it has expired.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>TRUE if the timer has expired, and FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>TRUE if the timer has expired, and FALSE otherwise. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, and <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>.</p>
 
@@ -1641,12 +1944,14 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>The table TmrCtr_ConfigTable contains the configuration info for each device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration that matches the given device ID/BaseAddress, or NULL if no match is found.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+
+<p>References <a class="el" href="struct_x_tmr_ctr___config.html#a561d64cc972fdc500b0ff1053bee9c11">XTmrCtr_Config::Name</a>.</p>
 
 <p>Referenced by <a class="el" href="group___overview.html#ga8fbe1a132a6c742c79cb73dee233e779">XTmrCtr_Initialize()</a>.</p>
 
@@ -1685,16 +1990,16 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Configures timers to generate PWM output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">PwmPeriod</td><td>is the period of pwm signal in nano seconds. </td></tr>
-    <tr><td class="paramname">PwmHighTime</td><td>is the high time of pwm signal in nano seconds.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PwmPeriod</td><td>is the period of pwm signal in nano seconds. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PwmHighTime</td><td>is the high time of pwm signal in nano seconds.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the duty cycle that will possibly be achieved.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function needs to be called before enabling PWM otherwise the output of PWM may be indeterminate. Here Down count mode of timers are used for generating PWM output. </dd></dl>
 
-<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a1fc51ca5db0c37e2b9b8db794f8a7496">XTmrCtr::Config</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="struct_x_tmr_ctr___config.html#a8841b74af7282d4328dafd915b277b10">XTmrCtr_Config::SysClockFreqHz</a>, <a class="el" href="group___overview.html#gab06d844c7a245c7be88a63f3559bbd46">XTC_CSR_AUTO_RELOAD_MASK</a>, <a class="el" href="group___overview.html#gaa0563f5483d9fef6126df6b2e447da08">XTC_CSR_CAPTURE_MODE_MASK</a>, <a class="el" href="group___overview.html#gaaf3300005339d29c2ee9a79e6bb81959">XTC_CSR_CASC_MASK</a>, <a class="el" href="group___overview.html#ga6b40b30b1d1d5b07f4101a5b657dddba">XTC_CSR_DOWN_COUNT_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gab8156ff2a16b8efc0fcd3ed2b7ecf91a">XTmrCtr_Stop()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a1fc51ca5db0c37e2b9b8db794f8a7496">XTmrCtr::Config</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="struct_x_tmr_ctr___config.html#a8841b74af7282d4328dafd915b277b10">XTmrCtr_Config::SysClockFreqHz</a>, <a class="el" href="group___overview.html#gab06d844c7a245c7be88a63f3559bbd46">XTC_CSR_AUTO_RELOAD_MASK</a>, <a class="el" href="group___overview.html#gaa0563f5483d9fef6126df6b2e447da08">XTC_CSR_CAPTURE_MODE_MASK</a>, <a class="el" href="group___overview.html#gaaf3300005339d29c2ee9a79e6bb81959">XTC_CSR_CASC_MASK</a>, <a class="el" href="group___overview.html#ga6b40b30b1d1d5b07f4101a5b657dddba">XTC_CSR_DOWN_COUNT_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga5552f8d5f7ed58263e6811f98647f8be">XTC_HZ_TO_NS</a>, <a class="el" href="group___overview.html#gaf1b5b45fe13bd14e5045077eff1d522e">XTC_MAX_LOAD_VALUE</a>, <a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gacbe3e1a524e50edb1098c1a824f0dc79">XTC_TIMER_0</a>, <a class="el" href="group___overview.html#ga5693165001c579683430dfc150215290">XTC_TIMER_1</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gab8156ff2a16b8efc0fcd3ed2b7ecf91a">XTmrCtr_Stop()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmrctr__pwm__example_8c.html#a2bb99ca758c410790a4779cef91b7fa2">TmrCtrPwmExample()</a>.</p>
 
@@ -1717,14 +2022,14 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Disables the PWM output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>none.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Call to this function disables only the PWM output and do not alter any configuration. PWM output can again be enabled by calling XTmrCtr_PwmEnable without the need of re-configuration. </dd></dl>
+<p>&lt; Disable timers </p>
 
-<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#aa5c711ba517f5360a868695f8324df73">XTmrCtr::IsPwmEnabled</a>, <a class="el" href="group___overview.html#gaa6304f96140472ea199517984b5a18d5">XTC_CSR_ENABLE_PWM_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gaa7b4ca5a0ac2199ee5341fddd8056500">XTmrCtr_Reset()</a>, <a class="el" href="group___overview.html#gab8156ff2a16b8efc0fcd3ed2b7ecf91a">XTmrCtr_Stop()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#aa5c711ba517f5360a868695f8324df73">XTmrCtr::IsPwmEnabled</a>, <a class="el" href="group___overview.html#gaa6304f96140472ea199517984b5a18d5">XTC_CSR_ENABLE_PWM_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gacbe3e1a524e50edb1098c1a824f0dc79">XTC_TIMER_0</a>, <a class="el" href="group___overview.html#ga5693165001c579683430dfc150215290">XTC_TIMER_1</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gaa7b4ca5a0ac2199ee5341fddd8056500">XTmrCtr_Reset()</a>, <a class="el" href="group___overview.html#gab8156ff2a16b8efc0fcd3ed2b7ecf91a">XTmrCtr_Stop()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmrctr__pwm__example_8c.html#a2bb99ca758c410790a4779cef91b7fa2">TmrCtrPwmExample()</a>.</p>
 
@@ -1745,16 +2050,16 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 </div><div class="memdoc">
 
 <p>Enables the PWM output as per configurations set by XTmrCtr_PwmConfigure. </p>
+<p>Enables the PWM output.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>none.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>none. </dd></dl>
+<p>&lt; Enable PWM, Generate Out </p>
 
-<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#aa5c711ba517f5360a868695f8324df73">XTmrCtr::IsPwmEnabled</a>, <a class="el" href="group___overview.html#gabfaa1357c7843a1a72c740b017061a38">XTC_CSR_ENABLE_ALL_MASK</a>, <a class="el" href="group___overview.html#gaa6304f96140472ea199517984b5a18d5">XTC_CSR_ENABLE_PWM_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gaa7b4ca5a0ac2199ee5341fddd8056500">XTmrCtr_Reset()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#aa5c711ba517f5360a868695f8324df73">XTmrCtr::IsPwmEnabled</a>, <a class="el" href="group___overview.html#gabfaa1357c7843a1a72c740b017061a38">XTC_CSR_ENABLE_ALL_MASK</a>, <a class="el" href="group___overview.html#gaa6304f96140472ea199517984b5a18d5">XTC_CSR_ENABLE_PWM_MASK</a>, <a class="el" href="group___overview.html#ga2345d81184385344ae236b8aa99f2423">XTC_CSR_EXT_GENERATE_MASK</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gacbe3e1a524e50edb1098c1a824f0dc79">XTC_TIMER_0</a>, <a class="el" href="group___overview.html#ga5693165001c579683430dfc150215290">XTC_TIMER_1</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, <a class="el" href="group___overview.html#gaa7b4ca5a0ac2199ee5341fddd8056500">XTmrCtr_Reset()</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmrctr__pwm__example_8c.html#a2bb99ca758c410790a4779cef91b7fa2">TmrCtrPwmExample()</a>.</p>
 
@@ -1788,13 +2093,11 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>A reset causes the timer counter to set it's value to the reset value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -1830,20 +2133,16 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>This test verifies that the specified timer counter of the device can be enabled and increments.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if self-test was successful</li>
-</ul>
-</dd></dl>
-<ul>
+<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if self-test was successful<ul>
 <li>XST_FAILURE if the timer is not incrementing.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This is a destructive test using the provided timer. The current settings of the timer are returned to the initialized values and all settings at the time this function is called are overwritten. </p>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a destructive test using the provided timer. The current settings of the timer are returned to the initialized values and all settings at the time this function is called are overwritten. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>, <a class="el" href="group___overview.html#ga2744df54b0fc4bc5df1dba14a6afc840">XTC_CSR_INT_OCCURED_MASK</a>, <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#gad054cd3c12bc686f9be366e093c2f97a">XTC_TCR_OFFSET</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -1884,15 +2183,13 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>Sets the timer callback function, which the driver calls when the specified timer times out. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance . </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance . </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>is the pointer to the callback function.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The handler is called within interrupt context so the function that is called should either be short or pass the more extensive processing off to another task to allow the interrupt to return and normal processing to continue. </p>
+<dl class="section note"><dt>Note</dt><dd>The handler is called within interrupt context so the function that is called should either be short or pass the more extensive processing off to another task to allow the interrupt to return and normal processing to continue. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a19b7b38862e322c61d95f0f71f325f13">XTmrCtr::CallBackRef</a>, <a class="el" href="struct_x_tmr_ctr.html#a5cc0b10723d9bad1b654dab33ae56c23">XTmrCtr::Handler</a>, and <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>.</p>
 
@@ -1930,20 +2227,19 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
       </table>
 </div><div class="memdoc">
 
-<p>Enables the specified options for the specified timer counter. </p>
-<p>This function sets the options without regard to the current options of the driver. To prevent a loss of the current options, the user should call <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Get the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> prior to this function and modify the retrieved options to pass into this function to prevent loss of the current options.</p>
+<p>Sets options for the specified timer counter. </p>
+<p>Enables the specified options for the specified timer counter.</p>
+<p>This function sets the options without regard to the current options of the driver. To prevent a loss of the current options, the user should call <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Returns the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> prior to this function and modify the retrieved options to pass into this function to prevent loss of the current options.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">Options</td><td>contains the desired options to be set or cleared. Setting the option to '1' enables the option, clearing the to '0' disables the option. The options are bit masks such that multiple options may be set or cleared. The options are described in <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Options</td><td>contains the desired options to be set or cleared. Setting the option to '1' enables the option, clearing the to '0' disables the option. The options are bit masks such that multiple options may be set or cleared. The options are described in <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga76c08a827bf7a7d6e555a6e5f2c9ed65">XTC_NUM_OPTIONS</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a2a0a4c94c41976b913d5f021f257bd51">TmrCtrCascadeIntrExample()</a>, <a class="el" href="xtmrctr__fast__intr__example_8c.html#a54a8e8c734acc65446415bf6aab2d995">TmrCtrFastIntrExample()</a>, <a class="el" href="xtmrctr__intr__example_8c.html#a51bb17a10cb7750f7b8e62c81c239cd6">TmrCtrIntrExample()</a>, <a class="el" href="xtmrctr__polled__example_8c.html#ab0b2505b096466782f12f8e4f9fa3a55">TmrCtrPolledExample()</a>, and <a class="el" href="xtmrctr__pwm__example_8c.html#a2bb99ca758c410790a4779cef91b7fa2">TmrCtrPwmExample()</a>.</p>
 
@@ -1983,14 +2279,12 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>This is the value that is loaded into the timer counter when it is reset. This value is also loaded when the timer counter is started.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
-    <tr><td class="paramname">ResetValue</td><td>contains the value to be used to reset the timer counter.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ResetValue</td><td>contains the value to be used to reset the timer counter. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">XTC_TLR_OFFSET</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -2027,13 +2321,11 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>If interrupt mode is specified in the options, it is necessary for the caller to connect the interrupt handler of the timer/counter to the interrupt source, typically an interrupt controller, and enable the interrupt within the interrupt controller.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>, <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -2069,13 +2361,11 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <p>It is the callers' responsibility to disconnect the interrupt handler of the timer_counter from the interrupt source, typically an interrupt controller, and disable the interrupt within the interrupt controller.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_tmr_ctr.html#a2c1369a4e70206c5abb620c8fa387551">XTmrCtr::BaseAddress</a>, <a class="el" href="struct_x_tmr_ctr.html#a6e340e798d785abfe551a776fd6f7bb9">XTmrCtr::IsReady</a>, <a class="el" href="struct_x_tmr_ctr.html#aa273d27a5f60d8b003eb83247aca3341">XTmrCtr::IsStartedTmrCtr0</a>, <a class="el" href="struct_x_tmr_ctr.html#adcc945170ebc1ae68a01ba548ad60b0d">XTmrCtr::IsStartedTmrCtr1</a>, <a class="el" href="group___overview.html#gaa7cbbacf96f3f51bcd12d5826b03e620">XTC_CSR_ENABLE_TMR_MASK</a>, <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">XTC_DEVICE_TIMER_COUNT</a>, <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">XTC_TCSR_OFFSET</a>, <a class="el" href="group___overview.html#gaea427162ce7e92fd08afb7ee1cc1c12e">XTmrCtr_ReadReg</a>, and <a class="el" href="group___overview.html#ga56d9c2d54afce39c3693356e3892547f">XTmrCtr_WriteReg</a>.</p>
 
@@ -2084,20 +2374,6 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="gab696b83980f59544e04b19249734883d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_tmr_ctr___config.html">XTmrCtr_Config</a> XTmrCtr_ConfigTable[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The timer/counter configuration table, sized by the number of instances defined in xparameters.h. </p>
-
-</div>
-</div>
 <a class="anchor" id="gab696b83980f59544e04b19249734883d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2117,6 +2393,20 @@ XTC_EXT_COMPARE_OPTION  Enables the external compare output signal.
 <div class="line"></div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>The timer/counter configuration table, sized by the number of instances defined in xparameters.h. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab696b83980f59544e04b19249734883d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_tmr_ctr___config.html">XTmrCtr_Config</a> XTmrCtr_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p>The timer/counter configuration table, sized by the number of instances defined in xparameters.h. </p>
 
 </div>

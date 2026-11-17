@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,13 +117,24 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="struct_x_uart_ps___config.html#a17ad7e10fcc2b3645537bb6ba93ee6b2">XUartPs_Config</a>
 </li>
 <li>BaudRate
-: <a class="el" href="struct_x_uart_ps_format.html#a267c8cfe489f4bedda2f746bae10091a">XUartPsFormat</a>
+: <a class="el" href="struct_x_uart_ps.html#ada2839f882456e1e3b46202210ee2b0b">XUartPs</a>
+, <a class="el" href="struct_x_uart_ps_format.html#a267c8cfe489f4bedda2f746bae10091a">XUartPsFormat</a>
+</li>
+<li>CallBackRef
+: <a class="el" href="struct_x_uart_ps.html#a17f507fdd197c74872359f92c54a07b1">XUartPs</a>
+</li>
+<li>Config
+: <a class="el" href="struct_x_uart_ps.html#a4b3be9869a125e6db5eda4bc365fa0fd">XUartPs</a>
 </li>
 <li>DataBits
 : <a class="el" href="struct_x_uart_ps_format.html#a965929f6a567dffcbce97adba720ab60">XUartPsFormat</a>
 </li>
+<li>Handler
+: <a class="el" href="struct_x_uart_ps.html#a8bd89486b1c05ca2edbbee86b5f439c8">XUartPs</a>
+</li>
 <li>InputClockHz
 : <a class="el" href="struct_x_uart_ps___config.html#a5fbaef80b5226862a13b11272d3b2f6c">XUartPs_Config</a>
+, <a class="el" href="struct_x_uart_ps.html#afd3a984f8177e6fe818af3a9e4f5ae77">XUartPs</a>
 </li>
 <li>IntrId
 : <a class="el" href="struct_x_uart_ps___config.html#aae3ce9c8681479278fc7e511f1dc5228">XUartPs_Config</a>
@@ -131,17 +142,41 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>IntrParent
 : <a class="el" href="struct_x_uart_ps___config.html#adad7df252c9ceaa89bfb37e2ac015e0a">XUartPs_Config</a>
 </li>
+<li>is_rxbs_error
+: <a class="el" href="struct_x_uart_ps.html#a0dca8203bf86704b3a8753e8446e5a6d">XUartPs</a>
+</li>
+<li>IsReady
+: <a class="el" href="struct_x_uart_ps.html#a5a375a8ba1979793e8972b32576f01b1">XUartPs</a>
+</li>
 <li>ModemPinsConnected
 : <a class="el" href="struct_x_uart_ps___config.html#ad07108787f4e31fa0de8052dee381d10">XUartPs_Config</a>
 </li>
 <li>Name
 : <a class="el" href="struct_x_uart_ps___config.html#ac8306d054de20812ef5d6d54617ef13b">XUartPs_Config</a>
 </li>
+<li>NextBytePtr
+: <a class="el" href="struct_x_uart_ps_buffer.html#a3f4db132461c120c7327c8aef37a1a1c">XUartPsBuffer</a>
+</li>
 <li>Parity
 : <a class="el" href="struct_x_uart_ps_format.html#a11981131b499be00644cffadf1e8eadc">XUartPsFormat</a>
 </li>
+<li>Platform
+: <a class="el" href="struct_x_uart_ps.html#a934372f095fd87736dfd83781f0fe065">XUartPs</a>
+</li>
+<li>ReceiveBuffer
+: <a class="el" href="struct_x_uart_ps.html#af96c7c5143f143017bcea582485169db">XUartPs</a>
+</li>
 <li>RefClk
 : <a class="el" href="struct_x_uart_ps___config.html#a1572dfe403f5cc64058c31da63e1363e">XUartPs_Config</a>
+</li>
+<li>RemainingBytes
+: <a class="el" href="struct_x_uart_ps_buffer.html#a4541056d01b0c7024e35b653b8ef61fe">XUartPsBuffer</a>
+</li>
+<li>RequestedBytes
+: <a class="el" href="struct_x_uart_ps_buffer.html#a4bbca311e5d38c200af1cc97369f8f64">XUartPsBuffer</a>
+</li>
+<li>SendBuffer
+: <a class="el" href="struct_x_uart_ps.html#a4e7f6b3c6ec5c7bcb1ac4ede082ae5c0">XUartPs</a>
 </li>
 <li>StopBits
 : <a class="el" href="struct_x_uart_ps_format.html#a79b08626f18007181dbc8a6e99ce0d64">XUartPsFormat</a>

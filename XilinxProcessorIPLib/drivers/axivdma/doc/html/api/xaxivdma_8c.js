@@ -1,5 +1,6 @@
 var xaxivdma_8c =
 [
+    [ "INITIALIZATION_POLLING", "xaxivdma_8c.html#gad0c16315875917715d0a8c49b07b9688", null ],
     [ "XAxiVdma_CfgInitialize", "xaxivdma_8c.html#ga7dff0c11a9aa88a19519734702904dca", null ],
     [ "XAxiVdma_ClearDmaChannelErrors", "xaxivdma_8c.html#gac01b1199d15a3a95cafb01f61dd1d0d3", null ],
     [ "XAxiVdma_CurrFrameStore", "xaxivdma_8c.html#ga9769479907cda3ef95ff1ed394de4629", null ],

@@ -4,51 +4,51 @@
     <compoundname>xv_mix_l2_intr.c</compoundname>
     <includes refid="xv__mix__l2_8h" local="yes">xv_mix_l2.h</includes>
     <incdepgraph>
-      <node id="101">
+      <node id="97">
         <label>xil_assert.h</label>
       </node>
-      <node id="97">
-        <label>xv_mix_l2.h</label>
-        <link refid="xv__mix__l2_8h"/>
+      <node id="99">
+        <label>xil_io.h</label>
+      </node>
+      <node id="95">
+        <label>xv_mix.h</label>
+        <link refid="xv__mix_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
         <childnode refid="98" relation="include">
         </childnode>
         <childnode refid="99" relation="include">
         </childnode>
-      </node>
-      <node id="103">
-        <label>xil_io.h</label>
-      </node>
-      <node id="99">
-        <label>xv_mix.h</label>
-        <link refid="xv__mix_8h"/>
         <childnode refid="100" relation="include">
         </childnode>
-        <childnode refid="101" relation="include">
-        </childnode>
-        <childnode refid="102" relation="include">
-        </childnode>
-        <childnode refid="103" relation="include">
-        </childnode>
-        <childnode refid="104" relation="include">
-        </childnode>
       </node>
-      <node id="102">
-        <label>xstatus.h</label>
-      </node>
-      <node id="98">
-        <label>xvidc.h</label>
+      <node id="93">
+        <label>xv_mix_l2.h</label>
+        <link refid="xv__mix__l2_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
       </node>
       <node id="100">
-        <label>xil_types.h</label>
-      </node>
-      <node id="104">
         <label>xv_mix_hw.h</label>
         <link refid="xv__mix__hw_8h"/>
       </node>
+      <node id="98">
+        <label>xstatus.h</label>
+      </node>
+      <node id="94">
+        <label>xvidc.h</label>
+      </node>
       <node id="96">
+        <label>xil_types.h</label>
+      </node>
+      <node id="92">
         <label>xv_mix_l2_intr.c</label>
         <link refid="xv_mix_l2_intr.c"/>
-        <childnode refid="97" relation="include">
+        <childnode refid="93" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -100,7 +100,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="50" bodyend="61"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="50" bodyend="61"/>
         <references refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" compoundref="xv__mix__l2_8h" startline="308">XV_Mix_l2::CallbackRef</references>
         <references refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" compoundref="xv__mix__l2_8h" startline="307">XV_Mix_l2::FrameDoneCallback</references>
       </memberdef>
@@ -128,14 +128,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="83" bodyend="106"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="83" bodyend="106"/>
         <references refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" compoundref="xv__mix__l2_8h" startline="308">XV_Mix_l2::CallbackRef</references>
         <references refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" compoundref="xv__mix__l2_8h" startline="307">XV_Mix_l2::FrameDoneCallback</references>
-        <references refid="struct_x_v__mix_1aae1d21c5f20dad615adbcb7ec97354ac" compoundref="xv__mix_8h" startline="215">XV_mix::IsReady</references>
+        <references refid="struct_x_v__mix_1aae1d21c5f20dad615adbcb7ec97354ac" compoundref="xv__mix_8h" startline="209">XV_mix::IsReady</references>
         <references refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" compoundref="xv__mix__l2_8h" startline="304">XV_Mix_l2::Mix</references>
         <references refid="xv__mix_8c_1adc3df9baaa7847de23ef2e024bfe6297" compoundref="xv__mix_8c" startline="8436" endline="8441">XV_mix_InterruptClear</references>
         <references refid="xv__mix_8c_1a4464bf44b7217ff1723b87d7133cfb66" compoundref="xv__mix_8c" startline="8473" endline="8478">XV_mix_InterruptGetStatus</references>
         <references refid="xv__mix_8c_1aa4bdcc65788bfaa22f5dd4f0c4a0fca3" compoundref="xv__mix_8c" startline="60" endline="68">XV_mix_Start</references>
+        <references refid="group__v__mix_1ga2963350337ddbd7f7117ff04beefb180" compoundref="xv__mix__l2_8h" startline="128">XVMIX_IRQ_DONE_MASK</references>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="912" endline="1065">main</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -182,10 +184,10 @@
 <codeline lineno="93"><highlight class="normal"><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__mix_8c_1a4464bf44b7217ff1723b87d7133cfb66" kindref="member">XV_mix_InterruptGetStatus</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>);</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="xv__mix_8c_1adc3df9baaa7847de23ef2e024bfe6297" kindref="member">XV_mix_InterruptClear</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>,<sp/>XVMIX_IRQ_DONE_MASK);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="xv__mix_8c_1adc3df9baaa7847de23ef2e024bfe6297" kindref="member">XV_mix_InterruptClear</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>,<sp/><ref refid="group__v__mix_1ga2963350337ddbd7f7117ff04beefb180" kindref="member">XVMIX_IRQ_DONE_MASK</ref>);</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/>XVMIX_IRQ_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/><ref refid="group__v__mix_1ga2963350337ddbd7f7117ff04beefb180" kindref="member">XVMIX_IRQ_DONE_MASK</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" kindref="member">FrameDoneCallback</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" kindref="member">FrameDoneCallback</ref>(MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" kindref="member">CallbackRef</ref>);</highlight></codeline>
@@ -194,6 +196,6 @@
 <codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="106"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c"/>
   </compounddef>
 </doxygen>

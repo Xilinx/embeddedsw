@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="113" bodyend="-1"/>
         <referencedby refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" prot="public" static="no" mutable="no">
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="114" bodyend="-1"/>
         <referencedby refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</referencedby>
         <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
       </memberdef>
@@ -39,19 +39,19 @@
     <detaileddescription>
 <para>An instance must be allocated for each VISP SS core in use. </para>    </detaileddescription>
     <collaborationgraph>
-      <node id="1116">
+      <node id="1128">
         <label>xvisp_ss_Config</label>
         <link refid="structxvisp__ss___config"/>
       </node>
-      <node id="1115">
+      <node id="1127">
         <label>XVisp_Ss</label>
         <link refid="struct_x_visp___ss"/>
-        <childnode refid="1116" relation="usage">
+        <childnode refid="1128" relation="usage">
           <edgelabel>Config</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="101" bodyend="104"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="112" bodyend="115"/>
     <listofallmembers>
       <member refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" prot="public" virt="non-virtual"><scope>XVisp_Ss</scope><name>Config</name></member>
       <member refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" prot="public" virt="non-virtual"><scope>XVisp_Ss</scope><name>IsReady</name></member>

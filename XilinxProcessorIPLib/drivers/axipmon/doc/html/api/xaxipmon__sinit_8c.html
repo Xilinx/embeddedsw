@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxipmon__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,19 +106,33 @@ $(document).ready(function(){initNavTree('xaxipmon__sinit_8c.html','');});
 <div class="title">xaxipmon_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements static initialization for the <a class="el" href="struct_x_axi_pmon.html" title="Driver instance data for the AXI Performance Monitor. ">XAxiPmon</a> driver. </p>
+<p>Provides lookup functions to retrieve device configuration.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a bss  02/27/12 First release
+2.00a bss  06/23/12 Updated to support v2_00a version of IP.
+6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
+6.10  ht   06/23/23 Added support for system device-tree flow.
+6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+6.15  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xaxipmon_8h.html">xaxipmon.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga5e458d0ea6c0a458eb3bdd4b638be748"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_pmon___config.html">XAxiPmon_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748">XAxiPmon_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga5e458d0ea6c0a458eb3bdd4b638be748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions in <a class="el" href="xaxipmon__sinit_8c.html">xaxipmon_sinit.c</a>.  <a href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748">More...</a><br/></td></tr>
+<tr class="memdesc:ga5e458d0ea6c0a458eb3bdd4b638be748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides lookup and initialization functions from <a class="el" href="xaxipmon__sinit_8c.html" title="Implements static initialization for the XAxiPmon driver. ">xaxipmon_sinit.c</a>.  <a href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748">More...</a><br/></td></tr>
 <tr class="separator:ga5e458d0ea6c0a458eb3bdd4b638be748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:gaae1bd1b996820c76f12b503eb4e298db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_pmon___config.html">XAxiPmon_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axipmon.html#gaae1bd1b996820c76f12b503eb4e298db">XAxiPmon_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gaae1bd1b996820c76f12b503eb4e298db"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each System Monitor/ADC device in the system.  <a href="group__axipmon.html#gaae1bd1b996820c76f12b503eb4e298db">More...</a><br/></td></tr>
+<tr class="memdesc:gaae1bd1b996820c76f12b503eb4e298db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each AXI Performance Monitor instance.  <a href="group__axipmon.html#gaae1bd1b996820c76f12b503eb4e298db">More...</a><br/></td></tr>
 <tr class="separator:gaae1bd1b996820c76f12b503eb4e298db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

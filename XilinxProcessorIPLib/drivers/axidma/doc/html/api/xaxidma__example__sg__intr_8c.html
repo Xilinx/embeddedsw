@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxidma__example__sg__intr_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,108 +100,72 @@ $(document).ready(function(){initNavTree('xaxidma__example__sg__intr_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xaxidma_example_sg_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file demonstrates how to use the xaxidma driver on the Xilinx AXI DMA core (AXIDMA) to transfer packets in interrupt mode when the AXIDMA core is configured in Scatter Gather Mode. </p>
-<p>We show how to do multiple packets transfers, as well as how to do multiple BDs per packet transfers.</p>
-<p>This code assumes a loopback hardware widget is connected to the AXI DMA core for data packet loopback.</p>
-<p>To see the debug print, you need a Uart16550 or uartlite in your system, and please set "-DDEBUG" in your compiler options. You need to rebuild your software executable.</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
------ ---- -------- -------------------------------------------------------
-1.00a jz   05/18/10 First release
-2.00a jz   08/10/10 Second release, added in <a class="el" href="xaxidma__g_8c.html">xaxidma_g.c</a>, <a class="el" href="xaxidma__sinit_8c.html">xaxidma_sinit.c</a>,
-                           updated tcl file, added <a class="el" href="xaxidma__porting__guide_8h.html">xaxidma_porting_guide.h</a>, removed
-                           workaround for endianness
-4.00a rkv  02/22/11 Name of the file has been changed for naming consistency
-                           Added interrupt support for Zynq.
-5.00a srt  03/05/12 Added Flushing and Invalidation of Caches to fix CRs
-                           648103, 648701.
-                           Added V7 DDR Base Address to fix CR 649405.
-6.00a srt  01/24/12 Changed API calls to support MCDMA driver.
-7.00a srt  06/18/12 API calls are reverted back for backward compatibility.
-7.01a srt  11/02/12 Buffer sizes (Tx and Rx) are modified to meet maximum
-               DDR memory limit of the h/w system built with Area mode
-7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
-9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
-               removed the defines for S6/V6.
-9.3   ms   01/23/17 Modified xil_printf statement in main function to
-                    ensure that "Successfully ran" and "Failed" strings are
-                    available in all examples. This is a fix for CR-965028.
-      ms   04/05/17 Added tabspace for return statements in functions
-                    for proper documentation while generating doxygen.
-9.6   rsp  02/14/18 Support data buffers above 4GB.Use UINTPTR for storing
-                    and typecasting buffer address(CR-992638).
-9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
-9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
-9.14  sk   03/08/22 Delete DDR memory limits comments as they are not
-                       relevant to this driver version.
-9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
-                       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
-9.16  sa   09/29/22 Fix infinite loops in the example.
-</pre><hr/>
-</div><div class="textblock"><code>#include &quot;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xdebug.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
+<code>#include &quot;xil_mmu.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4152919e50ca8a7f89d0c981eabd0593"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga4152919e50ca8a7f89d0c981eabd0593">RESET_TIMEOUT_COUNTER</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:ga4152919e50ca8a7f89d0c981eabd0593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum iterations to wait for DMA reset completion.  <a href="group___a_x_i_d_m_a.html#ga4152919e50ca8a7f89d0c981eabd0593">More...</a><br/></td></tr>
+<tr class="separator:ga4152919e50ca8a7f89d0c981eabd0593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c850c92fe393b5099dcf0cefe24173e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga4c850c92fe393b5099dcf0cefe24173e">NUMBER_OF_BDS_PER_PKT</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:ga4c850c92fe393b5099dcf0cefe24173e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of buffer descriptors used for each packet.  <a href="group___a_x_i_d_m_a.html#ga4c850c92fe393b5099dcf0cefe24173e">More...</a><br/></td></tr>
+<tr class="separator:ga4c850c92fe393b5099dcf0cefe24173e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga014a3adba0cfa2dc2faced4a68114fbe">NUMBER_OF_PKTS_TO_TRANSFER</a>&#160;&#160;&#160;11</td></tr>
+<tr class="memdesc:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of packets to transfer in this test.  <a href="group___a_x_i_d_m_a.html#ga014a3adba0cfa2dc2faced4a68114fbe">More...</a><br/></td></tr>
+<tr class="separator:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad145c274adf210cacf11db6de650c93d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a></td></tr>
+<tr class="memdesc:gad145c274adf210cacf11db6de650c93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of buffer descriptors to transfer in this test.  <a href="group___a_x_i_d_m_a.html#gad145c274adf210cacf11db6de650c93d">More...</a><br/></td></tr>
+<tr class="separator:gad145c274adf210cacf11db6de650c93d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga168b51be2ff0434d9e606cd81a36a989"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga168b51be2ff0434d9e606cd81a36a989">POLL_TIMEOUT_COUNTER</a>&#160;&#160;&#160;1000000U</td></tr>
+<tr class="memdesc:ga168b51be2ff0434d9e606cd81a36a989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum poll iterations before a transfer times out.  <a href="group___a_x_i_d_m_a.html#ga168b51be2ff0434d9e606cd81a36a989">More...</a><br/></td></tr>
+<tr class="separator:ga168b51be2ff0434d9e606cd81a36a989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga697928dda71fa389068d6060162ae1ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga697928dda71fa389068d6060162ae1ef">NUMBER_OF_EVENTS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga697928dda71fa389068d6060162ae1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of interrupt events expected to complete the test.  <a href="group___a_x_i_d_m_a.html#ga697928dda71fa389068d6060162ae1ef">More...</a><br/></td></tr>
+<tr class="separator:ga697928dda71fa389068d6060162ae1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca7eb78ffe9c1c90d6aadffd9c832501"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gaca7eb78ffe9c1c90d6aadffd9c832501">COALESCING_COUNT</a>&#160;&#160;&#160;<a class="el" href="group___a_x_i_d_m_a.html#ga014a3adba0cfa2dc2faced4a68114fbe">NUMBER_OF_PKTS_TO_TRANSFER</a></td></tr>
+<tr class="memdesc:gaca7eb78ffe9c1c90d6aadffd9c832501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt coalescing count programmed into the DMA engine.  <a href="group___a_x_i_d_m_a.html#gaca7eb78ffe9c1c90d6aadffd9c832501">More...</a><br/></td></tr>
+<tr class="separator:gaca7eb78ffe9c1c90d6aadffd9c832501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2e4ace81a47e8546df7b794320761272"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga2e4ace81a47e8546df7b794320761272">DELAY_TIMER_COUNT</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:ga2e4ace81a47e8546df7b794320761272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt delay timer count programmed into the DMA engine.  <a href="group___a_x_i_d_m_a.html#ga2e4ace81a47e8546df7b794320761272">More...</a><br/></td></tr>
+<tr class="separator:ga2e4ace81a47e8546df7b794320761272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__example__sg__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad29568bf33fe85cabeb0615ae8ebc67b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gad29568bf33fe85cabeb0615ae8ebc67b">xil_printf</a> (const char *format,...)</td></tr>
+<tr class="memdesc:gad29568bf33fe85cabeb0615ae8ebc67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted message when DEBUG is not defined.  <a href="group___a_x_i_d_m_a.html#gad29568bf33fe85cabeb0615ae8ebc67b">More...</a><br/></td></tr>
+<tr class="separator:gad29568bf33fe85cabeb0615ae8ebc67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the example entry point.  <a href="group___a_x_i_d_m_a.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga19e117de53f70f4391bf2e1d876a1af5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma.html">XAxiDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga19e117de53f70f4391bf2e1d876a1af5">AxiDma</a></td></tr>
+<tr class="memdesc:ga19e117de53f70f4391bf2e1d876a1af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver instance for the AXI DMA under test.  <a href="group___a_x_i_d_m_a.html#ga19e117de53f70f4391bf2e1d876a1af5">More...</a><br/></td></tr>
+<tr class="separator:ga19e117de53f70f4391bf2e1d876a1af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36e3cb0464f198ceb9030f87bba28f7c"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga36e3cb0464f198ceb9030f87bba28f7c">TxDone</a></td></tr>
+<tr class="memdesc:ga36e3cb0464f198ceb9030f87bba28f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set when the transmit path completes successfully.  <a href="group___a_x_i_d_m_a.html#ga36e3cb0464f198ceb9030f87bba28f7c">More...</a><br/></td></tr>
+<tr class="separator:ga36e3cb0464f198ceb9030f87bba28f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35a748876d5d163df05929778dd09dad"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga35a748876d5d163df05929778dd09dad">RxDone</a></td></tr>
+<tr class="memdesc:ga35a748876d5d163df05929778dd09dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set when the receive path completes successfully.  <a href="group___a_x_i_d_m_a.html#ga35a748876d5d163df05929778dd09dad">More...</a><br/></td></tr>
+<tr class="separator:ga35a748876d5d163df05929778dd09dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50fcf0a79311e5d8011c92ce68450764"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga50fcf0a79311e5d8011c92ce68450764">Error</a></td></tr>
+<tr class="memdesc:ga50fcf0a79311e5d8011c92ce68450764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set when a DMA error interrupt or completion error occurs.  <a href="group___a_x_i_d_m_a.html#ga50fcf0a79311e5d8011c92ce68450764">More...</a><br/></td></tr>
+<tr class="separator:ga50fcf0a79311e5d8011c92ce68450764"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function. </p>
-<p>This function is the main entry of the interrupt test. It does the following:</p>
-<ul>
-<li>Set up the output terminal if UART16550 is in the hardware build</li>
-<li>Initialize the DMA engine</li>
-<li>Set up Tx and Rx channels</li>
-<li>Set up the interrupt system for the Tx and Rx interrupts</li>
-<li>Submit a transfer</li>
-<li>Wait for the transfer to finish</li>
-<li>Check transfer status</li>
-<li>Disable Tx and Rx interrupts</li>
-<li>Print test status and exit</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if tests pass</li>
-<li>XST_FAILURE if fails.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_axi_dma___config.html#adbe8d9edc09073242bfae10ef9c0d4c2">XAxiDma_Config::IntrId</a>, <a class="el" href="struct_x_axi_dma___config.html#a652adc5c66fe23d9ad303c824ca2fe27">XAxiDma_Config::IntrParent</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga6373ac3baa5365607f6727f4e2ece7a5">XAxiDma_GetRxRing</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga8a31868280befe559084a39d4505d624">XAxiDma_LookupConfig()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

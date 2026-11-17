@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('example.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,22 +112,22 @@ $(document).ready(function(){initNavTree('example.html','');});
 <li>A UART to display messages</li>
 <li>A Timer that is used to send protocol packets at regular intervals</li>
 </ul>
-<p>For testing the example in <a class="el" href="xemacps__example__intr__dma_8c.html" title="Implements examples that utilize the EmacPs&#39;s interrupt driven DMA packet transfer mode to send and r...">xemacps_example_intr_dma.c</a> which uses PHY loopback, a single hardware system is sufficient.</p>
+<p>For testing the example in <a class="el" href="xemacps__example__intr__dma_8c.html">xemacps_example_intr_dma.c</a> which uses PHY loopback, a single hardware system is sufficient.</p>
 <p>To run and test the binary created for IEEE1588 (PTP), the user needs to have two EmacPs based hardware systems connected back-to-back. One would act as a Master and other as a slave.</p>
-<p>The user must include the three files(<a class="el" href="xemacps__example_8h.html" title="Defines common data types, prototypes, and includes the proper headers for use with the EMACPS exampl...">xemacps_example.h</a>, <a class="el" href="xemacps__example__util_8c.html" title="This file implements the utility functions for the XEmacPs example code. ">xemacps_example_util.c</a>, <a class="el" href="xemacps__example__intr__dma_8c.html" title="Implements examples that utilize the EmacPs&#39;s interrupt driven DMA packet transfer mode to send and r...">xemacps_example_intr_dma.c</a>) for building the binary to see how Ethernet packets are sent and received in PHY loopback mode.</p>
+<p>The user must include the three files(<a class="el" href="xemacps__example_8h.html">xemacps_example.h</a>, <a class="el" href="xemacps__example__util_8c.html">xemacps_example_util.c</a>, <a class="el" href="xemacps__example__intr__dma_8c.html">xemacps_example_intr_dma.c</a>) for building the binary to see how Ethernet packets are sent and received in PHY loopback mode.</p>
 <p>The user must include the three files(xemacps_ieee1588_example.c, xemacps_ieee1588.h, xemacps_ieee1588.c) for building the binary to see how IEEE1588 (PTP) works.</p>
 <h1><a class="anchor" id="ex1"></a>
 xemacps_example.h</h1>
 <p>This file demonstrate the usage of EmacPs. This headerfile defines common data types, prototypes, and includes the proper headers for use with the Emacps examples.</p>
-<p>For details, see <a class="el" href="xemacps__example_8h.html" title="Defines common data types, prototypes, and includes the proper headers for use with the EMACPS exampl...">xemacps_example.h</a>.</p>
+<p>For details, see <a class="el" href="xemacps__example_8h.html">xemacps_example.h</a>.</p>
 <h1><a class="anchor" id="ex2"></a>
 xemacps_example_intr_dma.c</h1>
 <p>Contains an example on how to use the XEmacps driver directly. This example uses the EmacPs's interrupt driven DMA packet transfer mode to send and receive frames.</p>
-<p>For details, see <a class="el" href="xemacps__example__intr__dma_8c.html" title="Implements examples that utilize the EmacPs&#39;s interrupt driven DMA packet transfer mode to send and r...">xemacps_example_intr_dma.c</a>.</p>
+<p>For details, see <a class="el" href="xemacps__example__intr__dma_8c.html">xemacps_example_intr_dma.c</a>.</p>
 <h1><a class="anchor" id="ex3"></a>
 xemacps_example_util.c</h1>
 <p>Contains an example on how to use the XEmacps driver directly. This example implements the utility functions for debugging, and ethernet frame construction.</p>
-<p>For details, see <a class="el" href="xemacps__example__util_8c.html" title="This file implements the utility functions for the XEmacPs example code. ">xemacps_example_util.c</a>.</p>
+<p>For details, see <a class="el" href="xemacps__example__util_8c.html">xemacps_example_util.c</a>.</p>
 <h1><a class="anchor" id="ex4"></a>
 xemacps_ieee1588.c</h1>
 <p>Contains an example on how to demonstrate the IEEE1588 protocol. This example is the C file that has the programe entry "main". It also has initialization code for EmacPs, Timer etc and has initialization code for PTP packets.</p>

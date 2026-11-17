@@ -38,9 +38,11 @@
 <codeline lineno="29"><highlight class="stringliteral">elseif(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
 <codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(&quot;</highlight><highlight class="normal">Versal_2VP</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
 <codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>add_subdirectory(versal_2vp)</highlight></codeline>
-<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
-<codeline lineno="33"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elseif(&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>add_subdirectory(versal_2vp_p)</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

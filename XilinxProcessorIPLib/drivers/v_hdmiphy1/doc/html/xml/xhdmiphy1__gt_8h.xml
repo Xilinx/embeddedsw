@@ -19,16 +19,12 @@
       <node id="67">
         <label>xil_io.h</label>
       </node>
-      <node id="63">
-        <label>xhdmiphy1.h</label>
-        <link refid="xhdmiphy1_8h"/>
-        <childnode refid="64" relation="include">
+      <node id="66">
+        <label>xhdmiphy1_hw.h</label>
+        <link refid="xhdmiphy1__hw_8h"/>
+        <childnode refid="67" relation="include">
         </childnode>
-        <childnode refid="65" relation="include">
-        </childnode>
-        <childnode refid="66" relation="include">
-        </childnode>
-        <childnode refid="69" relation="include">
+        <childnode refid="68" relation="include">
         </childnode>
       </node>
       <node id="70">
@@ -43,15 +39,6 @@
         <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="69">
-        <label>xvidc.h</label>
-      </node>
-      <node id="68">
-        <label>xil_types.h</label>
-      </node>
-      <node id="65">
-        <label>xparameters.h</label>
-      </node>
       <node id="62">
         <label>xhdmiphy1_gt.h</label>
         <link refid="xhdmiphy1_gt.h"/>
@@ -62,41 +49,50 @@
         <childnode refid="64" relation="include">
         </childnode>
       </node>
-      <node id="66">
-        <label>xhdmiphy1_hw.h</label>
-        <link refid="xhdmiphy1__hw_8h"/>
-        <childnode refid="67" relation="include">
+      <node id="69">
+        <label>xvidc.h</label>
+      </node>
+      <node id="63">
+        <label>xhdmiphy1.h</label>
+        <link refid="xhdmiphy1_8h"/>
+        <childnode refid="64" relation="include">
         </childnode>
-        <childnode refid="68" relation="include">
+        <childnode refid="65" relation="include">
         </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xil_types.h</label>
+      </node>
+      <node id="65">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="74">
-        <label>xhdmiphy1_gtye4.c</label>
-        <link refid="xhdmiphy1__gtye4_8c"/>
+      <node id="76">
+        <label>xhdmiphy1_gtyp.c</label>
+      </node>
+      <node id="75">
+        <label>xhdmiphy1_gtye5.c</label>
       </node>
       <node id="73">
         <label>xhdmiphy1_gthe4.c</label>
         <link refid="xhdmiphy1__gthe4_8c"/>
       </node>
-      <node id="75">
-        <label>xhdmiphy1_gtye5.c</label>
-      </node>
-      <node id="76">
-        <label>xhdmiphy1_gtyp.c</label>
-      </node>
-      <node id="77">
-        <label>xhdmiphy1_hdmi_intr.c</label>
-        <link refid="xhdmiphy1__hdmi__intr_8c"/>
-      </node>
-      <node id="72">
-        <label>xhdmiphy1.c</label>
-        <link refid="xhdmiphy1_8c"/>
+      <node id="74">
+        <label>xhdmiphy1_gtye4.c</label>
+        <link refid="xhdmiphy1__gtye4_8c"/>
       </node>
       <node id="78">
         <label>xhdmiphy1_i.c</label>
         <link refid="xhdmiphy1__i_8c"/>
+      </node>
+      <node id="77">
+        <label>xhdmiphy1_hdmi_intr.c</label>
+        <link refid="xhdmiphy1__hdmi__intr_8c"/>
       </node>
       <node id="71">
         <label>xhdmiphy1_gt.h</label>
@@ -115,6 +111,10 @@
         </childnode>
         <childnode refid="78" relation="include">
         </childnode>
+      </node>
+      <node id="72">
+        <label>xhdmiphy1.c</label>
+        <link refid="xhdmiphy1_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_hdmiphy1___gt_pll_divs" prot="public">XHdmiphy1_GtPllDivs</innerclass>
@@ -147,8 +147,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="95" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1450" endline="1530">XHdmiphy1_PllCalculator</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1445" endline="1525">XHdmiphy1_PllCalculator</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1gaa83ebd6b75d14f024db15b57bae5cfdc" prot="public" static="no">
         <name>XHdmiphy1_CheckPllOpRange</name>
@@ -177,8 +177,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="106" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1450" endline="1530">XHdmiphy1_PllCalculator</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1445" endline="1525">XHdmiphy1_PllCalculator</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1ga2e0f04dd4f6301f2aa64af07d9116b99" prot="public" static="no">
         <name>XHdmiphy1_OutDivChReconfig</name>
@@ -207,8 +207,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="117" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1ga03e2d2bdcf56e256ff08f5776313a76e" compoundref="xhdmiphy1__i_8c" startline="1290" endline="1315">XHdmiphy1_OutDivReconfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga03e2d2bdcf56e256ff08f5776313a76e" compoundref="xhdmiphy1__i_8c" startline="1285" endline="1310">XHdmiphy1_OutDivReconfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1ga80523268374ba969771115c5efacea2f" prot="public" static="no">
         <name>XHdmiphy1_ClkChReconfig</name>
@@ -237,8 +237,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="128" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1gaeb31d823a71bad5b0bb6250b016577d7" compoundref="xhdmiphy1__i_8c" startline="1333" endline="1376">XHdmiphy1_ClkReconfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gaeb31d823a71bad5b0bb6250b016577d7" compoundref="xhdmiphy1__i_8c" startline="1328" endline="1371">XHdmiphy1_ClkReconfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1ga8c4307b65d10613b4afdce7dcce9c27c" prot="public" static="no">
         <name>XHdmiphy1_ClkCmnReconfig</name>
@@ -267,8 +267,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="139" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1gaeb31d823a71bad5b0bb6250b016577d7" compoundref="xhdmiphy1__i_8c" startline="1333" endline="1376">XHdmiphy1_ClkReconfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gaeb31d823a71bad5b0bb6250b016577d7" compoundref="xhdmiphy1__i_8c" startline="1328" endline="1371">XHdmiphy1_ClkReconfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1gadedea91007ee059e507a9a56a60e76f2" prot="public" static="no">
         <name>XHdmiphy1_RxChReconfig</name>
@@ -297,7 +297,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="150" bodyend="-1"/>
         <referencedby refid="group__xhdmiphy1_1gacfaf4756f5682dfda2739a8083deea56" compoundref="xhdmiphy1__i_8c" startline="135" endline="161">XHdmiphy1_DirReconfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xhdmiphy1_1gac1b4c572a3696b5151a3b0f55e3d927f" prot="public" static="no">
@@ -327,7 +327,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="161" bodyend="-1"/>
         <referencedby refid="group__xhdmiphy1_1gacfaf4756f5682dfda2739a8083deea56" compoundref="xhdmiphy1__i_8c" startline="135" endline="161">XHdmiphy1_DirReconfig</referencedby>
       </memberdef>
       </sectiondef>
@@ -343,7 +343,61 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="67" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="67" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xhdmiphy1_1ga608437a52460adcb9c83fb0417e17a95" prot="public" static="no" mutable="no">
+        <type>const XHdmiphy1_GtConfig</type>
+        <definition>const XHdmiphy1_GtConfig XHdmiphy1_Gthe4Config</definition>
+        <argsstring></argsstring>
+        <name>XHdmiphy1_Gthe4Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gthe4.c" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xhdmiphy1_1gaa682389c08bb45cebf87329d61751939" prot="public" static="no" mutable="no">
+        <type>const XHdmiphy1_GtConfig</type>
+        <definition>const XHdmiphy1_GtConfig XHdmiphy1_Gtye4Config</definition>
+        <argsstring></argsstring>
+        <name>XHdmiphy1_Gtye4Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gtye4.c" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xhdmiphy1_1ga7e28aaca7b8f8e3e8e3655454a463bc4" prot="public" static="no" mutable="no">
+        <type>const XHdmiphy1_GtConfig</type>
+        <definition>const XHdmiphy1_GtConfig Gtye5Config</definition>
+        <argsstring></argsstring>
+        <name>Gtye5Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gtye5.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xhdmiphy1_1ga6bc786a51716af5a18db9e71e56a6140" prot="public" static="no" mutable="no">
+        <type>const XHdmiphy1_GtConfig</type>
+        <definition>const XHdmiphy1_GtConfig GtypConfig</definition>
+        <argsstring></argsstring>
+        <name>GtypConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gtyp.c" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -363,7 +417,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2024-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -447,22 +501,18 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="166"><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTHE4)<sp/>||<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTYE4)</highlight></codeline>
-<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>XHdmiphy1_Gthe4Config;</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>XHdmiphy1_Gtye4Config;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTYE5)</highlight></codeline>
-<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>Gtye5Config;</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTYP)</highlight></codeline>
-<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>GtypConfig;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>XHdmiphy1_Gthe4Config;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>XHdmiphy1_Gtye4Config;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>Gtye5Config;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XHdmiphy1_GtConfig<sp/>GtypConfig;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDMIPHY1_GT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDMIPHY1_GT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h"/>
   </compounddef>
 </doxygen>

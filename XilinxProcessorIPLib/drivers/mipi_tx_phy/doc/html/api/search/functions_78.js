@@ -5,6 +5,7 @@ var searchData=
   ['xmipi_5ftx_5fphy_5fcleardatalane',['XMipi_Tx_Phy_ClearDataLane',['../group__mipi__tx__phy.html#ga0e324919c833e8a3044f5807a4e88a6f',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fconfigure',['XMipi_Tx_Phy_Configure',['../group__mipi__tx__phy.html#ga0edf3de0af6e081ab9ec6ba03bcb029d',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fdis_5fprog_5fseq_5fctrl',['XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl',['../group__mipi__tx__phy.html#ga7f6c18e9dd2eef7c55eef23816c6dbe4',1,'xmipi_tx_phy.c']]],
+  ['xmipi_5ftx_5fphy_5fdynamiclinerateconfig',['XMipi_Tx_Phy_DynamicLineRateConfig',['../group__mipi__tx__phy.html#ga706c8c6b8813626eaccfa857577b4faa',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fen_5fprog_5fseq_5fctrl',['XMipi_Tx_Phy_En_Prog_Seq_Ctrl',['../group__mipi__tx__phy.html#ga5c275c8e3a30477d7ff543a063e51092',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fget_5fprog_5fseq_5fctrl',['XMipi_Tx_Phy_Get_Prog_Seq_Ctrl',['../group__mipi__tx__phy.html#gafb2a651e2b9700aa1052e69b04187b1a',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fget_5fseq_5fdata',['XMipi_Tx_Phy_Get_Seq_Data',['../group__mipi__tx__phy.html#ga83eeee796bbf6191c38c715f586fe653',1,'xmipi_tx_phy.c']]],
@@ -18,7 +19,9 @@ var searchData=
   ['xmipi_5ftx_5fphy_5fgetregintfcpresent',['XMipi_Tx_Phy_GetRegIntfcPresent',['../group__mipi__tx__phy.html#gad55317d23f56c8dd601c6970d5d6228e',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5fgetversionreg',['XMipi_Tx_Phy_GetVersionReg',['../group__mipi__tx__phy.html#ga35253890ab16b4233209c20890d18ecb',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5flookupconfig',['XMipi_Tx_Phy_LookupConfig',['../group__mipi__tx__phy.html#ga6aca7437c8f5880a23d50fa3e8c3ef98',1,'xmipi_tx_phy_sinit.c']]],
+  ['xmipi_5ftx_5fphy_5fmmcmconfig',['XMipi_Tx_Phy_MmcmConfig',['../group__mipi__tx__phy.html#gaa3cd46b8e0504cbac709b71bf162ea32',1,'xmipi_tx_phy_mmcm.c']]],
   ['xmipi_5ftx_5fphy_5fprog_5fseq_5fdata',['XMipi_Tx_Phy_Prog_Seq_Data',['../group__mipi__tx__phy.html#gaec98ba503ea55bbc246f55633031cce5',1,'xmipi_tx_phy.c']]],
   ['xmipi_5ftx_5fphy_5freset',['XMipi_Tx_Phy_Reset',['../group__mipi__tx__phy.html#ga60dbd7f0c7cc211f6ed1e97c8c1dd8c0',1,'xmipi_tx_phy.c']]],
-  ['xmipi_5ftx_5fphy_5fselftest',['XMipi_Tx_Phy_SelfTest',['../group__mipi__tx__phy.html#ga4a6f46a83ce56b8538bd115feb1e652f',1,'xmipi_tx_phy_selftest.c']]]
+  ['xmipi_5ftx_5fphy_5fselftest',['XMipi_Tx_Phy_SelfTest',['../group__mipi__tx__phy.html#ga4a6f46a83ce56b8538bd115feb1e652f',1,'xmipi_tx_phy_selftest.c']]],
+  ['xmipi_5ftx_5fphy_5fxpllconfig',['XMipi_Tx_Phy_XPllConfig',['../group__mipi__tx__phy.html#ga3af918938b33b8ea21f8d5e46cdce3c6',1,'xmipi_tx_phy_xpll.c']]]
 ];

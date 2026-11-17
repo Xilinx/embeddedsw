@@ -6,5 +6,7 @@ var searchData=
   ['s10mdiv1',['S10MDiv1',['../struct_x_emac_ps___config.html#a1a2a00acc17d523fda1c3578a94f808a',1,'XEmacPs_Config']]],
   ['s1gdiv0',['S1GDiv0',['../struct_x_emac_ps___config.html#aa7353981b162abb41659a99ddac917c0',1,'XEmacPs_Config']]],
   ['s1gdiv1',['S1GDiv1',['../struct_x_emac_ps___config.html#a7a8a5366314af6d68f2806823f156b28',1,'XEmacPs_Config']]],
+  ['sendhandler',['SendHandler',['../struct_x_emac_ps___instance.html#a8235d3a0d7283f91e943a453f062b3be',1,'XEmacPs_Instance']]],
+  ['sendref',['SendRef',['../struct_x_emac_ps___instance.html#aa9b83ca4f01e53285ba8fc361b938492',1,'XEmacPs_Instance']]],
   ['separation',['Separation',['../struct_x_emac_ps___bd_ring.html#ae520dbbd110fe4e5f407d6d78066b35e',1,'XEmacPs_BdRing']]]
 ];

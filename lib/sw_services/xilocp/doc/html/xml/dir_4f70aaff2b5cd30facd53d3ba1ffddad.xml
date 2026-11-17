@@ -4,6 +4,7 @@
     <compoundname>server</compoundname>
     <innerdir refid="dir_beef951c24db56a849b13b52ed4c04c2">versal_2ve_2vm</innerdir>
     <innerdir refid="dir_8fda72420a24783a8b03ddbb21c5a71d">versal_2vp</innerdir>
+    <innerdir refid="dir_26f9d72e1939948dc5f51ebd3b205177">versal_2vp_p</innerdir>
     <innerdir refid="dir_3d40b51f361b9d764a074fb4b1745f37">versal_net</innerdir>
     <innerfile refid="xocp_8h">xocp.h</innerfile>
     <innerfile refid="xocp__asufw_8c">xocp_asufw.c</innerfile>
@@ -28,6 +29,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/server/"/>
   </compounddef>
 </doxygen>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_c_a_p_a_c_i_t_y___l_i_s_t" kind="struct" prot="public">
     <compoundname>CAPACITY_LIST</compoundname>
+    <includes local="no">xusb_storage.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a96d163d21bf5822f3c3a07dda97533df" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,13 @@
         <argsstring>[4]</argsstring>
         <name>caplstlen</name>
         <briefdescription>
-        </briefdescription>
+<para>Capacity list data length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="233" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a1488e6a908839d1d32dabc35960777a3" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +24,12 @@
         <argsstring>[4]</argsstring>
         <name>maxnumblocks</name>
         <briefdescription>
-        </briefdescription>
+<para>Maximum number of blocks. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="234" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="218" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a9f043097cf1f27b6108e66425adeac5a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,19 +37,19 @@
         <argsstring>[4]</argsstring>
         <name>cap_code_blocklength</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor code and block length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="235" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="219" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>SCSI read format capacities response structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="232" bodyend="237"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="216" bodyend="221"/>
     <listofallmembers>
       <member refid="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a9f043097cf1f27b6108e66425adeac5a" prot="public" virt="non-virtual"><scope>CAPACITY_LIST</scope><name>cap_code_blocklength</name></member>
       <member refid="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a96d163d21bf5822f3c3a07dda97533df" prot="public" virt="non-virtual"><scope>CAPACITY_LIST</scope><name>caplstlen</name></member>

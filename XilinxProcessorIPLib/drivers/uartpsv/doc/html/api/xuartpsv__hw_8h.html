@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xuartpsv__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,29 +105,37 @@ $(document).ready(function(){initNavTree('xuartpsv__hw_8h.html','');});
 <div class="title">xuartpsv_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the hardware register interface for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> device. </p>
+<p>Contains register offset definitions, bit masks, and low-level macros for accessing the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> hardware.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver  Who  Date      Changes
+</p>
+<hr/>
+<p>
+1.0  sg   09/18/17  First Release
+1.2  rna  01/20/20  Add UARTRSR register bit
+1.15  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga2742ac56c471a4ac8c605979d3bb0665"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga2742ac56c471a4ac8c605979d3bb0665">XUARTPSV_HW_H</a></td></tr>
-<tr class="memdesc:ga2742ac56c471a4ac8c605979d3bb0665"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__uartpsv.html#ga2742ac56c471a4ac8c605979d3bb0665">More...</a><br/></td></tr>
-<tr class="separator:ga2742ac56c471a4ac8c605979d3bb0665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6272b3263e840a8218fc070c1656b9b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddress) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga6272b3263e840a8218fc070c1656b9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a UART register.  <a href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">More...</a><br/></td></tr>
+<tr class="memdesc:ga6272b3263e840a8218fc070c1656b9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a UART register.  <a href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">More...</a><br/></td></tr>
 <tr class="separator:ga6272b3263e840a8218fc070c1656b9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)</td></tr>
-<tr class="memdesc:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a UART register.  <a href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">More...</a><br/></td></tr>
+<tr class="memdesc:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a UART register.  <a href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">More...</a><br/></td></tr>
 <tr class="separator:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9">XUartPsv_IsReceiveData</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if there is receive data in the receiver and/or FIFO.  <a href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9">More...</a><br/></td></tr>
+<tr class="memdesc:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if there is receive data in the receiver and/or FIFO.  <a href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9">More...</a><br/></td></tr>
 <tr class="separator:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga04b62e0a1ad868d0a75238356c973336"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">XUartPsv_IsTransmitFull</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga04b62e0a1ad868d0a75238356c973336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a byte of data can be sent with the transmitter.  <a href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">More...</a><br/></td></tr>
+<tr class="memdesc:ga04b62e0a1ad868d0a75238356c973336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a byte of data can be sent with the transmitter.  <a href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">More...</a><br/></td></tr>
 <tr class="separator:ga04b62e0a1ad868d0a75238356c973336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">XUartPsv_IsTransmitbusy</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a byte of data can be sent with the transmitter.  <a href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">More...</a><br/></td></tr>
+<tr class="memdesc:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the transmitter is busy.  <a href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">More...</a><br/></td></tr>
 <tr class="separator:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register Map</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Register offsets for the UART. </p>
@@ -334,43 +342,43 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga3149c045f35eae100cb9f39765796327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select mask.  <a href="group__uartpsv.html#ga3149c045f35eae100cb9f39765796327">More...</a><br/></td></tr>
 <tr class="separator:ga3149c045f35eae100cb9f39765796327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga62086b945a7d3da80892a619abe3671b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga62086b945a7d3da80892a619abe3671b">XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT</a>&#160;&#160;&#160;0x00000003U</td></tr>
-<tr class="memdesc:ga62086b945a7d3da80892a619abe3671b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select shift.  <a href="group__uartpsv.html#ga62086b945a7d3da80892a619abe3671b">More...</a><br/></td></tr>
+<tr class="memdesc:ga62086b945a7d3da80892a619abe3671b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select shift.  <a href="group__uartpsv.html#ga62086b945a7d3da80892a619abe3671b">More...</a><br/></td></tr>
 <tr class="separator:ga62086b945a7d3da80892a619abe3671b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</a>&#160;&#160;&#160;0x00000007U</td></tr>
-<tr class="memdesc:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select mask.  <a href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">More...</a><br/></td></tr>
+<tr class="memdesc:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select mask.  <a href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">More...</a><br/></td></tr>
 <tr class="separator:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga30b5d2120c2571ea1102e12ff4d322b1">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</a>&#160;&#160;&#160;0x00000000U</td></tr>
 <tr class="memdesc:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select shift.  <a href="group__uartpsv.html#ga30b5d2120c2571ea1102e12ff4d322b1">More...</a><br/></td></tr>
 <tr class="separator:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gac2f2edef72d9b490c98d2dd8a86986ab">XUARTPSV_UARTIFLS_RXIFLSEL_1_8</a>&#160;&#160;&#160;0x00000000U</td></tr>
-<tr class="memdesc:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes .  <a href="group__uartpsv.html#gac2f2edef72d9b490c98d2dd8a86986ab">More...</a><br/></td></tr>
+<tr class="memdesc:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/8 full.  <a href="group__uartpsv.html#gac2f2edef72d9b490c98d2dd8a86986ab">More...</a><br/></td></tr>
 <tr class="separator:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafdfa0dbb23e485a516ca374f17188afc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gafdfa0dbb23e485a516ca374f17188afc">XUARTPSV_UARTIFLS_RXIFLSEL_1_4</a>&#160;&#160;&#160;0x00000008U</td></tr>
-<tr class="memdesc:gafdfa0dbb23e485a516ca374f17188afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes .  <a href="group__uartpsv.html#gafdfa0dbb23e485a516ca374f17188afc">More...</a><br/></td></tr>
+<tr class="memdesc:gafdfa0dbb23e485a516ca374f17188afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/4 full.  <a href="group__uartpsv.html#gafdfa0dbb23e485a516ca374f17188afc">More...</a><br/></td></tr>
 <tr class="separator:gafdfa0dbb23e485a516ca374f17188afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa8188b89d0ce92a1f44a6567f36697a0">XUARTPSV_UARTIFLS_RXIFLSEL_1_2</a>&#160;&#160;&#160;0x00000010U</td></tr>
-<tr class="memdesc:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="group__uartpsv.html#gaa8188b89d0ce92a1f44a6567f36697a0">More...</a><br/></td></tr>
+<tr class="memdesc:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/2 full.  <a href="group__uartpsv.html#gaa8188b89d0ce92a1f44a6567f36697a0">More...</a><br/></td></tr>
 <tr class="separator:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga47b47523cca78afa6e52a9502027a37c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga47b47523cca78afa6e52a9502027a37c">XUARTPSV_UARTIFLS_RXIFLSEL_3_4</a>&#160;&#160;&#160;0x00000018U</td></tr>
-<tr class="memdesc:ga47b47523cca78afa6e52a9502027a37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="group__uartpsv.html#ga47b47523cca78afa6e52a9502027a37c">More...</a><br/></td></tr>
+<tr class="memdesc:ga47b47523cca78afa6e52a9502027a37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 3/4 full.  <a href="group__uartpsv.html#ga47b47523cca78afa6e52a9502027a37c">More...</a><br/></td></tr>
 <tr class="separator:ga47b47523cca78afa6e52a9502027a37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5c032ea161c7f4c3b0f324fbaac3f5c3">XUARTPSV_UARTIFLS_RXIFLSEL_7_8</a>&#160;&#160;&#160;0x00000020U</td></tr>
-<tr class="memdesc:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="group__uartpsv.html#ga5c032ea161c7f4c3b0f324fbaac3f5c3">More...</a><br/></td></tr>
+<tr class="memdesc:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 7/8 full.  <a href="group__uartpsv.html#ga5c032ea161c7f4c3b0f324fbaac3f5c3">More...</a><br/></td></tr>
 <tr class="separator:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6a1f2150559e66e8dc7dc3a6302e9f73">XUARTPSV_UARTIFLS_TXIFLSEL_1_8</a>&#160;&#160;&#160;0x00000000U</td></tr>
-<tr class="memdesc:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="group__uartpsv.html#ga6a1f2150559e66e8dc7dc3a6302e9f73">More...</a><br/></td></tr>
+<tr class="memdesc:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/8 full.  <a href="group__uartpsv.html#ga6a1f2150559e66e8dc7dc3a6302e9f73">More...</a><br/></td></tr>
 <tr class="separator:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga531cc265bba0a0fa20238cccebfafc22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga531cc265bba0a0fa20238cccebfafc22">XUARTPSV_UARTIFLS_TXIFLSEL_1_4</a>&#160;&#160;&#160;0x00000001U</td></tr>
-<tr class="memdesc:ga531cc265bba0a0fa20238cccebfafc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="group__uartpsv.html#ga531cc265bba0a0fa20238cccebfafc22">More...</a><br/></td></tr>
+<tr class="memdesc:ga531cc265bba0a0fa20238cccebfafc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/4 full.  <a href="group__uartpsv.html#ga531cc265bba0a0fa20238cccebfafc22">More...</a><br/></td></tr>
 <tr class="separator:ga531cc265bba0a0fa20238cccebfafc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga9dcd25c0d3978163c3f86f84bf9842ee">XUARTPSV_UARTIFLS_TXIFLSEL_1_2</a>&#160;&#160;&#160;0x00000002U</td></tr>
-<tr class="memdesc:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="group__uartpsv.html#ga9dcd25c0d3978163c3f86f84bf9842ee">More...</a><br/></td></tr>
+<tr class="memdesc:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/2 full.  <a href="group__uartpsv.html#ga9dcd25c0d3978163c3f86f84bf9842ee">More...</a><br/></td></tr>
 <tr class="separator:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac105b9cbc51795e15c03a933bef1aaae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gac105b9cbc51795e15c03a933bef1aaae">XUARTPSV_UARTIFLS_TXIFLSEL_3_4</a>&#160;&#160;&#160;0x00000003U</td></tr>
-<tr class="memdesc:gac105b9cbc51795e15c03a933bef1aaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="group__uartpsv.html#gac105b9cbc51795e15c03a933bef1aaae">More...</a><br/></td></tr>
+<tr class="memdesc:gac105b9cbc51795e15c03a933bef1aaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 3/4 full.  <a href="group__uartpsv.html#gac105b9cbc51795e15c03a933bef1aaae">More...</a><br/></td></tr>
 <tr class="separator:gac105b9cbc51795e15c03a933bef1aaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba65dd48c679c42014b22e3218f9ae03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaba65dd48c679c42014b22e3218f9ae03">XUARTPSV_UARTIFLS_TXIFLSEL_7_8</a>&#160;&#160;&#160;0x00000004U</td></tr>
-<tr class="memdesc:gaba65dd48c679c42014b22e3218f9ae03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="group__uartpsv.html#gaba65dd48c679c42014b22e3218f9ae03">More...</a><br/></td></tr>
+<tr class="memdesc:gaba65dd48c679c42014b22e3218f9ae03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 7/8 full.  <a href="group__uartpsv.html#gaba65dd48c679c42014b22e3218f9ae03">More...</a><br/></td></tr>
 <tr class="separator:gaba65dd48c679c42014b22e3218f9ae03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Mask Set/Clear Register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The UARTIMSC Register is the interrupt mask set/clear register.</p>
@@ -636,7 +644,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga0ee1bfca92eeb17e0279b34fc6cc17a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Flow Delay Register</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Operation of the flow delay register (FLOWDEL) is very similar to the receive FIFO trigger register.</p>
-<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger will not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
+<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger does not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
 </div></td></tr>
 <tr class="memitem:ga5f215e3b57a0c0cf69b85241fcd4d226"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5f215e3b57a0c0cf69b85241fcd4d226">XUARTPSV_FLOWDEL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__uartpsv.html#gaafbbddd771bc593e516b514a95efc26b">XUARTPSV_RXWM_MASK</a></td></tr>
 <tr class="memdesc:ga5f215e3b57a0c0cf69b85241fcd4d226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid bit mask.  <a href="group__uartpsv.html#ga5f215e3b57a0c0cf69b85241fcd4d226">More...</a><br/></td></tr>
@@ -689,13 +697,13 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga24308126daae7b67de1790b345933598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">XUartPsv_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends one byte using the device.  <a href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
+<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends one byte using the device in polled mode.  <a href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
 <tr class="separator:ga24308126daae7b67de1790b345933598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">XUartPsv_RecvByte</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a byte from the device.  <a href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
+<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a byte from the device in polled mode.  <a href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
 <tr class="separator:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">XUartPsv_ResetHw</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets UART.  <a href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
+<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the UART.  <a href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
 <tr class="separator:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

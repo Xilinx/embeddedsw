@@ -6,8 +6,6 @@
     <innerfile refid="versal__net_2_rsa_8h">versal_net/Rsa.h</innerfile>
     <innerfile refid="net_2xsecure__cmd_8c">net/xsecure_cmd.c</innerfile>
     <innerfile refid="versal__net_2xsecure__error_8h">versal_net/xsecure_error.h</innerfile>
-    <innerfile refid="xsecure__mgf_8c">xsecure_mgf.c</innerfile>
-    <innerfile refid="xsecure__mgf_8h">xsecure_mgf.h</innerfile>
     <innerfile refid="versal__net_2xsecure__plat_8c">versal_net/xsecure_plat.c</innerfile>
     <innerfile refid="versal__net_2xsecure__plat_8h">versal_net/xsecure_plat.h</innerfile>
     <innerfile refid="net_2xsecure__plat__ipihandler_8c">net/xsecure_plat_ipihandler.c</innerfile>
@@ -28,6 +26,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/"/>
   </compounddef>
 </doxygen>

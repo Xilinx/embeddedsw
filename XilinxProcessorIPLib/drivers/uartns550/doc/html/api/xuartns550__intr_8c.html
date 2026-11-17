@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,17 +105,41 @@ $(document).ready(function(){initNavTree('xuartns550__intr_8c.html','');});
 <div class="title">xuartns550_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Interrupt processing functions for the 16450/16550 UART driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00b jhl  03/11/02 Repartitioned driver for smaller files.
+1.11a sv   03/20/07 Updated to use the new coding guidelines.
+2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
+              Updated to use HAL Processor APIs. _m is removed from the
+              name of all the macro definitions. XUartNs550_mClearStats
+              macro is removed, XUartNs550_ClearStats function should be
+              used in its place.
+2.02a adk 09/16/13 Updated the ReceiveDataHandler function to be the same as
+                    ReceiveTimeoutHandler.  The ReceiveTimeoutHandler calls
+              the callback function with XUN_EVENT_RECV_TIMEOUT when
+              there is data received which is less than the requested
+              data (this also happens for the case where the
+              data is equal to the threshold).
+              The callback function with XUN_EVENT_RECV_DATA is
+              called when all the requested data has been received
+3.15  vn  07/30/26 Fix Doxygen warnings
+3.15  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550__i_8h.html">xuartns550_i.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gadf7c4826f92d5e8fd70763f4448a360d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d">XUartNs550_SetHandler</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr, <a class="el" href="group__uartns550.html#gae4e97640db5af678d474f3398045d64a">XUartNs550_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:gadf7c4826f92d5e8fd70763f4448a360d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs in the driver.  <a href="group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d">More...</a><br/></td></tr>
+<tr class="memdesc:gadf7c4826f92d5e8fd70763f4448a360d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler that the driver calls on an event (interrupt).  <a href="group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d">More...</a><br/></td></tr>
 <tr class="separator:gadf7c4826f92d5e8fd70763f4448a360d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6e8579fcf317e1f30d61b4fb7fe60434"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga6e8579fcf317e1f30d61b4fb7fe60434">XUartNs550_InterruptHandler</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga6e8579fcf317e1f30d61b4fb7fe60434"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the 16450/16550 UART driver.  <a href="group__uartns550.html#ga6e8579fcf317e1f30d61b4fb7fe60434">More...</a><br/></td></tr>
+<tr class="memdesc:ga6e8579fcf317e1f30d61b4fb7fe60434"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the 16450/16550 UART driver.  <a href="group__uartns550.html#ga6e8579fcf317e1f30d61b4fb7fe60434">More...</a><br/></td></tr>
 <tr class="separator:ga6e8579fcf317e1f30d61b4fb7fe60434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

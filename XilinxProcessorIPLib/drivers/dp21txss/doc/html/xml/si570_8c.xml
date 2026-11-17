@@ -5,15 +5,49 @@
     <includes local="yes">xil_types.h</includes>
     <includes refid="xdptxss__dp21__tx_8h" local="yes">xdptxss_dp21_tx.h</includes>
     <incdepgraph>
-      <node id="111">
-        <label>videofmc_defs.h</label>
-        <link refid="videofmc__defs_8h"/>
-      </node>
       <node id="87">
         <label>xil_assert.h</label>
       </node>
       <node id="101">
         <label>xuartps_hw.h</label>
+      </node>
+      <node id="86">
+        <label>xil_io.h</label>
+      </node>
+      <node id="99">
+        <label>xvphy.h</label>
+      </node>
+      <node id="107">
+        <label>sleep.h</label>
+      </node>
+      <node id="108">
+        <label>stdlib.h</label>
+      </node>
+      <node id="83">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="80">
+        <label>si570.c</label>
+        <link refid="si570.c"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="90">
+        <label>xdebug.h</label>
+      </node>
+      <node id="85">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+      <node id="92">
+        <label>xdp.h</label>
       </node>
       <node id="84">
         <label>xdptxss.h</label>
@@ -35,48 +69,26 @@
         <childnode refid="95" relation="include">
         </childnode>
       </node>
-      <node id="86">
-        <label>xil_io.h</label>
-      </node>
-      <node id="99">
-        <label>xvphy.h</label>
-      </node>
-      <node id="107">
-        <label>sleep.h</label>
-      </node>
-      <node id="93">
-        <label>xdptxss_dualsplitter.h</label>
-        <link refid="xdptxss__dualsplitter_8h"/>
-        <childnode refid="94" relation="include">
-        </childnode>
-        <childnode refid="92" relation="include">
-        </childnode>
-      </node>
-      <node id="108">
-        <label>stdlib.h</label>
-      </node>
-      <node id="83">
-        <label>bspconfig.h</label>
-      </node>
-      <node id="106">
-        <label>xvidc_edid.h</label>
-      </node>
-      <node id="90">
-        <label>xdebug.h</label>
-      </node>
-      <node id="92">
-        <label>xdp.h</label>
-      </node>
       <node id="104">
         <label>xiic_l.h</label>
       </node>
-      <node id="95">
-        <label>xdptxss_vtc.h</label>
-        <link refid="xdptxss__vtc_8h"/>
-        <childnode refid="96" relation="include">
-        </childnode>
-        <childnode refid="92" relation="include">
-        </childnode>
+      <node id="100">
+        <label>xvphy_i.h</label>
+      </node>
+      <node id="105">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="88">
+        <label>xstatus.h</label>
+      </node>
+      <node id="89">
+        <label>xvidc.h</label>
+      </node>
+      <node id="102">
+        <label>xiicps.h</label>
+      </node>
+      <node id="81">
+        <label>xil_types.h</label>
       </node>
       <node id="82">
         <label>xdptxss_dp21_tx.h</label>
@@ -122,22 +134,31 @@
         <childnode refid="111" relation="include">
         </childnode>
       </node>
-      <node id="100">
-        <label>xvphy_i.h</label>
+      <node id="111">
+        <label>videofmc_defs.h</label>
+        <link refid="videofmc__defs_8h"/>
       </node>
-      <node id="105">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="88">
-        <label>xstatus.h</label>
-      </node>
-      <node id="80">
-        <label>si570.c</label>
-        <link refid="si570.c"/>
-        <childnode refid="81" relation="include">
+      <node id="93">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="94" relation="include">
         </childnode>
-        <childnode refid="82" relation="include">
+        <childnode refid="92" relation="include">
         </childnode>
+      </node>
+      <node id="94">
+        <label>xparameters.h</label>
+      </node>
+      <node id="95">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>xil_printf.h</label>
       </node>
       <node id="91">
         <label>xdptxss_dptx.h</label>
@@ -145,36 +166,15 @@
         <childnode refid="92" relation="include">
         </childnode>
       </node>
-      <node id="89">
-        <label>xvidc.h</label>
-      </node>
-      <node id="110">
-        <label>clk_set.h</label>
-        <link refid="clk__set_8h"/>
-      </node>
-      <node id="85">
-        <label>xdptxss_hw.h</label>
-        <link refid="xdptxss__hw_8h"/>
-        <childnode refid="86" relation="include">
-        </childnode>
-      </node>
-      <node id="102">
-        <label>xiicps.h</label>
-      </node>
-      <node id="81">
-        <label>xil_types.h</label>
-      </node>
-      <node id="94">
-        <label>xparameters.h</label>
-      </node>
-      <node id="97">
-        <label>xil_printf.h</label>
-      </node>
       <node id="103">
         <label>xiic.h</label>
       </node>
       <node id="96">
         <label>xvtc.h</label>
+      </node>
+      <node id="110">
+        <label>clk_set.h</label>
+        <link refid="clk__set_8h"/>
       </node>
       <node id="109">
         <label>xvidframe_crc.h</label>
@@ -606,6 +606,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="420"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="421"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/si570.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/si570.c"/>
   </compounddef>
 </doxygen>

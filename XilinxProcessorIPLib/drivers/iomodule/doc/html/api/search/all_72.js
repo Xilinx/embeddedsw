@@ -8,5 +8,6 @@ var searchData=
   ['recvcallbackref',['RecvCallBackRef',['../struct_x_i_o_module.html#aba9945a4a56cd7d80eddfeb72ec0fa3c',1,'XIOModule']]],
   ['recvhandler',['RecvHandler',['../struct_x_i_o_module.html#a7d242c9d237f263e9b895b57c827b728',1,'XIOModule']]],
   ['remainingbytes',['RemainingBytes',['../struct_x_i_o_module___buffer.html#af9c6e265f52ba355d454e0b29983889e',1,'XIOModule_Buffer']]],
-  ['requestedbytes',['RequestedBytes',['../struct_x_i_o_module___buffer.html#ad1d8239c6072600ea84bbbf16b6d59fb',1,'XIOModule_Buffer']]]
+  ['requestedbytes',['RequestedBytes',['../struct_x_i_o_module___buffer.html#ad1d8239c6072600ea84bbbf16b6d59fb',1,'XIOModule_Buffer']]],
+  ['reset_5fvalue',['RESET_VALUE',['../xiomodule__intr__example_8c.html#a775fd58f4ab22111c1c8eab10b00fe7b',1,'xiomodule_intr_example.c']]]
 ];
